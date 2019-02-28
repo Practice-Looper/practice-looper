@@ -11,5 +11,17 @@
 
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
+    <PackageReference Include="Autofac" Version="4.9.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />
+    <ProjectReference Include="..\Emka3.PracticeLooper.Mappings.Contracts\Emka3.PracticeLooper.Mappings.Contracts.csproj" />
+    <ProjectReference Include="..\Emka3.PracticeLooper.Services.Contracts\Emka3.PracticeLooper.Services.Contracts.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="App.config.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="App.config.json" />
   </ItemGroup>
 </Project>
