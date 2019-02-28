@@ -352,7 +352,7 @@ ASALocalRun/
 healthchecksdb
 
 # config
-App.config.js
+App.config.json
 
 # End of https://www.gitignore.io/api/visualstudio,xamarinstudio
 src/Mobile/_Emka.PracticeLooper.Mobile.iOS/App.config.json
