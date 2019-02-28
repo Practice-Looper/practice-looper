@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Emka3.PracticeLooper.Model\Emka3.PracticeLooper.Model.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Emka3.PracticeLooper.Services\obj\Debug\netstandard2.0\Emka3.PracticeLooper.Services.assets.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="Rest\" />
+    <Folder Include="Player\" />
+  </ItemGroup>
+</Project>
