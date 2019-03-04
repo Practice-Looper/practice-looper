@@ -3,6 +3,7 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 
+using System;
 using System.Collections.Generic;
 using Autofac;
 using Emka3.PracticeLooper.Mappings.Common;
@@ -32,7 +33,7 @@ namespace Emka3.PracticeLooper.Mappings
             CommonMappings.Register(builder);
             ServicesMapping.Register(builder);
             builder.RegisterType<PracticeLooperResolver>().As<IResolver>();
-            Container = builder.Build();
+
         }
         #endregion
 
@@ -53,17 +54,22 @@ namespace Emka3.PracticeLooper.Mappings
         #endregion
 
         #region Methods
+        public void BuildContainer()
+        {
+            Container = builder.Build();
+        }
+
         /// <summary>
         /// Register the specified type and name.
         /// </summary>
         /// <param name="type">Type.</param>
         /// <param name="name">Name.</param>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public void Register<T>(T type, string name = "")
+        public void Register(Type type, Type interfaceType, string name = "")
         {
             if (builder != null)
             {
-                builder.RegisterType<T>();
+                builder.RegisterType(type).As(interfaceType);
             }
         }
 
@@ -76,7 +82,7 @@ namespace Emka3.PracticeLooper.Mappings
         {
             using (var scope = Container.BeginLifetimeScope())
             {
-                return scope.Resolve<T>();
+                return (T)scope.Resolve(typeof(T));
             }
         }
 

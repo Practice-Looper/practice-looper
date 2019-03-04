@@ -5,6 +5,12 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
+//#if NETFX_CORE
+//[assembly: Xamarin.Forms.Platform.WinRT.ExportRenderer(typeof(Xamarin.RangeSlider.Forms.RangeSlider), typeof(Xamarin.RangeSlider.Forms.RangeSliderRenderer))]
+//#else
+//[assembly: Xamarin.Forms.ExportRenderer(typeof(Xamarin.RangeSlider.Forms.RangeSlider), typeof(Xamarin.RangeSlider.Forms.RangeSliderRenderer))]
+//#endif
+
 namespace Emka.PracticeLooper.Mobile.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
@@ -22,6 +28,8 @@ namespace Emka.PracticeLooper.Mobile.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+
+            GlobalApp.Init();
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

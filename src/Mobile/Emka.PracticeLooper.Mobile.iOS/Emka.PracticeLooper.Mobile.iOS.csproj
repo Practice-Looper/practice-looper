@@ -95,6 +95,9 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\FilePicker.cs" />
+    <Compile Include="GlobalApp.cs" />
+    <Compile Include="Common\AudioPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -140,6 +143,7 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Image.imageset\Contents.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -155,6 +159,25 @@
       <Project>{7C0F82BD-B45B-42DC-92F5-30E199DD0719}</Project>
       <Name>Emka.PracticeLooper.Mobile</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Emka3.PracticeLooper.Services.Contracts\Emka3.PracticeLooper.Services.Contracts.csproj">
+      <Project>{8226E868-EC68-429F-8293-33C1569E68D1}</Project>
+      <Name>Emka3.PracticeLooper.Services.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj">
+      <Project>{11D1F05C-156B-4DE2-9EB6-B0AF60C6B9F1}</Project>
+      <Name>Emka3.PracticeLooper.Mappings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Emka3.PracticeLooper.Mappings.Contracts\Emka3.PracticeLooper.Mappings.Contracts.csproj">
+      <Project>{F0F8BA3B-BC2E-4475-AD1E-0B08767E52C5}</Project>
+      <Name>Emka3.PracticeLooper.Mappings.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Emka3.PracticeLooper.Model\Emka3.PracticeLooper.Model.csproj">
+      <Project>{649B2834-BBE9-4B71-AA24-3F416B9A034E}</Project>
+      <Name>Emka3.PracticeLooper.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -2144,6 +2144,2357 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			global::Xamarin.Forms.Platform.Android.Resource.Styleable.ViewStubCompat_android_id = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ViewStubCompat_android_id;
 			global::Xamarin.Forms.Platform.Android.Resource.Styleable.ViewStubCompat_android_inflatedId = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ViewStubCompat_android_inflatedId;
 			global::Xamarin.Forms.Platform.Android.Resource.Styleable.ViewStubCompat_android_layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ViewStubCompat_android_layout;
+			global::Xamarin.RangeSlider.Resource.Attribute.absoluteMaxValue = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.absoluteMaxValue;
+			global::Xamarin.RangeSlider.Resource.Attribute.absoluteMinValue = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.absoluteMinValue;
+			global::Xamarin.RangeSlider.Resource.Attribute.activateOnDefaultValues = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.activateOnDefaultValues;
+			global::Xamarin.RangeSlider.Resource.Attribute.activeColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.activeColor;
+			global::Xamarin.RangeSlider.Resource.Attribute.alwaysActive = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.alwaysActive;
+			global::Xamarin.RangeSlider.Resource.Attribute.barHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.barHeight;
+			global::Xamarin.RangeSlider.Resource.Attribute.defaultColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.defaultColor;
+			global::Xamarin.RangeSlider.Resource.Attribute.internalPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.internalPadding;
+			global::Xamarin.RangeSlider.Resource.Attribute.materialUI = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.materialUI;
+			global::Xamarin.RangeSlider.Resource.Attribute.maxThumbHidden = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.maxThumbHidden;
+			global::Xamarin.RangeSlider.Resource.Attribute.minThumbHidden = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.minThumbHidden;
+			global::Xamarin.RangeSlider.Resource.Attribute.showRangeLabels = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.showRangeLabels;
+			global::Xamarin.RangeSlider.Resource.Attribute.stepValue = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.stepValue;
+			global::Xamarin.RangeSlider.Resource.Attribute.stepValueContinuously = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.stepValueContinuously;
+			global::Xamarin.RangeSlider.Resource.Attribute.textAboveThumbsColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textAboveThumbsColor;
+			global::Xamarin.RangeSlider.Resource.Attribute.textSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textSize;
+			global::Xamarin.RangeSlider.Resource.Attribute.thumbDisabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbDisabled;
+			global::Xamarin.RangeSlider.Resource.Attribute.thumbNormal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbNormal;
+			global::Xamarin.RangeSlider.Resource.Attribute.thumbPressed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbPressed;
+			global::Xamarin.RangeSlider.Resource.Attribute.thumbShadow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbShadow;
+			global::Xamarin.RangeSlider.Resource.Attribute.thumbShadowBlur = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbShadowBlur;
+			global::Xamarin.RangeSlider.Resource.Attribute.thumbShadowColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbShadowColor;
+			global::Xamarin.RangeSlider.Resource.Attribute.thumbShadowXOffset = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbShadowXOffset;
+			global::Xamarin.RangeSlider.Resource.Attribute.thumbShadowYOffset = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbShadowYOffset;
+			global::Xamarin.RangeSlider.Resource.Attribute.valuesAboveThumbs = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.valuesAboveThumbs;
+			global::Xamarin.RangeSlider.Resource.String.app_name = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.app_name;
+			global::Xamarin.RangeSlider.Resource.String.demo_max_label = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.demo_max_label;
+			global::Xamarin.RangeSlider.Resource.String.demo_min_label = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.demo_min_label;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_absoluteMaxValue = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_absoluteMaxValue;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_absoluteMinValue = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_absoluteMinValue;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_activateOnDefaultValues = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_activateOnDefaultValues;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_activeColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_activeColor;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_alwaysActive = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_alwaysActive;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_barHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_barHeight;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_defaultColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_defaultColor;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_internalPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_internalPadding;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_materialUI = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_materialUI;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_maxThumbHidden = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_maxThumbHidden;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_minThumbHidden = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_minThumbHidden;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_showRangeLabels = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_showRangeLabels;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_stepValue = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_stepValue;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_stepValueContinuously = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_stepValueContinuously;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_textAboveThumbsColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_textAboveThumbsColor;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_textSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_textSize;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_thumbDisabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbDisabled;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_thumbNormal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbNormal;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_thumbPressed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbPressed;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_thumbShadow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbShadow;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_thumbShadowBlur = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbShadowBlur;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_thumbShadowColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbShadowColor;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_thumbShadowXOffset = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbShadowXOffset;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_thumbShadowYOffset = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbShadowYOffset;
+			global::Xamarin.RangeSlider.Resource.Styleable.RangeSliderControl_valuesAboveThumbs = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_valuesAboveThumbs;
+			global::Xamarin.RangeSlider.Forms.Resource.Animation.abc_fade_in = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animation.abc_fade_in;
+			global::Xamarin.RangeSlider.Forms.Resource.Animation.abc_fade_out = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animation.abc_fade_out;
+			global::Xamarin.RangeSlider.Forms.Resource.Animation.abc_grow_fade_in_from_bottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Animation.abc_popup_enter = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animation.abc_popup_enter;
+			global::Xamarin.RangeSlider.Forms.Resource.Animation.abc_popup_exit = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animation.abc_popup_exit;
+			global::Xamarin.RangeSlider.Forms.Resource.Animation.abc_shrink_fade_out_from_bottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animation.abc_shrink_fade_out_from_bottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Animation.abc_slide_in_bottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animation.abc_slide_in_bottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Animation.abc_slide_in_top = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animation.abc_slide_in_top;
+			global::Xamarin.RangeSlider.Forms.Resource.Animation.abc_slide_out_bottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animation.abc_slide_out_bottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Animation.abc_slide_out_top = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animation.abc_slide_out_top;
+			global::Xamarin.RangeSlider.Forms.Resource.Animation.design_bottom_sheet_slide_in = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animation.design_bottom_sheet_slide_in;
+			global::Xamarin.RangeSlider.Forms.Resource.Animation.design_bottom_sheet_slide_out = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animation.design_bottom_sheet_slide_out;
+			global::Xamarin.RangeSlider.Forms.Resource.Animation.design_snackbar_in = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animation.design_snackbar_in;
+			global::Xamarin.RangeSlider.Forms.Resource.Animation.design_snackbar_out = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animation.design_snackbar_out;
+			global::Xamarin.RangeSlider.Forms.Resource.Animator.design_appbar_state_list_animator = global::Emka.PracticeLooper.Mobile.Droid.Resource.Animator.design_appbar_state_list_animator;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.absoluteMaxValue = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.absoluteMaxValue;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.absoluteMinValue = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.absoluteMinValue;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionBarDivider = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionBarDivider;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionBarItemBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionBarItemBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionBarPopupTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionBarPopupTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionBarSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionBarSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionBarSplitStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionBarSplitStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionBarStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionBarStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionBarTabBarStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionBarTabBarStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionBarTabStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionBarTabStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionBarTabTextStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionBarTabTextStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionBarTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionBarTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionBarWidgetTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionBarWidgetTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionDropDownStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionDropDownStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionMenuTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionMenuTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionMenuTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionMenuTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionModeBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionModeBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionModeCloseButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionModeCloseButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionModeCloseDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionModeCloseDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionModeCopyDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionModeCopyDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionModeCutDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionModeCutDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionModeFindDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionModeFindDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionModePasteDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionModePasteDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionModePopupWindowStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionModePopupWindowStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionModeSelectAllDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionModeSelectAllDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionModeShareDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionModeShareDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionModeSplitBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionModeSplitBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionModeStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionModeStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionModeWebSearchDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionModeWebSearchDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionOverflowButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionOverflowButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionOverflowMenuStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionOverflowMenuStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionProviderClass = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionProviderClass;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.actionViewClass = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.actionViewClass;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.activateOnDefaultValues = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.activateOnDefaultValues;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.activeColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.activeColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.activityChooserViewStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.activityChooserViewStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.alertDialogButtonGroupStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.alertDialogButtonGroupStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.alertDialogCenterButtons = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.alertDialogCenterButtons;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.alertDialogStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.alertDialogStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.alertDialogTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.alertDialogTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.allowStacking = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.allowStacking;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.alphabeticModifiers = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.alphabeticModifiers;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.alwaysActive = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.alwaysActive;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.arrowHeadLength = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.arrowHeadLength;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.arrowShaftLength = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.arrowShaftLength;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.autoCompleteTextViewStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.autoCompleteTextViewStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.autoSizeMaxTextSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.autoSizeMaxTextSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.autoSizeMinTextSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.autoSizeMinTextSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.autoSizePresetSizes = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.autoSizePresetSizes;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.autoSizeStepGranularity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.autoSizeStepGranularity;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.autoSizeTextType = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.autoSizeTextType;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.background;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.backgroundSplit = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.backgroundSplit;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.backgroundStacked = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.backgroundStacked;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.backgroundTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.backgroundTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.backgroundTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.backgroundTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.barHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.barHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.barLength = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.barLength;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.behavior_autoHide = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.behavior_autoHide;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.behavior_hideable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.behavior_hideable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.behavior_overlapTop = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.behavior_overlapTop;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.behavior_peekHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.behavior_peekHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.behavior_skipCollapsed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.behavior_skipCollapsed;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.borderWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.borderWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.borderlessButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.borderlessButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.bottomSheetDialogTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.bottomSheetDialogTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.bottomSheetStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.bottomSheetStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.buttonBarButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.buttonBarButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.buttonBarNegativeButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.buttonBarNegativeButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.buttonBarNeutralButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.buttonBarNeutralButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.buttonBarPositiveButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.buttonBarPositiveButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.buttonBarStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.buttonBarStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.buttonGravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.buttonGravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.buttonPanelSideLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.buttonPanelSideLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.buttonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.buttonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.buttonStyleSmall = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.buttonStyleSmall;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.buttonTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.buttonTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.buttonTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.buttonTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.cardBackgroundColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.cardBackgroundColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.cardCornerRadius = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.cardCornerRadius;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.cardElevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.cardElevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.cardMaxElevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.cardMaxElevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.cardPreventCornerOverlap = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.cardPreventCornerOverlap;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.cardUseCompatPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.cardUseCompatPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.checkboxStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.checkboxStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.checkedTextViewStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.checkedTextViewStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.closeIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.closeIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.closeItemLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.closeItemLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.collapseContentDescription = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.collapseContentDescription;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.collapseIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.collapseIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.collapsedTitleGravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.collapsedTitleGravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.collapsedTitleTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.collapsedTitleTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.color;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.colorAccent = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.colorAccent;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.colorBackgroundFloating = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.colorBackgroundFloating;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.colorButtonNormal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.colorButtonNormal;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.colorControlActivated = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.colorControlActivated;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.colorControlHighlight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.colorControlHighlight;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.colorControlNormal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.colorControlNormal;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.colorError = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.colorError;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.colorPrimary = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.colorPrimary;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.colorPrimaryDark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.colorPrimaryDark;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.colorSwitchThumbNormal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.colorSwitchThumbNormal;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.commitIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.commitIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.contentDescription = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.contentDescription;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.contentInsetEnd = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.contentInsetEnd;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.contentInsetEndWithActions = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.contentInsetEndWithActions;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.contentInsetLeft = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.contentInsetLeft;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.contentInsetRight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.contentInsetRight;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.contentInsetStart = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.contentInsetStart;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.contentInsetStartWithNavigation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.contentInsetStartWithNavigation;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.contentPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.contentPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.contentPaddingBottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.contentPaddingBottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.contentPaddingLeft = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.contentPaddingLeft;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.contentPaddingRight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.contentPaddingRight;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.contentPaddingTop = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.contentPaddingTop;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.contentScrim = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.contentScrim;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.controlBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.controlBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.counterEnabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.counterEnabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.counterMaxLength = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.counterMaxLength;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.counterOverflowTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.counterOverflowTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.counterTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.counterTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.customNavigationLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.customNavigationLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.defaultColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.defaultColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.defaultQueryHint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.defaultQueryHint;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.dialogPreferredPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.dialogPreferredPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.dialogTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.dialogTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.displayOptions = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.displayOptions;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.divider = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.divider;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.dividerHorizontal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.dividerHorizontal;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.dividerPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.dividerPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.dividerVertical = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.dividerVertical;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.drawableSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.drawableSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.drawerArrowStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.drawerArrowStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.dropDownListViewStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.dropDownListViewStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.dropdownListPreferredItemHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.dropdownListPreferredItemHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.editTextBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.editTextBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.editTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.editTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.editTextStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.editTextStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.errorEnabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.errorEnabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.errorTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.errorTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.expandActivityOverflowButtonDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.expandActivityOverflowButtonDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.expanded = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.expanded;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.expandedTitleGravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.expandedTitleGravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.expandedTitleMargin = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.expandedTitleMargin;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.expandedTitleMarginBottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.expandedTitleMarginBottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.expandedTitleMarginEnd = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.expandedTitleMarginEnd;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.expandedTitleMarginStart = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.expandedTitleMarginStart;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.expandedTitleMarginTop = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.expandedTitleMarginTop;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.expandedTitleTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.expandedTitleTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.externalRouteEnabledDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.externalRouteEnabledDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fabSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fabSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fastScrollEnabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fastScrollEnabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fastScrollHorizontalThumbDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fastScrollHorizontalThumbDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fastScrollHorizontalTrackDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fastScrollHorizontalTrackDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fastScrollVerticalThumbDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fastScrollVerticalThumbDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fastScrollVerticalTrackDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fastScrollVerticalTrackDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.font = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.font;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fontFamily = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fontFamily;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fontProviderAuthority = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fontProviderAuthority;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fontProviderCerts = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fontProviderCerts;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fontProviderFetchStrategy = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fontProviderFetchStrategy;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fontProviderFetchTimeout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fontProviderFetchTimeout;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fontProviderPackage = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fontProviderPackage;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fontProviderQuery = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fontProviderQuery;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fontStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fontStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.fontWeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.fontWeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.foregroundInsidePadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.foregroundInsidePadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.gapBetweenBars = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.gapBetweenBars;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.goIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.goIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.headerLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.headerLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.height = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.height;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.hideOnContentScroll = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.hideOnContentScroll;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.hintAnimationEnabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.hintAnimationEnabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.hintEnabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.hintEnabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.hintTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.hintTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.homeAsUpIndicator = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.homeAsUpIndicator;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.homeLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.homeLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.icon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.icon;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.iconTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.iconTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.iconTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.iconTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.iconifiedByDefault = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.iconifiedByDefault;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.imageButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.imageButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.indeterminateProgressStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.indeterminateProgressStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.initialActivityCount = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.initialActivityCount;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.insetForeground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.insetForeground;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.internalPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.internalPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.isLightTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.isLightTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.itemBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.itemBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.itemIconTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.itemIconTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.itemPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.itemPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.itemTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.itemTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.itemTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.itemTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.keylines = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.keylines;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.layoutManager = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.layoutManager;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.layout_anchor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.layout_anchor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.layout_anchorGravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.layout_anchorGravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.layout_behavior = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.layout_behavior;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.layout_collapseMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.layout_collapseMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.layout_collapseParallaxMultiplier = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.layout_collapseParallaxMultiplier;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.layout_dodgeInsetEdges = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.layout_dodgeInsetEdges;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.layout_insetEdge = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.layout_insetEdge;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.layout_keyline = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.layout_keyline;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.layout_scrollFlags = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.layout_scrollFlags;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.layout_scrollInterpolator = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.layout_scrollInterpolator;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.listChoiceBackgroundIndicator = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.listChoiceBackgroundIndicator;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.listDividerAlertDialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.listDividerAlertDialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.listItemLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.listItemLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.listLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.listLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.listMenuViewStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.listMenuViewStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.listPopupWindowStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.listPopupWindowStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.listPreferredItemHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.listPreferredItemHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.listPreferredItemHeightLarge = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.listPreferredItemHeightLarge;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.listPreferredItemHeightSmall = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.listPreferredItemHeightSmall;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.listPreferredItemPaddingLeft = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.listPreferredItemPaddingLeft;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.listPreferredItemPaddingRight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.listPreferredItemPaddingRight;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.logo = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.logo;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.logoDescription = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.logoDescription;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.materialUI = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.materialUI;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.maxActionInlineWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.maxActionInlineWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.maxButtonHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.maxButtonHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.maxThumbHidden = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.maxThumbHidden;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.measureWithLargestChild = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.measureWithLargestChild;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.mediaRouteAudioTrackDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.mediaRouteAudioTrackDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.mediaRouteButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.mediaRouteButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.mediaRouteButtonTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.mediaRouteButtonTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.mediaRouteCloseDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.mediaRouteCloseDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.mediaRouteControlPanelThemeOverlay = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.mediaRouteControlPanelThemeOverlay;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.mediaRouteDefaultIconDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.mediaRouteDefaultIconDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.mediaRoutePauseDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.mediaRoutePauseDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.mediaRoutePlayDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.mediaRoutePlayDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.mediaRouteSpeakerGroupIconDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.mediaRouteSpeakerGroupIconDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.mediaRouteSpeakerIconDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.mediaRouteSpeakerIconDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.mediaRouteStopDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.mediaRouteStopDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.mediaRouteTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.mediaRouteTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.mediaRouteTvIconDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.mediaRouteTvIconDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.menu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.menu;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.minThumbHidden = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.minThumbHidden;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.multiChoiceItemLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.multiChoiceItemLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.navigationContentDescription = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.navigationContentDescription;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.navigationIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.navigationIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.navigationMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.navigationMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.numericModifiers = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.numericModifiers;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.overlapAnchor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.overlapAnchor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.paddingBottomNoButtons = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.paddingBottomNoButtons;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.paddingEnd = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.paddingEnd;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.paddingStart = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.paddingStart;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.paddingTopNoTitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.paddingTopNoTitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.panelBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.panelBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.panelMenuListTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.panelMenuListTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.panelMenuListWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.panelMenuListWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.passwordToggleContentDescription = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.passwordToggleContentDescription;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.passwordToggleDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.passwordToggleDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.passwordToggleEnabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.passwordToggleEnabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.passwordToggleTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.passwordToggleTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.passwordToggleTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.passwordToggleTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.popupMenuStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.popupMenuStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.popupTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.popupTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.popupWindowStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.popupWindowStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.preserveIconSpacing = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.preserveIconSpacing;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.pressedTranslationZ = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.pressedTranslationZ;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.progressBarPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.progressBarPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.progressBarStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.progressBarStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.queryBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.queryBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.queryHint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.queryHint;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.radioButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.radioButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.ratingBarStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.ratingBarStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.ratingBarStyleIndicator = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.ratingBarStyleIndicator;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.ratingBarStyleSmall = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.ratingBarStyleSmall;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.reverseLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.reverseLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.rippleColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.rippleColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.scrimAnimationDuration = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.scrimAnimationDuration;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.scrimVisibleHeightTrigger = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.scrimVisibleHeightTrigger;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.searchHintIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.searchHintIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.searchIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.searchIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.searchViewStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.searchViewStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.seekBarStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.seekBarStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.selectableItemBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.selectableItemBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.selectableItemBackgroundBorderless = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.selectableItemBackgroundBorderless;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.showAsAction = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.showAsAction;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.showDividers = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.showDividers;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.showRangeLabels = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.showRangeLabels;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.showText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.showText;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.showTitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.showTitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.singleChoiceItemLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.singleChoiceItemLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.spanCount = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.spanCount;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.spinBars = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.spinBars;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.spinnerDropDownItemStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.spinnerDropDownItemStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.spinnerStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.spinnerStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.splitTrack = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.splitTrack;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.srcCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.srcCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.stackFromEnd = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.stackFromEnd;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.state_above_anchor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.state_above_anchor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.state_collapsed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.state_collapsed;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.state_collapsible = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.state_collapsible;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.statusBarBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.statusBarBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.statusBarScrim = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.statusBarScrim;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.stepValue = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.stepValue;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.stepValueContinuously = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.stepValueContinuously;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.subMenuArrow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.subMenuArrow;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.submitBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.submitBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.subtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.subtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.subtitleTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.subtitleTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.subtitleTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.subtitleTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.subtitleTextStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.subtitleTextStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.suggestionRowLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.suggestionRowLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.switchMinWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.switchMinWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.switchPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.switchPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.switchStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.switchStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.switchTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.switchTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabContentStart = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabContentStart;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabGravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabGravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabIndicatorColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabIndicatorColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabIndicatorHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabIndicatorHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabMaxWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabMaxWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabMinWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabMinWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabPaddingBottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabPaddingBottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabPaddingEnd = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabPaddingEnd;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabPaddingStart = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabPaddingStart;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabPaddingTop = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabPaddingTop;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabSelectedTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabSelectedTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tabTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tabTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.textAboveThumbsColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textAboveThumbsColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.textAllCaps = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textAllCaps;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.textAppearanceLargePopupMenu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textAppearanceLargePopupMenu;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.textAppearanceListItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textAppearanceListItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.textAppearanceListItemSecondary = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textAppearanceListItemSecondary;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.textAppearanceListItemSmall = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textAppearanceListItemSmall;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.textAppearancePopupMenuHeader = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textAppearancePopupMenuHeader;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.textAppearanceSearchResultSubtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textAppearanceSearchResultSubtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.textAppearanceSearchResultTitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textAppearanceSearchResultTitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.textAppearanceSmallPopupMenu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textAppearanceSmallPopupMenu;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.textColorAlertDialogListItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textColorAlertDialogListItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.textColorSearchUrl = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textColorSearchUrl;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.textSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.textSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.theme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.theme;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.thickness = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thickness;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.thumbDisabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbDisabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.thumbNormal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbNormal;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.thumbPressed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbPressed;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.thumbShadow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbShadow;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.thumbShadowBlur = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbShadowBlur;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.thumbShadowColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbShadowColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.thumbShadowXOffset = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbShadowXOffset;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.thumbShadowYOffset = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbShadowYOffset;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.thumbTextPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbTextPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.thumbTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.thumbTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.thumbTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tickMark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tickMark;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tickMarkTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tickMarkTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tickMarkTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tickMarkTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tint;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.title;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.titleEnabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.titleEnabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.titleMargin = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.titleMargin;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.titleMarginBottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.titleMarginBottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.titleMarginEnd = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.titleMarginEnd;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.titleMarginStart = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.titleMarginStart;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.titleMarginTop = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.titleMarginTop;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.titleMargins = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.titleMargins;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.titleTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.titleTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.titleTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.titleTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.titleTextStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.titleTextStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.toolbarId = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.toolbarId;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.toolbarNavigationButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.toolbarNavigationButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.toolbarStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.toolbarStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tooltipForegroundColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tooltipForegroundColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tooltipFrameBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tooltipFrameBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.tooltipText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.tooltipText;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.track = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.track;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.trackTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.trackTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.trackTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.trackTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.useCompatPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.useCompatPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.valuesAboveThumbs = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.valuesAboveThumbs;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.voiceIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.voiceIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.windowActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.windowActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.windowActionBarOverlay = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.windowActionBarOverlay;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.windowActionModeOverlay = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.windowActionModeOverlay;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.windowFixedHeightMajor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.windowFixedHeightMajor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.windowFixedHeightMinor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.windowFixedHeightMinor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.windowFixedWidthMajor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.windowFixedWidthMajor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.windowFixedWidthMinor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.windowFixedWidthMinor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.windowMinWidthMajor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.windowMinWidthMajor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.windowMinWidthMinor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.windowMinWidthMinor;
+			global::Xamarin.RangeSlider.Forms.Resource.Attribute.windowNoTitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Attribute.windowNoTitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Boolean.abc_action_bar_embed_tabs = global::Emka.PracticeLooper.Mobile.Droid.Resource.Boolean.abc_action_bar_embed_tabs;
+			global::Xamarin.RangeSlider.Forms.Resource.Boolean.abc_allow_stacked_button_bar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Boolean.abc_allow_stacked_button_bar;
+			global::Xamarin.RangeSlider.Forms.Resource.Boolean.abc_config_actionMenuItemAllCaps = global::Emka.PracticeLooper.Mobile.Droid.Resource.Boolean.abc_config_actionMenuItemAllCaps;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_background_cache_hint_selector_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_background_cache_hint_selector_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_background_cache_hint_selector_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_background_cache_hint_selector_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_btn_colored_borderless_text_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_btn_colored_borderless_text_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_btn_colored_text_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_btn_colored_text_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_color_highlight_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_color_highlight_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_hint_foreground_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_hint_foreground_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_hint_foreground_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_hint_foreground_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_input_method_navigation_guard = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_input_method_navigation_guard;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_primary_text_disable_only_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_primary_text_disable_only_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_primary_text_disable_only_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_primary_text_disable_only_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_primary_text_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_primary_text_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_primary_text_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_primary_text_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_search_url_text = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_search_url_text;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_search_url_text_normal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_search_url_text_normal;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_search_url_text_pressed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_search_url_text_pressed;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_search_url_text_selected = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_search_url_text_selected;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_secondary_text_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_secondary_text_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_secondary_text_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_secondary_text_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_tint_btn_checkable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_tint_btn_checkable;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_tint_default = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_tint_default;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_tint_edittext = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_tint_edittext;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_tint_seek_thumb = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_tint_seek_thumb;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_tint_spinner = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_tint_spinner;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.abc_tint_switch_track = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.abc_tint_switch_track;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.accent_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.accent_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.accent_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.accent_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.background_floating_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.background_floating_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.background_floating_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.background_floating_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.background_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.background_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.background_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.background_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.bright_foreground_disabled_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.bright_foreground_disabled_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.bright_foreground_disabled_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.bright_foreground_disabled_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.bright_foreground_inverse_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.bright_foreground_inverse_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.bright_foreground_inverse_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.bright_foreground_inverse_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.bright_foreground_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.bright_foreground_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.bright_foreground_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.bright_foreground_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.button_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.button_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.button_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.button_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.cardview_dark_background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.cardview_dark_background;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.cardview_light_background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.cardview_light_background;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.cardview_shadow_end_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.cardview_shadow_end_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.cardview_shadow_start_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.cardview_shadow_start_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.design_bottom_navigation_shadow_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.design_bottom_navigation_shadow_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.design_error = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.design_error;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.design_fab_shadow_end_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.design_fab_shadow_end_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.design_fab_shadow_mid_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.design_fab_shadow_mid_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.design_fab_shadow_start_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.design_fab_shadow_start_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.design_fab_stroke_end_inner_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.design_fab_stroke_end_inner_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.design_fab_stroke_end_outer_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.design_fab_stroke_end_outer_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.design_fab_stroke_top_inner_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.design_fab_stroke_top_inner_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.design_fab_stroke_top_outer_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.design_fab_stroke_top_outer_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.design_snackbar_background_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.design_snackbar_background_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.design_tint_password_toggle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.design_tint_password_toggle;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.dim_foreground_disabled_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.dim_foreground_disabled_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.dim_foreground_disabled_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.dim_foreground_disabled_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.dim_foreground_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.dim_foreground_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.dim_foreground_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.dim_foreground_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.foreground_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.foreground_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.foreground_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.foreground_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.highlighted_text_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.highlighted_text_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.highlighted_text_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.highlighted_text_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.material_blue_grey_800 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.material_blue_grey_800;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.material_blue_grey_900 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.material_blue_grey_900;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.material_blue_grey_950 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.material_blue_grey_950;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.material_deep_teal_200 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.material_deep_teal_200;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.material_deep_teal_500 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.material_deep_teal_500;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.material_grey_100 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.material_grey_100;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.material_grey_300 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.material_grey_300;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.material_grey_50 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.material_grey_50;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.material_grey_600 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.material_grey_600;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.material_grey_800 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.material_grey_800;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.material_grey_850 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.material_grey_850;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.material_grey_900 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.material_grey_900;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.notification_action_color_filter = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.notification_action_color_filter;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.notification_icon_bg_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.notification_icon_bg_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.notification_material_background_media_default_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.notification_material_background_media_default_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.primary_dark_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.primary_dark_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.primary_dark_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.primary_dark_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.primary_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.primary_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.primary_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.primary_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.primary_text_default_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.primary_text_default_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.primary_text_default_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.primary_text_default_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.primary_text_disabled_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.primary_text_disabled_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.primary_text_disabled_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.primary_text_disabled_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.ripple_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.ripple_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.ripple_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.ripple_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.secondary_text_default_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.secondary_text_default_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.secondary_text_default_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.secondary_text_default_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.secondary_text_disabled_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.secondary_text_disabled_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.secondary_text_disabled_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.secondary_text_disabled_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.switch_thumb_disabled_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.switch_thumb_disabled_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.switch_thumb_disabled_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.switch_thumb_disabled_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.switch_thumb_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.switch_thumb_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.switch_thumb_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.switch_thumb_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.switch_thumb_normal_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.switch_thumb_normal_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.switch_thumb_normal_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.switch_thumb_normal_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.tooltip_background_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.tooltip_background_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Color.tooltip_background_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Color.tooltip_background_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_bar_content_inset_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_bar_content_inset_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_bar_content_inset_with_nav = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_bar_content_inset_with_nav;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_bar_default_height_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_bar_default_height_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_bar_default_padding_end_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_bar_default_padding_end_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_bar_default_padding_start_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_bar_default_padding_start_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_bar_elevation_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_bar_elevation_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_bar_icon_vertical_padding_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_bar_icon_vertical_padding_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_bar_overflow_padding_end_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_bar_overflow_padding_end_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_bar_overflow_padding_start_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_bar_overflow_padding_start_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_bar_stacked_max_height = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_bar_stacked_max_height;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_bar_stacked_tab_max_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_bar_stacked_tab_max_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_bar_subtitle_bottom_margin_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_bar_subtitle_bottom_margin_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_bar_subtitle_top_margin_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_bar_subtitle_top_margin_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_button_min_height_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_button_min_height_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_button_min_width_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_button_min_width_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_action_button_min_width_overflow_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_action_button_min_width_overflow_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_alert_dialog_button_bar_height = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_alert_dialog_button_bar_height;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_button_inset_horizontal_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_button_inset_horizontal_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_button_inset_vertical_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_button_inset_vertical_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_button_padding_horizontal_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_button_padding_horizontal_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_button_padding_vertical_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_button_padding_vertical_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_cascading_menus_min_smallest_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_cascading_menus_min_smallest_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_config_prefDialogWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_config_prefDialogWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_control_corner_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_control_corner_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_control_inset_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_control_inset_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_control_padding_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_control_padding_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_dialog_fixed_height_major = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_dialog_fixed_height_major;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_dialog_fixed_height_minor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_dialog_fixed_height_minor;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_dialog_fixed_width_major = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_dialog_fixed_width_major;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_dialog_fixed_width_minor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_dialog_fixed_width_minor;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_dialog_list_padding_bottom_no_buttons = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_dialog_list_padding_bottom_no_buttons;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_dialog_list_padding_top_no_title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_dialog_list_padding_top_no_title;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_dialog_min_width_major = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_dialog_min_width_major;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_dialog_min_width_minor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_dialog_min_width_minor;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_dialog_padding_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_dialog_padding_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_dialog_padding_top_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_dialog_padding_top_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_dialog_title_divider_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_dialog_title_divider_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_disabled_alpha_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_disabled_alpha_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_disabled_alpha_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_disabled_alpha_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_dropdownitem_icon_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_dropdownitem_icon_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_dropdownitem_text_padding_left = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_dropdownitem_text_padding_left;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_dropdownitem_text_padding_right = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_dropdownitem_text_padding_right;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_edit_text_inset_bottom_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_edit_text_inset_bottom_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_edit_text_inset_horizontal_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_edit_text_inset_horizontal_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_edit_text_inset_top_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_edit_text_inset_top_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_floating_window_z = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_floating_window_z;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_list_item_padding_horizontal_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_list_item_padding_horizontal_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_panel_menu_list_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_panel_menu_list_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_progress_bar_height_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_progress_bar_height_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_search_view_preferred_height = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_search_view_preferred_height;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_search_view_preferred_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_search_view_preferred_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_seekbar_track_background_height_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_seekbar_track_background_height_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_seekbar_track_progress_height_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_seekbar_track_progress_height_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_select_dialog_padding_start_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_select_dialog_padding_start_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_switch_padding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_switch_padding;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_body_1_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_body_1_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_body_2_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_body_2_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_button_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_button_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_caption_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_caption_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_display_1_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_display_1_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_display_2_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_display_2_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_display_3_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_display_3_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_display_4_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_display_4_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_headline_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_headline_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_large_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_large_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_medium_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_medium_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_menu_header_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_menu_header_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_menu_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_menu_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_small_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_small_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_subhead_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_subhead_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_subtitle_material_toolbar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_subtitle_material_toolbar;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_title_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_title_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.abc_text_size_title_material_toolbar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.abc_text_size_title_material_toolbar;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.cardview_compat_inset_shadow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.cardview_compat_inset_shadow;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.cardview_default_elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.cardview_default_elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.cardview_default_radius = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.cardview_default_radius;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.compat_button_inset_horizontal_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.compat_button_inset_horizontal_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.compat_button_inset_vertical_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.compat_button_inset_vertical_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.compat_button_padding_horizontal_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.compat_button_padding_horizontal_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.compat_button_padding_vertical_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.compat_button_padding_vertical_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.compat_control_corner_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.compat_control_corner_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_appbar_elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_appbar_elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_bottom_navigation_active_item_max_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_bottom_navigation_active_item_max_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_bottom_navigation_active_text_size = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_bottom_navigation_active_text_size;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_bottom_navigation_elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_bottom_navigation_elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_bottom_navigation_height = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_bottom_navigation_height;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_bottom_navigation_item_max_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_bottom_navigation_item_max_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_bottom_navigation_item_min_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_bottom_navigation_item_min_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_bottom_navigation_margin = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_bottom_navigation_margin;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_bottom_navigation_shadow_height = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_bottom_navigation_shadow_height;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_bottom_navigation_text_size = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_bottom_navigation_text_size;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_bottom_sheet_modal_elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_bottom_sheet_modal_elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_bottom_sheet_peek_height_min = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_bottom_sheet_peek_height_min;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_fab_border_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_fab_border_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_fab_elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_fab_elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_fab_image_size = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_fab_image_size;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_fab_size_mini = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_fab_size_mini;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_fab_size_normal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_fab_size_normal;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_fab_translation_z_pressed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_fab_translation_z_pressed;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_navigation_elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_navigation_elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_navigation_icon_padding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_navigation_icon_padding;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_navigation_icon_size = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_navigation_icon_size;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_navigation_max_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_navigation_max_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_navigation_padding_bottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_navigation_padding_bottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_navigation_separator_vertical_padding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_navigation_separator_vertical_padding;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_snackbar_action_inline_max_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_snackbar_action_inline_max_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_snackbar_background_corner_radius = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_snackbar_background_corner_radius;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_snackbar_elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_snackbar_elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_snackbar_extra_spacing_horizontal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_snackbar_extra_spacing_horizontal;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_snackbar_max_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_snackbar_max_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_snackbar_min_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_snackbar_min_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_snackbar_padding_horizontal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_snackbar_padding_horizontal;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_snackbar_padding_vertical = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_snackbar_padding_vertical;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_snackbar_padding_vertical_2lines = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_snackbar_padding_vertical_2lines;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_snackbar_text_size = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_snackbar_text_size;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_tab_max_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_tab_max_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_tab_scrollable_min_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_tab_scrollable_min_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_tab_text_size = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_tab_text_size;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.design_tab_text_size_2line = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.design_tab_text_size_2line;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.disabled_alpha_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.disabled_alpha_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.disabled_alpha_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.disabled_alpha_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.fastscroll_default_thickness = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.fastscroll_default_thickness;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.fastscroll_margin = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.fastscroll_margin;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.fastscroll_minimum_range = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.fastscroll_minimum_range;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.highlight_alpha_material_colored = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.highlight_alpha_material_colored;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.highlight_alpha_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.highlight_alpha_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.highlight_alpha_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.highlight_alpha_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.hint_alpha_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.hint_alpha_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.hint_alpha_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.hint_alpha_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.hint_pressed_alpha_material_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.hint_pressed_alpha_material_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.hint_pressed_alpha_material_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.hint_pressed_alpha_material_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.item_touch_helper_max_drag_scroll_per_frame;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.item_touch_helper_swipe_escape_max_velocity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.item_touch_helper_swipe_escape_max_velocity;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.item_touch_helper_swipe_escape_velocity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.item_touch_helper_swipe_escape_velocity;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.mr_controller_volume_group_list_item_height = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.mr_controller_volume_group_list_item_height;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.mr_controller_volume_group_list_item_icon_size = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.mr_controller_volume_group_list_item_icon_size;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.mr_controller_volume_group_list_max_height = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.mr_controller_volume_group_list_max_height;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.mr_controller_volume_group_list_padding_top = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.mr_controller_volume_group_list_padding_top;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.mr_dialog_fixed_width_major = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.mr_dialog_fixed_width_major;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.mr_dialog_fixed_width_minor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.mr_dialog_fixed_width_minor;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_action_icon_size = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_action_icon_size;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_action_text_size = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_action_text_size;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_big_circle_margin = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_big_circle_margin;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_content_margin_start = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_content_margin_start;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_large_icon_height = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_large_icon_height;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_large_icon_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_large_icon_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_main_column_padding_top = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_main_column_padding_top;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_media_narrow_margin = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_media_narrow_margin;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_right_icon_size = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_right_icon_size;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_right_side_padding_top = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_right_side_padding_top;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_small_icon_background_padding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_small_icon_background_padding;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_small_icon_size_as_large = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_small_icon_size_as_large;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_subtext_size = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_subtext_size;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_top_pad = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_top_pad;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.notification_top_pad_large_text = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.notification_top_pad_large_text;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.tooltip_corner_radius = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.tooltip_corner_radius;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.tooltip_horizontal_padding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.tooltip_horizontal_padding;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.tooltip_margin = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.tooltip_margin;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.tooltip_precise_anchor_extra_offset = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.tooltip_precise_anchor_extra_offset;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.tooltip_precise_anchor_threshold = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.tooltip_precise_anchor_threshold;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.tooltip_vertical_padding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.tooltip_vertical_padding;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.tooltip_y_offset_non_touch = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.tooltip_y_offset_non_touch;
+			global::Xamarin.RangeSlider.Forms.Resource.Dimension.tooltip_y_offset_touch = global::Emka.PracticeLooper.Mobile.Droid.Resource.Dimension.tooltip_y_offset_touch;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ab_share_pack_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ab_share_pack_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_action_bar_item_background_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_action_bar_item_background_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_btn_borderless_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_btn_borderless_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_btn_check_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_btn_check_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_btn_check_to_on_mtrl_000 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_btn_check_to_on_mtrl_000;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_btn_check_to_on_mtrl_015 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_btn_check_to_on_mtrl_015;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_btn_colored_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_btn_colored_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_btn_default_mtrl_shape = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_btn_default_mtrl_shape;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_btn_radio_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_btn_radio_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_btn_radio_to_on_mtrl_000 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_btn_radio_to_on_mtrl_000;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_btn_radio_to_on_mtrl_015 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_btn_radio_to_on_mtrl_015;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_btn_switch_to_on_mtrl_00001 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_btn_switch_to_on_mtrl_00001;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_btn_switch_to_on_mtrl_00012 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_btn_switch_to_on_mtrl_00012;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_cab_background_internal_bg = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_cab_background_internal_bg;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_cab_background_top_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_cab_background_top_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_cab_background_top_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_cab_background_top_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_control_background_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_control_background_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_dialog_material_background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_dialog_material_background;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_edit_text_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_edit_text_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_ab_back_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_ab_back_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_arrow_drop_right_black_24dp = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_arrow_drop_right_black_24dp;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_clear_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_clear_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_commit_search_api_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_commit_search_api_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_go_search_api_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_go_search_api_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_menu_copy_mtrl_am_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_menu_copy_mtrl_am_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_menu_cut_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_menu_cut_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_menu_overflow_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_menu_overflow_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_menu_paste_mtrl_am_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_menu_paste_mtrl_am_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_menu_selectall_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_menu_selectall_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_menu_share_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_menu_share_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_search_api_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_search_api_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_star_black_16dp = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_star_black_16dp;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_star_black_36dp = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_star_black_36dp;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_star_black_48dp = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_star_black_48dp;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_star_half_black_16dp = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_star_half_black_16dp;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_star_half_black_36dp = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_star_half_black_36dp;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_star_half_black_48dp = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_star_half_black_48dp;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ic_voice_search_api_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ic_voice_search_api_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_item_background_holo_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_item_background_holo_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_item_background_holo_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_item_background_holo_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_list_divider_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_list_divider_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_list_focused_holo = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_list_focused_holo;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_list_longpressed_holo = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_list_longpressed_holo;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_list_pressed_holo_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_list_pressed_holo_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_list_pressed_holo_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_list_pressed_holo_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_list_selector_background_transition_holo_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_list_selector_background_transition_holo_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_list_selector_background_transition_holo_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_list_selector_background_transition_holo_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_list_selector_disabled_holo_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_list_selector_disabled_holo_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_list_selector_disabled_holo_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_list_selector_disabled_holo_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_list_selector_holo_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_list_selector_holo_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_list_selector_holo_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_list_selector_holo_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_menu_hardkey_panel_mtrl_mult = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_menu_hardkey_panel_mtrl_mult;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_popup_background_mtrl_mult = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_popup_background_mtrl_mult;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ratingbar_indicator_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ratingbar_indicator_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ratingbar_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ratingbar_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_ratingbar_small_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_ratingbar_small_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_scrubber_control_off_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_scrubber_control_off_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_000 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_000;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_005 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_scrubber_control_to_pressed_mtrl_005;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_scrubber_primary_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_scrubber_primary_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_scrubber_track_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_scrubber_track_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_seekbar_thumb_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_seekbar_thumb_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_seekbar_tick_mark_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_seekbar_tick_mark_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_seekbar_track_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_seekbar_track_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_spinner_mtrl_am_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_spinner_mtrl_am_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_spinner_textfield_background_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_spinner_textfield_background_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_switch_thumb_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_switch_thumb_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_switch_track_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_switch_track_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_tab_indicator_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_tab_indicator_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_tab_indicator_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_tab_indicator_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_text_cursor_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_text_cursor_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_text_select_handle_left_mtrl_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_text_select_handle_left_mtrl_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_text_select_handle_left_mtrl_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_text_select_handle_left_mtrl_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_text_select_handle_middle_mtrl_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_text_select_handle_middle_mtrl_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_text_select_handle_middle_mtrl_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_text_select_handle_middle_mtrl_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_text_select_handle_right_mtrl_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_text_select_handle_right_mtrl_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_text_select_handle_right_mtrl_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_text_select_handle_right_mtrl_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_textfield_activated_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_textfield_activated_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_textfield_default_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_textfield_default_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_textfield_search_activated_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_textfield_search_activated_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_textfield_search_default_mtrl_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_textfield_search_default_mtrl_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_textfield_search_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_textfield_search_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.abc_vector_test = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.abc_vector_test;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.avd_hide_password = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.avd_hide_password;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.avd_hide_password_1 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.avd_hide_password_1;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.avd_hide_password_2 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.avd_hide_password_2;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.avd_hide_password_3 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.avd_hide_password_3;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.avd_show_password = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.avd_show_password;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.avd_show_password_1 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.avd_show_password_1;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.avd_show_password_2 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.avd_show_password_2;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.avd_show_password_3 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.avd_show_password_3;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.design_bottom_navigation_item_background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.design_bottom_navigation_item_background;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.design_fab_background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.design_fab_background;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.design_ic_visibility = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.design_ic_visibility;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.design_ic_visibility_off = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.design_ic_visibility_off;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.design_password_eye = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.design_password_eye;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.design_snackbar_background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.design_snackbar_background;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_audiotrack_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_audiotrack_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_audiotrack_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_audiotrack_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_dialog_close_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_dialog_close_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_dialog_close_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_dialog_close_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_00 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_00;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_01 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_01;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_02 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_02;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_03 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_03;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_04 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_04;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_05 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_05;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_06 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_06;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_07 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_07;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_08 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_08;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_09 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_09;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_10 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_10;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_11 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_11;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_12 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_12;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_13 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_13;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_14 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_14;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_collapse_15 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_collapse_15;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_00 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_00;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_01 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_01;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_02 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_02;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_03 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_03;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_04 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_04;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_05 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_05;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_06 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_06;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_07 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_07;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_08 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_08;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_09 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_09;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_10 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_10;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_11 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_11;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_12 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_12;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_13 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_13;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_14 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_14;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_group_expand_15 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_group_expand_15;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_media_pause_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_media_pause_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_media_pause_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_media_pause_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_media_play_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_media_play_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_media_play_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_media_play_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_media_stop_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_media_stop_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_media_stop_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_media_stop_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_00_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_00_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_00_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_00_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_01_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_01_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_01_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_01_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_02_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_02_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_02_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_02_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_03_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_03_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_03_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_03_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_04_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_04_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_04_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_04_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_05_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_05_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_05_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_05_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_06_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_06_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_06_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_06_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_07_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_07_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_07_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_07_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_08_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_08_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_08_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_08_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_09_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_09_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_09_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_09_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_10_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_10_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_10_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_10_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_11_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_11_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_11_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_11_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_12_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_12_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_12_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_12_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_13_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_13_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_13_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_13_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_14_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_14_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_14_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_14_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_15_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_15_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_15_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_15_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_16_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_16_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_16_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_16_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_17_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_17_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_17_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_17_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_18_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_18_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_18_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_18_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_19_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_19_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_19_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_19_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_20_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_20_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_20_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_20_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_21_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_21_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_21_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_21_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_22_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_22_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_22_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_22_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_23_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_23_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_23_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_23_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_24_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_24_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_24_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_24_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_25_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_25_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_25_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_25_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_26_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_26_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_26_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_26_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_27_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_27_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_27_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_27_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_28_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_28_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_28_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_28_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_29_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_29_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_29_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_29_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_30_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_30_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connected_30_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connected_30_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_00_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_00_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_00_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_00_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_01_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_01_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_01_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_01_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_02_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_02_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_02_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_02_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_03_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_03_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_03_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_03_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_04_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_04_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_04_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_04_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_05_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_05_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_05_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_05_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_06_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_06_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_06_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_06_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_07_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_07_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_07_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_07_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_08_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_08_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_08_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_08_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_09_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_09_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_09_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_09_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_10_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_10_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_10_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_10_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_11_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_11_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_11_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_11_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_12_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_12_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_12_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_12_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_13_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_13_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_13_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_13_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_14_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_14_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_14_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_14_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_15_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_15_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_15_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_15_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_16_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_16_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_16_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_16_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_17_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_17_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_17_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_17_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_18_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_18_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_18_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_18_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_19_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_19_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_19_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_19_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_20_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_20_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_20_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_20_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_21_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_21_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_21_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_21_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_22_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_22_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_22_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_22_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_23_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_23_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_23_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_23_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_24_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_24_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_24_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_24_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_25_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_25_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_25_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_25_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_26_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_26_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_26_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_26_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_27_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_27_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_27_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_27_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_28_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_28_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_28_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_28_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_29_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_29_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_29_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_29_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_30_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_30_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_connecting_30_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_connecting_30_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_disabled_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_disabled_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_disabled_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_disabled_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_disconnected_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_disconnected_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_disconnected_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_disconnected_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_mr_button_grey = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_mr_button_grey;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_vol_type_speaker_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_vol_type_speaker_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_vol_type_speaker_group_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_vol_type_speaker_group_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_vol_type_speaker_group_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_vol_type_speaker_group_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_vol_type_speaker_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_vol_type_speaker_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_vol_type_tv_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_vol_type_tv_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.ic_vol_type_tv_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.ic_vol_type_tv_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_button_connected_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_button_connected_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_button_connected_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_button_connected_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_button_connecting_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_button_connecting_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_button_connecting_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_button_connecting_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_button_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_button_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_button_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_button_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_dialog_close_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_dialog_close_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_dialog_close_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_dialog_close_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_dialog_material_background_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_dialog_material_background_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_dialog_material_background_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_dialog_material_background_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_group_collapse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_group_collapse;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_group_expand = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_group_expand;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_media_pause_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_media_pause_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_media_pause_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_media_pause_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_media_play_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_media_play_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_media_play_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_media_play_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_media_stop_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_media_stop_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_media_stop_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_media_stop_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_vol_type_audiotrack_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_vol_type_audiotrack_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.mr_vol_type_audiotrack_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.mr_vol_type_audiotrack_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.navigation_empty_icon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.navigation_empty_icon;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.notification_action_background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.notification_action_background;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.notification_bg = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.notification_bg;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.notification_bg_low = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.notification_bg_low;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.notification_bg_low_normal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.notification_bg_low_normal;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.notification_bg_low_pressed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.notification_bg_low_pressed;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.notification_bg_normal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.notification_bg_normal;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.notification_bg_normal_pressed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.notification_bg_normal_pressed;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.notification_icon_background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.notification_icon_background;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.notification_template_icon_bg = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.notification_template_icon_bg;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.notification_template_icon_low_bg = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.notification_template_icon_low_bg;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.notification_tile_bg = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.notification_tile_bg;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.notify_panel_notification_icon_bg = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.notify_panel_notification_icon_bg;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.tooltip_frame_dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.tooltip_frame_dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Drawable.tooltip_frame_light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Drawable.tooltip_frame_light;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.ALT = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.ALT;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.CTRL = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.CTRL;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.FUNCTION = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.FUNCTION;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.META = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.META;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.SHIFT = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.SHIFT;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.SYM = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.SYM;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action0 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action0;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_bar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_bar;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_bar_activity_content = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_bar_activity_content;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_bar_container = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_bar_container;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_bar_root = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_bar_root;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_bar_spinner = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_bar_spinner;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_bar_subtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_bar_subtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_bar_title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_bar_title;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_container = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_container;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_context_bar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_context_bar;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_divider = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_divider;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_image = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_image;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_menu_divider = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_menu_divider;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_menu_presenter = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_menu_presenter;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_mode_bar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_mode_bar;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_mode_bar_stub = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_mode_bar_stub;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_mode_close_button = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_mode_close_button;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.action_text = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.action_text;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.actions = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.actions;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.activity_chooser_view_content = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.activity_chooser_view_content;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.add = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.add;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.alertTitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.alertTitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.all = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.all;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.always = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.always;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.async = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.async;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.auto = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.auto;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.beginning = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.beginning;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.blocking = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.blocking;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.bottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.bottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.buttonPanel = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.buttonPanel;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.cancel_action = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.cancel_action;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.center = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.center;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.center_horizontal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.center_horizontal;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.center_vertical = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.center_vertical;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.checkbox = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.checkbox;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.chronometer = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.chronometer;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.clip_horizontal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.clip_horizontal;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.clip_vertical = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.clip_vertical;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.collapseActionView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.collapseActionView;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.container = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.container;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.contentPanel = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.contentPanel;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.coordinator = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.coordinator;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.custom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.custom;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.customPanel = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.customPanel;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.decor_content_parent = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.decor_content_parent;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.default_activity_button = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.default_activity_button;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.design_bottom_sheet = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.design_bottom_sheet;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.design_menu_item_action_area = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.design_menu_item_action_area;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.design_menu_item_action_area_stub = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.design_menu_item_action_area_stub;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.design_menu_item_text = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.design_menu_item_text;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.design_navigation_view = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.design_navigation_view;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.disableHome = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.disableHome;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.edit_query = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.edit_query;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.end = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.end;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.end_padder = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.end_padder;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.enterAlways = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.enterAlways;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.enterAlwaysCollapsed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.enterAlwaysCollapsed;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.exitUntilCollapsed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.exitUntilCollapsed;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.expand_activities_button = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.expand_activities_button;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.expanded_menu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.expanded_menu;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.fill = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.fill;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.fill_horizontal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.fill_horizontal;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.fill_vertical = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.fill_vertical;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.@fixed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.@fixed;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.forever = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.forever;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.ghost_view = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.ghost_view;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.home = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.home;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.homeAsUp = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.homeAsUp;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.icon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.icon;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.icon_group = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.icon_group;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.ifRoom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.ifRoom;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.image = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.image;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.info = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.info;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.italic = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.italic;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.item_touch_helper_previous_elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.item_touch_helper_previous_elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.largeLabel = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.largeLabel;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.left = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.left;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.line1 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.line1;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.line3 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.line3;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.listMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.listMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.list_item = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.list_item;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.masked = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.masked;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.media_actions = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.media_actions;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.message = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.message;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.middle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.middle;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mini = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mini;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_art = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_art;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_chooser_list = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_chooser_list;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_chooser_route_desc = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_chooser_route_desc;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_chooser_route_icon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_chooser_route_icon;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_chooser_route_name = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_chooser_route_name;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_chooser_title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_chooser_title;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_close = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_close;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_control_divider = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_control_divider;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_control_playback_ctrl = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_control_playback_ctrl;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_control_subtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_control_subtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_control_title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_control_title;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_control_title_container = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_control_title_container;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_custom_control = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_custom_control;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_default_control = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_default_control;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_dialog_area = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_dialog_area;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_expandable_area = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_expandable_area;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_group_expand_collapse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_group_expand_collapse;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_media_main_control = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_media_main_control;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_name = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_name;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_playback_control = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_playback_control;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_title_bar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_title_bar;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_volume_control = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_volume_control;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_volume_group_list = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_volume_group_list;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_volume_item_icon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_volume_item_icon;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.mr_volume_slider = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.mr_volume_slider;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.multiply = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.multiply;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.navigation_header_container = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.navigation_header_container;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.never = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.never;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.none = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.none;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.normal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.normal;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.notification_background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.notification_background;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.notification_main_column = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.notification_main_column;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.notification_main_column_container = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.notification_main_column_container;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.parallax = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.parallax;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.parentPanel = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.parentPanel;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.parent_matrix = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.parent_matrix;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.pin = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.pin;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.progress_circular = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.progress_circular;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.progress_horizontal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.progress_horizontal;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.radio = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.radio;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.right = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.right;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.right_icon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.right_icon;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.right_side = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.right_side;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.save_image_matrix = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.save_image_matrix;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.save_non_transition_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.save_non_transition_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.save_scale_type = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.save_scale_type;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.screen = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.screen;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.scroll = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.scroll;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.scrollIndicatorDown = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.scrollIndicatorDown;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.scrollIndicatorUp = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.scrollIndicatorUp;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.scrollView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.scrollView;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.scrollable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.scrollable;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.search_badge = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.search_badge;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.search_bar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.search_bar;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.search_button = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.search_button;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.search_close_btn = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.search_close_btn;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.search_edit_frame = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.search_edit_frame;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.search_go_btn = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.search_go_btn;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.search_mag_icon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.search_mag_icon;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.search_plate = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.search_plate;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.search_src_text = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.search_src_text;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.search_voice_btn = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.search_voice_btn;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.select_dialog_listview = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.select_dialog_listview;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.shortcut = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.shortcut;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.showCustom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.showCustom;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.showHome = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.showHome;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.showTitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.showTitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.smallLabel = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.smallLabel;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.snackbar_action = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.snackbar_action;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.snackbar_text = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.snackbar_text;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.snap = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.snap;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.spacer = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.spacer;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.split_action_bar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.split_action_bar;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.src_atop = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.src_atop;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.src_in = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.src_in;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.src_over = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.src_over;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.start = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.start;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.status_bar_latest_event_content = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.status_bar_latest_event_content;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.submenuarrow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.submenuarrow;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.submit_area = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.submit_area;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.tabMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.tabMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.tag_transition_group = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.tag_transition_group;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.text = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.text;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.text2 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.text2;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.textSpacerNoButtons = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.textSpacerNoButtons;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.textSpacerNoTitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.textSpacerNoTitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.text_input_password_toggle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.text_input_password_toggle;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.textinput_counter = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.textinput_counter;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.textinput_error = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.textinput_error;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.time = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.time;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.title;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.titleDividerNoCustom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.titleDividerNoCustom;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.title_template = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.title_template;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.top = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.top;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.topPanel = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.topPanel;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.touch_outside = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.touch_outside;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.transition_current_scene = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.transition_current_scene;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.transition_layout_save = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.transition_layout_save;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.transition_position = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.transition_position;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.transition_scene_layoutid_cache = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.transition_scene_layoutid_cache;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.transition_transform = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.transition_transform;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.uniform = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.uniform;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.up = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.up;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.useLogo = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.useLogo;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.view_offset_helper = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.view_offset_helper;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.visible = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.visible;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.volume_item_container = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.volume_item_container;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.withText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.withText;
+			global::Xamarin.RangeSlider.Forms.Resource.Id.wrap_content = global::Emka.PracticeLooper.Mobile.Droid.Resource.Id.wrap_content;
+			global::Xamarin.RangeSlider.Forms.Resource.Integer.abc_config_activityDefaultDur = global::Emka.PracticeLooper.Mobile.Droid.Resource.Integer.abc_config_activityDefaultDur;
+			global::Xamarin.RangeSlider.Forms.Resource.Integer.abc_config_activityShortDur = global::Emka.PracticeLooper.Mobile.Droid.Resource.Integer.abc_config_activityShortDur;
+			global::Xamarin.RangeSlider.Forms.Resource.Integer.app_bar_elevation_anim_duration = global::Emka.PracticeLooper.Mobile.Droid.Resource.Integer.app_bar_elevation_anim_duration;
+			global::Xamarin.RangeSlider.Forms.Resource.Integer.bottom_sheet_slide_duration = global::Emka.PracticeLooper.Mobile.Droid.Resource.Integer.bottom_sheet_slide_duration;
+			global::Xamarin.RangeSlider.Forms.Resource.Integer.cancel_button_image_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Integer.cancel_button_image_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Integer.config_tooltipAnimTime = global::Emka.PracticeLooper.Mobile.Droid.Resource.Integer.config_tooltipAnimTime;
+			global::Xamarin.RangeSlider.Forms.Resource.Integer.design_snackbar_text_max_lines = global::Emka.PracticeLooper.Mobile.Droid.Resource.Integer.design_snackbar_text_max_lines;
+			global::Xamarin.RangeSlider.Forms.Resource.Integer.hide_password_duration = global::Emka.PracticeLooper.Mobile.Droid.Resource.Integer.hide_password_duration;
+			global::Xamarin.RangeSlider.Forms.Resource.Integer.mr_controller_volume_group_list_animation_duration_ms = global::Emka.PracticeLooper.Mobile.Droid.Resource.Integer.mr_controller_volume_group_list_animation_duration_ms;
+			global::Xamarin.RangeSlider.Forms.Resource.Integer.mr_controller_volume_group_list_fade_in_duration_ms = global::Emka.PracticeLooper.Mobile.Droid.Resource.Integer.mr_controller_volume_group_list_fade_in_duration_ms;
+			global::Xamarin.RangeSlider.Forms.Resource.Integer.mr_controller_volume_group_list_fade_out_duration_ms = global::Emka.PracticeLooper.Mobile.Droid.Resource.Integer.mr_controller_volume_group_list_fade_out_duration_ms;
+			global::Xamarin.RangeSlider.Forms.Resource.Integer.show_password_duration = global::Emka.PracticeLooper.Mobile.Droid.Resource.Integer.show_password_duration;
+			global::Xamarin.RangeSlider.Forms.Resource.Integer.status_bar_notification_info_maxnum = global::Emka.PracticeLooper.Mobile.Droid.Resource.Integer.status_bar_notification_info_maxnum;
+			global::Xamarin.RangeSlider.Forms.Resource.Interpolator.mr_fast_out_slow_in = global::Emka.PracticeLooper.Mobile.Droid.Resource.Interpolator.mr_fast_out_slow_in;
+			global::Xamarin.RangeSlider.Forms.Resource.Interpolator.mr_linear_out_slow_in = global::Emka.PracticeLooper.Mobile.Droid.Resource.Interpolator.mr_linear_out_slow_in;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_action_bar_title_item = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_action_bar_title_item;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_action_bar_up_container = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_action_bar_up_container;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_action_menu_item_layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_action_menu_item_layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_action_menu_layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_action_menu_layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_action_mode_bar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_action_mode_bar;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_action_mode_close_item_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_action_mode_close_item_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_activity_chooser_view = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_activity_chooser_view;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_activity_chooser_view_list_item = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_activity_chooser_view_list_item;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_alert_dialog_button_bar_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_alert_dialog_button_bar_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_alert_dialog_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_alert_dialog_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_alert_dialog_title_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_alert_dialog_title_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_dialog_title_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_dialog_title_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_expanded_menu_layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_expanded_menu_layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_list_menu_item_checkbox = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_list_menu_item_checkbox;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_list_menu_item_icon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_list_menu_item_icon;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_list_menu_item_layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_list_menu_item_layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_list_menu_item_radio = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_list_menu_item_radio;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_popup_menu_header_item_layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_popup_menu_header_item_layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_popup_menu_item_layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_popup_menu_item_layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_screen_content_include = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_screen_content_include;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_screen_simple = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_screen_simple;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_screen_simple_overlay_action_mode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_screen_simple_overlay_action_mode;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_screen_toolbar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_screen_toolbar;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_search_dropdown_item_icons_2line = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_search_dropdown_item_icons_2line;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_search_view = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_search_view;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.abc_select_dialog_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.abc_select_dialog_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.design_bottom_navigation_item = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.design_bottom_navigation_item;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.design_bottom_sheet_dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.design_bottom_sheet_dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.design_layout_snackbar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.design_layout_snackbar;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.design_layout_snackbar_include = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.design_layout_snackbar_include;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.design_layout_tab_icon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.design_layout_tab_icon;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.design_layout_tab_text = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.design_layout_tab_text;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.design_menu_item_action_area = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.design_menu_item_action_area;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.design_navigation_item = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.design_navigation_item;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.design_navigation_item_header = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.design_navigation_item_header;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.design_navigation_item_separator = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.design_navigation_item_separator;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.design_navigation_item_subheader = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.design_navigation_item_subheader;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.design_navigation_menu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.design_navigation_menu;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.design_navigation_menu_item = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.design_navigation_menu_item;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.design_text_input_password_icon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.design_text_input_password_icon;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.mr_chooser_dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.mr_chooser_dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.mr_chooser_list_item = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.mr_chooser_list_item;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.mr_controller_material_dialog_b = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.mr_controller_material_dialog_b;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.mr_controller_volume_item = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.mr_controller_volume_item;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.mr_playback_control = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.mr_playback_control;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.mr_volume_control = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.mr_volume_control;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_action = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_action;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_action_tombstone = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_action_tombstone;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_media_action = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_media_action;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_media_cancel_action = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_media_cancel_action;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_template_big_media = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_template_big_media;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_template_big_media_custom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_template_big_media_custom;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_template_big_media_narrow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_template_big_media_narrow;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_template_big_media_narrow_custom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_template_big_media_narrow_custom;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_template_custom_big = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_template_custom_big;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_template_icon_group = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_template_icon_group;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_template_lines_media = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_template_lines_media;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_template_media = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_template_media;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_template_media_custom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_template_media_custom;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_template_part_chronometer = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_template_part_chronometer;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.notification_template_part_time = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.notification_template_part_time;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.select_dialog_item_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.select_dialog_item_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.select_dialog_multichoice_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.select_dialog_multichoice_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.select_dialog_singlechoice_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.select_dialog_singlechoice_material;
+			global::Xamarin.RangeSlider.Forms.Resource.Layout.support_simple_spinner_dropdown_item = global::Emka.PracticeLooper.Mobile.Droid.Resource.Layout.support_simple_spinner_dropdown_item;
+			global::Xamarin.RangeSlider.Forms.Resource.String.ApplicationName = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.ApplicationName;
+			global::Xamarin.RangeSlider.Forms.Resource.String.Hello = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.Hello;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_action_bar_home_description = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_action_bar_home_description;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_action_bar_up_description = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_action_bar_up_description;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_action_menu_overflow_description = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_action_menu_overflow_description;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_action_mode_done = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_action_mode_done;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_activity_chooser_view_see_all = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_activity_chooser_view_see_all;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_activitychooserview_choose_application = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_activitychooserview_choose_application;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_capital_off = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_capital_off;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_capital_on = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_capital_on;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_font_family_body_1_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_font_family_body_1_material;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_font_family_body_2_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_font_family_body_2_material;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_font_family_button_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_font_family_button_material;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_font_family_caption_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_font_family_caption_material;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_font_family_display_1_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_font_family_display_1_material;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_font_family_display_2_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_font_family_display_2_material;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_font_family_display_3_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_font_family_display_3_material;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_font_family_display_4_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_font_family_display_4_material;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_font_family_headline_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_font_family_headline_material;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_font_family_menu_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_font_family_menu_material;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_font_family_subhead_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_font_family_subhead_material;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_font_family_title_material = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_font_family_title_material;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_search_hint = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_search_hint;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_searchview_description_clear = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_searchview_description_clear;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_searchview_description_query = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_searchview_description_query;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_searchview_description_search = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_searchview_description_search;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_searchview_description_submit = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_searchview_description_submit;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_searchview_description_voice = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_searchview_description_voice;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_shareactionprovider_share_with = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_shareactionprovider_share_with;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_shareactionprovider_share_with_application = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_shareactionprovider_share_with_application;
+			global::Xamarin.RangeSlider.Forms.Resource.String.abc_toolbar_collapse_description = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.abc_toolbar_collapse_description;
+			global::Xamarin.RangeSlider.Forms.Resource.String.app_name = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.app_name;
+			global::Xamarin.RangeSlider.Forms.Resource.String.appbar_scrolling_view_behavior = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.appbar_scrolling_view_behavior;
+			global::Xamarin.RangeSlider.Forms.Resource.String.bottom_sheet_behavior = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.bottom_sheet_behavior;
+			global::Xamarin.RangeSlider.Forms.Resource.String.character_counter_pattern = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.character_counter_pattern;
+			global::Xamarin.RangeSlider.Forms.Resource.String.demo_max_label = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.demo_max_label;
+			global::Xamarin.RangeSlider.Forms.Resource.String.demo_min_label = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.demo_min_label;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_button_content_description = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_button_content_description;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_cast_button_connected = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_cast_button_connected;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_cast_button_connecting = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_cast_button_connecting;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_cast_button_disconnected = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_cast_button_disconnected;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_chooser_searching = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_chooser_searching;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_chooser_title = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_chooser_title;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_controller_album_art = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_controller_album_art;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_controller_casting_screen = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_controller_casting_screen;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_controller_close_description = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_controller_close_description;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_controller_collapse_group = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_controller_collapse_group;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_controller_disconnect = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_controller_disconnect;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_controller_expand_group = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_controller_expand_group;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_controller_no_info_available = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_controller_no_info_available;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_controller_no_media_selected = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_controller_no_media_selected;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_controller_pause = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_controller_pause;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_controller_play = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_controller_play;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_controller_stop = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_controller_stop;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_controller_stop_casting = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_controller_stop_casting;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_controller_volume_slider = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_controller_volume_slider;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_system_route_name = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_system_route_name;
+			global::Xamarin.RangeSlider.Forms.Resource.String.mr_user_route_category_name = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.mr_user_route_category_name;
+			global::Xamarin.RangeSlider.Forms.Resource.String.password_toggle_content_description = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.password_toggle_content_description;
+			global::Xamarin.RangeSlider.Forms.Resource.String.path_password_eye = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.path_password_eye;
+			global::Xamarin.RangeSlider.Forms.Resource.String.path_password_eye_mask_strike_through = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.path_password_eye_mask_strike_through;
+			global::Xamarin.RangeSlider.Forms.Resource.String.path_password_eye_mask_visible = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.path_password_eye_mask_visible;
+			global::Xamarin.RangeSlider.Forms.Resource.String.path_password_strike_through = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.path_password_strike_through;
+			global::Xamarin.RangeSlider.Forms.Resource.String.search_menu_title = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.search_menu_title;
+			global::Xamarin.RangeSlider.Forms.Resource.String.status_bar_notification_info_overflow = global::Emka.PracticeLooper.Mobile.Droid.Resource.String.status_bar_notification_info_overflow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.AlertDialog_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.AlertDialog_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.AlertDialog_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.AlertDialog_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Animation_AppCompat_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Animation_AppCompat_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Animation_AppCompat_DropDownUp = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Animation_AppCompat_DropDownUp;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Animation_AppCompat_Tooltip = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Animation_AppCompat_Tooltip;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Animation_Design_BottomSheetDialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Animation_Design_BottomSheetDialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_AlertDialog_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_AlertDialog_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_AlertDialog_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_AlertDialog_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Animation_AppCompat_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Animation_AppCompat_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Animation_AppCompat_DropDownUp = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Animation_AppCompat_DropDownUp;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Animation_AppCompat_Tooltip = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Animation_AppCompat_Tooltip;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_CardView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_CardView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_DialogWindowTitle_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_DialogWindowTitle_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_DialogWindowTitleBackground_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_DialogWindowTitleBackground_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Body1 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Body1;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Body2 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Body2;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Button = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Button;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Caption = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Caption;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Display1 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display1;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Display2 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display2;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Display3 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display3;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Display4 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Display4;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Headline = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Headline;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Large = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Large;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Large_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Large_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Large;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Light_Widget_PopupMenu_Small;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Medium = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Medium;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Medium_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Medium_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Menu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Menu;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_SearchResult = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_SearchResult;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Subtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Subtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_SearchResult_Title;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Small = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Small;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Small_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Small_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Subhead = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Subhead;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Subhead_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Subhead_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Title;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Title_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Title_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Tooltip = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Tooltip;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Menu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Menu;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Subtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_ActionMode_Title;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Borderless_Colored = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Borderless_Colored;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Colored = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Colored;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Button_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_DropDownItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_DropDownItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Header = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Header;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Large = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Large;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Small = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_PopupMenu_Small;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_Switch = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_Switch;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_AppCompat_Widget_TextView_SpinnerItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_TextAppearance_Widget_AppCompat_Toolbar_Title;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Theme_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Theme_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Theme_AppCompat_CompactMenu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Theme_AppCompat_CompactMenu;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Theme_AppCompat_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Theme_AppCompat_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Theme_AppCompat_Dialog_Alert = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Theme_AppCompat_Dialog_Alert;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Theme_AppCompat_Dialog_FixedSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Theme_AppCompat_Dialog_FixedSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Theme_AppCompat_Dialog_MinWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Theme_AppCompat_Dialog_MinWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Theme_AppCompat_DialogWhenLarge = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Theme_AppCompat_DialogWhenLarge;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Theme_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Theme_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Theme_AppCompat_Light_DarkActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Theme_AppCompat_Light_DarkActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Theme_AppCompat_Light_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Theme_AppCompat_Light_Dialog_Alert = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog_Alert;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Theme_AppCompat_Light_Dialog_FixedSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog_FixedSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Theme_AppCompat_Light_Dialog_MinWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Theme_AppCompat_Light_Dialog_MinWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Theme_AppCompat_Light_DialogWhenLarge = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Theme_AppCompat_Light_DialogWhenLarge;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_ThemeOverlay_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_ThemeOverlay_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_ThemeOverlay_AppCompat_ActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_ActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_ThemeOverlay_AppCompat_Dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_ThemeOverlay_AppCompat_Dark_ActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Dark_ActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog_Alert = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Dialog_Alert;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_ThemeOverlay_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_ThemeOverlay_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V21_Theme_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V21_Theme_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V21_Theme_AppCompat_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V21_Theme_AppCompat_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V21_Theme_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V21_Theme_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V21_Theme_AppCompat_Light_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V21_Theme_AppCompat_Light_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V21_ThemeOverlay_AppCompat_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V21_ThemeOverlay_AppCompat_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V22_Theme_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V22_Theme_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V22_Theme_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V22_Theme_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V23_Theme_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V23_Theme_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V23_Theme_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V23_Theme_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V26_Theme_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V26_Theme_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V26_Theme_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V26_Theme_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V26_Widget_AppCompat_Toolbar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V26_Widget_AppCompat_Toolbar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V7_Theme_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V7_Theme_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V7_Theme_AppCompat_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V7_Theme_AppCompat_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V7_Theme_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V7_Theme_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V7_Theme_AppCompat_Light_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V7_Theme_AppCompat_Light_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V7_ThemeOverlay_AppCompat_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V7_ThemeOverlay_AppCompat_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V7_Widget_AppCompat_AutoCompleteTextView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V7_Widget_AppCompat_AutoCompleteTextView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V7_Widget_AppCompat_EditText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V7_Widget_AppCompat_EditText;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_V7_Widget_AppCompat_Toolbar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_V7_Widget_AppCompat_Toolbar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ActionBar_Solid = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_Solid;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ActionBar_TabBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_TabBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ActionBar_TabText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_TabText;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ActionBar_TabView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ActionBar_TabView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ActionButton = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ActionButton;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ActionButton_CloseMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ActionButton_CloseMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ActionButton_Overflow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ActionButton_Overflow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ActionMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ActionMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ActivityChooserView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ActivityChooserView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_AutoCompleteTextView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_AutoCompleteTextView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Button = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Button;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Button_Borderless = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Button_Borderless;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Button_Borderless_Colored = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Button_Borderless_Colored;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Button_ButtonBar_AlertDialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Button_ButtonBar_AlertDialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Button_Colored = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Button_Colored;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Button_Small = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Button_Small;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ButtonBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ButtonBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ButtonBar_AlertDialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ButtonBar_AlertDialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_CompoundButton_CheckBox = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_CompoundButton_CheckBox;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_CompoundButton_RadioButton = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_CompoundButton_RadioButton;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_CompoundButton_Switch = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_CompoundButton_Switch;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle_Common = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_DrawerArrowToggle_Common;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_DropDownItem_Spinner = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_DropDownItem_Spinner;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_EditText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_EditText;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ImageButton = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ImageButton;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Light_ActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_Solid = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_Solid;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabText_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Light_ActionBar_TabView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu_Overflow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Light_PopupMenu_Overflow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ListMenuView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ListMenuView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ListPopupWindow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ListPopupWindow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ListView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ListView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ListView_DropDown = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ListView_DropDown;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ListView_Menu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ListView_Menu;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_PopupMenu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_PopupMenu;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_PopupMenu_Overflow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_PopupMenu_Overflow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_PopupWindow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_PopupWindow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ProgressBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ProgressBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_ProgressBar_Horizontal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_ProgressBar_Horizontal;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_RatingBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_RatingBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_RatingBar_Indicator = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_RatingBar_Indicator;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_RatingBar_Small = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_RatingBar_Small;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_SearchView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_SearchView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_SearchView_ActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_SearchView_ActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_SeekBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_SeekBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_SeekBar_Discrete = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_SeekBar_Discrete;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Spinner = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Spinner;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Spinner_Underlined = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Spinner_Underlined;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_TextView_SpinnerItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_TextView_SpinnerItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Toolbar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Toolbar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_AppCompat_Toolbar_Button_Navigation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_AppCompat_Toolbar_Button_Navigation;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Base_Widget_Design_TabLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Base_Widget_Design_TabLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.CardView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.CardView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.CardView_Dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.CardView_Dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.CardView_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.CardView_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Platform_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Platform_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Platform_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Platform_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Platform_ThemeOverlay_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Platform_ThemeOverlay_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Platform_ThemeOverlay_AppCompat_Dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Platform_ThemeOverlay_AppCompat_Dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Platform_ThemeOverlay_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Platform_ThemeOverlay_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Platform_V21_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Platform_V21_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Platform_V21_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Platform_V21_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Platform_V25_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Platform_V25_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Platform_V25_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Platform_V25_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Platform_Widget_AppCompat_Spinner = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Platform_Widget_AppCompat_Spinner;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.RtlOverlay_DialogWindowTitle_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.RtlOverlay_DialogWindowTitle_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.RtlOverlay_Widget_AppCompat_ActionBar_TitleItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_ActionBar_TitleItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.RtlOverlay_Widget_AppCompat_DialogTitle_Icon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_DialogTitle_Icon;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_InternalGroup;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Text = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_PopupMenuItem_Text;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon1;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Icon2;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Query = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Query;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Text = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_Search_DropDown_Text;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.RtlOverlay_Widget_AppCompat_SearchView_MagIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.RtlUnderlay_Widget_AppCompat_ActionButton_Overflow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Body1 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Body1;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Body2 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Body2;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Button = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Button;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Caption = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Caption;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Display1 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Display1;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Display2 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Display2;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Display3 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Display3;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Display4 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Display4;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Headline = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Headline;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Large = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Large;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Large_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Large_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Subtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Subtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Light_SearchResult_Title;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Large = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Large;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Small = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Light_Widget_PopupMenu_Small;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Medium = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Medium;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Medium_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Medium_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Menu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Menu;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_SearchResult_Subtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_SearchResult_Subtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_SearchResult_Title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_SearchResult_Title;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Small = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Small;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Small_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Small_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Subhead = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Subhead;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Subhead_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Subhead_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Title;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Title_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Title_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Tooltip = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Tooltip;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Menu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Menu;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Subtitle_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionBar_Title_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Subtitle_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_ActionMode_Title_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_Button = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Button;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_Button_Colored = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Button_Colored;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_Button_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Button_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_DropDownItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_DropDownItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Header = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Header;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Large = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Large;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Small = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_PopupMenu_Small;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_Switch = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_Switch;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_AppCompat_Widget_TextView_SpinnerItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_AppCompat_Widget_TextView_SpinnerItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Compat_Notification = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Compat_Notification_Info = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification_Info;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Compat_Notification_Info_Media = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification_Info_Media;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Compat_Notification_Line2 = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification_Line2;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Compat_Notification_Line2_Media = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification_Line2_Media;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Compat_Notification_Media = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification_Media;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Compat_Notification_Time = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification_Time;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Compat_Notification_Time_Media = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification_Time_Media;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Compat_Notification_Title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification_Title;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Compat_Notification_Title_Media = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification_Title_Media;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Design_CollapsingToolbar_Expanded = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Design_CollapsingToolbar_Expanded;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Design_Counter = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Design_Counter;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Design_Counter_Overflow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Design_Counter_Overflow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Design_Error = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Design_Error;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Design_Hint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Design_Hint;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Design_Snackbar_Message = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Design_Snackbar_Message;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Design_Tab = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Design_Tab;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_MediaRouter_PrimaryText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_MediaRouter_PrimaryText;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_MediaRouter_SecondaryText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_MediaRouter_SecondaryText;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_MediaRouter_Title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_MediaRouter_Title;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Widget_AppCompat_ExpandedMenu_Item = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Widget_AppCompat_ExpandedMenu_Item;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Subtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Subtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.TextAppearance_Widget_AppCompat_Toolbar_Title;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_CompactMenu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_CompactMenu;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_DayNight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_DayNight;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_DayNight_DarkActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_DayNight_DarkActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_DayNight_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_DayNight_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_DayNight_Dialog_Alert = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_DayNight_Dialog_Alert;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_DayNight_Dialog_MinWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_DayNight_Dialog_MinWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_DayNight_DialogWhenLarge = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_DayNight_DialogWhenLarge;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_DayNight_NoActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_DayNight_NoActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_Dialog_Alert = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_Dialog_Alert;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_Dialog_MinWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_Dialog_MinWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_DialogWhenLarge = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_DialogWhenLarge;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_Light_DarkActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_Light_DarkActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_Light_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_Light_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_Light_Dialog_Alert = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_Light_Dialog_Alert;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_Light_Dialog_MinWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_Light_Dialog_MinWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_Light_DialogWhenLarge = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_Light_DialogWhenLarge;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_Light_NoActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_Light_NoActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_AppCompat_NoActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_AppCompat_NoActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_Design = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_Design;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_Design_BottomSheetDialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_Design_BottomSheetDialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_Design_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_Design_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_Design_Light_BottomSheetDialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_Design_Light_BottomSheetDialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_Design_Light_NoActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_Design_Light_NoActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_Design_NoActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_Design_NoActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_MediaRouter = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_MediaRouter;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_MediaRouter_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_MediaRouter_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_MediaRouter_Light_DarkControlPanel = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_MediaRouter_Light_DarkControlPanel;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Theme_MediaRouter_LightControlPanel = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Theme_MediaRouter_LightControlPanel;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.ThemeOverlay_AppCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.ThemeOverlay_AppCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.ThemeOverlay_AppCompat_ActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.ThemeOverlay_AppCompat_ActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.ThemeOverlay_AppCompat_Dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.ThemeOverlay_AppCompat_Dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.ThemeOverlay_AppCompat_Dark_ActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.ThemeOverlay_AppCompat_Dark_ActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.ThemeOverlay_AppCompat_Dialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.ThemeOverlay_AppCompat_Dialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.ThemeOverlay_AppCompat_Dialog_Alert = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.ThemeOverlay_AppCompat_Dialog_Alert;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.ThemeOverlay_AppCompat_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.ThemeOverlay_AppCompat_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.ThemeOverlay_MediaRouter_Dark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.ThemeOverlay_MediaRouter_Dark;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.ThemeOverlay_MediaRouter_Light = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.ThemeOverlay_MediaRouter_Light;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ActionBar_Solid = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ActionBar_Solid;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ActionBar_TabBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ActionBar_TabBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ActionBar_TabText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ActionBar_TabText;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ActionBar_TabView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ActionBar_TabView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ActionButton = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ActionButton;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ActionButton_CloseMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ActionButton_CloseMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ActionButton_Overflow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ActionButton_Overflow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ActionMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ActionMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ActivityChooserView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ActivityChooserView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_AutoCompleteTextView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_AutoCompleteTextView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Button = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Button;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Button_Borderless = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Button_Borderless;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Button_Borderless_Colored = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Button_Borderless_Colored;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Button_ButtonBar_AlertDialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Button_ButtonBar_AlertDialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Button_Colored = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Button_Colored;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Button_Small = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Button_Small;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ButtonBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ButtonBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ButtonBar_AlertDialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ButtonBar_AlertDialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_CompoundButton_CheckBox = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_CompoundButton_CheckBox;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_CompoundButton_RadioButton = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_CompoundButton_RadioButton;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_CompoundButton_Switch = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_CompoundButton_Switch;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_DrawerArrowToggle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_DrawerArrowToggle;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_DropDownItem_Spinner = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_DropDownItem_Spinner;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_EditText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_EditText;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ImageButton = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ImageButton;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_Solid_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabBar_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabText_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ActionBar_TabView_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ActionButton = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ActionButton;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ActionButton_CloseMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ActionButton_CloseMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ActionButton_Overflow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ActionButton_Overflow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ActionMode_Inverse = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ActionMode_Inverse;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ActivityChooserView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ActivityChooserView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_AutoCompleteTextView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_AutoCompleteTextView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_DropDownItem_Spinner = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_DropDownItem_Spinner;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ListPopupWindow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ListPopupWindow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_ListView_DropDown = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_ListView_DropDown;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_PopupMenu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_PopupMenu;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_PopupMenu_Overflow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_PopupMenu_Overflow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_SearchView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_SearchView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Light_Spinner_DropDown_ActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Light_Spinner_DropDown_ActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ListMenuView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ListMenuView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ListPopupWindow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ListPopupWindow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ListView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ListView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ListView_DropDown = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ListView_DropDown;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ListView_Menu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ListView_Menu;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_PopupMenu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_PopupMenu;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_PopupMenu_Overflow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_PopupMenu_Overflow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_PopupWindow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_PopupWindow;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ProgressBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ProgressBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_ProgressBar_Horizontal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_ProgressBar_Horizontal;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_RatingBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_RatingBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_RatingBar_Indicator = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_RatingBar_Indicator;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_RatingBar_Small = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_RatingBar_Small;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_SearchView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_SearchView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_SearchView_ActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_SearchView_ActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_SeekBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_SeekBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_SeekBar_Discrete = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_SeekBar_Discrete;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Spinner = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Spinner;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Spinner_DropDown = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Spinner_DropDown;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Spinner_DropDown_ActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Spinner_DropDown_ActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Spinner_Underlined = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Spinner_Underlined;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_TextView_SpinnerItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_TextView_SpinnerItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Toolbar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Toolbar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_AppCompat_Toolbar_Button_Navigation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_AppCompat_Toolbar_Button_Navigation;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_Compat_NotificationActionContainer = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_Compat_NotificationActionContainer;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_Compat_NotificationActionText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_Compat_NotificationActionText;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_Design_AppBarLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_Design_AppBarLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_Design_BottomNavigationView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_Design_BottomNavigationView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_Design_BottomSheet_Modal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_Design_BottomSheet_Modal;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_Design_CollapsingToolbar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_Design_CollapsingToolbar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_Design_FloatingActionButton = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_Design_FloatingActionButton;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_Design_NavigationView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_Design_NavigationView;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_Design_ScrimInsetsFrameLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_Design_ScrimInsetsFrameLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_Design_Snackbar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_Design_Snackbar;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_Design_TabLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_Design_TabLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_Design_TextInputLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_Design_TextInputLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_MediaRouter_Light_MediaRouteButton = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_MediaRouter_Light_MediaRouteButton;
+			global::Xamarin.RangeSlider.Forms.Resource.Style.Widget_MediaRouter_MediaRouteButton = global::Emka.PracticeLooper.Mobile.Droid.Resource.Style.Widget_MediaRouter_MediaRouteButton;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_background;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_backgroundSplit = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_backgroundSplit;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_backgroundStacked = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_backgroundStacked;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_contentInsetEnd = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_contentInsetEnd;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_contentInsetEndWithActions = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_contentInsetEndWithActions;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_contentInsetLeft = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_contentInsetLeft;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_contentInsetRight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_contentInsetRight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_contentInsetStart = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_contentInsetStart;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_contentInsetStartWithNavigation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_contentInsetStartWithNavigation;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_customNavigationLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_customNavigationLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_displayOptions = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_displayOptions;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_divider = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_divider;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_height = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_height;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_hideOnContentScroll = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_hideOnContentScroll;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_homeAsUpIndicator = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_homeAsUpIndicator;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_homeLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_homeLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_icon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_icon;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_indeterminateProgressStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_indeterminateProgressStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_itemPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_itemPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_logo = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_logo;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_navigationMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_navigationMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_popupTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_popupTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_progressBarPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_progressBarPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_progressBarStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_progressBarStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_subtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_subtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_subtitleTextStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_subtitleTextStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_title;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBar_titleTextStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBar_titleTextStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBarLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBarLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionBarLayout_android_layout_gravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionBarLayout_android_layout_gravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionMenuItemView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionMenuItemView;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionMenuItemView_android_minWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionMenuItemView_android_minWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionMenuView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionMenuView;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionMode_background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionMode_background;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionMode_backgroundSplit = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionMode_backgroundSplit;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionMode_closeItemLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionMode_closeItemLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionMode_height = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionMode_height;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionMode_subtitleTextStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionMode_subtitleTextStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActionMode_titleTextStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActionMode_titleTextStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActivityChooserView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActivityChooserView;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActivityChooserView_expandActivityOverflowButtonDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActivityChooserView_expandActivityOverflowButtonDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ActivityChooserView_initialActivityCount = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ActivityChooserView_initialActivityCount;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AlertDialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AlertDialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AlertDialog_android_layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AlertDialog_android_layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AlertDialog_buttonPanelSideLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AlertDialog_buttonPanelSideLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AlertDialog_listItemLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AlertDialog_listItemLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AlertDialog_listLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AlertDialog_listLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AlertDialog_multiChoiceItemLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AlertDialog_multiChoiceItemLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AlertDialog_showTitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AlertDialog_showTitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AlertDialog_singleChoiceItemLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AlertDialog_singleChoiceItemLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppBarLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppBarLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppBarLayout_android_background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppBarLayout_android_background;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppBarLayout_android_keyboardNavigationCluster = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppBarLayout_android_keyboardNavigationCluster;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppBarLayout_android_touchscreenBlocksFocus = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppBarLayout_android_touchscreenBlocksFocus;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppBarLayout_elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppBarLayout_elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppBarLayout_expanded = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppBarLayout_expanded;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppBarLayoutStates = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppBarLayoutStates;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppBarLayoutStates_state_collapsed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppBarLayoutStates_state_collapsed;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppBarLayoutStates_state_collapsible = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppBarLayoutStates_state_collapsible;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppBarLayout_Layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppBarLayout_Layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppBarLayout_Layout_layout_scrollFlags = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppBarLayout_Layout_layout_scrollFlags;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppBarLayout_Layout_layout_scrollInterpolator = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppBarLayout_Layout_layout_scrollInterpolator;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatImageView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatImageView;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatImageView_android_src = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatImageView_android_src;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatImageView_srcCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatImageView_srcCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatImageView_tint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatImageView_tint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatImageView_tintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatImageView_tintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatSeekBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatSeekBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatSeekBar_android_thumb = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatSeekBar_android_thumb;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatSeekBar_tickMark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatSeekBar_tickMark;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatSeekBar_tickMarkTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatSeekBar_tickMarkTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatSeekBar_tickMarkTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatSeekBar_tickMarkTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextHelper = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextHelper;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextHelper_android_drawableBottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableBottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextHelper_android_drawableEnd = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableEnd;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextHelper_android_drawableLeft = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableLeft;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextHelper_android_drawableRight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableRight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextHelper_android_drawableStart = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableStart;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextHelper_android_drawableTop = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextHelper_android_drawableTop;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextHelper_android_textAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextHelper_android_textAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextView;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextView_android_textAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextView_android_textAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextView_autoSizeMaxTextSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextView_autoSizeMaxTextSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextView_autoSizeMinTextSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextView_autoSizeMinTextSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextView_autoSizePresetSizes = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextView_autoSizePresetSizes;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextView_autoSizeStepGranularity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextView_autoSizeStepGranularity;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextView_autoSizeTextType = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextView_autoSizeTextType;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextView_fontFamily = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextView_fontFamily;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTextView_textAllCaps = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTextView_textAllCaps;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionBarDivider = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionBarDivider;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionBarItemBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionBarItemBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionBarPopupTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionBarPopupTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionBarSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionBarSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionBarSplitStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionBarSplitStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionBarStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionBarStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionBarTabBarStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionBarTabBarStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionBarTabStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionBarTabStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionBarTabTextStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionBarTabTextStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionBarTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionBarTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionBarWidgetTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionBarWidgetTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionDropDownStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionDropDownStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionMenuTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionMenuTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionMenuTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionMenuTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionModeBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionModeBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionModeCloseButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionModeCloseButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionModeCloseDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionModeCloseDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionModeCopyDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionModeCopyDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionModeCutDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionModeCutDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionModeFindDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionModeFindDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionModePasteDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionModePasteDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionModePopupWindowStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionModePopupWindowStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionModeSelectAllDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionModeSelectAllDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionModeShareDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionModeShareDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionModeSplitBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionModeSplitBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionModeStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionModeStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionModeWebSearchDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionModeWebSearchDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionOverflowButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionOverflowButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_actionOverflowMenuStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_actionOverflowMenuStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_activityChooserViewStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_activityChooserViewStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_alertDialogButtonGroupStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_alertDialogButtonGroupStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_alertDialogCenterButtons = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_alertDialogCenterButtons;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_alertDialogStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_alertDialogStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_alertDialogTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_alertDialogTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_android_windowAnimationStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_android_windowAnimationStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_android_windowIsFloating = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_android_windowIsFloating;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_autoCompleteTextViewStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_autoCompleteTextViewStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_borderlessButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_borderlessButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_buttonBarButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_buttonBarButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_buttonBarNegativeButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_buttonBarNegativeButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_buttonBarNeutralButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_buttonBarNeutralButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_buttonBarPositiveButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_buttonBarPositiveButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_buttonBarStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_buttonBarStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_buttonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_buttonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_buttonStyleSmall = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_buttonStyleSmall;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_checkboxStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_checkboxStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_checkedTextViewStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_checkedTextViewStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_colorAccent = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_colorAccent;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_colorBackgroundFloating = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_colorBackgroundFloating;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_colorButtonNormal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_colorButtonNormal;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_colorControlActivated = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_colorControlActivated;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_colorControlHighlight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_colorControlHighlight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_colorControlNormal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_colorControlNormal;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_colorError = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_colorError;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_colorPrimary = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_colorPrimary;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_colorPrimaryDark = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_colorPrimaryDark;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_colorSwitchThumbNormal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_colorSwitchThumbNormal;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_controlBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_controlBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_dialogPreferredPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_dialogPreferredPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_dialogTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_dialogTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_dividerHorizontal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_dividerHorizontal;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_dividerVertical = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_dividerVertical;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_dropDownListViewStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_dropDownListViewStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_dropdownListPreferredItemHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_dropdownListPreferredItemHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_editTextBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_editTextBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_editTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_editTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_editTextStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_editTextStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_homeAsUpIndicator = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_homeAsUpIndicator;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_imageButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_imageButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_listChoiceBackgroundIndicator = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_listChoiceBackgroundIndicator;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_listDividerAlertDialog = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_listDividerAlertDialog;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_listMenuViewStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_listMenuViewStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_listPopupWindowStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_listPopupWindowStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_listPreferredItemHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_listPreferredItemHeightLarge = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemHeightLarge;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_listPreferredItemHeightSmall = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemHeightSmall;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingLeft = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingLeft;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingRight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_listPreferredItemPaddingRight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_panelBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_panelBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_panelMenuListTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_panelMenuListTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_panelMenuListWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_panelMenuListWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_popupMenuStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_popupMenuStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_popupWindowStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_popupWindowStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_radioButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_radioButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_ratingBarStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_ratingBarStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_ratingBarStyleIndicator = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_ratingBarStyleIndicator;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_ratingBarStyleSmall = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_ratingBarStyleSmall;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_searchViewStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_searchViewStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_seekBarStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_seekBarStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_selectableItemBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_selectableItemBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_selectableItemBackgroundBorderless = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_selectableItemBackgroundBorderless;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_spinnerDropDownItemStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_spinnerDropDownItemStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_spinnerStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_spinnerStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_switchStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_switchStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_textAppearanceLargePopupMenu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_textAppearanceLargePopupMenu;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_textAppearanceListItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_textAppearanceListItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_textAppearanceListItemSecondary = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_textAppearanceListItemSecondary;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_textAppearanceListItemSmall = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_textAppearanceListItemSmall;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_textAppearancePopupMenuHeader = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_textAppearancePopupMenuHeader;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultSubtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultSubtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultTitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_textAppearanceSearchResultTitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_textAppearanceSmallPopupMenu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_textAppearanceSmallPopupMenu;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_textColorAlertDialogListItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_textColorAlertDialogListItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_textColorSearchUrl = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_textColorSearchUrl;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_toolbarNavigationButtonStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_toolbarNavigationButtonStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_toolbarStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_toolbarStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_tooltipForegroundColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_tooltipForegroundColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_tooltipFrameBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_tooltipFrameBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_windowActionBar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_windowActionBar;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_windowActionBarOverlay = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_windowActionBarOverlay;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_windowActionModeOverlay = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_windowActionModeOverlay;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_windowFixedHeightMajor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_windowFixedHeightMajor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_windowFixedHeightMinor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_windowFixedHeightMinor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_windowFixedWidthMajor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_windowFixedWidthMajor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_windowFixedWidthMinor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_windowFixedWidthMinor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_windowMinWidthMajor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_windowMinWidthMajor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_windowMinWidthMinor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_windowMinWidthMinor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.AppCompatTheme_windowNoTitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.AppCompatTheme_windowNoTitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.BottomNavigationView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.BottomNavigationView;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.BottomNavigationView_elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.BottomNavigationView_elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.BottomNavigationView_itemBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.BottomNavigationView_itemBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.BottomNavigationView_itemIconTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.BottomNavigationView_itemIconTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.BottomNavigationView_itemTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.BottomNavigationView_itemTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.BottomNavigationView_menu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.BottomNavigationView_menu;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.BottomSheetBehavior_Layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.BottomSheetBehavior_Layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.BottomSheetBehavior_Layout_behavior_hideable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.BottomSheetBehavior_Layout_behavior_hideable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.BottomSheetBehavior_Layout_behavior_peekHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.BottomSheetBehavior_Layout_behavior_peekHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.BottomSheetBehavior_Layout_behavior_skipCollapsed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.BottomSheetBehavior_Layout_behavior_skipCollapsed;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ButtonBarLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ButtonBarLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ButtonBarLayout_allowStacking = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ButtonBarLayout_allowStacking;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CardView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CardView;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CardView_android_minHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CardView_android_minHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CardView_android_minWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CardView_android_minWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CardView_cardBackgroundColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CardView_cardBackgroundColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CardView_cardCornerRadius = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CardView_cardCornerRadius;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CardView_cardElevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CardView_cardElevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CardView_cardMaxElevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CardView_cardMaxElevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CardView_cardPreventCornerOverlap = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CardView_cardPreventCornerOverlap;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CardView_cardUseCompatPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CardView_cardUseCompatPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CardView_contentPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CardView_contentPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CardView_contentPaddingBottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CardView_contentPaddingBottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CardView_contentPaddingLeft = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CardView_contentPaddingLeft;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CardView_contentPaddingRight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CardView_contentPaddingRight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CardView_contentPaddingTop = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CardView_contentPaddingTop;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleGravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleGravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_collapsedTitleTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_contentScrim = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_contentScrim;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_expandedTitleGravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleGravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMargin = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMargin;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginBottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginBottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginEnd = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginEnd;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginStart = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginStart;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginTop = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleMarginTop;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_expandedTitleTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_expandedTitleTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_scrimAnimationDuration = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_scrimAnimationDuration;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_scrimVisibleHeightTrigger = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_scrimVisibleHeightTrigger;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_statusBarScrim = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_statusBarScrim;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_title;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_titleEnabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_titleEnabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_toolbarId = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_toolbarId;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_Layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_Layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseParallaxMultiplier = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CollapsingToolbarLayout_Layout_layout_collapseParallaxMultiplier;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ColorStateListItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ColorStateListItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ColorStateListItem_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ColorStateListItem_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ColorStateListItem_android_alpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ColorStateListItem_android_alpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ColorStateListItem_android_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ColorStateListItem_android_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CompoundButton = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CompoundButton;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CompoundButton_android_button = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CompoundButton_android_button;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CompoundButton_buttonTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CompoundButton_buttonTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CompoundButton_buttonTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CompoundButton_buttonTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CoordinatorLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CoordinatorLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CoordinatorLayout_keylines = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CoordinatorLayout_keylines;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CoordinatorLayout_statusBarBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CoordinatorLayout_statusBarBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CoordinatorLayout_Layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.DesignTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.DesignTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.DesignTheme_bottomSheetDialogTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.DesignTheme_bottomSheetDialogTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.DesignTheme_bottomSheetStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.DesignTheme_bottomSheetStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.DrawerArrowToggle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.DrawerArrowToggle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.DrawerArrowToggle_arrowHeadLength = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.DrawerArrowToggle_arrowHeadLength;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.DrawerArrowToggle_arrowShaftLength = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.DrawerArrowToggle_arrowShaftLength;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.DrawerArrowToggle_barLength = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.DrawerArrowToggle_barLength;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.DrawerArrowToggle_color = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.DrawerArrowToggle_color;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.DrawerArrowToggle_drawableSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.DrawerArrowToggle_drawableSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.DrawerArrowToggle_gapBetweenBars = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.DrawerArrowToggle_gapBetweenBars;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.DrawerArrowToggle_spinBars = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.DrawerArrowToggle_spinBars;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.DrawerArrowToggle_thickness = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.DrawerArrowToggle_thickness;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FloatingActionButton = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FloatingActionButton;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FloatingActionButton_backgroundTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FloatingActionButton_backgroundTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FloatingActionButton_backgroundTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FloatingActionButton_backgroundTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FloatingActionButton_borderWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FloatingActionButton_borderWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FloatingActionButton_elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FloatingActionButton_elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FloatingActionButton_fabSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FloatingActionButton_fabSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FloatingActionButton_pressedTranslationZ = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FloatingActionButton_pressedTranslationZ;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FloatingActionButton_rippleColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FloatingActionButton_rippleColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FloatingActionButton_useCompatPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FloatingActionButton_useCompatPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FloatingActionButton_Behavior_Layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FloatingActionButton_Behavior_Layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FontFamily = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FontFamily;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FontFamily_fontProviderAuthority = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FontFamily_fontProviderAuthority;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FontFamily_fontProviderCerts = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FontFamily_fontProviderCerts;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FontFamily_fontProviderFetchStrategy = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FontFamily_fontProviderFetchStrategy;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FontFamily_fontProviderFetchTimeout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FontFamily_fontProviderFetchTimeout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FontFamily_fontProviderPackage = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FontFamily_fontProviderPackage;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FontFamily_fontProviderQuery = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FontFamily_fontProviderQuery;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FontFamilyFont = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FontFamilyFont;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FontFamilyFont_android_font = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FontFamilyFont_android_font;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FontFamilyFont_android_fontStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FontFamilyFont_android_fontStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FontFamilyFont_android_fontWeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FontFamilyFont_android_fontWeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FontFamilyFont_font = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FontFamilyFont_font;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FontFamilyFont_fontStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FontFamilyFont_fontStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.FontFamilyFont_fontWeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.FontFamilyFont_fontWeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ForegroundLinearLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ForegroundLinearLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ForegroundLinearLayout_android_foreground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ForegroundLinearLayout_android_foreground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ForegroundLinearLayout_android_foregroundGravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ForegroundLinearLayout_android_foregroundGravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ForegroundLinearLayout_foregroundInsidePadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ForegroundLinearLayout_foregroundInsidePadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat_android_baselineAligned = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat_android_baselineAligned;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat_android_baselineAlignedChildIndex = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat_android_baselineAlignedChildIndex;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat_android_gravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat_android_gravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat_android_orientation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat_android_orientation;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat_android_weightSum = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat_android_weightSum;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat_divider = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat_divider;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat_dividerPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat_dividerPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat_measureWithLargestChild = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat_measureWithLargestChild;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat_showDividers = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat_showDividers;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat_Layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat_Layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_gravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_gravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_height = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_height;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_weight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_weight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_width = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.LinearLayoutCompat_Layout_android_layout_width;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ListPopupWindow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ListPopupWindow;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ListPopupWindow_android_dropDownHorizontalOffset = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ListPopupWindow_android_dropDownHorizontalOffset;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ListPopupWindow_android_dropDownVerticalOffset = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ListPopupWindow_android_dropDownVerticalOffset;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MediaRouteButton = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MediaRouteButton;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MediaRouteButton_android_minHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MediaRouteButton_android_minHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MediaRouteButton_android_minWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MediaRouteButton_android_minWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MediaRouteButton_externalRouteEnabledDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MediaRouteButton_externalRouteEnabledDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MediaRouteButton_mediaRouteButtonTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MediaRouteButton_mediaRouteButtonTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuGroup = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuGroup;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuGroup_android_checkableBehavior = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuGroup_android_checkableBehavior;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuGroup_android_enabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuGroup_android_enabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuGroup_android_id = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuGroup_android_id;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuGroup_android_menuCategory = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuGroup_android_menuCategory;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuGroup_android_orderInCategory = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuGroup_android_orderInCategory;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuGroup_android_visible = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuGroup_android_visible;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_actionLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_actionLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_actionProviderClass = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_actionProviderClass;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_actionViewClass = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_actionViewClass;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_alphabeticModifiers = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_alphabeticModifiers;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_android_alphabeticShortcut = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_android_alphabeticShortcut;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_android_checkable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_android_checkable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_android_checked = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_android_checked;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_android_enabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_android_enabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_android_icon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_android_icon;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_android_id = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_android_id;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_android_menuCategory = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_android_menuCategory;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_android_numericShortcut = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_android_numericShortcut;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_android_onClick = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_android_onClick;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_android_orderInCategory = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_android_orderInCategory;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_android_title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_android_title;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_android_titleCondensed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_android_titleCondensed;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_android_visible = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_android_visible;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_contentDescription = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_contentDescription;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_iconTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_iconTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_iconTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_iconTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_numericModifiers = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_numericModifiers;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_showAsAction = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_showAsAction;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuItem_tooltipText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuItem_tooltipText;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuView;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuView_android_headerBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuView_android_headerBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuView_android_horizontalDivider = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuView_android_horizontalDivider;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuView_android_itemBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuView_android_itemBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuView_android_itemIconDisabledAlpha = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuView_android_itemIconDisabledAlpha;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuView_android_itemTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuView_android_itemTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuView_android_verticalDivider = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuView_android_verticalDivider;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuView_android_windowAnimationStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuView_android_windowAnimationStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuView_preserveIconSpacing = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuView_preserveIconSpacing;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.MenuView_subMenuArrow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.MenuView_subMenuArrow;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.NavigationView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.NavigationView;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.NavigationView_android_background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.NavigationView_android_background;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.NavigationView_android_fitsSystemWindows = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.NavigationView_android_fitsSystemWindows;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.NavigationView_android_maxWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.NavigationView_android_maxWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.NavigationView_elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.NavigationView_elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.NavigationView_headerLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.NavigationView_headerLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.NavigationView_itemBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.NavigationView_itemBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.NavigationView_itemIconTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.NavigationView_itemIconTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.NavigationView_itemTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.NavigationView_itemTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.NavigationView_itemTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.NavigationView_itemTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.NavigationView_menu = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.NavigationView_menu;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.PopupWindow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.PopupWindow;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.PopupWindow_android_popupAnimationStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.PopupWindow_android_popupAnimationStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.PopupWindow_android_popupBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.PopupWindow_android_popupBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.PopupWindow_overlapAnchor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.PopupWindow_overlapAnchor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.PopupWindowBackgroundState = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.PopupWindowBackgroundState;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.PopupWindowBackgroundState_state_above_anchor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.PopupWindowBackgroundState_state_above_anchor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_absoluteMaxValue = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_absoluteMaxValue;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_absoluteMinValue = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_absoluteMinValue;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_activateOnDefaultValues = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_activateOnDefaultValues;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_activeColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_activeColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_alwaysActive = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_alwaysActive;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_barHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_barHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_defaultColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_defaultColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_internalPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_internalPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_materialUI = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_materialUI;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_maxThumbHidden = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_maxThumbHidden;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_minThumbHidden = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_minThumbHidden;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_showRangeLabels = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_showRangeLabels;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_stepValue = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_stepValue;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_stepValueContinuously = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_stepValueContinuously;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_textAboveThumbsColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_textAboveThumbsColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_textSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_textSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_thumbDisabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbDisabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_thumbNormal = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbNormal;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_thumbPressed = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbPressed;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_thumbShadow = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbShadow;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_thumbShadowBlur = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbShadowBlur;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_thumbShadowColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbShadowColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_thumbShadowXOffset = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbShadowXOffset;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_thumbShadowYOffset = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_thumbShadowYOffset;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RangeSliderControl_valuesAboveThumbs = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RangeSliderControl_valuesAboveThumbs;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecycleListView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecycleListView;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecycleListView_paddingBottomNoButtons = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecycleListView_paddingBottomNoButtons;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecycleListView_paddingTopNoTitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecycleListView_paddingTopNoTitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecyclerView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecyclerView;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecyclerView_android_descendantFocusability = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecyclerView_android_descendantFocusability;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecyclerView_android_orientation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecyclerView_android_orientation;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecyclerView_fastScrollEnabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecyclerView_fastScrollEnabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecyclerView_fastScrollHorizontalThumbDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecyclerView_fastScrollHorizontalThumbDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecyclerView_fastScrollHorizontalTrackDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecyclerView_fastScrollHorizontalTrackDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecyclerView_fastScrollVerticalThumbDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecyclerView_fastScrollVerticalThumbDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecyclerView_fastScrollVerticalTrackDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecyclerView_fastScrollVerticalTrackDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecyclerView_layoutManager = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecyclerView_layoutManager;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecyclerView_reverseLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecyclerView_reverseLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecyclerView_spanCount = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecyclerView_spanCount;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.RecyclerView_stackFromEnd = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.RecyclerView_stackFromEnd;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ScrimInsetsFrameLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ScrimInsetsFrameLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ScrimInsetsFrameLayout_insetForeground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ScrimInsetsFrameLayout_insetForeground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ScrollingViewBehavior_Layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ScrollingViewBehavior_Layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ScrollingViewBehavior_Layout_behavior_overlapTop = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ScrollingViewBehavior_Layout_behavior_overlapTop;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_android_focusable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_android_focusable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_android_imeOptions = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_android_imeOptions;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_android_inputType = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_android_inputType;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_android_maxWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_android_maxWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_closeIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_closeIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_commitIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_commitIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_defaultQueryHint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_defaultQueryHint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_goIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_goIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_iconifiedByDefault = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_iconifiedByDefault;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_queryBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_queryBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_queryHint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_queryHint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_searchHintIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_searchHintIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_searchIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_searchIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_submitBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_submitBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_suggestionRowLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_suggestionRowLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SearchView_voiceIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SearchView_voiceIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SnackbarLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SnackbarLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SnackbarLayout_android_maxWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SnackbarLayout_android_maxWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SnackbarLayout_elevation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SnackbarLayout_elevation;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SnackbarLayout_maxActionInlineWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SnackbarLayout_maxActionInlineWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Spinner = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Spinner;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Spinner_android_dropDownWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Spinner_android_dropDownWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Spinner_android_entries = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Spinner_android_entries;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Spinner_android_popupBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Spinner_android_popupBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Spinner_android_prompt = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Spinner_android_prompt;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Spinner_popupTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Spinner_popupTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat_android_textOff = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat_android_textOff;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat_android_textOn = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat_android_textOn;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat_android_thumb = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat_android_thumb;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat_showText = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat_showText;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat_splitTrack = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat_splitTrack;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat_switchMinWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat_switchMinWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat_switchPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat_switchPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat_switchTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat_switchTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat_thumbTextPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat_thumbTextPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat_thumbTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat_thumbTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat_thumbTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat_thumbTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat_track = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat_track;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat_trackTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat_trackTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.SwitchCompat_trackTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.SwitchCompat_trackTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabItem = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabItem;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabItem_android_icon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabItem_android_icon;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabItem_android_layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabItem_android_layout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabItem_android_text = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabItem_android_text;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabBackground = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabBackground;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabContentStart = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabContentStart;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabGravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabGravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabIndicatorColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabIndicatorColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabIndicatorHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabIndicatorHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabMaxWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabMaxWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabMinWidth = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabMinWidth;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabPadding = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabPadding;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabPaddingBottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabPaddingBottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabPaddingEnd = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabPaddingEnd;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabPaddingStart = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabPaddingStart;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabPaddingTop = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabPaddingTop;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabSelectedTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabSelectedTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TabLayout_tabTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TabLayout_tabTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextAppearance_android_fontFamily = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextAppearance_android_fontFamily;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextAppearance_android_shadowColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextAppearance_android_shadowColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextAppearance_android_shadowDx = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextAppearance_android_shadowDx;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextAppearance_android_shadowDy = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextAppearance_android_shadowDy;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextAppearance_android_shadowRadius = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextAppearance_android_shadowRadius;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextAppearance_android_textColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextAppearance_android_textColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextAppearance_android_textColorHint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextAppearance_android_textColorHint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextAppearance_android_textColorLink = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextAppearance_android_textColorLink;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextAppearance_android_textSize = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextAppearance_android_textSize;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextAppearance_android_textStyle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextAppearance_android_textStyle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextAppearance_android_typeface = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextAppearance_android_typeface;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextAppearance_fontFamily = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextAppearance_fontFamily;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextAppearance_textAllCaps = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextAppearance_textAllCaps;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_android_hint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_android_hint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_android_textColorHint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_android_textColorHint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_counterEnabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_counterEnabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_counterMaxLength = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_counterMaxLength;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_counterOverflowTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_counterOverflowTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_counterTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_counterTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_errorEnabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_errorEnabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_errorTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_errorTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_hintAnimationEnabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_hintAnimationEnabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_hintEnabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_hintEnabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_hintTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_hintTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_passwordToggleContentDescription = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_passwordToggleContentDescription;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_passwordToggleDrawable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_passwordToggleDrawable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_passwordToggleEnabled = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_passwordToggleEnabled;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_passwordToggleTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_passwordToggleTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.TextInputLayout_passwordToggleTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.TextInputLayout_passwordToggleTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_android_gravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_android_gravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_android_minHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_android_minHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_buttonGravity = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_buttonGravity;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_collapseContentDescription = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_collapseContentDescription;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_collapseIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_collapseIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_contentInsetEnd = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_contentInsetEnd;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_contentInsetEndWithActions = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_contentInsetEndWithActions;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_contentInsetLeft = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_contentInsetLeft;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_contentInsetRight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_contentInsetRight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_contentInsetStart = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_contentInsetStart;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_contentInsetStartWithNavigation = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_contentInsetStartWithNavigation;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_logo = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_logo;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_logoDescription = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_logoDescription;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_maxButtonHeight = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_maxButtonHeight;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_navigationContentDescription = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_navigationContentDescription;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_navigationIcon = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_navigationIcon;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_popupTheme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_popupTheme;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_subtitle = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_subtitle;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_subtitleTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_subtitleTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_subtitleTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_subtitleTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_title = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_title;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_titleMargin = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_titleMargin;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_titleMarginBottom = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_titleMarginBottom;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_titleMarginEnd = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_titleMarginEnd;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_titleMarginStart = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_titleMarginStart;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_titleMarginTop = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_titleMarginTop;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_titleMargins = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_titleMargins;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_titleTextAppearance = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_titleTextAppearance;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.Toolbar_titleTextColor = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.Toolbar_titleTextColor;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.View = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.View;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.View_android_focusable = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.View_android_focusable;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.View_android_theme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.View_android_theme;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.View_paddingEnd = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.View_paddingEnd;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.View_paddingStart = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.View_paddingStart;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.View_theme = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.View_theme;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ViewBackgroundHelper = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ViewBackgroundHelper;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ViewBackgroundHelper_android_background = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ViewBackgroundHelper_android_background;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ViewBackgroundHelper_backgroundTint = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ViewBackgroundHelper_backgroundTint;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ViewBackgroundHelper_backgroundTintMode = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ViewBackgroundHelper_backgroundTintMode;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ViewStubCompat = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ViewStubCompat;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ViewStubCompat_android_id = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ViewStubCompat_android_id;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ViewStubCompat_android_inflatedId = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ViewStubCompat_android_inflatedId;
+			global::Xamarin.RangeSlider.Forms.Resource.Styleable.ViewStubCompat_android_layout = global::Emka.PracticeLooper.Mobile.Droid.Resource.Styleable.ViewStubCompat_android_layout;
 		}
 		
 		public partial class Animation
@@ -2244,1118 +4595,1193 @@ namespace Emka.PracticeLooper.Mobile.Droid
 		public partial class Attribute
 		{
 			
-			// aapt resource value: 0x7f01006b
-			public const int actionBarDivider = 2130772075;
-			
-			// aapt resource value: 0x7f01006c
-			public const int actionBarItemBackground = 2130772076;
-			
-			// aapt resource value: 0x7f010065
-			public const int actionBarPopupTheme = 2130772069;
-			
-			// aapt resource value: 0x7f01006a
-			public const int actionBarSize = 2130772074;
-			
-			// aapt resource value: 0x7f010067
-			public const int actionBarSplitStyle = 2130772071;
-			
-			// aapt resource value: 0x7f010066
-			public const int actionBarStyle = 2130772070;
-			
-			// aapt resource value: 0x7f010061
-			public const int actionBarTabBarStyle = 2130772065;
-			
-			// aapt resource value: 0x7f010060
-			public const int actionBarTabStyle = 2130772064;
-			
-			// aapt resource value: 0x7f010062
-			public const int actionBarTabTextStyle = 2130772066;
-			
-			// aapt resource value: 0x7f010068
-			public const int actionBarTheme = 2130772072;
-			
-			// aapt resource value: 0x7f010069
-			public const int actionBarWidgetTheme = 2130772073;
-			
-			// aapt resource value: 0x7f010086
-			public const int actionButtonStyle = 2130772102;
-			
-			// aapt resource value: 0x7f010082
-			public const int actionDropDownStyle = 2130772098;
-			
-			// aapt resource value: 0x7f0100dd
-			public const int actionLayout = 2130772189;
-			
-			// aapt resource value: 0x7f01006d
-			public const int actionMenuTextAppearance = 2130772077;
-			
-			// aapt resource value: 0x7f01006e
-			public const int actionMenuTextColor = 2130772078;
-			
-			// aapt resource value: 0x7f010071
-			public const int actionModeBackground = 2130772081;
-			
-			// aapt resource value: 0x7f010070
-			public const int actionModeCloseButtonStyle = 2130772080;
-			
-			// aapt resource value: 0x7f010073
-			public const int actionModeCloseDrawable = 2130772083;
-			
-			// aapt resource value: 0x7f010075
-			public const int actionModeCopyDrawable = 2130772085;
-			
-			// aapt resource value: 0x7f010074
-			public const int actionModeCutDrawable = 2130772084;
-			
-			// aapt resource value: 0x7f010079
-			public const int actionModeFindDrawable = 2130772089;
-			
-			// aapt resource value: 0x7f010076
-			public const int actionModePasteDrawable = 2130772086;
-			
-			// aapt resource value: 0x7f01007b
-			public const int actionModePopupWindowStyle = 2130772091;
-			
-			// aapt resource value: 0x7f010077
-			public const int actionModeSelectAllDrawable = 2130772087;
-			
-			// aapt resource value: 0x7f010078
-			public const int actionModeShareDrawable = 2130772088;
-			
-			// aapt resource value: 0x7f010072
-			public const int actionModeSplitBackground = 2130772082;
-			
-			// aapt resource value: 0x7f01006f
-			public const int actionModeStyle = 2130772079;
-			
-			// aapt resource value: 0x7f01007a
-			public const int actionModeWebSearchDrawable = 2130772090;
-			
-			// aapt resource value: 0x7f010063
-			public const int actionOverflowButtonStyle = 2130772067;
-			
-			// aapt resource value: 0x7f010064
-			public const int actionOverflowMenuStyle = 2130772068;
-			
-			// aapt resource value: 0x7f0100df
-			public const int actionProviderClass = 2130772191;
-			
-			// aapt resource value: 0x7f0100de
-			public const int actionViewClass = 2130772190;
-			
-			// aapt resource value: 0x7f01008e
-			public const int activityChooserViewStyle = 2130772110;
-			
-			// aapt resource value: 0x7f0100b3
-			public const int alertDialogButtonGroupStyle = 2130772147;
-			
-			// aapt resource value: 0x7f0100b4
-			public const int alertDialogCenterButtons = 2130772148;
-			
-			// aapt resource value: 0x7f0100b2
-			public const int alertDialogStyle = 2130772146;
-			
-			// aapt resource value: 0x7f0100b5
-			public const int alertDialogTheme = 2130772149;
-			
-			// aapt resource value: 0x7f0100cb
-			public const int allowStacking = 2130772171;
-			
-			// aapt resource value: 0x7f0100cc
-			public const int alpha = 2130772172;
-			
-			// aapt resource value: 0x7f0100da
-			public const int alphabeticModifiers = 2130772186;
-			
-			// aapt resource value: 0x7f0100d3
-			public const int arrowHeadLength = 2130772179;
-			
-			// aapt resource value: 0x7f0100d4
-			public const int arrowShaftLength = 2130772180;
-			
-			// aapt resource value: 0x7f0100ba
-			public const int autoCompleteTextViewStyle = 2130772154;
-			
-			// aapt resource value: 0x7f010054
-			public const int autoSizeMaxTextSize = 2130772052;
-			
-			// aapt resource value: 0x7f010053
-			public const int autoSizeMinTextSize = 2130772051;
-			
-			// aapt resource value: 0x7f010052
-			public const int autoSizePresetSizes = 2130772050;
-			
-			// aapt resource value: 0x7f010051
-			public const int autoSizeStepGranularity = 2130772049;
-			
-			// aapt resource value: 0x7f010050
-			public const int autoSizeTextType = 2130772048;
-			
-			// aapt resource value: 0x7f01002e
-			public const int background = 2130772014;
-			
-			// aapt resource value: 0x7f010030
-			public const int backgroundSplit = 2130772016;
-			
-			// aapt resource value: 0x7f01002f
-			public const int backgroundStacked = 2130772015;
-			
-			// aapt resource value: 0x7f010116
-			public const int backgroundTint = 2130772246;
-			
-			// aapt resource value: 0x7f010117
-			public const int backgroundTintMode = 2130772247;
-			
-			// aapt resource value: 0x7f0100d5
-			public const int barLength = 2130772181;
-			
-			// aapt resource value: 0x7f010141
-			public const int behavior_autoHide = 2130772289;
-			
-			// aapt resource value: 0x7f01011e
-			public const int behavior_hideable = 2130772254;
-			
-			// aapt resource value: 0x7f01014a
-			public const int behavior_overlapTop = 2130772298;
-			
-			// aapt resource value: 0x7f01011d
-			public const int behavior_peekHeight = 2130772253;
-			
-			// aapt resource value: 0x7f01011f
-			public const int behavior_skipCollapsed = 2130772255;
-			
-			// aapt resource value: 0x7f01013f
-			public const int borderWidth = 2130772287;
-			
-			// aapt resource value: 0x7f01008b
-			public const int borderlessButtonStyle = 2130772107;
-			
-			// aapt resource value: 0x7f010139
-			public const int bottomSheetDialogTheme = 2130772281;
-			
-			// aapt resource value: 0x7f01013a
-			public const int bottomSheetStyle = 2130772282;
-			
-			// aapt resource value: 0x7f010088
-			public const int buttonBarButtonStyle = 2130772104;
-			
-			// aapt resource value: 0x7f0100b8
-			public const int buttonBarNegativeButtonStyle = 2130772152;
-			
-			// aapt resource value: 0x7f0100b9
-			public const int buttonBarNeutralButtonStyle = 2130772153;
-			
-			// aapt resource value: 0x7f0100b7
-			public const int buttonBarPositiveButtonStyle = 2130772151;
-			
-			// aapt resource value: 0x7f010087
-			public const int buttonBarStyle = 2130772103;
-			
-			// aapt resource value: 0x7f01010b
-			public const int buttonGravity = 2130772235;
-			
-			// aapt resource value: 0x7f010043
-			public const int buttonPanelSideLayout = 2130772035;
-			
-			// aapt resource value: 0x7f0100bb
-			public const int buttonStyle = 2130772155;
-			
-			// aapt resource value: 0x7f0100bc
-			public const int buttonStyleSmall = 2130772156;
-			
-			// aapt resource value: 0x7f0100cd
-			public const int buttonTint = 2130772173;
-			
-			// aapt resource value: 0x7f0100ce
-			public const int buttonTintMode = 2130772174;
-			
-			// aapt resource value: 0x7f010017
-			public const int cardBackgroundColor = 2130771991;
-			
-			// aapt resource value: 0x7f010018
-			public const int cardCornerRadius = 2130771992;
-			
-			// aapt resource value: 0x7f010019
-			public const int cardElevation = 2130771993;
-			
-			// aapt resource value: 0x7f01001a
-			public const int cardMaxElevation = 2130771994;
-			
-			// aapt resource value: 0x7f01001c
-			public const int cardPreventCornerOverlap = 2130771996;
-			
-			// aapt resource value: 0x7f01001b
-			public const int cardUseCompatPadding = 2130771995;
-			
-			// aapt resource value: 0x7f0100bd
-			public const int checkboxStyle = 2130772157;
-			
-			// aapt resource value: 0x7f0100be
-			public const int checkedTextViewStyle = 2130772158;
-			
-			// aapt resource value: 0x7f0100ee
-			public const int closeIcon = 2130772206;
-			
-			// aapt resource value: 0x7f010040
-			public const int closeItemLayout = 2130772032;
-			
-			// aapt resource value: 0x7f01010d
-			public const int collapseContentDescription = 2130772237;
-			
-			// aapt resource value: 0x7f01010c
-			public const int collapseIcon = 2130772236;
-			
-			// aapt resource value: 0x7f01012c
-			public const int collapsedTitleGravity = 2130772268;
-			
-			// aapt resource value: 0x7f010126
-			public const int collapsedTitleTextAppearance = 2130772262;
-			
-			// aapt resource value: 0x7f0100cf
-			public const int color = 2130772175;
-			
-			// aapt resource value: 0x7f0100aa
-			public const int colorAccent = 2130772138;
-			
-			// aapt resource value: 0x7f0100b1
-			public const int colorBackgroundFloating = 2130772145;
-			
-			// aapt resource value: 0x7f0100ae
-			public const int colorButtonNormal = 2130772142;
-			
-			// aapt resource value: 0x7f0100ac
-			public const int colorControlActivated = 2130772140;
-			
-			// aapt resource value: 0x7f0100ad
-			public const int colorControlHighlight = 2130772141;
-			
-			// aapt resource value: 0x7f0100ab
-			public const int colorControlNormal = 2130772139;
-			
-			// aapt resource value: 0x7f0100ca
-			public const int colorError = 2130772170;
-			
-			// aapt resource value: 0x7f0100a8
-			public const int colorPrimary = 2130772136;
-			
-			// aapt resource value: 0x7f0100a9
-			public const int colorPrimaryDark = 2130772137;
-			
-			// aapt resource value: 0x7f0100af
-			public const int colorSwitchThumbNormal = 2130772143;
-			
-			// aapt resource value: 0x7f0100f3
-			public const int commitIcon = 2130772211;
-			
-			// aapt resource value: 0x7f0100e0
-			public const int contentDescription = 2130772192;
-			
-			// aapt resource value: 0x7f010039
-			public const int contentInsetEnd = 2130772025;
-			
-			// aapt resource value: 0x7f01003d
-			public const int contentInsetEndWithActions = 2130772029;
-			
-			// aapt resource value: 0x7f01003a
-			public const int contentInsetLeft = 2130772026;
-			
-			// aapt resource value: 0x7f01003b
-			public const int contentInsetRight = 2130772027;
-			
-			// aapt resource value: 0x7f010038
-			public const int contentInsetStart = 2130772024;
-			
-			// aapt resource value: 0x7f01003c
-			public const int contentInsetStartWithNavigation = 2130772028;
-			
-			// aapt resource value: 0x7f01001d
-			public const int contentPadding = 2130771997;
-			
-			// aapt resource value: 0x7f010021
-			public const int contentPaddingBottom = 2130772001;
-			
-			// aapt resource value: 0x7f01001e
-			public const int contentPaddingLeft = 2130771998;
-			
-			// aapt resource value: 0x7f01001f
-			public const int contentPaddingRight = 2130771999;
-			
-			// aapt resource value: 0x7f010020
-			public const int contentPaddingTop = 2130772000;
-			
-			// aapt resource value: 0x7f010127
-			public const int contentScrim = 2130772263;
-			
-			// aapt resource value: 0x7f0100b0
-			public const int controlBackground = 2130772144;
-			
-			// aapt resource value: 0x7f010160
-			public const int counterEnabled = 2130772320;
-			
-			// aapt resource value: 0x7f010161
-			public const int counterMaxLength = 2130772321;
-			
-			// aapt resource value: 0x7f010163
-			public const int counterOverflowTextAppearance = 2130772323;
-			
-			// aapt resource value: 0x7f010162
-			public const int counterTextAppearance = 2130772322;
-			
-			// aapt resource value: 0x7f010031
-			public const int customNavigationLayout = 2130772017;
-			
-			// aapt resource value: 0x7f0100ed
-			public const int defaultQueryHint = 2130772205;
-			
-			// aapt resource value: 0x7f010080
-			public const int dialogPreferredPadding = 2130772096;
-			
-			// aapt resource value: 0x7f01007f
-			public const int dialogTheme = 2130772095;
-			
-			// aapt resource value: 0x7f010027
-			public const int displayOptions = 2130772007;
-			
-			// aapt resource value: 0x7f01002d
-			public const int divider = 2130772013;
-			
-			// aapt resource value: 0x7f01008d
-			public const int dividerHorizontal = 2130772109;
-			
-			// aapt resource value: 0x7f0100d9
-			public const int dividerPadding = 2130772185;
-			
-			// aapt resource value: 0x7f01008c
-			public const int dividerVertical = 2130772108;
-			
-			// aapt resource value: 0x7f0100d1
-			public const int drawableSize = 2130772177;
-			
-			// aapt resource value: 0x7f010022
-			public const int drawerArrowStyle = 2130772002;
-			
-			// aapt resource value: 0x7f01009f
-			public const int dropDownListViewStyle = 2130772127;
-			
-			// aapt resource value: 0x7f010083
-			public const int dropdownListPreferredItemHeight = 2130772099;
-			
-			// aapt resource value: 0x7f010094
-			public const int editTextBackground = 2130772116;
-			
-			// aapt resource value: 0x7f010093
-			public const int editTextColor = 2130772115;
-			
-			// aapt resource value: 0x7f0100bf
-			public const int editTextStyle = 2130772159;
-			
-			// aapt resource value: 0x7f01003e
-			public const int elevation = 2130772030;
-			
-			// aapt resource value: 0x7f01015e
-			public const int errorEnabled = 2130772318;
-			
-			// aapt resource value: 0x7f01015f
-			public const int errorTextAppearance = 2130772319;
-			
-			// aapt resource value: 0x7f010042
-			public const int expandActivityOverflowButtonDrawable = 2130772034;
-			
-			// aapt resource value: 0x7f010118
-			public const int expanded = 2130772248;
-			
-			// aapt resource value: 0x7f01012d
-			public const int expandedTitleGravity = 2130772269;
-			
-			// aapt resource value: 0x7f010120
-			public const int expandedTitleMargin = 2130772256;
-			
-			// aapt resource value: 0x7f010124
-			public const int expandedTitleMarginBottom = 2130772260;
-			
-			// aapt resource value: 0x7f010123
-			public const int expandedTitleMarginEnd = 2130772259;
-			
-			// aapt resource value: 0x7f010121
-			public const int expandedTitleMarginStart = 2130772257;
-			
-			// aapt resource value: 0x7f010122
-			public const int expandedTitleMarginTop = 2130772258;
-			
-			// aapt resource value: 0x7f010125
-			public const int expandedTitleTextAppearance = 2130772261;
-			
-			// aapt resource value: 0x7f010015
-			public const int externalRouteEnabledDrawable = 2130771989;
-			
-			// aapt resource value: 0x7f01013d
-			public const int fabSize = 2130772285;
-			
-			// aapt resource value: 0x7f010004
-			public const int fastScrollEnabled = 2130771972;
-			
-			// aapt resource value: 0x7f010007
-			public const int fastScrollHorizontalThumbDrawable = 2130771975;
-			
-			// aapt resource value: 0x7f010008
-			public const int fastScrollHorizontalTrackDrawable = 2130771976;
-			
-			// aapt resource value: 0x7f010005
-			public const int fastScrollVerticalThumbDrawable = 2130771973;
-			
-			// aapt resource value: 0x7f010006
-			public const int fastScrollVerticalTrackDrawable = 2130771974;
-			
-			// aapt resource value: 0x7f010171
-			public const int font = 2130772337;
-			
-			// aapt resource value: 0x7f010055
-			public const int fontFamily = 2130772053;
-			
-			// aapt resource value: 0x7f01016a
-			public const int fontProviderAuthority = 2130772330;
-			
-			// aapt resource value: 0x7f01016d
-			public const int fontProviderCerts = 2130772333;
-			
-			// aapt resource value: 0x7f01016e
-			public const int fontProviderFetchStrategy = 2130772334;
-			
-			// aapt resource value: 0x7f01016f
-			public const int fontProviderFetchTimeout = 2130772335;
-			
-			// aapt resource value: 0x7f01016b
-			public const int fontProviderPackage = 2130772331;
-			
-			// aapt resource value: 0x7f01016c
-			public const int fontProviderQuery = 2130772332;
-			
-			// aapt resource value: 0x7f010170
-			public const int fontStyle = 2130772336;
-			
-			// aapt resource value: 0x7f010172
-			public const int fontWeight = 2130772338;
-			
-			// aapt resource value: 0x7f010142
-			public const int foregroundInsidePadding = 2130772290;
-			
-			// aapt resource value: 0x7f0100d2
-			public const int gapBetweenBars = 2130772178;
-			
-			// aapt resource value: 0x7f0100ef
-			public const int goIcon = 2130772207;
-			
-			// aapt resource value: 0x7f010148
-			public const int headerLayout = 2130772296;
-			
-			// aapt resource value: 0x7f010023
-			public const int height = 2130772003;
-			
-			// aapt resource value: 0x7f010037
-			public const int hideOnContentScroll = 2130772023;
-			
-			// aapt resource value: 0x7f010164
-			public const int hintAnimationEnabled = 2130772324;
-			
-			// aapt resource value: 0x7f01015d
-			public const int hintEnabled = 2130772317;
-			
-			// aapt resource value: 0x7f01015c
-			public const int hintTextAppearance = 2130772316;
-			
-			// aapt resource value: 0x7f010085
-			public const int homeAsUpIndicator = 2130772101;
-			
-			// aapt resource value: 0x7f010032
-			public const int homeLayout = 2130772018;
-			
-			// aapt resource value: 0x7f01002b
-			public const int icon = 2130772011;
-			
-			// aapt resource value: 0x7f0100e2
-			public const int iconTint = 2130772194;
-			
-			// aapt resource value: 0x7f0100e3
-			public const int iconTintMode = 2130772195;
-			
-			// aapt resource value: 0x7f0100eb
-			public const int iconifiedByDefault = 2130772203;
-			
-			// aapt resource value: 0x7f010095
-			public const int imageButtonStyle = 2130772117;
-			
-			// aapt resource value: 0x7f010034
-			public const int indeterminateProgressStyle = 2130772020;
-			
-			// aapt resource value: 0x7f010041
-			public const int initialActivityCount = 2130772033;
-			
-			// aapt resource value: 0x7f010149
-			public const int insetForeground = 2130772297;
-			
-			// aapt resource value: 0x7f010024
-			public const int isLightTheme = 2130772004;
-			
-			// aapt resource value: 0x7f010146
-			public const int itemBackground = 2130772294;
-			
-			// aapt resource value: 0x7f010144
-			public const int itemIconTint = 2130772292;
-			
-			// aapt resource value: 0x7f010036
-			public const int itemPadding = 2130772022;
-			
-			// aapt resource value: 0x7f010147
-			public const int itemTextAppearance = 2130772295;
-			
-			// aapt resource value: 0x7f010145
-			public const int itemTextColor = 2130772293;
-			
-			// aapt resource value: 0x7f010131
-			public const int keylines = 2130772273;
-			
-			// aapt resource value: 0x7f0100ea
-			public const int layout = 2130772202;
+			// aapt resource value: 0x7f010001
+			public const int absoluteMaxValue = 2130771969;
 			
 			// aapt resource value: 0x7f010000
-			public const int layoutManager = 2130771968;
-			
-			// aapt resource value: 0x7f010134
-			public const int layout_anchor = 2130772276;
-			
-			// aapt resource value: 0x7f010136
-			public const int layout_anchorGravity = 2130772278;
-			
-			// aapt resource value: 0x7f010133
-			public const int layout_behavior = 2130772275;
-			
-			// aapt resource value: 0x7f01012f
-			public const int layout_collapseMode = 2130772271;
-			
-			// aapt resource value: 0x7f010130
-			public const int layout_collapseParallaxMultiplier = 2130772272;
-			
-			// aapt resource value: 0x7f010138
-			public const int layout_dodgeInsetEdges = 2130772280;
-			
-			// aapt resource value: 0x7f010137
-			public const int layout_insetEdge = 2130772279;
-			
-			// aapt resource value: 0x7f010135
-			public const int layout_keyline = 2130772277;
-			
-			// aapt resource value: 0x7f01011b
-			public const int layout_scrollFlags = 2130772251;
-			
-			// aapt resource value: 0x7f01011c
-			public const int layout_scrollInterpolator = 2130772252;
-			
-			// aapt resource value: 0x7f0100a7
-			public const int listChoiceBackgroundIndicator = 2130772135;
-			
-			// aapt resource value: 0x7f010081
-			public const int listDividerAlertDialog = 2130772097;
-			
-			// aapt resource value: 0x7f010047
-			public const int listItemLayout = 2130772039;
-			
-			// aapt resource value: 0x7f010044
-			public const int listLayout = 2130772036;
-			
-			// aapt resource value: 0x7f0100c7
-			public const int listMenuViewStyle = 2130772167;
-			
-			// aapt resource value: 0x7f0100a0
-			public const int listPopupWindowStyle = 2130772128;
-			
-			// aapt resource value: 0x7f01009a
-			public const int listPreferredItemHeight = 2130772122;
-			
-			// aapt resource value: 0x7f01009c
-			public const int listPreferredItemHeightLarge = 2130772124;
-			
-			// aapt resource value: 0x7f01009b
-			public const int listPreferredItemHeightSmall = 2130772123;
-			
-			// aapt resource value: 0x7f01009d
-			public const int listPreferredItemPaddingLeft = 2130772125;
-			
-			// aapt resource value: 0x7f01009e
-			public const int listPreferredItemPaddingRight = 2130772126;
-			
-			// aapt resource value: 0x7f01002c
-			public const int logo = 2130772012;
-			
-			// aapt resource value: 0x7f010110
-			public const int logoDescription = 2130772240;
-			
-			// aapt resource value: 0x7f01014b
-			public const int maxActionInlineWidth = 2130772299;
-			
-			// aapt resource value: 0x7f01010a
-			public const int maxButtonHeight = 2130772234;
-			
-			// aapt resource value: 0x7f0100d7
-			public const int measureWithLargestChild = 2130772183;
-			
-			// aapt resource value: 0x7f010009
-			public const int mediaRouteAudioTrackDrawable = 2130771977;
-			
-			// aapt resource value: 0x7f01000a
-			public const int mediaRouteButtonStyle = 2130771978;
-			
-			// aapt resource value: 0x7f010016
-			public const int mediaRouteButtonTint = 2130771990;
-			
-			// aapt resource value: 0x7f01000b
-			public const int mediaRouteCloseDrawable = 2130771979;
-			
-			// aapt resource value: 0x7f01000c
-			public const int mediaRouteControlPanelThemeOverlay = 2130771980;
-			
-			// aapt resource value: 0x7f01000d
-			public const int mediaRouteDefaultIconDrawable = 2130771981;
-			
-			// aapt resource value: 0x7f01000e
-			public const int mediaRoutePauseDrawable = 2130771982;
-			
-			// aapt resource value: 0x7f01000f
-			public const int mediaRoutePlayDrawable = 2130771983;
-			
-			// aapt resource value: 0x7f010010
-			public const int mediaRouteSpeakerGroupIconDrawable = 2130771984;
-			
-			// aapt resource value: 0x7f010011
-			public const int mediaRouteSpeakerIconDrawable = 2130771985;
-			
-			// aapt resource value: 0x7f010012
-			public const int mediaRouteStopDrawable = 2130771986;
-			
-			// aapt resource value: 0x7f010013
-			public const int mediaRouteTheme = 2130771987;
-			
-			// aapt resource value: 0x7f010014
-			public const int mediaRouteTvIconDrawable = 2130771988;
-			
-			// aapt resource value: 0x7f010143
-			public const int menu = 2130772291;
-			
-			// aapt resource value: 0x7f010045
-			public const int multiChoiceItemLayout = 2130772037;
-			
-			// aapt resource value: 0x7f01010f
-			public const int navigationContentDescription = 2130772239;
-			
-			// aapt resource value: 0x7f01010e
-			public const int navigationIcon = 2130772238;
-			
-			// aapt resource value: 0x7f010026
-			public const int navigationMode = 2130772006;
-			
-			// aapt resource value: 0x7f0100db
-			public const int numericModifiers = 2130772187;
-			
-			// aapt resource value: 0x7f0100e6
-			public const int overlapAnchor = 2130772198;
-			
-			// aapt resource value: 0x7f0100e8
-			public const int paddingBottomNoButtons = 2130772200;
-			
-			// aapt resource value: 0x7f010114
-			public const int paddingEnd = 2130772244;
-			
-			// aapt resource value: 0x7f010113
-			public const int paddingStart = 2130772243;
-			
-			// aapt resource value: 0x7f0100e9
-			public const int paddingTopNoTitle = 2130772201;
-			
-			// aapt resource value: 0x7f0100a4
-			public const int panelBackground = 2130772132;
-			
-			// aapt resource value: 0x7f0100a6
-			public const int panelMenuListTheme = 2130772134;
-			
-			// aapt resource value: 0x7f0100a5
-			public const int panelMenuListWidth = 2130772133;
-			
-			// aapt resource value: 0x7f010167
-			public const int passwordToggleContentDescription = 2130772327;
-			
-			// aapt resource value: 0x7f010166
-			public const int passwordToggleDrawable = 2130772326;
-			
-			// aapt resource value: 0x7f010165
-			public const int passwordToggleEnabled = 2130772325;
-			
-			// aapt resource value: 0x7f010168
-			public const int passwordToggleTint = 2130772328;
-			
-			// aapt resource value: 0x7f010169
-			public const int passwordToggleTintMode = 2130772329;
-			
-			// aapt resource value: 0x7f010091
-			public const int popupMenuStyle = 2130772113;
-			
-			// aapt resource value: 0x7f01003f
-			public const int popupTheme = 2130772031;
-			
-			// aapt resource value: 0x7f010092
-			public const int popupWindowStyle = 2130772114;
-			
-			// aapt resource value: 0x7f0100e4
-			public const int preserveIconSpacing = 2130772196;
-			
-			// aapt resource value: 0x7f01013e
-			public const int pressedTranslationZ = 2130772286;
-			
-			// aapt resource value: 0x7f010035
-			public const int progressBarPadding = 2130772021;
-			
-			// aapt resource value: 0x7f010033
-			public const int progressBarStyle = 2130772019;
-			
-			// aapt resource value: 0x7f0100f5
-			public const int queryBackground = 2130772213;
-			
-			// aapt resource value: 0x7f0100ec
-			public const int queryHint = 2130772204;
-			
-			// aapt resource value: 0x7f0100c0
-			public const int radioButtonStyle = 2130772160;
-			
-			// aapt resource value: 0x7f0100c1
-			public const int ratingBarStyle = 2130772161;
-			
-			// aapt resource value: 0x7f0100c2
-			public const int ratingBarStyleIndicator = 2130772162;
-			
-			// aapt resource value: 0x7f0100c3
-			public const int ratingBarStyleSmall = 2130772163;
-			
-			// aapt resource value: 0x7f010002
-			public const int reverseLayout = 2130771970;
-			
-			// aapt resource value: 0x7f01013c
-			public const int rippleColor = 2130772284;
-			
-			// aapt resource value: 0x7f01012b
-			public const int scrimAnimationDuration = 2130772267;
-			
-			// aapt resource value: 0x7f01012a
-			public const int scrimVisibleHeightTrigger = 2130772266;
-			
-			// aapt resource value: 0x7f0100f1
-			public const int searchHintIcon = 2130772209;
-			
-			// aapt resource value: 0x7f0100f0
-			public const int searchIcon = 2130772208;
-			
-			// aapt resource value: 0x7f010099
-			public const int searchViewStyle = 2130772121;
-			
-			// aapt resource value: 0x7f0100c4
-			public const int seekBarStyle = 2130772164;
-			
-			// aapt resource value: 0x7f010089
-			public const int selectableItemBackground = 2130772105;
-			
-			// aapt resource value: 0x7f01008a
-			public const int selectableItemBackgroundBorderless = 2130772106;
-			
-			// aapt resource value: 0x7f0100dc
-			public const int showAsAction = 2130772188;
-			
-			// aapt resource value: 0x7f0100d8
-			public const int showDividers = 2130772184;
-			
-			// aapt resource value: 0x7f010101
-			public const int showText = 2130772225;
-			
-			// aapt resource value: 0x7f010048
-			public const int showTitle = 2130772040;
-			
-			// aapt resource value: 0x7f010046
-			public const int singleChoiceItemLayout = 2130772038;
-			
-			// aapt resource value: 0x7f010001
-			public const int spanCount = 2130771969;
-			
-			// aapt resource value: 0x7f0100d0
-			public const int spinBars = 2130772176;
+			public const int absoluteMinValue = 2130771968;
 			
 			// aapt resource value: 0x7f010084
-			public const int spinnerDropDownItemStyle = 2130772100;
+			public const int actionBarDivider = 2130772100;
 			
-			// aapt resource value: 0x7f0100c5
-			public const int spinnerStyle = 2130772165;
-			
-			// aapt resource value: 0x7f010100
-			public const int splitTrack = 2130772224;
-			
-			// aapt resource value: 0x7f010049
-			public const int srcCompat = 2130772041;
-			
-			// aapt resource value: 0x7f010003
-			public const int stackFromEnd = 2130771971;
-			
-			// aapt resource value: 0x7f0100e7
-			public const int state_above_anchor = 2130772199;
-			
-			// aapt resource value: 0x7f010119
-			public const int state_collapsed = 2130772249;
-			
-			// aapt resource value: 0x7f01011a
-			public const int state_collapsible = 2130772250;
-			
-			// aapt resource value: 0x7f010132
-			public const int statusBarBackground = 2130772274;
-			
-			// aapt resource value: 0x7f010128
-			public const int statusBarScrim = 2130772264;
-			
-			// aapt resource value: 0x7f0100e5
-			public const int subMenuArrow = 2130772197;
-			
-			// aapt resource value: 0x7f0100f6
-			public const int submitBackground = 2130772214;
-			
-			// aapt resource value: 0x7f010028
-			public const int subtitle = 2130772008;
-			
-			// aapt resource value: 0x7f010103
-			public const int subtitleTextAppearance = 2130772227;
-			
-			// aapt resource value: 0x7f010112
-			public const int subtitleTextColor = 2130772242;
-			
-			// aapt resource value: 0x7f01002a
-			public const int subtitleTextStyle = 2130772010;
-			
-			// aapt resource value: 0x7f0100f4
-			public const int suggestionRowLayout = 2130772212;
-			
-			// aapt resource value: 0x7f0100fe
-			public const int switchMinWidth = 2130772222;
-			
-			// aapt resource value: 0x7f0100ff
-			public const int switchPadding = 2130772223;
-			
-			// aapt resource value: 0x7f0100c6
-			public const int switchStyle = 2130772166;
-			
-			// aapt resource value: 0x7f0100fd
-			public const int switchTextAppearance = 2130772221;
-			
-			// aapt resource value: 0x7f01014f
-			public const int tabBackground = 2130772303;
-			
-			// aapt resource value: 0x7f01014e
-			public const int tabContentStart = 2130772302;
-			
-			// aapt resource value: 0x7f010151
-			public const int tabGravity = 2130772305;
-			
-			// aapt resource value: 0x7f01014c
-			public const int tabIndicatorColor = 2130772300;
-			
-			// aapt resource value: 0x7f01014d
-			public const int tabIndicatorHeight = 2130772301;
-			
-			// aapt resource value: 0x7f010153
-			public const int tabMaxWidth = 2130772307;
-			
-			// aapt resource value: 0x7f010152
-			public const int tabMinWidth = 2130772306;
-			
-			// aapt resource value: 0x7f010150
-			public const int tabMode = 2130772304;
-			
-			// aapt resource value: 0x7f01015b
-			public const int tabPadding = 2130772315;
-			
-			// aapt resource value: 0x7f01015a
-			public const int tabPaddingBottom = 2130772314;
-			
-			// aapt resource value: 0x7f010159
-			public const int tabPaddingEnd = 2130772313;
-			
-			// aapt resource value: 0x7f010157
-			public const int tabPaddingStart = 2130772311;
-			
-			// aapt resource value: 0x7f010158
-			public const int tabPaddingTop = 2130772312;
-			
-			// aapt resource value: 0x7f010156
-			public const int tabSelectedTextColor = 2130772310;
-			
-			// aapt resource value: 0x7f010154
-			public const int tabTextAppearance = 2130772308;
-			
-			// aapt resource value: 0x7f010155
-			public const int tabTextColor = 2130772309;
-			
-			// aapt resource value: 0x7f01004f
-			public const int textAllCaps = 2130772047;
-			
-			// aapt resource value: 0x7f01007c
-			public const int textAppearanceLargePopupMenu = 2130772092;
-			
-			// aapt resource value: 0x7f0100a1
-			public const int textAppearanceListItem = 2130772129;
-			
-			// aapt resource value: 0x7f0100a2
-			public const int textAppearanceListItemSecondary = 2130772130;
-			
-			// aapt resource value: 0x7f0100a3
-			public const int textAppearanceListItemSmall = 2130772131;
+			// aapt resource value: 0x7f010085
+			public const int actionBarItemBackground = 2130772101;
 			
 			// aapt resource value: 0x7f01007e
-			public const int textAppearancePopupMenuHeader = 2130772094;
+			public const int actionBarPopupTheme = 2130772094;
 			
-			// aapt resource value: 0x7f010097
-			public const int textAppearanceSearchResultSubtitle = 2130772119;
+			// aapt resource value: 0x7f010083
+			public const int actionBarSize = 2130772099;
 			
-			// aapt resource value: 0x7f010096
-			public const int textAppearanceSearchResultTitle = 2130772118;
+			// aapt resource value: 0x7f010080
+			public const int actionBarSplitStyle = 2130772096;
 			
-			// aapt resource value: 0x7f01007d
-			public const int textAppearanceSmallPopupMenu = 2130772093;
+			// aapt resource value: 0x7f01007f
+			public const int actionBarStyle = 2130772095;
 			
-			// aapt resource value: 0x7f0100b6
-			public const int textColorAlertDialogListItem = 2130772150;
+			// aapt resource value: 0x7f01007a
+			public const int actionBarTabBarStyle = 2130772090;
 			
-			// aapt resource value: 0x7f01013b
-			public const int textColorError = 2130772283;
+			// aapt resource value: 0x7f010079
+			public const int actionBarTabStyle = 2130772089;
 			
-			// aapt resource value: 0x7f010098
-			public const int textColorSearchUrl = 2130772120;
+			// aapt resource value: 0x7f01007b
+			public const int actionBarTabTextStyle = 2130772091;
 			
-			// aapt resource value: 0x7f010115
-			public const int theme = 2130772245;
+			// aapt resource value: 0x7f010081
+			public const int actionBarTheme = 2130772097;
 			
-			// aapt resource value: 0x7f0100d6
-			public const int thickness = 2130772182;
+			// aapt resource value: 0x7f010082
+			public const int actionBarWidgetTheme = 2130772098;
 			
-			// aapt resource value: 0x7f0100fc
-			public const int thumbTextPadding = 2130772220;
+			// aapt resource value: 0x7f01009f
+			public const int actionButtonStyle = 2130772127;
 			
-			// aapt resource value: 0x7f0100f7
-			public const int thumbTint = 2130772215;
+			// aapt resource value: 0x7f01009b
+			public const int actionDropDownStyle = 2130772123;
 			
-			// aapt resource value: 0x7f0100f8
-			public const int thumbTintMode = 2130772216;
+			// aapt resource value: 0x7f0100f6
+			public const int actionLayout = 2130772214;
 			
-			// aapt resource value: 0x7f01004c
-			public const int tickMark = 2130772044;
+			// aapt resource value: 0x7f010086
+			public const int actionMenuTextAppearance = 2130772102;
 			
-			// aapt resource value: 0x7f01004d
-			public const int tickMarkTint = 2130772045;
+			// aapt resource value: 0x7f010087
+			public const int actionMenuTextColor = 2130772103;
 			
-			// aapt resource value: 0x7f01004e
-			public const int tickMarkTintMode = 2130772046;
+			// aapt resource value: 0x7f01008a
+			public const int actionModeBackground = 2130772106;
 			
-			// aapt resource value: 0x7f01004a
-			public const int tint = 2130772042;
+			// aapt resource value: 0x7f010089
+			public const int actionModeCloseButtonStyle = 2130772105;
 			
-			// aapt resource value: 0x7f01004b
-			public const int tintMode = 2130772043;
+			// aapt resource value: 0x7f01008c
+			public const int actionModeCloseDrawable = 2130772108;
 			
-			// aapt resource value: 0x7f010025
-			public const int title = 2130772005;
+			// aapt resource value: 0x7f01008e
+			public const int actionModeCopyDrawable = 2130772110;
 			
-			// aapt resource value: 0x7f01012e
-			public const int titleEnabled = 2130772270;
+			// aapt resource value: 0x7f01008d
+			public const int actionModeCutDrawable = 2130772109;
 			
-			// aapt resource value: 0x7f010104
-			public const int titleMargin = 2130772228;
-			
-			// aapt resource value: 0x7f010108
-			public const int titleMarginBottom = 2130772232;
-			
-			// aapt resource value: 0x7f010106
-			public const int titleMarginEnd = 2130772230;
-			
-			// aapt resource value: 0x7f010105
-			public const int titleMarginStart = 2130772229;
-			
-			// aapt resource value: 0x7f010107
-			public const int titleMarginTop = 2130772231;
-			
-			// aapt resource value: 0x7f010109
-			public const int titleMargins = 2130772233;
-			
-			// aapt resource value: 0x7f010102
-			public const int titleTextAppearance = 2130772226;
-			
-			// aapt resource value: 0x7f010111
-			public const int titleTextColor = 2130772241;
-			
-			// aapt resource value: 0x7f010029
-			public const int titleTextStyle = 2130772009;
-			
-			// aapt resource value: 0x7f010129
-			public const int toolbarId = 2130772265;
-			
-			// aapt resource value: 0x7f010090
-			public const int toolbarNavigationButtonStyle = 2130772112;
+			// aapt resource value: 0x7f010092
+			public const int actionModeFindDrawable = 2130772114;
 			
 			// aapt resource value: 0x7f01008f
-			public const int toolbarStyle = 2130772111;
+			public const int actionModePasteDrawable = 2130772111;
 			
-			// aapt resource value: 0x7f0100c9
-			public const int tooltipForegroundColor = 2130772169;
+			// aapt resource value: 0x7f010094
+			public const int actionModePopupWindowStyle = 2130772116;
 			
-			// aapt resource value: 0x7f0100c8
-			public const int tooltipFrameBackground = 2130772168;
+			// aapt resource value: 0x7f010090
+			public const int actionModeSelectAllDrawable = 2130772112;
 			
-			// aapt resource value: 0x7f0100e1
-			public const int tooltipText = 2130772193;
+			// aapt resource value: 0x7f010091
+			public const int actionModeShareDrawable = 2130772113;
 			
-			// aapt resource value: 0x7f0100f9
-			public const int track = 2130772217;
+			// aapt resource value: 0x7f01008b
+			public const int actionModeSplitBackground = 2130772107;
 			
-			// aapt resource value: 0x7f0100fa
-			public const int trackTint = 2130772218;
+			// aapt resource value: 0x7f010088
+			public const int actionModeStyle = 2130772104;
 			
-			// aapt resource value: 0x7f0100fb
-			public const int trackTintMode = 2130772219;
+			// aapt resource value: 0x7f010093
+			public const int actionModeWebSearchDrawable = 2130772115;
 			
-			// aapt resource value: 0x7f010140
-			public const int useCompatPadding = 2130772288;
+			// aapt resource value: 0x7f01007c
+			public const int actionOverflowButtonStyle = 2130772092;
 			
-			// aapt resource value: 0x7f0100f2
-			public const int voiceIcon = 2130772210;
+			// aapt resource value: 0x7f01007d
+			public const int actionOverflowMenuStyle = 2130772093;
 			
-			// aapt resource value: 0x7f010056
-			public const int windowActionBar = 2130772054;
+			// aapt resource value: 0x7f0100f8
+			public const int actionProviderClass = 2130772216;
 			
-			// aapt resource value: 0x7f010058
-			public const int windowActionBarOverlay = 2130772056;
+			// aapt resource value: 0x7f0100f7
+			public const int actionViewClass = 2130772215;
 			
-			// aapt resource value: 0x7f010059
-			public const int windowActionModeOverlay = 2130772057;
+			// aapt resource value: 0x7f010014
+			public const int activateOnDefaultValues = 2130771988;
 			
-			// aapt resource value: 0x7f01005d
-			public const int windowFixedHeightMajor = 2130772061;
+			// aapt resource value: 0x7f01000a
+			public const int activeColor = 2130771978;
 			
-			// aapt resource value: 0x7f01005b
-			public const int windowFixedHeightMinor = 2130772059;
+			// aapt resource value: 0x7f0100a7
+			public const int activityChooserViewStyle = 2130772135;
 			
-			// aapt resource value: 0x7f01005a
-			public const int windowFixedWidthMajor = 2130772058;
+			// aapt resource value: 0x7f0100cc
+			public const int alertDialogButtonGroupStyle = 2130772172;
+			
+			// aapt resource value: 0x7f0100cd
+			public const int alertDialogCenterButtons = 2130772173;
+			
+			// aapt resource value: 0x7f0100cb
+			public const int alertDialogStyle = 2130772171;
+			
+			// aapt resource value: 0x7f0100ce
+			public const int alertDialogTheme = 2130772174;
+			
+			// aapt resource value: 0x7f0100e4
+			public const int allowStacking = 2130772196;
+			
+			// aapt resource value: 0x7f0100e5
+			public const int alpha = 2130772197;
+			
+			// aapt resource value: 0x7f0100f3
+			public const int alphabeticModifiers = 2130772211;
+			
+			// aapt resource value: 0x7f010005
+			public const int alwaysActive = 2130771973;
+			
+			// aapt resource value: 0x7f0100ec
+			public const int arrowHeadLength = 2130772204;
+			
+			// aapt resource value: 0x7f0100ed
+			public const int arrowShaftLength = 2130772205;
+			
+			// aapt resource value: 0x7f0100d3
+			public const int autoCompleteTextViewStyle = 2130772179;
+			
+			// aapt resource value: 0x7f01006d
+			public const int autoSizeMaxTextSize = 2130772077;
+			
+			// aapt resource value: 0x7f01006c
+			public const int autoSizeMinTextSize = 2130772076;
+			
+			// aapt resource value: 0x7f01006b
+			public const int autoSizePresetSizes = 2130772075;
+			
+			// aapt resource value: 0x7f01006a
+			public const int autoSizeStepGranularity = 2130772074;
+			
+			// aapt resource value: 0x7f010069
+			public const int autoSizeTextType = 2130772073;
+			
+			// aapt resource value: 0x7f010047
+			public const int background = 2130772039;
+			
+			// aapt resource value: 0x7f010049
+			public const int backgroundSplit = 2130772041;
+			
+			// aapt resource value: 0x7f010048
+			public const int backgroundStacked = 2130772040;
+			
+			// aapt resource value: 0x7f01012f
+			public const int backgroundTint = 2130772271;
+			
+			// aapt resource value: 0x7f010130
+			public const int backgroundTintMode = 2130772272;
+			
+			// aapt resource value: 0x7f010008
+			public const int barHeight = 2130771976;
+			
+			// aapt resource value: 0x7f0100ee
+			public const int barLength = 2130772206;
+			
+			// aapt resource value: 0x7f01015a
+			public const int behavior_autoHide = 2130772314;
+			
+			// aapt resource value: 0x7f010137
+			public const int behavior_hideable = 2130772279;
+			
+			// aapt resource value: 0x7f010163
+			public const int behavior_overlapTop = 2130772323;
+			
+			// aapt resource value: 0x7f010136
+			public const int behavior_peekHeight = 2130772278;
+			
+			// aapt resource value: 0x7f010138
+			public const int behavior_skipCollapsed = 2130772280;
+			
+			// aapt resource value: 0x7f010158
+			public const int borderWidth = 2130772312;
+			
+			// aapt resource value: 0x7f0100a4
+			public const int borderlessButtonStyle = 2130772132;
+			
+			// aapt resource value: 0x7f010152
+			public const int bottomSheetDialogTheme = 2130772306;
+			
+			// aapt resource value: 0x7f010153
+			public const int bottomSheetStyle = 2130772307;
+			
+			// aapt resource value: 0x7f0100a1
+			public const int buttonBarButtonStyle = 2130772129;
+			
+			// aapt resource value: 0x7f0100d1
+			public const int buttonBarNegativeButtonStyle = 2130772177;
+			
+			// aapt resource value: 0x7f0100d2
+			public const int buttonBarNeutralButtonStyle = 2130772178;
+			
+			// aapt resource value: 0x7f0100d0
+			public const int buttonBarPositiveButtonStyle = 2130772176;
+			
+			// aapt resource value: 0x7f0100a0
+			public const int buttonBarStyle = 2130772128;
+			
+			// aapt resource value: 0x7f010124
+			public const int buttonGravity = 2130772260;
 			
 			// aapt resource value: 0x7f01005c
-			public const int windowFixedWidthMinor = 2130772060;
+			public const int buttonPanelSideLayout = 2130772060;
 			
-			// aapt resource value: 0x7f01005e
-			public const int windowMinWidthMajor = 2130772062;
+			// aapt resource value: 0x7f0100d4
+			public const int buttonStyle = 2130772180;
 			
-			// aapt resource value: 0x7f01005f
-			public const int windowMinWidthMinor = 2130772063;
+			// aapt resource value: 0x7f0100d5
+			public const int buttonStyleSmall = 2130772181;
+			
+			// aapt resource value: 0x7f0100e6
+			public const int buttonTint = 2130772198;
+			
+			// aapt resource value: 0x7f0100e7
+			public const int buttonTintMode = 2130772199;
+			
+			// aapt resource value: 0x7f010030
+			public const int cardBackgroundColor = 2130772016;
+			
+			// aapt resource value: 0x7f010031
+			public const int cardCornerRadius = 2130772017;
+			
+			// aapt resource value: 0x7f010032
+			public const int cardElevation = 2130772018;
+			
+			// aapt resource value: 0x7f010033
+			public const int cardMaxElevation = 2130772019;
+			
+			// aapt resource value: 0x7f010035
+			public const int cardPreventCornerOverlap = 2130772021;
+			
+			// aapt resource value: 0x7f010034
+			public const int cardUseCompatPadding = 2130772020;
+			
+			// aapt resource value: 0x7f0100d6
+			public const int checkboxStyle = 2130772182;
+			
+			// aapt resource value: 0x7f0100d7
+			public const int checkedTextViewStyle = 2130772183;
+			
+			// aapt resource value: 0x7f010107
+			public const int closeIcon = 2130772231;
+			
+			// aapt resource value: 0x7f010059
+			public const int closeItemLayout = 2130772057;
+			
+			// aapt resource value: 0x7f010126
+			public const int collapseContentDescription = 2130772262;
+			
+			// aapt resource value: 0x7f010125
+			public const int collapseIcon = 2130772261;
+			
+			// aapt resource value: 0x7f010145
+			public const int collapsedTitleGravity = 2130772293;
+			
+			// aapt resource value: 0x7f01013f
+			public const int collapsedTitleTextAppearance = 2130772287;
+			
+			// aapt resource value: 0x7f0100e8
+			public const int color = 2130772200;
+			
+			// aapt resource value: 0x7f0100c3
+			public const int colorAccent = 2130772163;
+			
+			// aapt resource value: 0x7f0100ca
+			public const int colorBackgroundFloating = 2130772170;
+			
+			// aapt resource value: 0x7f0100c7
+			public const int colorButtonNormal = 2130772167;
+			
+			// aapt resource value: 0x7f0100c5
+			public const int colorControlActivated = 2130772165;
+			
+			// aapt resource value: 0x7f0100c6
+			public const int colorControlHighlight = 2130772166;
+			
+			// aapt resource value: 0x7f0100c4
+			public const int colorControlNormal = 2130772164;
+			
+			// aapt resource value: 0x7f0100e3
+			public const int colorError = 2130772195;
+			
+			// aapt resource value: 0x7f0100c1
+			public const int colorPrimary = 2130772161;
+			
+			// aapt resource value: 0x7f0100c2
+			public const int colorPrimaryDark = 2130772162;
+			
+			// aapt resource value: 0x7f0100c8
+			public const int colorSwitchThumbNormal = 2130772168;
+			
+			// aapt resource value: 0x7f01010c
+			public const int commitIcon = 2130772236;
+			
+			// aapt resource value: 0x7f0100f9
+			public const int contentDescription = 2130772217;
+			
+			// aapt resource value: 0x7f010052
+			public const int contentInsetEnd = 2130772050;
+			
+			// aapt resource value: 0x7f010056
+			public const int contentInsetEndWithActions = 2130772054;
+			
+			// aapt resource value: 0x7f010053
+			public const int contentInsetLeft = 2130772051;
+			
+			// aapt resource value: 0x7f010054
+			public const int contentInsetRight = 2130772052;
+			
+			// aapt resource value: 0x7f010051
+			public const int contentInsetStart = 2130772049;
+			
+			// aapt resource value: 0x7f010055
+			public const int contentInsetStartWithNavigation = 2130772053;
+			
+			// aapt resource value: 0x7f010036
+			public const int contentPadding = 2130772022;
+			
+			// aapt resource value: 0x7f01003a
+			public const int contentPaddingBottom = 2130772026;
+			
+			// aapt resource value: 0x7f010037
+			public const int contentPaddingLeft = 2130772023;
+			
+			// aapt resource value: 0x7f010038
+			public const int contentPaddingRight = 2130772024;
+			
+			// aapt resource value: 0x7f010039
+			public const int contentPaddingTop = 2130772025;
+			
+			// aapt resource value: 0x7f010140
+			public const int contentScrim = 2130772288;
+			
+			// aapt resource value: 0x7f0100c9
+			public const int controlBackground = 2130772169;
+			
+			// aapt resource value: 0x7f010179
+			public const int counterEnabled = 2130772345;
+			
+			// aapt resource value: 0x7f01017a
+			public const int counterMaxLength = 2130772346;
+			
+			// aapt resource value: 0x7f01017c
+			public const int counterOverflowTextAppearance = 2130772348;
+			
+			// aapt resource value: 0x7f01017b
+			public const int counterTextAppearance = 2130772347;
+			
+			// aapt resource value: 0x7f01004a
+			public const int customNavigationLayout = 2130772042;
+			
+			// aapt resource value: 0x7f010009
+			public const int defaultColor = 2130771977;
+			
+			// aapt resource value: 0x7f010106
+			public const int defaultQueryHint = 2130772230;
+			
+			// aapt resource value: 0x7f010099
+			public const int dialogPreferredPadding = 2130772121;
+			
+			// aapt resource value: 0x7f010098
+			public const int dialogTheme = 2130772120;
+			
+			// aapt resource value: 0x7f010040
+			public const int displayOptions = 2130772032;
+			
+			// aapt resource value: 0x7f010046
+			public const int divider = 2130772038;
+			
+			// aapt resource value: 0x7f0100a6
+			public const int dividerHorizontal = 2130772134;
+			
+			// aapt resource value: 0x7f0100f2
+			public const int dividerPadding = 2130772210;
+			
+			// aapt resource value: 0x7f0100a5
+			public const int dividerVertical = 2130772133;
+			
+			// aapt resource value: 0x7f0100ea
+			public const int drawableSize = 2130772202;
+			
+			// aapt resource value: 0x7f01003b
+			public const int drawerArrowStyle = 2130772027;
+			
+			// aapt resource value: 0x7f0100b8
+			public const int dropDownListViewStyle = 2130772152;
+			
+			// aapt resource value: 0x7f01009c
+			public const int dropdownListPreferredItemHeight = 2130772124;
+			
+			// aapt resource value: 0x7f0100ad
+			public const int editTextBackground = 2130772141;
+			
+			// aapt resource value: 0x7f0100ac
+			public const int editTextColor = 2130772140;
+			
+			// aapt resource value: 0x7f0100d8
+			public const int editTextStyle = 2130772184;
 			
 			// aapt resource value: 0x7f010057
-			public const int windowNoTitle = 2130772055;
+			public const int elevation = 2130772055;
+			
+			// aapt resource value: 0x7f010177
+			public const int errorEnabled = 2130772343;
+			
+			// aapt resource value: 0x7f010178
+			public const int errorTextAppearance = 2130772344;
+			
+			// aapt resource value: 0x7f01005b
+			public const int expandActivityOverflowButtonDrawable = 2130772059;
+			
+			// aapt resource value: 0x7f010131
+			public const int expanded = 2130772273;
+			
+			// aapt resource value: 0x7f010146
+			public const int expandedTitleGravity = 2130772294;
+			
+			// aapt resource value: 0x7f010139
+			public const int expandedTitleMargin = 2130772281;
+			
+			// aapt resource value: 0x7f01013d
+			public const int expandedTitleMarginBottom = 2130772285;
+			
+			// aapt resource value: 0x7f01013c
+			public const int expandedTitleMarginEnd = 2130772284;
+			
+			// aapt resource value: 0x7f01013a
+			public const int expandedTitleMarginStart = 2130772282;
+			
+			// aapt resource value: 0x7f01013b
+			public const int expandedTitleMarginTop = 2130772283;
+			
+			// aapt resource value: 0x7f01013e
+			public const int expandedTitleTextAppearance = 2130772286;
+			
+			// aapt resource value: 0x7f01002e
+			public const int externalRouteEnabledDrawable = 2130772014;
+			
+			// aapt resource value: 0x7f010156
+			public const int fabSize = 2130772310;
+			
+			// aapt resource value: 0x7f01001d
+			public const int fastScrollEnabled = 2130771997;
+			
+			// aapt resource value: 0x7f010020
+			public const int fastScrollHorizontalThumbDrawable = 2130772000;
+			
+			// aapt resource value: 0x7f010021
+			public const int fastScrollHorizontalTrackDrawable = 2130772001;
+			
+			// aapt resource value: 0x7f01001e
+			public const int fastScrollVerticalThumbDrawable = 2130771998;
+			
+			// aapt resource value: 0x7f01001f
+			public const int fastScrollVerticalTrackDrawable = 2130771999;
+			
+			// aapt resource value: 0x7f01018a
+			public const int font = 2130772362;
+			
+			// aapt resource value: 0x7f01006e
+			public const int fontFamily = 2130772078;
+			
+			// aapt resource value: 0x7f010183
+			public const int fontProviderAuthority = 2130772355;
+			
+			// aapt resource value: 0x7f010186
+			public const int fontProviderCerts = 2130772358;
+			
+			// aapt resource value: 0x7f010187
+			public const int fontProviderFetchStrategy = 2130772359;
+			
+			// aapt resource value: 0x7f010188
+			public const int fontProviderFetchTimeout = 2130772360;
+			
+			// aapt resource value: 0x7f010184
+			public const int fontProviderPackage = 2130772356;
+			
+			// aapt resource value: 0x7f010185
+			public const int fontProviderQuery = 2130772357;
+			
+			// aapt resource value: 0x7f010189
+			public const int fontStyle = 2130772361;
+			
+			// aapt resource value: 0x7f01018b
+			public const int fontWeight = 2130772363;
+			
+			// aapt resource value: 0x7f01015b
+			public const int foregroundInsidePadding = 2130772315;
+			
+			// aapt resource value: 0x7f0100eb
+			public const int gapBetweenBars = 2130772203;
+			
+			// aapt resource value: 0x7f010108
+			public const int goIcon = 2130772232;
+			
+			// aapt resource value: 0x7f010161
+			public const int headerLayout = 2130772321;
+			
+			// aapt resource value: 0x7f01003c
+			public const int height = 2130772028;
+			
+			// aapt resource value: 0x7f010050
+			public const int hideOnContentScroll = 2130772048;
+			
+			// aapt resource value: 0x7f01017d
+			public const int hintAnimationEnabled = 2130772349;
+			
+			// aapt resource value: 0x7f010176
+			public const int hintEnabled = 2130772342;
+			
+			// aapt resource value: 0x7f010175
+			public const int hintTextAppearance = 2130772341;
+			
+			// aapt resource value: 0x7f01009e
+			public const int homeAsUpIndicator = 2130772126;
+			
+			// aapt resource value: 0x7f01004b
+			public const int homeLayout = 2130772043;
+			
+			// aapt resource value: 0x7f010044
+			public const int icon = 2130772036;
+			
+			// aapt resource value: 0x7f0100fb
+			public const int iconTint = 2130772219;
+			
+			// aapt resource value: 0x7f0100fc
+			public const int iconTintMode = 2130772220;
+			
+			// aapt resource value: 0x7f010104
+			public const int iconifiedByDefault = 2130772228;
+			
+			// aapt resource value: 0x7f0100ae
+			public const int imageButtonStyle = 2130772142;
+			
+			// aapt resource value: 0x7f01004d
+			public const int indeterminateProgressStyle = 2130772045;
+			
+			// aapt resource value: 0x7f01005a
+			public const int initialActivityCount = 2130772058;
+			
+			// aapt resource value: 0x7f010162
+			public const int insetForeground = 2130772322;
+			
+			// aapt resource value: 0x7f010007
+			public const int internalPadding = 2130771975;
+			
+			// aapt resource value: 0x7f01003d
+			public const int isLightTheme = 2130772029;
+			
+			// aapt resource value: 0x7f01015f
+			public const int itemBackground = 2130772319;
+			
+			// aapt resource value: 0x7f01015d
+			public const int itemIconTint = 2130772317;
+			
+			// aapt resource value: 0x7f01004f
+			public const int itemPadding = 2130772047;
+			
+			// aapt resource value: 0x7f010160
+			public const int itemTextAppearance = 2130772320;
+			
+			// aapt resource value: 0x7f01015e
+			public const int itemTextColor = 2130772318;
+			
+			// aapt resource value: 0x7f01014a
+			public const int keylines = 2130772298;
+			
+			// aapt resource value: 0x7f010103
+			public const int layout = 2130772227;
+			
+			// aapt resource value: 0x7f010019
+			public const int layoutManager = 2130771993;
+			
+			// aapt resource value: 0x7f01014d
+			public const int layout_anchor = 2130772301;
+			
+			// aapt resource value: 0x7f01014f
+			public const int layout_anchorGravity = 2130772303;
+			
+			// aapt resource value: 0x7f01014c
+			public const int layout_behavior = 2130772300;
+			
+			// aapt resource value: 0x7f010148
+			public const int layout_collapseMode = 2130772296;
+			
+			// aapt resource value: 0x7f010149
+			public const int layout_collapseParallaxMultiplier = 2130772297;
+			
+			// aapt resource value: 0x7f010151
+			public const int layout_dodgeInsetEdges = 2130772305;
+			
+			// aapt resource value: 0x7f010150
+			public const int layout_insetEdge = 2130772304;
+			
+			// aapt resource value: 0x7f01014e
+			public const int layout_keyline = 2130772302;
+			
+			// aapt resource value: 0x7f010134
+			public const int layout_scrollFlags = 2130772276;
+			
+			// aapt resource value: 0x7f010135
+			public const int layout_scrollInterpolator = 2130772277;
+			
+			// aapt resource value: 0x7f0100c0
+			public const int listChoiceBackgroundIndicator = 2130772160;
+			
+			// aapt resource value: 0x7f01009a
+			public const int listDividerAlertDialog = 2130772122;
+			
+			// aapt resource value: 0x7f010060
+			public const int listItemLayout = 2130772064;
+			
+			// aapt resource value: 0x7f01005d
+			public const int listLayout = 2130772061;
+			
+			// aapt resource value: 0x7f0100e0
+			public const int listMenuViewStyle = 2130772192;
+			
+			// aapt resource value: 0x7f0100b9
+			public const int listPopupWindowStyle = 2130772153;
+			
+			// aapt resource value: 0x7f0100b3
+			public const int listPreferredItemHeight = 2130772147;
+			
+			// aapt resource value: 0x7f0100b5
+			public const int listPreferredItemHeightLarge = 2130772149;
+			
+			// aapt resource value: 0x7f0100b4
+			public const int listPreferredItemHeightSmall = 2130772148;
+			
+			// aapt resource value: 0x7f0100b6
+			public const int listPreferredItemPaddingLeft = 2130772150;
+			
+			// aapt resource value: 0x7f0100b7
+			public const int listPreferredItemPaddingRight = 2130772151;
+			
+			// aapt resource value: 0x7f010045
+			public const int logo = 2130772037;
+			
+			// aapt resource value: 0x7f010129
+			public const int logoDescription = 2130772265;
+			
+			// aapt resource value: 0x7f010018
+			public const int materialUI = 2130771992;
+			
+			// aapt resource value: 0x7f010164
+			public const int maxActionInlineWidth = 2130772324;
+			
+			// aapt resource value: 0x7f010123
+			public const int maxButtonHeight = 2130772259;
+			
+			// aapt resource value: 0x7f010003
+			public const int maxThumbHidden = 2130771971;
+			
+			// aapt resource value: 0x7f0100f0
+			public const int measureWithLargestChild = 2130772208;
+			
+			// aapt resource value: 0x7f010022
+			public const int mediaRouteAudioTrackDrawable = 2130772002;
+			
+			// aapt resource value: 0x7f010023
+			public const int mediaRouteButtonStyle = 2130772003;
+			
+			// aapt resource value: 0x7f01002f
+			public const int mediaRouteButtonTint = 2130772015;
+			
+			// aapt resource value: 0x7f010024
+			public const int mediaRouteCloseDrawable = 2130772004;
+			
+			// aapt resource value: 0x7f010025
+			public const int mediaRouteControlPanelThemeOverlay = 2130772005;
+			
+			// aapt resource value: 0x7f010026
+			public const int mediaRouteDefaultIconDrawable = 2130772006;
+			
+			// aapt resource value: 0x7f010027
+			public const int mediaRoutePauseDrawable = 2130772007;
+			
+			// aapt resource value: 0x7f010028
+			public const int mediaRoutePlayDrawable = 2130772008;
+			
+			// aapt resource value: 0x7f010029
+			public const int mediaRouteSpeakerGroupIconDrawable = 2130772009;
+			
+			// aapt resource value: 0x7f01002a
+			public const int mediaRouteSpeakerIconDrawable = 2130772010;
+			
+			// aapt resource value: 0x7f01002b
+			public const int mediaRouteStopDrawable = 2130772011;
+			
+			// aapt resource value: 0x7f01002c
+			public const int mediaRouteTheme = 2130772012;
+			
+			// aapt resource value: 0x7f01002d
+			public const int mediaRouteTvIconDrawable = 2130772013;
+			
+			// aapt resource value: 0x7f01015c
+			public const int menu = 2130772316;
+			
+			// aapt resource value: 0x7f010002
+			public const int minThumbHidden = 2130771970;
+			
+			// aapt resource value: 0x7f01005e
+			public const int multiChoiceItemLayout = 2130772062;
+			
+			// aapt resource value: 0x7f010128
+			public const int navigationContentDescription = 2130772264;
+			
+			// aapt resource value: 0x7f010127
+			public const int navigationIcon = 2130772263;
+			
+			// aapt resource value: 0x7f01003f
+			public const int navigationMode = 2130772031;
+			
+			// aapt resource value: 0x7f0100f4
+			public const int numericModifiers = 2130772212;
+			
+			// aapt resource value: 0x7f0100ff
+			public const int overlapAnchor = 2130772223;
+			
+			// aapt resource value: 0x7f010101
+			public const int paddingBottomNoButtons = 2130772225;
+			
+			// aapt resource value: 0x7f01012d
+			public const int paddingEnd = 2130772269;
+			
+			// aapt resource value: 0x7f01012c
+			public const int paddingStart = 2130772268;
+			
+			// aapt resource value: 0x7f010102
+			public const int paddingTopNoTitle = 2130772226;
+			
+			// aapt resource value: 0x7f0100bd
+			public const int panelBackground = 2130772157;
+			
+			// aapt resource value: 0x7f0100bf
+			public const int panelMenuListTheme = 2130772159;
+			
+			// aapt resource value: 0x7f0100be
+			public const int panelMenuListWidth = 2130772158;
+			
+			// aapt resource value: 0x7f010180
+			public const int passwordToggleContentDescription = 2130772352;
+			
+			// aapt resource value: 0x7f01017f
+			public const int passwordToggleDrawable = 2130772351;
+			
+			// aapt resource value: 0x7f01017e
+			public const int passwordToggleEnabled = 2130772350;
+			
+			// aapt resource value: 0x7f010181
+			public const int passwordToggleTint = 2130772353;
+			
+			// aapt resource value: 0x7f010182
+			public const int passwordToggleTintMode = 2130772354;
+			
+			// aapt resource value: 0x7f0100aa
+			public const int popupMenuStyle = 2130772138;
+			
+			// aapt resource value: 0x7f010058
+			public const int popupTheme = 2130772056;
+			
+			// aapt resource value: 0x7f0100ab
+			public const int popupWindowStyle = 2130772139;
+			
+			// aapt resource value: 0x7f0100fd
+			public const int preserveIconSpacing = 2130772221;
+			
+			// aapt resource value: 0x7f010157
+			public const int pressedTranslationZ = 2130772311;
+			
+			// aapt resource value: 0x7f01004e
+			public const int progressBarPadding = 2130772046;
+			
+			// aapt resource value: 0x7f01004c
+			public const int progressBarStyle = 2130772044;
+			
+			// aapt resource value: 0x7f01010e
+			public const int queryBackground = 2130772238;
+			
+			// aapt resource value: 0x7f010105
+			public const int queryHint = 2130772229;
+			
+			// aapt resource value: 0x7f0100d9
+			public const int radioButtonStyle = 2130772185;
+			
+			// aapt resource value: 0x7f0100da
+			public const int ratingBarStyle = 2130772186;
+			
+			// aapt resource value: 0x7f0100db
+			public const int ratingBarStyleIndicator = 2130772187;
+			
+			// aapt resource value: 0x7f0100dc
+			public const int ratingBarStyleSmall = 2130772188;
+			
+			// aapt resource value: 0x7f01001b
+			public const int reverseLayout = 2130771995;
+			
+			// aapt resource value: 0x7f010155
+			public const int rippleColor = 2130772309;
+			
+			// aapt resource value: 0x7f010144
+			public const int scrimAnimationDuration = 2130772292;
+			
+			// aapt resource value: 0x7f010143
+			public const int scrimVisibleHeightTrigger = 2130772291;
+			
+			// aapt resource value: 0x7f01010a
+			public const int searchHintIcon = 2130772234;
+			
+			// aapt resource value: 0x7f010109
+			public const int searchIcon = 2130772233;
+			
+			// aapt resource value: 0x7f0100b2
+			public const int searchViewStyle = 2130772146;
+			
+			// aapt resource value: 0x7f0100dd
+			public const int seekBarStyle = 2130772189;
+			
+			// aapt resource value: 0x7f0100a2
+			public const int selectableItemBackground = 2130772130;
+			
+			// aapt resource value: 0x7f0100a3
+			public const int selectableItemBackgroundBorderless = 2130772131;
+			
+			// aapt resource value: 0x7f0100f5
+			public const int showAsAction = 2130772213;
+			
+			// aapt resource value: 0x7f0100f1
+			public const int showDividers = 2130772209;
+			
+			// aapt resource value: 0x7f010004
+			public const int showRangeLabels = 2130771972;
+			
+			// aapt resource value: 0x7f01011a
+			public const int showText = 2130772250;
+			
+			// aapt resource value: 0x7f010061
+			public const int showTitle = 2130772065;
+			
+			// aapt resource value: 0x7f01005f
+			public const int singleChoiceItemLayout = 2130772063;
+			
+			// aapt resource value: 0x7f01001a
+			public const int spanCount = 2130771994;
+			
+			// aapt resource value: 0x7f0100e9
+			public const int spinBars = 2130772201;
+			
+			// aapt resource value: 0x7f01009d
+			public const int spinnerDropDownItemStyle = 2130772125;
+			
+			// aapt resource value: 0x7f0100de
+			public const int spinnerStyle = 2130772190;
+			
+			// aapt resource value: 0x7f010119
+			public const int splitTrack = 2130772249;
+			
+			// aapt resource value: 0x7f010062
+			public const int srcCompat = 2130772066;
+			
+			// aapt resource value: 0x7f01001c
+			public const int stackFromEnd = 2130771996;
+			
+			// aapt resource value: 0x7f010100
+			public const int state_above_anchor = 2130772224;
+			
+			// aapt resource value: 0x7f010132
+			public const int state_collapsed = 2130772274;
+			
+			// aapt resource value: 0x7f010133
+			public const int state_collapsible = 2130772275;
+			
+			// aapt resource value: 0x7f01014b
+			public const int statusBarBackground = 2130772299;
+			
+			// aapt resource value: 0x7f010141
+			public const int statusBarScrim = 2130772289;
+			
+			// aapt resource value: 0x7f010015
+			public const int stepValue = 2130771989;
+			
+			// aapt resource value: 0x7f010016
+			public const int stepValueContinuously = 2130771990;
+			
+			// aapt resource value: 0x7f0100fe
+			public const int subMenuArrow = 2130772222;
+			
+			// aapt resource value: 0x7f01010f
+			public const int submitBackground = 2130772239;
+			
+			// aapt resource value: 0x7f010041
+			public const int subtitle = 2130772033;
+			
+			// aapt resource value: 0x7f01011c
+			public const int subtitleTextAppearance = 2130772252;
+			
+			// aapt resource value: 0x7f01012b
+			public const int subtitleTextColor = 2130772267;
+			
+			// aapt resource value: 0x7f010043
+			public const int subtitleTextStyle = 2130772035;
+			
+			// aapt resource value: 0x7f01010d
+			public const int suggestionRowLayout = 2130772237;
+			
+			// aapt resource value: 0x7f010117
+			public const int switchMinWidth = 2130772247;
+			
+			// aapt resource value: 0x7f010118
+			public const int switchPadding = 2130772248;
+			
+			// aapt resource value: 0x7f0100df
+			public const int switchStyle = 2130772191;
+			
+			// aapt resource value: 0x7f010116
+			public const int switchTextAppearance = 2130772246;
+			
+			// aapt resource value: 0x7f010168
+			public const int tabBackground = 2130772328;
+			
+			// aapt resource value: 0x7f010167
+			public const int tabContentStart = 2130772327;
+			
+			// aapt resource value: 0x7f01016a
+			public const int tabGravity = 2130772330;
+			
+			// aapt resource value: 0x7f010165
+			public const int tabIndicatorColor = 2130772325;
+			
+			// aapt resource value: 0x7f010166
+			public const int tabIndicatorHeight = 2130772326;
+			
+			// aapt resource value: 0x7f01016c
+			public const int tabMaxWidth = 2130772332;
+			
+			// aapt resource value: 0x7f01016b
+			public const int tabMinWidth = 2130772331;
+			
+			// aapt resource value: 0x7f010169
+			public const int tabMode = 2130772329;
+			
+			// aapt resource value: 0x7f010174
+			public const int tabPadding = 2130772340;
+			
+			// aapt resource value: 0x7f010173
+			public const int tabPaddingBottom = 2130772339;
+			
+			// aapt resource value: 0x7f010172
+			public const int tabPaddingEnd = 2130772338;
+			
+			// aapt resource value: 0x7f010170
+			public const int tabPaddingStart = 2130772336;
+			
+			// aapt resource value: 0x7f010171
+			public const int tabPaddingTop = 2130772337;
+			
+			// aapt resource value: 0x7f01016f
+			public const int tabSelectedTextColor = 2130772335;
+			
+			// aapt resource value: 0x7f01016d
+			public const int tabTextAppearance = 2130772333;
+			
+			// aapt resource value: 0x7f01016e
+			public const int tabTextColor = 2130772334;
+			
+			// aapt resource value: 0x7f01000b
+			public const int textAboveThumbsColor = 2130771979;
+			
+			// aapt resource value: 0x7f010068
+			public const int textAllCaps = 2130772072;
+			
+			// aapt resource value: 0x7f010095
+			public const int textAppearanceLargePopupMenu = 2130772117;
+			
+			// aapt resource value: 0x7f0100ba
+			public const int textAppearanceListItem = 2130772154;
+			
+			// aapt resource value: 0x7f0100bb
+			public const int textAppearanceListItemSecondary = 2130772155;
+			
+			// aapt resource value: 0x7f0100bc
+			public const int textAppearanceListItemSmall = 2130772156;
+			
+			// aapt resource value: 0x7f010097
+			public const int textAppearancePopupMenuHeader = 2130772119;
+			
+			// aapt resource value: 0x7f0100b0
+			public const int textAppearanceSearchResultSubtitle = 2130772144;
+			
+			// aapt resource value: 0x7f0100af
+			public const int textAppearanceSearchResultTitle = 2130772143;
+			
+			// aapt resource value: 0x7f010096
+			public const int textAppearanceSmallPopupMenu = 2130772118;
+			
+			// aapt resource value: 0x7f0100cf
+			public const int textColorAlertDialogListItem = 2130772175;
+			
+			// aapt resource value: 0x7f010154
+			public const int textColorError = 2130772308;
+			
+			// aapt resource value: 0x7f0100b1
+			public const int textColorSearchUrl = 2130772145;
+			
+			// aapt resource value: 0x7f010017
+			public const int textSize = 2130771991;
+			
+			// aapt resource value: 0x7f01012e
+			public const int theme = 2130772270;
+			
+			// aapt resource value: 0x7f0100ef
+			public const int thickness = 2130772207;
+			
+			// aapt resource value: 0x7f01000e
+			public const int thumbDisabled = 2130771982;
+			
+			// aapt resource value: 0x7f01000c
+			public const int thumbNormal = 2130771980;
+			
+			// aapt resource value: 0x7f01000d
+			public const int thumbPressed = 2130771981;
+			
+			// aapt resource value: 0x7f01000f
+			public const int thumbShadow = 2130771983;
+			
+			// aapt resource value: 0x7f010013
+			public const int thumbShadowBlur = 2130771987;
+			
+			// aapt resource value: 0x7f010010
+			public const int thumbShadowColor = 2130771984;
+			
+			// aapt resource value: 0x7f010011
+			public const int thumbShadowXOffset = 2130771985;
+			
+			// aapt resource value: 0x7f010012
+			public const int thumbShadowYOffset = 2130771986;
+			
+			// aapt resource value: 0x7f010115
+			public const int thumbTextPadding = 2130772245;
+			
+			// aapt resource value: 0x7f010110
+			public const int thumbTint = 2130772240;
+			
+			// aapt resource value: 0x7f010111
+			public const int thumbTintMode = 2130772241;
+			
+			// aapt resource value: 0x7f010065
+			public const int tickMark = 2130772069;
+			
+			// aapt resource value: 0x7f010066
+			public const int tickMarkTint = 2130772070;
+			
+			// aapt resource value: 0x7f010067
+			public const int tickMarkTintMode = 2130772071;
+			
+			// aapt resource value: 0x7f010063
+			public const int tint = 2130772067;
+			
+			// aapt resource value: 0x7f010064
+			public const int tintMode = 2130772068;
+			
+			// aapt resource value: 0x7f01003e
+			public const int title = 2130772030;
+			
+			// aapt resource value: 0x7f010147
+			public const int titleEnabled = 2130772295;
+			
+			// aapt resource value: 0x7f01011d
+			public const int titleMargin = 2130772253;
+			
+			// aapt resource value: 0x7f010121
+			public const int titleMarginBottom = 2130772257;
+			
+			// aapt resource value: 0x7f01011f
+			public const int titleMarginEnd = 2130772255;
+			
+			// aapt resource value: 0x7f01011e
+			public const int titleMarginStart = 2130772254;
+			
+			// aapt resource value: 0x7f010120
+			public const int titleMarginTop = 2130772256;
+			
+			// aapt resource value: 0x7f010122
+			public const int titleMargins = 2130772258;
+			
+			// aapt resource value: 0x7f01011b
+			public const int titleTextAppearance = 2130772251;
+			
+			// aapt resource value: 0x7f01012a
+			public const int titleTextColor = 2130772266;
+			
+			// aapt resource value: 0x7f010042
+			public const int titleTextStyle = 2130772034;
+			
+			// aapt resource value: 0x7f010142
+			public const int toolbarId = 2130772290;
+			
+			// aapt resource value: 0x7f0100a9
+			public const int toolbarNavigationButtonStyle = 2130772137;
+			
+			// aapt resource value: 0x7f0100a8
+			public const int toolbarStyle = 2130772136;
+			
+			// aapt resource value: 0x7f0100e2
+			public const int tooltipForegroundColor = 2130772194;
+			
+			// aapt resource value: 0x7f0100e1
+			public const int tooltipFrameBackground = 2130772193;
+			
+			// aapt resource value: 0x7f0100fa
+			public const int tooltipText = 2130772218;
+			
+			// aapt resource value: 0x7f010112
+			public const int track = 2130772242;
+			
+			// aapt resource value: 0x7f010113
+			public const int trackTint = 2130772243;
+			
+			// aapt resource value: 0x7f010114
+			public const int trackTintMode = 2130772244;
+			
+			// aapt resource value: 0x7f010159
+			public const int useCompatPadding = 2130772313;
+			
+			// aapt resource value: 0x7f010006
+			public const int valuesAboveThumbs = 2130771974;
+			
+			// aapt resource value: 0x7f01010b
+			public const int voiceIcon = 2130772235;
+			
+			// aapt resource value: 0x7f01006f
+			public const int windowActionBar = 2130772079;
+			
+			// aapt resource value: 0x7f010071
+			public const int windowActionBarOverlay = 2130772081;
+			
+			// aapt resource value: 0x7f010072
+			public const int windowActionModeOverlay = 2130772082;
+			
+			// aapt resource value: 0x7f010076
+			public const int windowFixedHeightMajor = 2130772086;
+			
+			// aapt resource value: 0x7f010074
+			public const int windowFixedHeightMinor = 2130772084;
+			
+			// aapt resource value: 0x7f010073
+			public const int windowFixedWidthMajor = 2130772083;
+			
+			// aapt resource value: 0x7f010075
+			public const int windowFixedWidthMinor = 2130772085;
+			
+			// aapt resource value: 0x7f010077
+			public const int windowMinWidthMajor = 2130772087;
+			
+			// aapt resource value: 0x7f010078
+			public const int windowMinWidthMinor = 2130772088;
+			
+			// aapt resource value: 0x7f010070
+			public const int windowNoTitle = 2130772080;
 			
 			static Attribute()
 			{
@@ -6151,188 +8577,203 @@ namespace Emka.PracticeLooper.Mobile.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f080016
-			public const int abc_action_bar_home_description = 2131230742;
-			
-			// aapt resource value: 0x7f080017
-			public const int abc_action_bar_up_description = 2131230743;
-			
-			// aapt resource value: 0x7f080018
-			public const int abc_action_menu_overflow_description = 2131230744;
-			
-			// aapt resource value: 0x7f080019
-			public const int abc_action_mode_done = 2131230745;
-			
-			// aapt resource value: 0x7f08001a
-			public const int abc_activity_chooser_view_see_all = 2131230746;
-			
-			// aapt resource value: 0x7f08001b
-			public const int abc_activitychooserview_choose_application = 2131230747;
-			
-			// aapt resource value: 0x7f08001c
-			public const int abc_capital_off = 2131230748;
-			
-			// aapt resource value: 0x7f08001d
-			public const int abc_capital_on = 2131230749;
-			
-			// aapt resource value: 0x7f080028
-			public const int abc_font_family_body_1_material = 2131230760;
-			
-			// aapt resource value: 0x7f080029
-			public const int abc_font_family_body_2_material = 2131230761;
-			
-			// aapt resource value: 0x7f08002a
-			public const int abc_font_family_button_material = 2131230762;
-			
-			// aapt resource value: 0x7f08002b
-			public const int abc_font_family_caption_material = 2131230763;
-			
-			// aapt resource value: 0x7f08002c
-			public const int abc_font_family_display_1_material = 2131230764;
-			
-			// aapt resource value: 0x7f08002d
-			public const int abc_font_family_display_2_material = 2131230765;
-			
-			// aapt resource value: 0x7f08002e
-			public const int abc_font_family_display_3_material = 2131230766;
-			
-			// aapt resource value: 0x7f08002f
-			public const int abc_font_family_display_4_material = 2131230767;
-			
-			// aapt resource value: 0x7f080030
-			public const int abc_font_family_headline_material = 2131230768;
-			
-			// aapt resource value: 0x7f080031
-			public const int abc_font_family_menu_material = 2131230769;
-			
-			// aapt resource value: 0x7f080032
-			public const int abc_font_family_subhead_material = 2131230770;
-			
-			// aapt resource value: 0x7f080033
-			public const int abc_font_family_title_material = 2131230771;
-			
-			// aapt resource value: 0x7f08001e
-			public const int abc_search_hint = 2131230750;
-			
-			// aapt resource value: 0x7f08001f
-			public const int abc_searchview_description_clear = 2131230751;
-			
-			// aapt resource value: 0x7f080020
-			public const int abc_searchview_description_query = 2131230752;
-			
-			// aapt resource value: 0x7f080021
-			public const int abc_searchview_description_search = 2131230753;
-			
-			// aapt resource value: 0x7f080022
-			public const int abc_searchview_description_submit = 2131230754;
-			
-			// aapt resource value: 0x7f080023
-			public const int abc_searchview_description_voice = 2131230755;
-			
-			// aapt resource value: 0x7f080024
-			public const int abc_shareactionprovider_share_with = 2131230756;
-			
-			// aapt resource value: 0x7f080025
-			public const int abc_shareactionprovider_share_with_application = 2131230757;
-			
-			// aapt resource value: 0x7f080026
-			public const int abc_toolbar_collapse_description = 2131230758;
-			
-			// aapt resource value: 0x7f080034
-			public const int appbar_scrolling_view_behavior = 2131230772;
-			
-			// aapt resource value: 0x7f080035
-			public const int bottom_sheet_behavior = 2131230773;
-			
-			// aapt resource value: 0x7f080036
-			public const int character_counter_pattern = 2131230774;
-			
 			// aapt resource value: 0x7f080001
-			public const int mr_button_content_description = 2131230721;
-			
-			// aapt resource value: 0x7f080002
-			public const int mr_cast_button_connected = 2131230722;
-			
-			// aapt resource value: 0x7f080003
-			public const int mr_cast_button_connecting = 2131230723;
-			
-			// aapt resource value: 0x7f080004
-			public const int mr_cast_button_disconnected = 2131230724;
-			
-			// aapt resource value: 0x7f080005
-			public const int mr_chooser_searching = 2131230725;
-			
-			// aapt resource value: 0x7f080006
-			public const int mr_chooser_title = 2131230726;
-			
-			// aapt resource value: 0x7f080007
-			public const int mr_controller_album_art = 2131230727;
-			
-			// aapt resource value: 0x7f080008
-			public const int mr_controller_casting_screen = 2131230728;
-			
-			// aapt resource value: 0x7f080009
-			public const int mr_controller_close_description = 2131230729;
-			
-			// aapt resource value: 0x7f08000a
-			public const int mr_controller_collapse_group = 2131230730;
-			
-			// aapt resource value: 0x7f08000b
-			public const int mr_controller_disconnect = 2131230731;
-			
-			// aapt resource value: 0x7f08000c
-			public const int mr_controller_expand_group = 2131230732;
-			
-			// aapt resource value: 0x7f08000d
-			public const int mr_controller_no_info_available = 2131230733;
-			
-			// aapt resource value: 0x7f08000e
-			public const int mr_controller_no_media_selected = 2131230734;
-			
-			// aapt resource value: 0x7f08000f
-			public const int mr_controller_pause = 2131230735;
-			
-			// aapt resource value: 0x7f080010
-			public const int mr_controller_play = 2131230736;
-			
-			// aapt resource value: 0x7f080011
-			public const int mr_controller_stop = 2131230737;
-			
-			// aapt resource value: 0x7f080012
-			public const int mr_controller_stop_casting = 2131230738;
-			
-			// aapt resource value: 0x7f080013
-			public const int mr_controller_volume_slider = 2131230739;
-			
-			// aapt resource value: 0x7f080014
-			public const int mr_system_route_name = 2131230740;
-			
-			// aapt resource value: 0x7f080015
-			public const int mr_user_route_category_name = 2131230741;
-			
-			// aapt resource value: 0x7f080037
-			public const int password_toggle_content_description = 2131230775;
-			
-			// aapt resource value: 0x7f080038
-			public const int path_password_eye = 2131230776;
-			
-			// aapt resource value: 0x7f080039
-			public const int path_password_eye_mask_strike_through = 2131230777;
-			
-			// aapt resource value: 0x7f08003a
-			public const int path_password_eye_mask_visible = 2131230778;
-			
-			// aapt resource value: 0x7f08003b
-			public const int path_password_strike_through = 2131230779;
-			
-			// aapt resource value: 0x7f080027
-			public const int search_menu_title = 2131230759;
-			
-			// aapt resource value: 0x7f08003c
-			public const int status_bar_notification_info_overflow = 2131230780;
+			public const int ApplicationName = 2131230721;
 			
 			// aapt resource value: 0x7f080000
-			public const int title_activity_webview = 2131230720;
+			public const int Hello = 2131230720;
+			
+			// aapt resource value: 0x7f08001b
+			public const int abc_action_bar_home_description = 2131230747;
+			
+			// aapt resource value: 0x7f08001c
+			public const int abc_action_bar_up_description = 2131230748;
+			
+			// aapt resource value: 0x7f08001d
+			public const int abc_action_menu_overflow_description = 2131230749;
+			
+			// aapt resource value: 0x7f08001e
+			public const int abc_action_mode_done = 2131230750;
+			
+			// aapt resource value: 0x7f08001f
+			public const int abc_activity_chooser_view_see_all = 2131230751;
+			
+			// aapt resource value: 0x7f080020
+			public const int abc_activitychooserview_choose_application = 2131230752;
+			
+			// aapt resource value: 0x7f080021
+			public const int abc_capital_off = 2131230753;
+			
+			// aapt resource value: 0x7f080022
+			public const int abc_capital_on = 2131230754;
+			
+			// aapt resource value: 0x7f08002d
+			public const int abc_font_family_body_1_material = 2131230765;
+			
+			// aapt resource value: 0x7f08002e
+			public const int abc_font_family_body_2_material = 2131230766;
+			
+			// aapt resource value: 0x7f08002f
+			public const int abc_font_family_button_material = 2131230767;
+			
+			// aapt resource value: 0x7f080030
+			public const int abc_font_family_caption_material = 2131230768;
+			
+			// aapt resource value: 0x7f080031
+			public const int abc_font_family_display_1_material = 2131230769;
+			
+			// aapt resource value: 0x7f080032
+			public const int abc_font_family_display_2_material = 2131230770;
+			
+			// aapt resource value: 0x7f080033
+			public const int abc_font_family_display_3_material = 2131230771;
+			
+			// aapt resource value: 0x7f080034
+			public const int abc_font_family_display_4_material = 2131230772;
+			
+			// aapt resource value: 0x7f080035
+			public const int abc_font_family_headline_material = 2131230773;
+			
+			// aapt resource value: 0x7f080036
+			public const int abc_font_family_menu_material = 2131230774;
+			
+			// aapt resource value: 0x7f080037
+			public const int abc_font_family_subhead_material = 2131230775;
+			
+			// aapt resource value: 0x7f080038
+			public const int abc_font_family_title_material = 2131230776;
+			
+			// aapt resource value: 0x7f080023
+			public const int abc_search_hint = 2131230755;
+			
+			// aapt resource value: 0x7f080024
+			public const int abc_searchview_description_clear = 2131230756;
+			
+			// aapt resource value: 0x7f080025
+			public const int abc_searchview_description_query = 2131230757;
+			
+			// aapt resource value: 0x7f080026
+			public const int abc_searchview_description_search = 2131230758;
+			
+			// aapt resource value: 0x7f080027
+			public const int abc_searchview_description_submit = 2131230759;
+			
+			// aapt resource value: 0x7f080028
+			public const int abc_searchview_description_voice = 2131230760;
+			
+			// aapt resource value: 0x7f080029
+			public const int abc_shareactionprovider_share_with = 2131230761;
+			
+			// aapt resource value: 0x7f08002a
+			public const int abc_shareactionprovider_share_with_application = 2131230762;
+			
+			// aapt resource value: 0x7f08002b
+			public const int abc_toolbar_collapse_description = 2131230763;
+			
+			// aapt resource value: 0x7f080002
+			public const int app_name = 2131230722;
+			
+			// aapt resource value: 0x7f080039
+			public const int appbar_scrolling_view_behavior = 2131230777;
+			
+			// aapt resource value: 0x7f08003a
+			public const int bottom_sheet_behavior = 2131230778;
+			
+			// aapt resource value: 0x7f08003b
+			public const int character_counter_pattern = 2131230779;
+			
+			// aapt resource value: 0x7f080004
+			public const int demo_max_label = 2131230724;
+			
+			// aapt resource value: 0x7f080003
+			public const int demo_min_label = 2131230723;
+			
+			// aapt resource value: 0x7f080006
+			public const int mr_button_content_description = 2131230726;
+			
+			// aapt resource value: 0x7f080007
+			public const int mr_cast_button_connected = 2131230727;
+			
+			// aapt resource value: 0x7f080008
+			public const int mr_cast_button_connecting = 2131230728;
+			
+			// aapt resource value: 0x7f080009
+			public const int mr_cast_button_disconnected = 2131230729;
+			
+			// aapt resource value: 0x7f08000a
+			public const int mr_chooser_searching = 2131230730;
+			
+			// aapt resource value: 0x7f08000b
+			public const int mr_chooser_title = 2131230731;
+			
+			// aapt resource value: 0x7f08000c
+			public const int mr_controller_album_art = 2131230732;
+			
+			// aapt resource value: 0x7f08000d
+			public const int mr_controller_casting_screen = 2131230733;
+			
+			// aapt resource value: 0x7f08000e
+			public const int mr_controller_close_description = 2131230734;
+			
+			// aapt resource value: 0x7f08000f
+			public const int mr_controller_collapse_group = 2131230735;
+			
+			// aapt resource value: 0x7f080010
+			public const int mr_controller_disconnect = 2131230736;
+			
+			// aapt resource value: 0x7f080011
+			public const int mr_controller_expand_group = 2131230737;
+			
+			// aapt resource value: 0x7f080012
+			public const int mr_controller_no_info_available = 2131230738;
+			
+			// aapt resource value: 0x7f080013
+			public const int mr_controller_no_media_selected = 2131230739;
+			
+			// aapt resource value: 0x7f080014
+			public const int mr_controller_pause = 2131230740;
+			
+			// aapt resource value: 0x7f080015
+			public const int mr_controller_play = 2131230741;
+			
+			// aapt resource value: 0x7f080016
+			public const int mr_controller_stop = 2131230742;
+			
+			// aapt resource value: 0x7f080017
+			public const int mr_controller_stop_casting = 2131230743;
+			
+			// aapt resource value: 0x7f080018
+			public const int mr_controller_volume_slider = 2131230744;
+			
+			// aapt resource value: 0x7f080019
+			public const int mr_system_route_name = 2131230745;
+			
+			// aapt resource value: 0x7f08001a
+			public const int mr_user_route_category_name = 2131230746;
+			
+			// aapt resource value: 0x7f08003c
+			public const int password_toggle_content_description = 2131230780;
+			
+			// aapt resource value: 0x7f08003d
+			public const int path_password_eye = 2131230781;
+			
+			// aapt resource value: 0x7f08003e
+			public const int path_password_eye_mask_strike_through = 2131230782;
+			
+			// aapt resource value: 0x7f08003f
+			public const int path_password_eye_mask_visible = 2131230783;
+			
+			// aapt resource value: 0x7f080040
+			public const int path_password_strike_through = 2131230784;
+			
+			// aapt resource value: 0x7f08002c
+			public const int search_menu_title = 2131230764;
+			
+			// aapt resource value: 0x7f080041
+			public const int status_bar_notification_info_overflow = 2131230785;
+			
+			// aapt resource value: 0x7f080005
+			public const int title_activity_webview = 2131230725;
 			
 			static String()
 			{
@@ -7567,35 +10008,35 @@ namespace Emka.PracticeLooper.Mobile.Droid
 		{
 			
 			public static int[] ActionBar = new int[] {
-					2130772003,
-					2130772005,
-					2130772006,
-					2130772007,
-					2130772008,
-					2130772009,
-					2130772010,
-					2130772011,
-					2130772012,
-					2130772013,
-					2130772014,
-					2130772015,
-					2130772016,
-					2130772017,
-					2130772018,
-					2130772019,
-					2130772020,
-					2130772021,
-					2130772022,
-					2130772023,
-					2130772024,
-					2130772025,
-					2130772026,
-					2130772027,
 					2130772028,
-					2130772029,
 					2130772030,
 					2130772031,
-					2130772101};
+					2130772032,
+					2130772033,
+					2130772034,
+					2130772035,
+					2130772036,
+					2130772037,
+					2130772038,
+					2130772039,
+					2130772040,
+					2130772041,
+					2130772042,
+					2130772043,
+					2130772044,
+					2130772045,
+					2130772046,
+					2130772047,
+					2130772048,
+					2130772049,
+					2130772050,
+					2130772051,
+					2130772052,
+					2130772053,
+					2130772054,
+					2130772055,
+					2130772056,
+					2130772126};
 			
 			// aapt resource value: 10
 			public const int ActionBar_background = 10;
@@ -7699,12 +10140,12 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public static int[] ActionMenuView;
 			
 			public static int[] ActionMode = new int[] {
-					2130772003,
-					2130772009,
-					2130772010,
-					2130772014,
-					2130772016,
-					2130772032};
+					2130772028,
+					2130772034,
+					2130772035,
+					2130772039,
+					2130772041,
+					2130772057};
 			
 			// aapt resource value: 3
 			public const int ActionMode_background = 3;
@@ -7725,8 +10166,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int ActionMode_titleTextStyle = 1;
 			
 			public static int[] ActivityChooserView = new int[] {
-					2130772033,
-					2130772034};
+					2130772058,
+					2130772059};
 			
 			// aapt resource value: 1
 			public const int ActivityChooserView_expandActivityOverflowButtonDrawable = 1;
@@ -7736,12 +10177,12 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			
 			public static int[] AlertDialog = new int[] {
 					16842994,
-					2130772035,
-					2130772036,
-					2130772037,
-					2130772038,
-					2130772039,
-					2130772040};
+					2130772060,
+					2130772061,
+					2130772062,
+					2130772063,
+					2130772064,
+					2130772065};
 			
 			// aapt resource value: 0
 			public const int AlertDialog_android_layout = 0;
@@ -7768,8 +10209,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
 					16842964,
 					16843919,
 					16844096,
-					2130772030,
-					2130772248};
+					2130772055,
+					2130772273};
 			
 			// aapt resource value: 0
 			public const int AppBarLayout_android_background = 0;
@@ -7787,8 +10228,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int AppBarLayout_expanded = 4;
 			
 			public static int[] AppBarLayoutStates = new int[] {
-					2130772249,
-					2130772250};
+					2130772274,
+					2130772275};
 			
 			// aapt resource value: 0
 			public const int AppBarLayoutStates_state_collapsed = 0;
@@ -7797,8 +10238,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int AppBarLayoutStates_state_collapsible = 1;
 			
 			public static int[] AppBarLayout_Layout = new int[] {
-					2130772251,
-					2130772252};
+					2130772276,
+					2130772277};
 			
 			// aapt resource value: 0
 			public const int AppBarLayout_Layout_layout_scrollFlags = 0;
@@ -7808,9 +10249,9 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			
 			public static int[] AppCompatImageView = new int[] {
 					16843033,
-					2130772041,
-					2130772042,
-					2130772043};
+					2130772066,
+					2130772067,
+					2130772068};
 			
 			// aapt resource value: 0
 			public const int AppCompatImageView_android_src = 0;
@@ -7826,9 +10267,9 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			
 			public static int[] AppCompatSeekBar = new int[] {
 					16843074,
-					2130772044,
-					2130772045,
-					2130772046};
+					2130772069,
+					2130772070,
+					2130772071};
 			
 			// aapt resource value: 0
 			public const int AppCompatSeekBar_android_thumb = 0;
@@ -7874,13 +10315,13 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			
 			public static int[] AppCompatTextView = new int[] {
 					16842804,
-					2130772047,
-					2130772048,
-					2130772049,
-					2130772050,
-					2130772051,
-					2130772052,
-					2130772053};
+					2130772072,
+					2130772073,
+					2130772074,
+					2130772075,
+					2130772076,
+					2130772077,
+					2130772078};
 			
 			// aapt resource value: 0
 			public const int AppCompatTextView_android_textAppearance = 0;
@@ -7909,31 +10350,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public static int[] AppCompatTheme = new int[] {
 					16842839,
 					16842926,
-					2130772054,
-					2130772055,
-					2130772056,
-					2130772057,
-					2130772058,
-					2130772059,
-					2130772060,
-					2130772061,
-					2130772062,
-					2130772063,
-					2130772064,
-					2130772065,
-					2130772066,
-					2130772067,
-					2130772068,
-					2130772069,
-					2130772070,
-					2130772071,
-					2130772072,
-					2130772073,
-					2130772074,
-					2130772075,
-					2130772076,
-					2130772077,
-					2130772078,
 					2130772079,
 					2130772080,
 					2130772081,
@@ -8025,7 +10441,32 @@ namespace Emka.PracticeLooper.Mobile.Droid
 					2130772167,
 					2130772168,
 					2130772169,
-					2130772170};
+					2130772170,
+					2130772171,
+					2130772172,
+					2130772173,
+					2130772174,
+					2130772175,
+					2130772176,
+					2130772177,
+					2130772178,
+					2130772179,
+					2130772180,
+					2130772181,
+					2130772182,
+					2130772183,
+					2130772184,
+					2130772185,
+					2130772186,
+					2130772187,
+					2130772188,
+					2130772189,
+					2130772190,
+					2130772191,
+					2130772192,
+					2130772193,
+					2130772194,
+					2130772195};
 			
 			// aapt resource value: 23
 			public const int AppCompatTheme_actionBarDivider = 23;
@@ -8385,11 +10826,11 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int AppCompatTheme_windowNoTitle = 3;
 			
 			public static int[] BottomNavigationView = new int[] {
-					2130772030,
-					2130772291,
-					2130772292,
-					2130772293,
-					2130772294};
+					2130772055,
+					2130772316,
+					2130772317,
+					2130772318,
+					2130772319};
 			
 			// aapt resource value: 0
 			public const int BottomNavigationView_elevation = 0;
@@ -8407,9 +10848,9 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int BottomNavigationView_menu = 1;
 			
 			public static int[] BottomSheetBehavior_Layout = new int[] {
-					2130772253,
-					2130772254,
-					2130772255};
+					2130772278,
+					2130772279,
+					2130772280};
 			
 			// aapt resource value: 1
 			public const int BottomSheetBehavior_Layout_behavior_hideable = 1;
@@ -8421,7 +10862,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int BottomSheetBehavior_Layout_behavior_skipCollapsed = 2;
 			
 			public static int[] ButtonBarLayout = new int[] {
-					2130772171};
+					2130772196};
 			
 			// aapt resource value: 0
 			public const int ButtonBarLayout_allowStacking = 0;
@@ -8429,17 +10870,17 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public static int[] CardView = new int[] {
 					16843071,
 					16843072,
-					2130771991,
-					2130771992,
-					2130771993,
-					2130771994,
-					2130771995,
-					2130771996,
-					2130771997,
-					2130771998,
-					2130771999,
-					2130772000,
-					2130772001};
+					2130772016,
+					2130772017,
+					2130772018,
+					2130772019,
+					2130772020,
+					2130772021,
+					2130772022,
+					2130772023,
+					2130772024,
+					2130772025,
+					2130772026};
 			
 			// aapt resource value: 1
 			public const int CardView_android_minHeight = 1;
@@ -8481,22 +10922,22 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int CardView_contentPaddingTop = 11;
 			
 			public static int[] CollapsingToolbarLayout = new int[] {
-					2130772005,
-					2130772256,
-					2130772257,
-					2130772258,
-					2130772259,
-					2130772260,
-					2130772261,
-					2130772262,
-					2130772263,
-					2130772264,
-					2130772265,
-					2130772266,
-					2130772267,
-					2130772268,
-					2130772269,
-					2130772270};
+					2130772030,
+					2130772281,
+					2130772282,
+					2130772283,
+					2130772284,
+					2130772285,
+					2130772286,
+					2130772287,
+					2130772288,
+					2130772289,
+					2130772290,
+					2130772291,
+					2130772292,
+					2130772293,
+					2130772294,
+					2130772295};
 			
 			// aapt resource value: 13
 			public const int CollapsingToolbarLayout_collapsedTitleGravity = 13;
@@ -8547,8 +10988,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int CollapsingToolbarLayout_toolbarId = 10;
 			
 			public static int[] CollapsingToolbarLayout_Layout = new int[] {
-					2130772271,
-					2130772272};
+					2130772296,
+					2130772297};
 			
 			// aapt resource value: 0
 			public const int CollapsingToolbarLayout_Layout_layout_collapseMode = 0;
@@ -8559,7 +11000,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public static int[] ColorStateListItem = new int[] {
 					16843173,
 					16843551,
-					2130772172};
+					2130772197};
 			
 			// aapt resource value: 2
 			public const int ColorStateListItem_alpha = 2;
@@ -8572,8 +11013,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			
 			public static int[] CompoundButton = new int[] {
 					16843015,
-					2130772173,
-					2130772174};
+					2130772198,
+					2130772199};
 			
 			// aapt resource value: 0
 			public const int CompoundButton_android_button = 0;
@@ -8585,8 +11026,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int CompoundButton_buttonTintMode = 2;
 			
 			public static int[] CoordinatorLayout = new int[] {
-					2130772273,
-					2130772274};
+					2130772298,
+					2130772299};
 			
 			// aapt resource value: 0
 			public const int CoordinatorLayout_keylines = 0;
@@ -8596,12 +11037,12 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			
 			public static int[] CoordinatorLayout_Layout = new int[] {
 					16842931,
-					2130772275,
-					2130772276,
-					2130772277,
-					2130772278,
-					2130772279,
-					2130772280};
+					2130772300,
+					2130772301,
+					2130772302,
+					2130772303,
+					2130772304,
+					2130772305};
 			
 			// aapt resource value: 0
 			public const int CoordinatorLayout_Layout_android_layout_gravity = 0;
@@ -8625,9 +11066,9 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int CoordinatorLayout_Layout_layout_keyline = 3;
 			
 			public static int[] DesignTheme = new int[] {
-					2130772281,
-					2130772282,
-					2130772283};
+					2130772306,
+					2130772307,
+					2130772308};
 			
 			// aapt resource value: 0
 			public const int DesignTheme_bottomSheetDialogTheme = 0;
@@ -8639,14 +11080,14 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int DesignTheme_textColorError = 2;
 			
 			public static int[] DrawerArrowToggle = new int[] {
-					2130772175,
-					2130772176,
-					2130772177,
-					2130772178,
-					2130772179,
-					2130772180,
-					2130772181,
-					2130772182};
+					2130772200,
+					2130772201,
+					2130772202,
+					2130772203,
+					2130772204,
+					2130772205,
+					2130772206,
+					2130772207};
 			
 			// aapt resource value: 4
 			public const int DrawerArrowToggle_arrowHeadLength = 4;
@@ -8673,14 +11114,14 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int DrawerArrowToggle_thickness = 7;
 			
 			public static int[] FloatingActionButton = new int[] {
-					2130772030,
-					2130772246,
-					2130772247,
-					2130772284,
-					2130772285,
-					2130772286,
-					2130772287,
-					2130772288};
+					2130772055,
+					2130772271,
+					2130772272,
+					2130772309,
+					2130772310,
+					2130772311,
+					2130772312,
+					2130772313};
 			
 			// aapt resource value: 1
 			public const int FloatingActionButton_backgroundTint = 1;
@@ -8707,18 +11148,18 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int FloatingActionButton_useCompatPadding = 7;
 			
 			public static int[] FloatingActionButton_Behavior_Layout = new int[] {
-					2130772289};
+					2130772314};
 			
 			// aapt resource value: 0
 			public const int FloatingActionButton_Behavior_Layout_behavior_autoHide = 0;
 			
 			public static int[] FontFamily = new int[] {
-					2130772330,
-					2130772331,
-					2130772332,
-					2130772333,
-					2130772334,
-					2130772335};
+					2130772355,
+					2130772356,
+					2130772357,
+					2130772358,
+					2130772359,
+					2130772360};
 			
 			// aapt resource value: 0
 			public const int FontFamily_fontProviderAuthority = 0;
@@ -8742,9 +11183,9 @@ namespace Emka.PracticeLooper.Mobile.Droid
 					16844082,
 					16844083,
 					16844095,
-					2130772336,
-					2130772337,
-					2130772338};
+					2130772361,
+					2130772362,
+					2130772363};
 			
 			// aapt resource value: 0
 			public const int FontFamilyFont_android_font = 0;
@@ -8767,7 +11208,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public static int[] ForegroundLinearLayout = new int[] {
 					16843017,
 					16843264,
-					2130772290};
+					2130772315};
 			
 			// aapt resource value: 0
 			public const int ForegroundLinearLayout_android_foreground = 0;
@@ -8784,10 +11225,10 @@ namespace Emka.PracticeLooper.Mobile.Droid
 					16843046,
 					16843047,
 					16843048,
-					2130772013,
-					2130772183,
-					2130772184,
-					2130772185};
+					2130772038,
+					2130772208,
+					2130772209,
+					2130772210};
 			
 			// aapt resource value: 2
 			public const int LinearLayoutCompat_android_baselineAligned = 2;
@@ -8847,8 +11288,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public static int[] MediaRouteButton = new int[] {
 					16843071,
 					16843072,
-					2130771989,
-					2130771990};
+					2130772014,
+					2130772015};
 			
 			// aapt resource value: 1
 			public const int MediaRouteButton_android_minHeight = 1;
@@ -8902,16 +11343,16 @@ namespace Emka.PracticeLooper.Mobile.Droid
 					16843236,
 					16843237,
 					16843375,
-					2130772186,
-					2130772187,
-					2130772188,
-					2130772189,
-					2130772190,
-					2130772191,
-					2130772192,
-					2130772193,
-					2130772194,
-					2130772195};
+					2130772211,
+					2130772212,
+					2130772213,
+					2130772214,
+					2130772215,
+					2130772216,
+					2130772217,
+					2130772218,
+					2130772219,
+					2130772220};
 			
 			// aapt resource value: 16
 			public const int MenuItem_actionLayout = 16;
@@ -8990,8 +11431,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
 					16843055,
 					16843056,
 					16843057,
-					2130772196,
-					2130772197};
+					2130772221,
+					2130772222};
 			
 			// aapt resource value: 4
 			public const int MenuView_android_headerBackground = 4;
@@ -9024,13 +11465,13 @@ namespace Emka.PracticeLooper.Mobile.Droid
 					16842964,
 					16842973,
 					16843039,
-					2130772030,
-					2130772291,
-					2130772292,
-					2130772293,
-					2130772294,
-					2130772295,
-					2130772296};
+					2130772055,
+					2130772316,
+					2130772317,
+					2130772318,
+					2130772319,
+					2130772320,
+					2130772321};
 			
 			// aapt resource value: 0
 			public const int NavigationView_android_background = 0;
@@ -9065,7 +11506,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public static int[] PopupWindow = new int[] {
 					16843126,
 					16843465,
-					2130772198};
+					2130772223};
 			
 			// aapt resource value: 1
 			public const int PopupWindow_android_popupAnimationStyle = 1;
@@ -9077,14 +11518,116 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int PopupWindow_overlapAnchor = 2;
 			
 			public static int[] PopupWindowBackgroundState = new int[] {
-					2130772199};
+					2130772224};
 			
 			// aapt resource value: 0
 			public const int PopupWindowBackgroundState_state_above_anchor = 0;
 			
+			public static int[] RangeSliderControl = new int[] {
+					2130771968,
+					2130771969,
+					2130771970,
+					2130771971,
+					2130771972,
+					2130771973,
+					2130771974,
+					2130771975,
+					2130771976,
+					2130771977,
+					2130771978,
+					2130771979,
+					2130771980,
+					2130771981,
+					2130771982,
+					2130771983,
+					2130771984,
+					2130771985,
+					2130771986,
+					2130771987,
+					2130771988,
+					2130771989,
+					2130771990,
+					2130771991,
+					2130771992};
+			
+			// aapt resource value: 1
+			public const int RangeSliderControl_absoluteMaxValue = 1;
+			
+			// aapt resource value: 0
+			public const int RangeSliderControl_absoluteMinValue = 0;
+			
+			// aapt resource value: 20
+			public const int RangeSliderControl_activateOnDefaultValues = 20;
+			
+			// aapt resource value: 10
+			public const int RangeSliderControl_activeColor = 10;
+			
+			// aapt resource value: 5
+			public const int RangeSliderControl_alwaysActive = 5;
+			
+			// aapt resource value: 8
+			public const int RangeSliderControl_barHeight = 8;
+			
+			// aapt resource value: 9
+			public const int RangeSliderControl_defaultColor = 9;
+			
+			// aapt resource value: 7
+			public const int RangeSliderControl_internalPadding = 7;
+			
+			// aapt resource value: 24
+			public const int RangeSliderControl_materialUI = 24;
+			
+			// aapt resource value: 3
+			public const int RangeSliderControl_maxThumbHidden = 3;
+			
+			// aapt resource value: 2
+			public const int RangeSliderControl_minThumbHidden = 2;
+			
+			// aapt resource value: 4
+			public const int RangeSliderControl_showRangeLabels = 4;
+			
+			// aapt resource value: 21
+			public const int RangeSliderControl_stepValue = 21;
+			
+			// aapt resource value: 22
+			public const int RangeSliderControl_stepValueContinuously = 22;
+			
+			// aapt resource value: 11
+			public const int RangeSliderControl_textAboveThumbsColor = 11;
+			
+			// aapt resource value: 23
+			public const int RangeSliderControl_textSize = 23;
+			
+			// aapt resource value: 14
+			public const int RangeSliderControl_thumbDisabled = 14;
+			
+			// aapt resource value: 12
+			public const int RangeSliderControl_thumbNormal = 12;
+			
+			// aapt resource value: 13
+			public const int RangeSliderControl_thumbPressed = 13;
+			
+			// aapt resource value: 15
+			public const int RangeSliderControl_thumbShadow = 15;
+			
+			// aapt resource value: 19
+			public const int RangeSliderControl_thumbShadowBlur = 19;
+			
+			// aapt resource value: 16
+			public const int RangeSliderControl_thumbShadowColor = 16;
+			
+			// aapt resource value: 17
+			public const int RangeSliderControl_thumbShadowXOffset = 17;
+			
+			// aapt resource value: 18
+			public const int RangeSliderControl_thumbShadowYOffset = 18;
+			
+			// aapt resource value: 6
+			public const int RangeSliderControl_valuesAboveThumbs = 6;
+			
 			public static int[] RecycleListView = new int[] {
-					2130772200,
-					2130772201};
+					2130772225,
+					2130772226};
 			
 			// aapt resource value: 0
 			public const int RecycleListView_paddingBottomNoButtons = 0;
@@ -9095,15 +11638,15 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public static int[] RecyclerView = new int[] {
 					16842948,
 					16842993,
-					2130771968,
-					2130771969,
-					2130771970,
-					2130771971,
-					2130771972,
-					2130771973,
-					2130771974,
-					2130771975,
-					2130771976};
+					2130771993,
+					2130771994,
+					2130771995,
+					2130771996,
+					2130771997,
+					2130771998,
+					2130771999,
+					2130772000,
+					2130772001};
 			
 			// aapt resource value: 1
 			public const int RecyclerView_android_descendantFocusability = 1;
@@ -9139,13 +11682,13 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int RecyclerView_stackFromEnd = 5;
 			
 			public static int[] ScrimInsetsFrameLayout = new int[] {
-					2130772297};
+					2130772322};
 			
 			// aapt resource value: 0
 			public const int ScrimInsetsFrameLayout_insetForeground = 0;
 			
 			public static int[] ScrollingViewBehavior_Layout = new int[] {
-					2130772298};
+					2130772323};
 			
 			// aapt resource value: 0
 			public const int ScrollingViewBehavior_Layout_behavior_overlapTop = 0;
@@ -9155,19 +11698,19 @@ namespace Emka.PracticeLooper.Mobile.Droid
 					16843039,
 					16843296,
 					16843364,
-					2130772202,
-					2130772203,
-					2130772204,
-					2130772205,
-					2130772206,
-					2130772207,
-					2130772208,
-					2130772209,
-					2130772210,
-					2130772211,
-					2130772212,
-					2130772213,
-					2130772214};
+					2130772227,
+					2130772228,
+					2130772229,
+					2130772230,
+					2130772231,
+					2130772232,
+					2130772233,
+					2130772234,
+					2130772235,
+					2130772236,
+					2130772237,
+					2130772238,
+					2130772239};
 			
 			// aapt resource value: 0
 			public const int SearchView_android_focusable = 0;
@@ -9222,8 +11765,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			
 			public static int[] SnackbarLayout = new int[] {
 					16843039,
-					2130772030,
-					2130772299};
+					2130772055,
+					2130772324};
 			
 			// aapt resource value: 0
 			public const int SnackbarLayout_android_maxWidth = 0;
@@ -9239,7 +11782,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
 					16843126,
 					16843131,
 					16843362,
-					2130772031};
+					2130772056};
 			
 			// aapt resource value: 3
 			public const int Spinner_android_dropDownWidth = 3;
@@ -9260,17 +11803,17 @@ namespace Emka.PracticeLooper.Mobile.Droid
 					16843044,
 					16843045,
 					16843074,
-					2130772215,
-					2130772216,
-					2130772217,
-					2130772218,
-					2130772219,
-					2130772220,
-					2130772221,
-					2130772222,
-					2130772223,
-					2130772224,
-					2130772225};
+					2130772240,
+					2130772241,
+					2130772242,
+					2130772243,
+					2130772244,
+					2130772245,
+					2130772246,
+					2130772247,
+					2130772248,
+					2130772249,
+					2130772250};
 			
 			// aapt resource value: 1
 			public const int SwitchCompat_android_textOff = 1;
@@ -9329,22 +11872,22 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int TabItem_android_text = 2;
 			
 			public static int[] TabLayout = new int[] {
-					2130772300,
-					2130772301,
-					2130772302,
-					2130772303,
-					2130772304,
-					2130772305,
-					2130772306,
-					2130772307,
-					2130772308,
-					2130772309,
-					2130772310,
-					2130772311,
-					2130772312,
-					2130772313,
-					2130772314,
-					2130772315};
+					2130772325,
+					2130772326,
+					2130772327,
+					2130772328,
+					2130772329,
+					2130772330,
+					2130772331,
+					2130772332,
+					2130772333,
+					2130772334,
+					2130772335,
+					2130772336,
+					2130772337,
+					2130772338,
+					2130772339,
+					2130772340};
 			
 			// aapt resource value: 3
 			public const int TabLayout_tabBackground = 3;
@@ -9406,8 +11949,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
 					16843107,
 					16843108,
 					16843692,
-					2130772047,
-					2130772053};
+					2130772072,
+					2130772078};
 			
 			// aapt resource value: 10
 			public const int TextAppearance_android_fontFamily = 10;
@@ -9451,20 +11994,20 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public static int[] TextInputLayout = new int[] {
 					16842906,
 					16843088,
-					2130772316,
-					2130772317,
-					2130772318,
-					2130772319,
-					2130772320,
-					2130772321,
-					2130772322,
-					2130772323,
-					2130772324,
-					2130772325,
-					2130772326,
-					2130772327,
-					2130772328,
-					2130772329};
+					2130772341,
+					2130772342,
+					2130772343,
+					2130772344,
+					2130772345,
+					2130772346,
+					2130772347,
+					2130772348,
+					2130772349,
+					2130772350,
+					2130772351,
+					2130772352,
+					2130772353,
+					2130772354};
 			
 			// aapt resource value: 1
 			public const int TextInputLayout_android_hint = 1;
@@ -9517,33 +12060,33 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public static int[] Toolbar = new int[] {
 					16842927,
 					16843072,
-					2130772005,
-					2130772008,
-					2130772012,
-					2130772024,
-					2130772025,
-					2130772026,
-					2130772027,
-					2130772028,
-					2130772029,
-					2130772031,
-					2130772226,
-					2130772227,
-					2130772228,
-					2130772229,
-					2130772230,
-					2130772231,
-					2130772232,
-					2130772233,
-					2130772234,
-					2130772235,
-					2130772236,
-					2130772237,
-					2130772238,
-					2130772239,
-					2130772240,
-					2130772241,
-					2130772242};
+					2130772030,
+					2130772033,
+					2130772037,
+					2130772049,
+					2130772050,
+					2130772051,
+					2130772052,
+					2130772053,
+					2130772054,
+					2130772056,
+					2130772251,
+					2130772252,
+					2130772253,
+					2130772254,
+					2130772255,
+					2130772256,
+					2130772257,
+					2130772258,
+					2130772259,
+					2130772260,
+					2130772261,
+					2130772262,
+					2130772263,
+					2130772264,
+					2130772265,
+					2130772266,
+					2130772267};
 			
 			// aapt resource value: 0
 			public const int Toolbar_android_gravity = 0;
@@ -9635,9 +12178,9 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public static int[] View = new int[] {
 					16842752,
 					16842970,
-					2130772243,
-					2130772244,
-					2130772245};
+					2130772268,
+					2130772269,
+					2130772270};
 			
 			// aapt resource value: 1
 			public const int View_android_focusable = 1;
@@ -9656,8 +12199,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			
 			public static int[] ViewBackgroundHelper = new int[] {
 					16842964,
-					2130772246,
-					2130772247};
+					2130772271,
+					2130772272};
 			
 			// aapt resource value: 0
 			public const int ViewBackgroundHelper_android_background = 0;

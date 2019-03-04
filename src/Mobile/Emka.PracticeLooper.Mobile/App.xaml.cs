@@ -15,10 +15,9 @@ namespace Emka.PracticeLooper.Mobile
 
         public App()
         {
-            InitializeComponent();
-            var config = Factory.GetResolver().Resolve<IConfigurationService>();
             InitApp();
-            MainPage = new MainPage();
+            InitializeComponent();
+            MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()
@@ -40,6 +39,10 @@ namespace Emka.PracticeLooper.Mobile
         {
             try
             {
+                // Build container after platform implementations have been registered
+                Factory.GetResolver().BuildContainer();
+
+                // Load config
                 string jsonConfig;
                 using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Emka.PracticeLooper.Mobile.App.config.json"))
                 using (var reader = new StreamReader(stream))

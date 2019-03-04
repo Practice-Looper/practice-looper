@@ -1,14 +1,66 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Emka.PracticeLooper.Mobile"
-    x:Class="Emka.PracticeLooper.Mobile.MainPage">
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label
-            Text="Welcome to Xamarin.Forms!"
-            HorizontalOptions="Center"
-            VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+    xmlns:forms="clr-namespace:Xamarin.RangeSlider.Forms;assembly=Xamarin.RangeSlider.Forms"
+    x:Class="Emka.PracticeLooper.Mobile.MainPage"
+    Title="Practice Looper"
+    BackgroundColor="Teal">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="7*" />
+            <RowDefinition
+                Height="auto" />
+            <RowDefinition
+                Height="3*" />
+        </Grid.RowDefinitions>
+        <ContentView
+            Grid.Row="0"
+            BackgroundColor="Teal"
+            Margin="10,0,10,30">
+            <!--<ListView
+                BackgroundColor="Teal"
+                SeparatorColor="White" />-->
+            <Button
+                Text="ADD"
+                BackgroundColor="White"
+                VerticalOptions="Center"
+                TextColor="Teal"
+                Command="{Binding SelectSourceCommand}" />
+        </ContentView>
+        <BoxView
+            Grid.Row="1"
+            Color="White"
+            WidthRequest="100"
+            HeightRequest="2" />
+        <ContentView
+            Grid.Row="2"
+            VerticalOptions="Center"
+            Padding="10,0,10,0">
+            <StackLayout>
+                <!--                <Slider />-->
+                <forms:RangeSlider
+                    Grid.Column="1"
+                    x:Name="RangeSlider"
+                    MinimumValue="1"
+                    MaximumValue="101"
+                    LowerValue="1"
+                    UpperValue="100"
+                    StepValue="10"
+                    StepValueContinuously="True"
+                    VerticalOptions="Center"
+                    TextSize="15"
+                    TextColor="Purple" />
+                <Button
+                    Text="Loop"
+                    Margin="0,10,0,10"
+                    BackgroundColor="White"
+                    TextColor="Teal" />
+                <Slider
+                    VerticalOptions="Center" />
+            </StackLayout>
+        </ContentView>
+    </Grid>
 </ContentPage>

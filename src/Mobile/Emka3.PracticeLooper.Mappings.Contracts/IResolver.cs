@@ -3,6 +3,7 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 
+using System;
 using System.Collections.Generic;
 
 namespace Emka3.PracticeLooper.Mappings.Contracts
@@ -10,6 +11,11 @@ namespace Emka3.PracticeLooper.Mappings.Contracts
 
     public interface IResolver
     {
+        /// <summary>
+        /// Builds the autofac container.
+        /// </summary>
+        void BuildContainer();
+
         /// <summary>
         /// Resolve instance registered in any IoC framework.
         /// </summary>
@@ -38,6 +44,6 @@ namespace Emka3.PracticeLooper.Mappings.Contracts
         /// <param name="type">Type.</param>
         /// <param name="name">Name.</param>
         /// <typeparam name="T">The type parameter.</typeparam>
-        void Register<T>(T type, string name = "");
+        void Register(Type type, Type typeInterface, string name = "");
     }
 }
