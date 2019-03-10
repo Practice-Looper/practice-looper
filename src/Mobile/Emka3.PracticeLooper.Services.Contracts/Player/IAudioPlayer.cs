@@ -9,6 +9,21 @@ namespace Emka3.PracticeLooper.Services.Contracts.Player
 {
     public interface IAudioPlayer
     {
-        void Play(AudioSource source);
+        #region Events
+        event EventHandler<bool> PlayStatusChanged;
+        #endregion
+
+        #region Properties
+        bool IsPlaying { get; }
+        double SongDuration { get; }
+        Loop CurrentLoop { get; set; }
+        #endregion
+
+        #region Methods
+        void Init(Session session);
+        void Play();
+        void Pause();
+        void Seek(double time);
+        #endregion
     }
 }

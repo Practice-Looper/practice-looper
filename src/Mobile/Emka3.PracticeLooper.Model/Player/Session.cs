@@ -11,18 +11,17 @@ namespace Emka3.PracticeLooper.Model.Player
     /// </summary>
     public class Session
     {
-
         #region Ctor
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Emka3.PracticeLooper.Model.Player.Session"/> class.
         /// </summary>
         /// <param name="name">Name.</param>
-        /// <param name="filePath">File path.</param>
+        /// <param name="audioSource">Audio source.</param>
         /// <param name="loops">Loops.</param>
-        public Session(string name, string filePath, IList<Loop> loops)
+        public Session(string name, IAudioSource audioSource, IList<Loop> loops)
         {
             Name = name;
-            FilePath = filePath;
+            AudioSource = audioSource;
             Loops = loops;
         }
         #endregion
@@ -38,7 +37,7 @@ namespace Emka3.PracticeLooper.Model.Player
         /// Gets the file path.
         /// </summary>
         /// <value>The file path.</value>
-        public string FilePath { get; }
+        public IAudioSource AudioSource { get; }
 
         /// <summary>
         /// Gets the loops.

@@ -4,7 +4,6 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
-
 namespace Emka.PracticeLooper.Mobile.iOS
 {
     public class Application

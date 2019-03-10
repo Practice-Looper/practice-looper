@@ -5,7 +5,6 @@ using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Xamarin.Forms;
-using Xamarin.RangeSlider.Forms;
 
 namespace Emka.PracticeLooper.Mobile
 {
@@ -25,7 +24,6 @@ namespace Emka.PracticeLooper.Mobile
                 var action = await DisplayActionSheet("Select Source", "Cancel", null, "File", "Spotify");
                 if (action != "Cancel" && action.Equals("File"))
                 {
-                    this.context.SelectedAudioSource = action;
                     filePicker.ShowPicker();
                 }
             });

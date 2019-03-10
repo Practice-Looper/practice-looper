@@ -11,7 +11,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
     public class FilePicker : IFilePicker
     {
-        public event System.EventHandler<AudioSource> SourceSelected;
+        public event System.EventHandler<FileAudioSource> SourceSelected;
 
         void IFilePicker.ShowPicker()
         {
@@ -26,7 +26,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             docPicker.DidPickDocumentAtUrls += (s, e) =>
             {
                 result = e.Urls[0].Path;
-                OnSourceSelected(new AudioSource(result));
+                OnSourceSelected(new FileAudioSource(result));
             };
 
             var window = UIApplication.SharedApplication.KeyWindow;
@@ -37,7 +37,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             //}
         }
 
-        private void OnSourceSelected(AudioSource audioSource)
+        private void OnSourceSelected(FileAudioSource audioSource)
         {
             SourceSelected?.Invoke(this, audioSource);
         }

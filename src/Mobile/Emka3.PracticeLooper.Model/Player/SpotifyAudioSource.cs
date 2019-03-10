@@ -5,13 +5,10 @@
 using System;
 namespace Emka3.PracticeLooper.Model.Player
 {
-    public class AudioSource
+    public class SpotifyAudioSource
     {
-        public AudioSource(string source)
+        public SpotifyAudioSource()
         {
-            this.Source = source;
         }
-
-        public string Source { get; set; }
     }
 }

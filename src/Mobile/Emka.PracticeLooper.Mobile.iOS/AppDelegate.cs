@@ -10,7 +10,7 @@ using UIKit;
 //#else
 //[assembly: Xamarin.Forms.ExportRenderer(typeof(Xamarin.RangeSlider.Forms.RangeSlider), typeof(Xamarin.RangeSlider.Forms.RangeSliderRenderer))]
 //#endif
-
+//[assembly: Xamarin.Forms.ExportRenderer(typeof(Xamarin.RangeSlider.Forms.RangeSlider), typeof(Xamarin.RangeSlider.Forms.RangeSliderRenderer))]
 namespace Emka.PracticeLooper.Mobile.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 

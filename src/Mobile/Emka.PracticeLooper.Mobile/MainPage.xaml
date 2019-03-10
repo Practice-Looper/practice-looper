@@ -3,7 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Emka.PracticeLooper.Mobile"
-    xmlns:forms="clr-namespace:Xamarin.RangeSlider.Forms;assembly=Xamarin.RangeSlider.Forms"
+    xmlns:forms="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     x:Class="Emka.PracticeLooper.Mobile.MainPage"
     Title="Practice Looper"
     BackgroundColor="Teal">
@@ -40,24 +40,36 @@
             VerticalOptions="Center"
             Padding="10,0,10,0">
             <StackLayout>
-                <!--                <Slider />-->
-                <forms:RangeSlider
-                    Grid.Column="1"
-                    x:Name="RangeSlider"
-                    MinimumValue="1"
-                    MaximumValue="101"
-                    LowerValue="1"
-                    UpperValue="100"
-                    StepValue="10"
-                    StepValueContinuously="True"
-                    VerticalOptions="Center"
-                    TextSize="15"
-                    TextColor="Purple" />
+                <!-- https://theconfuzedsourcecode.wordpress.com/2017/04/06/advanced-decorating-of-xamarin-forms-slider-for-android/-->
+                <!-- https://forums.xamarin.com/discussion/21431/custom-range-slider-for-ios-->
+                <!--<forms:RangeSlider
+                    RangeValue="{Binding Minimum, Mode=TwoWay}"
+                    Value="{Binding Maximum, Mode=TwoWay}" />-->
+                <Slider
+                    Value="{Binding MinimumValue}"
+                    Minimum="0.0"
+                    Maximum="1.0" />
+                <Slider
+                    Value="{Binding MaximumValue}"
+                    Minimum="0.0"
+                    Maximum="1.0" />
                 <Button
                     Text="Loop"
                     Margin="0,10,0,10"
                     BackgroundColor="White"
-                    TextColor="Teal" />
+                    TextColor="Teal"
+                    Command="{Binding PlayCommand}">
+                    <Button.Triggers>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding IsPlaying}"
+                            Value="True">
+                            <Setter
+                                Property="Text"
+                                Value="Stop" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
                 <Slider
                     VerticalOptions="Center" />
             </StackLayout>

@@ -16,7 +16,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
         {
             Emka3.PracticeLooper.Mappings.Contracts.IResolver resolver = Factory.GetResolver();
             resolver.Register(typeof(FilePicker), typeof(IFilePicker));
-            resolver.Register(typeof(AudioPlayer), typeof(IAudioPlayer));
+            resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer));
         }
     }
 }
