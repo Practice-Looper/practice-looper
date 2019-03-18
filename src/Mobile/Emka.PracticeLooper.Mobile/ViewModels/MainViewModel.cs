@@ -2,10 +2,8 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Messenger;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka3.PracticeLooper.Model.Player;
