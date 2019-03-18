@@ -1,4 +1,5 @@
 ﻿
+using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Messenger;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka3.PracticeLooper.Mappings;
@@ -27,6 +28,11 @@ namespace Emka.PracticeLooper.Mobile
                     filePicker.ShowPicker();
                 }
             });
+
+            async Task ShowPicker()
+            {
+
+            }
         }
     }
 }

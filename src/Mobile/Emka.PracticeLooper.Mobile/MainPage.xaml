@@ -3,10 +3,11 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Emka.PracticeLooper.Mobile"
-    xmlns:forms="clr-namespace:Emka.PracticeLooper.Mobile.Views"
+    xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     x:Class="Emka.PracticeLooper.Mobile.MainPage"
     Title="Practice Looper"
-    BackgroundColor="Teal">
+    BackgroundColor="#4788A2">
+    <!--https://mycolor.space/?hex=%2359677C&sub=1-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition
@@ -18,7 +19,6 @@
         </Grid.RowDefinitions>
         <ContentView
             Grid.Row="0"
-            BackgroundColor="Teal"
             Margin="10,0,10,30">
             <!--<ListView
                 BackgroundColor="Teal"
@@ -40,36 +40,56 @@
             VerticalOptions="Center"
             Padding="10,0,10,0">
             <StackLayout>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+                            Height="Auto" />
+                        <RowDefinition
+                            Height="*" />
+                    </Grid.RowDefinitions>
+                    <!-- <Slider
+                        Grid.Row="0"
+                        Value="{Binding MinimumValue}"
+                        Minimum="0.0"
+                        Maximum="1.0"
+                        MinimumTrackColor="Transparent"
+                        MaximumTrackColor="Transparent" />
+                    <Slider
+                        Grid.Row="0"
+                        Value="{Binding MaximumValue}"
+                        Minimum="0.0"
+                        Maximum="1.0" />-->
+                    <views:RangeSlider
+                        Grid.Row="0"
+                        LeftThumbValue="{Binding MinimumValue}"
+                        RightThumbValue="{Binding MaximumValue}">
+                    </views:RangeSlider>
+                    <Button
+                        Grid.Row="1"
+                        Text="Loop"
+                        Margin="0,10,0,10"
+                        BackgroundColor="White"
+                        TextColor="Teal"
+                        Command="{Binding PlayCommand}">
+                        <Button.Triggers>
+                            <DataTrigger
+                                TargetType="Button"
+                                Binding="{Binding IsPlaying}"
+                                Value="True">
+                                <Setter
+                                    Property="Text"
+                                    Value="Stop" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Grid>
+                <!--            <StackLayout>-->
                 <!-- https://theconfuzedsourcecode.wordpress.com/2017/04/06/advanced-decorating-of-xamarin-forms-slider-for-android/-->
                 <!-- https://forums.xamarin.com/discussion/21431/custom-range-slider-for-ios-->
                 <!--<forms:RangeSlider
                     RangeValue="{Binding Minimum, Mode=TwoWay}"
                     Value="{Binding Maximum, Mode=TwoWay}" />-->
-                <Slider
-                    Value="{Binding MinimumValue}"
-                    Minimum="0.0"
-                    Maximum="1.0" />
-                <Slider
-                    Value="{Binding MaximumValue}"
-                    Minimum="0.0"
-                    Maximum="1.0" />
-                <Button
-                    Text="Loop"
-                    Margin="0,10,0,10"
-                    BackgroundColor="White"
-                    TextColor="Teal"
-                    Command="{Binding PlayCommand}">
-                    <Button.Triggers>
-                        <DataTrigger
-                            TargetType="Button"
-                            Binding="{Binding IsPlaying}"
-                            Value="True">
-                            <Setter
-                                Property="Text"
-                                Value="Stop" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
+                <!--            </StackLayout>-->
                 <Slider
                     VerticalOptions="Center" />
             </StackLayout>

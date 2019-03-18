@@ -17,7 +17,10 @@ namespace Emka.PracticeLooper.Mobile
         {
             InitApp();
             InitializeComponent();
-            MainPage = new NavigationPage(new MainPage());
+            var navPage = new NavigationPage(new MainPage());
+            navPage.BarBackgroundColor = Color.FromHex("#4788A2");
+            navPage.BarTextColor = Color.FromHex("#F9F871");
+            MainPage = navPage;
         }
 
         protected override void OnStart()

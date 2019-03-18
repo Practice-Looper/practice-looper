@@ -129,7 +129,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private bool CanExecutePlayCommand(object o)
         {
-            return SelectedAudioSource != null;
+                return SelectedAudioSource != null;
         }
 
         private void ExecutePlayCommand(object o)
@@ -153,7 +153,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             sessions.Add(new Session("Coumarin", audioSource, new List<Loop>
             {
-                new Loop("My Loop", 0.3, 0.6, 0)
+                new Loop("My Loop", 0.0, 1.0, 0)
             }));
 
             SelectedAudioSource = audioSource;
