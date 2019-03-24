@@ -45,5 +45,12 @@ namespace Emka3.PracticeLooper.Mappings.Contracts
         /// <param name="name">Name.</param>
         /// <typeparam name="T">The type parameter.</typeparam>
         void Register(Type type, Type typeInterface, string name = "");
+
+        /// <summary>
+        /// Registers an created instance.
+        /// </summary>
+        /// <param name="instance">Instance.</param>
+        /// <param name="type">Type.</param>
+        void RegisterInstance(object instance, Type type);
     }
 }

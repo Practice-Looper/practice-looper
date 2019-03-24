@@ -16,7 +16,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         float rightThumbX;
         float thumbRadius = 50f;
         double canvasWidth;
-        static byte alpha = 0x90;
+        static byte alpha = 0x90;   
 
         SKPaint thumb = new SKPaint
         {

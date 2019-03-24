@@ -1,10 +1,6 @@
-﻿using System;
-
+﻿
 using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 
 namespace Emka.PracticeLooper.Mobile.Droid
@@ -14,6 +10,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            GlobalApp.Init();
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 

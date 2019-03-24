@@ -4,10 +4,10 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System.Collections.Generic;
 using System.Linq;
-using Emka.PracticeLooper.Mobile.Messenger;
+using System.Threading.Tasks;
+using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka3.PracticeLooper.Model.Player;
-using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Xamarin.Forms;
 
@@ -18,6 +18,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #region Fields
         private readonly IFilePicker filePicker;
         private readonly IAudioPlayer audioPlayer;
+        private readonly ISourcePicker sourcePicker;
         private readonly IList<Session> sessions;
         private Command playCommand;
         private Command selectSourceCommand;
@@ -26,16 +27,17 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private double maximum;
         private double minumumValue;
         private double maximumValue;
+        private IAudioSource selectedAudioSource;
         #endregion
 
         #region Ctor
-        public MainViewModel(IFilePicker filePicker, IAudioPlayer audioPlayer)
+        public MainViewModel(IFilePicker filePicker, IAudioPlayer audioPlayer, ISourcePicker sourcePicker)
         {
             this.filePicker = filePicker;
             this.audioPlayer = audioPlayer;
+            this.sourcePicker = sourcePicker;
             sessions = new List<Session>();
             isPlaying = false;
-            filePicker.SourceSelected += OnAudioSourceSelected;
             audioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
             Maximum = 1;
             MaximumValue = 1;
@@ -44,8 +46,17 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Properties
         public Command PlayCommand => playCommand ?? (playCommand = new Command(ExecutePlayCommand, CanExecutePlayCommand));
-        public Command SelectSourceCommand => selectSourceCommand ?? (selectSourceCommand = new Command(ExecuteSelectSourceCommand, CanExecuteSelectSourceCommand));
-        public FileAudioSource SelectedAudioSource { get; set; }
+        public Command SelectSourceCommand => selectSourceCommand ?? (selectSourceCommand = new Command(async (o) => await ExecuteSelectSourceCommandAsync(), CanExecuteSelectSourceCommand));
+        public IAudioSource SelectedAudioSource
+        {
+            get => selectedAudioSource;
+            set
+            {
+                selectedAudioSource = value;
+                NotifyPropertyChanged();
+                PlayCommand.ChangeCanExecute();
+            }
+        }
 
         public bool IsPlaying
         {
@@ -120,14 +131,27 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             return true;
         }
 
-        private void ExecuteSelectSourceCommand(object obj)
+        private async Task ExecuteSelectSourceCommandAsync()
         {
-            MessagingCenter.Send(this, MessengerKeys.GetAudioSource);
+            var sorceType = await sourcePicker.SelectFileSource();
+            switch (sorceType)
+            {
+                case "File":
+                    SelectedAudioSource = await filePicker.ShowPicker();
+                    break;
+                default:
+                    break;
+            }
+
+            if (SelectedAudioSource != null)
+            {
+                InitAudioSourceSelected();
+            }
         }
 
         private bool CanExecutePlayCommand(object o)
         {
-                return SelectedAudioSource != null;
+            return SelectedAudioSource != null;
         }
 
         private void ExecutePlayCommand(object o)
@@ -142,25 +166,23 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        private void OnAudioSourceSelected(object sender, FileAudioSource audioSource)
+        private void InitAudioSourceSelected()
         {
             if (IsPlaying)
             {
                 audioPlayer.Pause();
             }
 
-            sessions.Add(new Session("Coumarin", audioSource, new List<Loop>
+            sessions.Add(new Session("Coumarin", SelectedAudioSource, new List<Loop>
             {
                 new Loop("My Loop", 0.0, 1.0, 0)
             }));
 
-            SelectedAudioSource = audioSource;
             audioPlayer.Init(sessions[0]);
             Minimum = 0;
             MinimumValue = sessions[0].Loops[0].StartPosition;
             Maximum = audioPlayer.SongDuration;
             MaximumValue = sessions[0].Loops[0].EndPosition;
-            PlayCommand.ChangeCanExecute();
         }
 
         private void OnPlayingStatusChanged(object sender, bool e)

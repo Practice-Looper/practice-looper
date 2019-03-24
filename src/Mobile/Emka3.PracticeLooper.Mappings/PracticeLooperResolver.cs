@@ -74,6 +74,19 @@ namespace Emka3.PracticeLooper.Mappings
         }
 
         /// <summary>
+        /// Registers an created instance.
+        /// </summary>
+        /// <param name="instance">Instance.</param>
+        /// <param name="type">Type.</param>
+        public void RegisterInstance(object instance, Type type)
+        {
+            if (builder != null)
+            {
+                builder.RegisterInstance(instance).As(type);
+            }
+        }
+
+        /// <summary>
         /// Resolve a reference.
         /// </summary>
         /// <returns>The resolved type.</returns>

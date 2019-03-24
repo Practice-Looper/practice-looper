@@ -12,5 +12,6 @@ namespace Emka3.PracticeLooper.Model.Player
         }
 
         public string Source { get; set; }
+        public string FileName { get; set; }
     }
 }

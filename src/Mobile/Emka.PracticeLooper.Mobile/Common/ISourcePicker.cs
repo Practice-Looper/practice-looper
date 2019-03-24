@@ -2,11 +2,14 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
-namespace Emka3.PracticeLooper.Model.Player
+using System;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+
+namespace Emka.PracticeLooper.Mobile.Common
 {
-    public interface IAudioSource
+    public interface ISourcePicker
     {
-        string Source { get; set; }
-        string FileName { get; set; }
+        Task<string> SelectFileSource(); 
     }
 }
