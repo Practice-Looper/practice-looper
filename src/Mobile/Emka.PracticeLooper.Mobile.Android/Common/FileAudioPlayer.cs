@@ -3,6 +3,8 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Android.Media;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Player;
@@ -14,6 +16,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         #region Fields
         MediaPlayer player;
         Session session;
+        CancellationTokenSource cancelTokenSource;
         #endregion
 
         #region Ctor
@@ -26,7 +29,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         #region Properties
         public bool IsPlaying => player.IsPlaying;
 
-        public double SongDuration => 0.0;
+        public double SongDuration { get; set; }
 
         public Loop CurrentLoop { get; set; }
 
@@ -43,6 +46,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             player.Reset();
             player.SetDataSource(session.AudioSource.Source);
             player.Prepare();
+            cancelTokenSource = new CancellationTokenSource();
             //var asset = AVAsset.FromUrl(new NSUrl(new Uri(session.AudioSource.Source).AbsoluteUri));
             //var playerItem = new AVPlayerItem(asset);
             //audioPlayer = new AVPlayer(playerItem);
@@ -57,17 +61,42 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             //audioPlayer = AVAudioPlayer.FromUrl(new NSUrl(new Uri(audioSource.Source).AbsoluteUri));
             ////audioPlayer2.Set
             //audioPlayer.PrepareToPlay();
-            //SongDuration = audioPlayer.CurrentItem.Asset.Duration.Seconds;
+            SongDuration = player.Duration;
         }
 
         private void OnEndPositionChanged(object sender, double e)
         {
+            if (IsPlaying)
+            {
+                cancelTokenSource.Cancel();
+                cancelTokenSource = new CancellationTokenSource();
+                Task.Run(async () => await StartRangeTimer(e), cancelTokenSource.Token);
+            }
+        }
 
+        private async Task StartRangeTimer(double time)
+        {
+            while (!cancelTokenSource.IsCancellationRequested)
+            {
+                try
+                {
+                    var delta =(CurrentLoop.EndPosition - CurrentLoop.StartPosition) * SongDuration;
+                    var t = TimeSpan.FromMilliseconds(delta).TotalMilliseconds;
+                    Console.WriteLine("waiting for " + t);
+                    await Task.Delay(Convert.ToInt32(t), cancelTokenSource.Token);
+                    Seek(CurrentLoop.StartPosition);
+                }
+                catch (TaskCanceledException)
+                {
+
+                }
+            }
         }
 
         private void OnStartPositionChanged(object sender, double e)
         {
-
+            cancelTokenSource.Cancel();
+            Seek(e);
         }
 
         public void Pause()
@@ -90,8 +119,15 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void Seek(double time)
         {
-            var position = TimeSpan.FromMilliseconds(time);
-            player.SeekTo(position.Milliseconds);
+            try
+            {
+                var offset = Convert.ToInt32(time * SongDuration);
+                player.SeekTo(offset);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         private void RaisePlayingStatusChanged()
