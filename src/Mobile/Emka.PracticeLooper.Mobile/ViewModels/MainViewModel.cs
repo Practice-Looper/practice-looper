@@ -230,7 +230,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             MinimumValue = sessions[0].Loops[0].StartPosition;
             Maximum = audioPlayer.SongDuration;
             MaximumValue = sessions[0].Loops[0].EndPosition;
-            SongDuration = FormatTime(audioPlayer.SongDuration * MaximumValue);
+            SongDuration = FormatTime(audioPlayer.SongDuration);
             CurrentSongTime = FormatTime(audioPlayer.SongDuration * MinimumValue);
         }
 
