@@ -16,7 +16,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         #region Fields
         MediaPlayer player;
         Session session;
-        CancellationTokenSource cancelTokenSource;
+        CancellationTokenSource loopTimerCancelTokenSource;
+        CancellationTokenSource currentTimeCancelTokenSource;
+        const int CURRENT_TIME_UPDATE_INTERVAL = 1000;
         #endregion
 
         #region Ctor
@@ -34,76 +36,78 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         public Loop CurrentLoop { get; set; }
 
         public event EventHandler<bool> PlayStatusChanged;
+        public event EventHandler<int> CurrentTimePositionChanged;
+
+        private int CurrentStartPosition { get; set; }
+
+        private int CurrentEndPosition { get; set; }
         #endregion
 
         #region Methods
         public void Init(Session session)
         {
             this.session = session;
-            CurrentLoop = session.Loops[0];
-            CurrentLoop.StartPositionChanged += OnStartPositionChanged;
-            CurrentLoop.EndPositionChanged += OnEndPositionChanged;
+
             player.Reset();
             player.SetDataSource(session.AudioSource.Source);
             player.Prepare();
-            cancelTokenSource = new CancellationTokenSource();
-            //var asset = AVAsset.FromUrl(new NSUrl(new Uri(session.AudioSource.Source).AbsoluteUri));
-            //var playerItem = new AVPlayerItem(asset);
-            //audioPlayer = new AVPlayer(playerItem);
-            //var playerLayer = AVPlayerLayer.FromPlayer(audioPlayer);
 
-            //TimeObserver = audioPlayer.AddBoundaryTimeObserver(new[] { NSValue.FromCMTime(CMTime.FromSeconds(CurrentLoop.EndPosition * SongDuration, 1)) }, null, () =>
-            //{
-            //    Seek(CurrentLoop.StartPosition);
-            //});
-            //player.Play();
-
-            //audioPlayer = AVAudioPlayer.FromUrl(new NSUrl(new Uri(audioSource.Source).AbsoluteUri));
-            ////audioPlayer2.Set
-            //audioPlayer.PrepareToPlay();
             SongDuration = player.Duration;
+            CurrentLoop = session.Loops[0];
+            CurrentLoop.StartPositionChanged += OnStartPositionChanged;
+            CurrentLoop.EndPositionChanged += OnEndPositionChanged;
+            CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
+            CurrentEndPosition = ConvertToInt(CurrentLoop.EndPosition);
+
+            player.SeekTo(CurrentStartPosition);
+
+            loopTimerCancelTokenSource = new CancellationTokenSource();
+            currentTimeCancelTokenSource = new CancellationTokenSource();
         }
 
-        private void OnEndPositionChanged(object sender, double e)
+        private int ConvertToInt(double inValue)
         {
-            if (IsPlaying)
+            int result;
+            try
             {
-                cancelTokenSource.Cancel();
-                cancelTokenSource = new CancellationTokenSource();
-                Task.Run(async () => await StartRangeTimer(e), cancelTokenSource.Token);
+                result = Convert.ToInt32(inValue * SongDuration);
             }
-        }
-
-        private async Task StartRangeTimer(double time)
-        {
-            while (!cancelTokenSource.IsCancellationRequested)
+            catch (Exception)
             {
-                try
-                {
-                    var delta =(CurrentLoop.EndPosition - CurrentLoop.StartPosition) * SongDuration;
-                    var t = TimeSpan.FromMilliseconds(delta).TotalMilliseconds;
-                    Console.WriteLine("waiting for " + t);
-                    await Task.Delay(Convert.ToInt32(t), cancelTokenSource.Token);
-                    Seek(CurrentLoop.StartPosition);
-                }
-                catch (TaskCanceledException)
-                {
-
-                }
+                throw;
             }
+
+            return result;
         }
 
         private void OnStartPositionChanged(object sender, double e)
         {
-            cancelTokenSource.Cancel();
-            Seek(e);
+            CurrentStartPosition = ConvertToInt(e);
+
+            if (IsPlaying)
+            {
+                Seek(e);
+                SetLoopTimer();
+            }
+        }
+
+        private void OnEndPositionChanged(object sender, double e)
+        {
+            CurrentEndPosition = ConvertToInt(e);
+            Console.WriteLine("Endposition " + CurrentEndPosition);
+            if (IsPlaying)
+            {
+                SetLoopTimer();
+            }
         }
 
         public void Pause()
         {
             if (IsPlaying)
             {
+                StopTimers();
                 player.Pause();
+                CurrentStartPosition = player.CurrentPosition;
                 RaisePlayingStatusChanged();
             }
         }
@@ -113,6 +117,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             if (!IsPlaying)
             {
                 player.Start();
+                SetLoopTimer();
+                SetCurrentTimeTimer();
+                CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
                 RaisePlayingStatusChanged();
             }
         }
@@ -123,8 +130,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             {
                 var offset = Convert.ToInt32(time * SongDuration);
                 player.SeekTo(offset);
+                Console.WriteLine("seeking to" + offset);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -133,6 +141,76 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         private void RaisePlayingStatusChanged()
         {
             PlayStatusChanged?.Invoke(this, IsPlaying);
+        }
+
+        private void RaisTimePositionChanged()
+        {
+            CurrentTimePositionChanged?.Invoke(this, player.CurrentPosition);
+        }
+
+        private void SetLoopTimer()
+        {
+            Console.WriteLine("Refreshing token");
+            if (loopTimerCancelTokenSource != null && !loopTimerCancelTokenSource.IsCancellationRequested)
+            {
+                try
+                {
+                    // looping task
+                    Task.Run(async () =>
+                    {
+                        {
+                            var delta = CurrentEndPosition - CurrentStartPosition;
+                            Console.WriteLine("waiting for " + delta);
+                            await Task.Delay(delta, loopTimerCancelTokenSource.Token);
+                            Console.WriteLine("Timer elapsed ");
+
+                            Seek(CurrentLoop.StartPosition);
+                            SetLoopTimer();
+                            Play();
+                            Console.WriteLine("seeking to " + CurrentStartPosition);
+                        }
+                    }, loopTimerCancelTokenSource.Token);
+                }
+                catch (TaskCanceledException)
+                {
+                    Console.WriteLine("Task cancelled");
+                }
+            }
+        }
+
+        private void StopTimers()
+        {
+            if (loopTimerCancelTokenSource != null && !loopTimerCancelTokenSource.IsCancellationRequested)
+            {
+                loopTimerCancelTokenSource.Cancel();
+                loopTimerCancelTokenSource = new CancellationTokenSource();
+            }
+
+            if (currentTimeCancelTokenSource != null && !currentTimeCancelTokenSource.IsCancellationRequested)
+            {
+                currentTimeCancelTokenSource.Cancel();
+                currentTimeCancelTokenSource = new CancellationTokenSource();
+            }
+        }
+
+        private void SetCurrentTimeTimer()
+        {
+            try
+            {
+                Task.Run(async () =>
+                {
+                    await Task.Delay(CURRENT_TIME_UPDATE_INTERVAL, currentTimeCancelTokenSource.Token);
+                    if (!currentTimeCancelTokenSource.IsCancellationRequested)
+                    {
+                        RaisTimePositionChanged();
+                        SetCurrentTimeTimer();
+                    }
+                }, currentTimeCancelTokenSource.Token);
+            }
+            catch (TaskCanceledException)
+            {
+
+            }
         }
         #endregion
     }

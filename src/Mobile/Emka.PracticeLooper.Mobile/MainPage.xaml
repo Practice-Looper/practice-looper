@@ -11,11 +11,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition
-                Height="7*" />
+                Height="6*" />
             <RowDefinition
                 Height="auto" />
             <RowDefinition
-                Height="3*" />
+                Height="4*" />
         </Grid.RowDefinitions>
         <ContentView
             Grid.Row="0"
@@ -40,27 +40,35 @@
             VerticalOptions="Center"
             Padding="10,0,10,0">
             <StackLayout>
+                <Grid
+                    HorizontalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="5*" />
+                        <ColumnDefinition
+                            Width="5*" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Text="{Binding CurrentSongTime}"
+                        Grid.Column="0"
+                        HorizontalOptions="Start"
+                        TextColor="White" />
+                    <Label
+                        Text="{Binding SongDuration}"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        TextColor="White" />
+                </Grid>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition
                             Height="Auto" />
                         <RowDefinition
-                            Height="*" />
+                            Height="Auto" />
                     </Grid.RowDefinitions>
-                    <!-- <Slider
-                        Grid.Row="0"
-                        Value="{Binding MinimumValue}"
-                        Minimum="0.0"
-                        Maximum="1.0"
-                        MinimumTrackColor="Transparent"
-                        MaximumTrackColor="Transparent" />
-                    <Slider
-                        Grid.Row="0"
-                        Value="{Binding MaximumValue}"
-                        Minimum="0.0"
-                        Maximum="1.0" />-->
                     <views:RangeSlider
                         Grid.Row="0"
+                        Margin="0,5,0,5"
                         LeftThumbValue="{Binding MinimumValue}"
                         RightThumbValue="{Binding MaximumValue}">
                     </views:RangeSlider>
@@ -83,13 +91,6 @@
                         </Button.Triggers>
                     </Button>
                 </Grid>
-                <!--            <StackLayout>-->
-                <!-- https://theconfuzedsourcecode.wordpress.com/2017/04/06/advanced-decorating-of-xamarin-forms-slider-for-android/-->
-                <!-- https://forums.xamarin.com/discussion/21431/custom-range-slider-for-ios-->
-                <!--<forms:RangeSlider
-                    RangeValue="{Binding Minimum, Mode=TwoWay}"
-                    Value="{Binding Maximum, Mode=TwoWay}" />-->
-                <!--            </StackLayout>-->
                 <Slider
                     VerticalOptions="Center" />
             </StackLayout>

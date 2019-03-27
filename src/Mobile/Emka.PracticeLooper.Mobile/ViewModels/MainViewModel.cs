@@ -2,6 +2,7 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,6 +29,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private double minumumValue;
         private double maximumValue;
         private IAudioSource selectedAudioSource;
+        private string songDuration;
+        private string currentSongTime;
         #endregion
 
         #region Ctor
@@ -39,6 +42,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             sessions = new List<Session>();
             isPlaying = false;
             audioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
+            audioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
             Maximum = 1;
             MaximumValue = 1;
         }
@@ -123,6 +127,26 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged();
             }
         }
+
+        public string SongDuration
+        {
+            get => songDuration;
+            set
+            {
+                songDuration = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string CurrentSongTime
+        {
+            get => currentSongTime;
+            set
+            {
+                currentSongTime = value;
+                NotifyPropertyChanged();
+            }
+        }
         #endregion
 
         #region Metods
@@ -175,7 +199,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             sessions.Add(new Session("Coumarin", SelectedAudioSource, new List<Loop>
             {
-                new Loop("My Loop", 0.0, 1.0, 0)
+                new Loop("My Loop", 0.5, 0.8, 0)
             }));
 
             audioPlayer.Init(sessions[0]);
@@ -183,11 +207,23 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             MinimumValue = sessions[0].Loops[0].StartPosition;
             Maximum = audioPlayer.SongDuration;
             MaximumValue = sessions[0].Loops[0].EndPosition;
+            SongDuration = FormatTime(audioPlayer.SongDuration * MaximumValue);
+            CurrentSongTime = FormatTime(audioPlayer.SongDuration * MinimumValue);
         }
 
         private void OnPlayingStatusChanged(object sender, bool e)
         {
             IsPlaying = e;
+        }
+
+        void OnCurrentTimePositionChanged(object sender, int e)
+        {
+            CurrentSongTime = FormatTime(e);
+        }
+
+        string FormatTime(double time)
+        {
+            return TimeSpan.FromMilliseconds(time).ToString(@"mm\:ss");
         }
         #endregion
     }

@@ -16,7 +16,8 @@ namespace Emka.PracticeLooper.Mobile.Views
         float rightThumbX;
         float thumbRadius = 50f;
         double canvasWidth;
-        static byte alpha = 0x90;   
+        static byte alpha = 0x90;
+        private static SKCanvasView cView;
 
         SKPaint thumb = new SKPaint
         {
@@ -94,10 +95,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         public RangeSlider()
         {
             InitializeComponent();
-            canvasView.SizeChanged += (sender, e) =>
-            {
-                rightThumbX = (Convert.ToSingle(this.Width) * 3) - thumbRadius;
-            };
+            cView = canvasView;
         }
         #endregion
 
@@ -122,7 +120,6 @@ namespace Emka.PracticeLooper.Mobile.Views
 
                                 if (!willThumbsCollide)
                                 {
-                                    leftThumbX = e.Location.X;
                                     LeftThumbValue = (double)Math.Round((decimal)(e.Location.X / canvasWidth), 2);
                                 }
                             }
@@ -135,7 +132,6 @@ namespace Emka.PracticeLooper.Mobile.Views
 
                                 if (!willThumbsCollide)
                                 {
-                                    rightThumbX = e.Location.X - thumbRadius / 2;
                                     RightThumbValue = (double)Math.Round((decimal)(e.Location.X / canvasWidth), 2);
                                 }
                             }
@@ -165,6 +161,8 @@ namespace Emka.PracticeLooper.Mobile.Views
             int height = e.Info.Height;
 
             canvasWidth = width - Convert.ToInt32(thumbRadius);
+            leftThumbX = (float)(LeftThumbValue * canvasWidth);
+            rightThumbX = (float)(RightThumbValue * canvasWidth);
 
             // clear canvas
             canvas.Clear();
@@ -191,11 +189,13 @@ namespace Emka.PracticeLooper.Mobile.Views
         private static void RightThumbValueChanged(BindableObject bindable, object oldValue, object newValue)
         {
             Console.WriteLine("right " + newValue);
+            cView.InvalidateSurface();
         }
 
         private static void LeftThumbValueChanged(BindableObject bindable, object oldValue, object newValue)
         {
             Console.WriteLine("left " + newValue);
+            cView.InvalidateSurface();
         }
 
         private static bool IsValidValue(BindableObject bindable, object value)
