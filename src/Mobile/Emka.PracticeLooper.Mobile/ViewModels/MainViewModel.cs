@@ -26,11 +26,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private bool isPlaying;
         private double minimum;
         private double maximum;
-        private double minumumValue;
+        private double minimumValue;
         private double maximumValue;
         private IAudioSource selectedAudioSource;
         private string songDuration;
         private string currentSongTime;
+        private string loopStartPosition;
+        private string loopEndPosition;
         #endregion
 
         #region Ctor
@@ -91,14 +93,15 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public double MinimumValue
         {
-            get => minumumValue;
+            get => minimumValue;
             set
             {
-                minumumValue = value;
+                minimumValue = value;
                 if (sessions.Any())
                 {
                     sessions[0].Loops[0].StartPosition = value;
-                }
+                    LoopStartPosition = FormatTime(minimumValue * audioPlayer.SongDuration);
+    }
                 NotifyPropertyChanged();
             }
         }
@@ -111,7 +114,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 maximum = value;
                 NotifyPropertyChanged();
             }
-
         }
 
         public double MaximumValue
@@ -123,6 +125,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (sessions.Any())
                 {
                     sessions[0].Loops[0].EndPosition = value;
+                    LoopEndPosition = FormatTime(maximumValue * audioPlayer.SongDuration);
                 }
                 NotifyPropertyChanged();
             }
@@ -144,6 +147,26 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             set
             {
                 currentSongTime = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string LoopStartPosition
+        {
+            get => loopStartPosition;
+            set
+            {
+                loopStartPosition = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string LoopEndPosition
+        {
+            get => loopEndPosition;
+            set
+            {
+                loopEndPosition = value;
                 NotifyPropertyChanged();
             }
         }

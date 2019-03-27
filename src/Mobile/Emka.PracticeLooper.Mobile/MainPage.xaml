@@ -44,9 +44,11 @@
                     HorizontalOptions="FillAndExpand">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition
-                            Width="5*" />
+                            Width="3*" />
                         <ColumnDefinition
-                            Width="5*" />
+                            Width="3*" />
+                        <ColumnDefinition
+                            Width="3*" />
                     </Grid.ColumnDefinitions>
                     <Label
                         Text="{Binding CurrentSongTime}"
@@ -55,6 +57,16 @@
                         TextColor="White" />
                     <Label
                         Text="{Binding SongDuration}"
+                        Grid.Column="2"
+                        HorizontalOptions="End"
+                        TextColor="White" />
+                    <Label
+                        Text="{Binding LoopStartPosition, StringFormat='[{0}'}}"
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        TextColor="White" />
+                    <Label
+                        Text="{Binding LoopEndPosition, StringFormat='{0}]'}"
                         Grid.Column="1"
                         HorizontalOptions="End"
                         TextColor="White" />

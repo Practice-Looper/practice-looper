@@ -94,7 +94,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         private void OnEndPositionChanged(object sender, double e)
         {
             CurrentEndPosition = ConvertToInt(e);
-            Console.WriteLine("Endposition " + CurrentEndPosition);
             if (IsPlaying)
             {
                 SetLoopTimer();
@@ -150,7 +149,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         private void SetLoopTimer()
         {
-            Console.WriteLine("Refreshing token");
             if (loopTimerCancelTokenSource != null && !loopTimerCancelTokenSource.IsCancellationRequested)
             {
                 try
@@ -160,20 +158,15 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                     {
                         {
                             var delta = CurrentEndPosition - CurrentStartPosition;
-                            Console.WriteLine("waiting for " + delta);
                             await Task.Delay(delta, loopTimerCancelTokenSource.Token);
-                            Console.WriteLine("Timer elapsed ");
-
                             Seek(CurrentLoop.StartPosition);
                             SetLoopTimer();
                             Play();
-                            Console.WriteLine("seeking to " + CurrentStartPosition);
                         }
                     }, loopTimerCancelTokenSource.Token);
                 }
                 catch (TaskCanceledException)
                 {
-                    Console.WriteLine("Task cancelled");
                 }
             }
         }
