@@ -22,9 +22,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="App.config.json" />
+    <None Remove="Assets\Images\add_48px.svg" />
+    <None Remove="Assets\Images\ic_add_black_48dp.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.config.json" />
+    <EmbeddedResource Include="Assets\Images\add_48px.svg" />
+    <EmbeddedResource Include="Assets\Images\ic_add_black_48dp.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
@@ -32,6 +36,9 @@
     <Folder Include="Views\" />
     <Folder Include="Messenger\" />
     <Folder Include="Common\" />
+    <Folder Include="Assets\" />
+    <Folder Include="Assets\Images\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mono.Android">

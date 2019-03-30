@@ -28,7 +28,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         SKPaint track = new SKPaint
         {
             Style = SKPaintStyle.Stroke,
-            Color = new SKColor(0x48, 0xCC, 0xA8, alpha),// #48CCA8
+            Color = ColorConstants.ConvertToUint(ColorConstants.SecondaryHexColor),
             StrokeWidth = 8,
             StrokeCap = SKStrokeCap.Round,
             IsAntialias = true
@@ -37,8 +37,8 @@ namespace Emka.PracticeLooper.Mobile.Views
         SKPaint rangeTrack = new SKPaint
         {
             Style = SKPaintStyle.Stroke,
-            Color = new SKColor(0xF9, 0xF8, 0x71), // #F9F871
-            StrokeWidth = 8,
+            Color = ColorConstants.ConvertToUint(ColorConstants.PrimaryHexColor),
+            StrokeWidth = 12,
             StrokeCap = SKStrokeCap.Round,
             IsAntialias = true
         };
@@ -52,8 +52,8 @@ namespace Emka.PracticeLooper.Mobile.Views
         SKPaint verticalThumbTrack = new SKPaint
         {
             Style = SKPaintStyle.Stroke,
-            Color = new SKColor(0xF9, 0xF8, 0x71),
-            StrokeWidth = 8,
+            Color = ColorConstants.ConvertToUint(ColorConstants.PrimaryHexColor),
+            StrokeWidth = 12,
             StrokeCap = SKStrokeCap.Round,
             IsAntialias = true
         };

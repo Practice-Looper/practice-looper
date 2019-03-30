@@ -33,6 +33,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private string currentSongTime;
         private string loopStartPosition;
         private string loopEndPosition;
+        private bool isInitialized;
         #endregion
 
         #region Ctor
@@ -60,6 +61,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 selectedAudioSource = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged("IsInitialized");
                 PlayCommand.ChangeCanExecute();
             }
         }
@@ -101,7 +103,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     sessions[0].Loops[0].StartPosition = value;
                     LoopStartPosition = FormatTime(minimumValue * audioPlayer.SongDuration);
-    }
+                }
                 NotifyPropertyChanged();
             }
         }
@@ -170,6 +172,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged();
             }
         }
+
+        public bool IsInitialized => SelectedAudioSource != null;
         #endregion
 
         #region Metods

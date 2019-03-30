@@ -1,8 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Application
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     x:Class="Emka.PracticeLooper.Mobile.App">
     <Application.Resources>
+        <ResourceDictionary>
+            <Style
+                x:Key="LabelStyle"
+                TargetType="Label">
+                <Setter
+                    Property="IsVisible"
+                    Value="{Binding IsInitialized}" />
+                <Setter
+                    Property="TextColor"
+                    Value="{x:Static views:ColorConstants.Secondary}" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

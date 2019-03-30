@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.Messenger;
@@ -15,47 +16,22 @@ namespace Emka.PracticeLooper.Mobile
 {
     public partial class MainPage : ContentPage
     {
-        private MainViewModel context;
         public MainPage()
         {
             InitializeComponent();
-
-            //MessagingCenter.Subscribe<MainViewModel>(this, MessengerKeys.GetAudioSource, async (obj) =>
-            //{
-            //    var action = await DisplayActionSheet("Select Source", "Cancel", null, "File", "Spotify");
-            //    if (action != "Cancel" && action.Equals("File"))
-            //    {
-            //        //filePicker.ShowPicker();
-
-            //        try
-            //        {
-            //            FileData fileData = await CrossFilePicker.Current.PickFile();
-            //            if (fileData == null)
-            //                return; // user canceled file picking
-
-            //            string fileName = fileData.FileName;
-            //            string contents = System.Text.Encoding.UTF8.GetString(fileData.DataArray);
-
-            //            System.Console.WriteLine("File name chosen: " + fileName);
-            //            System.Console.WriteLine("File data: " + contents);
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            System.Console.WriteLine("Exception choosing file: " + ex.ToString());
-            //        }
-            //    }
-            //});
-
         }
 
         protected override void OnAppearing()
         {
+            foreach (var res in Assembly.GetExecutingAssembly().GetManifestResourceNames())
+            {
+                System.Diagnostics.Debug.WriteLine("found resource: " + res);
+            }
+        }
 
-            //var filePicker = Factory.GetResolver().Resolve<Common.IFilePicker>();
-            //var sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
-            //var audioPlayer = Factory.GetResolver().Resolve<IAudioPlayer>();
-            //this.context = new MainViewModel(filePicker, audioPlayer, sourcePicker);
-            //this.BindingContext = this.context;
+        void Handle_Clicked(object sender, System.EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

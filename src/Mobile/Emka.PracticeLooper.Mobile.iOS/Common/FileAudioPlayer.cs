@@ -21,6 +21,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         #region Events
         public event EventHandler<bool> PlayStatusChanged;
+        public event EventHandler<int> CurrentTimePositionChanged;
         #endregion
 
         #region Properties
