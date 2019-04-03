@@ -7,13 +7,63 @@
     <Application.Resources>
         <ResourceDictionary>
             <Style
-                x:Key="LabelStyle"
-                TargetType="Label">
+                TargetType="Page"
+                x:Key="PageBaseStyle">
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{x:Static views:ColorConstants.Background}" />
+            </Style>
+            <Style
+                TargetType="ContentPage"
+                x:Key="PageMainStyle"
+                BasedOn="{StaticResource PageBaseStyle}">
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{x:Static views:ColorConstants.Background}" />
+            </Style>
+            <Style
+                TargetType="NavigationPage"
+                x:Key="NavigationPageMainStyle"
+                BasedOn="{StaticResource PageBaseStyle}">
+                <Setter
+                    Property="BarBackgroundColor"
+                    Value="{x:Static views:ColorConstants.Background}" />
+            </Style>
+            <Style
+                TargetType="Label"
+                x:Key="LabelStyle">
                 <Setter
                     Property="IsVisible"
                     Value="{Binding IsInitialized}" />
                 <Setter
                     Property="TextColor"
+                    Value="{x:Static views:ColorConstants.Secondary}" />
+            </Style>
+            <Style
+                TargetType="Entry">
+                <Setter
+                    Property="PlaceholderColor"
+                    Value="{x:Static views:ColorConstants.Secondary}" />
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{x:Static views:ColorConstants.Background}" />
+            </Style>
+            <Style
+                TargetType="ImageButton">
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{x:Static views:ColorConstants.Background}" />
+            </Style>
+            <Style
+                TargetType="Slider">
+                <Setter
+                    Property="ThumbColor"
+                    Value="{x:Static views:ColorConstants.Primary}" />
+                <Setter
+                    Property="MaximumTrackColor"
+                    Value="{x:Static views:ColorConstants.Secondary}" />
+                <Setter
+                    Property="MinimumTrackColor"
                     Value="{x:Static views:ColorConstants.Secondary}" />
             </Style>
         </ResourceDictionary>

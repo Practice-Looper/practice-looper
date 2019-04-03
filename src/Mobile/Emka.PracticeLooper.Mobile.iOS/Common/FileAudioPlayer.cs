@@ -3,6 +3,8 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using AVFoundation;
 using CoreMedia;
 using Emka3.PracticeLooper.Model.Player;
@@ -16,6 +18,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #region Fields
         AVPlayer audioPlayer;
         Session session;
+        CancellationTokenSource loopTimerCancelTokenSource;
+        CancellationTokenSource currentTimeCancelTokenSource;
+        const int CURRENT_TIME_UPDATE_INTERVAL = 500;
+        double internalSongDuration;
         #endregion
 
 
@@ -26,88 +32,181 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         #region Properties
         public bool IsPlaying => audioPlayer != null && audioPlayer.Rate != 0;
-        public double SongDuration { get; private set; }
+        public double SongDuration { get { return internalSongDuration * 1000; }}
         public Loop CurrentLoop { get; set; }
         private NSObject TimeObserver { get; set; }
+        private int CurrentStartPosition { get; set; }
+        private int CurrentEndPosition { get; set; }
         #endregion Properties
 
         #region Methods
-        public void Pause()
+        // https://stackoverflow.com/questions/12902410/trying-to-understand-cmtime
+        public void Init(Session session)
         {
-            if (IsPlaying)
-            {
-                audioPlayer.Pause();
-                RaisePlayingStatusChanged();
-            }
+            this.session = session;
+
+            var asset = AVAsset.FromUrl(new NSUrl(new Uri(session.AudioSource.Source).AbsoluteUri));
+            var playerItem = new AVPlayerItem(asset);
+            audioPlayer = new AVPlayer(playerItem);
+            var playerLayer = AVPlayerLayer.FromPlayer(audioPlayer);
+
+            internalSongDuration = audioPlayer.CurrentItem.Asset.Duration.Seconds;
+            CurrentLoop = session.Loops[0];
+            CurrentLoop.StartPositionChanged += OnStartPositionChanged;
+            CurrentLoop.EndPositionChanged += OnEndPositionChanged;
+            CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
+            CurrentEndPosition = ConvertToInt(CurrentLoop.EndPosition);
+
+            loopTimerCancelTokenSource = new CancellationTokenSource();
+            currentTimeCancelTokenSource = new CancellationTokenSource();
+            audioPlayer.Seek(CMTime.FromSeconds(CurrentStartPosition * internalSongDuration, 1));
         }
 
         public void Play()
         {
             if (!IsPlaying)
             {
-                try
-                {
-                    audioPlayer.Play();
-                    RaisePlayingStatusChanged();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                audioPlayer.Play();
+                SetCurrentTimeTimer();
+                SetLoopTimer();
+                CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
+                RaisePlayingStatusChanged();
+            }
+        }
+
+        public void Pause()
+        {
+            if (IsPlaying)
+            {
+                StopTimers();
+                audioPlayer.Pause();
+                CurrentStartPosition = (int)audioPlayer.CurrentTime.Seconds;
+                RaisePlayingStatusChanged();
             }
         }
 
         public void Seek(double time)
         {
-            var seconds = CMTime.FromSeconds(time * SongDuration, 1);
-            Console.WriteLine("time " + seconds);
             if (audioPlayer != null)
             {
-                audioPlayer.Seek(CMTime.FromSeconds(time * SongDuration, 1));
+                Console.WriteLine("seek to " + CMTime.FromSeconds(time * internalSongDuration, 1));
+                audioPlayer.Seek(CMTime.FromSeconds(time * internalSongDuration, 1));
             }
         }
 
-        // https://stackoverflow.com/questions/12902410/trying-to-understand-cmtime
-        public void Init(Session session)
+        private int ConvertToInt(double inValue)
         {
-            this.session = session;
-            CurrentLoop = session.Loops[0];
-            CurrentLoop.StartPositionChanged += OnStartPositionChanged;
-            CurrentLoop.EndPositionChanged += OnEndPositionChanged;
-            var asset = AVAsset.FromUrl(new NSUrl(new Uri(session.AudioSource.Source).AbsoluteUri));
-            var playerItem = new AVPlayerItem(asset);
-            audioPlayer = new AVPlayer(playerItem);
-            var playerLayer = AVPlayerLayer.FromPlayer(audioPlayer);
-
-            TimeObserver = audioPlayer.AddBoundaryTimeObserver(new[] { NSValue.FromCMTime(CMTime.FromSeconds(CurrentLoop.EndPosition * SongDuration, 1)) }, null, () =>
+            int result;
+            try
             {
-                Seek(CurrentLoop.StartPosition);
-            });
-            //player.Play();
-
-            //audioPlayer = AVAudioPlayer.FromUrl(new NSUrl(new Uri(audioSource.Source).AbsoluteUri));
-            ////audioPlayer2.Set
-            //audioPlayer.PrepareToPlay();
-            SongDuration = audioPlayer.CurrentItem.Asset.Duration.Seconds;
-        }
-
-        private void OnEndPositionChanged(object sender, double e)
-        {
-            audioPlayer.RemoveTimeObserver(TimeObserver);
-            TimeObserver = audioPlayer.AddBoundaryTimeObserver(new[] { NSValue.FromCMTime(CMTime.FromSeconds(CurrentLoop.EndPosition * SongDuration, 1)) }, null, () =>
+                result = Convert.ToInt32(inValue * internalSongDuration);
+            }
+            catch (Exception)
             {
-                Seek(CurrentLoop.StartPosition);
-            });
+                throw;
+            }
+
+            return result;
         }
 
         private void OnStartPositionChanged(object sender, double e)
         {
-            Seek(e);
+            CurrentStartPosition = ConvertToInt(e);
+            Console.WriteLine("CurrentStartPosition " + CurrentEndPosition);
+            if (IsPlaying)
+            {
+                Seek(e);
+                ResetAllTimers();
+            }
+        }
+
+        private void OnEndPositionChanged(object sender, double e)
+        {
+            CurrentEndPosition = ConvertToInt(e);
+            Console.WriteLine("CurrentEndPosition " + CurrentEndPosition);
+            if (IsPlaying)
+            {
+                ResetAllTimers();
+            }
         }
 
         private void RaisePlayingStatusChanged()
         {
             PlayStatusChanged?.Invoke(this, IsPlaying);
+        }
+
+        private void RaiseTimePositionChanged()
+        {
+            Console.WriteLine("CurrentTimePosition " + Convert.ToInt32(audioPlayer.CurrentTime.Seconds * 1000));
+            CurrentTimePositionChanged?.Invoke(this, Convert.ToInt32(audioPlayer.CurrentTime.Seconds * 1000));
+        }
+
+        private void ResetAllTimers()
+        {
+            StopTimers();
+            SetLoopTimer();
+            SetCurrentTimeTimer();
+        }
+
+        private void SetLoopTimer()
+        {
+            if (loopTimerCancelTokenSource != null && !loopTimerCancelTokenSource.IsCancellationRequested)
+            {
+                try
+                {
+                    // looping task
+                    Task.Run(async () =>
+                    {
+                        {
+                            var delta = CurrentEndPosition - CurrentStartPosition;
+                            Console.WriteLine("wait for " + delta);
+                            await Task.Delay(delta * 1000, loopTimerCancelTokenSource.Token);
+                            Seek(CurrentLoop.StartPosition);
+                            Play();
+                            SetLoopTimer();
+                        }
+                    }, loopTimerCancelTokenSource.Token);
+                }
+                catch (TaskCanceledException)
+                {
+                }
+            }
+        }
+
+        private void StopTimers()
+        {
+            if (loopTimerCancelTokenSource != null && !loopTimerCancelTokenSource.IsCancellationRequested)
+            {
+                loopTimerCancelTokenSource.Cancel();
+                loopTimerCancelTokenSource = new CancellationTokenSource();
+            }
+
+            if (currentTimeCancelTokenSource != null && !currentTimeCancelTokenSource.IsCancellationRequested)
+            {
+                currentTimeCancelTokenSource.Cancel();
+                currentTimeCancelTokenSource = new CancellationTokenSource();
+            }
+        }
+
+        private void SetCurrentTimeTimer()
+        {
+            try
+            {
+                Task.Run(async () =>
+                {
+                    if (!currentTimeCancelTokenSource.IsCancellationRequested)
+                    {
+                        RaiseTimePositionChanged(); 
+                        await Task.Delay(CURRENT_TIME_UPDATE_INTERVAL, currentTimeCancelTokenSource.Token);
+                        SetCurrentTimeTimer();
+                    }
+
+                }, currentTimeCancelTokenSource.Token);
+            }
+            catch (TaskCanceledException)
+            {
+
+            }
         }
         #endregion
     }

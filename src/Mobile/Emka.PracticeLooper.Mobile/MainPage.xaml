@@ -5,9 +5,11 @@
     xmlns:local="clr-namespace:Emka.PracticeLooper.Mobile"
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     xmlns:extension="clr-namespace:Emka.PracticeLooper.Mobile.Extensions"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true"
     x:Class="Emka.PracticeLooper.Mobile.MainPage"
     Title="Practice Looper"
-    BackgroundColor="{x:Static views:ColorConstants.Background}">
+    Style="{StaticResource NavigationPageMainStyle}">
     <!--https://mycolor.space/?hex=%2359677C&sub=1-->
     <Grid>
         <Grid.RowDefinitions>
@@ -35,12 +37,21 @@
                     HorizontalOptions="End"
                     VerticalOptions="Center"
                     Source="Add.png"
-                    Command="{Binding SelectSourceCommand}"
-                    BackgroundColor="{x:Static views:ColorConstants.Background}" />
-                
-            <ListView Grid.Row="1"
-                BackgroundColor="Transparent"
-                SeparatorColor="{x:Static views:ColorConstants.Secondary}" />
+                    Command="{Binding CreateSessionCommand}" />
+                <ListView
+                    Grid.Row="1"
+                    SelectedItem="{Binding CurrentSession}"
+                    ItemsSource="{Binding Sessions}"
+                    BackgroundColor="Transparent"
+                    SeparatorColor="{x:Static views:ColorConstants.Secondary}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell
+                                Text="{Binding Name}"
+                                TextColor="{x:Static views:ColorConstants.Primary}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </ContentView>
         <BoxView
@@ -109,27 +120,13 @@
                     <ImageButton
                         Grid.Row="1"
                         HorizontalOptions="Center"
-                        BackgroundColor="{x:Static views:ColorConstants.Background}"
                         Margin="0,10,0,10"
                         Source="Loop.png"
                         Command="{Binding PlayCommand}">
-                        <!--<Button.Triggers>
-                            <DataTrigger
-                                TargetType="Button"
-                                Binding="{Binding IsPlaying}"
-                                Value="True">
-                                <Setter
-                                    Property="Text"
-                                    Value="Stop" />
-                            </DataTrigger>
-                        </Button.Triggers>-->
                     </ImageButton>
                 </Grid>
                 <Slider
-                    VerticalOptions="Center"
-                    ThumbColor="{x:Static views:ColorConstants.Primary}"
-                    MaximumTrackColor="{x:Static views:ColorConstants.Secondary}"
-                    MinimumTrackColor="{x:Static views:ColorConstants.Secondary}" />
+                    VerticalOptions="Center" />
             </StackLayout>
         </ContentView>
     </Grid>

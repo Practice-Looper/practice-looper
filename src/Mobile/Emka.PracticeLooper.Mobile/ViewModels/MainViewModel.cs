@@ -4,6 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Common;
@@ -20,9 +21,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private readonly IFilePicker filePicker;
         private readonly IAudioPlayer audioPlayer;
         private readonly ISourcePicker sourcePicker;
-        private readonly IList<Session> sessions;
         private Command playCommand;
-        private Command selectSourceCommand;
+        private Command createSessionCommand;
         private bool isPlaying;
         private double minimum;
         private double maximum;
@@ -33,7 +33,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private string currentSongTime;
         private string loopStartPosition;
         private string loopEndPosition;
-        private bool isInitialized;
+        private Session currentSession;
         #endregion
 
         #region Ctor
@@ -42,7 +42,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.filePicker = filePicker;
             this.audioPlayer = audioPlayer;
             this.sourcePicker = sourcePicker;
-            sessions = new List<Session>();
+            Sessions = new ObservableCollection<Session>();
+            CurrentSession = null;
             isPlaying = false;
             audioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
             audioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
@@ -53,7 +54,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Properties
         public Command PlayCommand => playCommand ?? (playCommand = new Command(ExecutePlayCommand, CanExecutePlayCommand));
-        public Command SelectSourceCommand => selectSourceCommand ?? (selectSourceCommand = new Command(async (o) => await ExecuteSelectSourceCommandAsync(), CanExecuteSelectSourceCommand));
+        public Command CreateSessionCommand => createSessionCommand ?? (createSessionCommand = new Command(async (o) => await ExecuteCreateSessionCommandAsync(), CanExecuteCreateSessionCommand));
         public IAudioSource SelectedAudioSource
         {
             get => selectedAudioSource;
@@ -99,9 +100,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             set
             {
                 minimumValue = value;
-                if (sessions.Any())
+                if (Sessions.Any())
                 {
-                    sessions[0].Loops[0].StartPosition = value;
+                    CurrentSession.Loops[0].StartPosition = value;
                     LoopStartPosition = FormatTime(minimumValue * audioPlayer.SongDuration);
                 }
                 NotifyPropertyChanged();
@@ -124,9 +125,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             set
             {
                 maximumValue = value;
-                if (sessions.Any())
+                if (Sessions.Any())
                 {
-                    sessions[0].Loops[0].EndPosition = value;
+                    CurrentSession.Loops[0].EndPosition = value;
                     LoopEndPosition = FormatTime(maximumValue * audioPlayer.SongDuration);
                 }
                 NotifyPropertyChanged();
@@ -173,36 +174,53 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        public bool IsInitialized => SelectedAudioSource != null;
+        public bool IsInitialized => CurrentSession != null;
+
+        public ObservableCollection<Session> Sessions { get; set; }
+
+        public Session CurrentSession
+        {
+            get
+            {
+                return currentSession;
+            }
+            set
+            {
+                currentSession = value;
+                if (currentSession != null)
+                {
+                    InitAudioSourceSelected();
+                    NotifyPropertyChanged("IsInitialized");
+                }
+
+                PlayCommand.ChangeCanExecute();
+            }
+        }
         #endregion
 
         #region Metods
-        private bool CanExecuteSelectSourceCommand(object arg)
+        private bool CanExecuteCreateSessionCommand(object arg)
         {
             return true;
         }
 
-        private async Task ExecuteSelectSourceCommandAsync()
+        private async Task ExecuteCreateSessionCommandAsync()
         {
             var sorceType = await sourcePicker.SelectFileSource();
             switch (sorceType)
             {
                 case "File":
-                    SelectedAudioSource = await filePicker.ShowPicker();
+                    var newFile = await filePicker.ShowPicker();
+                    Sessions.Add(new Session(newFile.FileName, newFile, new List<Loop> { new Loop(newFile.FileName, 0.0, 1.0, 0) }));
                     break;
                 default:
                     break;
-            }
-
-            if (SelectedAudioSource != null)
-            {
-                InitAudioSourceSelected();
             }
         }
 
         private bool CanExecutePlayCommand(object o)
         {
-            return SelectedAudioSource != null;
+            return CurrentSession != null;
         }
 
         private void ExecutePlayCommand(object o)
@@ -224,16 +242,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 audioPlayer.Pause();
             }
 
-            sessions.Add(new Session("Coumarin", SelectedAudioSource, new List<Loop>
-            {
-                new Loop("My Loop", 0.5, 0.8, 0)
-            }));
-
-            audioPlayer.Init(sessions[0]);
+            audioPlayer.Init(CurrentSession);
             Minimum = 0;
-            MinimumValue = sessions[0].Loops[0].StartPosition;
+            MinimumValue = CurrentSession.Loops[0].StartPosition;
             Maximum = audioPlayer.SongDuration;
-            MaximumValue = sessions[0].Loops[0].EndPosition;
+            MaximumValue = CurrentSession.Loops[0].EndPosition;
             SongDuration = FormatTime(audioPlayer.SongDuration);
             CurrentSongTime = FormatTime(audioPlayer.SongDuration * MinimumValue);
         }

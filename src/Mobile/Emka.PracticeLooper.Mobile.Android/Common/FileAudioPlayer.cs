@@ -30,16 +30,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         #region Properties
         public bool IsPlaying => player.IsPlaying;
-
         public double SongDuration { get; set; }
-
         public Loop CurrentLoop { get; set; }
-
         public event EventHandler<bool> PlayStatusChanged;
         public event EventHandler<int> CurrentTimePositionChanged;
-
         private int CurrentStartPosition { get; set; }
-
         private int CurrentEndPosition { get; set; }
         #endregion
 
@@ -63,6 +58,42 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
             loopTimerCancelTokenSource = new CancellationTokenSource();
             currentTimeCancelTokenSource = new CancellationTokenSource();
+        }
+
+        public void Play()
+        {
+            if (!IsPlaying)
+            {
+                player.Start();
+                SetLoopTimer();
+                SetCurrentTimeTimer();
+                CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
+                RaisePlayingStatusChanged();
+            }
+        }
+
+        public void Pause()
+        {
+            if (IsPlaying)
+            {
+                StopTimers();
+                player.Pause();
+                CurrentStartPosition = player.CurrentPosition;
+                RaisePlayingStatusChanged();
+            }
+        }
+
+        public void Seek(double time)
+        {
+            try
+            {
+                var offset = Convert.ToInt32(time * SongDuration);
+                player.SeekTo(offset);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         private int ConvertToInt(double inValue)
@@ -97,43 +128,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             if (IsPlaying)
             {
                 SetLoopTimer();
-            }
-        }
-
-        public void Pause()
-        {
-            if (IsPlaying)
-            {
-                StopTimers();
-                player.Pause();
-                CurrentStartPosition = player.CurrentPosition;
-                RaisePlayingStatusChanged();
-            }
-        }
-
-        public void Play()
-        {
-            if (!IsPlaying)
-            {
-                player.Start();
-                SetLoopTimer();
-                SetCurrentTimeTimer();
-                CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
-                RaisePlayingStatusChanged();
-            }
-        }
-
-        public void Seek(double time)
-        {
-            try
-            {
-                var offset = Convert.ToInt32(time * SongDuration);
-                player.SeekTo(offset);
-                Console.WriteLine("seeking to" + offset);
-            }
-            catch (Exception ex)
-            {
-                throw;
             }
         }
 
