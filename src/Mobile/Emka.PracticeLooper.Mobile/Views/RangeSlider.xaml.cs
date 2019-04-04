@@ -77,6 +77,8 @@ namespace Emka.PracticeLooper.Mobile.Views
                                                          validateValue: IsValidValue);
         #endregion
 
+        public event EventHandler DraggingCompleted;
+
         #region Properties
         public double LeftThumbValue
         {
@@ -139,7 +141,7 @@ namespace Emka.PracticeLooper.Mobile.Views
                     }
                     break;
                 case SKTouchAction.Released:
-
+                    RaiseOnDraggingCompleted();
                     break;
                 case SKTouchAction.Cancelled:
                     break;
@@ -203,6 +205,11 @@ namespace Emka.PracticeLooper.Mobile.Views
             double result;
             bool isDouble = double.TryParse(value.ToString(), out result);
             return (result >= 0.0 && result <= 1.0);
+        }
+
+        private void RaiseOnDraggingCompleted()
+        {
+            DraggingCompleted?.Invoke(this, new EventArgs());
         }
         #endregion
     }

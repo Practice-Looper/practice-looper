@@ -102,9 +102,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 minimumValue = value;
                 if (Sessions.Any())
                 {
-                    CurrentSession.Loops[0].StartPosition = value;
                     LoopStartPosition = FormatTime(minimumValue * audioPlayer.SongDuration);
                 }
+
                 NotifyPropertyChanged();
             }
         }
@@ -127,9 +127,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 maximumValue = value;
                 if (Sessions.Any())
                 {
-                    CurrentSession.Loops[0].EndPosition = value;
                     LoopEndPosition = FormatTime(maximumValue * audioPlayer.SongDuration);
                 }
+
                 NotifyPropertyChanged();
             }
         }
@@ -264,6 +264,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         string FormatTime(double time)
         {
             return TimeSpan.FromMilliseconds(time).ToString(@"mm\:ss");
+        }
+
+        public void UpdateMinMaxValues()
+        {
+            CurrentSession.Loops[0].StartPosition = MinimumValue;
+            CurrentSession.Loops[0].EndPosition = MaximumValue;
         }
         #endregion
     }

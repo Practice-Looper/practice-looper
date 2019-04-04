@@ -18,7 +18,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         Session session;
         CancellationTokenSource loopTimerCancelTokenSource;
         CancellationTokenSource currentTimeCancelTokenSource;
-        const int CURRENT_TIME_UPDATE_INTERVAL = 1000;
+        const int CURRENT_TIME_UPDATE_INTERVAL = 700;
         #endregion
 
         #region Ctor
@@ -118,7 +118,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             if (IsPlaying)
             {
                 Seek(e);
-                SetLoopTimer();
+                ResetAllTimers();
             }
         }
 
@@ -127,7 +127,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             CurrentEndPosition = ConvertToInt(e);
             if (IsPlaying)
             {
-                SetLoopTimer();
+                ResetAllTimers();
             }
         }
 
@@ -139,6 +139,13 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         private void RaisTimePositionChanged()
         {
             CurrentTimePositionChanged?.Invoke(this, player.CurrentPosition);
+        }
+
+        private void ResetAllTimers()
+        {
+            StopTimers();
+            SetLoopTimer();
+            SetCurrentTimeTimer();
         }
 
         private void SetLoopTimer()

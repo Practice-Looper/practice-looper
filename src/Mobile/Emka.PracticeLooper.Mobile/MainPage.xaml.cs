@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Emka.PracticeLooper.Mobile.ViewModels;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile
@@ -15,6 +16,15 @@ namespace Emka.PracticeLooper.Mobile
             foreach (var res in Assembly.GetExecutingAssembly().GetManifestResourceNames())
             {
                 System.Diagnostics.Debug.WriteLine("found resource: " + res);
+            }
+        }
+
+        void OnDraggingCompleted(object sender, System.EventArgs e)
+        {
+            var viewModel = BindingContext as MainViewModel;
+            if(viewModel != null)
+            {
+                viewModel.UpdateMinMaxValues();
             }
         }
     }

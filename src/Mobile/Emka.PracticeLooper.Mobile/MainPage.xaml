@@ -115,7 +115,8 @@
                         Grid.Row="0"
                         Margin="0,5,0,5"
                         LeftThumbValue="{Binding MinimumValue}"
-                        RightThumbValue="{Binding MaximumValue}">
+                        RightThumbValue="{Binding MaximumValue}"
+                        DraggingCompleted="OnDraggingCompleted">
                     </views:RangeSlider>
                     <ImageButton
                         Grid.Row="1"
