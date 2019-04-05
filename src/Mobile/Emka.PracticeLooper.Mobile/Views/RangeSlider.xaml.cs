@@ -14,8 +14,10 @@ namespace Emka.PracticeLooper.Mobile.Views
         #region Fields
         float leftThumbX;
         float rightThumbX;
-        float thumbRadius = 50f;
+        float thumbWidth = 50f;
         double canvasWidth;
+        double internalLeftThumbValue;
+        double internalRightThumbValue;
         static byte alpha = 0x90;
         private static SKCanvasView cView;
 
@@ -98,6 +100,8 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             InitializeComponent();
             cView = canvasView;
+            internalLeftThumbValue = LeftThumbValue;
+            internalRightThumbValue = RightThumbValue;
         }
         #endregion
 
@@ -111,30 +115,34 @@ namespace Emka.PracticeLooper.Mobile.Views
                 case SKTouchAction.Moved:
                     if (e.InContact)
                     {
+                        e.Location.Offset(thumbWidth / 2, e.Location.Y);
                         // x position within canvas?
                         if (e.Location.X >= 0.0 && e.Location.X <= canvasWidth)
                         {
+                            var offset = (double)Math.Round((decimal)((thumbWidth / 2) / canvasWidth), 3);
                             // x position within left thumb?
-                            if (e.Location.X >= leftThumbX - thumbRadius && e.Location.X <= leftThumbX + thumbRadius)
+                            if (e.Location.X >= leftThumbX - thumbWidth && e.Location.X <= leftThumbX + thumbWidth)
                             {
                                 // thumbs should not collide!
-                                var willThumbsCollide = (e.Location.X + 100) >= rightThumbX;
-
+                                var willThumbsCollide = (e.Location.X + 100) >= rightThumbX || e.Location.X - (thumbWidth / 2) <= 0; //|| e.Location.X <= (thumbWidth / 2);
                                 if (!willThumbsCollide)
                                 {
-                                    LeftThumbValue = (double)Math.Round((decimal)(e.Location.X / canvasWidth), 2);
+                                    internalLeftThumbValue = (double)Math.Round((decimal)(e.Location.X / canvasWidth), 3);
+                                    LeftThumbValue = internalLeftThumbValue - offset;
                                 }
                             }
 
                             // x position within right thumb?
-                            if (e.Location.X >= rightThumbX - thumbRadius && e.Location.X <= rightThumbX + thumbRadius)
+                            if (e.Location.X >= rightThumbX - thumbWidth && e.Location.X <= rightThumbX + thumbWidth)
                             {
                                 // thumbs should not collide!
-                                var willThumbsCollide = (e.Location.X - 100 < leftThumbX);
-
+                                var willThumbsCollide = (e.Location.X - 100 < leftThumbX);// || e.Location.X - (thumbWidth / 2) >= canvasWidth);
                                 if (!willThumbsCollide)
                                 {
-                                    RightThumbValue = (double)Math.Round((decimal)(e.Location.X / canvasWidth), 2);
+                                    Console.WriteLine("rightThumbX " + rightThumbX);
+                                    internalRightThumbValue = (double)Math.Round((decimal)(e.Location.X / canvasWidth), 3);
+                                    Console.WriteLine("internal " + internalRightThumbValue);
+                                    RightThumbValue = internalRightThumbValue;
                                 }
                             }
                         }
@@ -161,10 +169,10 @@ namespace Emka.PracticeLooper.Mobile.Views
 
             int width = e.Info.Width;
             int height = e.Info.Height;
-
-            canvasWidth = width - Convert.ToInt32(thumbRadius);
-            leftThumbX = (float)(LeftThumbValue * canvasWidth);
-            rightThumbX = (float)(RightThumbValue * canvasWidth);
+            canvasWidth = width - Convert.ToInt32(thumbWidth / 2);
+            Console.WriteLine("canvasWidth " + canvasWidth);
+            leftThumbX = (float)(internalLeftThumbValue * canvasWidth);
+            rightThumbX = (float)(internalRightThumbValue * canvasWidth);
 
             // clear canvas
             canvas.Clear();
@@ -173,16 +181,16 @@ namespace Emka.PracticeLooper.Mobile.Views
             canvas.Save();
 
             // draw tracks
-            canvas.DrawLine(thumbRadius / 2, height / 2, width - thumbRadius, height / 2, track);
-            canvas.DrawLine(leftThumbX + thumbRadius / 2, height / 2, rightThumbX + thumbRadius / 2, height / 2, rangeTrack);
+            canvas.DrawLine(thumbWidth / 2, height / 2, (float)canvasWidth, height / 2, track);
+            canvas.DrawLine(leftThumbX + verticalThumbTrack.StrokeWidth / 2, height / 2, rightThumbX - verticalThumbTrack.StrokeWidth / 2, height / 2, rangeTrack);
 
             // draw thumbs
-            canvas.DrawRoundRect(leftThumbX, 0, thumbRadius, height, 10, 10, thumb);
-            canvas.DrawRoundRect(rightThumbX, 0, thumbRadius, height, 10, 10, thumb);
+            canvas.DrawRoundRect(leftThumbX - thumbWidth / 2, 0, thumbWidth, height, 10, 10, thumb);
+            canvas.DrawRoundRect(rightThumbX - thumbWidth / 2, 0, thumbWidth, height, 10, 10, thumb);
 
             // draw vertical thumb markers
-            canvas.DrawLine(leftThumbX + thumbRadius / 2, 20, leftThumbX + thumbRadius / 2, height - 20, verticalThumbTrack);
-            canvas.DrawLine(rightThumbX + thumbRadius / 2, 20, rightThumbX + thumbRadius / 2, height - 20, verticalThumbTrack);
+            canvas.DrawLine(leftThumbX, 20, leftThumbX, height - 20, verticalThumbTrack);
+            canvas.DrawLine(rightThumbX, 20, rightThumbX, height - 20, verticalThumbTrack);
 
             // restore canvas state
             canvas.Restore();

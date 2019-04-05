@@ -3,13 +3,14 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Emka.PracticeLooper.Mobile.Views.RangeSlider"
-    xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms">
+    xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+    x:Name="HostControl">
     <ContentView.Content>
         <skia:SKCanvasView
             VerticalOptions="CenterAndExpand"
             x:Name="canvasView"
             PaintSurface="OnPaintSurface"
             EnableTouchEvents="true"
-            Touch="OnHandleTouch" />
+            Touch="OnHandleTouch"/>
     </ContentView.Content>
 </ContentView>

@@ -268,8 +268,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public void UpdateMinMaxValues()
         {
-            CurrentSession.Loops[0].StartPosition = MinimumValue;
-            CurrentSession.Loops[0].EndPosition = MaximumValue;
+            if (CurrentSession != null)
+            {
+                CurrentSession.Loops[0].StartPosition = MinimumValue;
+                CurrentSession.Loops[0].EndPosition = MaximumValue;
+            }
         }
         #endregion
     }
