@@ -32,7 +32,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         #region Properties
         public bool IsPlaying => audioPlayer != null && audioPlayer.Rate != 0;
-        public double SongDuration { get { return internalSongDuration * 1000; }}
+        public double SongDuration { get { return internalSongDuration * 1000; } }
         public Loop CurrentLoop { get; set; }
         private NSObject TimeObserver { get; set; }
         private int CurrentStartPosition { get; set; }
@@ -113,9 +113,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             CurrentStartPosition = ConvertToInt(e);
             Console.WriteLine("CurrentStartPosition " + CurrentEndPosition);
+
+            Seek(e);
             if (IsPlaying)
             {
-                Seek(e);
                 ResetAllTimers();
             }
         }
@@ -196,7 +197,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 {
                     if (!currentTimeCancelTokenSource.IsCancellationRequested)
                     {
-                        RaiseTimePositionChanged(); 
+                        RaiseTimePositionChanged();
                         await Task.Delay(CURRENT_TIME_UPDATE_INTERVAL, currentTimeCancelTokenSource.Token);
                         SetCurrentTimeTimer();
                     }

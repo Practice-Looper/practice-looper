@@ -113,7 +113,7 @@
                     </Grid.RowDefinitions>
                     <views:RangeSlider
                         Grid.Row="0"
-                        Padding="10,0,10,0"
+                        Padding="20,0,20,0"
                         LeftThumbValue="{Binding MinimumValue}"
                         RightThumbValue="{Binding MaximumValue}"
                         DraggingCompleted="OnDraggingCompleted"

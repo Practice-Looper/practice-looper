@@ -11,6 +11,7 @@
             x:Name="canvasView"
             PaintSurface="OnPaintSurface"
             EnableTouchEvents="true"
-            Touch="OnHandleTouch"/>
+            Touch="OnHandleTouch"
+        HeightRequest="60"/>
     </ContentView.Content>
 </ContentView>
