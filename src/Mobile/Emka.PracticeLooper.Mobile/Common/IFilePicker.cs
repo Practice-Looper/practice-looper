@@ -9,6 +9,6 @@ namespace Emka.PracticeLooper.Mobile.Common
 {
     public interface IFilePicker
     {
-        Task<FileAudioSource> ShowPicker();
+        Task<AudioSource> ShowPicker();
     }
 }

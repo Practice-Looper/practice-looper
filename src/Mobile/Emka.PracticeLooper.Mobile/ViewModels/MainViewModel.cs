@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka3.PracticeLooper.Model.Player;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Xamarin.Forms;
+using IFilePicker = Emka.PracticeLooper.Mobile.Common.IFilePicker;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -21,6 +23,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private readonly IFilePicker filePicker;
         private readonly IAudioPlayer audioPlayer;
         private readonly ISourcePicker sourcePicker;
+        private readonly IRepository<Session> sessionsRepository;
         private Command playCommand;
         private Command createSessionCommand;
         private bool isPlaying;
@@ -37,11 +40,15 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #endregion
 
         #region Ctor
-        public MainViewModel(IFilePicker filePicker, IAudioPlayer audioPlayer, ISourcePicker sourcePicker)
+        public MainViewModel(IFilePicker filePicker,
+            IAudioPlayer audioPlayer,
+            ISourcePicker sourcePicker,
+            IRepository<Session> sessionsRepository)
         {
             this.filePicker = filePicker;
             this.audioPlayer = audioPlayer;
             this.sourcePicker = sourcePicker;
+            this.sessionsRepository = sessionsRepository;
             Sessions = new ObservableCollection<Session>();
             CurrentSession = null;
             isPlaying = false;
@@ -49,6 +56,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             audioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
             Maximum = 1;
             MaximumValue = 1;
+
+            Task.Run(async () => await Init());
         }
         #endregion
 
@@ -199,6 +208,22 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #endregion
 
         #region Metods
+        public async Task Init()
+        {
+            try
+            {
+                var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            //foreach (var session in .Result)
+            //{
+            //    Sessions.Add(session);
+            //}
+        }
+
         private bool CanExecuteCreateSessionCommand(object arg)
         {
             return true;
@@ -211,7 +236,28 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 case "File":
                     var newFile = await filePicker.ShowPicker();
-                    Sessions.Add(new Session(newFile.FileName, newFile, new List<Loop> { new Loop(newFile.FileName, 0.0, 1.0, 0) }));
+                    // file is null when user cancelled file picker!
+                    if (newFile != null)
+                    {
+                        var newSession = new Session
+                        {
+                            Name = newFile.FileName,
+                            AudioSource = newFile,
+                            Loops = new List<Loop>
+                            {
+                                new Loop
+                                {
+                                    Name = newFile.FileName,
+                                    StartPosition = 0.0,
+                                    EndPosition = 1.0,
+                                    Repititions = 0
+                                }
+                            }
+                        };
+                        Sessions.Add(newSession);
+                        await sessionsRepository.SafeAsync(newSession);
+                    }
+
                     break;
                 default:
                     break;

@@ -15,9 +15,9 @@ namespace Emka.PracticeLooper.Mobile.Common
 {
     public class FilePicker : IFilePicker
     {
-        public async Task<FileAudioSource> ShowPicker()
+        public async Task<AudioSource> ShowPicker()
         {
-            FileAudioSource result = null;
+            AudioSource result = null;
             try
             {
                 string[] allowedTypes = null;
@@ -35,9 +35,10 @@ namespace Emka.PracticeLooper.Mobile.Common
                 if (fileData == null)
                     return result; // user canceled file picking
 
-                result = new FileAudioSource(fileData.FilePath)
+                result = new AudioSource
                 {
-                    FileName = Path.GetFileNameWithoutExtension(fileData.FileName)
+                    FileName = Path.GetFileNameWithoutExtension(fileData.FileName),
+                    Source = fileData.FilePath
                 };
 
             }

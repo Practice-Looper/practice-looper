@@ -4,7 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
 using Autofac;
-using Emka3.PracticeLooper.Services;
+using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 
@@ -26,6 +26,7 @@ namespace Emka3.PracticeLooper.Mappings.Common
             }
 
             builder.RegisterType<ConfigurationService>().As<IConfigurationService>().SingleInstance();
+            builder.RegisterType<SessionsDbRepository>().As<IRepository<Session>>().SingleInstance();
         }
     }
 }

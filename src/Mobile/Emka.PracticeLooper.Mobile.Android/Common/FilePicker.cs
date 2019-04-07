@@ -17,7 +17,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         #endregion
 
         #region Properties
-        public event EventHandler<FileAudioSource> SourceSelected;
+        public event EventHandler<AudioSource> SourceSelected;
         #endregion
 
         #region Methods

@@ -3,29 +3,24 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
+using Emka3.PracticeLooper.Model.Common;
 
 namespace Emka3.PracticeLooper.Model.Player
 {
     /// <summary>
     /// Represents a single loop.
     /// </summary>
-    public class Loop
+    public class Loop : EntityBase
     {
         private double _startPosition;
         private double _endPosition;
+
         #region Ctor
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Emka3.PracticeLooper.Model.Player.Loop"/> struct.
         /// </summary>
-        /// <param name="startPosition">Start position.</param>
-        /// <param name="endPosition">End position.</param>
-        /// <param name="repititions">Repititions.</param>
-        public Loop(string name, double startPosition, double endPosition, int repititions)
+        public Loop()
         {
-            Name = name;
-            StartPosition = startPosition;
-            EndPosition = endPosition;
-            Repititions = repititions;
         }
         #endregion
 
@@ -74,6 +69,9 @@ namespace Emka3.PracticeLooper.Model.Player
         /// </summary>
         /// <value>The repititions.</value>
         public int Repititions { get; set; }
+
+        public int SessionId { get; set; }
+        public Session Session { get; set; }
         #endregion Properties
 
         #region Methods

@@ -30,6 +30,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
         {
             Rg.Plugins.Popup.Popup.Init();
             GlobalApp.Init();
+            SQLitePCL.Batteries_V2.Init();
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

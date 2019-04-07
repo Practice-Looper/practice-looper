@@ -9,7 +9,7 @@ namespace Emka3.PracticeLooper.Services.Contracts.Common
 {
     public interface IFilePicker
     {
-        event EventHandler<FileAudioSource> SourceSelected;
+        event EventHandler<AudioSource> SourceSelected;
         void ShowPicker();
     }
 }

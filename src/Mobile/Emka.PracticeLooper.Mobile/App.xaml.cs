@@ -5,6 +5,7 @@ using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Mappings;
+using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Xamarin.Forms;
@@ -30,7 +31,8 @@ namespace Emka.PracticeLooper.Mobile
             var filePicker = Factory.GetResolver().Resolve<Common.IFilePicker>();
             var sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
             var audioPlayer = Factory.GetResolver().Resolve<IAudioPlayer>();
-            var bindingContext = new MainViewModel(filePicker, audioPlayer, sourcePicker);
+            var dbRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
+            var bindingContext = new MainViewModel(filePicker, audioPlayer, sourcePicker, dbRepository);
 
             MainPage.BindingContext = bindingContext;
         }

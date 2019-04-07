@@ -3,47 +3,33 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System.Collections.Generic;
+using Emka3.PracticeLooper.Model.Common;
 
 namespace Emka3.PracticeLooper.Model.Player
 {
     /// <summary>
     /// Represents a session containing all loops and the file to play.
     /// </summary>
-    public class Session
+    public class Session : EntityBase
     {
-        #region Ctor
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Emka3.PracticeLooper.Model.Player.Session"/> class.
-        /// </summary>
-        /// <param name="name">Name.</param>
-        /// <param name="audioSource">Audio source.</param>
-        /// <param name="loops">Loops.</param>
-        public Session(string name, IAudioSource audioSource, IList<Loop> loops)
-        {
-            Name = name;
-            AudioSource = audioSource;
-            Loops = loops;
-        }
-        #endregion
-
         #region Properties
         /// <summary>
-        /// Gets the name of the session.
+        /// Gets or sets the name of the session.
         /// </summary>
         /// <value>The name.</value>
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
-        /// Gets the file path.
+        /// Gets or sets the file path.
         /// </summary>
         /// <value>The file path.</value>
-        public IAudioSource AudioSource { get; }
+        public AudioSource AudioSource { get; set; }
 
         /// <summary>
-        /// Gets the loops.
+        /// Gets or sets the loops.
         /// </summary>
         /// <value>The loops.</value>
-        public IList<Loop> Loops { get; }
+        public List<Loop> Loops { get; set; }
         #endregion
     }
 }

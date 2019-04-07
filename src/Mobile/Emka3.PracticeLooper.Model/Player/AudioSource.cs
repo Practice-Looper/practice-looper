@@ -2,16 +2,16 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
+
+using Emka3.PracticeLooper.Model.Common;
 namespace Emka3.PracticeLooper.Model.Player
 {
-    public class FileAudioSource : IAudioSource
+    public class AudioSource : EntityBase
     {
-        public FileAudioSource(string source)
-        {
-            this.Source = source;
-        }
-
         public string Source { get; set; }
         public string FileName { get; set; }
+
+        public int SessionId { get; set; }
+        public Session Session { get; set; }
     }
 }
