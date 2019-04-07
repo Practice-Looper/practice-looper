@@ -115,9 +115,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             CurrentStartPosition = ConvertToInt(e);
 
+            Seek(e);
             if (IsPlaying)
             {
-                Seek(e);
                 ResetAllTimers();
             }
         }
