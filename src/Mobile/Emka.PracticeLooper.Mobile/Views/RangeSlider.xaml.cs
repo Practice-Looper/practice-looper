@@ -115,7 +115,6 @@ namespace Emka.PracticeLooper.Mobile.Views
                 case SKTouchAction.Moved:
                     if (e.InContact)
                     {
-                        e.Location.Offset(thumbWidth / 2, e.Location.Y);
                         // x position within canvas?
                         if (e.Location.X >= 0.0 && e.Location.X <= canvasWidth)
                         {

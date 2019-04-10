@@ -213,15 +213,18 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             try
             {
                 var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    foreach (var item in items)
+                    {
+                        Sessions.Add(item);
+                    }
+                });
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            //foreach (var session in .Result)
-            //{
-            //    Sessions.Add(session);
-            //}
         }
 
         private bool CanExecuteCreateSessionCommand(object arg)
