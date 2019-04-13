@@ -24,7 +24,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         double internalSongDuration;
         #endregion
 
-
         #region Events
         public event EventHandler<bool> PlayStatusChanged;
         public event EventHandler<int> CurrentTimePositionChanged;
@@ -45,7 +44,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             this.session = session;
 
-            //var asset = AVAsset.FromUrl(new NSUrl(new Uri(session.AudioSource.Source).AbsoluteUri));
             var asset = AVAsset.FromUrl(NSUrl.FromFilename(session.AudioSource.Source));
 
             var playerItem = new AVPlayerItem(asset);
