@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Emka3.PracticeLooper.Services.Contracts\Emka3.PracticeLooper.Services.Contracts.csproj" />
+    <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Auth" Version="1.6.0.4" />

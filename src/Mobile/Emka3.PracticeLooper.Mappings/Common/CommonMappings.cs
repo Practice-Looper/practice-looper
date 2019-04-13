@@ -25,7 +25,6 @@ namespace Emka3.PracticeLooper.Mappings.Common
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            builder.RegisterType<ConfigurationService>().As<IConfigurationService>().SingleInstance();
             builder.RegisterType<SessionsDbRepository>().As<IRepository<Session>>().SingleInstance();
         }
     }

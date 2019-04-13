@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Microsoft.EntityFrameworkCore;
@@ -18,9 +19,9 @@ namespace Emka3.PracticeLooper.Services.Common
         readonly IConfigurationService configService;
         readonly string dbName;
         #region Ctor
-        public SessionsDbRepository(IConfigurationService configService)
+        public SessionsDbRepository()
         {
-            this.configService = configService;
+            this.configService = Factory.GetConfigService();
             dbName = configService.GetValue("db:name");
             //Init();
         }

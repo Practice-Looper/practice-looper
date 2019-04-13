@@ -140,6 +140,10 @@
       <Project>{11D1F05C-156B-4DE2-9EB6-B0AF60C6B9F1}</Project>
       <Name>Emka3.PracticeLooper.Mappings</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj">
+      <Project>{C15009EA-B815-485E-88A0-FDB49F1842B4}</Project>
+      <Name>Emka3.PracticeLooper.Config</Name>
+    </ProjectReference>
   </ItemGroup>
  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

@@ -7,39 +7,57 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
-using Emka3.PracticeLooper.Services.Contracts.Common;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Emka3.PracticeLooper.Services.Common
+namespace Emka3.PracticeLooper.Config
 {
     /// <summary>
     /// Configuration service imlementation.
     /// </summary>
-    public class ConfigurationService : IConfigurationService
+    internal class ConfigurationService : IConfigurationService
     {
         #region Fields
         /// <summary>
         /// Config strings.
         /// </summary>
         IDictionary<string, object> configs;
+
+        private static ConfigurationService instance;
         #endregion Fields
 
         #region Ctor
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Emka3.PracticeLooper.Services.ConfigurationService"/> class.
         /// </summary>
-        public ConfigurationService()
+        private ConfigurationService()
         {
+            Initialize();
         }
         #endregion
+
+        public static ConfigurationService Instance
+        {
+            get
+            {
+                return instance ?? (instance = new ConfigurationService());
+            }
+        }
 
         #region Methods
         /// <summary>
         /// Initialize the config.
         /// </summary>
-        public void Initialize(string json)
+        private void Initialize()
         {
+            // Load config
+            string json;
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Emka3.PracticeLooper.Config.App.config.json"))
+            using (var reader = new StreamReader(stream))
+            {
+                json = reader.ReadToEnd();
+            }
+
             if (string.IsNullOrEmpty(json))
             {
                 throw new ArgumentNullException(nameof(json));
@@ -61,9 +79,9 @@ namespace Emka3.PracticeLooper.Services.Common
             }
         }
 
-        public async Task InitializeAsync(string json)
+        private async Task InitializeAsync()
         {
-            await Task.Run(() => Initialize(json));
+            await Task.Run(() => Initialize());
         }
 
         public string GetValue(string key)

@@ -3,7 +3,7 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
-using Emka3.PracticeLooper.Services.Contracts.Common;
+using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Xamarin.Auth;
 
@@ -13,9 +13,9 @@ namespace Emka3.PracticeLooper.Services.Common
     {
         readonly IConfigurationService configService;
 
-        public Authenticator(IConfigurationService configService)
+        public Authenticator()
         {
-            this.configService = configService;
+            this.configService = Factory.GetConfigService();
             Instance = new OAuth2Authenticator(
           configService.GetValue("auth:spotify:client:id"),
           configService.GetValue("auth:spotify:client:secret"),

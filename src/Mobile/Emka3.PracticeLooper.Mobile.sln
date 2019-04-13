@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka.PracticeLooper.Mobile.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka.PracticeLooper.Mobile", "Emka.PracticeLooper.Mobile\Emka.PracticeLooper.Mobile.csproj", "{7C0F82BD-B45B-42DC-92F5-30E199DD0719}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka3.PracticeLooper.Config", "Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj", "{C15009EA-B815-485E-88A0-FDB49F1842B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -133,6 +135,18 @@ Global
 		{7C0F82BD-B45B-42DC-92F5-30E199DD0719}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
 		{7C0F82BD-B45B-42DC-92F5-30E199DD0719}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
 		{7C0F82BD-B45B-42DC-92F5-30E199DD0719}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{C15009EA-B815-485E-88A0-FDB49F1842B4}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{C15009EA-B815-485E-88A0-FDB49F1842B4}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{C15009EA-B815-485E-88A0-FDB49F1842B4}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{C15009EA-B815-485E-88A0-FDB49F1842B4}.Release|iPhone.Build.0 = Release|Any CPU
+		{C15009EA-B815-485E-88A0-FDB49F1842B4}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{C15009EA-B815-485E-88A0-FDB49F1842B4}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{C15009EA-B815-485E-88A0-FDB49F1842B4}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{C15009EA-B815-485E-88A0-FDB49F1842B4}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{C15009EA-B815-485E-88A0-FDB49F1842B4}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{C15009EA-B815-485E-88A0-FDB49F1842B4}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{C15009EA-B815-485E-88A0-FDB49F1842B4}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{C15009EA-B815-485E-88A0-FDB49F1842B4}.AppStore|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F0F8BA3B-BC2E-4475-AD1E-0B08767E52C5} = {859AB886-3E50-454C-BCB8-9DA93F801178}
@@ -143,6 +157,7 @@ Global
 		{40F7150C-911F-4AD7-BB9E-6DAF4B8B70C1} = {03C26D68-5166-41EF-A53D-502F4D70F144}
 		{9BB625D1-1392-445A-88AA-1749DCD79A2D} = {03C26D68-5166-41EF-A53D-502F4D70F144}
 		{7C0F82BD-B45B-42DC-92F5-30E199DD0719} = {03C26D68-5166-41EF-A53D-502F4D70F144}
+		{C15009EA-B815-485E-88A0-FDB49F1842B4} = {16396CBE-692B-4FC7-A2D2-66DCDDD7FAD5}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

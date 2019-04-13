@@ -1,15 +1,14 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
 using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Mobile.Views;
-using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using MappingsFactory = Emka3.PracticeLooper.Mappings;
+using Emka3.PracticeLooper.Config;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -28,10 +27,10 @@ namespace Emka.PracticeLooper.Mobile
 
             InitApp();
 
-            var filePicker = Factory.GetResolver().Resolve<Common.IFilePicker>();
-            var sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
-            var audioPlayer = Factory.GetResolver().Resolve<IAudioPlayer>();
-            var dbRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
+            var filePicker = MappingsFactory.Factory.GetResolver().Resolve<Common.IFilePicker>();
+            var sourcePicker = MappingsFactory.Factory.GetResolver().Resolve<ISourcePicker>();
+            var audioPlayer = MappingsFactory.Factory.GetResolver().Resolve<IAudioPlayer>();
+            var dbRepository = MappingsFactory.Factory.GetResolver().Resolve<IRepository<Session>>();
             dbRepository.Init();
             var bindingContext = new MainViewModel(filePicker, audioPlayer, sourcePicker, dbRepository);
 
@@ -58,23 +57,14 @@ namespace Emka.PracticeLooper.Mobile
             try
             {
                 // Register common forms types
-                Emka3.PracticeLooper.Mappings.Contracts.IResolver resolver = Factory.GetResolver();
+                MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
                 resolver.Register(typeof(FilePicker), typeof(Common.IFilePicker));
                 resolver.RegisterInstance(new SourcePicker(MainPage), typeof(ISourcePicker));
 
                 // Build container after platform implementations have been registered
-                Factory.GetResolver().BuildContainer();
+                MappingsFactory.Factory.GetResolver().BuildContainer();
 
-                // Load config
-                string jsonConfig;
-                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Emka.PracticeLooper.Mobile.App.config.json"))
-                using (var reader = new StreamReader(stream))
-                {
-                    jsonConfig = reader.ReadToEnd();
-                }
-
-                ConfigurationService = Factory.GetResolver().Resolve<IConfigurationService>();
-                ConfigurationService.Initialize(jsonConfig);
+                ConfigurationService = Factory.GetConfigService();
             }
             catch (Exception ex)
             {

@@ -23,14 +23,13 @@
     <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />
     <ProjectReference Include="..\Emka3.PracticeLooper.Mappings.Contracts\Emka3.PracticeLooper.Mappings.Contracts.csproj" />
     <ProjectReference Include="..\Emka3.PracticeLooper.Services.Contracts\Emka3.PracticeLooper.Services.Contracts.csproj" />
+    <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="App.config.json" />
     <None Remove="Assets\Images\add_48px.svg" />
     <None Remove="Assets\Images\ic_add_black_48dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="App.config.json" />
     <EmbeddedResource Include="Assets\Images\add_48px.svg" />
     <EmbeddedResource Include="Assets\Images\ic_add_black_48dp.png" />
   </ItemGroup>

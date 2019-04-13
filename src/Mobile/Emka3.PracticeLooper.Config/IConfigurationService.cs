@@ -4,7 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System.Threading.Tasks;
 
-namespace Emka3.PracticeLooper.Services.Contracts.Common
+namespace Emka3.PracticeLooper.Config
 {
     /// <summary>
     /// App Configuration service.
@@ -13,19 +13,6 @@ namespace Emka3.PracticeLooper.Services.Contracts.Common
     {
 
         #region Methods
-        /// <summary>
-        /// Initializes the configuration service.
-        /// Use flat json strings only => "key" : "value"
-        /// </summary>
-        /// <param name="json">Json string representing the config file.</param>
-        void Initialize(string json);
-
-        /// <summary>
-        /// Initializes the configuration service async.
-        /// </summary>
-        /// <param name="json">Json string representing the config file.</param>
-        Task InitializeAsync(string json);
-
         /// <summary>
         /// Gets the value for a specific key.
         /// </summary>
