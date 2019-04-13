@@ -292,7 +292,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
 
             audioPlayer.Init(CurrentSession);
-            Minimum = 0;
             MinimumValue = CurrentSession.Loops[0].StartPosition;
             Maximum = audioPlayer.SongDuration;
             MaximumValue = CurrentSession.Loops[0].EndPosition;

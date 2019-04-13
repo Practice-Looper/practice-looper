@@ -45,8 +45,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             this.session = session;
 
-            var asset = AVAsset.FromUrl(new NSUrl(new Uri(session.AudioSource.Source).AbsoluteUri));
+            //var asset = AVAsset.FromUrl(new NSUrl(new Uri(session.AudioSource.Source).AbsoluteUri));
+            var asset = AVAsset.FromUrl(NSUrl.FromFilename(session.AudioSource.Source));
+
             var playerItem = new AVPlayerItem(asset);
+            var status = playerItem.Status;
             audioPlayer = new AVPlayer(playerItem);
             var playerLayer = AVPlayerLayer.FromPlayer(audioPlayer);
 
@@ -68,7 +71,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 audioPlayer.Play();
                 SetCurrentTimeTimer();
-                SetLoopTimer();
+                //SetLoopTimer();
                 CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
                 RaisePlayingStatusChanged();
             }

@@ -27,6 +27,7 @@ namespace Emka3.PracticeLooper.Services.Common
             var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), dbName);
             Console.WriteLine(dbPath);
             optionsBuilder.UseSqlite($"Filename={dbPath}");
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

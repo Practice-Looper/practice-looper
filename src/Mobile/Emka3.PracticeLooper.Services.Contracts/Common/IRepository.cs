@@ -13,6 +13,7 @@ namespace Emka3.PracticeLooper.Services.Contracts.Common
         Task DeleteAsync(T item);
         Task<int> SafeAsync(T item);
         Task<T> GetByIdAsync(int id);
-        Task<List<T>> GetAllItemsAsync();
+        Task<List<T>> GetAllItemsAsync(); 
+        void Init();
     }
 }

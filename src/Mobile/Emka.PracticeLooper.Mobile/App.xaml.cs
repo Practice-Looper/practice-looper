@@ -32,6 +32,7 @@ namespace Emka.PracticeLooper.Mobile
             var sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
             var audioPlayer = Factory.GetResolver().Resolve<IAudioPlayer>();
             var dbRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
+            dbRepository.Init();
             var bindingContext = new MainViewModel(filePicker, audioPlayer, sourcePicker, dbRepository);
 
             MainPage.BindingContext = bindingContext;

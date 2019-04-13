@@ -22,10 +22,10 @@ namespace Emka3.PracticeLooper.Services.Common
         {
             this.configService = configService;
             dbName = configService.GetValue("db:name");
-            Init();
+            //Init();
         }
 
-        private void Init()
+        public void Init()
         {
             using (var dbContext = new SessionsDbContext(dbName))
             {
@@ -46,8 +46,8 @@ namespace Emka3.PracticeLooper.Services.Common
                     await dbContext.SaveChangesAsync();
                 }
             }
-            catch (Exception)
-            {
+            catch (Exception) 
+            { 
                 throw;
             }
         }

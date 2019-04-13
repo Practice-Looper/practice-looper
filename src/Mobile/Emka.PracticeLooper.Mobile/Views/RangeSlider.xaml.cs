@@ -182,12 +182,8 @@ namespace Emka.PracticeLooper.Mobile.Views
             canvas.DrawLine(verticalThumbTrack.StrokeWidth / 2, height / 3, (float)canvasWidth, height / 3, track);
             canvas.DrawLine(leftThumbX + verticalThumbTrack.StrokeWidth / 2, height / 3, rightThumbX - verticalThumbTrack.StrokeWidth / 2, height / 3, rangeTrack);
 
-            // draw thumbs
-            //canvas.DrawRoundRect(leftThumbX - thumbWidth / 2, height / 3, thumbWidth, height, 10, 10, thumb);
-            //canvas.DrawRoundRect(rightThumbX - thumbWidth / 2, height / 3, thumbWidth, height, 10, 10, thumb);
 
             // draw vertical thumb markers
-
             canvas.DrawLine(leftThumbX + verticalThumbTrack.StrokeWidth / 2, 20, leftThumbX+ verticalThumbTrack.StrokeWidth / 2, height - 20, verticalThumbTrack);
             canvas.DrawLine(rightThumbX, 20, rightThumbX, height - 20, verticalThumbTrack);
 
