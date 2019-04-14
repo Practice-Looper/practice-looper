@@ -108,6 +108,7 @@
     <Compile Include="Renderer\EntryBorderRenderer.cs" />
     <Compile Include="Effects\SafeAreaPaddingEffect.cs" />
     <Compile Include="Extensions\UIColorExtensions.cs" />
+    <Compile Include="Renderer\AdMobViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -188,6 +189,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore">
       <Version>2.2.4</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.iOS.AdMob">
+      <Version>7.27.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

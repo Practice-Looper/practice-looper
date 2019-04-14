@@ -17,7 +17,6 @@
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.4" />
-    <PackageReference Include="Xamarin.Firebase.Ads" Version="60.1142.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />

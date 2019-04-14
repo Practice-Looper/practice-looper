@@ -28,9 +28,11 @@ namespace Emka.PracticeLooper.Mobile.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            GlobalApp.Init();
             SQLitePCL.Batteries_V2.Init();
             Rg.Plugins.Popup.Popup.Init();
-            GlobalApp.Init();
+            var adMobId = GlobalApp.ConfigurationService.GetValue("admob:ios:id");
+            Google.MobileAds.MobileAds.Configure(adMobId);
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

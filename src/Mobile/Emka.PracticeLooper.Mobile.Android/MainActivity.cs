@@ -16,6 +16,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
             base.OnCreate(savedInstanceState);
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+            var adMobId = GlobalApp.ConfigurationService.GetValue("admob:android:id");
+            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, adMobId);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }

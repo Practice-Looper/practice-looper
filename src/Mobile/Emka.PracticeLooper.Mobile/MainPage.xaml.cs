@@ -9,14 +9,14 @@ namespace Emka.PracticeLooper.Mobile
         public MainPage()
         {
             InitializeComponent();
+
         }
+
+        public string AdUnitId { get; private set; }
 
         protected override void OnAppearing()
         {
-            foreach (var res in Assembly.GetExecutingAssembly().GetManifestResourceNames())
-            {
-                System.Diagnostics.Debug.WriteLine("found resource: " + res);
-            }
+            AdUnitId = App.BannerAddUnitId;
         }
 
         void OnDraggingCompleted(object sender, System.EventArgs e)

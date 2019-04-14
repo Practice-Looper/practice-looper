@@ -16,10 +16,12 @@ namespace Emka.PracticeLooper.Mobile
     public partial class App : Application
     {
         public static IConfigurationService ConfigurationService { get; private set; }
+        public static string BannerAddUnitId { get; private set; }
 
         public App()
         {
             InitializeComponent();
+            InitAdMob();
             var navPage = new NavigationPage(new MainPage());
             navPage.BarBackgroundColor = ColorConstants.Background;
             navPage.BarTextColor = ColorConstants.Secondary;
@@ -63,13 +65,21 @@ namespace Emka.PracticeLooper.Mobile
 
                 // Build container after platform implementations have been registered
                 MappingsFactory.Factory.GetResolver().BuildContainer();
-
-                ConfigurationService = Factory.GetConfigService();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private void InitAdMob()
+        {
+            ConfigurationService = Factory.GetConfigService();
+
+            if (Device.RuntimePlatform == Device.iOS)
+                BannerAddUnitId = ConfigurationService.GetValue("admob:ios:TopBanner");
+            else if (Device.RuntimePlatform == Device.Android)
+                BannerAddUnitId = ConfigurationService.GetValue("admob:android:TopBanner");
         }
     }
 }

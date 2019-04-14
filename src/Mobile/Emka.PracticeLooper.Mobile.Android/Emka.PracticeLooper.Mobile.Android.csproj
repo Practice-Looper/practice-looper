@@ -72,6 +72,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore">
       <Version>2.2.4</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.Ads">
+      <Version>60.1142.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -80,6 +83,7 @@
     <Compile Include="Common\FileAudioPlayer.cs" />
     <Compile Include="GlobalApp.cs" />
     <Compile Include="Common\FilePicker.cs" />
+    <Compile Include="Renderers\AdMobViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -118,6 +122,7 @@
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
     <Folder Include="Common\" />
+    <Folder Include="Renderers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Emka.PracticeLooper.Mobile\Emka.PracticeLooper.Mobile.csproj">
