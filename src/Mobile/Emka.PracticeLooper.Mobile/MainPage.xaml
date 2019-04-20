@@ -44,7 +44,7 @@
                         <RowDefinition
                             Height="*" />
                     </Grid.RowDefinitions>
-                    <!--Command="{Binding SelectSourceCommand}"-->
+                    <!--Command="{Binding CreateSessionCommand}"-->
                     <ImageButton
                         Grid.Row="0"
                         HorizontalOptions="End"
@@ -59,9 +59,22 @@
                         SeparatorColor="{x:Static views:ColorConstants.Secondary}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <TextCell
-                                    Text="{Binding Name}"
-                                    TextColor="{x:Static views:ColorConstants.Primary}" />
+                                <ViewCell>
+                                    <ViewCell.ContextActions>
+                                        <MenuItem
+                                            Text="More" />
+                                        <MenuItem
+                                            Text="Delete"
+                                            IsDestructive="True" />
+                                    </ViewCell.ContextActions>
+                                    <StackLayout
+                                        VerticalOptions="CenterAndExpand"
+                                        Padding="15,0">
+                                        <Label
+                                            Text="{Binding Name}"
+                                            TextColor="{x:Static views:ColorConstants.Primary}" />
+                                    </StackLayout>
+                                </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -74,8 +87,7 @@
                 HeightRequest="1" />
             <ContentView
                 Grid.Row="2"
-                VerticalOptions="Center"
-                Padding="10,0,10,0">
+                VerticalOptions="Center">
                 <StackLayout>
                     <Grid
                         HorizontalOptions="FillAndExpand">

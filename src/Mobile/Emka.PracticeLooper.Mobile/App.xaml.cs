@@ -37,6 +37,7 @@ namespace Emka.PracticeLooper.Mobile
             var bindingContext = new MainViewModel(filePicker, audioPlayer, sourcePicker, dbRepository);
 
             MainPage.BindingContext = bindingContext;
+
         }
 
         protected override void OnStart()
@@ -65,6 +66,7 @@ namespace Emka.PracticeLooper.Mobile
 
                 // Build container after platform implementations have been registered
                 MappingsFactory.Factory.GetResolver().BuildContainer();
+
             }
             catch (Exception ex)
             {

@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Emka.PracticeLooper.Mobile.ViewModels;
+﻿using Emka.PracticeLooper.Mobile.ViewModels;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile
@@ -9,7 +8,6 @@ namespace Emka.PracticeLooper.Mobile
         public MainPage()
         {
             InitializeComponent();
-
         }
 
         public string AdUnitId { get; private set; }
@@ -17,12 +15,13 @@ namespace Emka.PracticeLooper.Mobile
         protected override void OnAppearing()
         {
             AdUnitId = App.BannerAddUnitId;
+
         }
 
         void OnDraggingCompleted(object sender, System.EventArgs e)
         {
             var viewModel = BindingContext as MainViewModel;
-            if(viewModel != null)
+            if (viewModel != null)
             {
                 viewModel.UpdateMinMaxValues();
             }

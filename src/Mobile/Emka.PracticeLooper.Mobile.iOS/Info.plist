@@ -25,18 +25,18 @@
 	<key>CFBundleDisplayName</key>
 	<string>Emka.PracticeLooper.Mobile</string>
 	<key>CFBundleIdentifier</key>
-	<string>de.emka3.practice-looper.Practice-Looper</string>
+	<string>de.emka3.practice-looper.loopr</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>CFBundleName</key>
-	<string>Emka.PracticeLooper.Mobile</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>UISupportsDocumentBrowser</key>
 	<true/>
+	<key>CFBundleName</key>
+	<string>Loopr</string>
 </dict>
 </plist>

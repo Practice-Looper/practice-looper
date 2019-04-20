@@ -2,6 +2,7 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
+using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using MobileCoreServices;
@@ -26,6 +27,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             docPicker.DidPickDocumentAtUrls += (s, e) =>
             {
                 result = e.Urls[0].Path;
+                System.Console.WriteLine(e.Urls[0].FileReferenceUrl);
                 //OnSourceSelected(new AudioSource(result));
             };
 

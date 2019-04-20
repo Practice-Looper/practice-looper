@@ -56,7 +56,7 @@
     <CodesignKey>iPhone Developer: Maksim Kolesnik (2Y42L78UD6)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <CodesignProvision>Loopr-DEV</CodesignProvision>
     <MtouchLink>None</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
@@ -109,6 +109,8 @@
     <Compile Include="Effects\SafeAreaPaddingEffect.cs" />
     <Compile Include="Extensions\UIColorExtensions.cs" />
     <Compile Include="Renderer\AdMobViewRenderer.cs" />
+    <Compile Include="Common\LooprDocument.cs" />
+    <Compile Include="Common\AudioFileRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

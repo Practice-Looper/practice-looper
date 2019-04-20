@@ -69,6 +69,11 @@ namespace Emka3.PracticeLooper.Mappings
         {
             if (builder != null)
             {
+                if (!string.IsNullOrEmpty(name))
+                {
+                    builder.RegisterType(type).Named(name, interfaceType);
+                }
+
                 builder.RegisterType(type).As(interfaceType);
             }
         }
