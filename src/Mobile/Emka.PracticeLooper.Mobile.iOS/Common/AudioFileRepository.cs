@@ -34,7 +34,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 }
                 else
                 {
-                    targetPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "..", "Library");
+                    targetPath = GlobalApp.ConfigurationService.LibraryPath;
                 }
 
                 await Task.Run(() =>

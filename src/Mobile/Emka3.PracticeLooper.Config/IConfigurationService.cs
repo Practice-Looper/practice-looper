@@ -12,6 +12,8 @@ namespace Emka3.PracticeLooper.Config
     public interface IConfigurationService
     {
 
+        string LibraryPath { get; set; }
+
         #region Methods
         /// <summary>
         /// Gets the value for a specific key.

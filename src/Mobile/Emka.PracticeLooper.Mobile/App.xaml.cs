@@ -21,7 +21,7 @@ namespace Emka.PracticeLooper.Mobile
         public App()
         {
             InitializeComponent();
-            InitAdMob();
+            InitConfig();
             var navPage = new NavigationPage(new MainPage());
             navPage.BarBackgroundColor = ColorConstants.Background;
             navPage.BarTextColor = ColorConstants.Secondary;
@@ -74,10 +74,10 @@ namespace Emka.PracticeLooper.Mobile
             }
         }
 
-        private void InitAdMob()
+        private void InitConfig()
         {
             ConfigurationService = Factory.GetConfigService();
-
+            ConfigurationService.LibraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Resources);
             if (Device.RuntimePlatform == Device.iOS)
                 BannerAddUnitId = ConfigurationService.GetValue("admob:ios:TopBanner");
             else if (Device.RuntimePlatform == Device.Android)

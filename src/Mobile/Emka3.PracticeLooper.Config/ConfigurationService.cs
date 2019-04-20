@@ -36,6 +36,7 @@ namespace Emka3.PracticeLooper.Config
         }
         #endregion
 
+        #region Properties
         public static ConfigurationService Instance
         {
             get
@@ -43,6 +44,9 @@ namespace Emka3.PracticeLooper.Config
                 return instance ?? (instance = new ConfigurationService());
             }
         }
+
+        public string LibraryPath { get; set; }
+        #endregion
 
         #region Methods
         /// <summary>

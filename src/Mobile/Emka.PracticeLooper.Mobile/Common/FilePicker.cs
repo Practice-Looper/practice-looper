@@ -40,11 +40,11 @@ namespace Emka.PracticeLooper.Mobile.Common
                 }
 
                 FileData fileData = await CrossFilePicker.Current.PickFile(allowedTypes).ConfigureAwait(false);
-                var path = await fileRepository.SaveFileAsync(fileData.FileName, fileData.DataArray);
 
                 if (fileData == null)
                     return result; // user canceled file picking
 
+                var path = await fileRepository.SaveFileAsync(fileData.FileName, fileData.DataArray);
                 result = new AudioSource
                 {
                     FileName = Path.GetFileNameWithoutExtension(path),
