@@ -12,12 +12,18 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
     public class AudioFileRepository : IFileRepository
     {
+        #region Fields
         private bool hasCloudAccess;
+        #endregion
+
+        #region Ctor
         public AudioFileRepository()
         {
             hasCloudAccess = false;
         }
+        #endregion
 
+        #region Methods
         public async Task<string> SaveFileAsync(string fileName, byte[] data)
         {
             try
@@ -71,5 +77,30 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 }
             });
         }
+
+
+        public async Task DeleteFileAsync(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+
+            try
+            {
+                if (File.Exists(fileName))
+                {
+                    await Task.Run(() =>
+                    {
+                        File.Delete(fileName);
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion Methods
     }
 }

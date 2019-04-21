@@ -9,5 +9,6 @@ namespace Emka3.PracticeLooper.Services.Contracts.Common
     public interface IFileRepository
     {
         Task<string> SaveFileAsync(string fileName, byte[] data);
+        Task DeleteFileAsync(string fileName);
     }
 }

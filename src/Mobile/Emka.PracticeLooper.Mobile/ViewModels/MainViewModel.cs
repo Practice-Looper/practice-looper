@@ -24,31 +24,35 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private readonly IAudioPlayer audioPlayer;
         private readonly ISourcePicker sourcePicker;
         private readonly IRepository<Session> sessionsRepository;
+        private readonly IFileRepository fileRepository;
+        private IAudioSource selectedAudioSource;
         private Command playCommand;
         private Command createSessionCommand;
+        private Command deleteSessionCommand;
+        private Session currentSession;
         private bool isPlaying;
         private double minimum;
         private double maximum;
         private double minimumValue;
         private double maximumValue;
-        private IAudioSource selectedAudioSource;
         private string songDuration;
         private string currentSongTime;
         private string loopStartPosition;
         private string loopEndPosition;
-        private Session currentSession;
         #endregion
 
         #region Ctor
         public MainViewModel(IFilePicker filePicker,
             IAudioPlayer audioPlayer,
             ISourcePicker sourcePicker,
-            IRepository<Session> sessionsRepository)
+            IRepository<Session> sessionsRepository,
+            IFileRepository fileRepository)
         {
             this.filePicker = filePicker;
             this.audioPlayer = audioPlayer;
             this.sourcePicker = sourcePicker;
             this.sessionsRepository = sessionsRepository;
+            this.fileRepository = fileRepository;
             Sessions = new ObservableCollection<Session>();
             CurrentSession = null;
             isPlaying = false;
@@ -62,6 +66,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #endregion
 
         #region Properties
+        public Command DeleteSessionCommand => deleteSessionCommand ?? (deleteSessionCommand = new Command(async (o) => await ExecuteDeleteSessionCommandAsync(o)));
         public Command PlayCommand => playCommand ?? (playCommand = new Command(ExecutePlayCommand, CanExecutePlayCommand));
         public Command CreateSessionCommand => createSessionCommand ?? (createSessionCommand = new Command(async (o) => await ExecuteCreateSessionCommandAsync(), CanExecuteCreateSessionCommand));
         public IAudioSource SelectedAudioSource
@@ -284,6 +289,40 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
+        private async Task ExecuteDeleteSessionCommandAsync(object session)
+        {
+            var tmpSession = session as Session;
+            if (session != null)
+            {
+                try
+                {
+                    if (IsPlaying && CurrentSession == tmpSession)
+                    {
+                        audioPlayer.Pause();
+                    }
+
+                    await fileRepository.DeleteFileAsync(tmpSession.AudioSource.Source);
+                    await sessionsRepository.DeleteAsync(tmpSession);
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        Sessions.Remove(tmpSession);
+                        if (Sessions.Any() && CurrentSession != null)
+                        {
+                            CurrentSession = Sessions.First();
+                        }
+                        else
+                        {
+                            CurrentSession = null;
+                        }
+                    });
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+        }
+
         private void InitAudioSourceSelected()
         {
             if (IsPlaying)
@@ -291,12 +330,22 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 audioPlayer.Pause();
             }
 
-            audioPlayer.Init(CurrentSession);
-            MinimumValue = CurrentSession.Loops[0].StartPosition;
-            Maximum = audioPlayer.SongDuration;
-            MaximumValue = CurrentSession.Loops[0].EndPosition;
-            SongDuration = FormatTime(audioPlayer.SongDuration);
-            CurrentSongTime = FormatTime(audioPlayer.SongDuration * MinimumValue);
+            if (CurrentSession != null)
+            {
+                audioPlayer.Init(CurrentSession);
+                MinimumValue = CurrentSession.Loops[0].StartPosition;
+                Maximum = audioPlayer.SongDuration;
+                MaximumValue = CurrentSession.Loops[0].EndPosition;
+                SongDuration = FormatTime(audioPlayer.SongDuration);
+                CurrentSongTime = FormatTime(audioPlayer.SongDuration * MinimumValue);
+            }
+            else
+            {
+                MinimumValue = 0.0;
+                MaximumValue = 1.0;
+                SongDuration = FormatTime(0.0);
+                CurrentSongTime = FormatTime(0.0);
+            }
         }
 
         private void OnPlayingStatusChanged(object sender, bool e)

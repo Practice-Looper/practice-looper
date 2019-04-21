@@ -9,7 +9,8 @@
     ios:Page.UseSafeArea="true"
     x:Class="Emka.PracticeLooper.Mobile.MainPage"
     Title="Practice Looper"
-    Style="{StaticResource NavigationPageMainStyle}">
+    Style="{StaticResource NavigationPageMainStyle}"
+    x:Name="mainPage">
     <!--https://mycolor.space/?hex=%2359677C&sub=1-->
     <Grid>
         <Grid.RowDefinitions>
@@ -62,10 +63,10 @@
                                 <ViewCell>
                                     <ViewCell.ContextActions>
                                         <MenuItem
-                                            Text="More" />
-                                        <MenuItem
                                             Text="Delete"
-                                            IsDestructive="True" />
+                                            IsDestructive="True"
+                                            Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={x:Reference mainPage}}"
+                                            CommandParameter="{Binding .}" />
                                     </ViewCell.ContextActions>
                                     <StackLayout
                                         VerticalOptions="CenterAndExpand"
@@ -87,7 +88,8 @@
                 HeightRequest="1" />
             <ContentView
                 Grid.Row="2"
-                VerticalOptions="Center">
+                VerticalOptions="Center"
+                Padding="10,0">
                 <StackLayout>
                     <Grid
                         HorizontalOptions="FillAndExpand">

@@ -33,7 +33,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public bool IsPlaying => audioPlayer != null && audioPlayer.Rate != 0;
         public double SongDuration { get { return internalSongDuration * 1000; } }
         public Loop CurrentLoop { get; set; }
-        private NSObject TimeObserver { get; set; }
         private int CurrentStartPosition { get; set; }
         private int CurrentEndPosition { get; set; }
         #endregion Properties
@@ -69,7 +68,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 audioPlayer.Play();
                 SetCurrentTimeTimer();
-                //SetLoopTimer();
                 CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
                 RaisePlayingStatusChanged();
             }

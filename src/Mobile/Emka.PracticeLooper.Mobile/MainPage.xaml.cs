@@ -26,5 +26,15 @@ namespace Emka.PracticeLooper.Mobile
                 viewModel.UpdateMinMaxValues();
             }
         }
+
+        void OnDeleteSession(object sender, System.EventArgs e)
+        {
+            var menuItem = ((MenuItem)sender);
+            var mainViewModel = BindingContext as MainViewModel;
+            if (mainViewModel != null)
+            {
+                mainViewModel.DeleteSessionCommand.Execute(menuItem.CommandParameter);
+            }
+        }
     }
 }
