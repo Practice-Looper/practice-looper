@@ -80,11 +80,16 @@ namespace Emka.PracticeLooper.Mobile
         private void InitConfig()
         {
             ConfigurationService = Factory.GetConfigService();
-            ConfigurationService.LibraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Resources);
             if (Device.RuntimePlatform == Device.iOS)
+            {
+                ConfigurationService.LocalPath = Environment.GetFolderPath(Environment.SpecialFolder.Resources);
                 BannerAddUnitId = ConfigurationService.GetValue("admob:ios:TopBanner");
+            }
             else if (Device.RuntimePlatform == Device.Android)
-                BannerAddUnitId = ConfigurationService.GetValue("admob:android:TopBanner");
+            {
+                BannerAddUnitId = ConfigurationService.GetValue("admob:android:TopBanner"); 
+                ConfigurationService.LocalPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            }
         }
     }
 }

@@ -26,10 +26,33 @@ namespace Emka3.PracticeLooper.Model.Player
         public AudioSource AudioSource { get; set; }
 
         /// <summary>
+        /// Used to auto select last used session.
+        /// </summary>
+        /// <value><c>true</c> if is favorite; otherwise, <c>false</c>.</value>
+        public bool IsFavorite { get; set; }
+
+        /// <summary>
         /// Gets or sets the loops.
         /// </summary>
         /// <value>The loops.</value>
         public List<Loop> Loops { get; set; }
+        #endregion
+
+        #region Methods
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            if (GetType() != obj.GetType()) return false;
+
+            Session s = (Session)obj;
+            return (Id == s.Id) && Name.Equals(s.Name);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
         #endregion
     }
 }

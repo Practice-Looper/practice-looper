@@ -40,7 +40,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 }
                 else
                 {
-                    targetPath = GlobalApp.ConfigurationService.LibraryPath;
+                    targetPath = GlobalApp.ConfigurationService.LocalPath;
                 }
 
                 await Task.Run(() =>

@@ -45,7 +45,7 @@ namespace Emka3.PracticeLooper.Config
             }
         }
 
-        public string LibraryPath { get; set; }
+        public string LocalPath { get; set; }
         #endregion
 
         #region Methods

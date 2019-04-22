@@ -224,6 +224,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     {
                         Sessions.Add(item);
                     }
+
+                    InitAudioSourceSelected();
                 });
             }
             catch (Exception ex)
@@ -303,6 +305,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                     await fileRepository.DeleteFileAsync(tmpSession.AudioSource.Source);
                     await sessionsRepository.DeleteAsync(tmpSession);
+
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         Sessions.Remove(tmpSession);

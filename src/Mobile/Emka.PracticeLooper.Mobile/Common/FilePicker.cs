@@ -30,21 +30,16 @@ namespace Emka.PracticeLooper.Mobile.Common
             try
             {
                 string[] allowedTypes = null;
-                if (Device.RuntimePlatform == Device.iOS)
-                {
-                    allowedTypes = new string[] { UTType.Audio.ToString() };
-                }
-                else if (Device.RuntimePlatform == Device.iOS)
-                {
-                    allowedTypes = new string[] { "audio/*" };
-                }
+                bool isIos = Device.RuntimePlatform == Device.iOS;
+
+                allowedTypes = isIos ? new string[] { UTType.Audio.ToString() } : new string[] { "audio/*" };
 
                 FileData fileData = await CrossFilePicker.Current.PickFile(allowedTypes).ConfigureAwait(false);
 
                 if (fileData == null)
                     return result; // user canceled file picking
 
-                var path = await fileRepository.SaveFileAsync(fileData.FileName, fileData.DataArray);
+                var path = await fileRepository.SaveFileAsync(isIos ? fileData.FileName : fileData.FilePath, fileData.DataArray);
                 result = new AudioSource
                 {
                     FileName = Path.GetFileNameWithoutExtension(path),

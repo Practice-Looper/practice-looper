@@ -84,6 +84,7 @@
     <Compile Include="GlobalApp.cs" />
     <Compile Include="Common\FilePicker.cs" />
     <Compile Include="Renderers\AdMobViewRenderer.cs" />
+    <Compile Include="Common\AudioFileRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

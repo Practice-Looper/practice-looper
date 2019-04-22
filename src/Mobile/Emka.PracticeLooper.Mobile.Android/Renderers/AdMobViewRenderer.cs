@@ -45,7 +45,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
 
             adView.LayoutParameters = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent);
 
-            adView.LoadAd(new AdRequest.Builder().Build());
+            adView.LoadAd(new AdRequest.Builder().AddTestDevice(AdRequest.DeviceIdEmulator).Build());
 
             return adView;
         }

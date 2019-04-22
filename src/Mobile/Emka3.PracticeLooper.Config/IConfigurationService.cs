@@ -12,7 +12,13 @@ namespace Emka3.PracticeLooper.Config
     public interface IConfigurationService
     {
 
-        string LibraryPath { get; set; }
+        #region Properties
+        /// <summary>
+        /// Local path to store selected files.
+        /// </summary>
+        /// <value>The local path.</value>
+        string LocalPath { get; set; }
+        #endregion
 
         #region Methods
         /// <summary>

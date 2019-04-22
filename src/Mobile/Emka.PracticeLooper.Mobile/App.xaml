@@ -34,7 +34,7 @@
                 x:Key="LabelStyle">
                 <Setter
                     Property="IsVisible"
-                    Value="{Binding IsInitialized}" />
+                    Value="True" />
                 <Setter
                     Property="TextColor"
                     Value="{x:Static views:ColorConstants.Secondary}" />
