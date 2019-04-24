@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Runtime.InteropServices;
 using Foundation;
+using SpotifyBindings.iOS;
 using UIKit;
 
 //#if NETFX_CORE
@@ -19,6 +20,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
+        private SPTAppRemote api;
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -32,11 +34,41 @@ namespace Emka.PracticeLooper.Mobile.iOS
             SQLitePCL.Batteries_V2.Init();
             Rg.Plugins.Popup.Popup.Init();
             var adMobId = GlobalApp.ConfigurationService.GetValue("admob:ios:id");
+
+            var clientId = GlobalApp.ConfigurationService.GetValue("auth:spotify:client:id");
+            var redirectUri = GlobalApp.ConfigurationService.GetValue("auth:spotify:client:uri:redirect");
+
+            var appConfig = new SPTConfiguration(clientId, NSUrl.FromString(redirectUri));
+            api = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Error);
+            SPTAppRemote.CheckIfSpotifyAppIsActive((obj) =>
+            {
+                Console.WriteLine(obj);
+            });
+
+           var isSpotifyInstalled = api.AuthorizeAndPlayURI("spotify:track:69bp2EbF7Q2rqc5N3ylezZ");
+
             Google.MobileAds.MobileAds.Configure(adMobId);
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
+        }
+
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            NSDictionary authParams = api.AuthorizationParametersFromURL(url);
+            var token = authParams["access_token"].ToString();
+
+            if(!string.IsNullOrEmpty(token))
+            {
+                api.ConnectionParameters.AccessToken = token;
+            }
+
+            // Convert NSUrl to Uri
+            var uri = new Uri(url.AbsoluteString);
+            // Load redirectUrl page
+
+            return true;
         }
     }
 }

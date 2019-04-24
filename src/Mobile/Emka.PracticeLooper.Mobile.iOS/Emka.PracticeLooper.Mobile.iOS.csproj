@@ -58,6 +58,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignProvision>Loopr-DEV</CodesignProvision>
     <MtouchLink>None</MtouchLink>
+    <MtouchExtraArgs>-gcc_flags '-framework SpotifyiOS'</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -174,6 +175,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
+    <Reference Include="SpotifyBindings.iOS">
+      <HintPath>..\Dependencies\Spotify\SpotifyBindings.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.6.0.293080" />

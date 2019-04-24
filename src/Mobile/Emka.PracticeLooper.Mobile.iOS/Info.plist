@@ -21,7 +21,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>8.0</string>
+	<string>12.0</string>
 	<key>CFBundleDisplayName</key>
 	<string>Emka.PracticeLooper.Mobile</string>
 	<key>CFBundleIdentifier</key>
@@ -38,5 +38,18 @@
 	<true/>
 	<key>CFBundleName</key>
 	<string>Loopr</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>de.emka3.spotify.callback</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>loopr</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
