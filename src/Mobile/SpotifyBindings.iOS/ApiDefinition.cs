@@ -5,18 +5,6 @@ using Foundation;
 using UIKit;
 using CoreGraphics;
 
-//[Static]
-//[Verify(ConstantsInterfaceAssociation)]
-//partial interface Constants
-//{
-//    // extern NSString *const _Nonnull SPTAppRemoteAccessTokenKey;
-//    [Field("SPTAppRemoteAccessTokenKey", "__Internal")]
-//    NSString SPTAppRemoteAccessTokenKey { get; }
-
-//    // extern NSString *const _Nonnull SPTAppRemoteErrorDescriptionKey;
-//    [Field("SPTAppRemoteErrorDescriptionKey", "__Internal")]
-//    NSString SPTAppRemoteErrorDescriptionKey { get; }
-//}
 namespace SpotifyBindings.iOS
 {
     // @protocol SPTAppRemoteDelegate <NSObject>
@@ -120,15 +108,6 @@ namespace SpotifyBindings.iOS
         [NullAllowed, Export("contentAPI", ArgumentSemantic.Strong)]
         SPTAppRemoteContentAPI ContentAPI { get; }
     }
-
-    //[Static]
-    //[Verify(ConstantsInterfaceAssociation)]
-    //partial interface Constants
-    //{
-    //    // extern NSString *const _Nonnull SPTAppRemoteErrorDomain;
-    //    [Field("SPTAppRemoteErrorDomain", "__Internal")]
-    //    NSString SPTAppRemoteErrorDomain { get; }
-    //}
 
     // typedef void (^SPTAppRemoteCallback)(id _Nullable, NSError * _Nullable);
     public delegate void SPTAppRemoteCallback([NullAllowed] NSObject arg0, [NullAllowed] NSError arg1);
@@ -388,23 +367,6 @@ namespace SpotifyBindings.iOS
         [Export("removeItemFromLibraryWithURI:callback:")]
         void RemoveItemFromLibraryWithURI(string URI, SPTAppRemoteCallback callback);
     }
-
-    //[Static]
-    //[Verify(ConstantsInterfaceAssociation)]
-    //partial interface Constants
-    //{
-    //    // extern NSString *const _Nonnull SPTAppRemoteContentTypeDefault;
-    //    [Field("SPTAppRemoteContentTypeDefault", "__Internal")]
-    //    NSString SPTAppRemoteContentTypeDefault { get; }
-
-    //    // extern NSString *const _Nonnull SPTAppRemoteContentTypeNavigation;
-    //    [Field("SPTAppRemoteContentTypeNavigation", "__Internal")]
-    //    NSString SPTAppRemoteContentTypeNavigation { get; }
-
-    //    // extern NSString *const _Nonnull SPTAppRemoteContentTypeFitness;
-    //    [Field("SPTAppRemoteContentTypeFitness", "__Internal")]
-    //    NSString SPTAppRemoteContentTypeFitness { get; }
-    //}
 
     // @protocol SPTAppRemoteContentAPI <NSObject>
     [Protocol, Model]
@@ -728,15 +690,6 @@ namespace SpotifyBindings.iOS
         SPTConfiguration ConfigurationWithClientID(string clientID, NSUrl redirectURL);
     }
 
-    //[Static]
-    //[Verify(ConstantsInterfaceAssociation)]
-    //partial interface Constants
-    //{
-    //    // extern const NSErrorDomain _Nonnull SPTLoginErrorDomain __attribute__((visibility("default")));
-    //    [Field("SPTLoginErrorDomain", "__Internal")]
-    //    NSString SPTLoginErrorDomain { get; }
-    //}
-
     // @interface SPTError : NSError
     [BaseType(typeof(NSError))]
     public interface SPTError
@@ -861,44 +814,38 @@ namespace SpotifyBindings.iOS
         bool SessionManagerShouldRequestAccessTokenWithAuthorizationCode(SPTSessionManager manager, string code);
     }
 
-    //[Static]
-    //[Verify(ConstantsInterfaceAssociation)]
-    //partial interface Constants
-    //{
-    //    // extern NSString *const _Nonnull SPTAppRemoteAccessTokenKey;
-    //    [Field("SPTAppRemoteAccessTokenKey", "__Internal")]
-    //    NSString SPTAppRemoteAccessTokenKey { get; }
 
-    //    // extern NSString *const _Nonnull SPTAppRemoteErrorDescriptionKey;
-    //    [Field("SPTAppRemoteErrorDescriptionKey", "__Internal")]
-    //    NSString SPTAppRemoteErrorDescriptionKey { get; }
-    //}
+    [Static]
+    partial interface Constants
+    {
+        // extern NSString *const _Nonnull SPTAppRemoteAccessTokenKey;
+        [Field("SPTAppRemoteAccessTokenKey", "__Internal")]
+        NSString SPTAppRemoteAccessTokenKey { get; }
 
-    //[Static]
-    //[Verify(ConstantsInterfaceAssociation)]
-    //partial interface Constants
-    //{
-    //    // extern NSString *const _Nonnull SPTAppRemoteErrorDomain;
-    //    [Field("SPTAppRemoteErrorDomain", "__Internal")]
-    //    NSString SPTAppRemoteErrorDomain { get; }
-    //}
+        // extern NSString *const _Nonnull SPTAppRemoteErrorDescriptionKey;
+        [Field("SPTAppRemoteErrorDescriptionKey", "__Internal")]
+        NSString SPTAppRemoteErrorDescriptionKey { get; }
 
-    //[Static]
-    //[Verify(ConstantsInterfaceAssociation)]
-    //partial interface Constants
-    //{
-    //    // extern NSString *const _Nonnull SPTAppRemoteContentTypeDefault;
-    //    [Field("SPTAppRemoteContentTypeDefault", "__Internal")]
-    //    NSString SPTAppRemoteContentTypeDefault { get; }
+        // extern NSString *const _Nonnull SPTAppRemoteErrorDomain;
+        [Field("SPTAppRemoteErrorDomain", "__Internal")]
+        NSString SPTAppRemoteErrorDomain { get; }
 
-    //    // extern NSString *const _Nonnull SPTAppRemoteContentTypeNavigation;
-    //    [Field("SPTAppRemoteContentTypeNavigation", "__Internal")]
-    //    NSString SPTAppRemoteContentTypeNavigation { get; }
+        // extern NSString *const _Nonnull SPTAppRemoteContentTypeDefault;
+        [Field("SPTAppRemoteContentTypeDefault", "__Internal")]
+        NSString SPTAppRemoteContentTypeDefault { get; }
 
-    //    // extern NSString *const _Nonnull SPTAppRemoteContentTypeFitness;
-    //    [Field("SPTAppRemoteContentTypeFitness", "__Internal")]
-    //    NSString SPTAppRemoteContentTypeFitness { get; }
-    //}
+        // extern NSString *const _Nonnull SPTAppRemoteContentTypeNavigation;
+        [Field("SPTAppRemoteContentTypeNavigation", "__Internal")]
+        NSString SPTAppRemoteContentTypeNavigation { get; }
+
+        // extern NSString *const _Nonnull SPTAppRemoteContentTypeFitness;
+        [Field("SPTAppRemoteContentTypeFitness", "__Internal")]
+        NSString SPTAppRemoteContentTypeFitness { get; }
+
+        // extern const NSErrorDomain _Nonnull SPTLoginErrorDomain __attribute__((visibility("default")));
+        [Field("SPTLoginErrorDomain", "__Internal")]
+        NSString SPTLoginErrorDomain { get; }
+    }
 }
 
 

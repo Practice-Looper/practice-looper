@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Emka.PracticeLooper.Mobile.iOS.Delegates;
 using Foundation;
 using SpotifyBindings.iOS;
 using UIKit;
@@ -40,13 +41,21 @@ namespace Emka.PracticeLooper.Mobile.iOS
 
             var appConfig = new SPTConfiguration(clientId, NSUrl.FromString(redirectUri));
             api = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Error);
+
             SPTAppRemote.CheckIfSpotifyAppIsActive((obj) =>
             {
                 Console.WriteLine(obj);
             });
 
-           var isSpotifyInstalled = api.AuthorizeAndPlayURI("spotify:track:69bp2EbF7Q2rqc5N3ylezZ");
+            var isSpotifyInstalled = api.AuthorizeAndPlayURI(string.Empty);
+            //api.
 
+
+            //api.PlayerAPI.Delegate = new SpotifyAppRemotePlayerStateDelegate();
+            //api.PlayerAPI.SubscribeToPlayerState((NSObject arg0, NSError arg1) =>
+            //{
+            //    Console.WriteLine(arg0);
+            //});
             Google.MobileAds.MobileAds.Configure(adMobId);
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
@@ -57,16 +66,15 @@ namespace Emka.PracticeLooper.Mobile.iOS
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
         {
             NSDictionary authParams = api.AuthorizationParametersFromURL(url);
-            var token = authParams["access_token"].ToString();
+            var token = authParams[Constants.SPTAppRemoteAccessTokenKey].ToString();
 
-            if(!string.IsNullOrEmpty(token))
+            if (!string.IsNullOrEmpty(token))
             {
                 api.ConnectionParameters.AccessToken = token;
             }
 
-            // Convert NSUrl to Uri
-            var uri = new Uri(url.AbsoluteString);
-            // Load redirectUrl page
+            api.Delegate = new SpotifyAppRemoteDelegate();
+            api.Connect();
 
             return true;
         }

@@ -112,6 +112,8 @@
     <Compile Include="Renderer\AdMobViewRenderer.cs" />
     <Compile Include="Common\LooprDocument.cs" />
     <Compile Include="Common\AudioFileRepository.cs" />
+    <Compile Include="Delegates\SpotifyAppRemoteDelegate.cs" />
+    <Compile Include="Delegates\SpotifyAppRemotePlayerStateDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -234,6 +236,7 @@
     <Folder Include="Effects\" />
     <Folder Include="Extensions\" />
     <Folder Include="Assets.xcassets\Close.imageset\" />
+    <Folder Include="Delegates\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
