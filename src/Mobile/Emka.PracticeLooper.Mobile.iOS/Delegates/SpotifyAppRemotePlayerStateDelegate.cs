@@ -10,9 +10,9 @@ namespace Emka.PracticeLooper.Mobile.iOS.Delegates
     public class SpotifyAppRemotePlayerStateDelegate : SPTAppRemotePlayerStateDelegate
     {
 
-        public override void PlayerStateDidChange(SPTAppRemotePlayerState playerState)
+        public override void PlayerStateDidChange(ISPTAppRemotePlayerState playerState)
         {
-            Console.WriteLine("PlayerStateDidChange");
+            Console.WriteLine(playerState);
         }
     }
 }

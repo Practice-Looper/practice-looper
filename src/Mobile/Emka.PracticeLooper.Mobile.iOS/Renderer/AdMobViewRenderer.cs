@@ -46,7 +46,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
             Request GetRequest()
             {
                 var request = Request.GetDefaultRequest();
-                request.TestDevices = new[] { Request.SimulatorId.ToString() };
+                request.TestDevices = new[] { Request.SimulatorId.ToString(), "6fb304bbcc401debac41d2255509463f" };
                 return request;
             }
 

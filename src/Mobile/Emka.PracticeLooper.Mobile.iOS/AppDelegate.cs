@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.iOS.Delegates;
+using Emka3.PracticeLooper.Mappings;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 using Foundation;
 using SpotifyBindings.iOS;
 using UIKit;
@@ -41,7 +44,6 @@ namespace Emka.PracticeLooper.Mobile.iOS
 
             var appConfig = new SPTConfiguration(clientId, NSUrl.FromString(redirectUri));
             api = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Error);
-
             SPTAppRemote.CheckIfSpotifyAppIsActive((obj) =>
             {
                 Console.WriteLine(obj);
@@ -50,7 +52,8 @@ namespace Emka.PracticeLooper.Mobile.iOS
             var isSpotifyInstalled = api.AuthorizeAndPlayURI(string.Empty);
             //api.
 
-
+            //var builder = new SPTAppRemotePlayerAPIBuilder();
+            //var interfaceProtocol = builder.CreateSPTAppRemotePlayerAPI();
             //api.PlayerAPI.Delegate = new SpotifyAppRemotePlayerStateDelegate();
             //api.PlayerAPI.SubscribeToPlayerState((NSObject arg0, NSError arg1) =>
             //{
@@ -71,6 +74,8 @@ namespace Emka.PracticeLooper.Mobile.iOS
             if (!string.IsNullOrEmpty(token))
             {
                 api.ConnectionParameters.AccessToken = token;
+                var accountMngr = Factory.GetResolver().Resolve<IAccountManager>();
+                Task.Run(async () => await accountMngr.UpdateTokenAsync(token));
             }
 
             api.Delegate = new SpotifyAppRemoteDelegate();

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Emka3.PracticeLooper.Model\Emka3.PracticeLooper.Model.csproj" />
+    <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Emka3.PracticeLooper.Services\obj\Debug\netstandard2.0\Emka3.PracticeLooper.Services.assets.cache" />

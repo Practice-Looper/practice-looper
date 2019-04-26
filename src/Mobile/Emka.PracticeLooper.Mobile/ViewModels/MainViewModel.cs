@@ -12,6 +12,7 @@ using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Xamarin.Forms;
 using IFilePicker = Emka.PracticeLooper.Mobile.Common.IFilePicker;
 
@@ -25,6 +26,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private readonly ISourcePicker sourcePicker;
         private readonly IRepository<Session> sessionsRepository;
         private readonly IFileRepository fileRepository;
+        private readonly ISpotifyApiService spotifyApiService;
         private IAudioSource selectedAudioSource;
         private Command playCommand;
         private Command createSessionCommand;
@@ -46,13 +48,15 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             IAudioPlayer audioPlayer,
             ISourcePicker sourcePicker,
             IRepository<Session> sessionsRepository,
-            IFileRepository fileRepository)
+            IFileRepository fileRepository,
+            ISpotifyApiService spotifyApiService)
         {
             this.filePicker = filePicker;
             this.audioPlayer = audioPlayer;
             this.sourcePicker = sourcePicker;
             this.sessionsRepository = sessionsRepository;
             this.fileRepository = fileRepository;
+            this.spotifyApiService = spotifyApiService;
             Sessions = new ObservableCollection<Session>();
             CurrentSession = null;
             isPlaying = false;
@@ -268,6 +272,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         await sessionsRepository.SafeAsync(newSession);
                     }
 
+                    break;
+                case "Spotify":
+                    await spotifyApiService.SearchForTerm("Time, The Valuator");
                     break;
                 default:
                     break;

@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Services.Contracts.Rest;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -34,10 +35,11 @@ namespace Emka.PracticeLooper.Mobile
             var audioPlayer = MappingsFactory.Factory.GetResolver().Resolve<IAudioPlayer>();
             var dbRepository = MappingsFactory.Factory.GetResolver().Resolve<IRepository<Session>>();
             var fileRepository = MappingsFactory.Factory.GetResolver().Resolve<IFileRepository>();
+            var spotifyApiService = MappingsFactory.Factory.GetResolver().Resolve<ISpotifyApiService>();
 
             dbRepository.Init();
 
-            var bindingContext = new MainViewModel(filePicker, audioPlayer, sourcePicker, dbRepository, fileRepository);
+            var bindingContext = new MainViewModel(filePicker, audioPlayer, sourcePicker, dbRepository, fileRepository, spotifyApiService);
 
             MainPage.BindingContext = bindingContext;
 

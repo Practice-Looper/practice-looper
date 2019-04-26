@@ -5,28 +5,27 @@
 using System;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
-using Xamarin.Auth;
 
 namespace Emka3.PracticeLooper.Services.Common
 {
-    public class Authenticator : IAuthenticator<OAuth2Authenticator>
+    public class Authenticator //: IAuthenticator<OAuth2Authenticator>
     {
-        readonly IConfigurationService configService;
+        //readonly IConfigurationService configService;
 
-        public Authenticator()
-        {
-            this.configService = Factory.GetConfigService();
-            Instance = new OAuth2Authenticator(
-          configService.GetValue("auth:spotify:client:id"),
-          configService.GetValue("auth:spotify:client:secret"),
-          configService.GetValue("auth:spotify:client:scopes"),
-          new Uri(configService.GetValue("auth:spotify:client:uri:auth")),
-          new Uri(configService.GetValue("auth:spotify:client:uri:redirect")),
-          new Uri(configService.GetValue("auth:spotify:client:uri:redirect")),
-          null,
-          true);
-        }
+        //public Authenticator()
+        //{
+        //    this.configService = Factory.GetConfigService();
+        //    Instance = new OAuth2Authenticator(
+        //  configService.GetValue("auth:spotify:client:id"),
+        //  configService.GetValue("auth:spotify:client:secret"),
+        //  configService.GetValue("auth:spotify:client:scopes"),
+        //  new Uri(configService.GetValue("auth:spotify:client:uri:auth")),
+        //  new Uri(configService.GetValue("auth:spotify:client:uri:redirect")),
+        //  new Uri(configService.GetValue("auth:spotify:client:uri:redirect")),
+        //  null,
+        //  true);
+        //}
 
-        public OAuth2Authenticator Instance { get; }
+        //public OAuth2Authenticator Instance { get; }
     }
 }

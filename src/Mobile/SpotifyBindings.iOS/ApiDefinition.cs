@@ -7,31 +7,68 @@ using CoreGraphics;
 
 namespace SpotifyBindings.iOS
 {
+    //https://bugzilla.xamarin.com/show_bug.cgi?id=57268
+    //https://github.com/onurhazar/SpotifyBindingiOS
+    [Static]
+    //[Verify(ConstantsInterfaceAssociation)]
+    partial interface Constants
+    {
+        // extern const NSErrorDomain _Nonnull SPTLoginErrorDomain __attribute__((visibility("default")));
+        [Field("SPTLoginErrorDomain", "__Internal")]
+        NSString SPTLoginErrorDomain { get; }
+
+        // extern NSString *const SPTAppRemoteContentTypeDefault;
+        [Field("SPTAppRemoteContentTypeDefault", "__Internal")]
+        NSString SPTAppRemoteContentTypeDefault { get; }
+
+        // extern NSString *const SPTAppRemoteContentTypeNavigation;
+        [Field("SPTAppRemoteContentTypeNavigation", "__Internal")]
+        NSString SPTAppRemoteContentTypeNavigation { get; }
+
+        // extern NSString *const SPTAppRemoteContentTypeFitness;
+        [Field("SPTAppRemoteContentTypeFitness", "__Internal")]
+        NSString SPTAppRemoteContentTypeFitness { get; }
+
+        // extern NSString *const _Nonnull SPTAppRemoteErrorDomain;
+        [Field("SPTAppRemoteErrorDomain", "__Internal")]
+        NSString SPTAppRemoteErrorDomain { get; }
+
+        // extern NSString *const _Nonnull SPTAppRemoteAccessTokenKey;
+        [Field("SPTAppRemoteAccessTokenKey", "__Internal")]
+        NSString SPTAppRemoteAccessTokenKey { get; }
+
+        // extern NSString *const _Nonnull SPTAppRemoteErrorDescriptionKey;
+        [Field("SPTAppRemoteErrorDescriptionKey", "__Internal")]
+        NSString SPTAppRemoteErrorDescriptionKey { get; }
+    }
+
     // @protocol SPTAppRemoteDelegate <NSObject>
     [BaseType(typeof(NSObject))]
-    [Model]
-    public interface SPTAppRemoteDelegate
+    [Model, Protocol]
+    interface SPTAppRemoteDelegate
     {
         // @required -(void)appRemoteDidEstablishConnection:(SPTAppRemote * _Nonnull)appRemote;
         [Abstract]
         [Export("appRemoteDidEstablishConnection:")]
-        void AppRemoteDidEstablishConnection(SPTAppRemote appRemote);
+        void DidEstablishConnection(SPTAppRemote appRemote);
 
         // @required -(void)appRemote:(SPTAppRemote * _Nonnull)appRemote didFailConnectionAttemptWithError:(NSError * _Nullable)error;
         [Abstract]
         [Export("appRemote:didFailConnectionAttemptWithError:")]
-        void AppRemoteDidFailConnectionAttemptWithError(SPTAppRemote appRemote, [NullAllowed] NSError error);
+        void DidFailConnectionAttemptWithError(SPTAppRemote appRemote, [NullAllowed] NSError error);
 
         // @required -(void)appRemote:(SPTAppRemote * _Nonnull)appRemote didDisconnectWithError:(NSError * _Nullable)error;
         [Abstract]
         [Export("appRemote:didDisconnectWithError:")]
-        void AppRemoteDidDisconnectWithError(SPTAppRemote appRemote, [NullAllowed] NSError error);
+        void DidDisconnectWithError(SPTAppRemote appRemote, [NullAllowed] NSError error);
     }
+
+    interface ISPTAppRemoteDelegate { }
 
     // @interface SPTAppRemote : NSObject
     [BaseType(typeof(NSObject))]
     [DisableDefaultCtor]
-    public interface SPTAppRemote
+    interface SPTAppRemote
     {
         // -(instancetype _Nonnull)initWithConfiguration:(SPTConfiguration * _Nonnull)configuration logLevel:(SPTAppRemoteLogLevel)logLevel;
         [Export("initWithConfiguration:logLevel:")]
@@ -69,7 +106,7 @@ namespace SpotifyBindings.iOS
 
         [Wrap("WeakDelegate")]
         [NullAllowed]
-        SPTAppRemoteDelegate Delegate { get; set; }
+        ISPTAppRemoteDelegate Delegate { get; set; }
 
         // @property (nonatomic, weak) id<SPTAppRemoteDelegate> _Nullable delegate;
         [NullAllowed, Export("delegate", ArgumentSemantic.Weak)]
@@ -94,28 +131,30 @@ namespace SpotifyBindings.iOS
 
         // @property (readonly, nonatomic, strong) id<SPTAppRemotePlayerAPI> _Nullable playerAPI;
         [NullAllowed, Export("playerAPI", ArgumentSemantic.Strong)]
-        SPTAppRemotePlayerAPI PlayerAPI { get; }
+        ISPTAppRemotePlayerAPI PlayerAPI { get; }
 
         // @property (readonly, nonatomic, strong) id<SPTAppRemoteImageAPI> _Nullable imageAPI;
         [NullAllowed, Export("imageAPI", ArgumentSemantic.Strong)]
-        SPTAppRemoteImageAPI ImageAPI { get; }
+        ISPTAppRemoteImageAPI ImageAPI { get; }
 
         // @property (readonly, nonatomic, strong) id<SPTAppRemoteUserAPI> _Nullable userAPI;
         [NullAllowed, Export("userAPI", ArgumentSemantic.Strong)]
-        SPTAppRemoteUserAPI UserAPI { get; }
+        ISPTAppRemoteUserAPI UserAPI { get; }
 
         // @property (readonly, nonatomic, strong) id<SPTAppRemoteContentAPI> _Nullable contentAPI;
         [NullAllowed, Export("contentAPI", ArgumentSemantic.Strong)]
-        SPTAppRemoteContentAPI ContentAPI { get; }
+        ISPTAppRemoteContentAPI ContentAPI { get; }
     }
 
     // typedef void (^SPTAppRemoteCallback)(id _Nullable, NSError * _Nullable);
-    public delegate void SPTAppRemoteCallback([NullAllowed] NSObject arg0, [NullAllowed] NSError arg1);
+    delegate void SPTAppRemoteCallback([NullAllowed] NSObject obj, [NullAllowed] NSError error);
+
+    delegate void SPTAppRemotePlayerStateCallback([NullAllowed] ISPTAppRemotePlayerState obj, [NullAllowed] NSError error);
 
     // @interface SPTAppRemoteConnectionParams : NSObject
     [BaseType(typeof(NSObject))]
     [DisableDefaultCtor]
-    public interface SPTAppRemoteConnectionParams
+    interface SPTAppRemoteConnectionParams
     {
         // @property (readwrite, copy, nonatomic) NSString * _Nullable accessToken;
         [NullAllowed, Export("accessToken")]
@@ -151,7 +190,7 @@ namespace SpotifyBindings.iOS
     // @protocol SPTAppRemoteImageRepresentable <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemoteImageRepresentable
+    interface SPTAppRemoteImageRepresentable
     {
         // @required @property (readonly, nonatomic, strong) NSString * _Nonnull imageIdentifier;
         [Abstract]
@@ -159,21 +198,25 @@ namespace SpotifyBindings.iOS
         string ImageIdentifier { get; }
     }
 
+    interface ISPTAppRemoteImageRepresentable { }
+
     // @protocol SPTAppRemoteImageAPI <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemoteImageAPI
+    interface SPTAppRemoteImageAPI
     {
         // @required -(void)fetchImageForItem:(id<SPTAppRemoteImageRepresentable> _Nonnull)imageRepresentable withSize:(CGSize)imageSize callback:(SPTAppRemoteCallback _Nullable)callback;
         [Abstract]
         [Export("fetchImageForItem:withSize:callback:")]
-        void WithSize(SPTAppRemoteImageRepresentable imageRepresentable, CGSize imageSize, [NullAllowed] SPTAppRemoteCallback callback);
+        void FetchImageForItem(ISPTAppRemoteImageRepresentable imageRepresentable, CGSize imageSize, [NullAllowed] SPTAppRemoteCallback callback);
     }
+
+    interface ISPTAppRemoteImageAPI { }
 
     // @protocol SPTAppRemotePlaybackOptions <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemotePlaybackOptions
+    interface SPTAppRemotePlaybackOptions
     {
         // @required @property (readonly, nonatomic) BOOL isShuffling;
         [Abstract]
@@ -186,28 +229,33 @@ namespace SpotifyBindings.iOS
         SPTAppRemotePlaybackOptionsRepeatMode RepeatMode { get; }
     }
 
+    interface ISPTAppRemotePlayerStateDelegate { }
+
     // @protocol SPTAppRemotePlayerStateDelegate <NSObject>
+    [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    [Model]
-    public interface SPTAppRemotePlayerStateDelegate
+    interface SPTAppRemotePlayerStateDelegate
     {
         // @required -(void)playerStateDidChange:(id<SPTAppRemotePlayerState> _Nonnull)playerState;
         [Abstract]
         [Export("playerStateDidChange:")]
-        void PlayerStateDidChange(SPTAppRemotePlayerState playerState);
+        void PlayerStateDidChange(ISPTAppRemotePlayerState playerState);
     }
+
+    interface ISPTAppRemotePlayerAPI { }
 
     // @protocol SPTAppRemotePlayerAPI <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemotePlayerAPI
+    interface SPTAppRemotePlayerAPI
     {
+        //[Wrap("WeakDelegate"), Abstract]
         [Wrap("WeakDelegate")]
         [NullAllowed]
-        SPTAppRemotePlayerStateDelegate Delegate { get; set; }
+        ISPTAppRemotePlayerStateDelegate Delegate { get; set; }
 
         // @required @property (nonatomic, weak) id<SPTAppRemotePlayerStateDelegate> _Nullable delegate;
-        [Abstract]
+        //[Abstract]
         [NullAllowed, Export("delegate", ArgumentSemantic.Weak)]
         NSObject WeakDelegate { get; set; }
 
@@ -220,11 +268,6 @@ namespace SpotifyBindings.iOS
         [Abstract]
         [Export("playItem:callback:")]
         void PlayItem(SPTAppRemoteContentItem contentItem, [NullAllowed] SPTAppRemoteCallback callback);
-
-        // @required -(void)playItem:(id<SPTAppRemoteContentItem> _Nonnull)contentItem skipToTrackIndex:(NSInteger)index callback:(SPTAppRemoteCallback _Nullable)callback;
-        [Abstract]
-        [Export("playItem:skipToTrackIndex:callback:")]
-        void PlayItem(SPTAppRemoteContentItem contentItem, nint index, [NullAllowed] SPTAppRemoteCallback callback);
 
         // @required -(void)resume:(SPTAppRemoteCallback _Nullable)callback;
         [Abstract]
@@ -274,7 +317,7 @@ namespace SpotifyBindings.iOS
         // @required -(void)getPlayerState:(SPTAppRemoteCallback _Nullable)callback;
         [Abstract]
         [Export("getPlayerState:")]
-        void GetPlayerState([NullAllowed] SPTAppRemoteCallback callback);
+        void GetPlayerState([NullAllowed] SPTAppRemotePlayerStateCallback callback);
 
         // @required -(void)subscribeToPlayerState:(SPTAppRemoteCallback _Nullable)callback;
         [Abstract]
@@ -305,17 +348,14 @@ namespace SpotifyBindings.iOS
         [Abstract]
         [Export("setPodcastPlaybackSpeed:callback:")]
         void SetPodcastPlaybackSpeed(SPTAppRemotePodcastPlaybackSpeed speed, [NullAllowed] SPTAppRemoteCallback callback);
-
-        // @required -(void)getCrossfadeState:(SPTAppRemoteCallback _Nullable)callback;
-        [Abstract]
-        [Export("getCrossfadeState:")]
-        void GetCrossfadeState([NullAllowed] SPTAppRemoteCallback callback);
     }
 
+    interface ISPTAppRemoteUserAPIDelegate { }
+
     // @protocol SPTAppRemoteUserAPIDelegate <NSObject>
+    [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    [Model]
-    public interface SPTAppRemoteUserAPIDelegate
+    interface SPTAppRemoteUserAPIDelegate
     {
         // @required -(void)userAPI:(id<SPTAppRemoteUserAPI> _Nonnull)userAPI didReceiveCapabilities:(id<SPTAppRemoteUserCapabilities> _Nonnull)capabilities;
         [Abstract]
@@ -323,17 +363,20 @@ namespace SpotifyBindings.iOS
         void DidReceiveCapabilities(SPTAppRemoteUserAPI userAPI, SPTAppRemoteUserCapabilities capabilities);
     }
 
+    interface ISPTAppRemoteUserAPI { }
+
     // @protocol SPTAppRemoteUserAPI <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemoteUserAPI
+    interface SPTAppRemoteUserAPI
     {
+        //[Wrap("WeakDelegate"), Abstract]
         [Wrap("WeakDelegate")]
         [NullAllowed]
-        SPTAppRemoteUserAPIDelegate Delegate { get; set; }
+        ISPTAppRemoteUserAPIDelegate Delegate { get; set; }
 
         // @required @property (readwrite, nonatomic, weak) id<SPTAppRemoteUserAPIDelegate> _Nullable delegate;
-        [Abstract]
+        //[Abstract]
         [NullAllowed, Export("delegate", ArgumentSemantic.Weak)]
         NSObject WeakDelegate { get; set; }
 
@@ -368,10 +411,12 @@ namespace SpotifyBindings.iOS
         void RemoveItemFromLibraryWithURI(string URI, SPTAppRemoteCallback callback);
     }
 
+    interface ISPTAppRemoteContentAPI { }
+
     // @protocol SPTAppRemoteContentAPI <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemoteContentAPI
+    interface SPTAppRemoteContentAPI
     {
         // @required -(void)fetchRootContentItemsForType:(SPTAppRemoteContentType _Nonnull)contentType callback:(SPTAppRemoteCallback _Nullable)callback;
         [Abstract]
@@ -392,7 +437,7 @@ namespace SpotifyBindings.iOS
     // @protocol SPTAppRemoteAlbum <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemoteAlbum
+    interface SPTAppRemoteAlbum
     {
         // @required @property (readonly, copy, nonatomic) NSString * _Nonnull name;
         [Abstract]
@@ -408,7 +453,7 @@ namespace SpotifyBindings.iOS
     // @protocol SPTAppRemoteArtist <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemoteArtist
+    interface SPTAppRemoteArtist
     {
         // @required @property (readonly, copy, nonatomic) NSString * _Nonnull name;
         [Abstract]
@@ -424,7 +469,7 @@ namespace SpotifyBindings.iOS
     // @protocol SPTAppRemotePlaybackRestrictions <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemotePlaybackRestrictions
+    interface SPTAppRemotePlaybackRestrictions
     {
         // @required @property (readonly, nonatomic) BOOL canSkipNext;
         [Abstract]
@@ -457,15 +502,17 @@ namespace SpotifyBindings.iOS
         bool CanSeek { get; }
     }
 
+    interface ISPTAppRemotePlayerState { }
+
     // @protocol SPTAppRemotePlayerState <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemotePlayerState
+    interface SPTAppRemotePlayerState
     {
         // @required @property (readonly, nonatomic) id<SPTAppRemoteTrack> _Nonnull track;
         [Abstract]
         [Export("track")]
-        SPTAppRemoteTrack Track { get; }
+        ISPTAppRemoteTrack Track { get; }
 
         // @required @property (readonly, nonatomic) NSInteger playbackPosition;
         [Abstract]
@@ -503,26 +550,12 @@ namespace SpotifyBindings.iOS
         NSUrl ContextURI { get; }
     }
 
-    // @protocol SPTAppRemoteCrossfadeState <NSObject>
-    [Protocol, Model]
-    [BaseType(typeof(NSObject))]
-    public interface SPTAppRemoteCrossfadeState
-    {
-        // @required @property (readonly, getter = isEnabled, nonatomic) BOOL enabled;
-        [Abstract]
-        [Export("enabled")]
-        bool Enabled { [Bind("isEnabled")] get; }
-
-        // @required @property (readonly, nonatomic) NSInteger duration;
-        [Abstract]
-        [Export("duration")]
-        nint Duration { get; }
-    }
+    interface ISPTAppRemoteTrack { }
 
     // @protocol SPTAppRemoteTrack <NSObject, SPTAppRemoteImageRepresentable>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemoteTrack //: ISPTAppRemoteImageRepresentable
+    interface SPTAppRemoteTrack : SPTAppRemoteImageRepresentable//ISPTAppRemoteImageRepresentable
     {
         // @required @property (readonly, copy, nonatomic) NSString * _Nonnull name;
         [Abstract]
@@ -568,7 +601,7 @@ namespace SpotifyBindings.iOS
     // @protocol SPTAppRemoteUserCapabilities <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemoteUserCapabilities
+    interface SPTAppRemoteUserCapabilities
     {
         // @required @property (readonly, assign, nonatomic) BOOL canPlayOnDemand;
         [Abstract]
@@ -579,7 +612,7 @@ namespace SpotifyBindings.iOS
     // @protocol SPTAppRemoteLibraryState <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemoteLibraryState
+    interface SPTAppRemoteLibraryState
     {
         // @required @property (readonly, nonatomic, strong) NSString * _Nonnull uri;
         [Abstract]
@@ -600,7 +633,7 @@ namespace SpotifyBindings.iOS
     // @protocol SPTAppRemoteContentItem <NSObject, SPTAppRemoteImageRepresentable>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemoteContentItem : SPTAppRemoteImageRepresentable
+    interface SPTAppRemoteContentItem : SPTAppRemoteImageRepresentable//ISPTAppRemoteImageRepresentable
     {
         // @required @property (readonly, copy, nonatomic) NSString * _Nullable title;
         [Abstract]
@@ -646,7 +679,7 @@ namespace SpotifyBindings.iOS
     // @protocol SPTAppRemotePodcastPlaybackSpeed <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    public interface SPTAppRemotePodcastPlaybackSpeed
+    interface SPTAppRemotePodcastPlaybackSpeed
     {
         // @required @property (readonly, nonatomic, strong) NSNumber * _Nonnull value;
         [Abstract]
@@ -657,7 +690,7 @@ namespace SpotifyBindings.iOS
     // @interface SPTConfiguration : NSObject <NSSecureCoding>
     [BaseType(typeof(NSObject))]
     [DisableDefaultCtor]
-    public interface SPTConfiguration : INSSecureCoding
+    interface SPTConfiguration : INSSecureCoding
     {
         // @property (readonly, copy, nonatomic) NSString * _Nonnull clientID;
         [Export("clientID")]
@@ -692,7 +725,7 @@ namespace SpotifyBindings.iOS
 
     // @interface SPTError : NSError
     [BaseType(typeof(NSError))]
-    public interface SPTError
+    interface SPTError
     {
         // +(instancetype _Nonnull)errorWithCode:(SPTErrorCode)code;
         [Static]
@@ -713,7 +746,7 @@ namespace SpotifyBindings.iOS
     // @interface SPTSession : NSObject <NSSecureCoding>
     [BaseType(typeof(NSObject))]
     [DisableDefaultCtor]
-    public interface SPTSession : INSSecureCoding
+    interface SPTSession : INSSecureCoding
     {
         // @property (readonly, copy, nonatomic) NSString * _Nonnull accessToken;
         [Export("accessToken")]
@@ -738,20 +771,21 @@ namespace SpotifyBindings.iOS
 
     // @interface SPTSessionManager : NSObject
     [BaseType(typeof(NSObject))]
+    //[BaseType(typeof(NSObject), Delegates = new string[] { "WeakDelegate" }, Events = new Type[] { typeof(SPTSessionManagerDelegate) })]
     [DisableDefaultCtor]
-    public interface SPTSessionManager
+    interface SPTSessionManager
     {
         // @property (nonatomic) SPTSession * _Nullable session;
         [NullAllowed, Export("session", ArgumentSemantic.Assign)]
         SPTSession Session { get; set; }
 
-        [Wrap("WeakDelegate")]
-        [NullAllowed]
-        SPTSessionManagerDelegate Delegate { get; set; }
-
         // @property (nonatomic, weak) id<SPTSessionManagerDelegate> _Nullable delegate;
         [NullAllowed, Export("delegate", ArgumentSemantic.Weak)]
         NSObject WeakDelegate { get; set; }
+
+        [Wrap("WeakDelegate")]
+        [NullAllowed]
+        SPTSessionManagerDelegate Delegate { get; set; }
 
         // @property (readonly, getter = isSpotifyAppInstalled, nonatomic) BOOL spotifyAppInstalled;
         [Export("spotifyAppInstalled")]
@@ -778,73 +812,44 @@ namespace SpotifyBindings.iOS
 
         // -(instancetype _Nonnull)initWithConfiguration:(SPTConfiguration * _Nonnull)configuration delegate:(id<SPTSessionManagerDelegate> _Nullable)delegate;
         [Export("initWithConfiguration:delegate:")]
-        IntPtr Constructor(SPTConfiguration configuration, [NullAllowed] SPTSessionManagerDelegate @delegate);
+        IntPtr Constructor(SPTConfiguration configuration, [NullAllowed] ISPTSessionManagerDelegate del);
 
         // +(instancetype _Nonnull)sessionManagerWithConfiguration:(SPTConfiguration * _Nonnull)configuration delegate:(id<SPTSessionManagerDelegate> _Nullable)delegate;
         [Static]
         [Export("sessionManagerWithConfiguration:delegate:")]
-        SPTSessionManager SessionManagerWithConfiguration(SPTConfiguration configuration, [NullAllowed] SPTSessionManagerDelegate @delegate);
+        SPTSessionManager SessionManagerWithConfiguration(SPTConfiguration configuration, [NullAllowed] ISPTSessionManagerDelegate del);
 
         // -(BOOL)application:(UIApplication * _Nonnull)application openURL:(NSURL * _Nonnull)URL options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> * _Nonnull)options;
         [Export("application:openURL:options:")]
-        bool Application(UIApplication application, NSUrl URL, NSDictionary<NSString, NSObject> options);
+        bool Application(UIApplication application, NSUrl URL, NSDictionary options);
     }
+
+    interface ISPTSessionManagerDelegate { }
 
     // @protocol SPTSessionManagerDelegate <NSObject>
     [BaseType(typeof(NSObject))]
-    [Model]
-    public interface SPTSessionManagerDelegate
+    [Model, Protocol]
+    interface SPTSessionManagerDelegate
     {
         // @required -(void)sessionManager:(SPTSessionManager * _Nonnull)manager didInitiateSession:(SPTSession * _Nonnull)session;
         [Abstract]
+        //[Export("sessionManager:didInitiateSession:"), EventArgs("DidInitiateSession"), EventName("DidInitiateSession")]
         [Export("sessionManager:didInitiateSession:")]
-        void SessionManager(SPTSessionManager manager, SPTSession session);
+        void DidInitiateSession(SPTSessionManager manager, SPTSession session);
 
         // @required -(void)sessionManager:(SPTSessionManager * _Nonnull)manager didFailWithError:(NSError * _Nonnull)error;
         [Abstract]
         [Export("sessionManager:didFailWithError:")]
-        void SessionManager(SPTSessionManager manager, NSError error);
+        void DidFailWithError(SPTSessionManager manager, NSError error);
 
         // @optional -(void)sessionManager:(SPTSessionManager * _Nonnull)manager didRenewSession:(SPTSession * _Nonnull)session;
         [Export("sessionManager:didRenewSession:")]
-        void SessionManagerDidFailWithError(SPTSessionManager manager, SPTSession session);
+        void DidRenewSession(SPTSessionManager manager, SPTSession session);
 
         // @optional -(BOOL)sessionManager:(SPTSessionManager * _Nonnull)manager shouldRequestAccessTokenWithAuthorizationCode:(SPTAuthorizationCode _Nonnull)code;
+        //[Export("sessionManager:shouldRequestAccessTokenWithAuthorizationCode:"), DelegateName("ShouldRequestAccessTokenWithAuthorizationCode"), DefaultValue(false)]
         [Export("sessionManager:shouldRequestAccessTokenWithAuthorizationCode:")]
-        bool SessionManagerShouldRequestAccessTokenWithAuthorizationCode(SPTSessionManager manager, string code);
-    }
-
-
-    [Static]
-    partial interface Constants
-    {
-        // extern NSString *const _Nonnull SPTAppRemoteAccessTokenKey;
-        [Field("SPTAppRemoteAccessTokenKey", "__Internal")]
-        NSString SPTAppRemoteAccessTokenKey { get; }
-
-        // extern NSString *const _Nonnull SPTAppRemoteErrorDescriptionKey;
-        [Field("SPTAppRemoteErrorDescriptionKey", "__Internal")]
-        NSString SPTAppRemoteErrorDescriptionKey { get; }
-
-        // extern NSString *const _Nonnull SPTAppRemoteErrorDomain;
-        [Field("SPTAppRemoteErrorDomain", "__Internal")]
-        NSString SPTAppRemoteErrorDomain { get; }
-
-        // extern NSString *const _Nonnull SPTAppRemoteContentTypeDefault;
-        [Field("SPTAppRemoteContentTypeDefault", "__Internal")]
-        NSString SPTAppRemoteContentTypeDefault { get; }
-
-        // extern NSString *const _Nonnull SPTAppRemoteContentTypeNavigation;
-        [Field("SPTAppRemoteContentTypeNavigation", "__Internal")]
-        NSString SPTAppRemoteContentTypeNavigation { get; }
-
-        // extern NSString *const _Nonnull SPTAppRemoteContentTypeFitness;
-        [Field("SPTAppRemoteContentTypeFitness", "__Internal")]
-        NSString SPTAppRemoteContentTypeFitness { get; }
-
-        // extern const NSErrorDomain _Nonnull SPTLoginErrorDomain __attribute__((visibility("default")));
-        [Field("SPTLoginErrorDomain", "__Internal")]
-        NSString SPTLoginErrorDomain { get; }
+        bool ShouldRequestAccessTokenWithAuthorizationCode(SPTSessionManager manager, string code);
     }
 }
 

@@ -26,6 +26,7 @@ namespace Emka3.PracticeLooper.Mappings.Common
             }
 
             builder.RegisterType<SessionsDbRepository>().As<IRepository<Session>>().SingleInstance();
+            builder.RegisterType<AccountManager>().As<IAccountManager>().SingleInstance();
         }
     }
 }

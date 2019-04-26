@@ -11,5 +11,9 @@
 		<string>CloudDocuments</string>
 		<string>CloudKit</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)de.emka3.practice-looper.loopr</string>
+	</array>
 </dict>
 </plist>
