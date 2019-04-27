@@ -55,6 +55,15 @@
                     Value="{x:Static views:ColorConstants.Background}" />
             </Style>
             <Style
+                TargetType="SearchBar">
+                <Setter
+                    Property="TextColor"
+                    Value="{x:Static views:ColorConstants.Secondary}" />
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{x:Static views:ColorConstants.Background}" />
+            </Style>
+            <Style
                 TargetType="Slider">
                 <Setter
                     Property="ThumbColor"

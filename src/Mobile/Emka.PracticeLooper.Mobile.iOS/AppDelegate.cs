@@ -24,7 +24,8 @@ namespace Emka.PracticeLooper.Mobile.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
-        private SPTAppRemote api;
+
+
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -38,27 +39,6 @@ namespace Emka.PracticeLooper.Mobile.iOS
             SQLitePCL.Batteries_V2.Init();
             Rg.Plugins.Popup.Popup.Init();
             var adMobId = GlobalApp.ConfigurationService.GetValue("admob:ios:id");
-
-            var clientId = GlobalApp.ConfigurationService.GetValue("auth:spotify:client:id");
-            var redirectUri = GlobalApp.ConfigurationService.GetValue("auth:spotify:client:uri:redirect");
-
-            var appConfig = new SPTConfiguration(clientId, NSUrl.FromString(redirectUri));
-            api = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Error);
-            SPTAppRemote.CheckIfSpotifyAppIsActive((obj) =>
-            {
-                Console.WriteLine(obj);
-            });
-
-            var isSpotifyInstalled = api.AuthorizeAndPlayURI(string.Empty);
-            //api.
-
-            //var builder = new SPTAppRemotePlayerAPIBuilder();
-            //var interfaceProtocol = builder.CreateSPTAppRemotePlayerAPI();
-            //api.PlayerAPI.Delegate = new SpotifyAppRemotePlayerStateDelegate();
-            //api.PlayerAPI.SubscribeToPlayerState((NSObject arg0, NSError arg1) =>
-            //{
-            //    Console.WriteLine(arg0);
-            //});
             Google.MobileAds.MobileAds.Configure(adMobId);
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
@@ -68,18 +48,19 @@ namespace Emka.PracticeLooper.Mobile.iOS
 
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
         {
-            NSDictionary authParams = api.AuthorizationParametersFromURL(url);
+            NSDictionary authParams = GlobalApp.SPTRemoteApi.AuthorizationParametersFromURL(url);
             var token = authParams[Constants.SPTAppRemoteAccessTokenKey].ToString();
 
             if (!string.IsNullOrEmpty(token))
             {
-                api.ConnectionParameters.AccessToken = token;
+                GlobalApp.SPTRemoteApi.ConnectionParameters.AccessToken = token;
                 var accountMngr = Factory.GetResolver().Resolve<IAccountManager>();
-                Task.Run(async () => await accountMngr.UpdateTokenAsync(token));
+                accountMngr.UpdateTokenAsync(token).Wait();
+                GlobalApp.SpotifyTokenCompletionSource.SetResult(true);
             }
 
-            api.Delegate = new SpotifyAppRemoteDelegate();
-            api.Connect();
+            GlobalApp.SPTRemoteApi.Delegate = new SpotifyAppRemoteDelegate();
+            GlobalApp.SPTRemoteApi.Connect();
 
             return true;
         }

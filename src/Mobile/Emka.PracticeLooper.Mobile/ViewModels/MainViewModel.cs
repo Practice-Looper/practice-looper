@@ -21,9 +21,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     public class MainViewModel : ViewModelBase
     {
         #region Fields
-        private readonly IFilePicker filePicker;
         private readonly IAudioPlayer audioPlayer;
-        private readonly ISourcePicker sourcePicker;
         private readonly IRepository<Session> sessionsRepository;
         private readonly IFileRepository fileRepository;
         private readonly ISpotifyApiService spotifyApiService;
@@ -44,16 +42,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #endregion
 
         #region Ctor
-        public MainViewModel(IFilePicker filePicker,
-            IAudioPlayer audioPlayer,
-            ISourcePicker sourcePicker,
+        public MainViewModel(IAudioPlayer audioPlayer,   
             IRepository<Session> sessionsRepository,
             IFileRepository fileRepository,
             ISpotifyApiService spotifyApiService)
         {
-            this.filePicker = filePicker;
             this.audioPlayer = audioPlayer;
-            this.sourcePicker = sourcePicker;
             this.sessionsRepository = sessionsRepository;
             this.fileRepository = fileRepository;
             this.spotifyApiService = spotifyApiService;
@@ -72,7 +66,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #region Properties
         public Command DeleteSessionCommand => deleteSessionCommand ?? (deleteSessionCommand = new Command(async (o) => await ExecuteDeleteSessionCommandAsync(o)));
         public Command PlayCommand => playCommand ?? (playCommand = new Command(ExecutePlayCommand, CanExecutePlayCommand));
-        public Command CreateSessionCommand => createSessionCommand ?? (createSessionCommand = new Command(async (o) => await ExecuteCreateSessionCommandAsync(), CanExecuteCreateSessionCommand));
+        public Command CreateSessionCommand => createSessionCommand ?? (createSessionCommand = new Command(async (o) => await ExecuteCreateSessionCommandAsync(o), CanExecuteCreateSessionCommand));
         public IAudioSource SelectedAudioSource
         {
             get => selectedAudioSource;
@@ -243,41 +237,30 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             return true;
         }
 
-        private async Task ExecuteCreateSessionCommandAsync()
+        private async Task ExecuteCreateSessionCommandAsync(object o)
         {
-            var sorceType = await sourcePicker.SelectFileSource();
-            switch (sorceType)
+            var source = o as AudioSource;
+
+            if (source != null)
             {
-                case "File":
-                    var newFile = await filePicker.ShowPicker();
-                    // file is null when user cancelled file picker!
-                    if (newFile != null)
-                    {
-                        var newSession = new Session
-                        {
-                            Name = newFile.FileName,
-                            AudioSource = newFile,
-                            Loops = new List<Loop>
+                var newSession = new Session
+                {
+                    Name = source.FileName,
+                    AudioSource = source,
+                    Loops = new List<Loop>
                             {
                                 new Loop
                                 {
-                                    Name = newFile.FileName,
+                                    Name = source.FileName,
                                     StartPosition = 0.0,
                                     EndPosition = 1.0,
                                     Repititions = 0
                                 }
                             }
-                        };
-                        Sessions.Add(newSession);
-                        await sessionsRepository.SafeAsync(newSession);
-                    }
+                };
 
-                    break;
-                case "Spotify":
-                    await spotifyApiService.SearchForTerm("Time, The Valuator");
-                    break;
-                default:
-                    break;
+                Sessions.Add(newSession);
+                await sessionsRepository.SafeAsync(newSession);
             }
         }
 

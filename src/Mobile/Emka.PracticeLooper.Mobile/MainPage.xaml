@@ -51,7 +51,7 @@
                         HorizontalOptions="End"
                         VerticalOptions="Center"
                         Source="Add.png"
-                        Command="{Binding CreateSessionCommand}" />
+                        Clicked="OnPickSource" />
                     <ListView
                         Grid.Row="1"
                         SelectedItem="{Binding CurrentSession}"

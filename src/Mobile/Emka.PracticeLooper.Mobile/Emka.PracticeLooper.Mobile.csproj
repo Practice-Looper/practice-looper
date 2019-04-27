@@ -42,6 +42,7 @@
     <Folder Include="Assets\" />
     <Folder Include="Assets\Images\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Behaviors\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mono.Android">

@@ -113,6 +113,8 @@
     <Compile Include="Common\AudioFileRepository.cs" />
     <Compile Include="Delegates\SpotifyAppRemoteDelegate.cs" />
     <Compile Include="Delegates\SpotifyAppRemotePlayerStateDelegate.cs" />
+    <Compile Include="Common\SpotifyAudioPlayer.cs" />
+    <Compile Include="Common\SpotifyLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

@@ -26,17 +26,19 @@ namespace Emka3.PracticeLooper.Services.Rest
             apiClient = new HttpApiClient(Factory.GetConfigService().GetValue("auth:spotify:client:uri:api"), accountManager);
         }
 
-        public async Task SearchForTerm(string term)
+        public async Task<string> SearchForTerm(string term, CancellationToken cancellationToken)
         {
             var query = HttpUtility.ParseQueryString(string.Empty);
             query["q"] = term;
             query["type"] = "artist,album,track";
-            var response = await apiClient.SendRequestAsync(HttpMethod.Get, "search?" + query, CancellationToken.None);
+            query["limit"] = "5";
+            var response = await apiClient.SendRequestAsync(HttpMethod.Get, "search?" + query, cancellationToken);
             var result = await response.Content.ReadAsStringAsync();
-            var jObject = JObject.Parse(result);
-            var albums = ((JArray)jObject["albums"]["items"]).Select(a => (string)a).ToList();
-            var artists = ((JArray)jObject["artists"]["items"]).Select(a => (string)a).ToList();
-            var tracks = ((JArray)jObject["tracks"]["items"]).Select(a => (string)a).ToList();
+            return result;
+            //var jObject = JObject.Parse(result);
+            //var albums = ((JArray)jObject["albums"]["items"]).Select(a => (string)a).ToList();
+            //var artists = ((JArray)jObject["artists"]["items"]).Select(a => (string)a).ToList();
+            //var tracks = ((JArray)jObject["tracks"]["items"]).Select(a => (string)a).ToList();
         }
     }
 }

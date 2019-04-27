@@ -23,23 +23,22 @@ namespace Emka.PracticeLooper.Mobile
         {
             InitializeComponent();
             InitConfig();
-            var navPage = new NavigationPage(new MainPage());
-            navPage.BarBackgroundColor = ColorConstants.Background;
-            navPage.BarTextColor = ColorConstants.Secondary;
-            MainPage = navPage;
-
             InitApp();
 
             var filePicker = MappingsFactory.Factory.GetResolver().Resolve<Common.IFilePicker>();
-            var sourcePicker = MappingsFactory.Factory.GetResolver().Resolve<ISourcePicker>();
             var audioPlayer = MappingsFactory.Factory.GetResolver().Resolve<IAudioPlayer>();
             var dbRepository = MappingsFactory.Factory.GetResolver().Resolve<IRepository<Session>>();
             var fileRepository = MappingsFactory.Factory.GetResolver().Resolve<IFileRepository>();
             var spotifyApiService = MappingsFactory.Factory.GetResolver().Resolve<ISpotifyApiService>();
+            var navPage = new NavigationPage(new MainPage(filePicker));
+
+            navPage.BarBackgroundColor = ColorConstants.Background;
+            navPage.BarTextColor = ColorConstants.Secondary;
+            MainPage = navPage;
 
             dbRepository.Init();
 
-            var bindingContext = new MainViewModel(filePicker, audioPlayer, sourcePicker, dbRepository, fileRepository, spotifyApiService);
+            var bindingContext = new MainViewModel(audioPlayer, dbRepository, fileRepository, spotifyApiService);
 
             MainPage.BindingContext = bindingContext;
 
@@ -67,7 +66,7 @@ namespace Emka.PracticeLooper.Mobile
                 // Register common forms types
                 MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
                 resolver.Register(typeof(FilePicker), typeof(Common.IFilePicker));
-                resolver.RegisterInstance(new SourcePicker(MainPage), typeof(ISourcePicker));
+                //resolver.RegisterInstance(new SourcePicker(MainPage), typeof(ISourcePicker));
 
                 // Build container after platform implementations have been registered
                 MappingsFactory.Factory.GetResolver().BuildContainer();
