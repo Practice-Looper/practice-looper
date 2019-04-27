@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
+using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Xamarin.Forms;
@@ -30,11 +31,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.spotifyApiService = spotifyApiService;
             this.spotifyLoader = spotifyLoader;
             searchCancelTokenSource = new CancellationTokenSource();
+            SearchResults = new ObservableCollection<SpotifyResult>();
         }
         #endregion
 
         #region Properties
-        public ObservableCollection<string> SearchResults { get; set; }
+        public ObservableCollection<SpotifyResult> SearchResults { get; set; }
         public Command SearchCommand => searchCommand ?? (searchCommand = new Command((o) => ExecuteSearchCommandAsync(o)));
         private string SearchTerm { get; set; }
         #endregion
@@ -57,6 +59,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             SearchTerm = o as string;
             Console.WriteLine("####### Term " + SearchTerm);
+
             // emtpy term => remove all items from results
             if (SearchTerm == string.Empty)
             {
@@ -101,6 +104,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
 
                     var res = await spotifyApiService.SearchForTerm(SearchTerm, searchCancelTokenSource.Token);
+
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        foreach (var item in res)
+                        {
+                            SearchResults.Add(item);
+                        }
+                    });
 
                     Console.WriteLine(res);
                     Console.WriteLine("-------------------------------------------------------------------");

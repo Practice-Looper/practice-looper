@@ -3,13 +3,15 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Emka3.PracticeLooper.Model.Player;
 
 namespace Emka3.PracticeLooper.Services.Contracts.Rest
 {
     public interface ISpotifyApiService
     {
-        Task<string> SearchForTerm(string term, CancellationToken cancellationToken);
+        Task<List<SpotifyResult>> SearchForTerm(string term, CancellationToken cancellationToken);
     }
 }

@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behav="clr-namespace:Emka.PracticeLooper.Mobile.Behaviors"
+    xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     x:Class="Emka.PracticeLooper.Mobile.Views.SpotifySearchView"
     Style="{StaticResource NavigationPageMainStyle}">
     <ContentPage.Content>
@@ -22,6 +23,27 @@
                     <behav:TextChangedBehavior />
                 </SearchBar.Behaviors>
             </SearchBar>
+            <ListView
+                Grid.Row="1"
+                ItemsSource="{Binding SearchResults}"
+                BackgroundColor="Transparent"
+                SeparatorColor="{x:Static views:ColorConstants.Secondary}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout
+                                VerticalOptions="CenterAndExpand"
+                                Padding="15,0"
+                                Orientation="Horizontal">
+                                <Image
+                                    Source="{Binding Image64}" />
+                                <Label
+                                    Text="{Binding Name}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
