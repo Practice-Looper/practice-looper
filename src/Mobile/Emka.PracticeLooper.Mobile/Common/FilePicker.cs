@@ -7,7 +7,6 @@ using System.IO;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
-using Foundation;
 using MobileCoreServices;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
