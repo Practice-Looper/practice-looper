@@ -34,9 +34,13 @@ namespace Emka3.PracticeLooper.Services.Rest
             var query = HttpUtility.ParseQueryString(string.Empty);
             query["q"] = term;
             query["type"] = "artist,album,track";
-            query["limit"] = "5";
-            var response = await apiClient.SendRequestAsync(HttpMethod.Get, "search?" + query, cancellationToken);
-            var result = await response.Content.ReadAsStringAsync();
+            query["limit"] = "20";
+
+            string result;
+            using (var response = await apiClient.SendRequestAsync(HttpMethod.Get, "search?" + query, cancellationToken))
+            {
+                result = await response.Content.ReadAsStringAsync();
+            }
 
             try
             {
@@ -45,7 +49,9 @@ namespace Emka3.PracticeLooper.Services.Rest
                 var artistStrings = ((JArray)jObject["artists"]["items"]).Select((arg) => arg.ToString()).ToList();
                 var trackStrings = ((JArray)jObject["tracks"]["items"]).Select((arg) => arg.ToString()).ToList();
 
-                return JsonConvert.DeserializeObject<List<SpotifyResult>>(jObject["artists"]["items"].ToString());
+                var artists = JsonConvert.DeserializeObject<List<SpotifyResult>>(jObject["artists"]["items"].ToString());
+                
+                return artists;
             }
             catch (Exception ex)
             {

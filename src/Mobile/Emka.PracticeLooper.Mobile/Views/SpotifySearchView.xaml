@@ -23,27 +23,33 @@
                     <behav:TextChangedBehavior />
                 </SearchBar.Behaviors>
             </SearchBar>
-            <ListView
-                Grid.Row="1"
-                ItemsSource="{Binding SearchResults}"
-                BackgroundColor="Transparent"
-                SeparatorColor="{x:Static views:ColorConstants.Secondary}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout
-                                VerticalOptions="CenterAndExpand"
-                                Padding="15,0"
-                                Orientation="Horizontal">
-                                <Image
-                                    Source="{Binding Image64}" />
-                                <Label
-                                    Text="{Binding Name}" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <StackLayout Grid.Row="1">
+                <ListView
+                    ItemsSource="{Binding SearchResults}"
+                    BackgroundColor="Transparent"
+                    SeparatorColor="{x:Static views:ColorConstants.Secondary}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout
+                                    VerticalOptions="CenterAndExpand"
+                                    Padding="15,0"
+                                    Orientation="Horizontal">
+                                    <Image
+                                        Source="{Binding ImageSmall}"
+                                        HeightRequest="160"
+                                        WidthRequest="160"
+                                        HorizontalOptions="Start"/>
+                                    <Label
+                                        Text="{Binding Name}"
+                                        VerticalOptions="Center"
+                                        TextColor="{x:Static views:ColorConstants.Secondary}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -21,6 +21,12 @@ namespace Emka3.PracticeLooper.Model.Player
         public List<SpotifyImage> Images { get; set; }
 
         [JsonIgnore]
-        public string Image64 { get => Images.Where(i => i.Height == 64)?.Select(i => i.Url).First(); }
+        public string ImageSmall { get => Images.Any() ? Images?.OrderBy(i => i.Height).ToArray()[0]?.Url : string.Empty; }
+
+        [JsonIgnore]
+        public string ImageMiddle { get => Images.Any() ? Images?.OrderBy(i => i.Height).ToArray()[1]?.Url : string.Empty; }
+
+        [JsonIgnore]
+        public string ImageLarge { get => Images.Any() ? Images?.OrderBy(i => i.Height).ToArray()[2]?.Url : string.Empty; }
     }
 }
