@@ -107,6 +107,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                     Device.BeginInvokeOnMainThread(() =>
                     {
+                        SearchResults.Clear();
                         foreach (var item in res)
                         {
                             SearchResults.Add(item);

@@ -85,6 +85,7 @@
     <Compile Include="Common\FilePicker.cs" />
     <Compile Include="Renderers\AdMobViewRenderer.cs" />
     <Compile Include="Common\AudioFileRepository.cs" />
+    <Compile Include="Renderers\CircleImageRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

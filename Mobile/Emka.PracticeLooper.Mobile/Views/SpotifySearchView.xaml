@@ -18,6 +18,7 @@
                 x:Name="SearchBar"
                 Placeholder="Artist, album or track"
                 SearchCommand="{Binding SearchCommand}"
+                CancelButtonColor="{x:Static views:ColorConstants.Secondary}"
                 SearchCommandParameter="{Binding Text, Source={x:Reference SearchBar}}">
                 <SearchBar.Behaviors>
                     <behav:TextChangedBehavior />
@@ -26,25 +27,45 @@
             <StackLayout Grid.Row="1">
                 <ListView
                     ItemsSource="{Binding SearchResults}"
-                    BackgroundColor="Transparent"
-                    SeparatorColor="{x:Static views:ColorConstants.Secondary}">
+                    HasUnevenRows="True"
+                    SeparatorColor="Transparent"
+                    BackgroundColor="Transparent">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                <StackLayout
-                                    VerticalOptions="CenterAndExpand"
-                                    Padding="15,0"
-                                    Orientation="Horizontal">
-                                    <Image
+                            <ViewCell Height="80">
+                                <Grid VerticalOptions="FillAndExpand"
+                                      HorizontalOptions="FillAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <views:CircleImage
+                                        Grid.Column="0"
                                         Source="{Binding ImageSmall}"
-                                        HeightRequest="160"
-                                        WidthRequest="160"
-                                        HorizontalOptions="Start"/>
-                                    <Label
-                                        Text="{Binding Name}"
+                                        HeightRequest="64"
+                                        WidthRequest="64"
+                                        Aspect="AspectFill"
+                                        HorizontalOptions="Center"
                                         VerticalOptions="Center"
-                                        TextColor="{x:Static views:ColorConstants.Secondary}"/>
-                                </StackLayout>
+                                        Margin="10,0"/>
+                                    <Grid VerticalOptions="Center"
+                                          Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Label
+                                            Grid.Row="0"
+                                            Text="{Binding Name}"
+                                            TextColor="{x:Static views:ColorConstants.Secondary}"
+                                            FontSize="Header" />
+                                        <Label
+                                            Grid.Row="1"
+                                            Text="{Binding Type}"
+                                            TextColor="{x:Static views:ColorConstants.Secondary}"
+                                            FontSize="Micro" />
+                                    </Grid>
+                                </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>

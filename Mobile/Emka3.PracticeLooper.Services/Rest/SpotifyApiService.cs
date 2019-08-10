@@ -34,11 +34,12 @@ namespace Emka3.PracticeLooper.Services.Rest
             var query = HttpUtility.ParseQueryString(string.Empty);
             query["q"] = term;
             query["type"] = "artist,album,track";
-            query["limit"] = "20";
+            query["limit"] = "5";
 
             string result;
             using (var response = await apiClient.SendRequestAsync(HttpMethod.Get, "search?" + query, cancellationToken))
             {
+                response.EnsureSuccessStatusCode();
                 result = await response.Content.ReadAsStringAsync();
             }
 
@@ -50,7 +51,9 @@ namespace Emka3.PracticeLooper.Services.Rest
                 var trackStrings = ((JArray)jObject["tracks"]["items"]).Select((arg) => arg.ToString()).ToList();
 
                 var artists = JsonConvert.DeserializeObject<List<SpotifyResult>>(jObject["artists"]["items"].ToString());
-                
+                var albums = JsonConvert.DeserializeObject<List<SpotifyResult>>(jObject["albums"]["items"].ToString());
+                var tracks = JsonConvert.DeserializeObject<List<SpotifyResult>>(jObject["tracks"]["items"].ToString());
+
                 return artists;
             }
             catch (Exception ex)

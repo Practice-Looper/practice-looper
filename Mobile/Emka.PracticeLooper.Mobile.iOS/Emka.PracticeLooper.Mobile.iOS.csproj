@@ -115,6 +115,7 @@
     <Compile Include="Delegates\SpotifyAppRemotePlayerStateDelegate.cs" />
     <Compile Include="Common\SpotifyAudioPlayer.cs" />
     <Compile Include="Common\SpotifyLoader.cs" />
+    <Compile Include="Renderer\CircleImageRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
