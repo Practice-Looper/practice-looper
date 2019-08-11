@@ -7,7 +7,6 @@ using System.IO;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
-using MobileCoreServices;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using Xamarin.Forms;
@@ -31,7 +30,7 @@ namespace Emka.PracticeLooper.Mobile.Common
                 string[] allowedTypes = null;
                 bool isIos = Device.RuntimePlatform == Device.iOS;
 
-                allowedTypes = isIos ? new string[] { UTType.Audio.ToString() } : new string[] { "audio/*" };
+                allowedTypes = isIos ? new string[] { "public.audio" } : new string[] { "audio/*" };
 
                 FileData fileData = await CrossFilePicker.Current.PickFile(allowedTypes).ConfigureAwait(false);
 
