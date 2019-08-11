@@ -4,6 +4,16 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildIOS|AnyCPU' ">
+    <DebugType></DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\BuildIOS</OutputPath>
+    <DefineConstants></DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>obj\BuildIOS</IntermediateOutputPath>
+    <NoWarn></NoWarn>
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Emka3.PracticeLooper.Model\Emka3.PracticeLooper.Model.csproj" />
     <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj" />

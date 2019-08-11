@@ -41,6 +41,7 @@ Global
 		Debug|iPhone = Debug|iPhone
 		Ad-Hoc|iPhone = Ad-Hoc|iPhone
 		AppStore|iPhone = AppStore|iPhone
+		BuildIOS|Any CPU = BuildIOS|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F0F8BA3B-BC2E-4475-AD1E-0B08767E52C5}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
