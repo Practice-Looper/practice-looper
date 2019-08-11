@@ -41,7 +41,7 @@
                                     </Grid.ColumnDefinitions>
                                     <views:CircleImage
                                         Grid.Column="0"
-                                        Source="{Binding ImageSmall}"
+                                        Source="{Binding Album.ImageSmall}"
                                         HeightRequest="64"
                                         WidthRequest="64"
                                         Aspect="AspectFill"
@@ -54,16 +54,38 @@
                                             <RowDefinition />
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
                                         <Label
                                             Grid.Row="0"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="3"
                                             Text="{Binding Name}"
                                             TextColor="{x:Static views:ColorConstants.Secondary}"
                                             FontSize="Header" />
                                         <Label
                                             Grid.Row="1"
-                                            Text="{Binding Type}"
+                                            Grid.Column="0"
+                                            Text="{Binding ArtistNames}"
+                                            TextColor="{x:Static views:ColorConstants.Secondary}"
+                                            FontSize="Micro"
+                                            LineBreakMode="MiddleTruncation"/>
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Text="-"
                                             TextColor="{x:Static views:ColorConstants.Secondary}"
                                             FontSize="Micro" />
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            Text="{Binding Album.Name}"
+                                            TextColor="{x:Static views:ColorConstants.Secondary}"
+                                            FontSize="Micro"
+                                            LineBreakMode="MiddleTruncation"/>
                                     </Grid>
                                 </Grid>
                             </ViewCell>

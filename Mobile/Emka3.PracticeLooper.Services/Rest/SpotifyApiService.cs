@@ -23,45 +23,71 @@ namespace Emka3.PracticeLooper.Services.Rest
     public class SpotifyApiService : ISpotifyApiService
     {
         HttpApiClient apiClient;
-
+        int limit;
         public SpotifyApiService(IAccountManager accountManager)
         {
             apiClient = new HttpApiClient(Factory.GetConfigService().GetValue("auth:spotify:client:uri:api"), accountManager);
+            limit = short.Parse(Factory.GetConfigService().GetValue("spotify:api:limit"));
         }
 
-        public async Task<List<SpotifyResult>> SearchForTerm(string term, CancellationToken cancellationToken)
+        public async Task<SpotifyAlbum> SearchAlbumById(string id, CancellationToken cancellationToken)
         {
-            var query = HttpUtility.ParseQueryString(string.Empty);
-            query["q"] = term;
-            query["type"] = "artist,album,track";
-            query["limit"] = "5";
-
-            string result;
-            using (var response = await apiClient.SendRequestAsync(HttpMethod.Get, "search?" + query, cancellationToken))
-            {
-                response.EnsureSuccessStatusCode();
-                result = await response.Content.ReadAsStringAsync();
-            }
+            List<SpotifyAlbum> results = new List<SpotifyAlbum>();
+            var uri = $"albums/{id}";
 
             try
             {
+                string result;
+                using (var response = await apiClient.SendRequestAsync(HttpMethod.Get, uri, cancellationToken))
+                {
+                    response.EnsureSuccessStatusCode();
+                    result = await response.Content.ReadAsStringAsync();
+                }
+
+                var album = JsonConvert.DeserializeObject<SpotifyAlbum>(result);
+                return album;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw ex;
+            }
+        }
+
+        public async Task<List<SpotifyTrack>> SearchTrackByName(string name, CancellationToken cancellationToken)
+        {
+            List<SpotifyTrack> results = new List<SpotifyTrack>();
+            var query = HttpUtility.ParseQueryString(string.Empty);
+            query["q"] = name;
+            query["type"] = "track";
+            query["limit"] = limit.ToString();
+
+            try
+            {
+                string result;
+                using (var response = await apiClient.SendRequestAsync(HttpMethod.Get, "search?" + query, cancellationToken))
+                {
+                    response.EnsureSuccessStatusCode();
+                    result = await response.Content.ReadAsStringAsync();
+                }
+
                 var jObject = JObject.Parse(result);
-                var albumStrings = ((JArray)jObject["albums"]["items"]).Select((arg) => arg.ToString()).ToList();
-                var artistStrings = ((JArray)jObject["artists"]["items"]).Select((arg) => arg.ToString()).ToList();
-                var trackStrings = ((JArray)jObject["tracks"]["items"]).Select((arg) => arg.ToString()).ToList();
+                var tracks = JsonConvert.DeserializeObject<List<SpotifyTrack>>(jObject["tracks"]["items"].ToString());
 
-                var artists = JsonConvert.DeserializeObject<List<SpotifyResult>>(jObject["artists"]["items"].ToString());
-                var albums = JsonConvert.DeserializeObject<List<SpotifyResult>>(jObject["albums"]["items"].ToString());
-                var tracks = JsonConvert.DeserializeObject<List<SpotifyResult>>(jObject["tracks"]["items"].ToString());
+                if (tracks != null && tracks.Any())
+                {
+                    results.AddRange(tracks);
 
-                return artists;
+                }
+
+                return results;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
 
-            return new List<SpotifyResult>();
+            return results;
         }
     }
 }

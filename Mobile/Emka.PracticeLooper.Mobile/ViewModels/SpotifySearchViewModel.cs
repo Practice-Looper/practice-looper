@@ -31,12 +31,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.spotifyApiService = spotifyApiService;
             this.spotifyLoader = spotifyLoader;
             searchCancelTokenSource = new CancellationTokenSource();
-            SearchResults = new ObservableCollection<SpotifyResult>();
+            SearchResults = new ObservableCollection<SpotifyEntity>();
         }
         #endregion
 
         #region Properties
-        public ObservableCollection<SpotifyResult> SearchResults { get; set; }
+        public ObservableCollection<SpotifyEntity> SearchResults { get; set; }
         public Command SearchCommand => searchCommand ?? (searchCommand = new Command((o) => ExecuteSearchCommandAsync(o)));
         private string SearchTerm { get; set; }
         #endregion
@@ -103,7 +103,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     Task.Run(async () =>
                 {
 
-                    var res = await spotifyApiService.SearchForTerm(SearchTerm, searchCancelTokenSource.Token);
+                    var res = await spotifyApiService.SearchTrackByName(SearchTerm, searchCancelTokenSource.Token);
 
                     Device.BeginInvokeOnMainThread(() =>
                     {
