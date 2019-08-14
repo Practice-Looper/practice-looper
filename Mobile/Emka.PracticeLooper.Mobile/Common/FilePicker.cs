@@ -2,6 +2,7 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
+
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -41,7 +42,8 @@ namespace Emka.PracticeLooper.Mobile.Common
                 result = new AudioSource
                 {
                     FileName = Path.GetFileNameWithoutExtension(path),
-                    Source = path
+                    Source = path,
+                    Type = AudioSourceType.Local
                 };
 
             }

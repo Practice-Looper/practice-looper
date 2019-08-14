@@ -109,7 +109,7 @@
                             Style="{StaticResource LabelStyle}">
                         </Label>
                         <Label
-                            Text="{Binding LoopStartPosition, StringFormat='[{0}'}}"
+                            Text="{Binding LoopStartPosition, StringFormat='[{0}'}"
                             Grid.Column="1"
                             HorizontalOptions="Start"
                             VerticalOptions="Center"

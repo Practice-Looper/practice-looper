@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
+using System.Collections.Generic;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -26,7 +27,8 @@ namespace Emka.PracticeLooper.Mobile
             InitApp();
 
             var filePicker = MappingsFactory.Factory.GetResolver().Resolve<Common.IFilePicker>();
-            var audioPlayer = MappingsFactory.Factory.GetResolver().Resolve<IAudioPlayer>();
+            var filePlayer = MappingsFactory.Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Local.ToString());
+            var spotifyPlayer = MappingsFactory.Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Spotify.ToString());
             var dbRepository = MappingsFactory.Factory.GetResolver().Resolve<IRepository<Session>>();
             var fileRepository = MappingsFactory.Factory.GetResolver().Resolve<IFileRepository>();
             var spotifyApiService = MappingsFactory.Factory.GetResolver().Resolve<ISpotifyApiService>();
@@ -38,7 +40,14 @@ namespace Emka.PracticeLooper.Mobile
 
             dbRepository.Init();
 
-            var bindingContext = new MainViewModel(audioPlayer, dbRepository, fileRepository, spotifyApiService);
+            var bindingContext = new MainViewModel(
+                new Dictionary<AudioSourceType, IAudioPlayer>
+                {
+                    { AudioSourceType.Spotify, spotifyPlayer },
+                    { AudioSourceType.Local, filePlayer }
+                },
+                dbRepository,
+                fileRepository);
 
             MainPage.BindingContext = bindingContext;
 
@@ -66,7 +75,6 @@ namespace Emka.PracticeLooper.Mobile
                 // Register common forms types
                 MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
                 resolver.Register(typeof(FilePicker), typeof(Common.IFilePicker));
-                //resolver.RegisterInstance(new SourcePicker(MainPage), typeof(ISourcePicker));
 
                 // Build container after platform implementations have been registered
                 MappingsFactory.Factory.GetResolver().BuildContainer();
@@ -88,7 +96,7 @@ namespace Emka.PracticeLooper.Mobile
             }
             else if (Device.RuntimePlatform == Device.Android)
             {
-                BannerAddUnitId = ConfigurationService.GetValue("admob:android:TopBanner"); 
+                BannerAddUnitId = ConfigurationService.GetValue("admob:android:TopBanner");
                 ConfigurationService.LocalPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             }
         }

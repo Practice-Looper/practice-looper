@@ -2,6 +2,7 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
+
 using System;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config;
@@ -28,11 +29,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #endregion
 
         #region Properties
-        public bool IsPlaying => throw new NotImplementedException();
+        public bool IsPlaying => false;
 
-        public double SongDuration => throw new NotImplementedException();
+        public double SongDuration => 0;
 
-        public Loop CurrentLoop { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Loop CurrentLoop { get; set; }
         #endregion
 
         #region Events
@@ -52,7 +53,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public void Play()
         {
-
+            //api.PlayerAPI.Play()
         }
 
         public void Seek(double time)

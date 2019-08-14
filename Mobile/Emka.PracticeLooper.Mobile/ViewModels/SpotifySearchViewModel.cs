@@ -2,11 +2,15 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
+
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Common;
+using Emka.PracticeLooper.Mobile.Messenger;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
@@ -20,24 +24,30 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #region Fields
         private readonly ISpotifyApiService spotifyApiService;
         private readonly ISpotifyLoader spotifyLoader;
+        private readonly IRepository<Session> sessionsRepository;
         private Command searchCommand;
         private LooprTimer timer;
         private CancellationTokenSource searchCancelTokenSource;
         #endregion
 
         #region Ctor
-        private SpotifySearchViewModel(ISpotifyApiService spotifyApiService, ISpotifyLoader spotifyLoader)
+        private SpotifySearchViewModel(ISpotifyApiService spotifyApiService,
+            ISpotifyLoader spotifyLoader,
+            IRepository<Session> sessionsRepository)
         {
             this.spotifyApiService = spotifyApiService;
             this.spotifyLoader = spotifyLoader;
+            this.sessionsRepository = sessionsRepository;
             searchCancelTokenSource = new CancellationTokenSource();
-            SearchResults = new ObservableCollection<SpotifyEntity>();
+            SearchResults = new ObservableCollection<SpotifyTrack>();
         }
         #endregion
 
         #region Properties
-        public ObservableCollection<SpotifyEntity> SearchResults { get; set; }
+        public ObservableCollection<SpotifyTrack> SearchResults { get; set; }
+
         public Command SearchCommand => searchCommand ?? (searchCommand = new Command((o) => ExecuteSearchCommandAsync(o)));
+
         private string SearchTerm { get; set; }
         #endregion
 
@@ -49,9 +59,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             return this;
         }
 
-        public static Task<SpotifySearchViewModel> CreateAsync(ISpotifyApiService spotifyApiService, ISpotifyLoader spotifyLoader)
+        public static Task<SpotifySearchViewModel> CreateAsync(ISpotifyApiService spotifyApiService, ISpotifyLoader spotifyLoader, IRepository<Session> sessionsRepository)
         {
-            var ret = new SpotifySearchViewModel(spotifyApiService, spotifyLoader);
+            var ret = new SpotifySearchViewModel(spotifyApiService, spotifyLoader, sessionsRepository);
             return ret.InitializeAsync();
         }
 
@@ -125,7 +135,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 Console.WriteLine("################### Search Task Cancelled");
             }
         }
-    }
 
-    #endregion
+        
+        #endregion Metthods
+    }
 }

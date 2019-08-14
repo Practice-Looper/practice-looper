@@ -10,6 +10,11 @@ namespace Emka3.PracticeLooper.Model.Player
     public class SpotifyTrack : SpotifyEntity
     {
         public SpotifyAlbum Album { get; set; }
+
+        [JsonProperty("duration_ms")]
+        public double Duration { get; set; }
+
+        public string Uri { get; set; }
         
         [JsonIgnore]
         public string ArtistNames => string.Join(", ", Album.Artists.Select(a => a.Name).ToList());

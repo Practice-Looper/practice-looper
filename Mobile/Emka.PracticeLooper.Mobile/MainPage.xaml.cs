@@ -2,6 +2,7 @@
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Mappings;
+using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Xamarin.Forms;
@@ -30,7 +31,6 @@ namespace Emka.PracticeLooper.Mobile
         protected override void OnAppearing()
         {
             AdUnitId = App.BannerAddUnitId;
-
         }
 
         void OnDraggingCompleted(object sender, System.EventArgs e)
@@ -65,8 +65,8 @@ namespace Emka.PracticeLooper.Mobile
                 case "Spotify":
                     var spotifyApiService = Factory.GetResolver().Resolve<ISpotifyApiService>();
                     var spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
-                    //await spotifyApiService.SearchForTerm("Time, The Valuator");
-                    await Navigation.PushAsync(new SpotifySearchView { BindingContext = await SpotifySearchViewModel.CreateAsync(spotifyApiService, spotifyLoader) });
+                    var sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
+                    await Navigation.PushAsync(new SpotifySearchView { BindingContext = await SpotifySearchViewModel.CreateAsync(spotifyApiService, spotifyLoader, sessionsRepository) });
                     break;
                 default:
                     break;

@@ -5,6 +5,7 @@
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.iOS.Common;
 using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
@@ -21,7 +22,8 @@ namespace Emka.PracticeLooper.Mobile.iOS
         {
             SpotifyTokenCompletionSource = new TaskCompletionSource<bool>();
             MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
-            resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer));
+            resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer), AudioSourceType.Local.ToString());
+            resolver.Register(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer), AudioSourceType.Spotify.ToString());
             resolver.Register(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.Register(typeof(SpotifyLoader), typeof(ISpotifyLoader));
             ConfigurationService = Factory.GetConfigService();

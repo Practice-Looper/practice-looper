@@ -9,5 +9,6 @@ namespace Emka.PracticeLooper.Mobile.Messenger
     {
         // Get sound source
         public const string GetAudioSource = "GetAudioSource";
+        public const string NewTrackAdded = "NewTrackAdded";
     }
 }

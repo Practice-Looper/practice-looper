@@ -27,6 +27,8 @@
             <StackLayout Grid.Row="1">
                 <ListView
                     ItemsSource="{Binding SearchResults}"
+                    ItemTapped="OnTrackTapped"
+                    SelectedItem="{Binding SelectedTrack}"
                     HasUnevenRows="True"
                     SeparatorColor="Transparent"
                     BackgroundColor="Transparent">
