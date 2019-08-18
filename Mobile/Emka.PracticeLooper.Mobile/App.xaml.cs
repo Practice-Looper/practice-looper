@@ -32,6 +32,7 @@ namespace Emka.PracticeLooper.Mobile
             var dbRepository = MappingsFactory.Factory.GetResolver().Resolve<IRepository<Session>>();
             var fileRepository = MappingsFactory.Factory.GetResolver().Resolve<IFileRepository>();
             var spotifyApiService = MappingsFactory.Factory.GetResolver().Resolve<ISpotifyApiService>();
+            var spotifyLoader = MappingsFactory.Factory.GetResolver().Resolve<ISpotifyLoader>();
             var navPage = new NavigationPage(new MainPage(filePicker));
 
             navPage.BarBackgroundColor = ColorConstants.Background;
@@ -47,7 +48,8 @@ namespace Emka.PracticeLooper.Mobile
                     { AudioSourceType.Local, filePlayer }
                 },
                 dbRepository,
-                fileRepository);
+                fileRepository,
+                spotifyLoader);
 
             MainPage.BindingContext = bindingContext;
 

@@ -24,6 +24,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private readonly IDictionary<AudioSourceType, IAudioPlayer> audioPlayers;
         private readonly IRepository<Session> sessionsRepository;
         private readonly IFileRepository fileRepository;
+        private readonly ISpotifyLoader spotifyLoader;
         private Command playCommand;
         private Command createSessionCommand;
         private Command deleteSessionCommand;
@@ -43,11 +44,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public MainViewModel(
             IDictionary<AudioSourceType, IAudioPlayer> audioPlayers,
             IRepository<Session> sessionsRepository,
-            IFileRepository fileRepository)
+            IFileRepository fileRepository,
+            ISpotifyLoader spotifyLoader)
         {
             this.audioPlayers = audioPlayers;
             this.sessionsRepository = sessionsRepository;
             this.fileRepository = fileRepository;
+            this.spotifyLoader = spotifyLoader;
             Sessions = new ObservableCollection<Session>();
             CurrentSession = null;
             isPlaying = false;
@@ -204,6 +207,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             try
             {
                 var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
+                await spotifyLoader.Initialize();
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     foreach (var item in items)

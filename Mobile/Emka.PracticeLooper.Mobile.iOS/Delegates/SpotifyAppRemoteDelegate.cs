@@ -22,11 +22,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Delegates
             appRemote.PlayerAPI.SubscribeToPlayerState((obj, error) =>
             {
                 Console.WriteLine(obj);
-
-                appRemote.PlayerAPI.Play("spotify:track:4E6wpXABj8XosZEPXZz2OK", (e, a) =>
-                {
-                    
-                });
             });
         }
 
