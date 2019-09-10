@@ -18,11 +18,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Delegates
         public override void DidEstablishConnection(SPTAppRemote appRemote)
         {
             Console.WriteLine("AppRemoteDidEstablishConnection");
-            appRemote.PlayerAPI.SetWeakDelegate(new SpotifyAppRemotePlayerStateDelegate());
-            appRemote.PlayerAPI.SubscribeToPlayerState((obj, error) =>
-            {
-                Console.WriteLine(obj);
-            });
+            //appRemote.PlayerAPI.SetWeakDelegate(new SpotifyAppRemotePlayerStateDelegate());
+            //appRemote.PlayerAPI.SubscribeToPlayerState((obj, error) =>
+            //{
+            //    Console.WriteLine(obj);
+            //});
         }
 
         public override void DidFailConnectionAttemptWithError(SPTAppRemote appRemote, NSError error)

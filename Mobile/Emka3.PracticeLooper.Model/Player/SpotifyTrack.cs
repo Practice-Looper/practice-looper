@@ -12,7 +12,7 @@ namespace Emka3.PracticeLooper.Model.Player
         public SpotifyAlbum Album { get; set; }
 
         [JsonProperty("duration_ms")]
-        public double Duration { get; set; }
+        public int Duration { get; set; }
 
         public string Uri { get; set; }
         

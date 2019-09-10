@@ -53,6 +53,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
 
         #region Methods
+        public SpotifySearchViewModel Create(ISpotifyApiService spotifyApiService, ISpotifyLoader spotifyLoader, IRepository<Session> sessionsRepository)
+        {
+            var result = new SpotifySearchViewModel(spotifyApiService, spotifyLoader, sessionsRepository);
+            var x = spotifyLoader.Initialize().Result;
+            return result;
+        }
+
         private async Task<SpotifySearchViewModel> InitializeAsync()
         {
             await spotifyLoader.Initialize();

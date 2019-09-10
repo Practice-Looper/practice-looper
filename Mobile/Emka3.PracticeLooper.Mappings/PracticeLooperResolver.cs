@@ -1,4 +1,4 @@
-﻿    // Copyright (C) Emka3 - All Rights Reserved
+﻿// Copyright (C) Emka3 - All Rights Reserved
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Autofac;
 using Emka3.PracticeLooper.Mappings.Common;
 using Emka3.PracticeLooper.Mappings.Contracts;
+using Emka3.PracticeLooper.Mappings.Player;
 using Emka3.PracticeLooper.Mappings.Services;
 
 namespace Emka3.PracticeLooper.Mappings
@@ -32,6 +33,7 @@ namespace Emka3.PracticeLooper.Mappings
             //ViewModelMappings.Register(builder);
             CommonMappings.Register(builder);
             ServicesMapping.Register(builder);
+            PlayerMappings.Register(builder);
             builder.RegisterType<PracticeLooperResolver>().As<IResolver>();
 
         }

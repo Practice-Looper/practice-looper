@@ -52,7 +52,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
                 GlobalApp.SpotifyTokenCompletionSource.SetResult(true);
             }
 
-            GlobalApp.SPTRemoteApi.Delegate = new SpotifyAppRemoteDelegate();
+            //GlobalApp.SPTRemoteApi.Delegate = new SpotifyAppRemoteDelegate();
             GlobalApp.SPTRemoteApi.Connect();
 
             return true;

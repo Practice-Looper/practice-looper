@@ -36,7 +36,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 }
 
                 return result;
-            });
+            }).ConfigureAwait(false);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Emka3.PracticeLooper.Services.Contracts.Player
         #region Events
         event EventHandler<bool> PlayStatusChanged;
         event EventHandler<int> CurrentTimePositionChanged;
+        event EventHandler TimerElapsed;
         #endregion
 
         #region Properties

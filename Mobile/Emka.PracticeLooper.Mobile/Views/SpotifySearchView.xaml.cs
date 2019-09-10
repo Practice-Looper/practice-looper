@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Messenger;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka3.PracticeLooper.Model.Player;
@@ -46,7 +45,8 @@ namespace Emka.PracticeLooper.Mobile.Views
                     {
                         FileName = track.Id,
                         Type = AudioSourceType.Spotify,
-                        Source = track.Uri
+                        Source = track.Uri,
+                        Duration = track.Duration
                     },
                     Loops = new List<Loop>
                             {

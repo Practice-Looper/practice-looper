@@ -2,6 +2,7 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
+
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.iOS.Common;
 using Emka3.PracticeLooper.Config;
@@ -27,11 +28,12 @@ namespace Emka.PracticeLooper.Mobile.iOS
             resolver.Register(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.Register(typeof(SpotifyLoader), typeof(ISpotifyLoader));
             ConfigurationService = Factory.GetConfigService();
+
             var clientId = ConfigurationService.GetValue("auth:spotify:client:id");
             var redirectUri = ConfigurationService.GetValue("auth:spotify:client:uri:redirect");
 
             var appConfig = new SPTConfiguration(clientId, NSUrl.FromString(redirectUri));
-            SPTRemoteApi = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Error);
+            SPTRemoteApi = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Debug);
             ConfigurationService.IsSpotifyInstalled = UIApplication.SharedApplication.CanOpenUrl(new NSUrl(new NSString("spotify:")));
         }
 

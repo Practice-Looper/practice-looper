@@ -63,16 +63,16 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
             return base.DrawChild(canvas, child, drawingTime);
         }
 
-        protected override void OnElementChanged(ElementChangedEventArgs e)
-        {
-            base.OnElementChanged(e);
+        //protected override void OnElementChanged(ElementChangedEventArgs<CircleImage> e)
+        //{
+        //    base.OnElementChanged(e);
 
-            if (e.OldElement == null)
-            {
+        //    if (e.OldElement == null)
+        //    {
 
-                if ((int)Android.OS.Build.VERSION.SdkInt < 18)
-                    SetLayerType(LayerType.Software, null);
-            }
-        }
+        //        if ((int)Android.OS.Build.VERSION.SdkInt < 18)
+        //            SetLayerType(LayerType.Software, null);
+        //    }
+        //}
     }
 }

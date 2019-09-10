@@ -123,7 +123,7 @@ namespace Emka.PracticeLooper.Mobile.Views
                             if (e.Location.X >= leftThumbX - thumbWidth && e.Location.X <= leftThumbX + thumbWidth)
                             {
                                 // thumbs should not collide!
-                                var willThumbsCollide = (e.Location.X + 100) >= rightThumbX || e.Location.X - (thumbWidth / 2) <= 0; 
+                                var willThumbsCollide = (e.Location.X + 25) >= rightThumbX || e.Location.X - (thumbWidth / 2) <= 0; 
                                 if (!willThumbsCollide)
                                 {
                                     internalLeftThumbValue = (double)Math.Round((decimal)(e.Location.X / canvasWidth), 3);
@@ -135,7 +135,7 @@ namespace Emka.PracticeLooper.Mobile.Views
                             if (e.Location.X >= rightThumbX - thumbWidth && e.Location.X <= rightThumbX + thumbWidth)
                             {
                                 // thumbs should not collide!
-                                var willThumbsCollide = (e.Location.X - 100 < leftThumbX);
+                                var willThumbsCollide = (e.Location.X - 25 < leftThumbX);
                                 if (!willThumbsCollide)
                                 {
                                     internalRightThumbValue = (double)Math.Round((decimal)(e.Location.X / canvasWidth), 3);

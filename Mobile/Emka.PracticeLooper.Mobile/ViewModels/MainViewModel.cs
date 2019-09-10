@@ -57,6 +57,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             Maximum = 1;
             MaximumValue = 1;
 
+            MessagingCenter.Subscribe<Session>(this, MessengerKeys.NewTrackAdded, (session) =>
+            {
+                Sessions.Add(session);
+            });
+
             Task.Run(async () => await Init());
         }
         #endregion
@@ -207,24 +212,27 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             try
             {
                 var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
-                await spotifyLoader.Initialize();
+                //await spotifyLoader.Initialize();
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     foreach (var item in items)
                     {
                         Sessions.Add(item);
                     }
-
-                    MessagingCenter.Subscribe<Session>(this, MessengerKeys.NewTrackAdded, (session) =>
-                    {
-                        Sessions.Add(session);
-                    });
                 });
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private void CurrentAudioPlayer_TimerElapsed(object sender, EventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                CurrentAudioPlayer.Seek(0);
+            });
         }
 
         private bool CanExecuteCreateSessionCommand(object arg)
@@ -323,7 +331,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 CurrentAudioPlayer = audioPlayers[CurrentSession.AudioSource.Type];
                 CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
                 CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
-
+                CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
                 CurrentAudioPlayer.Init(CurrentSession);
                 MinimumValue = CurrentSession.Loops[0].StartPosition;
                 Maximum = CurrentAudioPlayer.SongDuration;
