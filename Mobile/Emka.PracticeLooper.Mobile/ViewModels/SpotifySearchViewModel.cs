@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.Messenger;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
+using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
@@ -22,22 +23,18 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     public class SpotifySearchViewModel : ViewModelBase
     {
         #region Fields
-        private readonly ISpotifyApiService spotifyApiService;
-        private readonly ISpotifyLoader spotifyLoader;
-        private readonly IRepository<Session> sessionsRepository;
+        private ISpotifyApiService spotifyApiService;
+        private ISpotifyLoader spotifyLoader;
+        private IRepository<Session> sessionsRepository;
         private Command searchCommand;
+        private Command createSessionCommand;
         private LooprTimer timer;
         private CancellationTokenSource searchCancelTokenSource;
         #endregion
 
         #region Ctor
-        private SpotifySearchViewModel(ISpotifyApiService spotifyApiService,
-            ISpotifyLoader spotifyLoader,
-            IRepository<Session> sessionsRepository)
+        public SpotifySearchViewModel()
         {
-            this.spotifyApiService = spotifyApiService;
-            this.spotifyLoader = spotifyLoader;
-            this.sessionsRepository = sessionsRepository;
             searchCancelTokenSource = new CancellationTokenSource();
             SearchResults = new ObservableCollection<SpotifyTrack>();
         }
@@ -48,29 +45,53 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public Command SearchCommand => searchCommand ?? (searchCommand = new Command((o) => ExecuteSearchCommandAsync(o)));
 
+        public Command CreateSessionCommand => createSessionCommand ?? (createSessionCommand = new Command(async o => await ExecuteCreateSessionCommand(o)));
+
+        private async Task ExecuteCreateSessionCommand(object newTrack)
+        {
+            var track = newTrack as SpotifyTrack;
+            if (track == null)
+            {
+                throw new ArgumentException(nameof(newTrack));
+            }
+            try
+            {
+                var newSession = new Session
+                {
+                    Name = track.Name,
+                    AudioSource = new AudioSource
+                    {
+                        FileName = track.Id,
+                        Type = AudioSourceType.Spotify,
+                        Source = track.Uri,
+                        Duration = track.Duration
+                    },
+                    Loops = new List<Loop>
+                            {
+                                new Loop
+                                {
+                                    Name = track.Name,
+                                    StartPosition = 0.0,
+                                    EndPosition = 1.0,
+                                    Repititions = 0
+                                }
+                            }
+                };
+
+                Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(newSession, MessengerKeys.NewTrackAdded));
+                await NavigationService.GoBackAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw ex;
+            }
+        }
+
         private string SearchTerm { get; set; }
         #endregion
 
-
         #region Methods
-        public SpotifySearchViewModel Create(ISpotifyApiService spotifyApiService, ISpotifyLoader spotifyLoader, IRepository<Session> sessionsRepository)
-        {
-            var result = new SpotifySearchViewModel(spotifyApiService, spotifyLoader, sessionsRepository);
-            var x = spotifyLoader.Initialize().Result;
-            return result;
-        }
-
-        private async Task<SpotifySearchViewModel> InitializeAsync()
-        {
-            await spotifyLoader.Initialize();
-            return this;
-        }
-
-        public static Task<SpotifySearchViewModel> CreateAsync(ISpotifyApiService spotifyApiService, ISpotifyLoader spotifyLoader, IRepository<Session> sessionsRepository)
-        {
-            var ret = new SpotifySearchViewModel(spotifyApiService, spotifyLoader, sessionsRepository);
-            return ret.InitializeAsync();
-        }
 
         private void ExecuteSearchCommandAsync(object o)
         {
@@ -143,7 +164,17 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        
+        public override async Task InitializeAsync(object parameter)
+        {
+            spotifyApiService = Factory.GetResolver().Resolve<ISpotifyApiService>();
+            sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
+            //spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
+            //await spotifyLoader.Initialize();
+
+            spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
+            Device.BeginInvokeOnMainThread(()=> { spotifyLoader.Initialize(); });
+            
+        }
         #endregion Metthods
     }
 }

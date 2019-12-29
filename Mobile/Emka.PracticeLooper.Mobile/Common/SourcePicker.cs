@@ -12,9 +12,9 @@ namespace Emka.PracticeLooper.Mobile.Common
     {
         private readonly Page page;
 
-        public SourcePicker(Page page)
+        public SourcePicker()
         {
-            this.page = page;
+            page = Application.Current.MainPage;
         }
 
         public async Task<string> SelectFileSource()

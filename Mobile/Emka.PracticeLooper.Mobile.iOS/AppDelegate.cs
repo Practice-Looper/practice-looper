@@ -17,7 +17,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
     [Register("AppDelegate")]
-    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
+    public class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
@@ -41,19 +41,17 @@ namespace Emka.PracticeLooper.Mobile.iOS
 
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
         {
-            NSDictionary authParams = GlobalApp.SPTRemoteApi.AuthorizationParametersFromURL(url);
+            var spotifyLoader = PracticeLooperResolver.Instance.Resolve<ISpotifyLoader>();
+            var api = spotifyLoader.RemoteApi as SPTAppRemote;
+            NSDictionary authParams = api.AuthorizationParametersFromURL(url);
             var token = authParams[Constants.SPTAppRemoteAccessTokenKey].ToString();
 
             if (!string.IsNullOrEmpty(token))
             {
-                GlobalApp.SPTRemoteApi.ConnectionParameters.AccessToken = token;
+                api.ConnectionParameters.AccessToken = token;
                 var accountMngr = Factory.GetResolver().Resolve<IAccountManager>();
                 accountMngr.UpdateTokenAsync(token).Wait();
-                GlobalApp.SpotifyTokenCompletionSource.SetResult(true);
             }
-
-            //GlobalApp.SPTRemoteApi.Delegate = new SpotifyAppRemoteDelegate();
-            GlobalApp.SPTRemoteApi.Connect();
 
             return true;
         }

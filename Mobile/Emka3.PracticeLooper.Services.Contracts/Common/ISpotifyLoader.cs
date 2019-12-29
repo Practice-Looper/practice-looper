@@ -9,6 +9,8 @@ namespace Emka3.PracticeLooper.Services.Contracts.Common
 {
     public interface ISpotifyLoader
     {
-        Task<bool> Initialize();
+        object RemoteApi { get; }
+        Task<bool> InitializeAsync();
+        void Initialize();
     }
 }

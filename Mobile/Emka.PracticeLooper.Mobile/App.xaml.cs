@@ -11,6 +11,8 @@ using MappingsFactory = Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using System.Collections.Generic;
+using Emka.PracticeLooper.Mobile.Navigation;
+using System.Threading.Tasks;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -23,41 +25,17 @@ namespace Emka.PracticeLooper.Mobile
         public App()
         {
             InitializeComponent();
-            InitConfig();
-            InitApp();
-
-            var filePicker = MappingsFactory.Factory.GetResolver().Resolve<Common.IFilePicker>();
-            var filePlayer = MappingsFactory.Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Local.ToString());
-            var spotifyPlayer = MappingsFactory.Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Spotify.ToString());
-            var dbRepository = MappingsFactory.Factory.GetResolver().Resolve<IRepository<Session>>();
-            var fileRepository = MappingsFactory.Factory.GetResolver().Resolve<IFileRepository>();
-            var spotifyApiService = MappingsFactory.Factory.GetResolver().Resolve<ISpotifyApiService>();
-            var spotifyLoader = MappingsFactory.Factory.GetResolver().Resolve<ISpotifyLoader>();
-            var navPage = new NavigationPage(new MainPage(filePicker));
-
-            navPage.BarBackgroundColor = ColorConstants.Background;
-            navPage.BarTextColor = ColorConstants.Secondary;
-            MainPage = navPage;
-
-            dbRepository.Init();
-
-            var bindingContext = new MainViewModel(
-                new Dictionary<AudioSourceType, IAudioPlayer>
-                {
-                    { AudioSourceType.Spotify, spotifyPlayer },
-                    { AudioSourceType.Local, filePlayer }
-                },
-                dbRepository,
-                fileRepository,
-                spotifyLoader);
-
-            MainPage.BindingContext = bindingContext;
-
         }
 
-        protected override void OnStart()
+#pragma warning disable RECS0165 // Asynchronous methods should return a Task instead of void
+        protected override async void OnStart()
+#pragma warning restore RECS0165 // Asynchronous methods should return a Task instead of void
         {
+            base.OnStart();
             // Handle when your app starts
+            InitConfig();
+            InitApp();
+            await InitNavigation();
         }
 
         protected override void OnSleep()
@@ -77,6 +55,8 @@ namespace Emka.PracticeLooper.Mobile
                 // Register common forms types
                 MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
                 resolver.Register(typeof(FilePicker), typeof(Common.IFilePicker));
+                resolver.Register(typeof(NavigationService), typeof(INavigationService));
+                resolver.Register(typeof(SourcePicker), typeof(ISourcePicker));
 
                 // Build container after platform implementations have been registered
                 MappingsFactory.Factory.GetResolver().BuildContainer();
@@ -101,6 +81,12 @@ namespace Emka.PracticeLooper.Mobile
                 BannerAddUnitId = ConfigurationService.GetValue("admob:android:TopBanner");
                 ConfigurationService.LocalPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             }
+        }
+
+        private Task InitNavigation()
+        {
+            var navigationService = MappingsFactory.Factory.GetResolver().Resolve<INavigationService>();
+            return navigationService.InitializeAsync();
         }
     }
 }

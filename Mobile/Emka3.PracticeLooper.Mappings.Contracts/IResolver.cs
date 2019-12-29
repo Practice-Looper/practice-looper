@@ -47,6 +47,14 @@ namespace Emka3.PracticeLooper.Mappings.Contracts
         void Register(Type type, Type typeInterface, string name = "");
 
         /// <summary>
+        /// Register the specified type and name as a singleton instance.
+        /// </summary>
+        /// <param name="type">Type.</param>
+        /// <param name="name">Name.</param>
+        /// <typeparam name="T">The type parameter.</typeparam>
+        void RegisterSingleton(Type type, Type typeInterface, string name = "");
+
+        /// <summary>
         /// Registers an created instance.
         /// </summary>
         /// <param name="instance">Instance.</param>

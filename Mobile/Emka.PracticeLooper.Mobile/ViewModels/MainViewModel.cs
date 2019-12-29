@@ -8,12 +8,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.Messenger;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
+using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
-using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
@@ -21,13 +22,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     public class MainViewModel : ViewModelBase
     {
         #region Fields
-        private readonly IDictionary<AudioSourceType, IAudioPlayer> audioPlayers;
-        private readonly IRepository<Session> sessionsRepository;
-        private readonly IFileRepository fileRepository;
-        private readonly ISpotifyLoader spotifyLoader;
+        private IDictionary<AudioSourceType, IAudioPlayer> audioPlayers;
+        private IRepository<Session> sessionsRepository;
+        private IFileRepository fileRepository;
+        private ISpotifyLoader spotifyLoader;
+        private ISourcePicker sourcePicker;
+        private Mobile.Common.IFilePicker filePicker;
         private Command playCommand;
         private Command createSessionCommand;
         private Command deleteSessionCommand;
+        private Command pickSourceCommand;
         private Session currentSession;
         private bool isPlaying;
         private double minimum;
@@ -41,16 +45,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #endregion
 
         #region Ctor
-        public MainViewModel(
-            IDictionary<AudioSourceType, IAudioPlayer> audioPlayers,
-            IRepository<Session> sessionsRepository,
-            IFileRepository fileRepository,
-            ISpotifyLoader spotifyLoader)
+        public MainViewModel()
         {
-            this.audioPlayers = audioPlayers;
-            this.sessionsRepository = sessionsRepository;
-            this.fileRepository = fileRepository;
-            this.spotifyLoader = spotifyLoader;
             Sessions = new ObservableCollection<Session>();
             CurrentSession = null;
             isPlaying = false;
@@ -61,8 +57,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 Sessions.Add(session);
             });
-
-            Task.Run(async () => await Init());
         }
         #endregion
 
@@ -72,6 +66,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public Command PlayCommand => playCommand ?? (playCommand = new Command(ExecutePlayCommand, CanExecutePlayCommand));
 
         public Command CreateSessionCommand => createSessionCommand ?? (createSessionCommand = new Command(async (o) => await ExecuteCreateSessionCommandAsync(o), CanExecuteCreateSessionCommand));
+
+        public Command PickSourceCommand => pickSourceCommand ?? (pickSourceCommand = new Command(async (o) => await ExecutePickSourceCommandAsync(o)));
 
         private IAudioPlayer CurrentAudioPlayer { get; set; }
 
@@ -212,7 +208,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             try
             {
                 var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
-                //await spotifyLoader.Initialize();
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     foreach (var item in items)
@@ -225,6 +220,22 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        public override async Task InitializeAsync(object parameter)
+        {
+            audioPlayers = new Dictionary<AudioSourceType, IAudioPlayer>
+                {
+                    { AudioSourceType.Spotify, Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Spotify.ToString())},
+                    { AudioSourceType.Local, Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Local.ToString()) }
+                };
+
+            sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
+            sessionsRepository.Init();
+            fileRepository = Factory.GetResolver().Resolve<IFileRepository>();
+            filePicker = Factory.GetResolver().Resolve<Mobile.Common.IFilePicker>();
+
+            await Init();
         }
 
         private void CurrentAudioPlayer_TimerElapsed(object sender, EventArgs e)
@@ -316,6 +327,35 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
 
                 }
+            }
+        }
+
+        private async Task ExecutePickSourceCommandAsync(object o)
+        {
+            sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
+            var source = await sourcePicker.SelectFileSource();
+
+            switch (source)
+            {
+                case "File":
+                    var newFile = await filePicker.ShowPicker();
+                    // file is null when user cancelled file picker!
+                    if (newFile != null)
+                    {
+                        CreateSessionCommand.Execute(newFile);
+                    }
+
+                    break;
+                case "Spotify":
+                    var canNavigate = true;
+                    if (canNavigate)
+                    {
+                        await NavigationService.NavigateToAsync<SpotifySearchViewModel>();
+                    }
+
+                    break;
+                default:
+                    break;
             }
         }
 

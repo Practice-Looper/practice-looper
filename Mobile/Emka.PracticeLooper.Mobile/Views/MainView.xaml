@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Emka.PracticeLooper.Mobile"
+    xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
+    xmlns:vm="clr-namespace:Emka.PracticeLooper.Mobile.ViewModels"
+    xmlns:extension="clr-namespace:Emka.PracticeLooper.Mobile.Extensions"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true"
+    x:Class="Emka.PracticeLooper.Mobile.Views.MainView"
+    Title="Practice Looper"
+    Style="{StaticResource NavigationPageMainStyle}"
+    x:Name="mainPage">
+    <!--https://mycolor.space/?hex=%2359677C&sub=1-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition
+                Height="Auto" />
+        </Grid.RowDefinitions>
+        <views:AdMobView
+            Grid.Row="0"
+            x:Name="AdmobBanner"
+            HeightRequest="50" />
+        <Grid
+            Grid.Row="1"
+            Margin="0,10,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="6*" />
+                <RowDefinition
+                    Height="auto" />
+                <RowDefinition
+                    Height="4*" />
+            </Grid.RowDefinitions>
+            <ContentView
+                Grid.Row="0"
+                Margin="10,0,10,30"
+                VerticalOptions="Start">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+                            Height="Auto" />
+                        <RowDefinition
+                            Height="*" />
+                    </Grid.RowDefinitions>
+                    <!--Command="{Binding CreateSessionCommand}"-->
+                    <ImageButton
+                        Grid.Row="0"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        Source="Add.png"
+                        Command="{Binding PickSourceCommand}"/>
+                    <ListView
+                        Grid.Row="1"
+                        SelectedItem="{Binding CurrentSession}"
+                        ItemsSource="{Binding Sessions}"
+                        BackgroundColor="Transparent"
+                        SeparatorColor="{x:Static views:ColorConstants.Secondary}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.ContextActions>
+                                        <MenuItem
+                                            Text="Delete"
+                                            IsDestructive="True"
+                                            Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={x:Reference mainPage}}"
+                                            CommandParameter="{Binding .}" />
+                                    </ViewCell.ContextActions>
+                                    <StackLayout
+                                        VerticalOptions="CenterAndExpand"
+                                        Padding="15,0">
+                                        <Label
+                                            Text="{Binding Name}"
+                                            TextColor="{x:Static views:ColorConstants.Primary}" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </ContentView>
+            <BoxView
+                Grid.Row="1"
+                Color="{x:Static views:ColorConstants.Secondary}"
+                WidthRequest="100"
+                HeightRequest="1" />
+            <ContentView
+                Grid.Row="2"
+                VerticalOptions="Center"
+                Padding="10,0">
+                <StackLayout>
+                    <Grid
+                        HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition
+                                Width="2*" />
+                            <ColumnDefinition
+                                Width="6*" />
+                            <ColumnDefinition
+                                Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Text="{Binding CurrentSongTime}"
+                            Grid.Column="0"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Center"
+                            Style="{StaticResource LabelStyle}">
+                        </Label>
+                        <Label
+                            Text="{Binding LoopStartPosition, StringFormat='[{0}'}"
+                            Grid.Column="1"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Center"
+                            FontSize="Large"
+                            Margin="0,0,5,0"
+                            Style="{StaticResource LabelStyle}" />
+                        <Label
+                            Text="{Binding LoopEndPosition, StringFormat='{0}]'}"
+                            Grid.Column="1"
+                            VerticalOptions="Center"
+                            HorizontalOptions="End"
+                            FontSize="Large"
+                            Margin="5,0,0,0"
+                            Style="{StaticResource LabelStyle}" />
+                        <Label
+                            Text="{Binding SongDuration}"
+                            Grid.Column="2"
+                            VerticalOptions="Center"
+                            HorizontalOptions="End"
+                            Style="{StaticResource LabelStyle}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                                Height="Auto" />
+                            <RowDefinition
+                                Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <views:RangeSlider
+                            Grid.Row="0"
+                            Padding="20,0,20,0"
+                            LeftThumbValue="{Binding MinimumValue}"
+                            RightThumbValue="{Binding MaximumValue}"
+                            DraggingCompleted="OnDraggingCompleted"
+                            HorizontalOptions="FillAndExpand" />
+                        <ImageButton
+                            Grid.Row="1"
+                            HorizontalOptions="Center"
+                            Source="Loop.png"
+                            Command="{Binding PlayCommand}">
+                        </ImageButton>
+                    </Grid>
+                    <Slider
+                        VerticalOptions="Center" />
+                </StackLayout>
+            </ContentView>
+        </Grid>
+    </Grid>
+</ContentPage>

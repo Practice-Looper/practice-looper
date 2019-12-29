@@ -34,6 +34,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         public Loop CurrentLoop { get; set; }
         public event EventHandler<bool> PlayStatusChanged;
         public event EventHandler<int> CurrentTimePositionChanged;
+        public event EventHandler TimerElapsed;
+
         private int CurrentStartPosition { get; set; }
         private int CurrentEndPosition { get; set; }
         #endregion

@@ -6,8 +6,10 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Emka.PracticeLooper.Mobile.iOS.Delegates;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Model.Player;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
 using SpotifyBindings.iOS;
@@ -21,6 +23,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private Session session;
         private readonly IConfigurationService configurationService;
         private readonly IPlayerTimer timer;
+        private readonly ISpotifyLoader spotifyLoader;
         private bool isPlaying;
         private double internalSongDuration;
         const int CURRENT_TIME_UPDATE_INTERVAL = 500;
@@ -28,10 +31,13 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #endregion
 
         #region Ctor
-        public SpotifyAudioPlayer(IPlayerTimer timer)
+        public SpotifyAudioPlayer(IPlayerTimer timer, ISpotifyLoader spotifyLoader)
         {
             configurationService = Factory.GetConfigService();
-            api = GlobalApp.SPTRemoteApi;
+            this.spotifyLoader = spotifyLoader;
+
+            //GlobalApp.SpotifyTokenCompletionSource.SetResult(true);
+            //GlobalApp.SpotifyTokenCompletionSource = new System.Threading.Tasks.TaskCompletionSource<bool>();
             isPlaying = false;
             this.timer = timer;
         }
@@ -57,6 +63,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #region MyRegion
         public void Init(Session session)
         {
+
+            api = spotifyLoader.RemoteApi as SPTAppRemote;
+            api.Delegate = new SpotifyAppRemoteDelegate();
+            api.Connect();
+
             this.session = session;
             CurrentLoop = session.Loops[0];
             CurrentLoop.StartPositionChanged += OnStartPositionChanged;

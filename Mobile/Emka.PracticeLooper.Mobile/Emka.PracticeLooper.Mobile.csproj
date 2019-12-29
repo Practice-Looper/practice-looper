@@ -53,6 +53,7 @@
     <Folder Include="Assets\Images\" />
     <Folder Include="Extensions\" />
     <Folder Include="Behaviors\" />
+    <Folder Include="Navigation\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mono.Android">
@@ -67,5 +68,11 @@
     <Reference Include="Xamarin.iOS">
       <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\12.14.0.110\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -80,6 +80,21 @@ namespace Emka3.PracticeLooper.Mappings
             }
         }
 
+
+
+        public void RegisterSingleton(Type type, Type typeInterface, string name = "")
+        {
+            if (builder != null)
+            {
+                if (!string.IsNullOrEmpty(name))
+                {
+                    builder.RegisterType(type).Named(name, typeInterface).SingleInstance();
+                }
+
+                builder.RegisterType(type).As(typeInterface).SingleInstance();
+            }
+        }
+
         /// <summary>
         /// Registers an created instance.
         /// </summary>

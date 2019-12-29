@@ -27,6 +27,7 @@ namespace Emka3.PracticeLooper.Services.Common
             };
 
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accountManager.GetTokenAsync().Result);
         }
 
         void OnTokenChanged(object sender, Contracts.EventArgs.TokenChangedEventArgs e)
