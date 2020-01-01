@@ -75,8 +75,10 @@ namespace Emka3.PracticeLooper.Mappings
                 {
                     builder.RegisterType(type).Named(name, interfaceType);
                 }
-
-                builder.RegisterType(type).As(interfaceType);
+                else
+                {
+                    builder.RegisterType(type).As(interfaceType);
+                }
             }
         }
 
@@ -90,8 +92,10 @@ namespace Emka3.PracticeLooper.Mappings
                 {
                     builder.RegisterType(type).Named(name, typeInterface).SingleInstance();
                 }
-
-                builder.RegisterType(type).As(typeInterface).SingleInstance();
+                else
+                {
+                    builder.RegisterType(type).As(typeInterface).SingleInstance();
+                }
             }
         }
 

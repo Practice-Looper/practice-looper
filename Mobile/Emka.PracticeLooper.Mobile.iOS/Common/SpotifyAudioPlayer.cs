@@ -13,6 +13,7 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
 using SpotifyBindings.iOS;
+using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
@@ -64,7 +65,9 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public void Init(Session session)
         {
 
+            var loader = MappingsFactory.Factory.GetResolver().Resolve<ISpotifyLoader>();
             api = spotifyLoader.RemoteApi as SPTAppRemote;
+            api.ConnectionParameters.AccessToken = loader.Token;
             api.Delegate = new SpotifyAppRemoteDelegate();
             api.Connect();
 
@@ -74,14 +77,14 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             CurrentLoop.EndPositionChanged += OnEndPositionChanged;
             CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
             CurrentEndPosition = ConvertToInt(CurrentLoop.EndPosition);
-            //TimerElapsed += SpotifyAudioPlayer_TimerElapsed;
+            TimerElapsed += SpotifyAudioPlayer_TimerElapsed;
 
             internalSongDuration = TimeSpan.FromMilliseconds(session.AudioSource.Duration).TotalSeconds;
         }
 
         private void SpotifyAudioPlayer_TimerElapsed(object sender, EventArgs e)
         {
-            TimerElapsed?.Invoke(this, e);
+            //TimerElapsed?.Invoke(this, e);
         }
 
         public void Pause()

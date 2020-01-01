@@ -22,6 +22,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public object RemoteApi => api;
 
+        public string Token { get; set; }
+
         public void Initialize()
         {
 
@@ -29,7 +31,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             var redirectUri = configurationService.GetValue("auth:spotify:client:uri:redirect");
 
             var appConfig = new SPTConfiguration(clientId, NSUrl.FromString(redirectUri));
-            api = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Debug);
+            api = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Info);
 
             if (GlobalApp.ConfigurationService.IsSpotifyInstalled)
             {

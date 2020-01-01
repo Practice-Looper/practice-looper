@@ -25,14 +25,15 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private IDictionary<AudioSourceType, IAudioPlayer> audioPlayers;
         private IRepository<Session> sessionsRepository;
         private IFileRepository fileRepository;
-        private ISpotifyLoader spotifyLoader;
         private ISourcePicker sourcePicker;
+        private ISpotifyLoader spotifyLoader;
         private Mobile.Common.IFilePicker filePicker;
         private Command playCommand;
         private Command createSessionCommand;
         private Command deleteSessionCommand;
         private Command pickSourceCommand;
         private Session currentSession;
+        private Loop currentLoop;
         private bool isPlaying;
         private double minimum;
         private double maximum;
@@ -200,13 +201,36 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 PlayCommand.ChangeCanExecute();
             }
         }
+
+        public Loop CurrentLoop
+        {
+            get
+            {
+                return currentLoop;
+            }
+
+            set
+            {
+                currentLoop = value;
+            }
+        }
         #endregion
 
         #region Metods
-        public async Task Init()
+        public override async Task InitializeAsync(object parameter)
         {
             try
             {
+                audioPlayers = new Dictionary<AudioSourceType, IAudioPlayer>
+                {
+                    { AudioSourceType.Spotify, Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Spotify.ToString())},
+                    { AudioSourceType.Local, Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Local.ToString()) }
+                };
+
+                sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
+                sessionsRepository.Init();
+                fileRepository = Factory.GetResolver().Resolve<IFileRepository>();
+                filePicker = Factory.GetResolver().Resolve<Mobile.Common.IFilePicker>();
                 var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -214,36 +238,34 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     {
                         Sessions.Add(item);
                     }
+                    var x = Factory.GetResolver().Resolve<ISpotifyLoader>();
+                    x.Initialize();
                 });
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
 
-        public override async Task InitializeAsync(object parameter)
+        public void UpdateMinMaxValues()
         {
-            audioPlayers = new Dictionary<AudioSourceType, IAudioPlayer>
-                {
-                    { AudioSourceType.Spotify, Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Spotify.ToString())},
-                    { AudioSourceType.Local, Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Local.ToString()) }
-                };
-
-            sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
-            sessionsRepository.Init();
-            fileRepository = Factory.GetResolver().Resolve<IFileRepository>();
-            filePicker = Factory.GetResolver().Resolve<Mobile.Common.IFilePicker>();
-
-            await Init();
+            if (CurrentSession != null)
+            {
+                CurrentSession.Loops[0].StartPosition = MinimumValue;
+                CurrentSession.Loops[0].EndPosition = MaximumValue;
+            }
         }
 
         private void CurrentAudioPlayer_TimerElapsed(object sender, EventArgs e)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            if(CurrentLoop != null)
             {
-                CurrentAudioPlayer.Seek(0);
-            });
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    CurrentAudioPlayer.Seek(CurrentLoop.StartPosition);
+                });
+            }
         }
 
         private bool CanExecuteCreateSessionCommand(object arg)
@@ -368,16 +390,18 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             if (CurrentSession != null)
             {
+                CurrentLoop = CurrentSession.Loops[0];
                 CurrentAudioPlayer = audioPlayers[CurrentSession.AudioSource.Type];
                 CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
                 CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
                 CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
                 CurrentAudioPlayer.Init(CurrentSession);
-                MinimumValue = CurrentSession.Loops[0].StartPosition;
+                MinimumValue = CurrentLoop.StartPosition;
                 Maximum = CurrentAudioPlayer.SongDuration;
-                MaximumValue = CurrentSession.Loops[0].EndPosition;
+                MaximumValue = CurrentLoop.EndPosition;
                 SongDuration = FormatTime(CurrentAudioPlayer.SongDuration);
                 CurrentSongTime = FormatTime(CurrentAudioPlayer.SongDuration * MinimumValue);
+                
             }
             else
             {
@@ -399,23 +423,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             IsPlaying = e;
         }
 
-        void OnCurrentTimePositionChanged(object sender, int e)
+        private void OnCurrentTimePositionChanged(object sender, int e)
         {
             CurrentSongTime = FormatTime(e);
         }
 
-        string FormatTime(double time)
+        private string FormatTime(double time)
         {
             return TimeSpan.FromMilliseconds(time).ToString(@"mm\:ss");
-        }
-
-        public void UpdateMinMaxValues()
-        {
-            if (CurrentSession != null)
-            {
-                CurrentSession.Loops[0].StartPosition = MinimumValue;
-                CurrentSession.Loops[0].EndPosition = MaximumValue;
-            }
         }
         #endregion
     }

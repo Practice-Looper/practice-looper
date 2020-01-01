@@ -10,6 +10,7 @@ namespace Emka3.PracticeLooper.Services.Contracts.Common
     public interface ISpotifyLoader
     {
         object RemoteApi { get; }
+        string Token { get; set; }
         Task<bool> InitializeAsync();
         void Initialize();
     }

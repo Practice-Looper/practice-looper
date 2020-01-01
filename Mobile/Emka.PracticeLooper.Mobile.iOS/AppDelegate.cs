@@ -41,14 +41,16 @@ namespace Emka.PracticeLooper.Mobile.iOS
 
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
         {
-            var spotifyLoader = PracticeLooperResolver.Instance.Resolve<ISpotifyLoader>();
+            var spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
             var api = spotifyLoader.RemoteApi as SPTAppRemote;
             NSDictionary authParams = api.AuthorizationParametersFromURL(url);
             var token = authParams[Constants.SPTAppRemoteAccessTokenKey].ToString();
 
             if (!string.IsNullOrEmpty(token))
             {
-                api.ConnectionParameters.AccessToken = token;
+                ((SPTAppRemote)spotifyLoader.RemoteApi).ConnectionParameters.AccessToken = token;
+
+                spotifyLoader.Token = token;
                 var accountMngr = Factory.GetResolver().Resolve<IAccountManager>();
                 accountMngr.UpdateTokenAsync(token).Wait();
             }
