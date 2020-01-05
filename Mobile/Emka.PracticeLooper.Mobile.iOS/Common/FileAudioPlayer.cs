@@ -26,7 +26,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         #region Events
         public event EventHandler<bool> PlayStatusChanged;
-        public event EventHandler<int> CurrentTimePositionChanged;
+        public event EventHandler CurrentTimePositionChanged;
         public event EventHandler TimerElapsed;
         #endregion
 
@@ -140,7 +140,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private void RaiseTimePositionChanged()
         {
             Console.WriteLine("CurrentTimePosition " + Convert.ToInt32(audioPlayer.CurrentTime.Seconds * 1000));
-            CurrentTimePositionChanged?.Invoke(this, Convert.ToInt32(audioPlayer.CurrentTime.Seconds * 1000));
+            CurrentTimePositionChanged?.Invoke(this, new EventArgs());
         }
 
         private void ResetAllTimers()
@@ -214,6 +214,15 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private void FileAudioPlayer_TimerElapsed(object sender, EventArgs e)
         {
             TimerElapsed?.Invoke(this, e);
+        }
+
+        public void GetCurrentPosition(Action<int> callback)
+        {
+            if (callback != null)
+            {
+                Convert.ToInt32(audioPlayer.CurrentTime.Seconds * 1000);
+            }
+
         }
         #endregion
     }

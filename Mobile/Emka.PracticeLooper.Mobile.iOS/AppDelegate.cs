@@ -48,8 +48,6 @@ namespace Emka.PracticeLooper.Mobile.iOS
 
             if (!string.IsNullOrEmpty(token))
             {
-                ((SPTAppRemote)spotifyLoader.RemoteApi).ConnectionParameters.AccessToken = token;
-
                 spotifyLoader.Token = token;
                 var accountMngr = Factory.GetResolver().Resolve<IAccountManager>();
                 accountMngr.UpdateTokenAsync(token).Wait();

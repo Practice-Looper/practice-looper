@@ -5,6 +5,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.iOS.Delegates;
 using Emka3.PracticeLooper.Config;
@@ -25,9 +26,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private readonly IConfigurationService configurationService;
         private readonly IPlayerTimer timer;
         private readonly ISpotifyLoader spotifyLoader;
+        private CancellationTokenSource currentTimeCancelTokenSource;
         private bool isPlaying;
         private double internalSongDuration;
-        const int CURRENT_TIME_UPDATE_INTERVAL = 500;
+        const int CURRENT_TIME_UPDATE_INTERVAL = 1000;
         private bool hasSpotifyPlayerSubscription;
         #endregion
 
@@ -36,9 +38,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             configurationService = Factory.GetConfigService();
             this.spotifyLoader = spotifyLoader;
-
-            //GlobalApp.SpotifyTokenCompletionSource.SetResult(true);
-            //GlobalApp.SpotifyTokenCompletionSource = new System.Threading.Tasks.TaskCompletionSource<bool>();
             isPlaying = false;
             this.timer = timer;
         }
@@ -47,7 +46,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #region Properties
         public bool IsPlaying => isPlaying;
 
-        public double SongDuration => 0;
+        public double SongDuration { get { return internalSongDuration * 1000; } }
 
         public Loop CurrentLoop { get; set; }
 
@@ -57,14 +56,13 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         #region Events
         public event EventHandler<bool> PlayStatusChanged;
-        public event EventHandler<int> CurrentTimePositionChanged;
+        public event EventHandler CurrentTimePositionChanged;
         public event EventHandler TimerElapsed;
         #endregion
 
         #region MyRegion
         public void Init(Session session)
         {
-
             var loader = MappingsFactory.Factory.GetResolver().Resolve<ISpotifyLoader>();
             api = spotifyLoader.RemoteApi as SPTAppRemote;
             api.ConnectionParameters.AccessToken = loader.Token;
@@ -77,14 +75,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             CurrentLoop.EndPositionChanged += OnEndPositionChanged;
             CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
             CurrentEndPosition = ConvertToInt(CurrentLoop.EndPosition);
-            TimerElapsed += SpotifyAudioPlayer_TimerElapsed;
-
             internalSongDuration = TimeSpan.FromMilliseconds(session.AudioSource.Duration).TotalSeconds;
-        }
+            currentTimeCancelTokenSource = new CancellationTokenSource();
 
-        private void SpotifyAudioPlayer_TimerElapsed(object sender, EventArgs e)
-        {
-            //TimerElapsed?.Invoke(this, e);
+            timer.LoopTimerExpired += LoopTimerExpired;
+            timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
         }
 
         public void Pause()
@@ -93,21 +88,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 isPlaying = false;
                 timer.StopTimers();
-                api.PlayerAPI.Pause((o, e) => { });
-
-                if (!hasSpotifyPlayerSubscription)
-                {
-
-                    api.PlayerAPI.SubscribeToPlayerState((o, e) =>
-                    {
-                        //var x = o as SPTAppRemotePlayerState;
-                        //if (x.Paused)
-                        //{
-                        //    CurrentStartPosition = (uint)x.PlaybackPosition;
-                        //}
-                    });
-                    hasSpotifyPlayerSubscription = true;
-                }
+                api.PlayerAPI.Pause((o, e) => { /* log error*/ });
                 RaisePlayingStatusChanged();
             }
         }
@@ -118,16 +99,18 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 isPlaying = true;
                 CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
-                timer.LoopTimerExpired += LoopTimerExpired;
+                //timer.LoopTimerExpired += LoopTimerExpired;
                 api.PlayerAPI.Play(session.AudioSource.Source, (o, e) => { });
                 timer.SetLoopTimer(CurrentEndPosition - CurrentStartPosition);
+                //timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
+                timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
                 RaisePlayingStatusChanged();
             }
         }
 
         private void CurrentPositionTimerExpired(object sender, EventArgs e)
         {
-
+            CurrentTimePositionChanged.Invoke(this, new EventArgs());
         }
 
         private void LoopTimerExpired(object sender, EventArgs e)
@@ -204,9 +187,27 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private void ResetAllTimers()
         {
             timer.StopTimers();
-            var delta = (int)CurrentEndPosition - (int)CurrentStartPosition;
+            var delta = CurrentEndPosition - CurrentStartPosition;
             timer.SetLoopTimer(delta);
-            //timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
+            timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
+        }
+
+        public void GetCurrentPosition(Action<int> callback)
+        {
+            try
+            {
+                api.PlayerAPI.GetPlayerState((o, e) =>
+                        {
+                            if (callback != null)
+                            {
+                                callback.Invoke((int)o.PlaybackPosition);
+                            }
+                        });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         #endregion
     }

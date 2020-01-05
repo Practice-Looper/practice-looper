@@ -423,9 +423,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             IsPlaying = e;
         }
 
-        private void OnCurrentTimePositionChanged(object sender, int e)
+        private void OnCurrentTimePositionChanged(object sender, EventArgs e)
         {
-            CurrentSongTime = FormatTime(e);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                CurrentAudioPlayer.GetCurrentPosition((o)=>
+                {
+                    CurrentSongTime = FormatTime(o);
+                    Console.WriteLine(o);
+                });     
+            });
         }
 
         private string FormatTime(double time)

@@ -3,6 +3,7 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
+using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
 
 namespace Emka3.PracticeLooper.Services.Contracts.Player
@@ -11,7 +12,7 @@ namespace Emka3.PracticeLooper.Services.Contracts.Player
     {
         #region Events
         event EventHandler<bool> PlayStatusChanged;
-        event EventHandler<int> CurrentTimePositionChanged;
+        event EventHandler CurrentTimePositionChanged;
         event EventHandler TimerElapsed;
         #endregion
 
@@ -26,6 +27,7 @@ namespace Emka3.PracticeLooper.Services.Contracts.Player
         void Play();
         void Pause();
         void Seek(double time);
+        void GetCurrentPosition(Action<int> callback);
         #endregion
     }
 }
