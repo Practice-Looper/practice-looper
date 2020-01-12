@@ -21,20 +21,27 @@ namespace Emka.PracticeLooper.Mobile.iOS
         public static TaskCompletionSource<bool> SpotifyTokenCompletionSource;
         public static void Init()
         {
+            ConfigurationService = Factory.GetConfigService();
+            ConfigurationService.IsSpotifyInstalled = UIApplication.SharedApplication.CanOpenUrl(new NSUrl(new NSString("spotify:")));
             SpotifyTokenCompletionSource = new TaskCompletionSource<bool>();
             MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
-            resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer), AudioSourceType.Local.ToString());
-            resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer), AudioSourceType.Spotify.ToString());
+
+            if (ConfigurationService.IsSpotifyInstalled)
+            {
+                resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer), AudioSourceType.Spotify.ToString());
+                resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
+            }         
+
+            //resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer), AudioSourceType.Local.ToString());
             resolver.Register(typeof(AudioFileRepository), typeof(IFileRepository));
-            resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
-            ConfigurationService = Factory.GetConfigService();
+            resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
 
             //var clientId = ConfigurationService.GetValue("auth:spotify:client:id");
             //var redirectUri = ConfigurationService.GetValue("auth:spotify:client:uri:redirect");
 
             //var appConfig = new SPTConfiguration(clientId, NSUrl.FromString(redirectUri));
             //SPTRemoteApi = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Error);
-            ConfigurationService.IsSpotifyInstalled = UIApplication.SharedApplication.CanOpenUrl(new NSUrl(new NSString("spotify:")));
+            
         }
 
         internal static IConfigurationService ConfigurationService { get; private set; }

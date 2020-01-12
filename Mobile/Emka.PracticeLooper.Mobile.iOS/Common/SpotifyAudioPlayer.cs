@@ -61,7 +61,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #endregion
 
         #region MyRegion
-        public void Init(Session session)
+        public void Init(Loop loop)
         {
             var loader = MappingsFactory.Factory.GetResolver().Resolve<ISpotifyLoader>();
             api = spotifyLoader.RemoteApi as SPTAppRemote;
@@ -69,7 +69,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             api.Delegate = new SpotifyAppRemoteDelegate();
             api.Connect();
 
-            this.session = session;
+            this.session = loop.Session;
             CurrentLoop = session.Loops[0];
             CurrentLoop.StartPositionChanged += OnStartPositionChanged;
             CurrentLoop.EndPositionChanged += OnEndPositionChanged;
@@ -99,18 +99,17 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 isPlaying = true;
                 CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
-                //timer.LoopTimerExpired += LoopTimerExpired;
                 api.PlayerAPI.Play(session.AudioSource.Source, (o, e) => { });
                 timer.SetLoopTimer(CurrentEndPosition - CurrentStartPosition);
-                //timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
                 timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
                 RaisePlayingStatusChanged();
+                CurrentPositionTimerExpired(this, new EventArgs());
             }
         }
 
         private void CurrentPositionTimerExpired(object sender, EventArgs e)
         {
-            CurrentTimePositionChanged.Invoke(this, new EventArgs());
+            CurrentTimePositionChanged.Invoke(this, e);
         }
 
         private void LoopTimerExpired(object sender, EventArgs e)
@@ -192,7 +191,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
         }
 
-        public void GetCurrentPosition(Action<int> callback)
+        public void GetCurrentPosition(Action<double> callback)
         {
             try
             {
@@ -200,7 +199,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                         {
                             if (callback != null)
                             {
-                                callback.Invoke((int)o.PlaybackPosition);
+                                callback.Invoke(o.PlaybackPosition);
                             }
                         });
             }
@@ -208,6 +207,26 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        public Task InitAsync(Loop session)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PlayAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PauseAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SeekAsync(double time)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

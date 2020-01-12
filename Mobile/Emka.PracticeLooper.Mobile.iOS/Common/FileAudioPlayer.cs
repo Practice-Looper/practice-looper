@@ -40,16 +40,13 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         #region Methods
         // https://stackoverflow.com/questions/12902410/trying-to-understand-cmtime
-        public void Init(Session session)
+        public void Init(Loop loop)
         {
-            this.session = session;
+            this.session = loop.Session;
 
             var asset = AVAsset.FromUrl(NSUrl.FromFilename(session.AudioSource.Source));
-
             var playerItem = new AVPlayerItem(asset);
-            var status = playerItem.Status;
             audioPlayer = new AVPlayer(playerItem);
-            var playerLayer = AVPlayerLayer.FromPlayer(audioPlayer);
 
             internalSongDuration = audioPlayer.CurrentItem.Asset.Duration.Seconds;
             CurrentLoop = session.Loops[0];
@@ -216,13 +213,33 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             TimerElapsed?.Invoke(this, e);
         }
 
-        public void GetCurrentPosition(Action<int> callback)
+        public void GetCurrentPosition(Action<double> callback)
         {
             if (callback != null)
             {
                 Convert.ToInt32(audioPlayer.CurrentTime.Seconds * 1000);
             }
 
+        }
+
+        public Task InitAsync(Loop session)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PlayAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PauseAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SeekAsync(double time)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

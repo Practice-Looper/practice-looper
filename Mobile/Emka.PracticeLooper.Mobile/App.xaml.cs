@@ -57,6 +57,7 @@ namespace Emka.PracticeLooper.Mobile
                 resolver.Register(typeof(FilePicker), typeof(Common.IFilePicker));
                 resolver.Register(typeof(NavigationService), typeof(INavigationService));
                 resolver.Register(typeof(SourcePicker), typeof(ISourcePicker));
+                resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer), AudioSourceType.Local.ToString());
 
                 // Build container after platform implementations have been registered
                 MappingsFactory.Factory.GetResolver().BuildContainer();

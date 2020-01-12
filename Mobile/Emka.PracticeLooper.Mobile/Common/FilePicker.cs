@@ -8,6 +8,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
+using Emka3.PracticeLooper.Services.Contracts.Player;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using Xamarin.Forms;
@@ -17,10 +18,12 @@ namespace Emka.PracticeLooper.Mobile.Common
     public class FilePicker : IFilePicker
     {
         private readonly IFileRepository fileRepository;
+        private readonly IAudioMetadataReader audioMetadataReader;
 
-        public FilePicker(IFileRepository fileRepository)
+        public FilePicker(IFileRepository fileRepository, IAudioMetadataReader audioMetadataReader)
         {
             this.fileRepository = fileRepository;
+            this.audioMetadataReader = audioMetadataReader;
         }
 
         public async Task<AudioSource> ShowPicker()
@@ -39,12 +42,18 @@ namespace Emka.PracticeLooper.Mobile.Common
                     return result; // user canceled file picking
 
                 var path = await fileRepository.SaveFileAsync(isIos ? fileData.FileName : fileData.FilePath, fileData.DataArray);
+
                 result = new AudioSource
                 {
                     FileName = Path.GetFileNameWithoutExtension(path),
                     Source = path,
                     Type = AudioSourceType.Local
                 };
+
+                // get duration
+                var metadata = await audioMetadataReader.GetMetaDataAsync(result);
+
+                result.Duration = metadata.Duration;
 
             }
             catch (Exception)

@@ -15,6 +15,7 @@ using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using MediaManager;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
@@ -238,11 +239,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     {
                         Sessions.Add(item);
                     }
-                    var x = Factory.GetResolver().Resolve<ISpotifyLoader>();
-                    x.Initialize();
+                    //var x = Factory.GetResolver().Resolve<ISpotifyLoader>();
+                    //x.Initialize();
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -259,7 +260,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private void CurrentAudioPlayer_TimerElapsed(object sender, EventArgs e)
         {
-            if(CurrentLoop != null)
+            if (CurrentLoop != null)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -302,7 +303,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private bool CanExecutePlayCommand(object o)
         {
-            return CurrentSession != null;
+            return CurrentSession != null && CurrentAudioPlayer != null;
         }
 
         private void ExecutePlayCommand(object o)
@@ -395,13 +396,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
                 CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
                 CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
-                CurrentAudioPlayer.Init(CurrentSession);
+                CurrentAudioPlayer.Init(CurrentLoop);
                 MinimumValue = CurrentLoop.StartPosition;
                 Maximum = CurrentAudioPlayer.SongDuration;
                 MaximumValue = CurrentLoop.EndPosition;
                 SongDuration = FormatTime(CurrentAudioPlayer.SongDuration);
                 CurrentSongTime = FormatTime(CurrentAudioPlayer.SongDuration * MinimumValue);
-                
             }
             else
             {
@@ -427,11 +427,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                CurrentAudioPlayer.GetCurrentPosition((o)=>
+                CurrentAudioPlayer.GetCurrentPosition((o) =>
                 {
                     CurrentSongTime = FormatTime(o);
-                    Console.WriteLine(o);
-                });     
+                });
             });
         }
 

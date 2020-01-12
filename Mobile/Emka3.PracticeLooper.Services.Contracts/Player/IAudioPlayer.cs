@@ -19,15 +19,18 @@ namespace Emka3.PracticeLooper.Services.Contracts.Player
         #region Properties
         bool IsPlaying { get; }
         double SongDuration { get; }
-        Loop CurrentLoop { get; set; }
         #endregion
 
         #region Methods
-        void Init(Session session);
+        void Init(Loop loop);
         void Play();
         void Pause();
         void Seek(double time);
-        void GetCurrentPosition(Action<int> callback);
+        Task InitAsync(Loop loop);
+        Task PlayAsync();
+        Task PauseAsync();
+        Task SeekAsync(double time);
+        void GetCurrentPosition(Action<double> callback);
         #endregion
     }
 }

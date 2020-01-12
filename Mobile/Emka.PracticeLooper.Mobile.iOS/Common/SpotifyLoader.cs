@@ -39,12 +39,16 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 {
                     if (!isActive)
                     {
-                        api.AuthorizeAndPlayURI(string.Empty);
+                     // prompt user to authorize sloopy   
                     }
+
+                    api.AuthorizeAndPlayURI(string.Empty);
                 });
             }
-
-            //api.AuthorizeAndPlayURI(string.Empty);
+            else
+            {
+                // prompt to install
+            }
         }
 
         public async Task<bool> InitializeAsync()

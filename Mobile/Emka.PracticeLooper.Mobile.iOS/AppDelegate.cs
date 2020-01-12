@@ -2,6 +2,7 @@
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Foundation;
+using MediaManager;
 using SpotifyBindings.iOS;
 using UIKit;
 
@@ -33,6 +34,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
             Rg.Plugins.Popup.Popup.Init();
             var adMobId = GlobalApp.ConfigurationService.GetValue("admob:ios:id");
             Google.MobileAds.MobileAds.Configure(adMobId);
+            CrossMediaManager.Current.Init();
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
