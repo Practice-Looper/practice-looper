@@ -12,21 +12,31 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
     public class SpotifyLoader : ISpotifyLoader
     {
+        #region Fields
+
         private SPTAppRemote api;
         private readonly IConfigurationService configurationService;
+        #endregion
+
+        #region Ctor
 
         public SpotifyLoader()
         {
             this.configurationService = Factory.GetConfigService();
         }
+        #endregion
+
+        #region Properties
 
         public object RemoteApi => api;
 
         public string Token { get; set; }
+        #endregion
+
+        #region Methods
 
         public void Initialize()
         {
-
             var clientId = configurationService.GetValue("auth:spotify:client:id");
             var redirectUri = configurationService.GetValue("auth:spotify:client:uri:redirect");
 
@@ -39,7 +49,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 {
                     if (!isActive)
                     {
-                     // prompt user to authorize sloopy   
+                        // prompt user to authorize sloopy   
                     }
 
                     api.AuthorizeAndPlayURI(string.Empty);
@@ -70,5 +80,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
             return result;
         }
+        #endregion
     }
 }

@@ -18,7 +18,7 @@ using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
-    public class SpotifyAudioPlayer : IAudioPlayer
+    public class SpotifyAudioPlayer : SPTAppRemoteDelegate, IAudioPlayer
     {
         #region Fields
         private SPTAppRemote api;
@@ -60,7 +60,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public event EventHandler TimerElapsed;
         #endregion
 
-        #region MyRegion
+        #region Methods
         public void Init(Loop loop)
         {
             var loader = MappingsFactory.Factory.GetResolver().Resolve<ISpotifyLoader>();
@@ -107,16 +107,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
         }
 
-        private void CurrentPositionTimerExpired(object sender, EventArgs e)
-        {
-            CurrentTimePositionChanged.Invoke(this, e);
-        }
-
-        private void LoopTimerExpired(object sender, EventArgs e)
-        {
-            TimerElapsed?.Invoke(this, e);
-        }
-
         public void Seek(double time)
         {
             if (api != null)
@@ -125,18 +115,81 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 {
                     var seekTo = (time * session.AudioSource.Duration);
                     api.PlayerAPI.SeekToPosition(0, (o, e) =>
-                            {
-                                if (e != null)
-                                {
-                                    Debug.WriteLine(e.DebugDescription);
-                                }
-                            });
+                    {
+                        if (e != null)
+                        {
+                            Debug.WriteLine(e.DebugDescription);
+                        }
+                    });
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex.Message);
                 }
             }
+        }
+
+        public void GetCurrentPosition(Action<double> callback)
+        {
+            try
+            {
+                api.PlayerAPI.GetPlayerState((o, e) =>
+                {
+                    if (callback != null)
+                    {
+                        callback.Invoke(o.PlaybackPosition);
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public Task InitAsync(Loop session)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PlayAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PauseAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SeekAsync(double time)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
+        {
+
+        }
+
+        public override void DidEstablishConnection(SPTAppRemote appRemote)
+        {
+
+        }
+
+        public override void DidFailConnectionAttemptWithError(SPTAppRemote appRemote, NSError error)
+        {
+
+        }
+
+        private void CurrentPositionTimerExpired(object sender, EventArgs e)
+        {
+            CurrentTimePositionChanged.Invoke(this, e);
+        }
+
+        private void LoopTimerExpired(object sender, EventArgs e)
+        {
+            TimerElapsed?.Invoke(this, e);
         }
 
         private void RaisePlayingStatusChanged()
@@ -191,43 +244,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
         }
 
-        public void GetCurrentPosition(Action<double> callback)
-        {
-            try
-            {
-                api.PlayerAPI.GetPlayerState((o, e) =>
-                        {
-                            if (callback != null)
-                            {
-                                callback.Invoke(o.PlaybackPosition);
-                            }
-                        });
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        public Task InitAsync(Loop session)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task PlayAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task PauseAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task SeekAsync(double time)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
     }
 }

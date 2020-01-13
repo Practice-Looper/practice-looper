@@ -1,9 +1,4 @@
-﻿using Emka.PracticeLooper.Mobile.Common;
-using Emka.PracticeLooper.Mobile.ViewModels;
-using Emka3.PracticeLooper.Mappings;
-using Emka3.PracticeLooper.Model.Player;
-using Emka3.PracticeLooper.Services.Contracts.Common;
-using Emka3.PracticeLooper.Services.Contracts.Rest;
+﻿using Emka.PracticeLooper.Mobile.ViewModels;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.Views

@@ -373,6 +373,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     var canNavigate = true;
                     if (canNavigate)
                     {
+                        spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
+                        Device.BeginInvokeOnMainThread(() => { spotifyLoader.Initialize(); });
                         await NavigationService.NavigateToAsync<SpotifySearchViewModel>();
                     }
 

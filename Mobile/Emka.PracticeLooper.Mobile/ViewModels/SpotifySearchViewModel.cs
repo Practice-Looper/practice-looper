@@ -79,6 +79,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 };
 
                 Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(newSession, MessengerKeys.NewTrackAdded));
+
+                await sessionsRepository.SafeAsync(newSession);
+
                 await NavigationService.GoBackAsync();
             }
             catch (Exception ex)
@@ -164,16 +167,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        public override async Task InitializeAsync(object parameter)
+        public override Task InitializeAsync(object parameter)
         {
             spotifyApiService = Factory.GetResolver().Resolve<ISpotifyApiService>();
             sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
             //spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
             //await spotifyLoader.Initialize();
 
-            spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
-            Device.BeginInvokeOnMainThread(()=> { spotifyLoader.Initialize(); });
-            
+            //spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
+            //Device.BeginInvokeOnMainThread(()=> { spotifyLoader.Initialize(); });
+            return Task.CompletedTask;
         }
         #endregion Metthods
     }
