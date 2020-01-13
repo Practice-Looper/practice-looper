@@ -33,7 +33,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         public double SongDuration { get; set; }
         public Loop CurrentLoop { get; set; }
         public event EventHandler<bool> PlayStatusChanged;
-        public event EventHandler<int> CurrentTimePositionChanged;
+        public event EventHandler CurrentTimePositionChanged;
         public event EventHandler TimerElapsed;
 
         private int CurrentStartPosition { get; set; }
@@ -140,7 +140,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         private void RaisTimePositionChanged()
         {
-            CurrentTimePositionChanged?.Invoke(this, player.CurrentPosition);
+            CurrentTimePositionChanged?.Invoke(this, new EventArgs());
         }
 
         private void ResetAllTimers()
@@ -207,6 +207,36 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             {
 
             }
+        }
+
+        public void Init(Loop loop)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task InitAsync(Loop loop)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PlayAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PauseAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SeekAsync(double time)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GetCurrentPosition(Action<double> callback)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }
