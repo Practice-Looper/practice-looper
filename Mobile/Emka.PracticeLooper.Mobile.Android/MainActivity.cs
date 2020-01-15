@@ -1,7 +1,10 @@
 ﻿
+using Android;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Support.V4.Content;
+using MediaManager;
 
 namespace Emka.PracticeLooper.Mobile.Droid
 {
@@ -14,10 +17,22 @@ namespace Emka.PracticeLooper.Mobile.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) == (int)Permission.Granted)
+            {
+                var mounted = Environment.ExternalStorageState == Environment.MediaMounted;
+                GlobalApp.HasPermissionToWriteExternalStorage = mounted;
+            }
+            else
+            {
+                // Todo: request permisstions
+            }
+
             base.OnCreate(savedInstanceState);
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
-            var adMobId = GlobalApp.ConfigurationService.GetValue("admob:android:id");
-            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, adMobId);
+            //var adMobId = GlobalApp.ConfigurationService.GetValue("admob:android:id");
+            //Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, adMobId);
+            SQLitePCL.Batteries_V2.Init();
+            CrossMediaManager.Current.Init(this);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }

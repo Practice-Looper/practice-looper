@@ -41,7 +41,7 @@ namespace Emka.PracticeLooper.Mobile.Common
                 if (fileData == null)
                     return result; // user canceled file picking
 
-                var path = await fileRepository.SaveFileAsync(isIos ? fileData.FileName : fileData.FilePath, fileData.DataArray);
+                var path = await fileRepository.SaveFileAsync(fileData.FileName, fileData.DataArray);
 
                 result = new AudioSource
                 {

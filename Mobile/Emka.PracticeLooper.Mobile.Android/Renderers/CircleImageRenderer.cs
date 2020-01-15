@@ -3,7 +3,7 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
-using System.Runtime.Remoting.Contexts;
+using Android.Content;
 using Android.Graphics;
 using Emka.PracticeLooper.Mobile.Droid.Renderers;
 using Emka.PracticeLooper.Mobile.Views;
@@ -15,7 +15,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
 {
     public class CircleImageRenderer : ImageRenderer
     {
-        public CircleImageRenderer() : base(Android.App.Application.Context)
+        public CircleImageRenderer(Context context) : base(context)
         {
 
         }

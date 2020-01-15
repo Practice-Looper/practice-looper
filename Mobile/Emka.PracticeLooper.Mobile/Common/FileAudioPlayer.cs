@@ -2,6 +2,7 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
+
 using System;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
@@ -34,7 +35,7 @@ namespace Emka.PracticeLooper.Mobile.Common
         #endregion
 
         #region Propeties
-        public bool IsPlaying => mediaManager != null && mediaManager.IsPlaying();
+        public bool IsPlaying => CrossMediaManager.Current != null && CrossMediaManager.Current.IsPlaying();
         public double SongDuration { get { return internalSongDuration * 1000; } }
         private Loop CurrentLoop { get; set; }
         private int CurrentStartPosition { get; set; }
@@ -45,28 +46,31 @@ namespace Emka.PracticeLooper.Mobile.Common
 
         public void GetCurrentPosition(Action<double> callback)
         {
-            callback?.Invoke(mediaManager.Position.TotalMilliseconds);
+            callback?.Invoke(CrossMediaManager.Current.Position.TotalMilliseconds);
         }
 
         public void Init(Loop loop)
         {
-            var task = Task.Run(() => InitAsync(loop));
+            var task = Task.Run(async () => await InitAsync(loop));
             task.Wait();
         }
 
         public void Pause()
         {
-            Task.Run(PauseAsync);
+            var task = Task.Run(async () => await PauseAsync());
+            task.Wait();
         }
 
         public void Play()
         {
-            Task.Run(PlayAsync);
+            var task = Task.Run(async () => await PlayAsync());
+            task.Wait();
         }
 
         public void Seek(double time)
         {
-            Task.Run(() => SeekAsync(time));
+            var task = Task.Run(async () => await SeekAsync(time));
+            task.Wait();
         }
 
         private void OnStartPositionChanged(object sender, double e)
@@ -74,8 +78,8 @@ namespace Emka.PracticeLooper.Mobile.Common
             CurrentStartPosition = ConvertToInt(e);
             if (IsPlaying)
             {
-                Pause();
-                Seek(e);
+                //Pause();
+                //Seek(e);
                 Play();
             }
         }
@@ -122,33 +126,36 @@ namespace Emka.PracticeLooper.Mobile.Common
             {
                 try
                 {
-                    await PlayAsync().ConfigureAwait(false);
+                    await PlayAsync();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
             }
+
+            PlayStatusChanged?.Invoke(this, e.State == MediaManager.Player.MediaPlayerState.Playing);
         }
 
         public async Task PlayAsync()
         {
-            if (!IsPlaying)
+            //if (!IsPlaying)
+            //{
+            try
             {
-                try
-                {
-                    CurrentStartPosition = (int)(CurrentLoop.StartPosition * internalSongDuration);//ConvertToInt(CurrentLoop.StartPosition);
-                    CurrentEndPosition = (int)(CurrentLoop.EndPosition * internalSongDuration);//ConvertToInt(CurrentLoop.StartPosition);
-                    await mediaManager.Play(mediaItem, TimeSpan.FromSeconds(CurrentStartPosition), TimeSpan.FromSeconds(CurrentEndPosition)).ConfigureAwait(false);
-                    RaisePlayingStatusChanged();
-                    pausedByUser = false;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    throw;
-                }
+                CurrentStartPosition = (int)(CurrentLoop.StartPosition * internalSongDuration);//ConvertToInt(CurrentLoop.StartPosition);
+                CurrentEndPosition = (int)(CurrentLoop.EndPosition * internalSongDuration);//ConvertToInt(CurrentLoop.StartPosition);
+                //await CrossMediaManager.Current.SeekTo(TimeSpan.FromSeconds(CurrentStartPosition));
+                await CrossMediaManager.Current.Play(mediaItem, TimeSpan.FromSeconds(CurrentStartPosition), TimeSpan.FromSeconds(CurrentEndPosition));
+                //RaisePlayingStatusChanged();
+                pausedByUser = false;
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+            //}
         }
 
         public async Task PauseAsync()
@@ -158,7 +165,7 @@ namespace Emka.PracticeLooper.Mobile.Common
                 try
                 {
                     pausedByUser = true;
-                    await mediaManager.Pause();
+                    await CrossMediaManager.Current.Pause();
                     RaisePlayingStatusChanged();
                 }
                 catch (Exception ex)
@@ -173,7 +180,7 @@ namespace Emka.PracticeLooper.Mobile.Common
         {
             try
             {
-                await mediaManager.SeekTo(TimeSpan.FromMilliseconds(time)).ConfigureAwait(false);
+                await CrossMediaManager.Current.SeekTo(TimeSpan.FromMilliseconds(time));
             }
             catch (Exception ex)
             {
@@ -194,12 +201,11 @@ namespace Emka.PracticeLooper.Mobile.Common
                 throw new ArgumentNullException(nameof(loop.Session));
             }
 
-            if(mediaManager != null)
+            if (CrossMediaManager.Current.IsPlaying())
             {
                 await PauseAsync();
-                mediaManager.StateChanged -= PlayerStateChanged;
-                mediaManager.PositionChanged -= OnPositionChanged;
-                mediaManager = null;
+                CrossMediaManager.Current.StateChanged -= PlayerStateChanged;
+                CrossMediaManager.Current.PositionChanged -= OnPositionChanged;
             }
 
             try
@@ -208,12 +214,10 @@ namespace Emka.PracticeLooper.Mobile.Common
 
                 internalSongDuration = loop.Session.AudioSource.Duration;
 
-                mediaManager = CrossMediaManager.Current;
+                CrossMediaManager.Current.StateChanged += PlayerStateChanged;
+                CrossMediaManager.Current.PositionChanged += OnPositionChanged;
 
-                mediaManager.StateChanged += PlayerStateChanged;
-                mediaManager.PositionChanged += OnPositionChanged;
-
-                mediaItem = await mediaManager.Extractor.CreateMediaItem(loop.Session.AudioSource.Source);
+                mediaItem = await CrossMediaManager.Current.Extractor.CreateMediaItem(loop.Session.AudioSource.Source);
 
                 CurrentLoop.StartPositionChanged += OnStartPositionChanged;
                 CurrentLoop.EndPositionChanged += OnEndPositionChanged;

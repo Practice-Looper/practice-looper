@@ -10,7 +10,7 @@ namespace Emka3.PracticeLooper.Model.Player
     {
         public string Source { get; set; }
         public string FileName { get; set; }
-        public int Duration { get; set; }
+        public double Duration { get; set; }
         public AudioSourceType Type { get; set; }
         public int SessionId { get; set; }
         public Session Session { get; set; }

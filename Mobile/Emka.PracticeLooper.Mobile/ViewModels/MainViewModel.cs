@@ -224,7 +224,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 audioPlayers = new Dictionary<AudioSourceType, IAudioPlayer>
                 {
-                    { AudioSourceType.Spotify, Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Spotify.ToString())},
+                    //{ AudioSourceType.Spotify, Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Spotify.ToString())},
                     { AudioSourceType.Local, Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Local.ToString()) }
                 };
 
@@ -310,11 +310,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             if (IsPlaying)
             {
-                CurrentAudioPlayer.Pause();
+                Device.BeginInvokeOnMainThread(CurrentAudioPlayer.Pause);
             }
             else
             {
-                CurrentAudioPlayer.Play();
+                Device.BeginInvokeOnMainThread(CurrentAudioPlayer.Play);
             }
         }
 

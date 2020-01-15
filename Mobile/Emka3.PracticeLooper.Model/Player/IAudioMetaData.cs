@@ -7,6 +7,6 @@ namespace Emka3.PracticeLooper.Model.Player
 {
     public interface IAudioMetaData
     {
-        int Duration { get; }
+        double Duration { get; }
     }
 }

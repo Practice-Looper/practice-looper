@@ -5,7 +5,7 @@
 
 using Emka3.PracticeLooper.Model.Player;
 
-namespace Emka.PracticeLooper.Mobile.iOS.Common
+namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
     public class AudioMetadata : IAudioMetaData
     {

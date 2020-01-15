@@ -24,7 +24,8 @@
                     <behav:TextChangedBehavior />
                 </SearchBar.Behaviors>
             </SearchBar>
-            <StackLayout Grid.Row="1">
+            <StackLayout
+                Grid.Row="1">
                 <ListView
                     ItemsSource="{Binding SearchResults}"
                     ItemTapped="OnTrackTapped"
@@ -34,14 +35,18 @@
                     BackgroundColor="Transparent">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell Height="80">
-                                <Grid VerticalOptions="FillAndExpand"
-                                      HorizontalOptions="FillAndExpand">
+                            <ViewCell
+                                Height="80">
+                                <Grid
+                                    VerticalOptions="FillAndExpand"
+                                    HorizontalOptions="FillAndExpand">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition
+                                            Width="Auto" />
+                                        <ColumnDefinition
+                                            Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <views:CircleImage
+                                    <!--<views:CircleImage
                                         Grid.Column="0"
                                         Source="{Binding Album.ImageSmall}"
                                         HeightRequest="64"
@@ -49,17 +54,33 @@
                                         Aspect="AspectFill"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center"
-                                        Margin="10,0"/>
-                                    <Grid VerticalOptions="Center"
-                                          Grid.Column="1">
+                                        Margin="10,0" />-->
+                                    <Frame
+                                        CornerRadius="20"
+                                        Padding="0"
+                                        IsClippedToBounds="True"
+                                        Margin="10,0">
+                                        <Image
+                                            Source="{Binding Album.ImageSmall}"
+                                            HeightRequest="64"
+                                            WidthRequest="64"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" />
+                                    </Frame>
+                                    <Grid
+                                        VerticalOptions="Center"
+                                        Grid.Column="1">
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition
+                                                Width="Auto" />
+                                            <ColumnDefinition
+                                                Width="Auto" />
+                                            <ColumnDefinition
+                                                Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <Label
                                             Grid.Row="0"
@@ -74,7 +95,7 @@
                                             Text="{Binding ArtistNames}"
                                             TextColor="{x:Static views:ColorConstants.Secondary}"
                                             FontSize="Micro"
-                                            LineBreakMode="MiddleTruncation"/>
+                                            LineBreakMode="MiddleTruncation" />
                                         <Label
                                             Grid.Row="1"
                                             Grid.Column="1"
@@ -87,7 +108,7 @@
                                             Text="{Binding Album.Name}"
                                             TextColor="{x:Static views:ColorConstants.Secondary}"
                                             FontSize="Micro"
-                                            LineBreakMode="MiddleTruncation"/>
+                                            LineBreakMode="MiddleTruncation" />
                                     </Grid>
                                 </Grid>
                             </ViewCell>

@@ -16,16 +16,27 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
-                //string targetPath = GlobalApp.ConfigurationService.LocalPath;
-                //await Task.Run(() =>
-                //{
-                //    File.WriteAllBytes(Path.Combine(targetPath, fileName), data);
-                //});
+                string targetPath;
+                if (GlobalApp.HasPermissionToWriteExternalStorage)
+                {
+                    targetPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+                }
+                else
+                {
+                    targetPath = GlobalApp.ConfigurationService.LocalPath;
+                }
 
-                return await Task.Run(() => fileName);
+                await Task.Run(() =>
+                {
+                    File.WriteAllBytes(Path.Combine(targetPath, fileName), data);
+                });
+
+                return Path.Combine(targetPath, fileName);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                // ToDo: log error
+                Console.WriteLine(ex.Message);
                 throw;
             }
         }

@@ -15,11 +15,13 @@ namespace Emka.PracticeLooper.Mobile.Droid
         public static void Init()
         {
             MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
-            resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer));
+            //resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer));
             resolver.Register(typeof(AudioFileRepository), typeof(IFileRepository));
+            resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
             ConfigurationService = Factory.GetConfigService();
         }
 
         internal static IConfigurationService ConfigurationService { get; private set; }
+        internal static bool HasPermissionToWriteExternalStorage { get; set; }
     }
 }
