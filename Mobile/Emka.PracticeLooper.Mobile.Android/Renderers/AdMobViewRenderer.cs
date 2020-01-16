@@ -37,15 +37,23 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
 
         private AdView CreateAdView()
         {
-            var adView = new AdView(Context)
+                var adView = new AdView(Context)
             {
                 AdSize = AdSize.SmartBanner,
                 AdUnitId = Element.AdUnitId
             };
 
-            adView.LayoutParameters = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent);
+            adView.LayoutParameters = new LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
 
-            adView.LoadAd(new AdRequest.Builder().AddTestDevice(AdRequest.DeviceIdEmulator).Build());
+            try
+            {
+                adView.LoadAd(new AdRequest.Builder().AddTestDevice(AdRequest.DeviceIdEmulator).Build());
+            }
+            catch (Exception ex)
+            {
+                // todo: log
+                Console.WriteLine(ex.Message);
+            }
 
             return adView;
         }
