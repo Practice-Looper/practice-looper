@@ -32,16 +32,8 @@ namespace Emka.PracticeLooper.Mobile.iOS
                 resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
             }         
 
-            //resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer), AudioSourceType.Local.ToString());
             resolver.Register(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
-
-            //var clientId = ConfigurationService.GetValue("auth:spotify:client:id");
-            //var redirectUri = ConfigurationService.GetValue("auth:spotify:client:uri:redirect");
-
-            //var appConfig = new SPTConfiguration(clientId, NSUrl.FromString(redirectUri));
-            //SPTRemoteApi = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Error);
-            
         }
 
         internal static IConfigurationService ConfigurationService { get; private set; }

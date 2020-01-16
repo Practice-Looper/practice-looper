@@ -2,8 +2,11 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
+using Android.App;
+using Android.Content.PM;
 using Emka.PracticeLooper.Mobile.Droid.Common;
 using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
@@ -14,14 +17,34 @@ namespace Emka.PracticeLooper.Mobile.Droid
     {
         public static void Init()
         {
+            ConfigurationService = Factory.GetConfigService();
+            ConfigurationService.IsSpotifyInstalled = IsAppInstalled("com.spotify.music");
             MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
-            //resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer));
             resolver.Register(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
-            ConfigurationService = Factory.GetConfigService();
+
+            if (ConfigurationService.IsSpotifyInstalled)
+            {
+                resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer), AudioSourceType.Spotify.ToString());
+                resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
+            }
         }
 
         internal static IConfigurationService ConfigurationService { get; private set; }
         internal static bool HasPermissionToWriteExternalStorage { get; set; }
+
+        public static bool IsAppInstalled(string packageName)
+        {
+            try
+            {
+                PackageManager pm = Application.Context.PackageManager;
+                pm.GetPackageInfo(packageName, PackageInfoFlags.Activities);
+                return true;
+            }
+            catch (PackageManager.NameNotFoundException)
+            {
+                return false;
+            }
+        }
     }
 }

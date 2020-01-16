@@ -15,6 +15,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #region Fields
 
         private SPTAppRemote api;
+        private bool authorized;
+        private string token;
         private readonly IConfigurationService configurationService;
         #endregion
 
@@ -30,12 +32,14 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public object RemoteApi => api;
 
-        public string Token { get; set; }
+        public string Token { get => token; set => token = value; }
+
+        public bool Authorized => !string.IsNullOrEmpty(Token);
         #endregion
 
         #region Methods
 
-        public void Initialize()
+        public void Initialize(string songUri = "")
         {
             var clientId = configurationService.GetValue("auth:spotify:client:id");
             var redirectUri = configurationService.GetValue("auth:spotify:client:uri:redirect");
@@ -52,7 +56,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                         // prompt user to authorize sloopy   
                     }
 
-                    api.AuthorizeAndPlayURI(string.Empty);
+                    api.AuthorizeAndPlayURI(songUri);
                 });
             }
             else
@@ -61,7 +65,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
         }
 
-        public async Task<bool> InitializeAsync()
+        public async Task<bool> InitializeAsync(string songUri = "")
         {
             bool result = false;
             if (GlobalApp.ConfigurationService.IsSpotifyInstalled)
@@ -70,7 +74,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 {
                     //if (!isActive)
                     //{
-                    result = api.AuthorizeAndPlayURI(string.Empty);
+                    result = api.AuthorizeAndPlayURI(songUri);
                     //}
                 });
 

@@ -1,73 +1,92 @@
 ﻿// Copyright (C)  - All Rights Reserved
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
-// Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
-
+// Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Emka.PracticeLooper.Mobile.iOS.Delegates;
-using Emka3.PracticeLooper.Config;
+using Com.Spotify.Android.Appremote.Api;
+using Com.Spotify.Protocol.Types;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
-using Foundation;
-using SpotifyBindings.iOS;
-using MappingsFactory = Emka3.PracticeLooper.Mappings;
+using Java.Interop;
+using static Com.Spotify.Protocol.Client.Subscription;
 
-namespace Emka.PracticeLooper.Mobile.iOS.Common
+namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
-    public class SpotifyAudioPlayer : SPTAppRemoteDelegate, IAudioPlayer
+    public class SpotifyAudioPlayer : IAudioPlayer
     {
+        class EventCallback : Java.Lang.Object, IEventCallback
+        {
+            public void OnEvent(Java.Lang.Object p0)
+            {
+                var state = p0 as PlayerState;
+                Console.WriteLine(state.PlaybackPosition);
+            }
+        }
+
         #region Fields
-        private SPTAppRemote api;
-        private Session session;
+        private SpotifyAppRemote api;
         private readonly IPlayerTimer timer;
         private readonly ISpotifyLoader spotifyLoader;
-        private CancellationTokenSource currentTimeCancelTokenSource;
-        private bool isPlaying;
+        private Session session;
         private double internalSongDuration;
         const int CURRENT_TIME_UPDATE_INTERVAL = 1000;
-        private bool hasSpotifyPlayerSubscription;
+        private CancellationTokenSource currentTimeCancelTokenSource;
         #endregion
 
         #region Ctor
+
         public SpotifyAudioPlayer(IPlayerTimer timer, ISpotifyLoader spotifyLoader)
         {
-            this.spotifyLoader = spotifyLoader;
-            isPlaying = false;
             this.timer = timer;
+            this.spotifyLoader = spotifyLoader;
+            IsPlaying = false;
         }
         #endregion
 
         #region Properties
-        public bool IsPlaying => isPlaying;
-
-        public double SongDuration { get { return internalSongDuration * 1000; } }
-
+        public bool IsPlaying { get; private set; }
+        public double SongDuration => internalSongDuration * 1000;
         public Loop CurrentLoop { get; set; }
-
         private int CurrentStartPosition { get; set; }
         private int CurrentEndPosition { get; set; }
         #endregion
 
         #region Events
+
         public event EventHandler<bool> PlayStatusChanged;
         public event EventHandler CurrentTimePositionChanged;
         public event EventHandler TimerElapsed;
         #endregion
 
         #region Methods
+
+        public void GetCurrentPosition(Action<double> callback)
+        {
+            try
+            {
+                var subscription = api.PlayerApi.SubscribeToPlayerState().SetEventCallback(new EventCallback());
+                //GetPlayerState((o, e) =>
+                //{
+                //    if (callback != null)
+                //    {
+                //        callback.Invoke(o.PlaybackPosition);
+                //    }
+                //});
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         public void Init(Loop loop)
         {
-            var loader = MappingsFactory.Factory.GetResolver().Resolve<ISpotifyLoader>();
-            api = spotifyLoader.RemoteApi as SPTAppRemote;
-            api.ConnectionParameters.AccessToken = loader.Token;
-            api.Delegate = new SpotifyAppRemoteDelegate();
-            api.Connect();
+            api = spotifyLoader.RemoteApi as SpotifyAppRemote;
 
-            this.session = loop.Session;
+            session = loop.Session;
             CurrentLoop = session.Loops[0];
             CurrentLoop.StartPositionChanged += OnStartPositionChanged;
             CurrentLoop.EndPositionChanged += OnEndPositionChanged;
@@ -78,15 +97,16 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
             timer.LoopTimerExpired += LoopTimerExpired;
             timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
+
         }
 
         public void Pause()
         {
             if (IsPlaying)
             {
-                isPlaying = false;
+                IsPlaying = false;
                 timer.StopTimers();
-                api.PlayerAPI.Pause((o, e) => { /* log error*/ });
+                api.PlayerApi.Pause();
                 RaisePlayingStatusChanged();
             }
         }
@@ -95,9 +115,9 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             if (!IsPlaying)
             {
-                isPlaying = true;
+                IsPlaying = true;
                 CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
-                api.PlayerAPI.Play(session.AudioSource.Source, (o, e) => { });
+                api.PlayerApi.Play(session.AudioSource.Source);
                 timer.SetLoopTimer(CurrentEndPosition - CurrentStartPosition);
                 timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
                 RaisePlayingStatusChanged();
@@ -112,45 +132,17 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 try
                 {
                     var seekTo = (time * session.AudioSource.Duration);
-                    api.PlayerAPI.SeekToPosition(0, (o, e) =>
-                    {
-                        if (e != null)
-                        {
-                            Debug.WriteLine(e.DebugDescription);
-                        }
-                    });
+                    api.PlayerApi.SeekTo(0);
                 }
-                catch (Exception ex)
+                catch (System.Exception)
                 {
-                    Debug.WriteLine(ex.Message);
+                    // todo: log
+                    throw;
                 }
             }
         }
 
-        public void GetCurrentPosition(Action<double> callback)
-        {
-            try
-            {
-                api.PlayerAPI.GetPlayerState((o, e) =>
-                {
-                    if (callback != null)
-                    {
-                        callback.Invoke(o.PlaybackPosition);
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        public Task InitAsync(Loop session)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task PlayAsync()
+        public Task InitAsync(Loop loop)
         {
             throw new NotImplementedException();
         }
@@ -160,24 +152,14 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             throw new NotImplementedException();
         }
 
-        public Task SeekAsync(double time)
+        public Task PlayAsync()
         {
             throw new NotImplementedException();
         }
 
-        public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
+        public Task SeekAsync(double time)
         {
-
-        }
-
-        public override void DidEstablishConnection(SPTAppRemote appRemote)
-        {
-
-        }
-
-        public override void DidFailConnectionAttemptWithError(SPTAppRemote appRemote, NSError error)
-        {
-
+            throw new NotImplementedException();
         }
 
         private void CurrentPositionTimerExpired(object sender, EventArgs e)
@@ -190,11 +172,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             TimerElapsed?.Invoke(this, e);
         }
 
-        private void RaisePlayingStatusChanged()
-        {
-            PlayStatusChanged?.Invoke(this, IsPlaying);
-        }
-
         private int ConvertToInt(double inValue)
         {
             int result;
@@ -202,7 +179,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 result = Convert.ToInt32(inValue * session.AudioSource.Duration);
             }
-            catch (Exception)
+            catch (System.Exception)
             {
                 throw;
             }
@@ -242,6 +219,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
         }
 
+        private void RaisePlayingStatusChanged()
+        {
+            PlayStatusChanged?.Invoke(this, IsPlaying);
+        }
         #endregion
     }
 }

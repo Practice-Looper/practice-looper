@@ -11,7 +11,8 @@ namespace Emka3.PracticeLooper.Services.Contracts.Common
     {
         object RemoteApi { get; }
         string Token { get; set; }
-        Task<bool> InitializeAsync();
-        void Initialize();
+        bool Authorized { get; }
+        Task<bool> InitializeAsync(string songUri = "");
+        void Initialize(string songUri = "");
     }
 }

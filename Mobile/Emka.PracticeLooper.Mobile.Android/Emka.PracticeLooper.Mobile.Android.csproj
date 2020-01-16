@@ -116,6 +116,8 @@
     <Compile Include="Renderers\CircleImageRenderer.cs" />
     <Compile Include="Common\AudioMetadata.cs" />
     <Compile Include="Common\AudioMetadataReader.cs" />
+    <Compile Include="Common\SpotifyLoader.cs" />
+    <Compile Include="Common\SpotifyAudioPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
