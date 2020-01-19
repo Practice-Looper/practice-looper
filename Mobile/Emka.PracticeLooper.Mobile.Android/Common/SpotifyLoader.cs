@@ -10,10 +10,12 @@ using Emka3.PracticeLooper.Config;
 using Android.App;
 using Java.Lang;
 using System.Threading;
+using Xamarin.Essentials;
+using System;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
-    public class SpotifyLoader : Object, IConnectorConnectionListener, ISpotifyLoader
+    public class SpotifyLoader : Java.Lang.Object, IConnectorConnectionListener, ISpotifyLoader
     {
         #region Fields
         static AutoResetEvent autoResetEvent;
@@ -26,6 +28,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         public SpotifyLoader()
         {
             configurationService = Factory.GetConfigService();
+            autoResetEvent = new AutoResetEvent(false);
         }
         #endregion
 
@@ -44,19 +47,27 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
-                autoResetEvent = new AutoResetEvent(false);
                 var clientId = configurationService.GetValue("auth:spotify:client:id");
                 var redirectUri = configurationService.GetValue("auth:spotify:client:uri:redirect");
+                var requestCode = configurationService.GetValue("auth:spotify:client:requestCode");
 
                 ConnectionParams connectionParams = new ConnectionParams
                 .Builder(clientId)
                 .SetRedirectUri(redirectUri)
                 .ShowAuthView(true)
                 .Build();
+                MainThread.BeginInvokeOnMainThread(()=> SpotifyAppRemote.Connect(Application.Context, connectionParams, this));
 
-                SpotifyAppRemote.Connect(Application.Context, connectionParams, this);
 
-                autoResetEvent.WaitOne(2000);
+                Com.Spotify.Sdk.Android.Auth.AuthorizationRequest.Builder builder =
+        new Com.Spotify.Sdk.Android.Auth.AuthorizationRequest.Builder(clientId, Com.Spotify.Sdk.Android.Auth.AuthorizationResponse.Type.Token, redirectUri);
+
+                builder.SetScopes(new[] { "streaming" });
+                Com.Spotify.Sdk.Android.Auth.AuthorizationRequest request = builder.Build();
+                var context = GlobalApp.MainActivity;
+                Com.Spotify.Sdk.Android.Auth.AuthorizationClient.OpenLoginActivity(GlobalApp.MainActivity, Convert.ToInt32(requestCode), request);
+
+                autoResetEvent.WaitOne();
             }
             catch (System.Exception)
             {

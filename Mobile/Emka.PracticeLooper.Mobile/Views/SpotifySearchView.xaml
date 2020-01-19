@@ -5,7 +5,7 @@
     xmlns:behav="clr-namespace:Emka.PracticeLooper.Mobile.Behaviors"
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     x:Class="Emka.PracticeLooper.Mobile.Views.SpotifySearchView"
-    Style="{StaticResource NavigationPageMainStyle}">
+    Style="{StaticResource PageMainStyle}">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -29,7 +29,6 @@
                 <ListView
                     ItemsSource="{Binding SearchResults}"
                     ItemTapped="OnTrackTapped"
-                    SelectedItem="{Binding SelectedTrack}"
                     HasUnevenRows="True"
                     SeparatorColor="Transparent"
                     BackgroundColor="Transparent">

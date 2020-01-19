@@ -32,7 +32,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
         internal static IConfigurationService ConfigurationService { get; private set; }
         internal static bool HasPermissionToWriteExternalStorage { get; set; }
-
+        internal static Activity MainActivity { get; set; }
         public static bool IsAppInstalled(string packageName)
         {
             try

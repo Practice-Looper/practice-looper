@@ -111,8 +111,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 try
                 {
-                    var seekTo = (time * session.AudioSource.Duration);
-                    api.PlayerAPI.SeekToPosition(0, (o, e) =>
+                    var seekTo = Convert.ToInt32(time * session.AudioSource.Duration);
+                    api.PlayerAPI.SeekToPosition(seekTo, (o, e) =>
                     {
                         if (e != null)
                         {

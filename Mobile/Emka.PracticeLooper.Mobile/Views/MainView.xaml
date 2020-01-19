@@ -10,7 +10,7 @@
     ios:Page.UseSafeArea="true"
     x:Class="Emka.PracticeLooper.Mobile.Views.MainView"
     Title="Practice Looper"
-    Style="{StaticResource NavigationPageMainStyle}"
+    Style="{StaticResource PageMainStyle}"
     x:Name="mainPage">
     <!--https://mycolor.space/?hex=%2359677C&sub=1-->
     <Grid>

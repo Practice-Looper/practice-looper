@@ -65,7 +65,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #region Properties
         public Command DeleteSessionCommand => deleteSessionCommand ?? (deleteSessionCommand = new Command(async (o) => await ExecuteDeleteSessionCommandAsync(o)));
 
-        public Command PlayCommand => playCommand ?? (playCommand = new Command(ExecutePlayCommand, CanExecutePlayCommand));
+        public Command PlayCommand => playCommand ?? (playCommand = new Command(async (o) => await ExecutePlayCommand(o), CanExecutePlayCommand));
 
         public Command CreateSessionCommand => createSessionCommand ?? (createSessionCommand = new Command(async (o) => await ExecuteCreateSessionCommandAsync(o), CanExecuteCreateSessionCommand));
 
@@ -224,7 +224,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 audioPlayers = new Dictionary<AudioSourceType, IAudioPlayer>
                 {
-                    //{ AudioSourceType.Spotify, Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Spotify.ToString())},
+                    { AudioSourceType.Spotify, Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Spotify.ToString())},
                     { AudioSourceType.Local, Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Local.ToString()) }
                 };
 
@@ -232,6 +232,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 sessionsRepository.Init();
                 fileRepository = Factory.GetResolver().Resolve<IFileRepository>();
                 filePicker = Factory.GetResolver().Resolve<Mobile.Common.IFilePicker>();
+                spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
                 var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -306,7 +307,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             return CurrentSession != null && CurrentAudioPlayer != null;
         }
 
-        private void ExecutePlayCommand(object o)
+        private async Task ExecutePlayCommand(object o)
         {
             if (IsPlaying)
             {
@@ -314,7 +315,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
             else
             {
-                Device.BeginInvokeOnMainThread(CurrentAudioPlayer.Play);
+                if (!spotifyLoader.Authorized)
+                {
+                    await spotifyLoader.InitializeAsync(CurrentSession.AudioSource.Source);
+                }
+
+                await CurrentAudioPlayer.PlayAsync();
             }
         }
 
@@ -373,8 +379,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     var canNavigate = true;
                     if (canNavigate)
                     {
-                        spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
-                        Device.BeginInvokeOnMainThread(() => { spotifyLoader.Initialize(); });
+                        await Task.Run(()=>spotifyLoader.Initialize());
                         await NavigationService.NavigateToAsync<SpotifySearchViewModel>();
                     }
 
