@@ -2,6 +2,7 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
+
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Com.Spotify.Protocol.Types;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Java.Util.Concurrent;
 using Xamarin.Essentials;
 using static Com.Spotify.Protocol.Client.CallResult;
 using static Com.Spotify.Protocol.Client.Subscription;
@@ -26,8 +28,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         const int CURRENT_TIME_UPDATE_INTERVAL = 1000;
         private CancellationTokenSource currentTimeCancelTokenSource;
         bool pausedByUser;
-        PlayerState playerState;
-        Com.Spotify.Protocol.Client.Subscription playerStateSubscription;
         #endregion
 
         #region Ctor
@@ -60,7 +60,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void OnEvent(Java.Lang.Object p0)
         {
-            playerState = p0 as PlayerState;
+            var playerState = p0 as PlayerState;
             IsPlaying = !playerState.IsPaused;
             PlayStatusChanged?.Invoke(this, !playerState.IsPaused);
         }
@@ -69,7 +69,22 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
-                callback?.Invoke(playerState == null ? 0 : playerState.PlaybackPosition);
+                Task.Run(() =>
+                {
+                    Com.Spotify.Protocol.Client.CallResult playerStateCall = Api.PlayerApi.PlayerState;
+                    Com.Spotify.Protocol.Client.IResult result = playerStateCall.Await(10, TimeUnit.Seconds);
+                    if (result.IsSuccessful)
+                    {
+                        var state = result.Data as PlayerState;
+                        callback?.Invoke(state == null ? 0 : state.PlaybackPosition);
+                    }
+                    else
+                    {
+                        // todo: log
+                        Console.WriteLine(result.ErrorMessage);
+                    }
+                });
+
             }
             catch (Exception ex)
             {
@@ -111,9 +126,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 Api.PlayerApi.Play(session.AudioSource.Source).SetResultCallback(this);
-                playerStateSubscription = Api.PlayerApi.SubscribeToPlayerState();
-
-                playerStateSubscription.SetEventCallback(this);
+                Api.PlayerApi.SubscribeToPlayerState().SetEventCallback(this);
             });
 
             ResetAllTimers();
