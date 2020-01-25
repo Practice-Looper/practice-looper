@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotifyBindings.Droid", "Sp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotifyBindings.Auth.Droid", "SpotifyBindings.Auth.Droid\SpotifyBindings.Auth.Droid.csproj", "{CF132663-0895-4522-9457-ED006BE32E86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotifyBindings.V120.iOS", "SpotifyBindings.V120.iOS\SpotifyBindings.V120.iOS.csproj", "{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -196,6 +198,20 @@ Global
 		{CF132663-0895-4522-9457-ED006BE32E86}.AppStore|iPhone.Build.0 = Debug|Any CPU
 		{CF132663-0895-4522-9457-ED006BE32E86}.BuildIOS|Any CPU.ActiveCfg = Release|Any CPU
 		{CF132663-0895-4522-9457-ED006BE32E86}.BuildIOS|Any CPU.Build.0 = Release|Any CPU
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}.Release|iPhone.Build.0 = Release|Any CPU
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}.BuildIOS|Any CPU.ActiveCfg = Release|Any CPU
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722}.BuildIOS|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F0F8BA3B-BC2E-4475-AD1E-0B08767E52C5} = {859AB886-3E50-454C-BCB8-9DA93F801178}
@@ -210,6 +226,7 @@ Global
 		{44108E72-059A-495B-8306-18E1799257F0} = {31E0EB53-2365-4681-8DE9-5EB4DAD34402}
 		{579729A5-F297-4C8E-9F95-9D48F62B8F90} = {31E0EB53-2365-4681-8DE9-5EB4DAD34402}
 		{CF132663-0895-4522-9457-ED006BE32E86} = {31E0EB53-2365-4681-8DE9-5EB4DAD34402}
+		{A8548343-7BC2-4E9E-9D89-2AC43C6A6722} = {31E0EB53-2365-4681-8DE9-5EB4DAD34402}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

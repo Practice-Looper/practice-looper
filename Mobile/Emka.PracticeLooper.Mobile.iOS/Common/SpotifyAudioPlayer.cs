@@ -14,14 +14,14 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
 using SpotifyBindings.iOS;
+using Xamarin.Essentials;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
-    public class SpotifyAudioPlayer : SPTAppRemoteDelegate, IAudioPlayer
+    public class SpotifyAudioPlayer : IAudioPlayer
     {
         #region Fields
-        private SPTAppRemote api;
         private Session session;
         private readonly IPlayerTimer timer;
         private readonly ISpotifyLoader spotifyLoader;
@@ -50,6 +50,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         private int CurrentStartPosition { get; set; }
         private int CurrentEndPosition { get; set; }
+        public SPTAppRemote Api { get => spotifyLoader.RemoteApi as SPTAppRemote; }
         #endregion
 
         #region Events
@@ -61,12 +62,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #region Methods
         public void Init(Loop loop)
         {
-            var loader = MappingsFactory.Factory.GetResolver().Resolve<ISpotifyLoader>();
-            api = spotifyLoader.RemoteApi as SPTAppRemote;
-            api.ConnectionParameters.AccessToken = loader.Token;
-            api.Delegate = new SpotifyAppRemoteDelegate();
-            api.Connect();
-
             this.session = loop.Session;
             CurrentLoop = session.Loops[0];
             CurrentLoop.StartPositionChanged += OnStartPositionChanged;
@@ -86,7 +81,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 isPlaying = false;
                 timer.StopTimers();
-                api.PlayerAPI.Pause((o, e) => { /* log error*/ });
+                Api.PlayerAPI.Pause((o, e) => { /* log error*/ });
                 RaisePlayingStatusChanged();
             }
         }
@@ -97,9 +92,15 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 isPlaying = true;
                 CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
-                api.PlayerAPI.Play(session.AudioSource.Source, (o, e) => { });
+
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    Api.PlayerAPI.Play(session.AudioSource.Source, (o, e) => {   });
+                });
+
                 timer.SetLoopTimer(CurrentEndPosition - CurrentStartPosition);
                 timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
+
                 RaisePlayingStatusChanged();
                 CurrentPositionTimerExpired(this, new EventArgs());
             }
@@ -107,12 +108,12 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public void Seek(double time)
         {
-            if (api != null)
+            if (Api != null)
             {
                 try
                 {
                     var seekTo = Convert.ToInt32(time * session.AudioSource.Duration);
-                    api.PlayerAPI.SeekToPosition(seekTo, (o, e) =>
+                    Api.PlayerAPI.SeekToPosition(seekTo, (o, e) =>
                     {
                         if (e != null)
                         {
@@ -131,7 +132,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             try
             {
-                api.PlayerAPI.GetPlayerState((o, e) =>
+                Api.PlayerAPI.GetPlayerState((o, e) =>
                 {
                     if (callback != null)
                     {
@@ -150,9 +151,9 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             throw new NotImplementedException();
         }
 
-        public Task PlayAsync()
+        public async Task PlayAsync()
         {
-            throw new NotImplementedException();
+            await Task.Run(Play);
         }
 
         public Task PauseAsync()
@@ -163,21 +164,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public Task SeekAsync(double time)
         {
             throw new NotImplementedException();
-        }
-
-        public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
-        {
-
-        }
-
-        public override void DidEstablishConnection(SPTAppRemote appRemote)
-        {
-
-        }
-
-        public override void DidFailConnectionAttemptWithError(SPTAppRemote appRemote, NSError error)
-        {
-
         }
 
         private void CurrentPositionTimerExpired(object sender, EventArgs e)

@@ -2,19 +2,23 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
+using System.Threading;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Foundation;
 using SpotifyBindings.iOS;
+using Xamarin.Essentials;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
-    public class SpotifyLoader : ISpotifyLoader
+    public class SpotifyLoader : SPTAppRemoteDelegate, ISpotifyLoader
     {
         #region Fields
 
         private SPTAppRemote api;
+        static AutoResetEvent tokenEvent;
+        static AutoResetEvent connectedEvent;
         private bool authorized;
         private string token;
         private readonly IConfigurationService configurationService;
@@ -25,6 +29,9 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public SpotifyLoader()
         {
             this.configurationService = Factory.GetConfigService();
+
+            tokenEvent = new AutoResetEvent(false);
+            connectedEvent = new AutoResetEvent(false);
         }
         #endregion
 
@@ -32,7 +39,19 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public object RemoteApi => api;
 
-        public string Token { get => token; set => token = value; }
+        public string Token
+        {
+            get => token;
+
+            set
+            {
+                token = value;
+                if (tokenEvent != null)
+                {
+                    tokenEvent.Set();
+                }
+            }
+        }
 
         public bool Authorized => !string.IsNullOrEmpty(Token);
         #endregion
@@ -49,15 +68,41 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
             if (GlobalApp.ConfigurationService.IsSpotifyInstalled)
             {
-                SPTAppRemote.CheckIfSpotifyAppIsActive((isActive) =>
-                {
-                    if (!isActive)
-                    {
-                        // prompt user to authorize sloopy   
-                    }
+                //SPTAppRemote.CheckIfSpotifyAppIsActive((isActive) =>
+                //{
+                //    if (!isActive)
+                //    {
+                //        // prompt user to authorize sloopy
+                //        api.AuthorizeAndPlayURI(songUri);
+                //    }
+                //});
 
-                    api.AuthorizeAndPlayURI(songUri);
-                });
+                api.AuthorizeAndPlayURI(songUri);
+
+                try
+                {
+                    tokenEvent.WaitOne();
+                    tokenEvent.Dispose();
+                }
+                catch (System.Exception ex)
+                {
+                    // todo: log
+                }
+
+                api.ConnectionParameters.AccessToken = Token;
+                api.Delegate = this;
+
+                MainThread.BeginInvokeOnMainThread(api.Connect);
+
+                try
+                {
+                    connectedEvent.WaitOne();
+                    connectedEvent.Dispose();
+                }
+                catch (System.Exception ex)
+                {
+                    // todo: log
+                }
             }
             else
             {
@@ -68,21 +113,43 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public async Task<bool> InitializeAsync(string songUri = "")
         {
             bool result = false;
-            if (GlobalApp.ConfigurationService.IsSpotifyInstalled)
-            {
-                SPTAppRemote.CheckIfSpotifyAppIsActive((isActive) =>
-                {
-                    //if (!isActive)
-                    //{
-                    result = api.AuthorizeAndPlayURI(songUri);
-                    //}
-                });
 
-                // wait until spotify access token arrives!
-                await GlobalApp.SpotifyTokenCompletionSource.Task;
+            try
+            {
+                await Task.Run(() => Initialize(songUri));
+                result = true;
+            }
+            catch (System.Exception ex)
+            {
+                // todo: log
+                throw;
             }
 
             return result;
+        }
+
+        public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
+        {
+
+        }
+
+        public override void DidEstablishConnection(SPTAppRemote appRemote)
+        {
+            try
+            {
+                connectedEvent.Set();
+                connectedEvent.Dispose();
+            }
+            catch (System.Exception ex)
+            {
+                // todo: log
+            }
+
+        }
+
+        public override void DidFailConnectionAttemptWithError(SPTAppRemote appRemote, NSError error)
+        {
+
         }
         #endregion
     }
