@@ -23,7 +23,4 @@
   <ItemGroup>
     <None Remove="App.config.json" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="App.config.json" />
-  </ItemGroup>
 </Project>
