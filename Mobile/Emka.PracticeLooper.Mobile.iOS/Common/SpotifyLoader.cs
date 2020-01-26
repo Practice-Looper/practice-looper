@@ -60,8 +60,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public void Initialize(string songUri = "")
         {
-            var clientId = configurationService.GetValue("auth:spotify:client:id");
-            var redirectUri = configurationService.GetValue("auth:spotify:client:uri:redirect");
+            var clientId = configurationService.GetValue("SpotifyClientId");
+            var redirectUri = configurationService.GetValue("SpotifyClientRedirectUri");
 
             var appConfig = new SPTConfiguration(clientId, NSUrl.FromString(redirectUri));
             api = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Info);

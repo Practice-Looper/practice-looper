@@ -47,9 +47,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
-                var clientId = configurationService.GetValue("auth:spotify:client:id");
-                var redirectUri = configurationService.GetValue("auth:spotify:client:uri:redirect");
-                var requestCode = configurationService.GetValue("auth:spotify:client:requestCode");
+                var clientId = configurationService.GetValue("SpotifyClientId");
+                var redirectUri = configurationService.GetValue("SpotifyClientRedirectUri");
+                var requestCode = configurationService.GetValue("SpotifyClientRequestCode");
 
                 ConnectionParams connectionParams = new ConnectionParams
                 .Builder(clientId)

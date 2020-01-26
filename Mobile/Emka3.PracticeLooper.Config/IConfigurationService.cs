@@ -31,6 +31,20 @@ namespace Emka3.PracticeLooper.Config
         string GetValue(string key);
 
         /// <summary>
+        /// Adds a value to config service
+        /// </summary>
+        /// <param name="key">key for value storage.</param>
+        /// <param name="value">value to store.</param>
+        void SetValue(string key, object value);
+
+        /// <summary>
+        /// Adds a value to config service async.
+        /// </summary>
+        /// <param name="key">key for value storage.</param>
+        /// <param name="value">value to store.</param>
+        Task SetValueAsync(string key, object value);
+
+        /// <summary>
         /// Gets the value for a generic type.
         /// </summary>
         /// <returns>The value.</returns>

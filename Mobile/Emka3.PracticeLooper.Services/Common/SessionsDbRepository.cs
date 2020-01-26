@@ -22,7 +22,7 @@ namespace Emka3.PracticeLooper.Services.Common
         public SessionsDbRepository()
         {
             this.configService = Factory.GetConfigService();
-            dbName = configService.GetValue("db:name");
+            dbName = configService.GetValue("DbName");
             //Init();
         }
 

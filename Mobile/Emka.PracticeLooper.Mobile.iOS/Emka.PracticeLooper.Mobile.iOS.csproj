@@ -58,6 +58,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignProvision>Loopr-DEV</CodesignProvision>
     <MtouchLink>None</MtouchLink>
+    <BuildIpa>true</BuildIpa>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -70,6 +71,7 @@
     <CodesignKey>iPhone Developer: Maksim Kolesnik (2Y42L78UD6)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <BuildIpa>true</BuildIpa>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -220,6 +222,11 @@
     </PackageReference>
     <PackageReference Include="Plugin.MediaManager">
       <Version>0.9.6</Version>
+    </PackageReference>
+    <PackageReference Include="Mobile.BuildTools">
+      <Version>1.4.0.638</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

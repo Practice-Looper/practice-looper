@@ -32,7 +32,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             }
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
-            var adMobId = GlobalApp.ConfigurationService.GetValue("admob:android:id");
+            var adMobId = Helpers.Secrets.AdmobAndroidId;
             Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, adMobId);
             SQLitePCL.Batteries_V2.Init();
             CrossMediaManager.Current.Init(this);
@@ -82,7 +82,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
                         // Handle error response
                         break;
 
-                    // Most likely auth flow was cancelled
+                        // Most likely auth flow was cancelled
                         // Handle other cases
                 }
             }

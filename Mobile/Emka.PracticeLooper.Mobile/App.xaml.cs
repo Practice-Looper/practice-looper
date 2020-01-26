@@ -1,16 +1,11 @@
 ﻿using System;
 using Emka.PracticeLooper.Mobile.Common;
-using Emka.PracticeLooper.Mobile.ViewModels;
-using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Model.Player;
-using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Config;
-using Emka3.PracticeLooper.Services.Contracts.Rest;
-using System.Collections.Generic;
 using Emka.PracticeLooper.Mobile.Navigation;
 using System.Threading.Tasks;
 
@@ -72,15 +67,23 @@ namespace Emka.PracticeLooper.Mobile
         private void InitConfig()
         {
             ConfigurationService = Factory.GetConfigService();
+            ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientApiUri), Helpers.Secrets.SpotifyClientApiUri);
+            ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyApiLimit), Helpers.Secrets.SpotifyApiLimit);
+            ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientId), Helpers.Secrets.SpotifyClientId);
+            ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientRedirectUri), Helpers.Secrets.SpotifyClientRedirectUri);
+            ConfigurationService.SetValue(nameof(Helpers.Secrets.DbName), Helpers.Secrets.DbName);
+
             if (Device.RuntimePlatform == Device.iOS)
             {
                 ConfigurationService.LocalPath = Environment.GetFolderPath(Environment.SpecialFolder.Resources);
-                BannerAddUnitId = ConfigurationService.GetValue("admob:ios:TopBanner");
+                BannerAddUnitId = Helpers.Secrets.AdmobIosTopBanner;
             }
             else if (Device.RuntimePlatform == Device.Android)
             {
-                BannerAddUnitId = ConfigurationService.GetValue("admob:android:TopBanner");
+                BannerAddUnitId = Helpers.Secrets.AdmobAndroidTopBanner;
                 ConfigurationService.LocalPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+                ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientRequestCode), Helpers.Secrets.SpotifyClientRequestCode);
             }
         }
 

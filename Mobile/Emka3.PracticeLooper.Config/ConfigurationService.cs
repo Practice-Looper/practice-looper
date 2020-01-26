@@ -56,33 +56,33 @@ namespace Emka3.PracticeLooper.Config
         /// </summary>
         private void Initialize()
         {
-            // Load config
-            string json;
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Emka3.PracticeLooper.Config.App.config.json"))
-            using (var reader = new StreamReader(stream))
-            {
-                json = reader.ReadToEnd();
-            }
+            //// Load config
+            //string json;
+            //using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Emka3.PracticeLooper.Config.App.config.json"))
+            //using (var reader = new StreamReader(stream))
+            //{
+            //    json = reader.ReadToEnd();
+            //}
 
-            if (string.IsNullOrEmpty(json))
-            {
-                throw new ArgumentNullException(nameof(json));
-            }
+            //if (string.IsNullOrEmpty(json))
+            //{
+            //    throw new ArgumentNullException(nameof(json));
+            //}
 
-            try
-            {
-                // remove comment properties, since we don't need them in code.
-                JObject conf = JObject.Parse(json);
-                conf.Property("comment").Remove();
+            //try
+            //{
+            //    // remove comment properties, since we don't need them in code.
+            //    JObject conf = JObject.Parse(json);
+            //    conf.Property("comment").Remove();
 
-                // crate dictionary.
-                configs = JsonConvert.DeserializeObject<Dictionary<string, object>>(conf.ToString());
-                conf = null;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //    // crate dictionary.
+            //    configs = JsonConvert.DeserializeObject<Dictionary<string, object>>(conf.ToString());
+            //    conf = null;
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
 
         private async Task InitializeAsync()
@@ -112,12 +112,31 @@ namespace Emka3.PracticeLooper.Config
                 return (T)configs[key];
             }
 
-            return default(T);
+            return default;
         }
 
         public async Task<T> GetValueAsync<T>(string key)
         {
             return await Task.Run(() => GetValue<T>(key));
+        }
+
+        public void SetValue(string key, object value)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                // todo : log
+                throw new ArgumentException(nameof(key));
+            }
+
+            if (configs != null && !configs.ContainsKey(key))
+            {
+                configs.Add(key, value);
+            }
+        }
+
+        public async Task SetValueAsync(string key, object value)
+        {
+            await Task.Run(() => SetValue(key, value)).ConfigureAwait(false);
         }
         #endregion Methods
     }
