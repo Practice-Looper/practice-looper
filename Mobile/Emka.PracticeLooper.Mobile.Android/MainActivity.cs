@@ -4,7 +4,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Support.V4.Content;
-using Com.Spotify.Android.Appremote.Api;
+using Emka.PracticeLooper.Mobile.Droid.Helpers;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using MediaManager;
 
@@ -32,7 +32,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             }
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
-            var adMobId = Helpers.Secrets.AdmobAndroidId;
+            var adMobId = Secrets.AdmobAndroidId;
             Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, adMobId);
             SQLitePCL.Batteries_V2.Init();
             CrossMediaManager.Current.Init(this);
