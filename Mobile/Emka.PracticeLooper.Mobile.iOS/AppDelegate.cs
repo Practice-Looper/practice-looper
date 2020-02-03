@@ -1,4 +1,5 @@
 ﻿using Emka.PracticeLooper.Mobile.iOS.Delegates;
+using Emka.PracticeLooper.Mobile.iOS.Helpers;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Foundation;
@@ -33,7 +34,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
             CrossMediaManager.Current.Init();
             SQLitePCL.Batteries_V2.Init();
             Rg.Plugins.Popup.Popup.Init();
-            var adMobId = "Helpers.Secrets.AdmobIosId";
+            var adMobId = Secrets.AdmobIosId;
             Google.MobileAds.MobileAds.Configure(adMobId);
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
