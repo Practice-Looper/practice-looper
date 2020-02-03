@@ -8,6 +8,10 @@ using MappingsFactory = Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Config;
 using Emka.PracticeLooper.Mobile.Navigation;
 using System.Threading.Tasks;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Device = Xamarin.Forms.Device;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -31,6 +35,7 @@ namespace Emka.PracticeLooper.Mobile
             InitConfig();
             InitApp();
             await InitNavigation();
+            AppCenter.Start($"ios={Helpers.Secrets.AppCenterIos};android={Helpers.Secrets.AppCenterAndroid}", typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()
