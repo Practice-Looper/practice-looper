@@ -47,6 +47,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         private int CurrentStartPosition { get; set; }
         private int CurrentEndPosition { get; set; }
         public SpotifyAppRemote Api { get => spotifyLoader.RemoteApi as SpotifyAppRemote; }
+        public AudioSourceType Type => AudioSourceType.Spotify;
+        public string DisplayName => "Spotify";
         #endregion
 
         #region Events

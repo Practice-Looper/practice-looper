@@ -28,7 +28,7 @@
     <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <CodesignProvision>Loopr-DEV</CodesignProvision>
     <CodesignKey>iPhone Developer: Maksim Kolesnik (2Y42L78UD6)</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
@@ -187,6 +187,10 @@
     <ImageAsset Include="Assets.xcassets\Close.imageset\ic_close_black_48dp.png" />
     <ImageAsset Include="Assets.xcassets\Close.imageset\ic_close_black_48dp-1.png" />
     <ImageAsset Include="Assets.xcassets\Close.imageset\ic_close_black_48dp-2.png" />
+    <ImageAsset Include="Assets.xcassets\Play.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Play.imageset\ic_play_arrow_black_48dp.png" />
+    <ImageAsset Include="Assets.xcassets\Play.imageset\ic_play_arrow_black_48dp-1.png" />
+    <ImageAsset Include="Assets.xcassets\Play.imageset\ic_play_arrow_black_48dp-2.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -228,6 +232,15 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter">
+      <Version>2.6.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Crashes">
+      <Version>2.6.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Analytics">
+      <Version>2.6.4</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Emka.PracticeLooper.Mobile\Emka.PracticeLooper.Mobile.csproj">
@@ -265,6 +278,7 @@
     <Folder Include="Assets.xcassets\Close.imageset\" />
     <Folder Include="Delegates\" />
     <Folder Include="Sounds\" />
+    <Folder Include="Assets.xcassets\Play.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Sounds\Coumarin_Mirage_Vers3.mp3" />

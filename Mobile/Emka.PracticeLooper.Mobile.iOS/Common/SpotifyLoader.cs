@@ -138,7 +138,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             try
             {
                 connectedEvent.Set();
-                connectedEvent.Dispose();
             }
             catch (System.Exception ex)
             {

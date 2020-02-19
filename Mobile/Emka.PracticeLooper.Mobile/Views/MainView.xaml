@@ -2,10 +2,7 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Emka.PracticeLooper.Mobile"
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
-    xmlns:vm="clr-namespace:Emka.PracticeLooper.Mobile.ViewModels"
-    xmlns:extension="clr-namespace:Emka.PracticeLooper.Mobile.Extensions"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     ios:Page.UseSafeArea="true"
     x:Class="Emka.PracticeLooper.Mobile.Views.MainView"
@@ -149,7 +146,7 @@
                         <ImageButton
                             Grid.Row="1"
                             HorizontalOptions="Center"
-                            Source="Loop.png"
+                            Source="Play.png"
                             Command="{Binding PlayCommand}">
                         </ImageButton>
                     </Grid>

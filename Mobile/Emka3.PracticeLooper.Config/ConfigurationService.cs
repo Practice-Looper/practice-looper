@@ -83,6 +83,7 @@ namespace Emka3.PracticeLooper.Config
             //{
             //    throw ex;
             //}
+            configs = new Dictionary<string, object>();
         }
 
         private async Task InitializeAsync()

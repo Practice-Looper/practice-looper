@@ -28,7 +28,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
 
             if (ConfigurationService.IsSpotifyInstalled)
             {
-                resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer), AudioSourceType.Spotify.ToString());
+                resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
                 resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
             }         
 

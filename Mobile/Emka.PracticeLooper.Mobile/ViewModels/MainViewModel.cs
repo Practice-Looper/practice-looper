@@ -222,11 +222,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
-                audioPlayers = new Dictionary<AudioSourceType, IAudioPlayer>
-                {
-                    { AudioSourceType.Spotify, Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Spotify.ToString())},
-                    { AudioSourceType.Local, Factory.GetResolver().ResolveNamed<IAudioPlayer>(AudioSourceType.Local.ToString()) }
-                };
+                audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>().ToDictionary(player => player.Type);
 
                 sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
                 sessionsRepository.Init();
@@ -240,8 +236,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     {
                         Sessions.Add(item);
                     }
-                    //var x = Factory.GetResolver().Resolve<ISpotifyLoader>();
-                    //x.Initialize();
                 });
             }
             catch (Exception ex)
