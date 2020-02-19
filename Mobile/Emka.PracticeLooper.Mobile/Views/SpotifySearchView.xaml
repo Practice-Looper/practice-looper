@@ -34,8 +34,7 @@
                     BackgroundColor="Transparent">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell
-                                Height="80">
+                            <ViewCell>
                                 <Grid
                                     VerticalOptions="FillAndExpand"
                                     HorizontalOptions="FillAndExpand">
@@ -45,69 +44,57 @@
                                         <ColumnDefinition
                                             Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <!--<views:CircleImage
-                                        Grid.Column="0"
-                                        Source="{Binding Album.ImageSmall}"
-                                        HeightRequest="64"
-                                        WidthRequest="64"
-                                        Aspect="AspectFill"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="Center"
-                                        Margin="10,0" />-->
-                                    <Frame
-                                        CornerRadius="20"
+                                    <!--<Frame
                                         Padding="0"
-                                        IsClippedToBounds="True"
-                                        Margin="10,0">
+                                        IsClippedToBounds="True">
                                         <Image
                                             Source="{Binding Album.ImageSmall}"
                                             HeightRequest="64"
                                             WidthRequest="64"
                                             HorizontalOptions="Center"
                                             VerticalOptions="Center" />
-                                    </Frame>
+                                    </Frame>-->
+                                    <Image
+                                        Grid.Column="0"
+                                        Source="{Binding Album.ImageSmall}"
+                                        HeightRequest="64"
+                                        WidthRequest="64"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
                                     <Grid
-                                        VerticalOptions="Center"
+                                        VerticalOptions="CenterAndExpand"
                                         Grid.Column="1">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                            <RowDefinition />
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition
-                                                Width="Auto" />
-                                            <ColumnDefinition
-                                                Width="Auto" />
-                                            <ColumnDefinition
-                                                Width="Auto" />
-                                        </Grid.ColumnDefinitions>
                                         <Label
                                             Grid.Row="0"
-                                            Grid.Column="0"
-                                            Grid.ColumnSpan="3"
                                             Text="{Binding Name}"
                                             TextColor="{x:Static views:ColorConstants.Secondary}"
-                                            FontSize="Header" />
-                                        <Label
-                                            Grid.Row="1"
-                                            Grid.Column="0"
-                                            Text="{Binding ArtistNames}"
-                                            TextColor="{x:Static views:ColorConstants.Secondary}"
-                                            FontSize="Micro"
-                                            LineBreakMode="MiddleTruncation" />
-                                        <Label
-                                            Grid.Row="1"
-                                            Grid.Column="1"
-                                            Text="-"
-                                            TextColor="{x:Static views:ColorConstants.Secondary}"
-                                            FontSize="Micro" />
-                                        <Label
-                                            Grid.Row="1"
-                                            Grid.Column="2"
-                                            Text="{Binding Album.Name}"
-                                            TextColor="{x:Static views:ColorConstants.Secondary}"
-                                            FontSize="Micro"
-                                            LineBreakMode="MiddleTruncation" />
+                                            FontSize="Title"
+                                            VerticalOptions="Center"
+                                            LineBreakMode="NoWrap" />
+                                        <StackLayout
+                                            Orientation="Horizontal"
+                                            VerticalOptions="Center"
+                                            Grid.Row="1">
+                                            <Label
+                                                Text="{Binding ArtistNames}"
+                                                TextColor="{x:Static views:ColorConstants.Secondary}"
+                                                FontSize="Micro"
+                                                LineBreakMode="MiddleTruncation" />
+                                            <Label
+                                                Text="-"
+                                                TextColor="{x:Static views:ColorConstants.Secondary}"
+                                                FontSize="Micro" />
+                                            <Label
+                                                Text="{Binding Album.Name}"
+                                                TextColor="{x:Static views:ColorConstants.Secondary}"
+                                                FontSize="Micro"
+                                                LineBreakMode="MiddleTruncation" />
+                                        </StackLayout>
+
                                     </Grid>
                                 </Grid>
                             </ViewCell>

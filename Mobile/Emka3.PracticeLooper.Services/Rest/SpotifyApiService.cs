@@ -27,7 +27,7 @@ namespace Emka3.PracticeLooper.Services.Rest
         public SpotifyApiService(IAccountManager accountManager)
         {
             apiClient = new HttpApiClient(Factory.GetConfigService().GetValue("SpotifyClientApiUri"), accountManager);
-            limit = short.Parse(Factory.GetConfigService().GetValue("SpotifyApiLimit"));
+            limit = Factory.GetConfigService().GetValue<int>("SpotifyApiLimit");
         }
 
         public async Task<SpotifyAlbum> SearchAlbumById(string id, CancellationToken cancellationToken)

@@ -43,14 +43,14 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         #region Properties
         public bool IsPlaying => isPlaying;
-
         public double SongDuration { get { return internalSongDuration * 1000; } }
-
         public Loop CurrentLoop { get; set; }
-
         private int CurrentStartPosition { get; set; }
         private int CurrentEndPosition { get; set; }
         public SPTAppRemote Api { get => spotifyLoader.RemoteApi as SPTAppRemote; }
+        public AudioSourceType Type => AudioSourceType.Spotify;
+
+        public string DisplayName => "Spotify";
         #endregion
 
         #region Events

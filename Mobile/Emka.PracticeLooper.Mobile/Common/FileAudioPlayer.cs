@@ -40,6 +40,10 @@ namespace Emka.PracticeLooper.Mobile.Common
         private Loop CurrentLoop { get; set; }
         private int CurrentStartPosition { get; set; }
         private int CurrentEndPosition { get; set; }
+
+        public AudioSourceType Type => AudioSourceType.Local;
+
+        public string DisplayName => "File";
         #endregion
 
         #region Methods

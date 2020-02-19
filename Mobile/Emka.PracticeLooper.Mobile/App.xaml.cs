@@ -54,10 +54,10 @@ namespace Emka.PracticeLooper.Mobile
             {
                 // Register common forms types
                 MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
-                resolver.Register(typeof(FilePicker), typeof(Common.IFilePicker));
+                resolver.Register(typeof(FilePicker), typeof(IFilePicker));
                 resolver.Register(typeof(NavigationService), typeof(INavigationService));
                 resolver.Register(typeof(SourcePicker), typeof(ISourcePicker));
-                resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer), AudioSourceType.Local.ToString());
+                resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer));
 
                 // Build container after platform implementations have been registered
                 MappingsFactory.Factory.GetResolver().BuildContainer();
