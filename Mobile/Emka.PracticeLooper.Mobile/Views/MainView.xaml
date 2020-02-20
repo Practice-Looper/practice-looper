@@ -10,7 +10,7 @@
     Style="{StaticResource PageMainStyle}"
     x:Name="mainPage">
     <!--https://mycolor.space/?hex=%2359677C&sub=1-->
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition
                 Height="Auto" />

@@ -23,4 +23,7 @@
   <ItemGroup>
     <None Remove="App.config.json" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Feature\" />
+  </ItemGroup>
 </Project>

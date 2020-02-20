@@ -26,4 +26,7 @@
     <Folder Include="Rest\" />
     <Folder Include="Player\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Player\PremiumAudioPlayer.cs" />
+  </ItemGroup>
 </Project>

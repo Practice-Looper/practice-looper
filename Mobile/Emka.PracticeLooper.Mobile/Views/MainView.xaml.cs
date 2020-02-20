@@ -1,4 +1,5 @@
 ﻿using Emka.PracticeLooper.Mobile.ViewModels;
+using Emka3.PracticeLooper.Config.Feature;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.Views
@@ -9,8 +10,11 @@ namespace Emka.PracticeLooper.Mobile.Views
         public MainView()
         {
             InitializeComponent();
-            
-            this.BindingContext = new MainViewModel();
+            BindingContext = new MainViewModel();
+            if (!FeatureRegistry.IsEnabled<AdMobView>())
+            {
+                MainGrid.Children.Remove(AdmobBanner);
+            }
         }
         #endregion
 

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.Messenger;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
+using Emka3.PracticeLooper.Config.Feature;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;

@@ -7,19 +7,15 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Emka.PracticeLooper.Mobile.iOS.Delegates;
-using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
-using Foundation;
 using SpotifyBindings.iOS;
 using Xamarin.Essentials;
-using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
-    public class SpotifyAudioPlayer : IAudioPlayer
+    public class SpotifyAudioPlayer : IPremiumAudioPlayer
     {
         #region Fields
         private Session session;

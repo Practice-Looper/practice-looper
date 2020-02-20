@@ -1,14 +1,13 @@
 ﻿// Copyright (C)  - All Rights Reserved
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
-// Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
-using System.Threading.Tasks;
+// Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
+
 using Emka3.PracticeLooper.Config.Feature;
 
-namespace Emka.PracticeLooper.Mobile.Common
+namespace Emka3.PracticeLooper.Services.Contracts.Player
 {
-    public interface ISourcePicker : IFeature
+    public interface PremiumAudioPlayer : IAudioPlayer, IFeature
     {
-        Task<string> SelectFileSource();
     }
 }

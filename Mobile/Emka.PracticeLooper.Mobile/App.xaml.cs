@@ -1,6 +1,5 @@
 ﻿using System;
 using Emka.PracticeLooper.Mobile.Common;
-using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,6 +11,9 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Device = Xamarin.Forms.Device;
+using Emka3.PracticeLooper.Config.Feature;
+using Emka.PracticeLooper.Mobile.Views;
+using System.Collections.Generic;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -20,6 +22,7 @@ namespace Emka.PracticeLooper.Mobile
     {
         public static IConfigurationService ConfigurationService { get; private set; }
         public static string BannerAddUnitId { get; private set; }
+        public static bool HasPremium = false;
 
         public App()
         {
@@ -52,6 +55,10 @@ namespace Emka.PracticeLooper.Mobile
         {
             try
             {
+                FeatureRegistry.Add<AdMobView>(!HasPremium);
+                FeatureRegistry.Add<IPremiumAudioPlayer>(HasPremium);
+                FeatureRegistry.Add<ISourcePicker>(HasPremium);
+
                 // Register common forms types
                 MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
                 resolver.Register(typeof(FilePicker), typeof(IFilePicker));
