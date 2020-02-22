@@ -130,6 +130,7 @@
     <Compile Include="Renderer\CircleImageRenderer.cs" />
     <Compile Include="Common\AudioMetadataReader.cs" />
     <Compile Include="Common\AudioMetadata.cs" />
+    <Compile Include="Common\InterstitialAd.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

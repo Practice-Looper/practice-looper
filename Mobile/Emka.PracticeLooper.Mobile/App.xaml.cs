@@ -88,14 +88,16 @@ namespace Emka.PracticeLooper.Mobile
             if (Device.RuntimePlatform == Device.iOS)
             {
                 ConfigurationService.LocalPath = Environment.GetFolderPath(Environment.SpecialFolder.Resources);
-                BannerAddUnitId = Helpers.Secrets.AdmobIosTopBanner;
+                BannerAddUnitId = Helpers.Secrets.AdmobIosTopBannerAdId;
+                ConfigurationService.SetValue(nameof(Helpers.Secrets.AdmobIosInterstitialProjectAdId), Helpers.Secrets.AdmobIosInterstitialProjectAdId);
             }
             else if (Device.RuntimePlatform == Device.Android)
             {
-                BannerAddUnitId = Helpers.Secrets.AdmobAndroidTopBanner;
+                BannerAddUnitId = Helpers.Secrets.AdmobAndroidTopBanneAdId;
                 ConfigurationService.LocalPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
                 ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientRequestCode), Helpers.Secrets.SpotifyClientRequestCode);
+                ConfigurationService.SetValue(nameof(Helpers.Secrets.AdmobAndroidInterstitialProjectAdId), Helpers.Secrets.AdmobAndroidInterstitialProjectAdId);
             }
         }
 

@@ -34,8 +34,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
             CrossMediaManager.Current.Init();
             SQLitePCL.Batteries_V2.Init();
             Rg.Plugins.Popup.Popup.Init();
-            var adMobId = Secrets.AdmobIosId;
-            Google.MobileAds.MobileAds.Configure(adMobId);
+            Google.MobileAds.MobileAds.Configure(Secrets.AdmobIosAppId);
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
             return base.FinishedLaunching(app, options);

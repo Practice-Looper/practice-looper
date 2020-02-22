@@ -138,6 +138,7 @@
     <Compile Include="Common\AudioMetadataReader.cs" />
     <Compile Include="Common\SpotifyLoader.cs" />
     <Compile Include="Common\SpotifyAudioPlayer.cs" />
+    <Compile Include="Common\InterstitialAd.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

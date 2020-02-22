@@ -16,7 +16,6 @@ namespace Emka.PracticeLooper.Mobile.iOS
 {
     internal static class GlobalApp
     {
-        private static bool HasPremium = false;
         public static void Init()
         {
             ConfigurationService = Factory.GetConfigService();
@@ -31,6 +30,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
 
             resolver.Register(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
+            resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
         }
 
         internal static IConfigurationService ConfigurationService { get; private set; }

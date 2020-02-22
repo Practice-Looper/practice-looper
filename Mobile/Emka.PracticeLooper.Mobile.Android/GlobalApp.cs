@@ -20,6 +20,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
             ConfigurationService = Factory.GetConfigService();
             ConfigurationService.IsSpotifyInstalled = IsAppInstalled("com.spotify.music");
             MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
+
+            resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
             resolver.Register(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
 

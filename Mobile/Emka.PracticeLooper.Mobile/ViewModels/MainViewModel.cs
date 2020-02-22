@@ -25,6 +25,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     {
         #region Fields
         private IDictionary<AudioSourceType, IAudioPlayer> audioPlayers;
+        private IInterstitialAd interstitialAd;
         private IRepository<Session> sessionsRepository;
         private IFileRepository fileRepository;
         private ISourcePicker sourcePicker;
@@ -224,7 +225,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             try
             {
                 audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>().ToDictionary(player => player.Type);
-
+                interstitialAd = Factory.GetResolver().Resolve<IInterstitialAd>();
                 sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
                 sessionsRepository.Init();
                 fileRepository = Factory.GetResolver().Resolve<IFileRepository>();
@@ -358,6 +359,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
             var source = await sourcePicker.SelectFileSource();
+            interstitialAd.ShowAd();
 
             switch (source)
             {

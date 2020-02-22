@@ -32,7 +32,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             }
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
-            var adMobId = Secrets.AdmobAndroidId;
+            var adMobId = Secrets.AdmobAndroidAppId;
             Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, adMobId);
             SQLitePCL.Batteries_V2.Init();
             CrossMediaManager.Current.Init(this);
