@@ -61,5 +61,7 @@
 		<string>fetch</string>
 		<string>processing</string>
 	</array>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-9188939990576233~6920188221</string>
 </dict>
 </plist>
