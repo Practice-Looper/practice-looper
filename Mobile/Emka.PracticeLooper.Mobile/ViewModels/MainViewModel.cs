@@ -359,7 +359,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
             var source = await sourcePicker.SelectFileSource();
-            interstitialAd.ShowAd();
+            await interstitialAd.ShowAdAsync();
 
             switch (source)
             {
@@ -376,7 +376,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     var canNavigate = true;
                     if (canNavigate)
                     {
-                        await Task.Run(()=>spotifyLoader.Initialize());
+                        await Task.Run(() => spotifyLoader.Initialize());
                         await NavigationService.NavigateToAsync<SpotifySearchViewModel>();
                     }
 

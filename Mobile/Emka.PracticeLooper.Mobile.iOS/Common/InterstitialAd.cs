@@ -3,9 +3,14 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Emka3.PracticeLooper.Config.Feature;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Google.MobileAds;
 using UIKit;
+using Xamarin.Essentials;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
@@ -13,14 +18,18 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
     {
         #region Fields
         Interstitial interstitialAd;
+        AutoResetEvent adClosedEvent;
         #endregion
 
         #region Ctor
 
         public InterstitialAd()
         {
-            LoadAd();
-            interstitialAd.ScreenDismissed += (s, e) => LoadAd();
+            if (FeatureRegistry.IsEnabled<IInterstitialAd>())
+            {
+                LoadAd();
+            }
+
         }
         #endregion
 
@@ -31,7 +40,33 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             if (interstitialAd.IsReady)
             {
                 var viewController = GetVisibleViewController();
-                interstitialAd.PresentFromRootViewController(viewController);
+                interstitialAd.Present(viewController);
+            }
+        }
+
+        public async Task ShowAdAsync()
+        {
+            // todo: block if ad is loading...
+            if (FeatureRegistry.IsEnabled<IInterstitialAd>() && interstitialAd.IsReady)
+            {
+                adClosedEvent = new AutoResetEvent(false);
+                await Task.Run(() =>
+                {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        var viewController = GetVisibleViewController();
+
+                        interstitialAd.ScreenDismissed += OnAdClosed;
+                        interstitialAd.Present(viewController);
+                    });
+
+                    adClosedEvent.WaitOne();
+                });
+            }
+
+            if (FeatureRegistry.IsEnabled<IInterstitialAd>())
+            {
+                MainThread.BeginInvokeOnMainThread(LoadAd);
             }
         }
 
@@ -61,6 +96,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
 
             return rootController.PresentedViewController;
+        }
+
+        void OnAdClosed(object o, EventArgs e)
+        {
+            adClosedEvent.Set();
         }
         #endregion
     }

@@ -8473,10 +8473,13 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int notify_panel_notification_icon_bg = 2131165530;
 			
 			// aapt resource value: 0x7F07015B
-			public const int tooltip_frame_dark = 2131165531;
+			public const int Play = 2131165531;
 			
 			// aapt resource value: 0x7F07015C
-			public const int tooltip_frame_light = 2131165532;
+			public const int tooltip_frame_dark = 2131165532;
+			
+			// aapt resource value: 0x7F07015D
+			public const int tooltip_frame_light = 2131165533;
 			
 			static Drawable()
 			{

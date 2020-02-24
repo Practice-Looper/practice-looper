@@ -13,7 +13,7 @@ using Microsoft.AppCenter.Crashes;
 using Device = Xamarin.Forms.Device;
 using Emka3.PracticeLooper.Config.Feature;
 using Emka.PracticeLooper.Mobile.Views;
-using System.Collections.Generic;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -56,12 +56,13 @@ namespace Emka.PracticeLooper.Mobile
             try
             {
                 FeatureRegistry.Add<AdMobView>(!HasPremium);
+                FeatureRegistry.Add<IInterstitialAd>(!HasPremium);
                 FeatureRegistry.Add<IPremiumAudioPlayer>(HasPremium);
                 FeatureRegistry.Add<ISourcePicker>(HasPremium);
 
                 // Register common forms types
                 MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
-                resolver.Register(typeof(FilePicker), typeof(IFilePicker));
+                resolver.Register(typeof(FilePicker), typeof(Common.IFilePicker));
                 resolver.Register(typeof(NavigationService), typeof(INavigationService));
                 resolver.Register(typeof(SourcePicker), typeof(ISourcePicker));
                 resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer));
