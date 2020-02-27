@@ -42,6 +42,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AndroidLinkMode>None</AndroidLinkMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildIOS|AnyCPU' ">
     <DebugType></DebugType>
@@ -211,12 +212,6 @@
       <Project>{C15009EA-B815-485E-88A0-FDB49F1842B4}</Project>
       <Name>Emka3.PracticeLooper.Config</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProguardConfiguration Include="Proguard.cfg" />
-  </ItemGroup>
-  <ItemGroup>
-    <MultiDexMainDexList Include="multidex.keep" />
   </ItemGroup>
  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
