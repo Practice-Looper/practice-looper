@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
-using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using SpotifyBindings.iOS;
 using Xamarin.Essentials;
@@ -25,7 +24,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private bool isPlaying;
         private double internalSongDuration;
         const int CURRENT_TIME_UPDATE_INTERVAL = 1000;
-        private bool hasSpotifyPlayerSubscription;
         #endregion
 
         #region Ctor
@@ -40,7 +38,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #region Properties
         public bool Initialized { get; private set; }
         public bool IsPlaying => isPlaying;
-        public double SongDuration { get { return internalSongDuration * 1000; } }
+        public double SongDuration => internalSongDuration;
         public Loop CurrentLoop { get; set; }
         private int CurrentStartPosition { get; set; }
         private int CurrentEndPosition { get; set; }
@@ -60,12 +58,13 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public void Init(Loop loop)
         {
             this.session = loop.Session;
+
+            internalSongDuration = TimeSpan.FromSeconds(session.AudioSource.Duration).TotalMilliseconds;
             CurrentLoop = session.Loops[0];
             CurrentLoop.StartPositionChanged += OnStartPositionChanged;
             CurrentLoop.EndPositionChanged += OnEndPositionChanged;
             CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
             CurrentEndPosition = ConvertToInt(CurrentLoop.EndPosition);
-            internalSongDuration = TimeSpan.FromMilliseconds(session.AudioSource.Duration).TotalSeconds;
             currentTimeCancelTokenSource = new CancellationTokenSource();
 
             timer.LoopTimerExpired += LoopTimerExpired;
@@ -93,7 +92,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    Api.PlayerAPI.Play(session.AudioSource.Source, (o, e) => {   });
+                    Api.PlayerAPI.Play(session.AudioSource.Source, (o, e) => { });
                 });
 
                 timer.SetLoopTimer(CurrentEndPosition - CurrentStartPosition);
@@ -110,7 +109,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 try
                 {
-                    var seekTo = Convert.ToInt32(time * session.AudioSource.Duration);
+                    var seekTo = Convert.ToInt32(time * internalSongDuration);
                     Api.PlayerAPI.SeekToPosition(seekTo, (o, e) =>
                     {
                         if (e != null)
@@ -144,9 +143,14 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
         }
 
-        public Task InitAsync(Loop session)
+        public async Task InitAsync(Loop loop)
         {
-            throw new NotImplementedException();
+            if (!spotifyLoader.Authorized)
+            {
+                await spotifyLoader.InitializeAsync();
+            }
+
+            await Task.Run(() => Init(loop));
         }
 
         public async Task PlayAsync()
@@ -154,14 +158,14 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             await Task.Run(Play);
         }
 
-        public Task PauseAsync()
+        public async Task PauseAsync()
         {
-            throw new NotImplementedException();
+            await Task.Run(Pause);
         }
 
-        public Task SeekAsync(double time)
+        public async Task SeekAsync(double time)
         {
-            throw new NotImplementedException();
+            await Task.Run(() => Seek(time));
         }
 
         private void CurrentPositionTimerExpired(object sender, EventArgs e)
@@ -184,7 +188,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             int result;
             try
             {
-                result = Convert.ToInt32(inValue * session.AudioSource.Duration);
+                result = Convert.ToInt32(inValue * internalSongDuration);
             }
             catch (Exception)
             {

@@ -5,7 +5,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config;
-using Emka3.PracticeLooper.Services.Contracts.Common;
+using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
 using SpotifyBindings.iOS;
 using Xamarin.Essentials;
@@ -19,7 +19,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private SPTAppRemote api;
         static AutoResetEvent tokenEvent;
         static AutoResetEvent connectedEvent;
-        private bool authorized;
         private string token;
         private readonly IConfigurationService configurationService;
         #endregion
@@ -89,10 +88,15 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                     // todo: log
                 }
 
-                api.ConnectionParameters.AccessToken = Token;
-                api.Delegate = this;
+                //api.ConnectionParameters.AccessToken = Token;
+                //api.Delegate = this;
 
-                MainThread.BeginInvokeOnMainThread(api.Connect);
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    api.ConnectionParameters.AccessToken = Token;
+                    api.Delegate = this;
+                    api.Connect();
+                });
 
                 try
                 {
@@ -130,7 +134,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
         {
-
+            Initialize();
         }
 
         public override void DidEstablishConnection(SPTAppRemote appRemote)

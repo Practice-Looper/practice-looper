@@ -112,7 +112,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 minimumValue = value;
                 if (Sessions.Any())
                 {
-                    LoopStartPosition = FormatTime(minimumValue * CurrentAudioPlayer.SongDuration);
+                    LoopStartPosition = FormatTime(minimumValue * CurrentLoop.Session.AudioSource.Duration * 1000);
                 }
 
                 NotifyPropertyChanged();
@@ -137,7 +137,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 maximumValue = value;
                 if (Sessions.Any())
                 {
-                    LoopEndPosition = FormatTime(maximumValue * CurrentAudioPlayer.SongDuration);
+                    LoopEndPosition = FormatTime(maximumValue * CurrentLoop.Session.AudioSource.Duration * 1000);
                 }
 
                 NotifyPropertyChanged();
@@ -309,6 +309,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             if (CurrentAudioPlayer.IsPlaying)
             {
+                Device.BeginInvokeOnMainThread(() => IsPlaying = false);
                 Device.BeginInvokeOnMainThread(CurrentAudioPlayer.Pause);
                 CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
                 CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
@@ -317,16 +318,25 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             else
             {
                 // todo: detach handler
-                CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
-                CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
-                CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
-
-                if (!CurrentAudioPlayer.Initialized)
+                try
                 {
-                    await CurrentAudioPlayer.InitAsync(CurrentLoop);
-                }
+                    CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
+                    CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
+                    CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
 
-                await CurrentAudioPlayer.PlayAsync();
+                    if (!CurrentAudioPlayer.Initialized)
+                    {
+                        await CurrentAudioPlayer.InitAsync(CurrentLoop);
+                    }
+
+                    await CurrentAudioPlayer.PlayAsync();
+                    Device.BeginInvokeOnMainThread(() => IsPlaying = true);
+                }
+                catch (Exception ex)
+                {
+                    // todo: log
+                    Console.WriteLine(ex);
+                }
             }
         }
 
@@ -405,24 +415,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             if (CurrentSession != null)
             {
-
-                configService = ConfigFactory.GetConfigService();
-
-                //var hasPremium = configService.GetValue<bool>("HasPremium");
-                //audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>().ToDictionary(player => player.Type);
-
-                //if (hasPremium)
-                //{
-                //    var premiumPlayers = Factory.GetResolver().ResolveAll<IPremiumAudioPlayer>().ToDictionary(player => player.Type);
-                //    audioPlayers.
-                //}
-
                 CurrentAudioPlayer = audioPlayers[CurrentSession.AudioSource.Type];
                 CurrentLoop = CurrentSession.Loops[0];
                 MinimumValue = CurrentLoop.StartPosition;
                 MaximumValue = CurrentLoop.EndPosition;
                 SongDuration = FormatTime(CurrentLoop.Session.AudioSource.Duration * 1000);
-                CurrentSongTime = FormatTime(CurrentLoop.Session.AudioSource.Duration * MinimumValue);
+                CurrentSongTime = FormatTime(CurrentLoop.Session.AudioSource.Duration * 1000 * MinimumValue);
             }
             else
             {

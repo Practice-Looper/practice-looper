@@ -114,9 +114,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Common\FilePicker.cs" />
     <Compile Include="GlobalApp.cs" />
-    <Compile Include="Common\FileAudioPlayer.cs" />
     <Compile Include="Renderer\EntryBorderRenderer.cs" />
     <Compile Include="Effects\SafeAreaPaddingEffect.cs" />
     <Compile Include="Extensions\UIColorExtensions.cs" />
@@ -180,10 +178,6 @@
     <ImageAsset Include="Assets.xcassets\Add.imageset\ic_add_black_48dp.png" />
     <ImageAsset Include="Assets.xcassets\Add.imageset\ic_add_black_48dp-1.png" />
     <ImageAsset Include="Assets.xcassets\Add.imageset\ic_add_black_48dp-2.png" />
-    <ImageAsset Include="Assets.xcassets\Loop.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\Loop.imageset\ic_loop_black_48dp.png" />
-    <ImageAsset Include="Assets.xcassets\Loop.imageset\ic_loop_black_48dp-1.png" />
-    <ImageAsset Include="Assets.xcassets\Loop.imageset\ic_loop_black_48dp-2.png" />
     <ImageAsset Include="Assets.xcassets\Close.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Close.imageset\ic_close_black_48dp.png" />
     <ImageAsset Include="Assets.xcassets\Close.imageset\ic_close_black_48dp-1.png" />
@@ -284,6 +278,7 @@
   <ItemGroup>
     <BundleResource Include="Sounds\Coumarin_Mirage_Vers3.mp3" />
     <BundleResource Include="secrets.json" />
+    <BundleResource Include="materialdesignicons.ttf" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

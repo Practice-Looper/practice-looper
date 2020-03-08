@@ -1,7 +1,7 @@
-﻿using Emka.PracticeLooper.Mobile.iOS.Delegates;
-using Emka.PracticeLooper.Mobile.iOS.Helpers;
+﻿using Emka.PracticeLooper.Mobile.iOS.Helpers;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Services.Contracts.Common;
+using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
 using MediaManager;
 using SpotifyBindings.iOS;
@@ -34,7 +34,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
             CrossMediaManager.Current.Init();
             SQLitePCL.Batteries_V2.Init();
             Rg.Plugins.Popup.Popup.Init();
-            Google.MobileAds.MobileAds.Configure(Secrets.AdmobIosAppId);
+            Google.MobileAds.MobileAds.SharedInstance.Start(null);
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
             return base.FinishedLaunching(app, options);
