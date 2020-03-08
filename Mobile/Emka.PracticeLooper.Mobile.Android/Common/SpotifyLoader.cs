@@ -4,7 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 
 using System.Threading.Tasks;
-using Emka3.PracticeLooper.Services.Contracts.Common;
+using Emka3.PracticeLooper.Services.Contracts.Player;
 using Com.Spotify.Android.Appremote.Api;
 using Emka3.PracticeLooper.Config;
 using Android.App;
@@ -49,7 +49,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             {
                 var clientId = configurationService.GetValue("SpotifyClientId");
                 var redirectUri = configurationService.GetValue("SpotifyClientRedirectUri");
-                var requestCode = configurationService.GetValue("SpotifyClientRequestCode");
+                var requestCode = configurationService.GetValue<int>("SpotifyClientRequestCode");
+                var scopes = configurationService.GetValue<string>("SpotifyClientScopes");
 
                 ConnectionParams connectionParams = new ConnectionParams
                 .Builder(clientId)
@@ -62,9 +63,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 Com.Spotify.Sdk.Android.Auth.AuthorizationRequest.Builder builder =
         new Com.Spotify.Sdk.Android.Auth.AuthorizationRequest.Builder(clientId, Com.Spotify.Sdk.Android.Auth.AuthorizationResponse.Type.Token, redirectUri);
 
-                builder.SetScopes(new[] { "streaming" });
+                builder.SetScopes(scopes.Split(" "));
                 Com.Spotify.Sdk.Android.Auth.AuthorizationRequest request = builder.Build();
-                var context = GlobalApp.MainActivity;
                 Com.Spotify.Sdk.Android.Auth.AuthorizationClient.OpenLoginActivity(GlobalApp.MainActivity, Convert.ToInt32(requestCode), request);
 
                 autoResetEvent.WaitOne();

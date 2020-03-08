@@ -29,15 +29,15 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (e.PropertyName == nameof(BannerView.AdUnitID))
-                Control.AdUnitID = Element.AdUnitId;
+            if (e.PropertyName == nameof(BannerView.AdUnitId))
+                Control.AdUnitId = Element.AdUnitId;
         }
 
         private BannerView CreateBannerView()
         {
             var bannerView = new BannerView(AdSizeCons.SmartBannerPortrait)
             {
-                AdUnitID = Element.AdUnitId,
+                AdUnitId = Element.AdUnitId,
                 RootViewController = GetVisibleViewController()
             };
 

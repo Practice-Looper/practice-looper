@@ -5,13 +5,10 @@
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
-		<integer>2</integer>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -36,8 +33,6 @@
 	<true/>
 	<key>UISupportsDocumentBrowser</key>
 	<true/>
-	<key>CFBundleName</key>
-	<string>Loopr</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -63,5 +58,11 @@
 	</array>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-9188939990576233~6920188221</string>
+	<key>CFBundleName</key>
+	<string>Practice Looper</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>materialdesignicons.ttf</string>
+	</array>
 </dict>
 </plist>

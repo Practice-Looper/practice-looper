@@ -17,7 +17,6 @@ namespace Emka.PracticeLooper.Mobile.Common
         #region Fields
         double internalSongDuration;
         private IMediaItem mediaItem;
-        private IMediaManager mediaManager;
         bool pausedByUser;
         #endregion
 
@@ -35,6 +34,7 @@ namespace Emka.PracticeLooper.Mobile.Common
         #endregion
 
         #region Propeties
+        public bool Initialized { get; private set; }
         public bool IsPlaying => CrossMediaManager.Current != null && CrossMediaManager.Current.IsPlaying();
         public double SongDuration { get { return internalSongDuration * 1000; } }
         private Loop CurrentLoop { get; set; }
@@ -82,8 +82,6 @@ namespace Emka.PracticeLooper.Mobile.Common
             CurrentStartPosition = ConvertToInt(e);
             if (IsPlaying)
             {
-                //Pause();
-                //Seek(e);
                 Play();
             }
         }
@@ -225,6 +223,7 @@ namespace Emka.PracticeLooper.Mobile.Common
 
                 CurrentLoop.StartPositionChanged += OnStartPositionChanged;
                 CurrentLoop.EndPositionChanged += OnEndPositionChanged;
+                Initialized = true;
             }
             catch (Exception ex)
             {

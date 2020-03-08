@@ -18,6 +18,7 @@ namespace Emka3.PracticeLooper.Services.Contracts.Player
 
         #region Properties
         bool IsPlaying { get; }
+        bool Initialized { get; }
         double SongDuration { get; }
         AudioSourceType Type { get; }
         string DisplayName { get; }

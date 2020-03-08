@@ -4,7 +4,6 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
 using System.Globalization;
-using SkiaSharp;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.Views

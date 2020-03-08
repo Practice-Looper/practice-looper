@@ -10,7 +10,8 @@
     Style="{StaticResource PageMainStyle}"
     x:Name="mainPage">
     <!--https://mycolor.space/?hex=%2359677C&sub=1-->
-    <Grid x:Name="MainGrid">
+    <Grid
+        x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition
                 Height="Auto" />
@@ -46,10 +47,19 @@
                     <!--Command="{Binding CreateSessionCommand}"-->
                     <ImageButton
                         Grid.Row="0"
+                        WidthRequest="48"
+                        HeightRequest="48"
                         HorizontalOptions="End"
                         VerticalOptions="Center"
-                        Source="Add.png"
-                        Command="{Binding PickSourceCommand}"/>
+                        Command="{Binding PickSourceCommand}">
+                        <ImageButton.Source>
+                            <FontImageSource
+                                FontFamily="{DynamicResource MaterialFontFamily}"
+                                Glyph="{StaticResource Add}"
+                                Size="48"
+                                Color="{x:Static views:ColorConstants.Primary}" />
+                        </ImageButton.Source>
+                    </ImageButton>
                     <ListView
                         Grid.Row="1"
                         SelectedItem="{Binding CurrentSession}"
@@ -113,7 +123,18 @@
                             VerticalOptions="Center"
                             FontSize="Large"
                             Margin="0,0,5,0"
-                            Style="{StaticResource LabelStyle}" />
+                            Style="{StaticResource LabelStyle}">
+                            <Label.Triggers>
+                                <DataTrigger
+                                    TargetType="Label"
+                                    Binding="{Binding IsInitialized}"
+                                    Value="False">
+                                    <Setter
+                                        Property="IsVisible"
+                                        Value="False" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
                         <Label
                             Text="{Binding LoopEndPosition, StringFormat='{0}]'}"
                             Grid.Column="1"
@@ -121,7 +142,18 @@
                             HorizontalOptions="End"
                             FontSize="Large"
                             Margin="5,0,0,0"
-                            Style="{StaticResource LabelStyle}" />
+                            Style="{StaticResource LabelStyle}">
+                            <Label.Triggers>
+                                <DataTrigger
+                                    TargetType="Label"
+                                    Binding="{Binding IsInitialized}"
+                                    Value="False">
+                                    <Setter
+                                        Property="IsVisible"
+                                        Value="False" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
                         <Label
                             Text="{Binding SongDuration}"
                             Grid.Column="2"
@@ -145,9 +177,52 @@
                             HorizontalOptions="FillAndExpand" />
                         <ImageButton
                             Grid.Row="1"
+                            WidthRequest="72"
+                            HeightRequest="72"
                             HorizontalOptions="Center"
-                            Source="Play.png"
                             Command="{Binding PlayCommand}">
+                            <ImageButton.Source>
+                                <FontImageSource
+                                    FontFamily="{DynamicResource MaterialFontFamily}"
+                                    Glyph="{StaticResource Play}"
+                                    Size="72"
+                                    Color="{x:Static views:ColorConstants.Primary}">
+                                </FontImageSource>
+                            </ImageButton.Source>
+                            <ImageButton.Triggers>
+                                <DataTrigger
+                                    TargetType="ImageButton"
+                                    Binding="{Binding IsPlaying}"
+                                    Value="True">
+                                    <Setter
+                                        Property="Source">
+                                        <Setter.Value>
+                                            <FontImageSource
+                                                FontFamily="{DynamicResource MaterialFontFamily}"
+                                                Glyph="{StaticResource Pause}"
+                                                Size="72"
+                                                Color="{x:Static views:ColorConstants.Primary}">
+                                            </FontImageSource>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger
+                                    TargetType="ImageButton"
+                                    Binding="{Binding IsPlaying}"
+                                    Value="False">
+                                    <Setter
+                                        Property="Source">
+                                        <Setter.Value>
+                                            <FontImageSource
+                                                FontFamily="{DynamicResource MaterialFontFamily}"
+                                                Glyph="{StaticResource Play}"
+                                                Size="72"
+                                                Color="{x:Static views:ColorConstants.Primary}">
+                                            </FontImageSource>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </ImageButton.Triggers>
                         </ImageButton>
                     </Grid>
                     <Slider

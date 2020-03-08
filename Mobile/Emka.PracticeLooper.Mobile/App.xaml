@@ -75,6 +75,24 @@
                     Property="MinimumTrackColor"
                     Value="{x:Static views:ColorConstants.Secondary}" />
             </Style>
+            <OnPlatform
+                x:Key="MaterialFontFamily"
+                x:TypeArguments="x:String">
+                <On
+                    Platform="iOS"
+                    Value="materialdesignicons" />
+                <On
+                    Platform="Android"
+                    Value="materialdesignicons.ttf#" />
+            </OnPlatform>
+
+            <x:String
+                x:Key="Play">&#xf40d;</x:String>
+            <x:String
+                x:Key="Pause">&#xf3e6;</x:String>
+            <x:String
+                x:Key="Add">&#xf419;</x:String>
         </ResourceDictionary>
+
     </Application.Resources>
 </Application>
