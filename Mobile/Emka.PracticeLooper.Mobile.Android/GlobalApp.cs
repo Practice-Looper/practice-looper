@@ -6,7 +6,6 @@ using Android.App;
 using Android.Content.PM;
 using Emka.PracticeLooper.Mobile.Droid.Common;
 using Emka3.PracticeLooper.Config;
-using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
@@ -17,6 +16,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
     {
         public static void Init()
         {
+            // todo: move spotify namespace to secrets
             ConfigurationService = Factory.GetConfigService();
             ConfigurationService.IsSpotifyInstalled = IsAppInstalled("com.spotify.music");
             MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
@@ -27,7 +27,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
             if (ConfigurationService.IsSpotifyInstalled)
             {
-                resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer), AudioSourceType.Spotify.ToString());
+                resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
                 resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
             }
         }

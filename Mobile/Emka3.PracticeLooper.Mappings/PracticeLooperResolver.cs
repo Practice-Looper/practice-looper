@@ -81,9 +81,7 @@ namespace Emka3.PracticeLooper.Mappings
                 }
             }
         }
-
-
-
+               
         public void RegisterSingleton(Type type, Type typeInterface, string name = "")
         {
             if (builder != null)

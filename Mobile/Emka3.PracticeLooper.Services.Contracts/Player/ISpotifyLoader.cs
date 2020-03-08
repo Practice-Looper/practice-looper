@@ -5,9 +5,9 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Emka3.PracticeLooper.Services.Contracts.Common
+namespace Emka3.PracticeLooper.Services.Contracts.Player
 {
-    public interface ISpotifyLoader
+    public interface ISpotifyLoader : IPlayerLoader
     {
         object RemoteApi { get; }
         string Token { get; set; }

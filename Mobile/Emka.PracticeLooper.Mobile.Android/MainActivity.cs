@@ -58,7 +58,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             base.OnActivityResult(requestCode, resultCode, data);
 
             // Check if result comes from the correct activity
-            if (requestCode == 7737)
+            if (requestCode == GlobalApp.ConfigurationService.GetValue<int>("SpotifyClientRequestCode"))
             {
                 Com.Spotify.Sdk.Android.Auth.AuthorizationResponse response = Com.Spotify.Sdk.Android.Auth.AuthorizationClient.GetResponse((int)resultCode, data);
                 var type = response.GetType().ToString();

@@ -15,6 +15,7 @@ using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
+using Emka3.PracticeLooper.Services.Contracts.Player;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Xamarin.Forms;
 
@@ -46,6 +47,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public Command SearchCommand => searchCommand ?? (searchCommand = new Command((o) => ExecuteSearchCommandAsync(o)));
 
         public Command CreateSessionCommand => createSessionCommand ?? (createSessionCommand = new Command(async o => await ExecuteCreateSessionCommand(o)));
+        
+        private string SearchTerm { get; set; }
+        #endregion
+
+        #region Methods
 
         private async Task ExecuteCreateSessionCommand(object newTrack)
         {
@@ -64,7 +70,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         FileName = track.Id,
                         Type = AudioSourceType.Spotify,
                         Source = track.Uri,
-                        Duration = track.Duration
+                        Duration = track.Duration / 1000
                     },
                     Loops = new List<Loop>
                             {
@@ -90,11 +96,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 throw ex;
             }
         }
-
-        private string SearchTerm { get; set; }
-        #endregion
-
-        #region Methods
 
         private void ExecuteSearchCommandAsync(object o)
         {
@@ -167,16 +168,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        public override Task InitializeAsync(object parameter)
+        public override async Task InitializeAsync(object parameter)
         {
             spotifyApiService = Factory.GetResolver().Resolve<ISpotifyApiService>();
             sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
-            //spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
-            //await spotifyLoader.Initialize();
+            spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
 
-            //spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
-            //Device.BeginInvokeOnMainThread(()=> { spotifyLoader.Initialize(); });
-            return Task.CompletedTask;
+            if (!spotifyLoader.Authorized)
+            {
+                await spotifyLoader.InitializeAsync();
+            }
         }
         #endregion Metthods
     }

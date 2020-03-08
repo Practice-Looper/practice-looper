@@ -11,19 +11,21 @@ using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.Messenger;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
-using Emka3.PracticeLooper.Config.Feature;
+using Emka3.PracticeLooper.Config;
+using ConfigFactory = Emka3.PracticeLooper.Config.Factory;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
-using MediaManager;
 using Xamarin.Forms;
+using Factory = Emka3.PracticeLooper.Mappings.Factory;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
         #region Fields
+        private IConfigurationService configService;
         private IDictionary<AudioSourceType, IAudioPlayer> audioPlayers;
         private IInterstitialAd interstitialAd;
         private IRepository<Session> sessionsRepository;
@@ -305,15 +307,23 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private async Task ExecutePlayCommand(object o)
         {
-            if (IsPlaying)
+            if (CurrentAudioPlayer.IsPlaying)
             {
                 Device.BeginInvokeOnMainThread(CurrentAudioPlayer.Pause);
+                CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
+                CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
+                CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
             }
             else
             {
-                if (!spotifyLoader.Authorized)
+                // todo: detach handler
+                CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
+                CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
+                CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
+
+                if (!CurrentAudioPlayer.Initialized)
                 {
-                    await spotifyLoader.InitializeAsync(CurrentSession.AudioSource.Source);
+                    await CurrentAudioPlayer.InitAsync(CurrentLoop);
                 }
 
                 await CurrentAudioPlayer.PlayAsync();
@@ -395,17 +405,24 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             if (CurrentSession != null)
             {
-                CurrentLoop = CurrentSession.Loops[0];
+
+                configService = ConfigFactory.GetConfigService();
+
+                //var hasPremium = configService.GetValue<bool>("HasPremium");
+                //audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>().ToDictionary(player => player.Type);
+
+                //if (hasPremium)
+                //{
+                //    var premiumPlayers = Factory.GetResolver().ResolveAll<IPremiumAudioPlayer>().ToDictionary(player => player.Type);
+                //    audioPlayers.
+                //}
+
                 CurrentAudioPlayer = audioPlayers[CurrentSession.AudioSource.Type];
-                CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
-                CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
-                CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
-                CurrentAudioPlayer.Init(CurrentLoop);
+                CurrentLoop = CurrentSession.Loops[0];
                 MinimumValue = CurrentLoop.StartPosition;
-                Maximum = CurrentAudioPlayer.SongDuration;
                 MaximumValue = CurrentLoop.EndPosition;
-                SongDuration = FormatTime(CurrentAudioPlayer.SongDuration);
-                CurrentSongTime = FormatTime(CurrentAudioPlayer.SongDuration * MinimumValue);
+                SongDuration = FormatTime(CurrentLoop.Session.AudioSource.Duration * 1000);
+                CurrentSongTime = FormatTime(CurrentLoop.Session.AudioSource.Duration * MinimumValue);
             }
             else
             {

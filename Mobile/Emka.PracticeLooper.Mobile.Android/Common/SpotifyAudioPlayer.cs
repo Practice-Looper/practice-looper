@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Com.Spotify.Android.Appremote.Api;
 using Com.Spotify.Protocol.Types;
 using Emka3.PracticeLooper.Model.Player;
-using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Java.Util.Concurrent;
 using Xamarin.Essentials;
@@ -18,7 +17,7 @@ using static Com.Spotify.Protocol.Client.Subscription;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
-    public class SpotifyAudioPlayer : Java.Lang.Object, IAudioPlayer, IResultCallback, IEventCallback
+    public class SpotifyAudioPlayer : Java.Lang.Object, IPremiumAudioPlayer, IResultCallback, IEventCallback
     {
         #region Fields
         private readonly IPlayerTimer timer;
@@ -41,6 +40,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         #endregion
 
         #region Properties
+        public bool Initialized { get; private set; }
         public bool IsPlaying { get; private set; }
         public double SongDuration => internalSongDuration * 1000;
         public Loop CurrentLoop { get; set; }
@@ -107,7 +107,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
             timer.LoopTimerExpired += LoopTimerExpired;
             timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
-
+            Initialized = true;
         }
 
         public void Pause()
@@ -153,9 +153,14 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             }
         }
 
-        public Task InitAsync(Loop loop)
+        public async Task InitAsync(Loop loop)
         {
-            return Task.CompletedTask;
+            if (!spotifyLoader.Authorized)
+            {
+                await spotifyLoader.InitializeAsync();
+            }
+
+            await Task.Run(() => Init(loop));
         }
 
         public Task PauseAsync()

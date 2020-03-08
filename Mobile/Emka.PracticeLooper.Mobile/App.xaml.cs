@@ -14,6 +14,7 @@ using Device = Xamarin.Forms.Device;
 using Emka3.PracticeLooper.Config.Feature;
 using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Services.Contracts.Common;
+using Emka3.PracticeLooper.Model.Player;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -22,7 +23,7 @@ namespace Emka.PracticeLooper.Mobile
     {
         public static IConfigurationService ConfigurationService { get; private set; }
         public static string BannerAddUnitId { get; private set; }
-        public static bool HasPremium = false;
+        public static bool HasPremium = true;
 
         public App()
         {
@@ -57,7 +58,7 @@ namespace Emka.PracticeLooper.Mobile
             {
                 FeatureRegistry.Add<AdMobView>(!HasPremium);
                 FeatureRegistry.Add<IInterstitialAd>(!HasPremium);
-                FeatureRegistry.Add<IPremiumAudioPlayer>(HasPremium);
+                FeatureRegistry.Add<IPremiumAudioPlayer>(HasPremium, "Spotify");
                 FeatureRegistry.Add<ISourcePicker>(HasPremium);
 
                 // Register common forms types
@@ -80,10 +81,13 @@ namespace Emka.PracticeLooper.Mobile
         private void InitConfig()
         {
             ConfigurationService = Factory.GetConfigService();
+            ConfigurationService.SetValue(nameof(HasPremium), HasPremium);
+            // todo: unnötige attribute aussortieren und den einzelnen files!
             ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientApiUri), Helpers.Secrets.SpotifyClientApiUri);
             ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyApiLimit), Helpers.Secrets.SpotifyApiLimit);
             ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientId), Helpers.Secrets.SpotifyClientId);
             ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientRedirectUri), Helpers.Secrets.SpotifyClientRedirectUri);
+            ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientScopes), Helpers.Secrets.SpotifyClientScopes);
             ConfigurationService.SetValue(nameof(Helpers.Secrets.DbName), Helpers.Secrets.DbName);
 
             if (Device.RuntimePlatform == Device.iOS)

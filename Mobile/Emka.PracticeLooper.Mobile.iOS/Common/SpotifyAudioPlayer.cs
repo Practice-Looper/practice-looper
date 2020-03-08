@@ -38,6 +38,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #endregion
 
         #region Properties
+        public bool Initialized { get; private set; }
         public bool IsPlaying => isPlaying;
         public double SongDuration { get { return internalSongDuration * 1000; } }
         public Loop CurrentLoop { get; set; }
@@ -69,6 +70,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
             timer.LoopTimerExpired += LoopTimerExpired;
             timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
+            Initialized = true;
         }
 
         public void Pause()
