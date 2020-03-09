@@ -2,11 +2,13 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
+using Microsoft.AppCenter.Crashes;
 using SpotifyBindings.iOS;
 using Xamarin.Essentials;
 
@@ -67,15 +69,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
             if (GlobalApp.ConfigurationService.IsSpotifyInstalled)
             {
-                //SPTAppRemote.CheckIfSpotifyAppIsActive((isActive) =>
-                //{
-                //    if (!isActive)
-                //    {
-                //        // prompt user to authorize sloopy
-                //        api.AuthorizeAndPlayURI(songUri);
-                //    }
-                //});
-
                 api.AuthorizeAndPlayURI(songUri);
 
                 try
@@ -83,13 +76,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                     tokenEvent.WaitOne();
                     tokenEvent.Dispose();
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
-                    // todo: log
+                    Crashes.TrackError(ex);
+                    throw;
                 }
-
-                //api.ConnectionParameters.AccessToken = Token;
-                //api.Delegate = this;
 
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
@@ -103,9 +94,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                     connectedEvent.WaitOne();
                     connectedEvent.Dispose();
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
-                    // todo: log
+                    Crashes.TrackError(ex);
+                    throw;
                 }
             }
             else
@@ -125,7 +117,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
             catch (System.Exception ex)
             {
-                // todo: log
+                Crashes.TrackError(ex);
                 throw;
             }
 
@@ -134,7 +126,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
         {
-            Initialize();
+            Crashes.TrackError(new Exception(error.Description));
         }
 
         public override void DidEstablishConnection(SPTAppRemote appRemote)
@@ -143,16 +135,17 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 connectedEvent.Set();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                // todo: log
+                Crashes.TrackError(ex);
+                throw;
             }
 
         }
 
         public override void DidFailConnectionAttemptWithError(SPTAppRemote appRemote, NSError error)
         {
-
+            Crashes.TrackError(new Exception(error.Description));
         }
         #endregion
     }

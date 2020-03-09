@@ -12,6 +12,9 @@ using Java.Lang;
 using System.Threading;
 using Xamarin.Essentials;
 using System;
+using Microsoft.AppCenter.Crashes;
+using System.Collections.Generic;
+using Microsoft.AppCenter.Analytics;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
@@ -45,20 +48,21 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void Initialize(string songUri = "")
         {
+            Analytics.TrackEvent("Initialize SpotifyLoader");
+
+            var clientId = configurationService.GetValue("SpotifyClientId");
+            var redirectUri = configurationService.GetValue("SpotifyClientRedirectUri");
+            var requestCode = configurationService.GetValue<int>("SpotifyClientRequestCode");
+            var scopes = configurationService.GetValue<string>("SpotifyClientScopes");
+
             try
             {
-                var clientId = configurationService.GetValue("SpotifyClientId");
-                var redirectUri = configurationService.GetValue("SpotifyClientRedirectUri");
-                var requestCode = configurationService.GetValue<int>("SpotifyClientRequestCode");
-                var scopes = configurationService.GetValue<string>("SpotifyClientScopes");
-
                 ConnectionParams connectionParams = new ConnectionParams
                 .Builder(clientId)
                 .SetRedirectUri(redirectUri)
                 .ShowAuthView(true)
                 .Build();
-                MainThread.BeginInvokeOnMainThread(()=> SpotifyAppRemote.Connect(Application.Context, connectionParams, this));
-
+                MainThread.BeginInvokeOnMainThread(() => SpotifyAppRemote.Connect(Application.Context, connectionParams, this));
 
                 Com.Spotify.Sdk.Android.Auth.AuthorizationRequest.Builder builder =
         new Com.Spotify.Sdk.Android.Auth.AuthorizationRequest.Builder(clientId, Com.Spotify.Sdk.Android.Auth.AuthorizationResponse.Type.Token, redirectUri);
@@ -69,9 +73,15 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
                 autoResetEvent.WaitOne();
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                // todo: log
+                Crashes.TrackError(ex, new Dictionary<string, string>
+                {
+                     { "SpotifyClientId", clientId },
+                     { "redirectUri", redirectUri },
+                     { "requestCode", requestCode.ToString() },
+                     { "scopes", scopes }
+                });
                 throw;
             }
         }
@@ -84,6 +94,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void OnConnected(SpotifyAppRemote api)
         {
+            Analytics.TrackEvent("Spotify Connected");
             this.api = api;
             Authorized = api.IsConnected;
             autoResetEvent.Set();
@@ -91,10 +102,15 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void OnFailure(Throwable error)
         {
+            Analytics.TrackEvent("Spotify Connection Failed");
+            Crashes.TrackError(new System.Exception(error.Message), new Dictionary<string, strinkdg>
+                {
+                     { "SpotifyClientId", configurationService.GetValue("SpotifyClientId") },
+                     { "requestCode", configurationService.GetValue<int>("SpotifyClientRequestCode").ToString() }
+                });
             this.api = null;
             Authorized = false;
             autoResetEvent.Set();
-            // todo: log
             // todo: check if user needs to login
         }
         #endregion

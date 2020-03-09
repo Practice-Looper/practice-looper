@@ -1,4 +1,7 @@
-﻿using Android;
+﻿//using System;
+using System;
+using System.Threading.Tasks;
+using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -7,6 +10,7 @@ using Android.Support.V4.Content;
 using Emka.PracticeLooper.Mobile.Droid.Helpers;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using MediaManager;
+using Microsoft.AppCenter.Crashes;
 
 namespace Emka.PracticeLooper.Mobile.Droid
 {
@@ -16,6 +20,9 @@ namespace Emka.PracticeLooper.Mobile.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
+
             GlobalApp.Init();
             GlobalApp.MainActivity = this;
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -23,7 +30,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) == (int)Permission.Granted)
             {
-                var mounted = Environment.ExternalStorageState == Environment.MediaMounted;
+                var mounted = Android.OS.Environment.ExternalStorageState == Android.OS.Environment.MediaMounted;
                 GlobalApp.HasPermissionToWriteExternalStorage = mounted;
             }
             else
@@ -39,6 +46,16 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
+        }
+
+        private void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            Crashes.TrackError(e.Exception);
+        }
+
+        private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Crashes.TrackError(e.ExceptionObject as Exception);
         }
 
         public override void OnBackPressed()
@@ -78,7 +95,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
                     // Auth flow returned an error
                     case "error":
-                        // Handle error response
+                        Crashes.TrackError(new Exception(response.Error));
                         break;
 
                         // Most likely auth flow was cancelled

@@ -17,6 +17,7 @@ using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
+using Microsoft.AppCenter.Analytics;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
@@ -100,7 +101,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private void ExecuteSearchCommandAsync(object o)
         {
             SearchTerm = o as string;
-            Console.WriteLine("####### Term " + SearchTerm);
 
             // emtpy term => remove all items from results
             if (SearchTerm == string.Empty)
@@ -121,7 +121,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     if (timer.IsActive)
                     {
-                        Console.WriteLine("################### cancelling timer");
                         timer.Stop();
                         if (!searchCancelTokenSource.IsCancellationRequested)
                         {
@@ -141,7 +140,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 if (!searchCancelTokenSource.IsCancellationRequested)
                 {
-                    Console.WriteLine("#################### Searching for term: " + SearchTerm);
                     Task.Run(async () =>
                 {
 
@@ -156,26 +154,25 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         }
                     });
 
-                    Console.WriteLine(res);
-                    Console.WriteLine("-------------------------------------------------------------------");
-
                 }, searchCancelTokenSource.Token);
                 }
             }
             catch (TaskCanceledException)
             {
-                Console.WriteLine("################### Search Task Cancelled");
+                
             }
         }
 
         public override async Task InitializeAsync(object parameter)
         {
+            Analytics.TrackEvent("[SpotifySearchViewModel] InitializeAsync");
             spotifyApiService = Factory.GetResolver().Resolve<ISpotifyApiService>();
             sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
             spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
 
             if (!spotifyLoader.Authorized)
             {
+                Analytics.TrackEvent("[SpotifySearchViewModel] Initializing Spotify");
                 await spotifyLoader.InitializeAsync();
             }
         }

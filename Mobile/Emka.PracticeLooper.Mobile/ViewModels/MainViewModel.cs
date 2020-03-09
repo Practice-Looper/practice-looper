@@ -19,6 +19,7 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Xamarin.Forms;
 using Factory = Emka3.PracticeLooper.Mappings.Factory;
+using Microsoft.AppCenter.Crashes;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -244,7 +245,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Crashes.TrackError(ex);
             }
         }
 
@@ -334,8 +335,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    // todo: log
-                    Console.WriteLine(ex);
+                    Crashes.TrackError(ex);
                 }
             }
         }
@@ -370,7 +370,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 }
                 catch (Exception ex)
                 {
-
+                    Crashes.TrackError(ex);
                 }
             }
         }
