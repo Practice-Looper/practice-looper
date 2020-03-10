@@ -115,7 +115,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 await Task.Run(() => Initialize(songUri));
                 result = true;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Crashes.TrackError(ex);
                 throw;

@@ -1,9 +1,11 @@
-﻿using Emka.PracticeLooper.Mobile.iOS.Helpers;
+﻿using System;
+using System.Threading.Tasks;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
 using MediaManager;
+using Microsoft.AppCenter.Crashes;
 using SpotifyBindings.iOS;
 using UIKit;
 
@@ -30,6 +32,8 @@ namespace Emka.PracticeLooper.Mobile.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
             GlobalApp.Init();
             CrossMediaManager.Current.Init();
             SQLitePCL.Batteries_V2.Init();
@@ -55,6 +59,16 @@ namespace Emka.PracticeLooper.Mobile.iOS
             }
 
             return true;
+        }
+
+        private void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            Crashes.TrackError(e.Exception);
+        }
+
+        private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Crashes.TrackError(e.ExceptionObject as Exception);
         }
     }
 }

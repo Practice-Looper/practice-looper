@@ -35,11 +35,13 @@ namespace Emka.PracticeLooper.Mobile
 #pragma warning restore RECS0165 // Asynchronous methods should return a Task instead of void
         {
             base.OnStart();
+            AppCenter.LogLevel = LogLevel.Verbose;
+            AppCenter.Start($"ios={Helpers.Secrets.AppCenterIos};android={Helpers.Secrets.AppCenterAndroid}", typeof(Analytics), typeof(Crashes));
+            //Crashes.GenerateTestCrash();
             // Handle when your app starts
             InitConfig();
             InitApp();
             await InitNavigation();
-            AppCenter.Start($"ios={Helpers.Secrets.AppCenterIos};android={Helpers.Secrets.AppCenterAndroid}", typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()

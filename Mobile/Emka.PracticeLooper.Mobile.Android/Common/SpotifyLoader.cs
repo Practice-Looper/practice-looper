@@ -103,7 +103,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         public void OnFailure(Throwable error)
         {
             Analytics.TrackEvent("Spotify Connection Failed");
-            Crashes.TrackError(new System.Exception(error.Message), new Dictionary<string, strinkdg>
+            Crashes.TrackError(new System.Exception(error.Message), new Dictionary<string, string>
                 {
                      { "SpotifyClientId", configurationService.GetValue("SpotifyClientId") },
                      { "requestCode", configurationService.GetValue<int>("SpotifyClientRequestCode").ToString() }

@@ -23,7 +23,7 @@ namespace Emka3.PracticeLooper.Services.Common
         {
             this.configService = Factory.GetConfigService();
             dbName = configService.GetValue("DbName");
-            //Init();
+            Init();
         }
 
         public void Init()

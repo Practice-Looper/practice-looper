@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Common;
@@ -18,6 +17,7 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
@@ -93,7 +93,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Crashes.TrackError(ex);
                 throw ex;
             }
         }
