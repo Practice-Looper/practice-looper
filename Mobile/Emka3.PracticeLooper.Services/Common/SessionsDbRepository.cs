@@ -102,9 +102,9 @@ namespace Emka3.PracticeLooper.Services.Common
                     return await dbContext.SaveChangesAsync();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
         #endregion

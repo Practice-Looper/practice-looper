@@ -63,6 +63,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
             try
             {
+                Analytics.TrackEvent("[SpotifySearchViewModel] Create new session");
                 var newSession = new Session
                 {
                     Name = track.Name,
@@ -86,9 +87,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 };
 
                 Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(newSession, MessengerKeys.NewTrackAdded));
-
+                
                 await sessionsRepository.SafeAsync(newSession);
-
+                
                 await NavigationService.GoBackAsync();
             }
             catch (Exception ex)
