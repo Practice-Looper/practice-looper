@@ -36,7 +36,7 @@ namespace Emka.PracticeLooper.Mobile
         {
             base.OnStart();
             AppCenter.LogLevel = LogLevel.Verbose;
-            AppCenter.Start($"ios={Helpers.Secrets.AppCenterIos};android={Helpers.Secrets.AppCenterAndroid}", typeof(Analytics), typeof(Crashes));
+            AppCenter.Start($"ios=69c3a13f-b04b-4581-9ff5-18a7bb0714f0;android={Helpers.Secrets.AppCenterAndroid}", typeof(Analytics), typeof(Crashes));
             //Crashes.GenerateTestCrash();
             // Handle when your app starts
             InitConfig();
