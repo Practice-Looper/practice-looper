@@ -91,6 +91,8 @@ namespace Emka.PracticeLooper.Mobile
             ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientRedirectUri), Helpers.Secrets.SpotifyClientRedirectUri);
             ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientScopes), Helpers.Secrets.SpotifyClientScopes);
             ConfigurationService.SetValue(nameof(Helpers.Secrets.DbName), Helpers.Secrets.DbName);
+            Analytics.TrackEvent(Helpers.Secrets.SpotifyClientId);
+            Analytics.TrackEvent(Helpers.Secrets.DbName);
 
             if (Device.RuntimePlatform == Device.iOS)
             {
