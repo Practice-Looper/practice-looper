@@ -20,7 +20,7 @@
 	<key>MinimumOSVersion</key>
 	<string>12.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>Emka.PracticeLooper.Mobile</string>
+	<string>Practice Looper</string>
 	<key>CFBundleIdentifier</key>
 	<string>de.emka3.practice-looper.loopr</string>
 	<key>CFBundleVersion</key>
