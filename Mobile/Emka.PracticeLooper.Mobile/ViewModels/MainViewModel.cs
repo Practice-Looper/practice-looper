@@ -229,18 +229,18 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>().ToDictionary(player => player.Type);
                 interstitialAd = Factory.GetResolver().Resolve<IInterstitialAd>();
-                sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
+                //sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
                 fileRepository = Factory.GetResolver().Resolve<IFileRepository>();
                 filePicker = Factory.GetResolver().Resolve<Mobile.Common.IFilePicker>();
                 spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
-                var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    foreach (var item in items)
-                    {
-                        Sessions.Add(item);
-                    }
-                });
+                //var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
+                //Device.BeginInvokeOnMainThread(() =>
+                //{
+                //    foreach (var item in items)
+                //    {
+                //        Sessions.Add(item);
+                //    }
+                //});
             }
             catch (Exception ex)
             {
