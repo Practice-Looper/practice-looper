@@ -5,10 +5,12 @@
 
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka3.PracticeLooper.Model.Player;
+using Emka3.PracticeLooper.Utils;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.Views
 {
+    [Preserve(AllMembers = true)]
     public partial class SpotifySearchView : ContentPage
     {
         public SpotifySearchView()

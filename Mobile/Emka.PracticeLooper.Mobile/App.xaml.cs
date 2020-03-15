@@ -15,6 +15,7 @@ using Emka3.PracticeLooper.Config.Feature;
 using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Model.Player;
+using Emka.PracticeLooper.Mobile.ViewModels;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -28,20 +29,24 @@ namespace Emka.PracticeLooper.Mobile
         public App()
         {
             InitializeComponent();
+            //MainPage = new CustomNavigationView(new MainView());
         }
 
 #pragma warning disable RECS0165 // Asynchronous methods should return a Task instead of void
-        protected override async void OnStart()
+        protected async override void OnStart()
 #pragma warning restore RECS0165 // Asynchronous methods should return a Task instead of void
         {
             base.OnStart();
-            AppCenter.LogLevel = LogLevel.Verbose;
-            AppCenter.Start($"ios=69c3a13f-b04b-4581-9ff5-18a7bb0714f0;android={Helpers.Secrets.AppCenterAndroid}", typeof(Analytics), typeof(Crashes));
+            AppCenter.Start($"ios={Helpers.Secrets.AppCenterIos};android={Helpers.Secrets.AppCenterAndroid}", typeof(Analytics), typeof(Crashes));
             //Crashes.GenerateTestCrash();
             // Handle when your app starts
+
             InitConfig();
             InitApp();
-            await InitNavigation();
+            await InitNavigation().ConfigureAwait(true);
+            //MainPage.BindingContext = new MainViewModel();
+            //MainPage.
+            //await (MainPage.BindingContext as MainViewModel).InitializeAsync(null);
         }
 
         protected override void OnSleep()
@@ -77,6 +82,7 @@ namespace Emka.PracticeLooper.Mobile
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                Crashes.TrackError(ex);
             }
         }
 
@@ -110,10 +116,10 @@ namespace Emka.PracticeLooper.Mobile
             }
         }
 
-        private Task InitNavigation()
+        private async Task InitNavigation()
         {
-            var navigationService = MappingsFactory.Factory.GetResolver().Resolve<INavigationService>();
-            return navigationService.InitializeAsync();
+            var navigationService = MappingsFactory.Factory.GetResolver()?.Resolve<INavigationService>();
+            await navigationService?.InitializeAsync();
         }
     }
 }

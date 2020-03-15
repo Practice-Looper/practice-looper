@@ -10,6 +10,7 @@ using Foundation;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
+    [Preserve(AllMembers = true)]
     public class AudioFileRepository : IFileRepository
     {
         #region Fields

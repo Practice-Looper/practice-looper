@@ -35,10 +35,11 @@ namespace Emka.PracticeLooper.Mobile.iOS
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
             GlobalApp.Init();
-            CrossMediaManager.Current.Init();
             SQLitePCL.Batteries_V2.Init();
             Rg.Plugins.Popup.Popup.Init();
             Google.MobileAds.MobileAds.SharedInstance.Start(null);
+            CrossMediaManager.Current.Init();
+
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
             return base.FinishedLaunching(app, options);

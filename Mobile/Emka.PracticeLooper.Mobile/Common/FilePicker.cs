@@ -12,9 +12,11 @@ using Emka3.PracticeLooper.Services.Contracts.Player;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Emka.PracticeLooper.Mobile.Common
 {
+    [Preserve(AllMembers = true)]
     public class FilePicker : IFilePicker
     {
         private readonly IFileRepository fileRepository;

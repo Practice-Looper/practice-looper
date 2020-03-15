@@ -10,45 +10,89 @@ using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
-using Microsoft.EntityFrameworkCore;
+using Emka3.PracticeLooper.Utils;
+using SQLite;
+using SQLiteNetExtensions.Extensions;
 
 namespace Emka3.PracticeLooper.Services.Common
 {
+    [Preserve(AllMembers = true)]
     public class SessionsDbRepository : IRepository<Session>
     {
+        #region Fields
+
         readonly IConfigurationService configService;
         readonly string dbName;
+        private bool initialized = false;
+        public const SQLiteOpenFlags Flags =
+        // open the database in read/write mode
+        SQLiteOpenFlags.ReadWrite |
+        // create the database if it doesn't exist
+        SQLiteOpenFlags.Create |
+        // enable multi-threaded database access
+        SQLiteOpenFlags.SharedCache;
+
+        private static Lazy<SQLiteConnection> lazyInitializer;
+        #endregion
+
         #region Ctor
         public SessionsDbRepository()
         {
-            this.configService = Factory.GetConfigService();
+            configService = Factory.GetConfigService();
             dbName = configService.GetValue("DbName");
-            Init();
-        }
-
-        public void Init()
-        {
-            using (var dbContext = new SessionsDbContext(dbName))
-            {
-                dbContext.Database.EnsureCreated();
-                dbContext.Database.Migrate();
-            }
+            InitAsync().SafeFireAndForget(false);
         }
         #endregion
 
+        #region Properties
+
+        private static SQLiteConnection Database => lazyInitializer.Value;
+        #endregion
+
         #region Methods
+        async Task InitAsync()
+        {
+            try
+            {
+                lazyInitializer = new Lazy<SQLiteConnection>(() =>
+                {
+                    return new SQLiteConnection(
+                        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), dbName), Flags);
+                });
+
+                if (!initialized)
+                {
+                    if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(Session).Name))
+                    {
+                        await Task.Run(() => Database.CreateTable<Session>(CreateFlags.None));
+                    }
+
+                    if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(AudioSource).Name))
+                    {
+                        await Task.Run(() => Database.CreateTable<AudioSource>(CreateFlags.None));
+                    }
+
+                    if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(Loop).Name))
+                    {
+                        await Task.Run(() => Database.CreateTable<Loop>(CreateFlags.None));
+                    }
+
+                    initialized = true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public async Task DeleteAsync(Session item)
         {
             try
             {
-                using (var dbContext = new SessionsDbContext(dbName))
-                {
-                    dbContext.Sessions.Remove(item);
-                    await dbContext.SaveChangesAsync();
-                }
+                await Task.Run(() => Delete(item));
             }
-            catch (Exception) 
-            { 
+            catch (Exception)
+            {
                 throw;
             }
         }
@@ -57,10 +101,7 @@ namespace Emka3.PracticeLooper.Services.Common
         {
             try
             {
-                using (var dbContext = new SessionsDbContext(dbName))
-                {
-                    return await dbContext.Sessions.Include(s => s.AudioSource).Include(s => s.Loops).ToListAsync();
-                }
+                return await Task.Run(GetAllItems);
             }
             catch (Exception)
             {
@@ -72,10 +113,8 @@ namespace Emka3.PracticeLooper.Services.Common
         {
             try
             {
-                using (var dbContext = new SessionsDbContext(dbName))
-                {
-                    return await dbContext.Sessions.Include(s => s.AudioSource).Include(a => a.Loops).FirstOrDefaultAsync(s => s.Id == id);
-                }
+                return await Task.Run(() => GetById(id));
+
             }
             catch (Exception)
             {
@@ -83,28 +122,63 @@ namespace Emka3.PracticeLooper.Services.Common
             }
         }
 
-        public async Task<int> SafeAsync(Session item)
+        public async Task SaveAsync(Session item)
         {
             try
             {
-                using (var dbContext = new SessionsDbContext(dbName))
-                {
-                    var exists = dbContext.Sessions.Any(s => s.Id == item.Id);
-                    if (exists)
-                    {
-                        dbContext.Update(item);
-                    }
-                    else
-                    {
-                        await dbContext.Sessions.AddAsync(item);
-                    }
-
-                    return await dbContext.SaveChangesAsync();
-                }
+                await Task.Run(() => Save(item));
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public void Delete(Session item)
+        {
+            try
+            {
+                Database.Delete(item, true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void Save(Session item)
+        {
+            try
+            {
+                Database.InsertOrReplaceWithChildren(item, true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public Session GetById(int id)
+        {
+            try
+            {
+                return Database.GetWithChildren<Session>(id, true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<Session> GetAllItems()
+        {
+            try
+            {
+                return Database.GetAllWithChildren<Session>(recursive: true);
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
         #endregion

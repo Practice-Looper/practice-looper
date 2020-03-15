@@ -14,6 +14,7 @@ using Xamarin.Essentials;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
+    [Preserve(AllMembers = true)]
     public class SpotifyLoader : SPTAppRemoteDelegate, ISpotifyLoader
     {
         #region Fields
@@ -30,9 +31,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public SpotifyLoader()
         {
             this.configurationService = Factory.GetConfigService();
-
-            tokenEvent = new AutoResetEvent(false);
-            connectedEvent = new AutoResetEvent(false);
         }
         #endregion
 
@@ -69,7 +67,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
             if (GlobalApp.ConfigurationService.IsSpotifyInstalled)
             {
-                api.AuthorizeAndPlayURI(songUri);
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    api.AuthorizeAndPlayURI(songUri);
+                });
 
                 try
                 {
@@ -109,6 +110,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public async Task<bool> InitializeAsync(string songUri = "")
         {
             bool result = false;
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                tokenEvent = new AutoResetEvent(false);
+                connectedEvent = new AutoResetEvent(false);
+            });
 
             try
             {
@@ -127,6 +133,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
         {
             Crashes.TrackError(new Exception(error.Description));
+            connectedEvent.Reset();
         }
 
         public override void DidEstablishConnection(SPTAppRemote appRemote)
@@ -145,7 +152,17 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public override void DidFailConnectionAttemptWithError(SPTAppRemote appRemote, NSError error)
         {
-            Crashes.TrackError(new Exception(error.Description));
+            try
+            {
+                Crashes.TrackError(new Exception(error.Description));
+                connectedEvent.Set();
+                connectedEvent.Reset();
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                throw;
+            }
         }
         #endregion
     }

@@ -15,11 +15,13 @@ using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
+using Emka3.PracticeLooper.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Emka3.PracticeLooper.Services.Rest
 {
+    [Preserve(AllMembers = true)]
     public class SpotifyApiService : ISpotifyApiService
     {
         HttpApiClient apiClient;

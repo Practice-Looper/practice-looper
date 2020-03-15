@@ -9,12 +9,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Foundation;
 using SpotifyBindings.iOS;
 using Xamarin.Essentials;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
-    public class SpotifyAudioPlayer : IPremiumAudioPlayer
+    [Preserve(AllMembers = true)]
+    public class SpotifyAudioPlayer : IAudioPlayer
     {
         #region Fields
         private Session session;

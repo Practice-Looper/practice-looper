@@ -24,8 +24,8 @@ namespace Emka.PracticeLooper.Mobile.iOS
             ConfigurationService.IsSpotifyInstalled = UIApplication.SharedApplication.CanOpenUrl(new NSUrl(new NSString("spotify:")));
             if (ConfigurationService.IsSpotifyInstalled)
             {
-                resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
                 resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
+                resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
             }         
 
             resolver.Register(typeof(AudioFileRepository), typeof(IFileRepository));

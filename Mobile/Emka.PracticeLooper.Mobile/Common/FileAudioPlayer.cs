@@ -9,9 +9,11 @@ using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using MediaManager;
 using MediaManager.Library;
+using Xamarin.Forms.Internals;
 
 namespace Emka.PracticeLooper.Mobile.Common
 {
+    [Preserve(AllMembers = true)]
     public class FileAudioPlayer : IAudioPlayer
     {
         #region Fields

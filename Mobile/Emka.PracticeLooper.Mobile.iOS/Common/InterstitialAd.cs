@@ -8,12 +8,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config.Feature;
 using Emka3.PracticeLooper.Services.Contracts.Common;
+using Foundation;
 using Google.MobileAds;
 using UIKit;
 using Xamarin.Essentials;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
+    [Preserve(AllMembers = true)]
     public class InterstitialAd : IInterstitialAd
     {
         #region Fields
@@ -29,7 +31,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 LoadAd();
             }
-
         }
         #endregion
 

@@ -3,15 +3,14 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using SQLite;
 
 namespace Emka3.PracticeLooper.Model.Common
 {
+    [Utils.Preserve(AllMembers = true)]
     public abstract class EntityBase
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; protected set; }
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
     }
 }

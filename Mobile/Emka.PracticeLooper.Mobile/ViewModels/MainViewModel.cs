@@ -12,17 +12,17 @@ using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.Messenger;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka3.PracticeLooper.Config;
-using ConfigFactory = Emka3.PracticeLooper.Config.Factory;
-using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Xamarin.Forms;
 using Factory = Emka3.PracticeLooper.Mappings.Factory;
 using Microsoft.AppCenter.Crashes;
+using Emka3.PracticeLooper.Utils;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class MainViewModel : ViewModelBase
     {
         #region Fields
@@ -229,18 +229,18 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>().ToDictionary(player => player.Type);
                 interstitialAd = Factory.GetResolver().Resolve<IInterstitialAd>();
-                //sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
+                sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
                 fileRepository = Factory.GetResolver().Resolve<IFileRepository>();
                 filePicker = Factory.GetResolver().Resolve<Mobile.Common.IFilePicker>();
                 spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
-                //var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
-                //Device.BeginInvokeOnMainThread(() =>
-                //{
-                //    foreach (var item in items)
-                //    {
-                //        Sessions.Add(item);
-                //    }
-                //});
+                var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    foreach (var item in items)
+                    {
+                        Sessions.Add(item);
+                    }
+                });
             }
             catch (Exception ex)
             {
@@ -296,7 +296,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 };
 
                 Sessions.Add(newSession);
-                await sessionsRepository.SafeAsync(newSession);
+                await sessionsRepository.SaveAsync(newSession);
             }
         }
 
@@ -378,7 +378,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
             var source = await sourcePicker.SelectFileSource();
-            await interstitialAd.ShowAdAsync();
+            await interstitialAd?.ShowAdAsync();
 
             switch (source)
             {
@@ -395,7 +395,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     var canNavigate = true;
                     if (canNavigate)
                     {
-                        await Task.Run(() => spotifyLoader.Initialize());
+                        await spotifyLoader.InitializeAsync();
                         await NavigationService.NavigateToAsync<SpotifySearchViewModel>();
                     }
 

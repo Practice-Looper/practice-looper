@@ -7,9 +7,11 @@ using System;
 using System.Threading.Tasks;
 using System.Timers;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Emka3.PracticeLooper.Utils;
 
 namespace Emka3.PracticeLooper.Services.Player
 {
+    [Preserve(AllMembers = true)]
     public class PlayerTimer : IPlayerTimer
     {
 

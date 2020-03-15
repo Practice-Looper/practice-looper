@@ -17,7 +17,7 @@ using static Com.Spotify.Protocol.Client.Subscription;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
-    public class SpotifyAudioPlayer : Java.Lang.Object, IPremiumAudioPlayer, IResultCallback, IEventCallback
+    public class SpotifyAudioPlayer : Java.Lang.Object, IAudioPlayer, IPremiumAudioPlayer, IResultCallback, IEventCallback
     {
         #region Fields
         private readonly IPlayerTimer timer;

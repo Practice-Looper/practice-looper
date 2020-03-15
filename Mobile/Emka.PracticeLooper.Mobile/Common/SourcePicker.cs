@@ -8,12 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config.Feature;
-using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Emka.PracticeLooper.Mobile.Common
 {
+    [Preserve(AllMembers = true)]
     public class SourcePicker : ISourcePicker
     {
         private readonly Page page;

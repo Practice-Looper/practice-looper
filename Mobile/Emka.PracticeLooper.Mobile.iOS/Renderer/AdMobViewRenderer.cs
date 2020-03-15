@@ -6,6 +6,7 @@
 using System.ComponentModel;
 using Emka.PracticeLooper.Mobile.iOS.Renderer;
 using Emka.PracticeLooper.Mobile.Views;
+using Emka3.PracticeLooper.Config.Feature;
 using Google.MobileAds;
 using UIKit;
 using Xamarin.Forms;
@@ -19,7 +20,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
         protected override void OnElementChanged(ElementChangedEventArgs<AdMobView> e)
         {
             base.OnElementChanged(e);
-            if (Control == null)
+            if (FeatureRegistry.IsEnabled<AdMobView>() && Control == null)
             {
                 SetNativeControl(CreateBannerView());
             }

@@ -5,6 +5,7 @@
 
 namespace Emka3.PracticeLooper.Model.Player
 {
+    [Utils.Preserve(AllMembers = true)]
     public enum AudioSourceType
     {
         Local = 0,

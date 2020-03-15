@@ -4,12 +4,16 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
 using Emka3.PracticeLooper.Model.Common;
+using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace Emka3.PracticeLooper.Model.Player
 {
     /// <summary>
     /// Represents a single loop.
     /// </summary>
+    [Table("Loops")]
+    [Utils.Preserve(AllMembers = true)]
     public class Loop : EntityBase
     {
         private double _startPosition;
@@ -70,7 +74,10 @@ namespace Emka3.PracticeLooper.Model.Player
         /// <value>The repititions.</value>
         public int Repititions { get; set; }
 
+        [ForeignKey(typeof(Session))]
         public int SessionId { get; set; }
+
+        [ManyToOne]
         public Session Session { get; set; }
         #endregion Properties
 

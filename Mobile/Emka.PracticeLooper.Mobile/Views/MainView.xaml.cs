@@ -1,9 +1,11 @@
 ﻿using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka3.PracticeLooper.Config.Feature;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Emka.PracticeLooper.Mobile.Views
 {
+    [Preserve(AllMembers = true)]
     public partial class MainView : ContentPage
     {
         #region Ctor
@@ -11,10 +13,6 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             InitializeComponent();
             BindingContext = new MainViewModel();
-            if (!FeatureRegistry.IsEnabled<AdMobView>())
-            {
-                MainGrid.Children.Remove(AdmobBanner);
-            }
         }
         #endregion
 
@@ -25,13 +23,20 @@ namespace Emka.PracticeLooper.Mobile.Views
         #region Methods
         protected override void OnAppearing()
         {
-            AdUnitId = App.BannerAddUnitId;
+            if (!FeatureRegistry.IsEnabled<AdMobView>())
+            {
+                MainGrid.Children.Remove(AdmobBanner);
+            }
+            else
+            {
+                AdUnitId = App.BannerAddUnitId;
+            }
         }
 
         void OnDraggingCompleted(object sender, System.EventArgs e)
         {
             var viewModel = BindingContext as MainViewModel;
-            if (viewModel != null)
+            if (viewModel != null && viewModel.CurrentLoop != null)
             {
                 viewModel.UpdateMinMaxValues();
             }

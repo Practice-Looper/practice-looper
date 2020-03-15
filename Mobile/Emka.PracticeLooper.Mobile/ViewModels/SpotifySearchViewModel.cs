@@ -16,12 +16,14 @@ using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
+using Emka3.PracticeLooper.Utils;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class SpotifySearchViewModel : ViewModelBase
     {
         #region Fields
@@ -48,7 +50,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public Command SearchCommand => searchCommand ?? (searchCommand = new Command((o) => ExecuteSearchCommandAsync(o)));
 
         public Command CreateSessionCommand => createSessionCommand ?? (createSessionCommand = new Command(async o => await ExecuteCreateSessionCommand(o)));
-        
+
         private string SearchTerm { get; set; }
         #endregion
 
@@ -87,9 +89,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 };
 
                 Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(newSession, MessengerKeys.NewTrackAdded));
-                
-                await sessionsRepository.SafeAsync(newSession);
-                
+
+                await sessionsRepository.SaveAsync(newSession);
+
                 await NavigationService.GoBackAsync();
             }
             catch (Exception ex)
@@ -160,7 +162,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
             catch (TaskCanceledException)
             {
-                
+
             }
         }
 

@@ -4,12 +4,16 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System.Collections.Generic;
 using Emka3.PracticeLooper.Model.Common;
+using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace Emka3.PracticeLooper.Model.Player
 {
     /// <summary>
     /// Represents a session containing all loops and the file to play.
     /// </summary>
+    [Table("Sessions")]
+    [Utils.Preserve(AllMembers = true)]
     public class Session : EntityBase
     {
         #region Properties
@@ -23,7 +27,14 @@ namespace Emka3.PracticeLooper.Model.Player
         /// Gets or sets the file path.
         /// </summary>
         /// <value>The file path.</value>
+        [OneToOne]
         public AudioSource AudioSource { get; set; }
+
+        /// <summary>
+        /// AudioSource relation
+        /// </summary>
+        [ForeignKey(typeof(AudioSource))]
+        public int AudioSourceId { get; set; }
 
         /// <summary>
         /// Used to auto select last used session.
@@ -35,6 +46,7 @@ namespace Emka3.PracticeLooper.Model.Player
         /// Gets or sets the loops.
         /// </summary>
         /// <value>The loops.</value>
+        [OneToMany]
         public List<Loop> Loops { get; set; }
         #endregion
 

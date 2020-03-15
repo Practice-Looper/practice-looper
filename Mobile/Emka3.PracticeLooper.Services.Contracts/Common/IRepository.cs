@@ -10,10 +10,13 @@ namespace Emka3.PracticeLooper.Services.Contracts.Common
 {
     public interface IRepository<T> where T : EntityBase
     {
+        void Delete(T item);
+        void Save(T item);
+        T GetById(int id);
+        List<T> GetAllItems();
         Task DeleteAsync(T item);
-        Task<int> SafeAsync(T item);
+        Task SaveAsync(T item);
         Task<T> GetByIdAsync(int id);
         Task<List<T>> GetAllItemsAsync(); 
-        void Init();
     }
 }

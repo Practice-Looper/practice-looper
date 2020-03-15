@@ -5,6 +5,7 @@ using System;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.EventArgs;
+using Emka3.PracticeLooper.Utils;
 using Xamarin.Essentials;
 
 namespace Emka3.PracticeLooper.Services.Common
@@ -12,6 +13,7 @@ namespace Emka3.PracticeLooper.Services.Common
     /// <summary>
     /// Saves and loads users login credentials or token.
     /// </summary>
+    [Preserve(AllMembers = true)]
     public class AccountManager : IAccountManager
     {
         #region Fields

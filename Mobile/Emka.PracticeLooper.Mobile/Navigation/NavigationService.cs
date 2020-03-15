@@ -10,9 +10,11 @@ using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka.PracticeLooper.Mobile.Views;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Emka.PracticeLooper.Mobile.Navigation
 {
+    [Preserve(AllMembers = true)]
     public class NavigationService : INavigationService
     {
         #region Properties
@@ -97,7 +99,6 @@ namespace Emka.PracticeLooper.Mobile.Navigation
             Page page = null;
             try
             {
-
                 page = Activator.CreateInstance(pageType) as Page;
             }
             catch (Exception ex)

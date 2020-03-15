@@ -34,14 +34,14 @@
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.0.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.0.0" />
     <PackageReference Include="Microsoft.AppCenter" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.3" />
+    <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />
     <ProjectReference Include="..\Emka3.PracticeLooper.Mappings.Contracts\Emka3.PracticeLooper.Mappings.Contracts.csproj" />
     <ProjectReference Include="..\Emka3.PracticeLooper.Services.Contracts\Emka3.PracticeLooper.Services.Contracts.csproj" />
     <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj" />
+    <ProjectReference Include="..\Emka3.PracticeLooper.Utils\Emka3.PracticeLooper.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\Images\add_48px.svg" />
