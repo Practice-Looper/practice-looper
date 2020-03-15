@@ -76,7 +76,7 @@
     <CodesignProvision>Loopr-DEV</CodesignProvision>
     <BuildIpa>true</BuildIpa>
     <MtouchLink>SdkOnly</MtouchLink>
-<MtouchExtraArgs>--linkskip=Microsoft.EntityFrameworkCore --linkskip=Microsoft.EntityFrameworkCore.Sqlite</MtouchExtraArgs>
+<MtouchExtraArgs>--linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
