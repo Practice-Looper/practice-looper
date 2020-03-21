@@ -132,8 +132,15 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
         {
-            Crashes.TrackError(new Exception(error.Description));
-            connectedEvent.Reset();
+            try
+            {
+                Crashes.TrackError(new Exception(error.Description));
+                connectedEvent.Reset();
+            }
+            catch (ObjectDisposedException ex)
+            {
+                Crashes.TrackError(ex);
+            }
         }
 
         public override void DidEstablishConnection(SPTAppRemote appRemote)
@@ -141,6 +148,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             try
             {
                 connectedEvent.Set();
+            }
+            catch (ObjectDisposedException ex)
+            {
+                Crashes.TrackError(ex);
             }
             catch (Exception ex)
             {
@@ -162,6 +173,14 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 Crashes.TrackError(ex);
                 throw;
+            }
+        }
+
+        public void Disconnect()
+        {
+            if (api != null && api.Connected)
+            {
+                api.Disconnect();
             }
         }
         #endregion

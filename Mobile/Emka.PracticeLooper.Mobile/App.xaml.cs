@@ -14,8 +14,6 @@ using Device = Xamarin.Forms.Device;
 using Emka3.PracticeLooper.Config.Feature;
 using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Services.Contracts.Common;
-using Emka3.PracticeLooper.Model.Player;
-using Emka.PracticeLooper.Mobile.ViewModels;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -38,15 +36,11 @@ namespace Emka.PracticeLooper.Mobile
         {
             base.OnStart();
             AppCenter.Start($"ios={Helpers.Secrets.AppCenterIos};android={Helpers.Secrets.AppCenterAndroid}", typeof(Analytics), typeof(Crashes));
-            //Crashes.GenerateTestCrash();
             // Handle when your app starts
 
             InitConfig();
             InitApp();
             await InitNavigation().ConfigureAwait(true);
-            //MainPage.BindingContext = new MainViewModel();
-            //MainPage.
-            //await (MainPage.BindingContext as MainViewModel).InitializeAsync(null);
         }
 
         protected override void OnSleep()

@@ -8,7 +8,6 @@ using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
-using SpotifyBindings.iOS;
 using UIKit;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
@@ -34,6 +33,5 @@ namespace Emka.PracticeLooper.Mobile.iOS
         }
 
         internal static IConfigurationService ConfigurationService { get; private set; }
-        internal static SPTAppRemote SPTRemoteApi { get; private set; }
     }
 }

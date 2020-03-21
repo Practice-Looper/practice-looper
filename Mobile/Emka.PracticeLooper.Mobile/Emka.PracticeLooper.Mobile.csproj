@@ -44,26 +44,16 @@
     <ProjectReference Include="..\Emka3.PracticeLooper.Utils\Emka3.PracticeLooper.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Assets\Images\add_48px.svg" />
-    <None Remove="Assets\Images\ic_add_black_48dp.png" />
-    <None Remove="Assets\Sounds\Coumarin_Mirage_Vers3.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Assets\Images\add_48px.svg" />
-    <EmbeddedResource Include="Assets\Images\ic_add_black_48dp.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="ViewModels\" />
     <Folder Include="ViewModels\Common\" />
     <Folder Include="Views\" />
     <Folder Include="Messenger\" />
     <Folder Include="Common\" />
     <Folder Include="Assets\" />
-    <Folder Include="Assets\Images\" />
     <Folder Include="Extensions\" />
     <Folder Include="Behaviors\" />
     <Folder Include="Navigation\" />
-    <Folder Include="Assets\Sounds\" />
+    <Folder Include="TemplateSelectors\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mono.Android">
@@ -83,8 +73,5 @@
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\MainView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\Sounds\Coumarin_Mirage_Vers3.mp3" />
   </ItemGroup>
 </Project>

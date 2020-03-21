@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
+    xmlns:tmpltSlctrs="clr-namespace:Emka.PracticeLooper.Mobile.TemplateSelectors"
     x:Class="Emka.PracticeLooper.Mobile.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -85,13 +86,80 @@
                     Platform="Android"
                     Value="materialdesignicons.ttf#" />
             </OnPlatform>
-
+            <!-- Font Icons ################################################### -->
             <x:String
                 x:Key="Play">&#xf40d;</x:String>
             <x:String
                 x:Key="Pause">&#xf3e6;</x:String>
             <x:String
                 x:Key="Add">&#xf419;</x:String>
+            <x:String
+                x:Key="Spotify">&#xf4c7;</x:String>
+            <x:String
+                x:Key="AudioFile">&#xf223;</x:String>
+
+            <!-- Data Templates ############################################### -->
+            <DataTemplate
+                x:Key="ListViewItemSpotify">
+                <ViewCell>
+                    <ViewCell.ContextActions>
+                        <MenuItem
+                            Text="Delete"
+                            IsDestructive="True"
+                            Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                            CommandParameter="{Binding .}" />
+                    </ViewCell.ContextActions>
+                    <StackLayout
+                        VerticalOptions="CenterAndExpand"
+                        Padding="15,0"
+                        Orientation="Horizontal">
+                        <Label
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Text="{StaticResource Spotify}"
+                            FontSize="24"
+                            TextColor="{x:Static views:ColorConstants.Primary}"
+                            VerticalTextAlignment="Center"
+                            VerticalOptions="Center"/>
+                        <Label
+                            Text="{Binding Name}"
+                            TextColor="{x:Static views:ColorConstants.Primary}" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+
+            <DataTemplate
+                x:Key="ListViewItemAudioFile">
+                <ViewCell>
+                    <ViewCell.ContextActions>
+                        <MenuItem
+                            Text="Delete"
+                            IsDestructive="True"
+                            Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                            CommandParameter="{Binding .}" />
+                    </ViewCell.ContextActions>
+                    <StackLayout
+                        VerticalOptions="CenterAndExpand"
+                        Padding="15,0"
+                        Orientation="Horizontal">
+                        <Label
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Text="{StaticResource AudioFile}"
+                            FontSize="24"
+                            TextColor="{x:Static views:ColorConstants.Primary}"
+                            VerticalTextAlignment="Center"
+                            VerticalOptions="Center"/>
+                        <Label
+                            Text="{Binding Name}"
+                            TextColor="{x:Static views:ColorConstants.Primary}" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <!-- Template Selectors ############################################### -->
+
+            <tmpltSlctrs:AudioSourceTypeTemplateSelector
+                x:Key="AudioSourceTypeTemplateSelector"
+                AudioFileTemplate="{StaticResource ListViewItemAudioFile}"
+                SpotifyTemplate="{StaticResource ListViewItemSpotify}"/>
         </ResourceDictionary>
 
     </Application.Resources>

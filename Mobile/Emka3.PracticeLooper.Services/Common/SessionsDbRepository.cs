@@ -40,7 +40,7 @@ namespace Emka3.PracticeLooper.Services.Common
         {
             configService = Factory.GetConfigService();
             dbName = configService.GetValue("DbName");
-            InitAsync().SafeFireAndForget(false);
+            //InitAsync().SafeFireAndForget(false);
         }
         #endregion
 
@@ -50,7 +50,7 @@ namespace Emka3.PracticeLooper.Services.Common
         #endregion
 
         #region Methods
-        async Task InitAsync()
+        public async Task InitAsync()
         {
             try
             {
@@ -85,6 +85,7 @@ namespace Emka3.PracticeLooper.Services.Common
                 throw;
             }
         }
+
         public async Task DeleteAsync(Session item)
         {
             try
@@ -150,7 +151,9 @@ namespace Emka3.PracticeLooper.Services.Common
         {
             try
             {
-                Database.InsertOrReplaceWithChildren(item, true);
+                Database.Insert(item.AudioSource);
+                Database.InsertAll(item.Loops, true);
+                Database.InsertWithChildren(item, true);
             }
             catch (Exception)
             {
@@ -162,7 +165,7 @@ namespace Emka3.PracticeLooper.Services.Common
         {
             try
             {
-                return Database.GetWithChildren<Session>(id, true);
+                return Database.GetWithChildren<Session>(id);
             }
             catch (Exception)
             {
@@ -175,6 +178,30 @@ namespace Emka3.PracticeLooper.Services.Common
             try
             {
                 return Database.GetAllWithChildren<Session>(recursive: true);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void Update(Session item)
+        {
+            try
+            {
+                Database.UpdateWithChildren(item);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task UpdateAsync(Session item)
+        {
+            try
+            {
+                await Task.Run(() => Update(item));
             }
             catch (Exception)
             {

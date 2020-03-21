@@ -12,10 +12,13 @@ namespace Emka3.PracticeLooper.Services.Contracts.Common
     {
         void Delete(T item);
         void Save(T item);
+        void Update(T item);
+        Task InitAsync();
         T GetById(int id);
         List<T> GetAllItems();
         Task DeleteAsync(T item);
         Task SaveAsync(T item);
+        Task UpdateAsync(T item);
         Task<T> GetByIdAsync(int id);
         Task<List<T>> GetAllItemsAsync(); 
     }

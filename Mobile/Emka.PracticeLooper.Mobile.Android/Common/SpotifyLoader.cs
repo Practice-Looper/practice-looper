@@ -113,6 +113,14 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             autoResetEvent.Set();
             // todo: check if user needs to login
         }
+
+        public void Disconnect()
+        {
+            if (api != null && api.IsConnected)
+            {
+                SpotifyAppRemote.Disconnect(api);
+            }
+        }
         #endregion
     }
 }

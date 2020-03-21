@@ -44,7 +44,6 @@
                         <RowDefinition
                             Height="*" />
                     </Grid.RowDefinitions>
-                    <!--Command="{Binding CreateSessionCommand}"-->
                     <ImageButton
                         Grid.Row="0"
                         WidthRequest="48"
@@ -65,28 +64,8 @@
                         SelectedItem="{Binding CurrentSession}"
                         ItemsSource="{Binding Sessions}"
                         BackgroundColor="Transparent"
-                        SeparatorColor="{x:Static views:ColorConstants.Secondary}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <ViewCell.ContextActions>
-                                        <MenuItem
-                                            Text="Delete"
-                                            IsDestructive="True"
-                                            Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={x:Reference mainPage}}"
-                                            CommandParameter="{Binding .}" />
-                                    </ViewCell.ContextActions>
-                                    <StackLayout
-                                        VerticalOptions="CenterAndExpand"
-                                        Padding="15,0">
-                                        <Label
-                                            Text="{Binding Name}"
-                                            TextColor="{x:Static views:ColorConstants.Primary}" />
-                                    </StackLayout>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                        SeparatorColor="{x:Static views:ColorConstants.Secondary}"
+                        ItemTemplate="{StaticResource AudioSourceTypeTemplateSelector}"/>
                 </Grid>
             </ContentView>
             <BoxView

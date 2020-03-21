@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Services.Contracts.Common;
@@ -8,6 +9,7 @@ using MediaManager;
 using Microsoft.AppCenter.Crashes;
 using SpotifyBindings.iOS;
 using UIKit;
+using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
 //#if NETFX_CORE
 //[assembly: Xamarin.Forms.Platform.WinRT.ExportRenderer(typeof(Xamarin.RangeSlider.Forms.RangeSlider), typeof(Xamarin.RangeSlider.Forms.RangeSliderRenderer))]
@@ -70,6 +72,27 @@ namespace Emka.PracticeLooper.Mobile.iOS
         private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Crashes.TrackError(e.ExceptionObject as Exception);
+        }
+
+        public override void WillTerminate(UIApplication uiApplication)
+        {
+            base.WillTerminate(uiApplication);
+            MappingsFactory.Contracts.IResolver resolver = Factory.GetResolver();
+            var audioPlayers = resolver.ResolveAll<IAudioPlayer>();
+            var spotifyLoader = resolver.Resolve<ISpotifyLoader>();
+
+            if (audioPlayers != null && audioPlayers.Any())
+            {
+                foreach (var player in audioPlayers)
+                {
+                    player.Pause();
+                }
+            }
+
+            if (spotifyLoader != null)
+            {
+                spotifyLoader.Disconnect();
+            }
         }
     }
 }

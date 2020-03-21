@@ -1,5 +1,6 @@
 ﻿//using System;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Android;
 using Android.App;
@@ -8,9 +9,12 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Support.V4.Content;
 using Emka.PracticeLooper.Mobile.Droid.Helpers;
+using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Services.Contracts.Common;
+using Emka3.PracticeLooper.Services.Contracts.Player;
 using MediaManager;
 using Microsoft.AppCenter.Crashes;
+using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
 namespace Emka.PracticeLooper.Mobile.Droid
 {
@@ -46,6 +50,27 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            MappingsFactory.Contracts.IResolver resolver = Factory.GetResolver();
+            var audioPlayers = resolver.ResolveAll<IAudioPlayer>();
+            var spotifyLoader = resolver.Resolve<ISpotifyLoader>();
+
+            if (audioPlayers != null && audioPlayers.Any())
+            {
+                foreach (var player in audioPlayers)
+                {
+                    player.Pause();
+                }
+            }
+
+            if (spotifyLoader != null)
+            {
+                spotifyLoader.Disconnect();
+            }
         }
 
         private void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
