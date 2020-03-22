@@ -12,7 +12,6 @@ using Emka.PracticeLooper.Mobile.Droid.Helpers;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
-using MediaManager;
 using Microsoft.AppCenter.Crashes;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
@@ -28,6 +27,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
             GlobalApp.Init();
+            MediaManager.CrossMediaManager.Current.Init();
             GlobalApp.MainActivity = this;
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
@@ -45,7 +45,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, Secrets.AdmobAndroidAppId);
             SQLitePCL.Batteries_V2.Init();
-            CrossMediaManager.Current.Init(this);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
