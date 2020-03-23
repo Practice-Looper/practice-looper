@@ -100,7 +100,7 @@
 
             <!-- Data Templates ############################################### -->
             <DataTemplate
-                x:Key="ListViewItemSpotify">
+                x:Key="SessionItemSpotify">
                 <ViewCell>
                     <ViewCell.ContextActions>
                         <MenuItem
@@ -119,7 +119,7 @@
                             FontSize="24"
                             TextColor="{x:Static views:ColorConstants.Primary}"
                             VerticalTextAlignment="Center"
-                            VerticalOptions="Center"/>
+                            VerticalOptions="Center" />
                         <Label
                             Text="{Binding Name}"
                             TextColor="{x:Static views:ColorConstants.Primary}" />
@@ -128,7 +128,7 @@
             </DataTemplate>
 
             <DataTemplate
-                x:Key="ListViewItemAudioFile">
+                x:Key="SessionItemAudioFile">
                 <ViewCell>
                     <ViewCell.ContextActions>
                         <MenuItem
@@ -147,19 +147,84 @@
                             FontSize="24"
                             TextColor="{x:Static views:ColorConstants.Primary}"
                             VerticalTextAlignment="Center"
-                            VerticalOptions="Center"/>
+                            VerticalOptions="Center" />
                         <Label
                             Text="{Binding Name}"
                             TextColor="{x:Static views:ColorConstants.Primary}" />
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
+
+            <DataTemplate
+                x:Key="AudioSourceTypeSpotify">
+               <ViewCell>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="6*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Column="0"
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Text="{StaticResource Spotify}"
+                            FontSize="48"
+                            TextColor="{x:Static views:ColorConstants.Primary}"
+                            VerticalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"/>
+                        <Label
+                            Grid.Column="1"
+                            Text="{Binding DisplayName}"
+                            TextColor="{x:Static views:ColorConstants.Primary}"
+                            VerticalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            HorizontalOptions="StartAndExpand"
+                            FontSize="24"/>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+
+            <DataTemplate
+                x:Key="AudioSourceTypeAudioFile">
+                <ViewCell>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition Width="6*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Column="0"
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Text="{StaticResource AudioFile}"
+                            FontSize="48"
+                            TextColor="{x:Static views:ColorConstants.Primary}"
+                            VerticalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"/>
+                        <Label
+                            Grid.Column="1"
+                            Text="{Binding DisplayName}"
+                            TextColor="{x:Static views:ColorConstants.Primary}"
+                            VerticalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            HorizontalOptions="StartAndExpand"
+                            FontSize="24"/>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
             <!-- Template Selectors ############################################### -->
 
             <tmpltSlctrs:AudioSourceTypeTemplateSelector
-                x:Key="AudioSourceTypeTemplateSelector"
-                AudioFileTemplate="{StaticResource ListViewItemAudioFile}"
-                SpotifyTemplate="{StaticResource ListViewItemSpotify}"/>
+                x:Key="SessionItemTemplateSelector"
+                AudioFileTemplate="{StaticResource SessionItemAudioFile}"
+                SpotifyTemplate="{StaticResource SessionItemSpotify}" />
+
+            <tmpltSlctrs:AudioSourceTypeTemplateSelector
+                x:Key="AudioTypeTemplateSelector"
+                AudioFileTemplate="{StaticResource AudioSourceTypeAudioFile}"
+                SpotifyTemplate="{StaticResource AudioSourceTypeSpotify}" />
         </ResourceDictionary>
 
     </Application.Resources>

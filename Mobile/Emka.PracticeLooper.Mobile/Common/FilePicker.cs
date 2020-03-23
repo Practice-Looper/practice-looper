@@ -38,7 +38,7 @@ namespace Emka.PracticeLooper.Mobile.Common
 
                 allowedTypes = isIos ? new string[] { "public.audio" } : new string[] { "audio/*" };
 
-                FileData fileData = await CrossFilePicker.Current.PickFile(allowedTypes).ConfigureAwait(false);
+                FileData fileData = await CrossFilePicker.Current.PickFile(allowedTypes);
 
                 if (fileData == null)
                     return result; // user canceled file picking

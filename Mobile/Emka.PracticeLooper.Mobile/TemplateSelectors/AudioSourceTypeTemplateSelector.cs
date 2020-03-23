@@ -3,6 +3,8 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 
+using Emka.PracticeLooper.Mobile.ViewModels;
+using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Model.Player;
 using Xamarin.Forms;
 
@@ -22,6 +24,19 @@ namespace Emka.PracticeLooper.Mobile.TemplateSelectors
             if (item is Session session)
             {
                 switch (session.AudioSource.Type)
+                {
+                    case AudioSourceType.Local:
+                        return AudioFileTemplate;
+                    case AudioSourceType.Spotify:
+                        return SpotifyTemplate;
+                    default:
+                        break;
+                }
+            }
+
+            if (item is AudioSourceVieModel vm)
+            {
+                switch (vm.AudioType)
                 {
                     case AudioSourceType.Local:
                         return AudioFileTemplate;

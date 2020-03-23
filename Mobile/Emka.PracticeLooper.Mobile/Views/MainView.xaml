@@ -65,7 +65,7 @@
                         ItemsSource="{Binding Sessions}"
                         BackgroundColor="Transparent"
                         SeparatorColor="{x:Static views:ColorConstants.Secondary}"
-                        ItemTemplate="{StaticResource AudioSourceTypeTemplateSelector}"/>
+                        ItemTemplate="{StaticResource SessionItemTemplateSelector}" />
                 </Grid>
             </ContentView>
             <BoxView

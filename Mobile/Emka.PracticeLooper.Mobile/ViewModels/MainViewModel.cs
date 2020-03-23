@@ -383,16 +383,23 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             switch (source)
             {
-                case "File":
-                    var newFile = await filePicker.ShowPicker();
-                    // file is null when user cancelled file picker!
-                    if (newFile != null)
+                case AudioSourceType.Local:
+                    try
                     {
-                        CreateSessionCommand.Execute(newFile);
+                        var newFile = await filePicker.ShowPicker();
+                        // file is null when user cancelled file picker!
+                        if (newFile != null)
+                        {
+                            CreateSessionCommand.Execute(newFile);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
                     }
 
                     break;
-                case "Spotify":
+                case AudioSourceType.Spotify:
                     var canNavigate = true;
                     if (canNavigate)
                     {

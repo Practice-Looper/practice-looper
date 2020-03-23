@@ -4,11 +4,12 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config.Feature;
+using Emka3.PracticeLooper.Model.Player;
 
 namespace Emka.PracticeLooper.Mobile.Common
 {
     public interface ISourcePicker : IFeature
     {
-        Task<string> SelectFileSource();
+        Task<AudioSourceType> SelectFileSource();
     }
 }

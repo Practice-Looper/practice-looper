@@ -6,9 +6,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Emka.PracticeLooper.Mobile.Messenger;
+using Emka.PracticeLooper.Mobile.ViewModels;
+using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Config.Feature;
+using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -18,28 +24,49 @@ namespace Emka.PracticeLooper.Mobile.Common
     public class SourcePicker : ISourcePicker
     {
         private readonly Page page;
+        private AutoResetEvent autoResetEvent;
+        private AudioSourceVieModel selectedSource;
 
         public SourcePicker()
         {
             page = Application.Current.MainPage;
+            autoResetEvent = new AutoResetEvent(false);
+            MessagingCenter.Subscribe<AudioSourceVieModel>(this, MessengerKeys.AudioSourceSelected, OnAudioSourceSelected);
+            MessagingCenter.Subscribe<PickAudioSourceView>(this, MessengerKeys.AudioSourcePickerClosed, OnSourcePickerClosed);
         }
 
-        public async Task<string> SelectFileSource()
+        public async Task<AudioSourceType> SelectFileSource()
         {
-            var names = new List<string>();
+            var sources = new List<AudioSourceVieModel>();
             if (FeatureRegistry.IsEnabled<IPremiumAudioPlayer>("Spotify"))
             {
-                names.Add("Spotify");
+                sources.Add(new AudioSourceVieModel("Spotify", AudioSourceType.Spotify));
             }
 
-            if (names.Any())
+            if (sources.Any())
             {
-                names.Add("File");
-                Array.Sort(names.ToArray(), StringComparer.InvariantCulture);
-                return await page.DisplayActionSheet("Select Source", "Cancel", null, names.ToArray()).ConfigureAwait(false);
+                sources.Add(new AudioSourceVieModel("Audio File", AudioSourceType.Local));
             }
+            else
+            {
+                return AudioSourceType.Local;
+            }
+            
+            await PopupNavigation.Instance.PushAsync(new PickAudioSourceView(sources));
+            await Task.Run(autoResetEvent.WaitOne);
+            await PopupNavigation.Instance.PopAsync();
+            return selectedSource.AudioType;
+        }
 
-            return "File";
+        private void OnAudioSourceSelected(AudioSourceVieModel obj)
+        {
+            selectedSource = obj;
+            autoResetEvent.Set();
+        }
+
+        private async void OnSourcePickerClosed(PickAudioSourceView obj)
+        {
+            await PopupNavigation.Instance.PopAsync();
         }
     }
 }

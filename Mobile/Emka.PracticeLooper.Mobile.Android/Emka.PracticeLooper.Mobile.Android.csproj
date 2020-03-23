@@ -20,6 +20,8 @@
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;</AndroidLinkSkip>
+    <AndroidLinkMode>Full</AndroidLinkMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,9 +31,9 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidSupportedAbis>arm64-v8a;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
-    <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;</AndroidLinkSkip>
-    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Rg.Plugins.Popup;</AndroidLinkSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,8 +44,6 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <AndroidLinkMode>Full</AndroidLinkMode>
-    <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;</AndroidLinkSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildIOS|AnyCPU' ">
     <DebugType></DebugType>
@@ -54,8 +54,6 @@
     <AndroidManifest></AndroidManifest>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis>arm64-v8a;armeabi-v7a;x86</AndroidSupportedAbis>
-    <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;</AndroidLinkSkip>
-    <AndroidLinkMode>Full</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -129,7 +127,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GlobalApp.cs" />
@@ -142,6 +139,7 @@
     <Compile Include="Common\SpotifyLoader.cs" />
     <Compile Include="Common\SpotifyAudioPlayer.cs" />
     <Compile Include="Common\InterstitialAd.cs" />
+    <Compile Include="MainActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -166,17 +164,6 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\Add.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\Add.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\Add.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\Add.png" />
-    <AndroidResource Include="Resources\drawable\Add.png" />
-    <AndroidResource Include="Resources\drawable\Loop.png" />
-    <AndroidResource Include="Resources\drawable\Close.png" />
-    <AndroidResource Include="Resources\drawable\Play.png">
-      <SubType></SubType>
-      <Generator></Generator>
-    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

@@ -146,6 +146,7 @@
     <Compile Include="Common\AudioMetadataReader.cs" />
     <Compile Include="Common\AudioMetadata.cs" />
     <Compile Include="Common\InterstitialAd.cs" />
+    <Compile Include="Renderer\CustomListViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
