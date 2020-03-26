@@ -66,6 +66,7 @@ namespace Emka.PracticeLooper.Mobile.Common
 
         private async void OnSourcePickerClosed(PickAudioSourceView obj)
         {
+            selectedSource = new AudioSourceVieModel(string.Empty, AudioSourceType.None);
             await PopupNavigation.Instance.PopAsync();
         }
     }
