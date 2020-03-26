@@ -149,7 +149,6 @@
     <Compile Include="Renderer\CustomListViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\40.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\60.png" />
@@ -170,9 +169,10 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\167.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\appstore.png" />
     <ImageAsset Include="Assets.xcassets\WordLogo.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\WordLogo.imageset\practice-looper-12-C-white.png" />
-    <ImageAsset Include="Assets.xcassets\WordLogo.imageset\practice-looper-12-C-white%402x.png" />
-    <ImageAsset Include="Assets.xcassets\WordLogo.imageset\practice-looper-12-C-white%403x.png" />
+    <InterfaceDefinition Include="PracticeLooperLaunchScreen.storyboard" />
+    <ImageAsset Include="Assets.xcassets\WordLogo.imageset\wordlogo.png" />
+    <ImageAsset Include="Assets.xcassets\WordLogo.imageset\wordlogo%402x.png" />
+    <ImageAsset Include="Assets.xcassets\WordLogo.imageset\wordlogo%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -259,6 +259,7 @@
     <Folder Include="Sounds\" />
     <Folder Include="Assets.xcassets\Play.imageset\" />
     <Folder Include="Assets.xcassets\WordLogo.imageset\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Sounds\Coumarin_Mirage_Vers3.mp3" />

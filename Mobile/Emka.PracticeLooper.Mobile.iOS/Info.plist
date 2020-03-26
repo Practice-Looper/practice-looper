@@ -23,8 +23,6 @@
 	<string>Practice Looper</string>
 	<key>CFBundleIdentifier</key>
 	<string>de.emka3.practice-looper.loopr</string>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
@@ -64,5 +62,7 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>0.1</string>
+	<key>UILaunchStoryboardName</key>
+	<string>PracticeLooperLaunchScreen</string>
 </dict>
 </plist>
