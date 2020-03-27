@@ -8,8 +8,8 @@
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
-	<application android:label="Practice Looper" android:name="android.app.Application" android:allowBackup="true" android:icon="@mipmap/icon" android:debuggable="true">
-		<activity android:configChanges="orientation|screenSize" android:icon="@mipmap/icon" android:label="Emka.PracticeLooper.Mobile" android:theme="@style/MainTheme" android:name="crc64106a7de43e0e5d6c.MainActivity">
+	<application android:label="Practice Looper" android:name="android.app.Application" android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:debuggable="true">
+		<activity android:configChanges="orientation|screenSize" android:icon="@mipmap/ic_launcher" android:label="Emka.PracticeLooper.Mobile" android:theme="@style/MainTheme" android:name="crc64106a7de43e0e5d6c.MainActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
