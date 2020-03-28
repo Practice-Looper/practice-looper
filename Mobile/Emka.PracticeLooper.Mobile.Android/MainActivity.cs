@@ -17,7 +17,7 @@ using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
 namespace Emka.PracticeLooper.Mobile.Droid
 {
-    [Activity(Label = "Practice Looper", Icon = "@mipmap/ic_launcher", RoundIcon = "@mipmap/ic_launcher_round", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Practice Looper", Icon = "@mipmap/ic_launcher", RoundIcon = "@mipmap/ic_launcher_round", Theme = "@style/Splash", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -25,7 +25,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
             base.OnCreate(savedInstanceState);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
-
             GlobalApp.Init();
             MediaManager.CrossMediaManager.Current.Init();
             GlobalApp.MainActivity = this;
@@ -49,6 +48,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
+            base.SetTheme(Resource.Style.MainTheme);
         }
 
         protected override void OnDestroy()
