@@ -5,9 +5,11 @@
 
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
+using Emka3.PracticeLooper.Utils;
 
 namespace Emka3.PracticeLooper.Services.Contracts.Player
 {
+    [Preserve(AllMembers = true)]
     public interface IAudioMetadataReader
     {
         Task<IAudioMetaData> GetMetaDataAsync(AudioSource audioSource);
