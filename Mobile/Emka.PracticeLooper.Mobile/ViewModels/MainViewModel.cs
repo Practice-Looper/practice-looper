@@ -19,6 +19,7 @@ using Xamarin.Forms;
 using Factory = Emka3.PracticeLooper.Mappings.Factory;
 using Microsoft.AppCenter.Crashes;
 using Emka3.PracticeLooper.Utils;
+using Emka3.PracticeLooper.Config.Feature;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -228,6 +229,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             try
             {
                 audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>().ToDictionary(player => player.Type);
+                sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
                 interstitialAd = Factory.GetResolver().Resolve<IInterstitialAd>();
                 sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
                 await sessionsRepository.InitAsync();
@@ -242,10 +244,19 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         Sessions.Add(item);
                     }
                 });
+
+                // check app and purchase status
+                await Tracker?.TrackAsync(Emka3.PracticeLooper.Model.Common.TrackerEvents.Boot, new Dictionary<string, string>
+                {
+                    { "Instance", nameof(MainViewModel) },
+                    { "Add", FeatureRegistry.IsEnabled<IFeature>("Add").ToString() },
+                    { "Spotify", FeatureRegistry.IsEnabled<IPremiumAudioPlayer>("Spotify").ToString() }
+                });
             }
             catch (Exception ex)
             {
-                Crashes.TrackError(ex);
+                await Logger?.LogErrorAsync(ex);
+                await ShowErrorDialogAsync(ex);
             }
         }
 
@@ -253,8 +264,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             if (CurrentSession != null)
             {
-                CurrentSession.Loops[0].StartPosition = MinimumValue;
-                CurrentSession.Loops[0].EndPosition = MaximumValue;
+                try
+                {
+                    CurrentSession.Loops[0].StartPosition = MinimumValue;
+                    CurrentSession.Loops[0].EndPosition = MaximumValue;
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError(ex);
+                    ShowErrorDialog(ex);
+                }
             }
         }
 
@@ -262,10 +281,18 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             if (CurrentLoop != null)
             {
-                Device.BeginInvokeOnMainThread(() =>
+                try
                 {
-                    CurrentAudioPlayer.Seek(CurrentLoop.StartPosition);
-                });
+                    Device.BeginInvokeOnMainThread(() =>
+                            {
+                                CurrentAudioPlayer?.Seek(CurrentLoop.StartPosition);
+                            });
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError(ex);
+                    ShowErrorDialog(ex);
+                }
             }
         }
 
@@ -280,11 +307,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             if (source != null)
             {
-                var newSession = new Session
+                try
                 {
-                    Name = source.FileName,
-                    AudioSource = source,
-                    Loops = new List<Loop>
+                    var newSession = new Session
+                    {
+                        Name = source.FileName,
+                        AudioSource = source,
+                        Loops = new List<Loop>
                             {
                                 new Loop
                                 {
@@ -294,10 +323,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                                     Repititions = 0
                                 }
                             }
-                };
+                    };
 
-                Sessions.Add(newSession);
-                await sessionsRepository.SaveAsync(newSession);
+                    Sessions.Add(newSession);
+                    await sessionsRepository.SaveAsync(newSession);
+                }
+                catch (Exception ex)
+                {
+                    await Logger.LogErrorAsync(ex);
+                    await ShowErrorDialogAsync();
+                }
             }
         }
 
@@ -308,35 +343,43 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private async Task ExecutePlayCommand(object o)
         {
-            if (CurrentAudioPlayer.IsPlaying)
+            try
             {
-                Device.BeginInvokeOnMainThread(() => IsPlaying = false);
-                Device.BeginInvokeOnMainThread(CurrentAudioPlayer.Pause);
-                CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
-                CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
-                CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
-            }
-            else
-            {
-                // todo: detach handler
-                try
+                if (CurrentAudioPlayer.IsPlaying)
                 {
-                    CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
-                    CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
-                    CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
-
-                    if (!CurrentAudioPlayer.Initialized)
+                    Device.BeginInvokeOnMainThread(() => IsPlaying = false);
+                    Device.BeginInvokeOnMainThread(CurrentAudioPlayer.Pause);
+                    CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
+                    CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
+                    CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
+                }
+                else
+                {
+                    // todo: detach handler
+                    try
                     {
-                        await CurrentAudioPlayer.InitAsync(CurrentLoop);
-                    }
+                        CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
+                        CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
+                        CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
 
-                    await CurrentAudioPlayer.PlayAsync();
-                    Device.BeginInvokeOnMainThread(() => IsPlaying = true);
+                        if (!CurrentAudioPlayer.Initialized)
+                        {
+                            await CurrentAudioPlayer.InitAsync(CurrentLoop);
+                        }
+
+                        await CurrentAudioPlayer.PlayAsync();
+                        Device.BeginInvokeOnMainThread(() => IsPlaying = true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Crashes.TrackError(ex);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Crashes.TrackError(ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogErrorAsync(ex);
+                await ShowErrorDialogAsync();
             }
         }
 
@@ -370,77 +413,85 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Crashes.TrackError(ex);
+                    await Logger.LogErrorAsync(ex);
+                    await ShowErrorDialogAsync();
                 }
             }
         }
 
         private async Task ExecutePickSourceCommandAsync(object o)
         {
-            sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
-            var source = await sourcePicker.SelectFileSource();
-            await interstitialAd?.ShowAdAsync();
-
-            switch (source)
+            try
             {
-                case AudioSourceType.Local:
-                    try
-                    {
+                var source = await sourcePicker?.SelectFileSource();
+                await interstitialAd?.ShowAdAsync();
+
+                switch (source)
+                {
+                    case AudioSourceType.Local:
                         var newFile = await filePicker.ShowPicker();
                         // file is null when user cancelled file picker!
                         if (newFile != null)
                         {
                             CreateSessionCommand.Execute(newFile);
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex);
-                    }
 
-                    break;
-                case AudioSourceType.Spotify:
-                    var canNavigate = true;
-                    if (canNavigate)
-                    {
-                        await spotifyLoader.InitializeAsync();
-                        await NavigationService.NavigateToAsync<SpotifySearchViewModel>();
-                    }
+                        break;
+                    case AudioSourceType.Spotify:
+                        var canNavigate = true;
+                        if (canNavigate)
+                        {
+                            await spotifyLoader.InitializeAsync();
+                            await NavigationService.NavigateToAsync<SpotifySearchViewModel>();
+                        }
 
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogErrorAsync(ex);
+                await ShowErrorDialogAsync();
             }
         }
 
         private void InitAudioSourceSelected()
         {
-            if (IsPlaying)
+            try
             {
-                CurrentAudioPlayer.Pause();
-            }
-
-            if (CurrentSession != null)
-            {
-                CurrentAudioPlayer = audioPlayers[CurrentSession.AudioSource.Type];
-                CurrentLoop = CurrentSession.Loops[0];
-                MinimumValue = CurrentLoop.StartPosition;
-                MaximumValue = CurrentLoop.EndPosition;
-                SongDuration = FormatTime(CurrentLoop.Session.AudioSource.Duration * 1000);
-                CurrentSongTime = FormatTime(CurrentLoop.Session.AudioSource.Duration * 1000 * MinimumValue);
-            }
-            else
-            {
-                MinimumValue = 0.0;
-                MaximumValue = 1.0;
-                SongDuration = FormatTime(0.0);
-                CurrentSongTime = FormatTime(0.0);
-
-                if (CurrentAudioPlayer != null)
+                if (IsPlaying)
                 {
-                    CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
-                    CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
+                    CurrentAudioPlayer.Pause();
                 }
+
+                if (CurrentSession != null)
+                {
+                    CurrentAudioPlayer = audioPlayers[CurrentSession.AudioSource.Type];
+                    CurrentLoop = CurrentSession.Loops[0];
+                    MinimumValue = CurrentLoop.StartPosition;
+                    MaximumValue = CurrentLoop.EndPosition;
+                    SongDuration = FormatTime(CurrentLoop.Session.AudioSource.Duration * 1000);
+                    CurrentSongTime = FormatTime(CurrentLoop.Session.AudioSource.Duration * 1000 * MinimumValue);
+                }
+                else
+                {
+                    MinimumValue = 0.0;
+                    MaximumValue = 1.0;
+                    SongDuration = FormatTime(0.0);
+                    CurrentSongTime = FormatTime(0.0);
+
+                    if (CurrentAudioPlayer != null)
+                    {
+                        CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
+                        CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogErrorAsync(ex);
             }
         }
 
@@ -451,18 +502,36 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private void OnCurrentTimePositionChanged(object sender, EventArgs e)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            try
             {
-                CurrentAudioPlayer.GetCurrentPosition((o) =>
-                {
-                    CurrentSongTime = FormatTime(o);
-                });
-            });
+                Device.BeginInvokeOnMainThread(() =>
+                    {
+                        CurrentAudioPlayer.GetCurrentPosition((o) =>
+                        {
+                            CurrentSongTime = FormatTime(o);
+                        });
+                    });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex);
+                ShowErrorDialog();
+            }
         }
 
         private string FormatTime(double time)
         {
-            return TimeSpan.FromMilliseconds(time).ToString(@"mm\:ss");
+            try
+            {
+                return TimeSpan.FromMilliseconds(time).ToString(@"mm\:ss");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex);
+                ShowErrorDialog();
+            }
+
+            return TimeSpan.FromMilliseconds(0).ToString(@"mm\:ss");
         }
         #endregion
     }

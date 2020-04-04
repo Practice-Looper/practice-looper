@@ -27,35 +27,27 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #region Methods
         public async Task<string> SaveFileAsync(string fileName, byte[] data)
         {
-            try
+            var url = await CheckCloudAccess();
+            string targetPath = string.Empty;
+            hasCloudAccess = url != null;
+
+            if (hasCloudAccess)
             {
-                var url = await CheckCloudAccess();
-                string targetPath = string.Empty;
-                hasCloudAccess = url != null;
-
-                if (hasCloudAccess)
-                {
-                    targetPath = Path.Combine(url.Path, "Documents");
-                    await EnsureDocumentsPath(Path.Combine(url.Path, "Documents"));
-
-                }
-                else
-                {
-                    targetPath = GlobalApp.ConfigurationService.LocalPath;
-                }
-
-                await Task.Run(() =>
-                {
-                    File.WriteAllBytes(Path.Combine(targetPath, fileName), data);
-                });
-
-                return Path.Combine(targetPath, fileName);
+                targetPath = Path.Combine(url.Path, "Documents");
+                await EnsureDocumentsPath(Path.Combine(url.Path, "Documents"));
 
             }
-            catch (Exception)
+            else
             {
-                throw;
+                targetPath = GlobalApp.ConfigurationService.LocalPath;
             }
+
+            await Task.Run(() =>
+            {
+                File.WriteAllBytes(Path.Combine(targetPath, fileName), data);
+            });
+
+            return Path.Combine(targetPath, fileName);
         }
 
         private async Task<NSUrl> CheckCloudAccess()
@@ -87,19 +79,12 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 throw new ArgumentNullException(nameof(fileName));
             }
 
-            try
+            if (File.Exists(fileName))
             {
-                if (File.Exists(fileName))
+                await Task.Run(() =>
                 {
-                    await Task.Run(() =>
-                    {
-                        File.Delete(fileName);
-                    });
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                    File.Delete(fileName);
+                });
             }
         }
         #endregion Methods

@@ -19,6 +19,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         #region Fields
         AutoResetEvent adClosedEvent;
         Android.Gms.Ads.InterstitialAd interstitialAd;
+        private readonly ILogger logger;
         #endregion
 
         #region Events
@@ -30,9 +31,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         #region Ctor
 
-        public InterstitialAd()
+        public InterstitialAd(ILogger logger)
         {
+            this.logger = logger;
             interstitialAd = new Android.Gms.Ads.InterstitialAd(Application.Context);
+            interstitialAd.RewardedVideoAdFailedToLoad += OnRewardedVideoAdFailedToLoad;
             interstitialAd.AdListener = this;
             interstitialAd.AdUnitId = GlobalApp.ConfigurationService.GetValue<string>("AdmobAndroidInterstitialProjectAdId");
 
@@ -40,6 +43,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             {
                 LoadAd();
             }
+        }
+
+        private async void OnRewardedVideoAdFailedToLoad(object sender, Android.Gms.Ads.Reward.RewardedVideoAdFailedToLoadEventArgs e)
+        {
+            await logger?.LogErrorAsync(new Exception($"Failed to load add {e.ErrorCode}"));
         }
         #endregion
 
@@ -80,9 +88,17 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         void LoadAd()
         {
-            var requestbuilder = new AdRequest.Builder();
-            requestbuilder.AddTestDevice("5AA4626A9DD6CA8B9D4608A74539FA19");
-            interstitialAd.LoadAd(requestbuilder.Build());
+            try
+            {
+                var requestbuilder = new AdRequest.Builder();
+                requestbuilder.AddTestDevice("5AA4626A9DD6CA8B9D4608A74539FA19");
+                interstitialAd.LoadAd(requestbuilder.Build());
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex);
+                throw;
+            }
         }
 
         public override void OnAdLoaded()

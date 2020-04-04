@@ -22,12 +22,15 @@ namespace Emka.PracticeLooper.Mobile
     {
         public static IConfigurationService ConfigurationService { get; private set; }
         public static string BannerAddUnitId { get; private set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0052:Remove unread private members", Justification = "<Pending>")]
+        private static DialogService DialogService { get; set; }
+
         public static bool HasPremium = true;
 
         public App()
         {
             InitializeComponent();
-            //MainPage = new CustomNavigationView(new MainView());
         }
 
 #pragma warning disable RECS0165 // Asynchronous methods should return a Task instead of void
@@ -35,12 +38,17 @@ namespace Emka.PracticeLooper.Mobile
 #pragma warning restore RECS0165 // Asynchronous methods should return a Task instead of void
         {
             base.OnStart();
-            AppCenter.Start($"ios={Helpers.Secrets.AppCenterIos};android={Helpers.Secrets.AppCenterAndroid}", typeof(Analytics), typeof(Crashes));
-            // Handle when your app starts
 
-            InitConfig();
-            InitApp();
-            await InitNavigation().ConfigureAwait(true);
+            try
+            {
+                InitConfig();
+                InitApp();
+                await InitNavigation().ConfigureAwait(true);
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
         }
 
         protected override void OnSleep()
@@ -55,29 +63,20 @@ namespace Emka.PracticeLooper.Mobile
 
         private void InitApp()
         {
-            try
-            {
-                FeatureRegistry.Add<AdMobView>(!HasPremium);
-                FeatureRegistry.Add<IInterstitialAd>(!HasPremium);
-                FeatureRegistry.Add<IPremiumAudioPlayer>(HasPremium, "Spotify");
-                FeatureRegistry.Add<ISourcePicker>(HasPremium);
+            FeatureRegistry.Add<AdMobView>(!HasPremium);
+            FeatureRegistry.Add<IInterstitialAd>(!HasPremium);
+            FeatureRegistry.Add<IPremiumAudioPlayer>(HasPremium, "Spotify");
+            FeatureRegistry.Add<ISourcePicker>(HasPremium);
 
-                // Register common forms types
-                MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
-                resolver.Register(typeof(FilePicker), typeof(Common.IFilePicker));
-                resolver.Register(typeof(NavigationService), typeof(INavigationService));
-                resolver.Register(typeof(SourcePicker), typeof(ISourcePicker));
-                resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer));
+            // Register common forms types
+            MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
+            resolver.RegisterSingleton(typeof(FilePicker), typeof(Common.IFilePicker));
+            resolver.RegisterSingleton(typeof(NavigationService), typeof(INavigationService));
+            resolver.RegisterSingleton(typeof(SourcePicker), typeof(ISourcePicker));
+            resolver.RegisterSingleton(typeof(FileAudioPlayer), typeof(IAudioPlayer));
 
-                // Build container after platform implementations have been registered
-                MappingsFactory.Factory.GetResolver().BuildContainer();
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                Crashes.TrackError(ex);
-            }
+            // Build container after platform implementations have been registered
+            MappingsFactory.Factory.GetResolver().BuildContainer();
         }
 
         private void InitConfig()
@@ -91,7 +90,6 @@ namespace Emka.PracticeLooper.Mobile
             ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientRedirectUri), Helpers.Secrets.SpotifyClientRedirectUri);
             ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientScopes), Helpers.Secrets.SpotifyClientScopes);
             ConfigurationService.SetValue(nameof(Helpers.Secrets.DbName), Helpers.Secrets.DbName);
-            Analytics.TrackEvent(Helpers.Secrets.SpotifyClientId);
             Analytics.TrackEvent(Helpers.Secrets.DbName);
 
             if (Device.RuntimePlatform == Device.iOS)
@@ -114,6 +112,7 @@ namespace Emka.PracticeLooper.Mobile
         {
             var navigationService = MappingsFactory.Factory.GetResolver()?.Resolve<INavigationService>();
             await navigationService?.InitializeAsync();
+            DialogService = new DialogService(Current.MainPage);
         }
     }
 }

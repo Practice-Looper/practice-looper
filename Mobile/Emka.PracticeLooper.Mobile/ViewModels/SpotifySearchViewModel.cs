@@ -18,7 +18,6 @@ using Emka3.PracticeLooper.Services.Contracts.Player;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Emka3.PracticeLooper.Utils;
 using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
@@ -96,44 +95,53 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
             catch (Exception ex)
             {
-                Crashes.TrackError(ex);
-                throw ex;
+                await Logger.LogErrorAsync(ex);
+                await ShowErrorDialogAsync();
             }
         }
 
         private void ExecuteSearchCommandAsync(object o)
         {
-            SearchTerm = o as string;
-
-            // emtpy term => remove all items from results
-            if (SearchTerm == string.Empty)
+            try
             {
-                SearchResults.Clear();
-            }
+                /**/
+                SearchTerm = o as string;
 
-            if (!string.IsNullOrEmpty(SearchTerm))
-            {
-
-                if (timer == null)
+                // emtpy term => remove all items from results
+                if (SearchTerm == string.Empty)
                 {
-                    timer = new LooprTimer(TimeSpan.FromMilliseconds(500),
-                        () => { Search(); });
-                    timer.Start();
+                    SearchResults.Clear();
                 }
-                else
-                {
-                    if (timer.IsActive)
-                    {
-                        timer.Stop();
-                        if (!searchCancelTokenSource.IsCancellationRequested)
-                        {
-                            searchCancelTokenSource.Cancel();
-                            searchCancelTokenSource = new CancellationTokenSource();
-                        }
 
+                if (!string.IsNullOrEmpty(SearchTerm))
+                {
+
+                    if (timer == null)
+                    {
+                        timer = new LooprTimer(TimeSpan.FromMilliseconds(500),
+                            () => { Search(); });
                         timer.Start();
                     }
+                    else
+                    {
+                        if (timer.IsActive)
+                        {
+                            timer.Stop();
+                            if (!searchCancelTokenSource.IsCancellationRequested)
+                            {
+                                searchCancelTokenSource.Cancel();
+                                searchCancelTokenSource = new CancellationTokenSource();
+                            }
+
+                            timer.Start();
+                        }
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex);
+                ShowErrorDialog();
             }
         }
 
@@ -164,19 +172,30 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
 
             }
+            catch(Exception ex)
+            {
+                Logger.LogError(ex);
+                ShowErrorDialog();
+            }
         }
 
         public override async Task InitializeAsync(object parameter)
         {
-            Analytics.TrackEvent("[SpotifySearchViewModel] InitializeAsync");
-            spotifyApiService = Factory.GetResolver().Resolve<ISpotifyApiService>();
-            sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
-            spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
-
-            if (!spotifyLoader.Authorized)
+            try
             {
-                Analytics.TrackEvent("[SpotifySearchViewModel] Initializing Spotify");
-                await spotifyLoader.InitializeAsync();
+                spotifyApiService = Factory.GetResolver().Resolve<ISpotifyApiService>();
+                sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
+                spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
+
+                if (!spotifyLoader.Authorized)
+                {
+                    await spotifyLoader.InitializeAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogErrorAsync(ex);
+                await ShowErrorDialogAsync();
             }
         }
         #endregion Metthods

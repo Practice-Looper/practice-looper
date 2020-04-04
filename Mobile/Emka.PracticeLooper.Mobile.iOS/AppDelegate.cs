@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Emka.PracticeLooper.Mobile.iOS.Helpers;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
 using MediaManager;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using SpotifyBindings.iOS;
 using UIKit;
@@ -34,6 +37,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            AppCenter.Start(Secrets.AppCenterIos, typeof(Analytics), typeof(Crashes));
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
             GlobalApp.Init();
@@ -49,16 +53,23 @@ namespace Emka.PracticeLooper.Mobile.iOS
 
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
         {
-            var spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
-            var api = spotifyLoader.RemoteApi as SPTAppRemote;
-            NSDictionary authParams = api.AuthorizationParametersFromURL(url);
-            var token = authParams[Constants.SPTAppRemoteAccessTokenKey].ToString();
-
-            if (!string.IsNullOrEmpty(token))
+            try
             {
-                spotifyLoader.Token = token;
-                var accountMngr = Factory.GetResolver().Resolve<IAccountManager>();
-                accountMngr.UpdateTokenAsync(token).Wait();
+                var spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
+                var api = spotifyLoader.RemoteApi as SPTAppRemote;
+                NSDictionary authParams = api.AuthorizationParametersFromURL(url);
+                var token = authParams[Constants.SPTAppRemoteAccessTokenKey].ToString();
+
+                if (!string.IsNullOrEmpty(token))
+                {
+                    spotifyLoader.Token = token;
+                    var accountMngr = Factory.GetResolver().Resolve<IAccountManager>();
+                    accountMngr.UpdateTokenAsync(token).Wait();
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
             }
 
             return true;
@@ -76,22 +87,29 @@ namespace Emka.PracticeLooper.Mobile.iOS
 
         public override void WillTerminate(UIApplication uiApplication)
         {
-            base.WillTerminate(uiApplication);
-            MappingsFactory.Contracts.IResolver resolver = Factory.GetResolver();
-            var audioPlayers = resolver.ResolveAll<IAudioPlayer>();
-            var spotifyLoader = resolver.Resolve<ISpotifyLoader>();
-
-            if (audioPlayers != null && audioPlayers.Any())
+            try
             {
-                foreach (var player in audioPlayers)
+                base.WillTerminate(uiApplication);
+                MappingsFactory.Contracts.IResolver resolver = Factory.GetResolver();
+                var audioPlayers = resolver.ResolveAll<IAudioPlayer>();
+                var spotifyLoader = resolver.Resolve<ISpotifyLoader>();
+
+                if (audioPlayers != null && audioPlayers.Any())
                 {
-                    player.Pause();
+                    foreach (var player in audioPlayers)
+                    {
+                        player.Pause();
+                    }
+                }
+
+                if (spotifyLoader != null)
+                {
+                    spotifyLoader.Disconnect();
                 }
             }
-
-            if (spotifyLoader != null)
+            catch (Exception ex)
             {
-                spotifyLoader.Disconnect();
+                Crashes.TrackError(ex);
             }
         }
     }

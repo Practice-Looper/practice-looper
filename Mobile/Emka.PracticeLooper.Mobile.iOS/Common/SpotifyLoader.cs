@@ -6,6 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
 using Microsoft.AppCenter.Crashes;
@@ -24,13 +25,15 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         static AutoResetEvent connectedEvent;
         private string token;
         private readonly IConfigurationService configurationService;
+        private readonly ILogger logger;
         #endregion
 
         #region Ctor
 
-        public SpotifyLoader()
+        public SpotifyLoader(ILogger logger)
         {
-            this.configurationService = Factory.GetConfigService();
+            configurationService = Factory.GetConfigService();
+            this.logger = logger;
         }
         #endregion
 
@@ -47,7 +50,15 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 token = value;
                 if (tokenEvent != null)
                 {
-                    tokenEvent.Set();
+                    try
+                    {
+                        tokenEvent.Set();
+                    }
+                    catch (Exception ex)
+                    {
+                        logger?.LogError(ex);
+                        throw;
+                    }
                 }
             }
         }
@@ -72,16 +83,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                     api.AuthorizeAndPlayURI(songUri);
                 });
 
-                try
-                {
-                    tokenEvent.WaitOne();
-                    tokenEvent.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    Crashes.TrackError(ex);
-                    throw;
-                }
+                tokenEvent.WaitOne();
 
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
@@ -90,16 +92,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                     api.Connect();
                 });
 
-                try
-                {
-                    connectedEvent.WaitOne();
-                    connectedEvent.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    Crashes.TrackError(ex);
-                    throw;
-                }
+                connectedEvent.WaitOne();
             }
             else
             {
@@ -109,37 +102,31 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public async Task<bool> InitializeAsync(string songUri = "")
         {
-            bool result = false;
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 tokenEvent = new AutoResetEvent(false);
                 connectedEvent = new AutoResetEvent(false);
             });
 
-            try
-            {
-                await Task.Run(() => Initialize(songUri));
-                result = true;
-            }
-            catch (Exception ex)
-            {
-                Crashes.TrackError(ex);
-                throw;
-            }
-
-            return result;
+            await Task.Run(() => Initialize(songUri));
+            return true;
         }
 
         public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
         {
             try
             {
-                Crashes.TrackError(new Exception(error.Description));
+                logger?.LogError(new Exception(error.Description));
                 connectedEvent.Reset();
             }
             catch (ObjectDisposedException ex)
             {
-                Crashes.TrackError(ex);
+                logger?.LogError(ex);
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex);
+                throw;
             }
         }
 
@@ -151,36 +138,43 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
             catch (ObjectDisposedException ex)
             {
-                Crashes.TrackError(ex);
+                logger?.LogError(ex);
             }
             catch (Exception ex)
             {
-                Crashes.TrackError(ex);
+                logger?.LogError(ex);
                 throw;
             }
-
         }
 
         public override void DidFailConnectionAttemptWithError(SPTAppRemote appRemote, NSError error)
         {
             try
             {
-                Crashes.TrackError(new Exception(error.Description));
+                logger?.LogError(new Exception(error.Description));
                 connectedEvent.Set();
                 connectedEvent.Reset();
             }
             catch (Exception ex)
             {
-                Crashes.TrackError(ex);
+                logger?.LogError(ex);
                 throw;
             }
         }
 
         public void Disconnect()
         {
-            if (api != null && api.Connected)
+            try
             {
-                api.Disconnect();
+                if (api != null && api.Connected)
+                {
+                    api.Disconnect();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex);
+                throw;
             }
         }
         #endregion

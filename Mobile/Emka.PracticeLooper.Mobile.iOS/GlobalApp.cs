@@ -27,7 +27,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
                 resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
             }         
 
-            resolver.Register(typeof(AudioFileRepository), typeof(IFileRepository));
+            resolver.RegisterSingleton(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
             resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
         }

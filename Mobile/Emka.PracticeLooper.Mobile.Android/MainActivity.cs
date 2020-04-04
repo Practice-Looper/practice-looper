@@ -12,6 +12,8 @@ using Emka.PracticeLooper.Mobile.Droid.Helpers;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
@@ -22,6 +24,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            AppCenter.Start(Secrets.AppCenterAndroid, typeof(Analytics), typeof(Crashes));
             base.OnCreate(savedInstanceState);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
@@ -53,22 +56,30 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
         protected override void OnDestroy()
         {
-            base.OnDestroy();
-            MappingsFactory.Contracts.IResolver resolver = Factory.GetResolver();
-            var audioPlayers = resolver.ResolveAll<IAudioPlayer>();
-            var spotifyLoader = resolver.Resolve<ISpotifyLoader>();
-
-            if (audioPlayers != null && audioPlayers.Any())
+            try
             {
-                foreach (var player in audioPlayers)
+                base.OnDestroy();
+                MappingsFactory.Contracts.IResolver resolver = Factory.GetResolver();
+                var audioPlayers = resolver.ResolveAll<IAudioPlayer>();
+                var spotifyLoader = resolver.Resolve<ISpotifyLoader>();
+
+                if (audioPlayers != null && audioPlayers.Any())
                 {
-                    player.Pause();
+                    foreach (var player in audioPlayers)
+                    {
+                        player.Pause();
+                    }
+                }
+
+                if (spotifyLoader != null)
+                {
+                    spotifyLoader.Disconnect();
                 }
             }
-
-            if (spotifyLoader != null)
+            catch (Exception ex)
             {
-                spotifyLoader.Disconnect();
+                Crashes.TrackError(ex);
+                throw;
             }
         }
 
@@ -99,32 +110,39 @@ namespace Emka.PracticeLooper.Mobile.Droid
             base.OnActivityResult(requestCode, resultCode, data);
 
             // Check if result comes from the correct activity
-            if (requestCode == GlobalApp.ConfigurationService.GetValue<int>("SpotifyClientRequestCode"))
+            try
             {
-                Com.Spotify.Sdk.Android.Auth.AuthorizationResponse response = Com.Spotify.Sdk.Android.Auth.AuthorizationClient.GetResponse((int)resultCode, data);
-                var type = response.GetType().ToString();
-
-                switch (type)
+                if (requestCode == GlobalApp.ConfigurationService.GetValue<int>("SpotifyClientRequestCode"))
                 {
-                    // Response was successful and contains auth token
-                    case "token":
-                        // Handle successful response
+                    Com.Spotify.Sdk.Android.Auth.AuthorizationResponse response = Com.Spotify.Sdk.Android.Auth.AuthorizationClient.GetResponse((int)resultCode, data);
+                    var type = response.GetType().ToString();
 
-                        if (!string.IsNullOrEmpty(response.AccessToken))
-                        {
-                            var accountMngr = Emka3.PracticeLooper.Mappings.Factory.GetResolver().Resolve<IAccountManager>();
-                            accountMngr.UpdateTokenAsync(response.AccessToken).Wait();
-                        }
-                        break;
+                    switch (type)
+                    {
+                        // Response was successful and contains auth token
+                        case "token":
+                            // Handle successful response
 
-                    // Auth flow returned an error
-                    case "error":
-                        Crashes.TrackError(new Exception(response.Error));
-                        break;
+                            if (!string.IsNullOrEmpty(response.AccessToken))
+                            {
+                                var accountMngr = Factory.GetResolver().Resolve<IAccountManager>();
+                                accountMngr.UpdateTokenAsync(response.AccessToken).Wait();
+                            }
+                            break;
 
-                        // Most likely auth flow was cancelled
-                        // Handle other cases
+                        // Auth flow returned an error
+                        case "error":
+                            Crashes.TrackError(new Exception(response.Error));
+                            break;
+
+                            // Most likely auth flow was cancelled
+                            // Handle other cases
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
             }
         }
 

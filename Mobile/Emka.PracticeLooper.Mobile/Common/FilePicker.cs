@@ -31,37 +31,28 @@ namespace Emka.PracticeLooper.Mobile.Common
         public async Task<AudioSource> ShowPicker()
         {
             AudioSource result = null;
-            try
+            bool isIos = Device.RuntimePlatform == Device.iOS;
+
+            string[] allowedTypes = isIos ? new string[] { "public.audio" } : new string[] { "audio/*" };
+
+            FileData fileData = await CrossFilePicker.Current.PickFile(allowedTypes);
+
+            if (fileData == null)
+                return result; // user canceled file picking
+
+            var path = await fileRepository.SaveFileAsync(fileData.FileName, fileData.DataArray);
+
+            result = new AudioSource
             {
-                string[] allowedTypes = null;
-                bool isIos = Device.RuntimePlatform == Device.iOS;
+                FileName = Path.GetFileNameWithoutExtension(path),
+                Source = path,
+                Type = AudioSourceType.Local
+            };
 
-                allowedTypes = isIos ? new string[] { "public.audio" } : new string[] { "audio/*" };
+            // get duration
+            var metadata = await audioMetadataReader.GetMetaDataAsync(result);
 
-                FileData fileData = await CrossFilePicker.Current.PickFile(allowedTypes);
-
-                if (fileData == null)
-                    return result; // user canceled file picking
-
-                var path = await fileRepository.SaveFileAsync(fileData.FileName, fileData.DataArray);
-
-                result = new AudioSource
-                {
-                    FileName = Path.GetFileNameWithoutExtension(path),
-                    Source = path,
-                    Type = AudioSourceType.Local
-                };
-
-                // get duration
-                var metadata = await audioMetadataReader.GetMetaDataAsync(result);
-
-                result.Duration = metadata.Duration;
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            result.Duration = metadata.Duration;
 
             return result;
         }

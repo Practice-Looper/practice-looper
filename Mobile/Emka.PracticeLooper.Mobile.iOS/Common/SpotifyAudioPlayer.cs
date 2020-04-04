@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
 using SpotifyBindings.iOS;
@@ -22,6 +23,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private Session session;
         private readonly IPlayerTimer timer;
         private readonly ISpotifyLoader spotifyLoader;
+        private readonly ILogger logger;
         private CancellationTokenSource currentTimeCancelTokenSource;
         private bool isPlaying;
         private double internalSongDuration;
@@ -29,9 +31,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #endregion
 
         #region Ctor
-        public SpotifyAudioPlayer(IPlayerTimer timer, ISpotifyLoader spotifyLoader)
+        public SpotifyAudioPlayer(IPlayerTimer timer, ISpotifyLoader spotifyLoader, ILogger logger)
         {
             this.spotifyLoader = spotifyLoader;
+            this.logger = logger;
             isPlaying = false;
             this.timer = timer;
         }
@@ -80,7 +83,13 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 isPlaying = false;
                 timer.StopTimers();
-                Api.PlayerAPI.Pause((o, e) => { /* log error*/ });
+                Api.PlayerAPI.Pause((o, e) =>
+                {
+                    if (e != null)
+                    {
+                        logger.LogError(new Exception(e.DebugDescription));
+                    }
+                });
                 RaisePlayingStatusChanged();
             }
         }
@@ -94,7 +103,13 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    Api.PlayerAPI.Play(session.AudioSource.Source, (o, e) => { });
+                    Api.PlayerAPI.Play(session.AudioSource.Source, (o, e) =>
+                    {
+                        if (e != null)
+                        {
+                            logger.LogError(new Exception(e.DebugDescription));
+                        }
+                    });
                 });
 
                 timer.SetLoopTimer(CurrentEndPosition - CurrentStartPosition);
@@ -109,40 +124,31 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             if (Api != null)
             {
-                try
+                var seekTo = Convert.ToInt32(time * internalSongDuration);
+                Api.PlayerAPI.SeekToPosition(seekTo, (o, e) =>
                 {
-                    var seekTo = Convert.ToInt32(time * internalSongDuration);
-                    Api.PlayerAPI.SeekToPosition(seekTo, (o, e) =>
+                    if (e != null)
                     {
-                        if (e != null)
-                        {
-                            Debug.WriteLine(e.DebugDescription);
-                        }
-                    });
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                }
+                        logger.LogError(new Exception(e.DebugDescription));
+                    }
+                });
             }
         }
 
         public void GetCurrentPosition(Action<double> callback)
         {
-            try
-            {
-                Api.PlayerAPI.GetPlayerState((o, e) =>
-                {
-                    if (callback != null)
-                    {
-                        callback.Invoke(o.PlaybackPosition);
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            Api.PlayerAPI.GetPlayerState((o, e) =>
+                 {
+                     if (callback != null)
+                     {
+                         callback.Invoke(o.PlaybackPosition);
+                     }
+
+                     if (e != null)
+                     {
+                         logger.LogError(new Exception(e.DebugDescription));
+                     }
+                 });
         }
 
         public async Task InitAsync(Loop loop)
@@ -172,7 +178,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         private void CurrentPositionTimerExpired(object sender, EventArgs e)
         {
-            CurrentTimePositionChanged.Invoke(this, e);
+            CurrentTimePositionChanged?.Invoke(this, e);
         }
 
         private void LoopTimerExpired(object sender, EventArgs e)
@@ -192,8 +198,9 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 result = Convert.ToInt32(inValue * internalSongDuration);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                logger.LogError(ex);
                 throw;
             }
 
@@ -202,34 +209,55 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         private void OnStartPositionChanged(object sender, double e)
         {
-            CurrentStartPosition = ConvertToInt(e);
-            Console.WriteLine("CurrentStartPosition " + CurrentStartPosition);
-
-            Seek(e);
-            if (IsPlaying)
+            try
             {
-                ResetAllTimers();
+                CurrentStartPosition = ConvertToInt(e);
+
+                Seek(e);
+                if (IsPlaying)
+                {
+                    ResetAllTimers();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex);
+                throw;
             }
         }
 
         private void OnEndPositionChanged(object sender, double e)
         {
-            CurrentEndPosition = ConvertToInt(e);
-            Console.WriteLine("CurrentEndPosition " + CurrentEndPosition);
-            Console.WriteLine("CurrentEndPosition " + e * internalSongDuration);
-
-            if (IsPlaying)
+            try
             {
-                ResetAllTimers();
+                CurrentEndPosition = ConvertToInt(e);
+
+                if (IsPlaying)
+                {
+                    ResetAllTimers();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex);
+                throw;
             }
         }
 
         private void ResetAllTimers()
         {
-            timer.StopTimers();
-            var delta = CurrentEndPosition - CurrentStartPosition;
-            timer.SetLoopTimer(delta);
-            timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
+            try
+            {
+                timer.StopTimers();
+                var delta = CurrentEndPosition - CurrentStartPosition;
+                timer.SetLoopTimer(delta);
+                timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex);
+                throw;
+            }
         }
 
         #endregion

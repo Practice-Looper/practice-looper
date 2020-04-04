@@ -14,31 +14,22 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         #region Methods
         public async Task<string> SaveFileAsync(string fileName, byte[] data)
         {
-            try
+            string targetPath;
+            if (GlobalApp.HasPermissionToWriteExternalStorage)
             {
-                string targetPath;
-                if (GlobalApp.HasPermissionToWriteExternalStorage)
-                {
-                    targetPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
-                }
-                else
-                {
-                    targetPath = GlobalApp.ConfigurationService.LocalPath;
-                }
-
-                await Task.Run(() =>
-                {
-                    File.WriteAllBytes(Path.Combine(targetPath, fileName), data);
-                });
-
-                return Path.Combine(targetPath, fileName);
+                targetPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
             }
-            catch (Exception ex)
+            else
             {
-                // ToDo: log error
-                Console.WriteLine(ex.Message);
-                throw;
+                targetPath = GlobalApp.ConfigurationService.LocalPath;
             }
+
+            await Task.Run(() =>
+            {
+                File.WriteAllBytes(Path.Combine(targetPath, fileName), data);
+            });
+
+            return Path.Combine(targetPath, fileName);
         }
 
         public async Task DeleteFileAsync(string fileName)
@@ -48,19 +39,12 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 throw new ArgumentNullException(nameof(fileName));
             }
 
-            try
+            if (File.Exists(fileName))
             {
-                if (File.Exists(fileName))
+                await Task.Run(() =>
                 {
-                    await Task.Run(() =>
-                    {
-                        File.Delete(fileName);
-                    });
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                    File.Delete(fileName);
+                });
             }
         }
         #endregion Methods

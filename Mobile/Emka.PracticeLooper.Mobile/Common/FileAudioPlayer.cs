@@ -20,6 +20,7 @@ namespace Emka.PracticeLooper.Mobile.Common
         double internalSongDuration;
         private IMediaItem mediaItem;
         bool pausedByUser;
+        private bool isActive = false;
         #endregion
 
         #region Ctor
@@ -123,7 +124,7 @@ namespace Emka.PracticeLooper.Mobile.Common
         {
             CurrentTimePositionChanged?.Invoke(this, new EventArgs());
         }
-        private bool isActive = false;
+
         private async void PlayerStateChanged(object sender, MediaManager.Playback.StateChangedEventArgs e)
         {
             if (e.State == MediaManager.Player.MediaPlayerState.Paused && isActive && !pausedByUser)
@@ -137,7 +138,7 @@ namespace Emka.PracticeLooper.Mobile.Common
                     throw;
                 }
             }
-            
+
             if (e.State == MediaManager.Player.MediaPlayerState.Playing)
             {
                 isActive = true;

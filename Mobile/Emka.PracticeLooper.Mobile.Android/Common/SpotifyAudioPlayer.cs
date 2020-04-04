@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Com.Spotify.Android.Appremote.Api;
 using Com.Spotify.Protocol.Types;
 using Emka3.PracticeLooper.Model.Player;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Java.Util.Concurrent;
 using Xamarin.Essentials;
@@ -22,6 +23,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         #region Fields
         private readonly IPlayerTimer timer;
         private readonly ISpotifyLoader spotifyLoader;
+        private readonly ILogger logger;
         private Session session;
         private double internalSongDuration;
         const int CURRENT_TIME_UPDATE_INTERVAL = 1000;
@@ -31,10 +33,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         #region Ctor
 
-        public SpotifyAudioPlayer(IPlayerTimer timer, ISpotifyLoader spotifyLoader)
+        public SpotifyAudioPlayer(IPlayerTimer timer, ISpotifyLoader spotifyLoader, ILogger logger)
         {
             this.timer = timer;
             this.spotifyLoader = spotifyLoader;
+            this.logger = logger;
             IsPlaying = false;
         }
         #endregion
@@ -69,29 +72,20 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void GetCurrentPosition(Action<double> callback)
         {
-            try
+            Task.Run(() =>
             {
-                Task.Run(() =>
+                Com.Spotify.Protocol.Client.CallResult playerStateCall = Api.PlayerApi.PlayerState;
+                Com.Spotify.Protocol.Client.IResult result = playerStateCall.Await(10, TimeUnit.Seconds);
+                if (result.IsSuccessful)
                 {
-                    Com.Spotify.Protocol.Client.CallResult playerStateCall = Api.PlayerApi.PlayerState;
-                    Com.Spotify.Protocol.Client.IResult result = playerStateCall.Await(10, TimeUnit.Seconds);
-                    if (result.IsSuccessful)
-                    {
-                        var state = result.Data as PlayerState;
-                        callback?.Invoke(state == null ? 0 : state.PlaybackPosition);
-                    }
-                    else
-                    {
-                        // todo: log
-                        Console.WriteLine(result.ErrorMessage);
-                    }
-                });
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+                    var state = result.Data as PlayerState;
+                    callback?.Invoke(state == null ? 0 : state.PlaybackPosition);
+                }
+                else
+                {
+                    logger?.LogError(new Exception(result.ErrorMessage));
+                }
+            });
         }
 
         public void Init(Loop loop)
@@ -122,8 +116,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void Play()
         {
-            CurrentStartPosition = (int)(CurrentLoop.StartPosition * SongDuration);//ConvertToInt(CurrentLoop.StartPosition);
-            CurrentEndPosition = (int)(CurrentLoop.EndPosition * SongDuration);//ConvertToInt(CurrentLoop.StartPosition);
+            CurrentStartPosition = (int)(CurrentLoop.StartPosition * SongDuration);
+            CurrentEndPosition = (int)(CurrentLoop.EndPosition * SongDuration);
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
@@ -140,16 +134,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             if (Api != null)
             {
-                try
-                {
-                    var seekTo = Convert.ToInt64(time * internalSongDuration);
-                    Api.PlayerApi.SeekTo(seekTo);
-                }
-                catch (Exception)
-                {
-                    // todo: log
-                    throw;
-                }
+                var seekTo = Convert.ToInt64(time * internalSongDuration);
+                Api.PlayerApi.SeekTo(seekTo);
             }
         }
 
@@ -195,8 +181,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             {
                 result = Convert.ToInt32(inValue * internalSongDuration);
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
+                logger?.LogError(ex);
                 throw;
             }
 
@@ -205,42 +192,63 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         private void OnStartPositionChanged(object sender, double e)
         {
-            //CurrentStartPosition = (int)(CurrentLoop.StartPosition * SongDuration);
-
-            if (IsPlaying)
+            try
             {
-                Play();
-                //ResetAllTimers();
+                if (IsPlaying)
+                {
+                    Play();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex);
+                throw;
             }
         }
 
         private void OnEndPositionChanged(object sender, double e)
         {
-            //CurrentEndPosition = ConvertToInt(e);
-
-            if (IsPlaying)
+            try
             {
-                Play();
-                //ResetAllTimers();
+                if (IsPlaying)
+                {
+                    Play();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex);
+                throw;
             }
         }
 
         private void ResetAllTimers()
         {
-            timer.StopTimers();
-            var delta = CurrentEndPosition - CurrentStartPosition;
-            timer.SetLoopTimer(delta);
-            timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
-        }
-
-        private void RaisePlayingStatusChanged()
-        {
-            PlayStatusChanged?.Invoke(this, IsPlaying);
+            try
+            {
+                timer.StopTimers();
+                var delta = CurrentEndPosition - CurrentStartPosition;
+                timer.SetLoopTimer(delta);
+                timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex);
+                throw;
+            }
         }
 
         public void OnResult(Java.Lang.Object p0)
         {
-            Api.PlayerApi.SeekTo(CurrentStartPosition);
+            try
+            {
+                Api.PlayerApi.SeekTo(CurrentStartPosition);
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex);
+                throw;
+            }
         }
         #endregion
     }

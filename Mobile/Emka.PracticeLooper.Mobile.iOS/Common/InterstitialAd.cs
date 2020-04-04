@@ -21,12 +21,14 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #region Fields
         Interstitial interstitialAd;
         AutoResetEvent adClosedEvent;
+        private readonly ILogger logger;
         #endregion
 
         #region Ctor
 
-        public InterstitialAd()
+        public InterstitialAd(ILogger logger)
         {
+            this.logger = logger;
             if (FeatureRegistry.IsEnabled<IInterstitialAd>())
             {
                 LoadAd();
@@ -73,30 +75,58 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         void LoadAd()
         {
-            interstitialAd = new Interstitial(GlobalApp.ConfigurationService.GetValue<string>("AdmobIosInterstitialProjectAdId"));
-            var request = Request.GetDefaultRequest();
-            request.TestDevices = new[] { Request.SimulatorId.ToString(), "6fb304bbcc401debac41d2255509463f" };
-            interstitialAd.LoadRequest(request);
+            try
+            {
+                interstitialAd = new Interstitial(GlobalApp.ConfigurationService.GetValue<string>("AdmobIosInterstitialProjectAdId"));
+                interstitialAd.FailedToPresentScreen += OnFailedToPresentScreen;
+                interstitialAd.ReceiveAdFailed += OnReceiveAdFailed;
+                var request = Request.GetDefaultRequest();
+                request.TestDevices = new[] { Request.SimulatorId.ToString(), "6fb304bbcc401debac41d2255509463f" };
+                interstitialAd.LoadRequest(request);
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex);
+                throw;
+            }
+        }
+
+        private async void OnReceiveAdFailed(object sender, InterstitialDidFailToReceiveAdWithErrorEventArgs e)
+        {
+            await logger?.LogErrorAsync(new Exception(e.Error.Description));
+        }
+
+        private async void OnFailedToPresentScreen(object sender, EventArgs e)
+        {
+            await logger?.LogErrorAsync(new Exception("Failed to present add screen"));
         }
 
         UIViewController GetVisibleViewController()
         {
-            var rootController = UIApplication.SharedApplication.KeyWindow.RootViewController;
-
-            if (rootController.PresentedViewController == null)
-                return rootController;
-
-            if (rootController.PresentedViewController is UINavigationController)
+            try
             {
-                return ((UINavigationController)rootController.PresentedViewController).VisibleViewController;
-            }
+                var rootController = UIApplication.SharedApplication.KeyWindow.RootViewController;
 
-            if (rootController.PresentedViewController is UITabBarController)
+                if (rootController.PresentedViewController == null)
+                    return rootController;
+
+                if (rootController.PresentedViewController is UINavigationController)
+                {
+                    return ((UINavigationController)rootController.PresentedViewController).VisibleViewController;
+                }
+
+                if (rootController.PresentedViewController is UITabBarController)
+                {
+                    return ((UITabBarController)rootController.PresentedViewController).SelectedViewController;
+                }
+
+                return rootController.PresentedViewController;
+            }
+            catch (Exception ex)
             {
-                return ((UITabBarController)rootController.PresentedViewController).SelectedViewController;
+                logger?.LogError(ex);
+                throw;
             }
-
-            return rootController.PresentedViewController;
         }
 
         void OnAdClosed(object o, EventArgs e)

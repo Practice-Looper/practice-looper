@@ -15,7 +15,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             DisplayName = displayName;
             AudioType = type;
         }
-
+        
         public string DisplayName { get; set; }
         public AudioSourceType AudioType { get; set; }
     }

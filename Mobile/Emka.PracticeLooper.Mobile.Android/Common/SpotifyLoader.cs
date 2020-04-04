@@ -15,6 +15,7 @@ using System;
 using Microsoft.AppCenter.Crashes;
 using System.Collections.Generic;
 using Microsoft.AppCenter.Analytics;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
@@ -24,14 +25,16 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         static AutoResetEvent autoResetEvent;
         private SpotifyAppRemote api;
         private readonly IConfigurationService configurationService;
+        private readonly ILogger logger;
         #endregion
 
         #region Ctor
 
-        public SpotifyLoader()
+        public SpotifyLoader(ILogger logger)
         {
             configurationService = Factory.GetConfigService();
             autoResetEvent = new AutoResetEvent(false);
+            this.logger = logger;
         }
         #endregion
 
@@ -48,8 +51,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void Initialize(string songUri = "")
         {
-            Analytics.TrackEvent("Initialize SpotifyLoader");
-
             var clientId = configurationService.GetValue("SpotifyClientId");
             var redirectUri = configurationService.GetValue("SpotifyClientRedirectUri");
             var requestCode = configurationService.GetValue<int>("SpotifyClientRequestCode");
@@ -75,7 +76,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             }
             catch (System.Exception ex)
             {
-                Crashes.TrackError(ex, new Dictionary<string, string>
+                logger?.LogError(ex, new Dictionary<string, string>
                 {
                      { "SpotifyClientId", clientId },
                      { "redirectUri", redirectUri },
@@ -94,7 +95,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void OnConnected(SpotifyAppRemote api)
         {
-            Analytics.TrackEvent("Spotify Connected");
             this.api = api;
             Authorized = api.IsConnected;
             autoResetEvent.Set();
@@ -102,13 +102,12 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void OnFailure(Throwable error)
         {
-            Analytics.TrackEvent("Spotify Connection Failed");
-            Crashes.TrackError(new System.Exception(error.Message), new Dictionary<string, string>
+            logger?.LogError(new System.Exception(error.Message), new Dictionary<string, string>
                 {
                      { "SpotifyClientId", configurationService.GetValue("SpotifyClientId") },
                      { "requestCode", configurationService.GetValue<int>("SpotifyClientRequestCode").ToString() }
                 });
-            this.api = null;
+            api = null;
             Authorized = false;
             autoResetEvent.Set();
             // todo: check if user needs to login
@@ -116,9 +115,16 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void Disconnect()
         {
-            if (api != null && api.IsConnected)
+            try
             {
-                SpotifyAppRemote.Disconnect(api);
+                if (api != null && api.IsConnected)
+                {
+                    SpotifyAppRemote.Disconnect(api);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                logger?.LogError(ex);
             }
         }
         #endregion
