@@ -53,9 +53,9 @@ namespace Emka.PracticeLooper.Mobile.Navigation
             return NavigateToAsync<MainViewModel>();
         }
 
-        public async Task NavigateToAsync<TViewModel>() where TViewModel : ViewModelBase
+        public Task NavigateToAsync<TViewModel>() where TViewModel : ViewModelBase
         {
-            await InternalNavigateToAsync(typeof(TViewModel), null);
+            return InternalNavigateToAsync(typeof(TViewModel), null);
         }
 
         public Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : ViewModelBase
@@ -68,12 +68,6 @@ namespace Emka.PracticeLooper.Mobile.Navigation
             try
             {
                 Page page = CreatePage(viewModelType, parameter);
-
-                await Tracker.TrackAsync(TrackerEvents.Navigation, new Dictionary<string, string>()
-                {
-                    { "CurrentPage",  Application.Current.MainPage?.ToString()},
-                    { "TargetPage",  page?.ToString()}
-                });
 
                 if (page is MainView)
                 {
@@ -92,11 +86,15 @@ namespace Emka.PracticeLooper.Mobile.Navigation
                     }
                 }
 
+                await Tracker?.TrackAsync(TrackerEvents.Navigation, new Dictionary<string, string>()
+                {
+                    { "TargetPage",  page?.ToString()}
+                });
                 await (page.BindingContext as ViewModelBase).InitializeAsync(parameter);
             }
             catch (Exception ex)
             {
-                await Logger.LogErrorAsync(ex);
+                await Logger?.LogErrorAsync(ex);
                 throw;
             }
         }
@@ -123,7 +121,7 @@ namespace Emka.PracticeLooper.Mobile.Navigation
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex);
+                Logger?.LogError(ex);
                 throw;
             }
         }
@@ -142,7 +140,7 @@ namespace Emka.PracticeLooper.Mobile.Navigation
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex);
+                Logger?.LogError(ex);
                 throw;
             }
             return page;

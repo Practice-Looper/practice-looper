@@ -14,6 +14,7 @@ using Device = Xamarin.Forms.Device;
 using Emka3.PracticeLooper.Config.Feature;
 using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Services.Contracts.Common;
+using Xamarin.Essentials;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -48,6 +49,7 @@ namespace Emka.PracticeLooper.Mobile
             catch (Exception ex)
             {
                 Crashes.TrackError(ex);
+                throw;
             }
         }
 
@@ -65,7 +67,7 @@ namespace Emka.PracticeLooper.Mobile
         {
             FeatureRegistry.Add<AdMobView>(!HasPremium);
             FeatureRegistry.Add<IInterstitialAd>(!HasPremium);
-            FeatureRegistry.Add<IPremiumAudioPlayer>(HasPremium, "Spotify");
+            FeatureRegistry.Add<IPremiumAudioPlayer>(HasPremium && DeviceInfo.DeviceType == DeviceType.Physical, "Spotify");
             FeatureRegistry.Add<ISourcePicker>(HasPremium);
 
             // Register common forms types

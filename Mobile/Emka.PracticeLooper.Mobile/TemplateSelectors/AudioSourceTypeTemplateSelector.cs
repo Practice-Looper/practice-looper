@@ -4,7 +4,6 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 
 using Emka.PracticeLooper.Mobile.ViewModels;
-using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Model.Player;
 using Xamarin.Forms;
 
@@ -15,6 +14,7 @@ namespace Emka.PracticeLooper.Mobile.TemplateSelectors
         #region Properties
         public DataTemplate SpotifyTemplate { get; set; }
         public DataTemplate AudioFileTemplate { get; set; }
+        public DataTemplate DeletedTemplate { get; set; }
         #endregion
 
         #region Methods
@@ -23,7 +23,12 @@ namespace Emka.PracticeLooper.Mobile.TemplateSelectors
         {
             if (item is Session session)
             {
-                switch (session.AudioSource.Type)
+                if (session.AudioSource == null)
+                {
+                    return DeletedTemplate;
+                }
+
+                switch (session?.AudioSource?.Type)
                 {
                     case AudioSourceType.Local:
                         return AudioFileTemplate;

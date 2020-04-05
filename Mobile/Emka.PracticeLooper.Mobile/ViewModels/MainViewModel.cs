@@ -228,6 +228,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
+                if (FeatureRegistry.IsEnabled<IPremiumAudioPlayer>("Spotify"))
+                {
+                    spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
+                }
+
                 audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>().ToDictionary(player => player.Type);
                 sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
                 interstitialAd = Factory.GetResolver().Resolve<IInterstitialAd>();
@@ -235,7 +240,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 await sessionsRepository.InitAsync();
                 fileRepository = Factory.GetResolver().Resolve<IFileRepository>();
                 filePicker = Factory.GetResolver().Resolve<Mobile.Common.IFilePicker>();
-                spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
                 var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
                 Device.BeginInvokeOnMainThread(() =>
                 {

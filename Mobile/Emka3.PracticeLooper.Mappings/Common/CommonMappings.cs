@@ -25,10 +25,10 @@ namespace Emka3.PracticeLooper.Mappings.Common
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            builder.RegisterType<SessionsDbRepository>().As<IRepository<Session>>().SingleInstance();
-            builder.RegisterType<AccountManager>().As<IAccountManager>().SingleInstance();
             builder.RegisterType<AppCenterLogger>().As<ILogger>().SingleInstance();
             builder.RegisterType<AppCenterTracker>().As<IAppTracker>().SingleInstance();
+            builder.RegisterType<SessionsDbRepository>().As<IRepository<Session>>().SingleInstance();
+            builder.RegisterType<AccountManager>().As<IAccountManager>().SingleInstance();
         }
     }
 }

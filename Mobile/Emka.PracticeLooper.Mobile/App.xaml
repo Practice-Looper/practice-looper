@@ -97,6 +97,8 @@
                 x:Key="Spotify">&#xf4c7;</x:String>
             <x:String
                 x:Key="AudioFile">&#xf223;</x:String>
+            <x:String
+                x:Key="Stop">&#xf0034;</x:String>
 
             <!-- Data Templates ############################################### -->
             <DataTemplate
@@ -156,12 +158,43 @@
             </DataTemplate>
 
             <DataTemplate
+                x:Key="SessionItemDeleted">
+                <ViewCell IsEnabled="False">
+                    <ViewCell.ContextActions>
+                        <MenuItem
+                            Text="Delete"
+                            IsDestructive="True"
+                            Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                            CommandParameter="{Binding .}" />
+                    </ViewCell.ContextActions>
+                    <StackLayout
+                        VerticalOptions="CenterAndExpand"
+                        Padding="15,0"
+                        Orientation="Horizontal">
+                        <Label
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Text="{StaticResource Stop}"
+                            FontSize="24"
+                            TextColor="{x:Static views:ColorConstants.Primary}"
+                            VerticalTextAlignment="Center"
+                            VerticalOptions="Center" />
+                        <Label
+                            Text="{Binding Name}"
+                            TextColor="{x:Static views:ColorConstants.Primary}"
+                            />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+
+            <DataTemplate
                 x:Key="AudioSourceTypeSpotify">
-               <ViewCell>
+                <ViewCell>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="6*"/>
+                            <ColumnDefinition
+                                Width="4*" />
+                            <ColumnDefinition
+                                Width="6*" />
                         </Grid.ColumnDefinitions>
 
                         <Label
@@ -172,7 +205,7 @@
                             TextColor="{x:Static views:ColorConstants.Primary}"
                             VerticalTextAlignment="Center"
                             VerticalOptions="Center"
-                            HorizontalOptions="Center"/>
+                            HorizontalOptions="Center" />
                         <Label
                             Grid.Column="1"
                             Text="{Binding DisplayName}"
@@ -180,7 +213,7 @@
                             VerticalTextAlignment="Center"
                             VerticalOptions="Center"
                             HorizontalOptions="StartAndExpand"
-                            FontSize="24"/>
+                            FontSize="24" />
                     </Grid>
                 </ViewCell>
             </DataTemplate>
@@ -190,8 +223,10 @@
                 <ViewCell>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="6*"/>
+                            <ColumnDefinition
+                                Width="4*" />
+                            <ColumnDefinition
+                                Width="6*" />
                         </Grid.ColumnDefinitions>
 
                         <Label
@@ -202,7 +237,7 @@
                             TextColor="{x:Static views:ColorConstants.Primary}"
                             VerticalTextAlignment="Center"
                             VerticalOptions="Center"
-                            HorizontalOptions="Center"/>
+                            HorizontalOptions="Center" />
                         <Label
                             Grid.Column="1"
                             Text="{Binding DisplayName}"
@@ -210,16 +245,18 @@
                             VerticalTextAlignment="Center"
                             VerticalOptions="Center"
                             HorizontalOptions="StartAndExpand"
-                            FontSize="24"/>
+                            FontSize="24" />
                     </Grid>
                 </ViewCell>
             </DataTemplate>
+
             <!-- Template Selectors ############################################### -->
 
             <tmpltSlctrs:AudioSourceTypeTemplateSelector
                 x:Key="SessionItemTemplateSelector"
                 AudioFileTemplate="{StaticResource SessionItemAudioFile}"
-                SpotifyTemplate="{StaticResource SessionItemSpotify}" />
+                SpotifyTemplate="{StaticResource SessionItemSpotify}"
+                DeletedTemplate="{StaticResource SessionItemDeleted}" />
 
             <tmpltSlctrs:AudioSourceTypeTemplateSelector
                 x:Key="AudioTypeTemplateSelector"

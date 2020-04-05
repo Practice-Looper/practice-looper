@@ -40,7 +40,6 @@ namespace Emka3.PracticeLooper.Services.Common
         {
             configService = Factory.GetConfigService();
             dbName = configService.GetValue("DbName");
-            //InitAsync().SafeFireAndForget(false);
         }
         #endregion
 
@@ -52,37 +51,30 @@ namespace Emka3.PracticeLooper.Services.Common
         #region Methods
         public async Task InitAsync()
         {
-            try
+            lazyInitializer = new Lazy<SQLiteConnection>(() =>
             {
-                lazyInitializer = new Lazy<SQLiteConnection>(() =>
+                return new SQLiteConnection(
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), dbName), Flags);
+            });
+
+            if (!initialized)
+            {
+                if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(Session).Name))
                 {
-                    return new SQLiteConnection(
-                        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), dbName), Flags);
-                });
-
-                if (!initialized)
-                {
-                    if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(Session).Name))
-                    {
-                        await Task.Run(() => Database.CreateTable<Session>(CreateFlags.None));
-                    }
-
-                    if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(AudioSource).Name))
-                    {
-                        await Task.Run(() => Database.CreateTable<AudioSource>(CreateFlags.None));
-                    }
-
-                    if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(Loop).Name))
-                    {
-                        await Task.Run(() => Database.CreateTable<Loop>(CreateFlags.None));
-                    }
-
-                    initialized = true;
+                    await Task.Run(() => Database.CreateTable<Session>(CreateFlags.None));
                 }
-            }
-            catch (Exception)
-            {
-                throw;
+
+                if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(AudioSource).Name))
+                {
+                    await Task.Run(() => Database.CreateTable<AudioSource>(CreateFlags.None));
+                }
+
+                if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(Loop).Name))
+                {
+                    await Task.Run(() => Database.CreateTable<Loop>(CreateFlags.None));
+                }
+
+                initialized = true;
             }
         }
 

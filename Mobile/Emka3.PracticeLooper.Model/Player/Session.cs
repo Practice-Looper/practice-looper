@@ -27,7 +27,7 @@ namespace Emka3.PracticeLooper.Model.Player
         /// Gets or sets the file path.
         /// </summary>
         /// <value>The file path.</value>
-        [OneToOne]
+        [OneToOne(CascadeOperations = CascadeOperation.CascadeRead)]
         public AudioSource AudioSource { get; set; }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Emka3.PracticeLooper.Model.Player
         /// Gets or sets the loops.
         /// </summary>
         /// <value>The loops.</value>
-        [OneToMany]
+        [OneToMany(CascadeOperations = CascadeOperation.CascadeRead)]
         public List<Loop> Loops { get; set; }
         #endregion
 

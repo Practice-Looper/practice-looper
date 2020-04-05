@@ -22,12 +22,6 @@ namespace Emka3.PracticeLooper.Mappings.Services
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            //builder.RegisterType<RemoteNotificationProxy>().As<IRemoteNotificationProxy>();
-            //builder.RegisterType<UserServiceProxy>().Named<IUserServiceProxy>("UserServiceProxy");
-            //builder.RegisterType<UserServiceProxyMock>().Named<IUserServiceProxy>("UserServiceProxyMock");
-            //builder.RegisterType<AuthenticationService>().As<IAuthenticationService>();
-            //builder.RegisterType<HttpApiClient>().SingleInstance();
-            //builder.RegisterType<SpotifyAuthenticationService>().Named<IAuthenticationService>("SpotifyAuthenticationService");
             builder.RegisterType<SpotifyApiService>().As<ISpotifyApiService>();
         }
     }

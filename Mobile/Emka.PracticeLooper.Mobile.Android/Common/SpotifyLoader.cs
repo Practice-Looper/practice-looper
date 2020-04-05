@@ -12,9 +12,7 @@ using Java.Lang;
 using System.Threading;
 using Xamarin.Essentials;
 using System;
-using Microsoft.AppCenter.Crashes;
 using System.Collections.Generic;
-using Microsoft.AppCenter.Analytics;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common

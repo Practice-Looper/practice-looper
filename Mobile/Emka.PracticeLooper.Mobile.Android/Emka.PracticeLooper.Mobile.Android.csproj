@@ -31,9 +31,8 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Rg.Plugins.Popup;</AndroidLinkSkip>
+    <AndroidSupportedAbis>arm64-v8a;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

@@ -30,6 +30,7 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <CodesignKey>iPhone Developer: Maksim Kolesnik (2Y42L78UD6)</CodesignKey>
+    <MtouchExtraArgs>--linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
