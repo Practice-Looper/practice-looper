@@ -1,6 +1,9 @@
 ﻿//using System;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Android;
 using Android.App;
@@ -10,11 +13,13 @@ using Android.OS;
 using Android.Support.V4.Content;
 using Emka.PracticeLooper.Mobile.Droid.Helpers;
 using Emka3.PracticeLooper.Mappings;
+using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Xamarin.Essentials;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
 namespace Emka.PracticeLooper.Mobile.Droid
@@ -24,6 +29,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             AppCenter.Start(Secrets.AppCenterAndroid, typeof(Analytics), typeof(Crashes));
             base.OnCreate(savedInstanceState);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
@@ -47,11 +54,18 @@ namespace Emka.PracticeLooper.Mobile.Droid
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, Secrets.AdmobAndroidAppId);
             SQLitePCL.Batteries_V2.Init();
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            Platform.Init(this, savedInstanceState);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
             base.SetTheme(Resource.Style.MainTheme);
+            stopWatch.Stop();
+            Analytics.TrackEvent(TrackerEvents.GeneralInformation.ToString(), new Dictionary<string, string>
+            {
+                { $"Startup time Android", $"duration {stopWatch.ElapsedMilliseconds} ms" },
+                { "OS version", $"{AppInfo.VersionString}" },
+                { "Device", $"{DeviceInfo.Manufacturer} {DeviceInfo.Model}" }
+            });
         }
 
         protected override void OnDestroy()

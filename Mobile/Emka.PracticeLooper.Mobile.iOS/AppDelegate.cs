@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.iOS.Helpers;
 using Emka3.PracticeLooper.Mappings;
+using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
@@ -12,14 +15,9 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using SpotifyBindings.iOS;
 using UIKit;
+using Xamarin.Essentials;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
-//#if NETFX_CORE
-//[assembly: Xamarin.Forms.Platform.WinRT.ExportRenderer(typeof(Xamarin.RangeSlider.Forms.RangeSlider), typeof(Xamarin.RangeSlider.Forms.RangeSliderRenderer))]
-//#else
-//[assembly: Xamarin.Forms.ExportRenderer(typeof(Xamarin.RangeSlider.Forms.RangeSlider), typeof(Xamarin.RangeSlider.Forms.RangeSliderRenderer))]
-//#endif
-//[assembly: Xamarin.Forms.ExportRenderer(typeof(Xamarin.RangeSlider.Forms.RangeSlider), typeof(Xamarin.RangeSlider.Forms.RangeSliderRenderer))]
 namespace Emka.PracticeLooper.Mobile.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
@@ -28,7 +26,6 @@ namespace Emka.PracticeLooper.Mobile.iOS
     [Register("AppDelegate")]
     public class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
-        //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
         // visible.
@@ -37,6 +34,8 @@ namespace Emka.PracticeLooper.Mobile.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             AppCenter.Start(Secrets.AppCenterIos, typeof(Analytics), typeof(Crashes));
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
@@ -48,6 +47,14 @@ namespace Emka.PracticeLooper.Mobile.iOS
 
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
+            stopWatch.Stop();
+            Analytics.TrackEvent(TrackerEvents.GeneralInformation.ToString(), new Dictionary<string, string>
+            {
+                { $"Startup time iOS", $"duration {stopWatch.ElapsedMilliseconds} ms" },
+                { "OS version", $"{AppInfo.VersionString}" },
+                { "Device", $"{DeviceInfo.Manufacturer} {DeviceInfo.Model}" }
+            });
+
             return base.FinishedLaunching(app, options);
         }
 

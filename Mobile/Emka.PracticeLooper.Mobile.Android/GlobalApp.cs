@@ -8,8 +8,6 @@ using Emka.PracticeLooper.Mobile.Droid.Common;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
-using Microsoft.AppCenter.Crashes;
-using Xamarin.Essentials;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
 namespace Emka.PracticeLooper.Mobile.Droid

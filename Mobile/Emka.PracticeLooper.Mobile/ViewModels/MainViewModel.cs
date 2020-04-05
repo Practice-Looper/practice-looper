@@ -250,12 +250,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 });
 
                 // check app and purchase status
-                await Tracker?.TrackAsync(Emka3.PracticeLooper.Model.Common.TrackerEvents.Boot, new Dictionary<string, string>
-                {
-                    { "Instance", nameof(MainViewModel) },
-                    { "Add", FeatureRegistry.IsEnabled<IFeature>("Add").ToString() },
-                    { "Spotify", FeatureRegistry.IsEnabled<IPremiumAudioPlayer>("Spotify").ToString() }
-                });
             }
             catch (Exception ex)
             {
