@@ -58,11 +58,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public bool Initialize(string songUri = "")
         {
-            if (api != null && api.IsConnected)
-            {
-                Disconnect();
-            }
-
             try
             {
                 StartAuthorization();
