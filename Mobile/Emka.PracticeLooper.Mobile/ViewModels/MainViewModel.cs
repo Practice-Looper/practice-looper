@@ -436,12 +436,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                         break;
                     case AudioSourceType.Spotify:
-                        var canNavigate = true;
-                        if (canNavigate)
+                        if (spotifyLoader != null && !spotifyLoader.Authorized)
                         {
                             await spotifyLoader.InitializeAsync();
+                        }
+
+                        if (spotifyLoader.Authorized)
+                        {
                             await NavigationService.NavigateToAsync<SpotifySearchViewModel>();
                         }
+
 
                         break;
                     default:

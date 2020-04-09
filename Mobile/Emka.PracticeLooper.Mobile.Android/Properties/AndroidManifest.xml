@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="0.1" package="de.emka3.practice_looper.practice_looper">
-	<uses-sdk android:minSdkVersion="28" android:targetSdkVersion="29" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="0.1" package="de.emka3.practice_looper">
+	<uses-sdk android:minSdkVersion="28" android:targetSdkVersion="28" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -25,16 +25,16 @@
 		<receiver android:enabled="true" android:exported="false" android:label="Essentials Battery Broadcast Receiver" android:name="crc64a0e0a82d0db9a07d.BatteryBroadcastReceiver" />
 		<receiver android:enabled="true" android:exported="false" android:label="Essentials Energy Saver Broadcast Receiver" android:name="crc64a0e0a82d0db9a07d.EnergySaverBroadcastReceiver" />
 		<receiver android:enabled="true" android:exported="false" android:label="Essentials Connectivity Broadcast Receiver" android:name="crc64a0e0a82d0db9a07d.ConnectivityBroadcastReceiver" />
-		<provider android:authorities="de.emka3.practice_looper.practice_looper.fileProvider" android:exported="false" android:grantUriPermissions="true" android:name="xamarin.essentials.fileProvider">
+		<provider android:authorities="de.emka3.practice_looper.fileProvider" android:exported="false" android:grantUriPermissions="true" android:name="xamarin.essentials.fileProvider">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/xamarin_essentials_fileprovider_file_paths" />
 		</provider>
 		<receiver android:enabled="true" android:exported="false" android:name="crc643f46942d9dd1fff9.PowerSaveModeBroadcastReceiver" />
-		<provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="1999999999" android:authorities="de.emka3.practice_looper.practice_looper.mono.MonoRuntimeProvider.__mono_init__" />
+		<provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="1999999999" android:authorities="de.emka3.practice_looper.mono.MonoRuntimeProvider.__mono_init__" />
 		<!--suppress ExportedReceiver-->
 		<receiver android:name="mono.android.Seppuku">
 			<intent-filter>
 				<action android:name="mono.android.intent.action.SEPPUKU" />
-				<category android:name="mono.android.intent.category.SEPPUKU.de.emka3.practice_looper.practice_looper" />
+				<category android:name="mono.android.intent.category.SEPPUKU.de.emka3.practice_looper" />
 			</intent-filter>
 		</receiver>
 		<receiver android:name="com.google.android.gms.measurement.AppMeasurementReceiver" android:enabled="true" android:exported="false"></receiver>
@@ -46,7 +46,7 @@
 		<meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-9188939990576233~5975971329" />
 		<service android:name="com.google.android.gms.measurement.AppMeasurementService" android:enabled="true" android:exported="false" />
 		<service android:name="com.google.android.gms.measurement.AppMeasurementJobService" android:enabled="true" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE" />
-		<provider android:name="com.google.firebase.provider.FirebaseInitProvider" android:authorities="de.emka3.practice_looper.practice_looper.firebaseinitprovider" android:exported="false" android:initOrder="100" />
+		<provider android:name="com.google.firebase.provider.FirebaseInitProvider" android:authorities="de.emka3.practice_looper.firebaseinitprovider" android:exported="false" android:initOrder="100" />
 		<service android:name="com.google.firebase.components.ComponentDiscoveryService" android:exported="false">
 			<meta-data android:name="com.google.firebase.components:com.google.firebase.iid.Registrar" android:value="com.google.firebase.components.ComponentRegistrar" />
 		</service>

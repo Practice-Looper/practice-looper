@@ -7,10 +7,12 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Com.Spotify.Android.Appremote.Api;
+using Com.Spotify.Protocol.Client;
 using Com.Spotify.Protocol.Types;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Java.Lang;
 using Java.Util.Concurrent;
 using Xamarin.Essentials;
 using static Com.Spotify.Protocol.Client.CallResult;
@@ -18,7 +20,7 @@ using static Com.Spotify.Protocol.Client.Subscription;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
-    public class SpotifyAudioPlayer : Java.Lang.Object, IAudioPlayer, IPremiumAudioPlayer, IResultCallback, IEventCallback
+    public class SpotifyAudioPlayer : Java.Lang.Object, IAudioPlayer, IPremiumAudioPlayer, IResultCallback, IEventCallback, IErrorCallback
     {
         #region Fields
         private readonly IPlayerTimer timer;
@@ -83,7 +85,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 }
                 else
                 {
-                    logger?.LogError(new Exception(result.ErrorMessage));
+                    logger?.LogError(new System.Exception(result.ErrorMessage));
                 }
             });
         }
@@ -110,7 +112,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             {
                 IsPlaying = false;
                 timer.StopTimers();
-                Api.PlayerApi.Pause();
+                Api.PlayerApi
+                    .Pause()
+                    .SetErrorCallback(this);
             }
         }
 
@@ -121,8 +125,14 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                Api.PlayerApi.Play(session.AudioSource.Source).SetResultCallback(this);
-                Api.PlayerApi.SubscribeToPlayerState().SetEventCallback(this);
+                Api.PlayerApi
+                .Play(session.AudioSource.Source)
+                .SetResultCallback(this)
+                .SetErrorCallback(this);
+
+                Api.PlayerApi.SubscribeToPlayerState()
+                .SetEventCallback(this)
+                .SetErrorCallback(this);
             });
 
             ResetAllTimers();
@@ -135,7 +145,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             if (Api != null)
             {
                 var seekTo = Convert.ToInt64(time * internalSongDuration);
-                Api.PlayerApi.SeekTo(seekTo);
+                Api.PlayerApi
+                    .SeekTo(seekTo)
+                    .SetErrorCallback(this);
             }
         }
 
@@ -181,7 +193,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             {
                 result = Convert.ToInt32(inValue * internalSongDuration);
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 logger?.LogError(ex);
                 throw;
@@ -199,7 +211,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                     Play();
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 logger?.LogError(ex);
                 throw;
@@ -215,7 +227,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                     Play();
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 logger?.LogError(ex);
                 throw;
@@ -231,7 +243,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 timer.SetLoopTimer(delta);
                 timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 logger?.LogError(ex);
                 throw;
@@ -243,12 +255,18 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             try
             {
                 Api.PlayerApi.SeekTo(CurrentStartPosition);
+                var playerState = p0 as PlayerState;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 logger?.LogError(ex);
                 throw;
             }
+        }
+
+        public async void OnError(Throwable error)
+        {
+            await logger?.LogErrorAsync(new System.Exception(error.Message));
         }
         #endregion
     }

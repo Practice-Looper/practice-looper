@@ -12,7 +12,7 @@ namespace Emka3.PracticeLooper.Services.Contracts.Player
         string Token { get; set; }
         bool Authorized { get; }
         Task<bool> InitializeAsync(string songUri = "");
-        void Initialize(string songUri = "");
+        bool Initialize(string songUri = "");
         void Disconnect();
     }
 }

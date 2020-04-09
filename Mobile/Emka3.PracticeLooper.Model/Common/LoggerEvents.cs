@@ -12,5 +12,6 @@ namespace Emka3.PracticeLooper.Model.Common
         Purchase,
         CreateItem,
         InitPlayer,
+        SpotifyAuthentication
     }
 }

@@ -153,7 +153,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 logger?.LogError(new Exception(error.Description));
                 connectedEvent.Set();
-                connectedEvent.Reset();
             }
             catch (Exception ex)
             {

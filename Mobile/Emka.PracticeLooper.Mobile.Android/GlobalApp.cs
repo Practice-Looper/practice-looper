@@ -22,14 +22,10 @@ namespace Emka.PracticeLooper.Mobile.Droid
             MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
 
             resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
-            resolver.Register(typeof(AudioFileRepository), typeof(IFileRepository));
+            resolver.RegisterSingleton(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
-
-            if (ConfigurationService.IsSpotifyInstalled)
-            {
-                resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
-                resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
-            }
+            resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
+            resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
         }
 
         internal static IConfigurationService ConfigurationService { get; private set; }

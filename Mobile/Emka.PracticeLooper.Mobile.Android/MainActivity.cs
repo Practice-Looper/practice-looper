@@ -128,7 +128,10 @@ namespace Emka.PracticeLooper.Mobile.Droid
             {
                 if (requestCode == GlobalApp.ConfigurationService.GetValue<int>("SpotifyClientRequestCode"))
                 {
+
+                    var spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
                     Com.Spotify.Sdk.Android.Auth.AuthorizationResponse response = Com.Spotify.Sdk.Android.Auth.AuthorizationClient.GetResponse((int)resultCode, data);
+
                     var type = response.GetType().ToString();
 
                     switch (type)
@@ -141,14 +144,33 @@ namespace Emka.PracticeLooper.Mobile.Droid
                             {
                                 var accountMngr = Factory.GetResolver().Resolve<IAccountManager>();
                                 accountMngr.UpdateTokenAsync(response.AccessToken).Wait();
+                                spotifyLoader.Token = response.AccessToken;
                             }
                             break;
 
                         // Auth flow returned an error
                         case "error":
-                            Crashes.TrackError(new Exception(response.Error));
-                            break;
 
+                            if (response.Error == "AUTHENTICATION_DENIED_BY_USER")
+                            {
+                                Com.Spotify.Sdk.Android.Auth.AuthorizationClient.StopLoginActivity(GlobalApp.MainActivity, requestCode);
+                                spotifyLoader.Token = string.Empty;
+                            }
+                            else
+                            {
+
+                                Crashes.TrackError(new Exception(response.Error));
+                            }
+
+                            break;
+                        default:
+                            Com.Spotify.Sdk.Android.Auth.AuthorizationClient.StopLoginActivity(GlobalApp.MainActivity, requestCode);
+                            Analytics.TrackEvent(TrackerEvents.SpotifyAuthentication.ToString(), new Dictionary<string, string>
+                            {
+                                { "ActivityResult", response.GetType().ToString() }
+                            });
+                            spotifyLoader.Token = string.Empty;
+                            break;
                             // Most likely auth flow was cancelled
                             // Handle other cases
                     }

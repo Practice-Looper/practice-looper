@@ -28,5 +28,11 @@ namespace Emka.PracticeLooper.Mobile.Views
                 vm.CreateSessionCommand.Execute(track);
             }
         }
+
+        protected override void OnAppearing()
+        {
+            SearchBar.Focus();
+            base.OnAppearing();
+        }
     }
 }
