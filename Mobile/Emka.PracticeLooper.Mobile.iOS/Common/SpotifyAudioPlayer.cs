@@ -4,7 +4,6 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 
 using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
@@ -62,7 +61,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #region Methods
         public void Init(Loop loop)
         {
-            this.session = loop.Session;
+            session = loop.Session;
 
             internalSongDuration = TimeSpan.FromSeconds(session.AudioSource.Duration).TotalMilliseconds;
             CurrentLoop = session.Loops[0];
@@ -103,11 +102,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    Api.PlayerAPI.Play(session.AudioSource.Source, (o, e) =>
+                    Api.PlayerAPI?.Play(session.AudioSource.Source, (o, e) =>
                     {
                         if (e != null)
                         {
-                            logger.LogError(new Exception(e.DebugDescription));
+                            logger?.LogError(new Exception(e.DebugDescription));
                         }
                     });
                 });
@@ -137,7 +136,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public void GetCurrentPosition(Action<double> callback)
         {
-            Api.PlayerAPI.GetPlayerState((o, e) =>
+            Api.PlayerAPI?.GetPlayerState((o, e) =>
                  {
                      if (callback != null)
                      {
@@ -260,6 +259,13 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
         }
 
+        ~SpotifyAudioPlayer()
+        {
+            CurrentLoop.StartPositionChanged -= OnStartPositionChanged;
+            CurrentLoop.EndPositionChanged -= OnEndPositionChanged;
+            timer.LoopTimerExpired -= LoopTimerExpired;
+            timer.CurrentPositionTimerExpired -= CurrentPositionTimerExpired;
+        }
         #endregion
     }
 }

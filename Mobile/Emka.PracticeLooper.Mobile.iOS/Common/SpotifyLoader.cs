@@ -132,6 +132,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             try
             {
+                // todo: show dialog
                 logger?.LogError(new Exception(error.Description));
             }
             catch (ObjectDisposedException ex)

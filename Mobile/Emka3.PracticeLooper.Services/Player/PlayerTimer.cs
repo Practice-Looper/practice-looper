@@ -6,6 +6,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Timers;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Emka3.PracticeLooper.Utils;
 
@@ -18,8 +19,16 @@ namespace Emka3.PracticeLooper.Services.Player
         #region Fields
         private Timer looperTimer;
         private Timer currentPositionTimer;
+        private readonly ILogger logger;
         #endregion Fields
-        
+
+        #region Ctor
+        public PlayerTimer(ILogger logger)
+        {
+            this.logger = logger;
+        }
+        #endregion
+
         #region Events
         public event EventHandler LoopTimerExpired;
         public event EventHandler CurrentPositionTimerExpired;
@@ -30,20 +39,14 @@ namespace Emka3.PracticeLooper.Services.Player
         {
             try
             {
-                try
-                {
-                    currentPositionTimer = new Timer(time);
-                    currentPositionTimer.Elapsed += OnCurrentPositionTimedEvent;
-                    currentPositionTimer.AutoReset = true;
-                    currentPositionTimer.Enabled = true;
-                }
-                catch (TaskCanceledException)
-                {
-                    throw;
-                }
+                currentPositionTimer = new Timer(time);
+                currentPositionTimer.Elapsed += OnCurrentPositionTimedEvent;
+                currentPositionTimer.AutoReset = true;
+                currentPositionTimer.Enabled = true;
             }
-            catch (TaskCanceledException)
+            catch (TaskCanceledException ex)
             {
+                logger?.LogError(ex);
                 throw;
             }
         }
@@ -57,8 +60,9 @@ namespace Emka3.PracticeLooper.Services.Player
                 looperTimer.AutoReset = true;
                 looperTimer.Enabled = true;
             }
-            catch (TaskCanceledException)
+            catch (TaskCanceledException ex)
             {
+                logger?.LogError(ex);
                 throw;
             }
         }
@@ -77,14 +81,14 @@ namespace Emka3.PracticeLooper.Services.Player
         {
             if (looperTimer != null)
             {
-
                 looperTimer.Stop();
+                looperTimer.Elapsed -= OnLooperTimedEvent;
             }
 
             if (currentPositionTimer != null)
             {
-
                 currentPositionTimer.Stop();
+                currentPositionTimer.Elapsed -= OnCurrentPositionTimedEvent;
             }
         }
         #endregion Methods

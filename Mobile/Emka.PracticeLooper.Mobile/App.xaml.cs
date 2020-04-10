@@ -7,14 +7,15 @@ using MappingsFactory = Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Config;
 using Emka.PracticeLooper.Mobile.Navigation;
 using System.Threading.Tasks;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Device = Xamarin.Forms.Device;
 using Emka3.PracticeLooper.Config.Feature;
 using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Xamarin.Essentials;
+using System.Linq;
+using Emka3.PracticeLooper.Model.Player;
+using Emka.PracticeLooper.Mobile.ViewModels;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -53,14 +54,15 @@ namespace Emka.PracticeLooper.Mobile
             }
         }
 
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
-
         protected override void OnResume()
         {
-            // Handle when your app resumes
+            base.OnResume();
+            DeviceDisplay.KeepScreenOn = !DeviceDisplay.KeepScreenOn;
+        }
+
+        protected override void OnSleep()
+        {
+            DeviceDisplay.KeepScreenOn = !DeviceDisplay.KeepScreenOn;
         }
 
         private void InitApp()
@@ -79,6 +81,11 @@ namespace Emka.PracticeLooper.Mobile
 
             // Build container after platform implementations have been registered
             MappingsFactory.Factory.GetResolver().BuildContainer();
+
+            if (!DeviceDisplay.KeepScreenOn)
+            {
+                DeviceDisplay.KeepScreenOn = !DeviceDisplay.KeepScreenOn;
+            }
         }
 
         private void InitConfig()

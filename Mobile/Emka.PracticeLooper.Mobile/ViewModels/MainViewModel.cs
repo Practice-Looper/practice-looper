@@ -77,7 +77,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public Command PickSourceCommand => pickSourceCommand ?? (pickSourceCommand = new Command(async (o) => await ExecutePickSourceCommandAsync(o)));
 
-        private IAudioPlayer CurrentAudioPlayer { get; set; }
+        public IAudioPlayer CurrentAudioPlayer { get; private set; }
 
         public bool IsPlaying
         {
@@ -233,7 +233,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
                 }
 
-                audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>().ToDictionary(player => player.Type);
+                //audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>().ToDictionary(player => player.Type);
                 sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
                 interstitialAd = Factory.GetResolver().Resolve<IInterstitialAd>();
                 sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
@@ -275,6 +275,25 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
+        public void Pause()
+        {
+            try
+            {
+                if (CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying)
+                {
+                    CurrentAudioPlayer?.Pause();
+                }
+
+                if (spotifyLoader != null && spotifyLoader.Authorized)
+                {
+                    spotifyLoader?.Disconnect();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex);
+            }
+        }
         private void CurrentAudioPlayer_TimerElapsed(object sender, EventArgs e)
         {
             if (CurrentLoop != null)
@@ -470,7 +489,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 if (CurrentSession != null)
                 {
-                    CurrentAudioPlayer = audioPlayers[CurrentSession.AudioSource.Type];
+                    CurrentAudioPlayer = Factory.GetResolver().ResolveAll<IAudioPlayer>().First(p => p.Type == CurrentSession.AudioSource.Type);
                     CurrentLoop = CurrentSession.Loops[0];
                     MinimumValue = CurrentLoop.StartPosition;
                     MaximumValue = CurrentLoop.EndPosition;

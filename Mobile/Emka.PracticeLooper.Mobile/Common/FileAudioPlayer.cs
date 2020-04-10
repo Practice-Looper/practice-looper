@@ -232,6 +232,14 @@ namespace Emka.PracticeLooper.Mobile.Common
                 throw;
             }
         }
+
+        ~FileAudioPlayer()
+        {
+            CurrentLoop.StartPositionChanged -= OnStartPositionChanged;
+            CurrentLoop.EndPositionChanged -= OnEndPositionChanged;
+            CrossMediaManager.Current.PositionChanged -= OnPositionChanged;
+            CrossMediaManager.Current.StateChanged -= PlayerStateChanged;
+        }
         #endregion
     }
 }

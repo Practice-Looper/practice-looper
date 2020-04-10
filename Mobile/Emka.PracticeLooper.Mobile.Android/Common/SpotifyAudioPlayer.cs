@@ -76,8 +76,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             Task.Run(() =>
             {
-                Com.Spotify.Protocol.Client.CallResult playerStateCall = Api.PlayerApi.PlayerState;
-                Com.Spotify.Protocol.Client.IResult result = playerStateCall.Await(10, TimeUnit.Seconds);
+                CallResult playerStateCall = Api.PlayerApi.PlayerState;
+                IResult result = playerStateCall.Await(10, TimeUnit.Seconds);
                 if (result.IsSuccessful)
                 {
                     var state = result.Data as PlayerState;
@@ -266,7 +266,16 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public async void OnError(Throwable error)
         {
+            // todo: show dialog
             await logger?.LogErrorAsync(new System.Exception(error.Message));
+        }
+
+        ~SpotifyAudioPlayer()
+        {
+            CurrentLoop.StartPositionChanged -= OnStartPositionChanged;
+            CurrentLoop.EndPositionChanged -= OnEndPositionChanged;
+            timer.LoopTimerExpired -= LoopTimerExpired;
+            timer.CurrentPositionTimerExpired -= CurrentPositionTimerExpired;
         }
         #endregion
     }

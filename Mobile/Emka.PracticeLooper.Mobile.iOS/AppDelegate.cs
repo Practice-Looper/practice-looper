@@ -113,6 +113,8 @@ namespace Emka.PracticeLooper.Mobile.iOS
                 {
                     spotifyLoader.Disconnect();
                 }
+
+                DeviceDisplay.KeepScreenOn = false;
             }
             catch (Exception ex)
             {

@@ -89,6 +89,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
                 {
                     spotifyLoader.Disconnect();
                 }
+
+                DeviceDisplay.KeepScreenOn = false;
             }
             catch (Exception ex)
             {
