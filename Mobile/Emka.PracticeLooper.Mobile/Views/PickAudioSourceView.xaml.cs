@@ -4,8 +4,8 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Emka.PracticeLooper.Mobile.Messenger;
 using Emka.PracticeLooper.Mobile.ViewModels;
+using Emka.PracticeLooper.Model;
 using Emka3.PracticeLooper.Utils;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
@@ -29,14 +30,16 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private string token;
         private readonly IConfigurationService configurationService;
         private readonly ILogger logger;
+        private readonly IDialogService dialogService;
         #endregion
 
         #region Ctor
 
-        public SpotifyLoader(ILogger logger)
+        public SpotifyLoader(ILogger logger, IDialogService dialogService)
         {
             configurationService = Factory.GetConfigService();
             this.logger = logger;
+            this.dialogService = dialogService;
         }
         #endregion
 
@@ -128,12 +131,13 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             return await Task.Run(() => Initialize(songUri));
         }
 
-        public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
+        public async override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
         {
             try
             {
                 // todo: show dialog
                 logger?.LogError(new Exception(error.Description));
+                await dialogService.ShowAlertAsync("Oops, lost connection to Spotify!");
             }
             catch (ObjectDisposedException ex)
             {
@@ -163,7 +167,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
         }
 
-        public override void DidFailConnectionAttemptWithError(SPTAppRemote appRemote, NSError error)
+        public async override void DidFailConnectionAttemptWithError(SPTAppRemote appRemote, NSError error)
         {
             try
             {
@@ -175,6 +179,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
                 connectedEvent.Set();
                 tokenEvent.Set();
+                await dialogService.ShowAlertAsync("Oops, failed to connecto to Spotify.");
             }
             catch (Exception ex)
             {

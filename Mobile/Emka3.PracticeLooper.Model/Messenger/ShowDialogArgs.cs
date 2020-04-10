@@ -2,7 +2,7 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
-namespace Emka.PracticeLooper.Mobile.Messenger
+namespace Emka.PracticeLooper.Model
 {
     public class ShowDialogArgs
     {

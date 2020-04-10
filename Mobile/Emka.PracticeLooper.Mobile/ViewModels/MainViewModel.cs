@@ -9,7 +9,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Common;
-using Emka.PracticeLooper.Mobile.Messenger;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Model.Player;
@@ -20,6 +19,8 @@ using Factory = Emka3.PracticeLooper.Mappings.Factory;
 using Microsoft.AppCenter.Crashes;
 using Emka3.PracticeLooper.Utils;
 using Emka3.PracticeLooper.Config.Feature;
+using Emka.PracticeLooper.Model;
+using Emka.PracticeLooper.Services.Contracts;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -31,6 +32,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private IDictionary<AudioSourceType, IAudioPlayer> audioPlayers;
         private IInterstitialAd interstitialAd;
         private IRepository<Session> sessionsRepository;
+        private IDialogService dialogService;
         private IFileRepository fileRepository;
         private ISourcePicker sourcePicker;
         private ISpotifyLoader spotifyLoader;
@@ -234,6 +236,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 }
 
                 //audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>().ToDictionary(player => player.Type);
+                dialogService = Factory.GetResolver().Resolve<IDialogService>();
                 sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
                 interstitialAd = Factory.GetResolver().Resolve<IInterstitialAd>();
                 sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
@@ -248,8 +251,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         Sessions.Add(item);
                     }
                 });
-
-                // check app and purchase status
+                //todo: check app and purchase status
             }
             catch (Exception ex)
             {
@@ -294,6 +296,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 Logger.LogError(ex);
             }
         }
+
         private void CurrentAudioPlayer_TimerElapsed(object sender, EventArgs e)
         {
             if (CurrentLoop != null)
@@ -474,7 +477,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 await Logger.LogErrorAsync(ex);
-                await ShowErrorDialogAsync();
+                await dialogService.ShowAlertAsync("Oops, something went wrong!");
             }
         }
 

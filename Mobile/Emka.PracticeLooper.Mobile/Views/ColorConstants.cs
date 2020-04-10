@@ -4,10 +4,12 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
 using System.Globalization;
+using Emka3.PracticeLooper.Utils;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.Views
 {
+    [Preserve(AllMembers = true)]
     internal static class ColorConstants
     {
         public const string BackgroundHexColor = "#FF46494D";

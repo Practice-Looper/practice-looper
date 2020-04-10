@@ -47,13 +47,13 @@
     <Folder Include="ViewModels\" />
     <Folder Include="ViewModels\Common\" />
     <Folder Include="Views\" />
-    <Folder Include="Messenger\" />
     <Folder Include="Common\" />
     <Folder Include="Assets\" />
     <Folder Include="Extensions\" />
     <Folder Include="Behaviors\" />
     <Folder Include="Navigation\" />
     <Folder Include="TemplateSelectors\" />
+    <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mono.Android">

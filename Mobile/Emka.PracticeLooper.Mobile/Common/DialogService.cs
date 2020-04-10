@@ -2,26 +2,31 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
-using Emka.PracticeLooper.Mobile.Messenger;
+using System.Threading.Tasks;
+using Emka.PracticeLooper.Mobile.Views;
+using Emka.PracticeLooper.Model;
+using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Utils;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.Common
 {
     [Preserve(AllMembers = true)]
-    public class DialogService
+    public class DialogService : IDialogService
     {
-        private readonly Page page;
-
-        public DialogService(Page page)
+        public DialogService()
         {
-            this.page = page;
-            MessagingCenter.Subscribe<ShowDialogArgs>(this, MessengerKeys.ShowDialog, OnShowAlert);
         }
 
-        private async void OnShowAlert(ShowDialogArgs obj)
+        public async Task ShowAlertAsync(string message)
         {
-            await page?.DisplayAlert(obj.Caption, obj.Message, obj.ButtonText);
+            await PopupNavigation.Instance.PushAsync(new AlertPopUp(message));
+        }
+
+        public Task ShowConfirmAsync(string message, string negative, string confirm)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

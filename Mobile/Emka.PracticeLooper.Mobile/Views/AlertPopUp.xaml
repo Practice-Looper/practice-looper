@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    x:Class="Emka.PracticeLooper.Mobile.Views.AlertPopUp"
+    CloseWhenBackgroundIsClicked="False"
+    Padding="20,0">
+    <Frame
+        BackgroundColor="{x:Static views:ColorConstants.Background}"
+        HorizontalOptions="FillAndExpand"
+        BorderColor="{x:Static views:ColorConstants.Secondary}"
+        CornerRadius="0"
+        VerticalOptions="CenterAndExpand"
+        Padding="5"
+        MinimumHeightRequest="300">
+        <Grid
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="Center"
+            BackgroundColor="{x:Static views:ColorConstants.Background}">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="0"
+                x:Name="MessageLabel"
+                TextColor="{x:Static views:ColorConstants.Primary}"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="Center"
+                FontSize="Subtitle" />
+            <Button
+                Grid.Row="1"
+                Text="OK"
+                FontSize="Default"
+                TextColor="{x:Static views:ColorConstants.Primary}"
+                BackgroundColor="Transparent"
+                Margin="0,10,0,0"
+                VerticalOptions="End"
+                Clicked="OnClose" />
+        </Grid>
+    </Frame>
+</pages:PopupPage>

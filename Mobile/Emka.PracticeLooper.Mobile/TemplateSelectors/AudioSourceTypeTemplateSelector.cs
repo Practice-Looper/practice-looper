@@ -5,10 +5,12 @@
 
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka3.PracticeLooper.Model.Player;
+using Emka3.PracticeLooper.Utils;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.TemplateSelectors
 {
+    [Preserve(AllMembers = true)]
     public class AudioSourceTypeTemplateSelector : DataTemplateSelector
     {
         #region Properties

@@ -13,9 +13,7 @@ using Emka3.PracticeLooper.Config.Feature;
 using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Xamarin.Essentials;
-using System.Linq;
-using Emka3.PracticeLooper.Model.Player;
-using Emka.PracticeLooper.Mobile.ViewModels;
+using Emka.PracticeLooper.Services.Contracts;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -25,9 +23,6 @@ namespace Emka.PracticeLooper.Mobile
         public static IConfigurationService ConfigurationService { get; private set; }
         public static string BannerAddUnitId { get; private set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0052:Remove unread private members", Justification = "<Pending>")]
-        private static DialogService DialogService { get; set; }
-
         public static bool HasPremium = true;
 
         public App()
@@ -35,9 +30,7 @@ namespace Emka.PracticeLooper.Mobile
             InitializeComponent();
         }
 
-#pragma warning disable RECS0165 // Asynchronous methods should return a Task instead of void
         protected async override void OnStart()
-#pragma warning restore RECS0165 // Asynchronous methods should return a Task instead of void
         {
             base.OnStart();
 
@@ -78,6 +71,7 @@ namespace Emka.PracticeLooper.Mobile
             resolver.RegisterSingleton(typeof(NavigationService), typeof(INavigationService));
             resolver.RegisterSingleton(typeof(SourcePicker), typeof(ISourcePicker));
             resolver.RegisterSingleton(typeof(FileAudioPlayer), typeof(IAudioPlayer));
+            resolver.RegisterInstance(new DialogService(), typeof(IDialogService));
 
             // Build container after platform implementations have been registered
             MappingsFactory.Factory.GetResolver().BuildContainer();
@@ -120,7 +114,6 @@ namespace Emka.PracticeLooper.Mobile
         {
             var navigationService = MappingsFactory.Factory.GetResolver()?.Resolve<INavigationService>();
             await navigationService?.InitializeAsync();
-            DialogService = new DialogService(Current.MainPage);
         }
     }
 }

@@ -2,9 +2,9 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
-namespace Emka.PracticeLooper.Mobile.Messenger
+namespace Emka.PracticeLooper.Model
 {
-    internal static class MessengerKeys
+    public static class MessengerKeys
     {
         public const string GetAudioSource = nameof(GetAudioSource);
         public const string NewTrackAdded = nameof(NewTrackAdded);
