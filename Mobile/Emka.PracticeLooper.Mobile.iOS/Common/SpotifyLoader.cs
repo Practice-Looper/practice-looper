@@ -3,26 +3,29 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
-using Microsoft.AppCenter.Crashes;
 using SpotifyBindings.iOS;
+using StoreKit;
+using UIKit;
 using Xamarin.Essentials;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
     [Preserve(AllMembers = true)]
-    public class SpotifyLoader : SPTAppRemoteDelegate, ISpotifyLoader
+    public class SpotifyLoader : SPTAppRemoteDelegate, ISpotifyLoader, ISKStoreProductViewControllerDelegate
     {
         #region Fields
 
         private SPTAppRemote api;
         static AutoResetEvent tokenEvent;
         static AutoResetEvent connectedEvent;
+        static AutoResetEvent installedEvent;
         private string token;
         private readonly IConfigurationService configurationService;
         private readonly ILogger logger;
@@ -52,7 +55,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 {
                     try
                     {
-                        tokenEvent.Set();
+                        tokenEvent?.Set();
                     }
                     catch (Exception ex)
                     {
@@ -63,53 +66,66 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
         }
 
-        public bool Authorized => !string.IsNullOrEmpty(Token);
+        public bool Authorized { get; private set; }
         #endregion
 
         #region Methods
 
-        public void Initialize(string songUri = "")
+        public bool Initialize(string songUri = "")
         {
-            var clientId = configurationService.GetValue("SpotifyClientId");
-            var redirectUri = configurationService.GetValue("SpotifyClientRedirectUri");
-
-            var appConfig = new SPTConfiguration(clientId, NSUrl.FromString(redirectUri));
-            api = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Info);
-
-            if (GlobalApp.ConfigurationService.IsSpotifyInstalled)
+            try
             {
+                if (!configurationService.IsSpotifyInstalled)
+                {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        InstallSpotify();
+                    });
+
+                    installedEvent.WaitOne();
+                    return false;
+                }
+
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    api.AuthorizeAndPlayURI(songUri);
+                    StartAuthorization(songUri);
                 });
 
-                tokenEvent.WaitOne();
+                tokenEvent?.WaitOne();
 
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    api.ConnectionParameters.AccessToken = Token;
-                    api.Delegate = this;
-                    api.Connect();
+                    StartConnection();
                 });
 
-                connectedEvent.WaitOne();
+                connectedEvent?.WaitOne();
+
+                Authorized = api != null && api.Connected && !string.IsNullOrEmpty(Token);
+                return Authorized;
             }
-            else
+            catch (Exception ex)
             {
-                // prompt to install
+                logger?.LogError(ex, new Dictionary<string, string>
+                {
+                     { "SpotifyClientId", configurationService.GetValue("SpotifyClientId") },
+                     { "redirectUri", configurationService.GetValue("SpotifyClientRedirectUri") }
+                });
+                throw;
             }
         }
 
         public async Task<bool> InitializeAsync(string songUri = "")
         {
-            MainThread.BeginInvokeOnMainThread(() =>
+            tokenEvent = new AutoResetEvent(false);
+            connectedEvent = new AutoResetEvent(false);
+            installedEvent = new AutoResetEvent(false);
+
+            await MainThread.InvokeOnMainThreadAsync(() =>
             {
-                tokenEvent = new AutoResetEvent(false);
-                connectedEvent = new AutoResetEvent(false);
+                configurationService.IsSpotifyInstalled = IsSpotifyInstalled();
             });
 
-            await Task.Run(() => Initialize(songUri));
-            return true;
+            return await Task.Run(() => Initialize(songUri));
         }
 
         public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
@@ -117,7 +133,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             try
             {
                 logger?.LogError(new Exception(error.Description));
-                connectedEvent.Reset();
             }
             catch (ObjectDisposedException ex)
             {
@@ -151,8 +166,14 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             try
             {
-                logger?.LogError(new Exception(error.Description));
+                logger?.LogError(new Exception(error.Description), new Dictionary<string, string>
+                {
+                     { "SpotifyClientId", configurationService.GetValue("SpotifyClientId") },
+                     { "redirectUri", configurationService.GetValue("SpotifyClientRedirectUri") }
+                });
+
                 connectedEvent.Set();
+                tokenEvent.Set();
             }
             catch (Exception ex)
             {
@@ -175,6 +196,53 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 logger?.LogError(ex);
                 throw;
             }
+        }
+
+        private void StartAuthorization(string songUri = "")
+        {
+
+            var clientId = configurationService.GetValue("SpotifyClientId");
+            var redirectUri = configurationService.GetValue("SpotifyClientRedirectUri");
+            var appConfig = new SPTConfiguration(clientId, NSUrl.FromString(redirectUri));
+            api = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Info);
+            api.Delegate = this;
+            api.AuthorizeAndPlayURI(songUri);
+        }
+
+        private void StartConnection()
+        {
+            api.ConnectionParameters.AccessToken = Token;
+            api.Connect();
+        }
+
+        private void InstallSpotify()
+        {
+            // todo: show dialog and ask user if go to appstore
+            var storeViewController = new SKStoreProductViewController();
+            storeViewController.Delegate = this;
+            //storeViewController.Finished += OnStoreViewControllerFinished;
+            storeViewController.LoadProduct(new StoreProductParameters((int)SPTAppRemote.SpotifyItunesItemIdentifier), (bool loaded, NSError error) =>
+            {
+                if ((error == null) && loaded)
+                {
+                    var window = UIApplication.SharedApplication.KeyWindow;
+                    window?.RootViewController?.PresentModalViewController(storeViewController, true);
+                    installedEvent.Set();
+                    tokenEvent.Set();
+                    connectedEvent.Set();
+                }
+                if (error != null)
+                {
+                    logger?.LogError(new NSErrorException(error));
+                    // todo: show dialog
+                    throw new NSErrorException(error);
+                }
+            });
+        }
+
+        private bool IsSpotifyInstalled()
+        {
+            return UIApplication.SharedApplication.CanOpenUrl(new NSUrl(new NSString("spotify:")));
         }
         #endregion
     }

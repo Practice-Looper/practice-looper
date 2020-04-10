@@ -19,14 +19,8 @@ namespace Emka.PracticeLooper.Mobile.iOS
         {
             ConfigurationService = Factory.GetConfigService();
             MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
-
-            ConfigurationService.IsSpotifyInstalled = UIApplication.SharedApplication.CanOpenUrl(new NSUrl(new NSString("spotify:")));
-            if (ConfigurationService.IsSpotifyInstalled)
-            {
-                resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
-                resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
-            }         
-
+            resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
+            resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
             resolver.RegisterSingleton(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
             resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
