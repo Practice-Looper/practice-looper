@@ -51,7 +51,6 @@ namespace Emka3.PracticeLooper.Services.Rest
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
                 throw ex;
             }
         }
@@ -84,12 +83,10 @@ namespace Emka3.PracticeLooper.Services.Rest
 
                 return results;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Debug.WriteLine(ex);
+                throw;
             }
-
-            return results;
         }
     }
 }

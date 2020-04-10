@@ -3,7 +3,6 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -49,8 +48,7 @@ namespace Emka3.PracticeLooper.Services.Common
 
         async Task<HttpResponseMessage> ExecuteRequestAsync(HttpClient client, HttpMethod method, string path, HttpContent content, CancellationToken cancelToken)
         {
-            HttpResponseMessage response = null;
-
+            HttpResponseMessage response;
             try
             {
                 switch (method.Method)
@@ -79,18 +77,15 @@ namespace Emka3.PracticeLooper.Services.Common
                         throw new ArgumentOutOfRangeException(nameof(method), method, null);
                 }
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException)
             {
-                Debug.WriteLine("\nHttpRequestException Caught!");
-                Debug.WriteLine("Message :{0} ", e.Message);
+                throw;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Debug.WriteLine("Error while sending web request {0}", e);
-                throw e;
+                throw;
             }
 
-            Debug.WriteLine("Server response:t {0}", response);
             return response;
         }
 
@@ -98,13 +93,6 @@ namespace Emka3.PracticeLooper.Services.Common
         {
             try
             {
-
-                //if (httpClient.DefaultRequestHeaders.Contains("Authorization:"))
-                //{
-                //    httpClient.DefaultRequestHeaders.Remove("Authorization:");
-                //}
-
-                //httpClient.DefaultRequestHeaders.Add("Authorization:", "Bearer " + token);
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
             catch (Exception)
