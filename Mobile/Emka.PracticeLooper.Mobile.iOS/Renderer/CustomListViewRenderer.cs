@@ -16,9 +16,9 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
         {
             base.OnElementChanged(e);
 
-            if (this.Control == null) return;
+            if (Control == null) return;
 
-            this.Control.TableFooterView = new UIView();
+            Control.TableFooterView = new UIView();
         }
     }
 }

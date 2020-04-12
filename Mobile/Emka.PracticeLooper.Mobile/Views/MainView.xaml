@@ -56,21 +56,19 @@
                                 FontFamily="{DynamicResource MaterialFontFamily}"
                                 Glyph="{StaticResource Add}"
                                 Size="48"
-                                Color="{x:Static views:ColorConstants.Primary}" />
+                                Color="{DynamicResource PrimaryColor}" />
                         </ImageButton.Source>
                     </ImageButton>
                     <ListView
                         Grid.Row="1"
-                        SelectedItem="{Binding CurrentSession}"
+                        SelectedItem="{Binding CurrentSession, Mode=TwoWay}"
                         ItemsSource="{Binding Sessions}"
-                        BackgroundColor="Transparent"
-                        SeparatorColor="{x:Static views:ColorConstants.Secondary}"
-                        ItemTemplate="{StaticResource SessionItemTemplateSelector}" />
+                        ItemTemplate="{StaticResource SessionItemTemplateSelector}"/>
                 </Grid>
             </ContentView>
             <BoxView
                 Grid.Row="1"
-                Color="{x:Static views:ColorConstants.Secondary}"
+                Color="{DynamicResource SecondaryColor}"
                 WidthRequest="100"
                 HeightRequest="1" />
             <ContentView
@@ -152,6 +150,8 @@
                             Padding="20,0,20,0"
                             LeftThumbValue="{Binding MinimumValue}"
                             RightThumbValue="{Binding MaximumValue}"
+                            PrimaryColor="{DynamicResource PrimaryColor}"
+                            SecondaryColor="{DynamicResource SecondaryColor}"
                             DraggingCompleted="OnDraggingCompleted"
                             HorizontalOptions="FillAndExpand" />
                         <ImageButton
@@ -165,7 +165,7 @@
                                     FontFamily="{DynamicResource MaterialFontFamily}"
                                     Glyph="{StaticResource Play}"
                                     Size="72"
-                                    Color="{x:Static views:ColorConstants.Primary}">
+                                    Color="{DynamicResource PrimaryColor}">
                                 </FontImageSource>
                             </ImageButton.Source>
                             <ImageButton.Triggers>
@@ -180,7 +180,7 @@
                                                 FontFamily="{DynamicResource MaterialFontFamily}"
                                                 Glyph="{StaticResource Pause}"
                                                 Size="72"
-                                                Color="{x:Static views:ColorConstants.Primary}">
+                                                Color="{DynamicResource PrimaryColor}">
                                             </FontImageSource>
                                         </Setter.Value>
                                     </Setter>
@@ -196,7 +196,7 @@
                                                 FontFamily="{DynamicResource MaterialFontFamily}"
                                                 Glyph="{StaticResource Play}"
                                                 Size="72"
-                                                Color="{x:Static views:ColorConstants.Primary}">
+                                                Color="{DynamicResource PrimaryColor}">
                                             </FontImageSource>
                                         </Setter.Value>
                                     </Setter>

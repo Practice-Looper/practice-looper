@@ -51,6 +51,7 @@ namespace Emka.PracticeLooper.Mobile.Views
                 mainViewModel.DeleteSessionCommand.Execute(menuItem.CommandParameter);
             }
         }
+
         #endregion
     }
 }

@@ -3,6 +3,7 @@
     <style
         name="MainTheme"
         parent="MainTheme.Base">
+        <item name="android:colorActivatedHighlight">@android:color/transparent</item>
     </style>
     <!-- Base theme applied no matter what API -->
     <style

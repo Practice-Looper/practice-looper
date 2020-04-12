@@ -14,6 +14,8 @@ using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Xamarin.Essentials;
 using Emka.PracticeLooper.Services.Contracts;
+using System.Collections.Generic;
+using Emka.PracticeLooper.Mobile.Themes;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -114,6 +116,22 @@ namespace Emka.PracticeLooper.Mobile
         {
             var navigationService = MappingsFactory.Factory.GetResolver()?.Resolve<INavigationService>();
             await navigationService?.InitializeAsync();
+
+            ICollection<ResourceDictionary> mergedDictionaries = Current.Resources.MergedDictionaries;
+
+            if (mergedDictionaries != null)
+            {
+                switch (AppInfo.RequestedTheme)
+                {
+                    case AppTheme.Unspecified:
+                    case AppTheme.Dark:
+                        mergedDictionaries.Add(new DarkTheme());
+                        break;
+                    case AppTheme.Light:
+                        mergedDictionaries.Add(new LightTheme());
+                        break;
+                }
+            }
         }
     }
 }

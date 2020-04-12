@@ -143,11 +143,11 @@
     <Compile Include="Delegates\SpotifyAppRemotePlayerStateDelegate.cs" />
     <Compile Include="Common\SpotifyAudioPlayer.cs" />
     <Compile Include="Common\SpotifyLoader.cs" />
-    <Compile Include="Renderer\CircleImageRenderer.cs" />
     <Compile Include="Common\AudioMetadataReader.cs" />
     <Compile Include="Common\AudioMetadata.cs" />
     <Compile Include="Common\InterstitialAd.cs" />
     <Compile Include="Renderer\CustomListViewRenderer.cs" />
+    <Compile Include="Renderer\CustomNavigationRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />

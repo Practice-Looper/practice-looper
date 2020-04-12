@@ -207,6 +207,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     NotifyPropertyChanged("IsInitialized");
                 }
 
+
+                NotifyPropertyChanged();
                 PlayCommand.ChangeCanExecute();
             }
         }
@@ -250,6 +252,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     {
                         Sessions.Add(item);
                     }
+
+                    CurrentSession = Sessions.FirstOrDefault();
                 });
                 //todo: check app and purchase status
             }

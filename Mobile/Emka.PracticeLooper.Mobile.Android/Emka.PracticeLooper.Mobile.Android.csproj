@@ -136,13 +136,13 @@
     <Compile Include="GlobalApp.cs" />
     <Compile Include="Renderers\AdMobViewRenderer.cs" />
     <Compile Include="Common\AudioFileRepository.cs" />
-    <Compile Include="Renderers\CircleImageRenderer.cs" />
     <Compile Include="Common\AudioMetadata.cs" />
     <Compile Include="Common\AudioMetadataReader.cs" />
     <Compile Include="Common\SpotifyLoader.cs" />
     <Compile Include="Common\SpotifyAudioPlayer.cs" />
     <Compile Include="Common\InterstitialAd.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderers\CustomViewCellRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

@@ -26,7 +26,7 @@
         <Frame
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Center"
-            BackgroundColor="{x:Static views:ColorConstants.Background}">
+            BackgroundColor="{DynamicResource BackgroundColor}">
             <Grid
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="Center"
@@ -40,12 +40,12 @@
                 <Entry
                     Placeholder="Enter project name"
                     Grid.Row="0"
-                    TextColor="{x:Static views:ColorConstants.Secondary}" />
+                    TextColor="{DynamicResource SecondaryColor}" />
             </Grid>
         </Frame>
     </AbsoluteLayout>-->
     <Grid
-        BackgroundColor="{x:Static views:ColorConstants.Background}"
+        BackgroundColor="{DynamicResource BackgroundColor}"
         HeightRequest="300"
         VerticalOptions="Center"
         HorizontalOptions="FillAndExpand"
@@ -66,8 +66,8 @@
         </ImageButton>
         <Entry
             Placeholder="Enter project name"
-            PlaceholderColor="{x:Static views:ColorConstants.Secondary}"
+            PlaceholderColor="{DynamicResource SecondaryColor}"
             Grid.Row="1"
-            TextColor="{x:Static views:ColorConstants.Primary}" />
+            TextColor="{DynamicResource PrimaryColor}" />
     </Grid>
 </pages:PopupPage>

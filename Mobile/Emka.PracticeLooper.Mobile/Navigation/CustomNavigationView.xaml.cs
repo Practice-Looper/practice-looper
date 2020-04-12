@@ -3,8 +3,10 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 
-using Emka.PracticeLooper.Mobile.Views;
-using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using NavigationPage = Xamarin.Forms.NavigationPage;
+using Page = Xamarin.Forms.Page;
 
 namespace Emka.PracticeLooper.Mobile.Navigation
 {
@@ -13,19 +15,13 @@ namespace Emka.PracticeLooper.Mobile.Navigation
         public CustomNavigationView()
         {
             InitializeComponent();
-            SetColors();
+            On<iOS>().SetHideNavigationBarSeparator(true);
         }
 
         public CustomNavigationView(Page root) : base(root)
         {
             InitializeComponent();
-            SetColors();
-        }
-
-        private void SetColors()
-        {
-            BarBackgroundColor = ColorConstants.Background;
-            BarTextColor = ColorConstants.Secondary;
+            On<iOS>().SetHideNavigationBarSeparator(true);
         }
     }
 }

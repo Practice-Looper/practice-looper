@@ -18,7 +18,7 @@
                 x:Name="SearchBar"
                 Placeholder="Artist, album or track"
                 SearchCommand="{Binding SearchCommand}"
-                CancelButtonColor="{x:Static views:ColorConstants.Secondary}"
+                CancelButtonColor="{DynamicResource SecondaryColor}"
                 SearchCommandParameter="{Binding Text, Source={x:Reference SearchBar}}">
                 <SearchBar.Behaviors>
                     <behav:TextChangedBehavior />
@@ -64,7 +64,7 @@
                                         <Label
                                             Grid.Row="0"
                                             Text="{Binding Name}"
-                                            TextColor="{x:Static views:ColorConstants.Secondary}"
+                                            TextColor="{DynamicResource SecondaryColor}"
                                             FontSize="Title"
                                             VerticalOptions="Center"
                                             LineBreakMode="NoWrap" />
@@ -74,16 +74,16 @@
                                             Grid.Row="1">
                                             <Label
                                                 Text="{Binding ArtistNames}"
-                                                TextColor="{x:Static views:ColorConstants.Secondary}"
+                                                TextColor="{DynamicResource SecondaryColor}"
                                                 FontSize="Micro"
                                                 LineBreakMode="MiddleTruncation" />
                                             <Label
                                                 Text="-"
-                                                TextColor="{x:Static views:ColorConstants.Secondary}"
+                                                TextColor="{DynamicResource SecondaryColor}"
                                                 FontSize="Micro" />
                                             <Label
                                                 Text="{Binding Album.Name}"
-                                                TextColor="{x:Static views:ColorConstants.Secondary}"
+                                                TextColor="{DynamicResource SecondaryColor}"
                                                 FontSize="Micro"
                                                 LineBreakMode="MiddleTruncation" />
                                         </StackLayout>

@@ -21,44 +21,11 @@ namespace Emka.PracticeLooper.Mobile.Views
         static byte alpha = 0x90;
         private static SKCanvasView cView;
 
-        SKPaint thumb = new SKPaint
-        {
-            Style = SKPaintStyle.Fill,
-            Color = SKColors.LightGray.WithAlpha(alpha)
-        };
+        static SKPaint track;
 
-        SKPaint track = new SKPaint
-        {
-            Style = SKPaintStyle.Stroke,
-            Color = ColorConstants.ConvertToUint(ColorConstants.SecondaryHexColor),
-            StrokeWidth = 8,
-            StrokeCap = SKStrokeCap.Round,
-            IsAntialias = true
-        };
+        static SKPaint rangeTrack;
 
-        SKPaint rangeTrack = new SKPaint
-        {
-            Style = SKPaintStyle.Stroke,
-            Color = ColorConstants.ConvertToUint(ColorConstants.PrimaryHexColor),
-            StrokeWidth = 12,
-            StrokeCap = SKStrokeCap.Round,
-            IsAntialias = true
-        };
-
-        SKPaint whiteFillPaint = new SKPaint
-        {
-            Style = SKPaintStyle.Fill,
-            Color = SKColors.White
-        };
-
-        SKPaint verticalThumbTrack = new SKPaint
-        {
-            Style = SKPaintStyle.Stroke,
-            Color = ColorConstants.ConvertToUint(ColorConstants.PrimaryHexColor),
-            StrokeWidth = 12,
-            StrokeCap = SKStrokeCap.Round,
-            IsAntialias = true
-        };
+        static SKPaint verticalThumbTrack;
 
         public static readonly BindableProperty LeftThumbValueProperty = BindableProperty.Create(
                            "LeftThumbValue",
@@ -77,6 +44,23 @@ namespace Emka.PracticeLooper.Mobile.Views
                                                          BindingMode.TwoWay,
                                                          propertyChanged: RightThumbValueChanged,
                                                          validateValue: IsValidValue);
+
+        public static readonly BindableProperty PrimaryColorProperty = BindableProperty.Create(
+                                                         "PrimaryColor",
+                                                          typeof(Color),
+                                                          typeof(RangeSlider),
+                                                          null,
+                                                         BindingMode.TwoWay,
+                                                         propertyChanged: PrimaryColorChanged);
+
+
+        public static readonly BindableProperty SecondaryColorProperty = BindableProperty.Create(
+                                                         "SecondaryColor",
+                                                          typeof(Color),
+                                                          typeof(RangeSlider),
+                                                          null,
+                                                         BindingMode.TwoWay,
+                                                         propertyChanged: SecondaryColorChanged);
         #endregion
 
         public event EventHandler DraggingCompleted;
@@ -93,12 +77,51 @@ namespace Emka.PracticeLooper.Mobile.Views
             get { return (double)GetValue(RightThumbValueProperty); }
             set { SetValue(RightThumbValueProperty, value); }
         }
+
+        public Color PrimaryColor
+        {
+            get { return (Color)GetValue(PrimaryColorProperty); }
+            set { SetValue(PrimaryColorProperty, value); }
+        }
+
+        public Color SecondaryColor
+        {
+            get { return (Color)GetValue(SecondaryColorProperty); }
+            set { SetValue(SecondaryColorProperty, value); }
+        }
         #endregion
 
         #region Ctor
         public RangeSlider()
         {
             InitializeComponent();
+            track = new SKPaint
+            {
+                Style = SKPaintStyle.Stroke,
+                Color = SecondaryColor.ToSKColor(),
+                StrokeWidth = 8,
+                StrokeCap = SKStrokeCap.Round,
+                IsAntialias = true
+            };
+
+            rangeTrack = new SKPaint
+            {
+                Style = SKPaintStyle.Stroke,
+                Color = PrimaryColor.ToSKColor(),
+                StrokeWidth = 12,
+                StrokeCap = SKStrokeCap.Round,
+                IsAntialias = true
+            };
+
+            verticalThumbTrack = new SKPaint
+            {
+                Style = SKPaintStyle.Stroke,
+                Color = PrimaryColor.ToSKColor(),
+                StrokeWidth = 12,
+                StrokeCap = SKStrokeCap.Round,
+                IsAntialias = true
+            };
+
             cView = canvasView;
             internalLeftThumbValue = LeftThumbValue;
             internalRightThumbValue = RightThumbValue;
@@ -123,7 +146,7 @@ namespace Emka.PracticeLooper.Mobile.Views
                             if (e.Location.X >= leftThumbX - thumbWidth && e.Location.X <= leftThumbX + thumbWidth)
                             {
                                 // thumbs should not collide!
-                                var willThumbsCollide = (e.Location.X + 25) >= rightThumbX || e.Location.X - (thumbWidth / 2) <= 0; 
+                                var willThumbsCollide = (e.Location.X + 25) >= rightThumbX || e.Location.X - (thumbWidth / 2) <= 0;
                                 if (!willThumbsCollide)
                                 {
                                     internalLeftThumbValue = (double)Math.Round((decimal)(e.Location.X / canvasWidth), 3);
@@ -184,7 +207,7 @@ namespace Emka.PracticeLooper.Mobile.Views
 
 
             // draw vertical thumb markers
-            canvas.DrawLine(leftThumbX + verticalThumbTrack.StrokeWidth / 2, 20, leftThumbX+ verticalThumbTrack.StrokeWidth / 2, height - 20, verticalThumbTrack);
+            canvas.DrawLine(leftThumbX + verticalThumbTrack.StrokeWidth / 2, 20, leftThumbX + verticalThumbTrack.StrokeWidth / 2, height - 20, verticalThumbTrack);
             canvas.DrawLine(rightThumbX, 20, rightThumbX, height - 20, verticalThumbTrack);
 
             // restore canvas state
@@ -199,6 +222,19 @@ namespace Emka.PracticeLooper.Mobile.Views
         private static void LeftThumbValueChanged(BindableObject bindable, object oldValue, object newValue)
         {
             cView.InvalidateSurface();
+        }
+
+        private static void PrimaryColorChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            verticalThumbTrack.Color = ((Color)newValue).ToSKColor();
+            rangeTrack.Color = ((Color)newValue).ToSKColor();
+            cView?.InvalidateSurface();
+        }
+
+        private static void SecondaryColorChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            track.Color = ((Color)newValue).ToSKColor();
+            cView?.InvalidateSurface();
         }
 
         private static bool IsValidValue(BindableObject bindable, object value)
