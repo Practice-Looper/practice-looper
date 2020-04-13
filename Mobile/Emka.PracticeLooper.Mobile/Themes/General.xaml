@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:tmpltSlctrs="clr-namespace:Emka.PracticeLooper.Mobile.TemplateSelectors;assembly=Emka.PracticeLooper.Mobile"
+    xmlns:vms="clr-namespace:Emka.PracticeLooper.Mobile.ViewModels;assembly=Emka.PracticeLooper.Mobile"
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views;assembly=Emka.PracticeLooper.Mobile">
     <Style
         TargetType="Page"
@@ -118,6 +119,8 @@
         x:Key="Bookmark">&#xf03a4;</x:String>
     <x:String
         x:Key="AddBookmark">&#xf0c4;</x:String>
+    <x:String
+        x:Key="Close">&#xf156;</x:String>
 
     <!-- Data Templates ############################################### -->
 
@@ -128,8 +131,7 @@
                 <MenuItem
                     Text="Delete"
                     IsDestructive="True"
-                    Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                    CommandParameter="{Binding .}" />
+                    Command="{Binding DeleteSessionCommand}" />
             </ViewCell.ContextActions>
             <Grid
                 VerticalOptions="FillAndExpand"
@@ -152,7 +154,7 @@
                     VerticalOptions="Center" />
                 <Label
                     Grid.Column="1"
-                    Text="{Binding Name}"
+                    Text="{Binding Session.Name}"
                     TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
@@ -163,6 +165,7 @@
                     HeightRequest="24"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
+                    Command="{Binding PickLoopCommand}"
                     BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=SelectedBackgroundColor}">
                     <ImageButton.Source>
                         <FontImageSource
@@ -183,8 +186,7 @@
                 <MenuItem
                     Text="Delete"
                     IsDestructive="True"
-                    Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                    CommandParameter="{Binding .}" />
+                    Command="{Binding DeleteSessionCommand}" />
             </ViewCell.ContextActions>
             <Grid
                 VerticalOptions="FillAndExpand"
@@ -207,7 +209,7 @@
                     VerticalOptions="Center" />
                 <Label
                     Grid.Column="1"
-                    Text="{Binding Name}"
+                    Text="{Binding Session.Name}"
                     TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
@@ -218,6 +220,7 @@
                     HeightRequest="24"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
+                    Command="{Binding PickLoopCommand}"
                     BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=SelectedBackgroundColor}">
                     <ImageButton.Source>
                         <FontImageSource
@@ -239,8 +242,7 @@
                 <MenuItem
                     Text="Delete"
                     IsDestructive="True"
-                    Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                    CommandParameter="{Binding .}" />
+                    Command="{Binding DeleteSessionCommand}" />
             </ViewCell.ContextActions>
             <Grid
                 VerticalOptions="FillAndExpand"
@@ -263,7 +265,7 @@
                     VerticalOptions="Center" />
                 <Label
                     Grid.Column="1"
-                    Text="{Binding Name}"
+                    Text="{Binding Session.Name}"
                     TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
@@ -274,6 +276,7 @@
                     HeightRequest="24"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
+                    Command="{Binding PickLoopCommand}"
                     BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=SelectedBackgroundColor}">
                     <ImageButton.Source>
                         <FontImageSource

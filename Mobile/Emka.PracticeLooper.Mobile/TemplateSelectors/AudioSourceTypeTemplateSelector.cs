@@ -23,14 +23,14 @@ namespace Emka.PracticeLooper.Mobile.TemplateSelectors
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            if (item is Session session)
+            if (item is SessionViewModel session)
             {
-                if (session.AudioSource == null)
+                if (session?.Session.AudioSource == null)
                 {
                     return DeletedTemplate;
                 }
 
-                switch (session?.AudioSource?.Type)
+                switch (session.Session.AudioSource?.Type)
                 {
                     case AudioSourceType.Local:
                         return AudioFileTemplate;

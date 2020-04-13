@@ -135,6 +135,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             try
             {
+                Authorized = false;
+                api = null;
                 // todo: show dialog
                 logger?.LogError(new Exception(error.Description));
                 await dialogService.ShowAlertAsync("Oops, lost connection to Spotify!");

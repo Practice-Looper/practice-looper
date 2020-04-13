@@ -16,7 +16,6 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Xamarin.Forms;
 using Factory = Emka3.PracticeLooper.Mappings.Factory;
-using Microsoft.AppCenter.Crashes;
 using Emka3.PracticeLooper.Utils;
 using Emka3.PracticeLooper.Config.Feature;
 using Emka.PracticeLooper.Model;
@@ -42,7 +41,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private Command createSessionCommand;
         private Command deleteSessionCommand;
         private Command pickSourceCommand;
-        private Session currentSession;
+        private SessionViewModel currentSession;
         private Loop currentLoop;
         private bool isPlaying;
         private double minimum;
@@ -59,16 +58,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #region Ctor
         public MainViewModel()
         {
-            Sessions = new ObservableCollection<Session>();
+            Sessions = new ObservableCollection<SessionViewModel>();
             CurrentSession = null;
             isPlaying = false;
             Maximum = 1;
             MaximumValue = 1;
 
-            MessagingCenter.Subscribe<Session>(this, MessengerKeys.NewTrackAdded, (session) =>
-            {
-                Sessions.Add(session);
-            });
+            MessagingCenter.Subscribe<Session>(this, MessengerKeys.NewTrackAdded, (session) => Sessions.Add(new SessionViewModel(session)));
+            MessagingCenter.Subscribe<SessionViewModel, SessionViewModel>(this, MessengerKeys.DeleteSession, (sender, arg) => DeleteSessionCommand.Execute(arg));
         }
         #endregion
 
@@ -194,9 +191,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public bool IsInitialized => CurrentSession != null;
 
-        public ObservableCollection<Session> Sessions { get; set; }
+        public ObservableCollection<SessionViewModel> Sessions { get; set; }
 
-        public Session CurrentSession
+        public SessionViewModel CurrentSession
         {
             get
             {
@@ -256,7 +253,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     foreach (var item in items)
                     {
-                        Sessions.Add(item);
+                        Sessions.Add(new SessionViewModel(item));
                     }
 
                     CurrentSession = Sessions.FirstOrDefault();
@@ -276,8 +273,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 try
                 {
-                    CurrentSession.Loops[0].StartPosition = MinimumValue;
-                    CurrentSession.Loops[0].EndPosition = MaximumValue;
+                    CurrentSession.Session.Loops[0].StartPosition = MinimumValue;
+                    CurrentSession.Session.Loops[0].EndPosition = MaximumValue;
                 }
                 catch (Exception ex)
                 {
@@ -356,7 +353,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                             }
                     };
 
-                    Sessions.Add(newSession);
+                    Sessions.Add(new SessionViewModel(newSession));
                     await sessionsRepository.SaveAsync(newSession);
                 }
                 catch (Exception ex)
@@ -408,7 +405,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private async Task ExecuteDeleteSessionCommandAsync(object session)
         {
-            var tmpSession = session as Session;
+            var tmpSession = session as SessionViewModel;
             if (session != null)
             {
                 try
@@ -418,8 +415,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         CurrentAudioPlayer.Pause();
                     }
 
-                    await fileRepository.DeleteFileAsync(tmpSession.AudioSource.Source);
-                    await sessionsRepository.DeleteAsync(tmpSession);
+                    if (tmpSession.Session.AudioSource.Type == AudioSourceType.Local)
+                    {
+                        await fileRepository.DeleteFileAsync(tmpSession.Session.AudioSource.Source);
+                    }
+
+                    await sessionsRepository.DeleteAsync(tmpSession.Session);
 
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -471,7 +472,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                             await NavigationService.NavigateToAsync<SpotifySearchViewModel>();
                         }
 
-
                         break;
                     default:
                         break;
@@ -493,10 +493,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
-                var name = await dialogService.ShowPromptAsync("New loop", "Enter a name", "Save", "Cancel", $"Loop{CurrentSession.Loops.Count + 1}");
-                var loop = new Loop() { Name = name, StartPosition = MinimumValue, EndPosition = MaximumValue, Session = CurrentSession, SessionId = CurrentSession.Id };
-                loop.Id = await loopsRepository.SaveAsync(loop);
-                CurrentSession.Loops.Add(loop);
+                var name = await dialogService.ShowPromptAsync("New loop", "Enter a name", "Save", "Cancel", $"Loop{CurrentSession.Session.Loops.Count + 1}");
+                if (!string.IsNullOrEmpty(name))
+                {
+                    var loop = new Loop() { Name = name, StartPosition = MinimumValue, EndPosition = MaximumValue, Session = CurrentSession.Session, SessionId = CurrentSession.Session.Id };
+                    loop.Id = await loopsRepository.SaveAsync(loop);
+                    CurrentSession.Session.Loops.Add(loop);
+                }
             }
             catch (Exception ex)
             {
@@ -516,8 +519,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 if (CurrentSession != null)
                 {
-                    CurrentAudioPlayer = Factory.GetResolver().ResolveAll<IAudioPlayer>().First(p => p.Type == CurrentSession.AudioSource.Type);
-                    CurrentLoop = CurrentSession.Loops[0];
+                    CurrentAudioPlayer = Factory.GetResolver().ResolveAll<IAudioPlayer>().First(p => p.Type == CurrentSession.Session.AudioSource.Type);
+                    CurrentLoop = CurrentSession.Session.Loops[0];
                     MinimumValue = CurrentLoop.StartPosition;
                     MaximumValue = CurrentLoop.EndPosition;
                     SongDuration = FormatTime(CurrentLoop.Session.AudioSource.Duration * 1000);

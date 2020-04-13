@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
+    xmlns:conv="clr-namespace:Emka.PracticeLooper.Mobile.Converters"
+    x:Class="Emka.PracticeLooper.Mobile.Views.LoopsDetailsView"
+    BackgroundColor="{DynamicResource BackgroundColor}">
+    <ContentPage.Resources>
+        <conv:DoubleToTimeConverter
+            x:Key="TimeConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            Margin="10"
+            BackgroundColor="{DynamicResource BackgroundColor}">
+            <ListView
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding Loops}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <views:CustomViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem
+                                    Text="Delete"
+                                    IsDestructive="True"
+                                    Command="{Binding DeleteCommand}"
+                                    CommandParameter="{Binding}" />
+                            </ViewCell.ContextActions>
+                            <Grid
+                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition
+                                        Width="6*" />
+                                    <ColumnDefinition
+                                        Width="2*" />
+                                    <ColumnDefinition
+                                        Width="1*" />
+                                    <ColumnDefinition
+                                        Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Text="{Binding Name}"
+                                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                                    VerticalTextAlignment="Center"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="StartAndExpand"
+                                    LineBreakMode="TailTruncation"/>
+                                <Label
+                                    Text="{Binding .,
+                                    Converter={StaticResource TimeConverter},
+                                    ConverterParameter=Start,
+                                    StringFormat='{0}'}"
+                                    Grid.Column="1"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    FontSize="Large"
+                                    Margin="0,0,5,0"
+                                    Style="{StaticResource LabelStyle}">
+                                </Label>
+                                <Label
+                                    Text="-"
+                                    Grid.Column="2"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    FontSize="Large"
+                                    Style="{StaticResource LabelStyle}">
+                                </Label>
+                                <Label
+                                    Text="{Binding .,
+                                    Converter={StaticResource TimeConverter},
+                                    ConverterParameter=End,
+                                    StringFormat='{0}'}"
+                                    Grid.Column="3"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    FontSize="Large"
+                                    Margin="5,0,0,0"
+                                    Style="{StaticResource LabelStyle}">
+                                </Label>
+                                <!--<ImageButton
+                            Grid.Column="2"
+                            WidthRequest="24"
+                            HeightRequest="24"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center"
+                            Command="{Binding PickLoopCommand}"
+                            BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=SelectedBackgroundColor}">
+                            <ImageButton.Source>
+                                <FontImageSource
+                                    FontFamily="{DynamicResource MaterialFontFamily}"
+                                    Glyph="{StaticResource Bookmark}"
+                                    Size="48"
+                                    Color="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}" />
+                            </ImageButton.Source>
+                        </ImageButton>-->
+                            </Grid>
+                        </views:CustomViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

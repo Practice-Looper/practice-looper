@@ -48,7 +48,6 @@ namespace Emka.PracticeLooper.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
             var parent = VisualTreeHelper.GetParent<ListView>(View);
             parent.ItemSelected += ListViewItemSelected;
             if (parent != null && BindingContext != null && parent.SelectedItem == BindingContext)

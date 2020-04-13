@@ -3,11 +3,8 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System.Threading.Tasks;
-using Emka.PracticeLooper.Mobile.Views;
-using Emka.PracticeLooper.Model;
 using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Utils;
-using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.Common
@@ -21,7 +18,7 @@ namespace Emka.PracticeLooper.Mobile.Common
 
         public async Task ShowAlertAsync(string message)
         {
-            await PopupNavigation.Instance.PushAsync(new AlertPopUp(message));
+            await Application.Current.MainPage?.DisplayAlert("Error occured", message, "OK");
         }
 
         public Task ShowConfirmAsync(string message, string negative, string confirm)

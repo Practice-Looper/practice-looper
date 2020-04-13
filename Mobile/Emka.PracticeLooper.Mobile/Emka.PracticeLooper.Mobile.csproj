@@ -54,6 +54,7 @@
     <Folder Include="Navigation\" />
     <Folder Include="TemplateSelectors\" />
     <Folder Include="Themes\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mono.Android">
