@@ -1,7 +1,7 @@
 ﻿// Copyright (C)  - All Rights Reserved
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
-// Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
+// Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,12 +16,12 @@ using SQLiteNetExtensions.Extensions;
 namespace Emka3.PracticeLooper.Services.Common
 {
     [Preserve(AllMembers = true)]
-    public class SessionsDbRepository : RepositoryBase, IRepository<Session>
+    public class LoopsRepository : RepositoryBase, IRepository<Loop>
     {
         #region Ctor
-        public SessionsDbRepository()
-        {
 
+        public LoopsRepository()
+        {
         }
         #endregion
 
@@ -36,16 +36,6 @@ namespace Emka3.PracticeLooper.Services.Common
 
             if (!initialized)
             {
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(Session).Name))
-                {
-                    await Task.Run(() => Database.CreateTable<Session>(CreateFlags.None));
-                }
-
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(AudioSource).Name))
-                {
-                    await Task.Run(() => Database.CreateTable<AudioSource>(CreateFlags.None));
-                }
-
                 if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(Loop).Name))
                 {
                     await Task.Run(() => Database.CreateTable<Loop>(CreateFlags.None));
@@ -55,7 +45,19 @@ namespace Emka3.PracticeLooper.Services.Common
             }
         }
 
-        public async Task DeleteAsync(Session item)
+        public void Delete(Loop item)
+        {
+            try
+            {
+                Database.Delete(item);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task DeleteAsync(Loop item)
         {
             try
             {
@@ -67,7 +69,19 @@ namespace Emka3.PracticeLooper.Services.Common
             }
         }
 
-        public async Task<List<Session>> GetAllItemsAsync()
+        public List<Loop> GetAllItems()
+        {
+            try
+            {
+                return Database.GetAllWithChildren<Loop>(recursive: false);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<List<Loop>> GetAllItemsAsync()
         {
             try
             {
@@ -79,7 +93,19 @@ namespace Emka3.PracticeLooper.Services.Common
             }
         }
 
-        public async Task<Session> GetByIdAsync(int id)
+        public Loop GetById(int id)
+        {
+            try
+            {
+                return Database.Get<Loop>(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<Loop> GetByIdAsync(int id)
         {
             try
             {
@@ -92,7 +118,19 @@ namespace Emka3.PracticeLooper.Services.Common
             }
         }
 
-        public async Task<int> SaveAsync(Session item)
+        public int Save(Loop item)
+        {
+            try
+            {
+               return Database.Insert(item);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<int> SaveAsync(Loop item)
         {
             try
             {
@@ -104,11 +142,11 @@ namespace Emka3.PracticeLooper.Services.Common
             }
         }
 
-        public void Delete(Session item)
+        public void Update(Loop item)
         {
             try
             {
-                Database.Delete(item, true);
+                Database.Update(item);
             }
             catch (Exception)
             {
@@ -116,58 +154,7 @@ namespace Emka3.PracticeLooper.Services.Common
             }
         }
 
-        public int Save(Session item)
-        {
-            try
-            {
-                Database.Insert(item.AudioSource);
-                Database.InsertAll(item.Loops, true);
-                Database.InsertWithChildren(item, true);
-                return item.Id;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public Session GetById(int id)
-        {
-            try
-            {
-                return Database.GetWithChildren<Session>(id);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public List<Session> GetAllItems()
-        {
-            try
-            {
-                return Database.GetAllWithChildren<Session>(recursive: true);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public void Update(Session item)
-        {
-            try
-            {
-                Database.UpdateWithChildren(item);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public async Task UpdateAsync(Session item)
+        public async Task UpdateAsync(Loop item)
         {
             try
             {

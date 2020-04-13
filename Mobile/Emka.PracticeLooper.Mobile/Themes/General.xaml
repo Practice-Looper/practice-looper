@@ -1,173 +1,352 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
-        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-        xmlns:tmpltSlctrs="clr-namespace:Emka.PracticeLooper.Mobile.TemplateSelectors;assembly=Emka.PracticeLooper.Mobile"
-        xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views;assembly=Emka.PracticeLooper.Mobile">
-    <Style TargetType="Page" x:Key="PageBaseStyle">
-        <Setter Property="BackgroundColor"
-                Value="{DynamicResource BackgroundColor}" />
+<ResourceDictionary
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:tmpltSlctrs="clr-namespace:Emka.PracticeLooper.Mobile.TemplateSelectors;assembly=Emka.PracticeLooper.Mobile"
+    xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views;assembly=Emka.PracticeLooper.Mobile">
+    <Style
+        TargetType="Page"
+        x:Key="PageBaseStyle">
+        <Setter
+            Property="BackgroundColor"
+            Value="{DynamicResource BackgroundColor}" />
     </Style>
-    <Style TargetType="ContentPage" x:Key="PageMainStyle"
-            BasedOn="{StaticResource PageBaseStyle}">
-        <Setter Property="BackgroundColor"
-                Value="{DynamicResource BackgroundColor}" />
+    <Style
+        TargetType="ContentPage"
+        x:Key="PageMainStyle"
+        BasedOn="{StaticResource PageBaseStyle}">
+        <Setter
+            Property="BackgroundColor"
+            Value="{DynamicResource BackgroundColor}" />
     </Style>
-    <Style TargetType="NavigationPage" x:Key="NavigationPageMainStyle"
-            BasedOn="{StaticResource PageBaseStyle}">
-        <Setter Property="BarBackgroundColor"
-                Value="{DynamicResource BackgroundColor}" />
+    <Style
+        TargetType="NavigationPage"
+        x:Key="NavigationPageMainStyle"
+        BasedOn="{StaticResource PageBaseStyle}">
+        <Setter
+            Property="BarBackgroundColor"
+            Value="{DynamicResource BackgroundColor}" />
     </Style>
-    <Style TargetType="Label" x:Key="LabelStyle">
-        <Setter Property="IsVisible" Value="True" />
-        <Setter Property="TextColor" Value="{DynamicResource SecondaryColor}" />
+    <Style
+        TargetType="Label"
+        x:Key="LabelStyle">
+        <Setter
+            Property="IsVisible"
+            Value="True" />
+        <Setter
+            Property="TextColor"
+            Value="{DynamicResource SecondaryColor}" />
     </Style>
-    <Style TargetType="Entry">
-        <Setter Property="PlaceholderColor"
-                Value="{DynamicResource SecondaryColor}" />
-        <Setter Property="BackgroundColor"
-                Value="{DynamicResource BackgroundColor}" />
+    <Style
+        TargetType="Entry">
+        <Setter
+            Property="PlaceholderColor"
+            Value="{DynamicResource SecondaryColor}" />
+        <Setter
+            Property="BackgroundColor"
+            Value="{DynamicResource BackgroundColor}" />
     </Style>
-    <Style TargetType="ImageButton">
-        <Setter Property="BackgroundColor"
-                Value="{DynamicResource BackgroundColor}" />
+    <Style
+        TargetType="ImageButton">
+        <Setter
+            Property="BackgroundColor"
+            Value="{DynamicResource BackgroundColor}" />
     </Style>
-    <Style TargetType="SearchBar">
-        <Setter Property="TextColor" Value="{DynamicResource SecondaryColor}" />
-        <Setter Property="BackgroundColor"
-                Value="{DynamicResource BackgroundColor}" />
+    <Style
+        TargetType="SearchBar">
+        <Setter
+            Property="TextColor"
+            Value="{DynamicResource SecondaryColor}" />
+        <Setter
+            Property="BackgroundColor"
+            Value="{DynamicResource BackgroundColor}" />
     </Style>
-    <Style TargetType="Slider">
-        <Setter Property="ThumbColor" Value="{DynamicResource PrimaryColor}" />
-        <Setter Property="MaximumTrackColor"
-                Value="{DynamicResource SecondaryColor}" />
-        <Setter Property="MinimumTrackColor"
-                Value="{DynamicResource SecondaryColor}" />
+    <Style
+        TargetType="Slider">
+        <Setter
+            Property="ThumbColor"
+            Value="{DynamicResource PrimaryColor}" />
+        <Setter
+            Property="MaximumTrackColor"
+            Value="{DynamicResource SecondaryColor}" />
+        <Setter
+            Property="MinimumTrackColor"
+            Value="{DynamicResource SecondaryColor}" />
     </Style>
 
     <!--ListView ##################################################### -->
 
-    <Style TargetType="ListView">
-        <Setter Property="SeparatorColor"
-                Value="{DynamicResource SecondaryColor}" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
+    <Style
+        TargetType="ListView">
+        <Setter
+            Property="SeparatorColor"
+            Value="{DynamicResource SecondaryColor}" />
+        <Setter
+            Property="BackgroundColor"
+            Value="Transparent" />
     </Style>
 
-    <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
-        <On Platform="iOS" Value="materialdesignicons" />
-        <On Platform="Android" Value="materialdesignicons.ttf#" />
+    <OnPlatform
+        x:Key="MaterialFontFamily"
+        x:TypeArguments="x:String">
+        <On
+            Platform="iOS"
+            Value="materialdesignicons" />
+        <On
+            Platform="Android"
+            Value="materialdesignicons.ttf#" />
     </OnPlatform>
 
     <!-- Font Icons ################################################### -->
 
-    <x:String x:Key="Play">&#xf40d;</x:String>
-    <x:String x:Key="Pause">&#xf3e6;</x:String>
-    <x:String x:Key="Add">&#xf419;</x:String>
-    <x:String x:Key="Spotify">&#xf4c7;</x:String>
-    <x:String x:Key="AudioFile">&#xf223;</x:String>
-    <x:String x:Key="Stop">&#xf0034;</x:String>
+    <x:String
+        x:Key="Play">&#xf40d;</x:String>
+    <x:String
+        x:Key="Pause">&#xf3e6;</x:String>
+    <x:String
+        x:Key="Add">&#xf419;</x:String>
+    <x:String
+        x:Key="Spotify">&#xf4c7;</x:String>
+    <x:String
+        x:Key="AudioFile">&#xf223;</x:String>
+    <x:String
+        x:Key="Stop">&#xf0034;</x:String>
+    <x:String
+        x:Key="Settings">&#xf493;</x:String>
+    <!--bookmark-music-outline-->
+    <x:String
+        x:Key="Bookmark">&#xf03a4;</x:String>
+    <x:String
+        x:Key="AddBookmark">&#xf0c4;</x:String>
 
     <!-- Data Templates ############################################### -->
 
-    <DataTemplate x:Key="SessionItemSpotify">
+    <DataTemplate
+        x:Key="SessionItemSpotify">
         <views:CustomViewCell>
             <ViewCell.ContextActions>
-                <MenuItem Text="Delete" IsDestructive="True"
-                        Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                        CommandParameter="{Binding .}" />
+                <MenuItem
+                    Text="Delete"
+                    IsDestructive="True"
+                    Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                    CommandParameter="{Binding .}" />
             </ViewCell.ContextActions>
-            <StackLayout VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand" Orientation="Horizontal">
-                <Label FontFamily="{DynamicResource MaterialFontFamily}"
-                        Text="{StaticResource Spotify}" FontSize="24"
-                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
-                        VerticalTextAlignment="Center" VerticalOptions="Center" />
-                <Label Text="{Binding Name}"
-                         TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
-                        VerticalTextAlignment="Center" VerticalOptions="Center" />
-            </StackLayout>
+            <Grid
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="Auto" />
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="0"
+                    FontFamily="{DynamicResource MaterialFontFamily}"
+                    Text="{StaticResource Spotify}"
+                    FontSize="24"
+                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                    VerticalTextAlignment="Center"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding Name}"
+                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                    VerticalTextAlignment="Center"
+                    VerticalOptions="Center"
+                    HorizontalOptions="StartAndExpand" />
+                <ImageButton
+                    Grid.Column="2"
+                    WidthRequest="24"
+                    HeightRequest="24"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=SelectedBackgroundColor}">
+                    <ImageButton.Source>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource Bookmark}"
+                            Size="48"
+                            Color="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}" />
+                    </ImageButton.Source>
+                </ImageButton>
+            </Grid>
         </views:CustomViewCell>
     </DataTemplate>
 
-    <DataTemplate x:Key="SessionItemAudioFile">
+    <DataTemplate
+        x:Key="SessionItemAudioFile">
         <views:CustomViewCell>
             <ViewCell.ContextActions>
-                <MenuItem Text="Delete" IsDestructive="True"
-                        Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                        CommandParameter="{Binding .}" />
+                <MenuItem
+                    Text="Delete"
+                    IsDestructive="True"
+                    Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                    CommandParameter="{Binding .}" />
             </ViewCell.ContextActions>
-            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
-                    Orientation="Horizontal">
-                <Label FontFamily="{DynamicResource MaterialFontFamily}"
-                        Text="{StaticResource AudioFile}" FontSize="24"
-                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
-                        VerticalTextAlignment="Center" VerticalOptions="Center" />
-                <Label Text="{Binding Name}"
-                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
-                        VerticalTextAlignment="Center" VerticalOptions="Center" />
-            </StackLayout>
+            <Grid
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="Auto" />
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="0"
+                    FontFamily="{DynamicResource MaterialFontFamily}"
+                    Text="{StaticResource AudioFile}"
+                    FontSize="24"
+                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                    VerticalTextAlignment="Center"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding Name}"
+                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                    VerticalTextAlignment="Center"
+                    VerticalOptions="Center"
+                    HorizontalOptions="StartAndExpand" />
+                <ImageButton
+                    Grid.Column="2"
+                    WidthRequest="24"
+                    HeightRequest="24"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=SelectedBackgroundColor}">
+                    <ImageButton.Source>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource Bookmark}"
+                            Size="48"
+                            Color="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}" />
+                    </ImageButton.Source>
+                </ImageButton>
+            </Grid>
         </views:CustomViewCell>
     </DataTemplate>
 
-    <DataTemplate x:Key="SessionItemDeleted">
-        <views:CustomViewCell IsEnabled="False">
+    <DataTemplate
+        x:Key="SessionItemDeleted">
+        <views:CustomViewCell
+            IsEnabled="False">
             <ViewCell.ContextActions>
-                <MenuItem Text="Delete" IsDestructive="True"
-                        Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                        CommandParameter="{Binding .}" />
+                <MenuItem
+                    Text="Delete"
+                    IsDestructive="True"
+                    Command="{Binding Path=BindingContext.DeleteSessionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                    CommandParameter="{Binding .}" />
             </ViewCell.ContextActions>
-            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
-                    Orientation="Horizontal">
-                <Label FontFamily="{DynamicResource MaterialFontFamily}"
-                        Text="{StaticResource Stop}" FontSize="24"
-                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
-                        VerticalTextAlignment="Center" VerticalOptions="Center" />
-                <Label Text="{Binding Name}"
-                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
-                        VerticalTextAlignment="Center" VerticalOptions="Center" />
-            </StackLayout>
+            <Grid
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="Auto" />
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="0"
+                    FontFamily="{DynamicResource MaterialFontFamily}"
+                    Text="{StaticResource Stop}"
+                    FontSize="24"
+                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                    VerticalTextAlignment="Center"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding Name}"
+                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                    VerticalTextAlignment="Center"
+                    VerticalOptions="Center"
+                    HorizontalOptions="StartAndExpand" />
+                <ImageButton
+                    Grid.Column="2"
+                    WidthRequest="24"
+                    HeightRequest="24"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=SelectedBackgroundColor}">
+                    <ImageButton.Source>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource Bookmark}"
+                            Size="48"
+                            Color="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}" />
+                    </ImageButton.Source>
+                </ImageButton>
+            </Grid>
         </views:CustomViewCell>
     </DataTemplate>
 
-    <DataTemplate x:Key="AudioSourceTypeSpotify">
+    <DataTemplate
+        x:Key="AudioSourceTypeSpotify">
         <ViewCell>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*" />
-                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition
+                        Width="4*" />
+                    <ColumnDefinition
+                        Width="6*" />
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0"
-                        FontFamily="{DynamicResource MaterialFontFamily}"
-                        Text="{StaticResource Spotify}" FontSize="48"
-                        TextColor="{DynamicResource PrimaryColor}"
-                        VerticalTextAlignment="Center" VerticalOptions="Center"
-                        HorizontalOptions="Center" />
-                <Label Grid.Column="1" Text="{Binding DisplayName}"
-                        TextColor="{DynamicResource PrimaryColor}"
-                        VerticalTextAlignment="Center" VerticalOptions="Center"
-                        HorizontalOptions="StartAndExpand" FontSize="24" />
+                <Label
+                    Grid.Column="0"
+                    FontFamily="{DynamicResource MaterialFontFamily}"
+                    Text="{StaticResource Spotify}"
+                    FontSize="48"
+                    TextColor="{DynamicResource PrimaryColor}"
+                    VerticalTextAlignment="Center"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center" />
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding DisplayName}"
+                    TextColor="{DynamicResource PrimaryColor}"
+                    VerticalTextAlignment="Center"
+                    VerticalOptions="Center"
+                    HorizontalOptions="StartAndExpand"
+                    FontSize="24" />
             </Grid>
         </ViewCell>
     </DataTemplate>
 
-    <DataTemplate x:Key="AudioSourceTypeAudioFile">
+    <DataTemplate
+        x:Key="AudioSourceTypeAudioFile">
         <ViewCell>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*" />
-                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition
+                        Width="4*" />
+                    <ColumnDefinition
+                        Width="6*" />
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0"
-                        FontFamily="{DynamicResource MaterialFontFamily}"
-                        Text="{StaticResource AudioFile}" FontSize="48"
-                        TextColor="{DynamicResource PrimaryColor}"
-                        VerticalTextAlignment="Center" VerticalOptions="Center"
-                        HorizontalOptions="Center" />
-                <Label Grid.Column="1" Text="{Binding DisplayName}"
-                        TextColor="{DynamicResource PrimaryColor}"
-                        VerticalTextAlignment="Center" VerticalOptions="Center"
-                        HorizontalOptions="StartAndExpand" FontSize="24" />
+                <Label
+                    Grid.Column="0"
+                    FontFamily="{DynamicResource MaterialFontFamily}"
+                    Text="{StaticResource AudioFile}"
+                    FontSize="48"
+                    TextColor="{DynamicResource PrimaryColor}"
+                    VerticalTextAlignment="Center"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center" />
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding DisplayName}"
+                    TextColor="{DynamicResource PrimaryColor}"
+                    VerticalTextAlignment="Center"
+                    VerticalOptions="Center"
+                    HorizontalOptions="StartAndExpand"
+                    FontSize="24" />
             </Grid>
         </ViewCell>
     </DataTemplate>
@@ -175,13 +354,13 @@
     <!-- Template Selectors ############################################### -->
 
     <tmpltSlctrs:AudioSourceTypeTemplateSelector
-            x:Key="SessionItemTemplateSelector"
-            AudioFileTemplate="{StaticResource SessionItemAudioFile}"
-            SpotifyTemplate="{StaticResource SessionItemSpotify}"
-            DeletedTemplate="{StaticResource SessionItemDeleted}" />
+        x:Key="SessionItemTemplateSelector"
+        AudioFileTemplate="{StaticResource SessionItemAudioFile}"
+        SpotifyTemplate="{StaticResource SessionItemSpotify}"
+        DeletedTemplate="{StaticResource SessionItemDeleted}" />
 
     <tmpltSlctrs:AudioSourceTypeTemplateSelector
-            x:Key="AudioTypeTemplateSelector"
-            AudioFileTemplate="{StaticResource AudioSourceTypeAudioFile}"
-            SpotifyTemplate="{StaticResource AudioSourceTypeSpotify}" />
+        x:Key="AudioTypeTemplateSelector"
+        AudioFileTemplate="{StaticResource AudioSourceTypeAudioFile}"
+        SpotifyTemplate="{StaticResource AudioSourceTypeSpotify}" />
 </ResourceDictionary>

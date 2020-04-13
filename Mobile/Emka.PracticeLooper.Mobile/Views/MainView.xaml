@@ -63,7 +63,7 @@
                         Grid.Row="1"
                         SelectedItem="{Binding CurrentSession, Mode=TwoWay}"
                         ItemsSource="{Binding Sessions}"
-                        ItemTemplate="{StaticResource SessionItemTemplateSelector}"/>
+                        ItemTemplate="{StaticResource SessionItemTemplateSelector}" />
                 </Grid>
             </ContentView>
             <BoxView
@@ -202,6 +202,23 @@
                                     </Setter>
                                 </DataTrigger>
                             </ImageButton.Triggers>
+                        </ImageButton>
+                        <ImageButton
+                            Grid.Row="1"
+                            WidthRequest="48"
+                            HeightRequest="48"
+                            Margin="20,0"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center"
+                            Command="{Binding AddNewLoopCommand}">
+                            <ImageButton.Source>
+                                <FontImageSource
+                                    FontFamily="{DynamicResource MaterialFontFamily}"
+                                    Glyph="{StaticResource AddBookmark}"
+                                    Size="48"
+                                    Color="{DynamicResource PrimaryColor}">
+                                </FontImageSource>
+                            </ImageButton.Source>
                         </ImageButton>
                     </Grid>
                     <Slider

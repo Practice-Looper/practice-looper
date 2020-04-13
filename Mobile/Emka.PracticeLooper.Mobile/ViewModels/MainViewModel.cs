@@ -32,6 +32,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private IDictionary<AudioSourceType, IAudioPlayer> audioPlayers;
         private IInterstitialAd interstitialAd;
         private IRepository<Session> sessionsRepository;
+        private IRepository<Loop> loopsRepository;
         private IDialogService dialogService;
         private IFileRepository fileRepository;
         private ISourcePicker sourcePicker;
@@ -52,6 +53,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private string currentSongTime;
         private string loopStartPosition;
         private string loopEndPosition;
+        private Command addNewLoopCommand;
         #endregion
 
         #region Ctor
@@ -78,6 +80,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public Command CreateSessionCommand => createSessionCommand ?? (createSessionCommand = new Command(async (o) => await ExecuteCreateSessionCommandAsync(o), CanExecuteCreateSessionCommand));
 
         public Command PickSourceCommand => pickSourceCommand ?? (pickSourceCommand = new Command(async (o) => await ExecutePickSourceCommandAsync(o)));
+
+        public Command AddNewLoopCommand => addNewLoopCommand ?? (addNewLoopCommand = new Command(async (o) => await ExecuteAddNewLoopCommand(o), CanExecuteAddNewLoopCommand));
 
         public IAudioPlayer CurrentAudioPlayer { get; private set; }
 
@@ -210,6 +214,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 NotifyPropertyChanged();
                 PlayCommand.ChangeCanExecute();
+                AddNewLoopCommand.ChangeCanExecute();
             }
         }
 
@@ -237,12 +242,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
                 }
 
-                //audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>().ToDictionary(player => player.Type);
                 dialogService = Factory.GetResolver().Resolve<IDialogService>();
                 sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
                 interstitialAd = Factory.GetResolver().Resolve<IInterstitialAd>();
                 sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
+                loopsRepository = Factory.GetResolver().Resolve<IRepository<Loop>>();
                 await sessionsRepository.InitAsync();
+                await loopsRepository.InitAsync();
                 fileRepository = Factory.GetResolver().Resolve<IFileRepository>();
                 filePicker = Factory.GetResolver().Resolve<Mobile.Common.IFilePicker>();
                 var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
@@ -260,7 +266,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 await Logger?.LogErrorAsync(ex);
-                await ShowErrorDialogAsync(ex);
+                await dialogService.ShowAlertAsync(ex.Message);
             }
         }
 
@@ -276,7 +282,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 catch (Exception ex)
                 {
                     Logger.LogError(ex);
-                    ShowErrorDialog(ex);
+                    dialogService.ShowAlertAsync(ex.Message);
                 }
             }
         }
@@ -298,6 +304,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 Logger.LogError(ex);
+                dialogService.ShowAlertAsync(ex.Message);
             }
         }
 
@@ -315,7 +322,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 catch (Exception ex)
                 {
                     Logger.LogError(ex);
-                    ShowErrorDialog(ex);
+                    dialogService.ShowAlertAsync(ex.Message);
                 }
             }
         }
@@ -355,7 +362,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 catch (Exception ex)
                 {
                     await Logger.LogErrorAsync(ex);
-                    await ShowErrorDialogAsync();
+                    await dialogService.ShowAlertAsync(ex.Message);
                 }
             }
         }
@@ -379,31 +386,23 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 }
                 else
                 {
-                    // todo: detach handler
-                    try
-                    {
-                        CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
-                        CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
-                        CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
+                    CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
+                    CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
+                    CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
 
-                        if (!CurrentAudioPlayer.Initialized)
-                        {
-                            await CurrentAudioPlayer.InitAsync(CurrentLoop);
-                        }
-
-                        await CurrentAudioPlayer.PlayAsync();
-                        Device.BeginInvokeOnMainThread(() => IsPlaying = true);
-                    }
-                    catch (Exception ex)
+                    if (!CurrentAudioPlayer.Initialized)
                     {
-                        Crashes.TrackError(ex);
+                        await CurrentAudioPlayer.InitAsync(CurrentLoop);
                     }
+
+                    await CurrentAudioPlayer.PlayAsync();
+                    Device.BeginInvokeOnMainThread(() => IsPlaying = true);
                 }
             }
             catch (Exception ex)
             {
                 await Logger.LogErrorAsync(ex);
-                await ShowErrorDialogAsync();
+                await dialogService.ShowAlertAsync(ex.Message);
             }
         }
 
@@ -438,7 +437,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 catch (Exception ex)
                 {
                     await Logger.LogErrorAsync(ex);
-                    await ShowErrorDialogAsync();
+                    await dialogService.ShowAlertAsync(ex.Message);
                 }
             }
         }
@@ -485,6 +484,27 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
+        private bool CanExecuteAddNewLoopCommand(object arg)
+        {
+            return CurrentSession != null;
+        }
+
+        private async Task ExecuteAddNewLoopCommand(object o)
+        {
+            try
+            {
+                var name = await dialogService.ShowPromptAsync("New loop", "Enter a name", "Save", "Cancel", $"Loop{CurrentSession.Loops.Count + 1}");
+                var loop = new Loop() { Name = name, StartPosition = MinimumValue, EndPosition = MaximumValue, Session = CurrentSession, SessionId = CurrentSession.Id };
+                loop.Id = await loopsRepository.SaveAsync(loop);
+                CurrentSession.Loops.Add(loop);
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogErrorAsync(ex);
+                await dialogService.ShowAlertAsync("Oops, failed to add loop. Please try again.");
+            }
+        }
+
         private void InitAudioSourceSelected()
         {
             try
@@ -520,6 +540,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 Logger.LogErrorAsync(ex);
+                dialogService.ShowAlertAsync(ex.Message);
             }
         }
 
@@ -543,7 +564,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 Logger.LogError(ex);
-                ShowErrorDialog();
+                dialogService.ShowAlertAsync(ex.Message);
             }
         }
 
@@ -556,7 +577,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 Logger.LogError(ex);
-                ShowErrorDialog();
+                dialogService.ShowAlertAsync(ex.Message);
             }
 
             return TimeSpan.FromMilliseconds(0).ToString(@"mm\:ss");

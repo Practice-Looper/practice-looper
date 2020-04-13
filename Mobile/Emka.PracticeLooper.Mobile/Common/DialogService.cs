@@ -28,5 +28,10 @@ namespace Emka.PracticeLooper.Mobile.Common
         {
             throw new System.NotImplementedException();
         }
+
+        public async Task<string> ShowPromptAsync(string title, string message, string accept, string cancel, string placeholder, int maxLength = 250)
+        {
+            return await Application.Current.MainPage?.DisplayPromptAsync(title, message, accept, cancel, placeholder, maxLength);
+        }
     }
 }

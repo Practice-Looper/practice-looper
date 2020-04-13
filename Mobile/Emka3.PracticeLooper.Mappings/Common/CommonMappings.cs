@@ -27,7 +27,8 @@ namespace Emka3.PracticeLooper.Mappings.Common
 
             builder.RegisterType<AppCenterLogger>().As<ILogger>().SingleInstance();
             builder.RegisterType<AppCenterTracker>().As<IAppTracker>().SingleInstance();
-            builder.RegisterType<SessionsDbRepository>().As<IRepository<Session>>().SingleInstance();
+            builder.RegisterType<SessionsDbRepository>().As<IRepository<Session>>();
+            builder.RegisterType<LoopsRepository>().As<IRepository<Loop>>().SingleInstance();
             builder.RegisterType<AccountManager>().As<IAccountManager>().SingleInstance();
         }
     }

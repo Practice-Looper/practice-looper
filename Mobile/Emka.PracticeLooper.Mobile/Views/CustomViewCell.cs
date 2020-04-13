@@ -13,8 +13,8 @@ namespace Emka.PracticeLooper.Mobile.Views
     {
         #region Fields
         /// <summary>
-            /// The SelectedBackgroundColor property.
-            /// </summary>
+        /// The SelectedBackgroundColor property.
+        /// </summary>
         public static readonly BindableProperty SelectedBackgroundColorProperty =
             BindableProperty.Create("SelectedBackgroundColor", typeof(Color), typeof(CustomViewCell), Color.Default);
         public static readonly BindableProperty FontColorProperty =
