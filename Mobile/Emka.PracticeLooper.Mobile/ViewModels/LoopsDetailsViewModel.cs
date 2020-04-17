@@ -3,12 +3,11 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
+using Emka.PracticeLooper.Model;
 using Emka3.PracticeLooper.Model.Player;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
@@ -16,18 +15,17 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     public class LoopsDetailsViewModel : ViewModelBase
     {
         private SessionViewModel session;
-        private Command deleteSessionCommand;
-        private double songDuration;
         #region Ctor
 
         public LoopsDetailsViewModel()
         {
-            Loops = new ObservableCollection<Loop>();
+            Loops = new ObservableCollection<LoopViewModel>();
+            MessagingCenter.Subscribe<LoopViewModel, Loop>(this, MessengerKeys.DeleteLoop, OnDeleteLoop);
         }
         #endregion
 
         #region Properties
-        public Command DeleteCommand => deleteSessionCommand ?? (deleteSessionCommand = new Command(async (o) => await ExecuteDeleteCommandAsync(o)));
+
 
         public SessionViewModel Session
         {
@@ -38,9 +36,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        public double SongDuration { get => songDuration; set => songDuration = value; }
+        public double SongDuration { get; set; }
 
-        public ObservableCollection<Loop> Loops
+        public ObservableCollection<LoopViewModel> Loops
         {
             get;
             private set;
@@ -56,16 +54,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 Session = session;
                 foreach (var item in session.Session.Loops)
                 {
-                    Loops.Add(item);
+                    Loops.Add(new LoopViewModel(item));
                 }
             }
 
             return Task.CompletedTask;
         }
 
-        private async Task ExecuteDeleteCommandAsync(object o)
+        private void OnDeleteLoop(LoopViewModel sender, Loop loop)
         {
-            throw new NotImplementedException();
+            Loops.Remove(sender);
         }
         #endregion
     }

@@ -45,7 +45,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Label
                                     Grid.Column="0"
-                                    Text="{Binding Name}"
+                                    Text="{Binding Loop.Name}"
                                     TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                                     VerticalTextAlignment="Center"
                                     VerticalOptions="Center"

@@ -4,7 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
 using System.Globalization;
-using Emka3.PracticeLooper.Model.Player;
+using Emka.PracticeLooper.Mobile.ViewModels;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.Converters
@@ -17,14 +17,14 @@ namespace Emka.PracticeLooper.Mobile.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is Loop loop && parameter is string position)
+            if (value is LoopViewModel loop && parameter is string position)
             {
                 if (position == "Start")
                 {
-                    return FormatTime(loop.StartPosition * loop.Session.AudioSource.Duration * 1000);
+                    return FormatTime(loop.Loop.StartPosition * loop.Loop.Session.AudioSource.Duration * 1000);
                 }
 
-                return FormatTime(loop.EndPosition * loop.Session.AudioSource.Duration * 1000);
+                return FormatTime(loop.Loop.EndPosition * loop.Loop.Session.AudioSource.Duration * 1000);
             }
             return "";
         }
