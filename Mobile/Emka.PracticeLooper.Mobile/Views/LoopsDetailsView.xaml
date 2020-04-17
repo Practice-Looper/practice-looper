@@ -35,13 +35,13 @@
                                 HorizontalOptions="FillAndExpand">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition
-                                        Width="6*" />
+                                        Width="*" />
                                     <ColumnDefinition
-                                        Width="2*" />
+                                        Width="Auto" />
                                     <ColumnDefinition
-                                        Width="1*" />
+                                        Width="Auto" />
                                     <ColumnDefinition
-                                        Width="2*" />
+                                        Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Label
                                     Grid.Column="0"

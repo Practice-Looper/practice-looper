@@ -1,78 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildIOS|AnyCPU' ">
-    <DebugType></DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\BuildIOS</OutputPath>
-    <DefineConstants></DefineConstants>
-    <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>obj\BuildIOS</IntermediateOutputPath>
-    <NoWarn></NoWarn>
-    <NoStdLib>false</NoStdLib>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.396" />
-    <PackageReference Include="Autofac" Version="4.9.4" />
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.1.1" />
-    <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.34" />
-    <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.1" />
-    <PackageReference Include="Mobile.BuildTools" Version="1.4.0.638">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
-    <PackageReference Include="Plugin.MediaManager" Version="0.9.5" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.0.0" />
-    <PackageReference Include="Microsoft.AppCenter" Version="3.0.0" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />
-    <ProjectReference Include="..\Emka3.PracticeLooper.Mappings.Contracts\Emka3.PracticeLooper.Mappings.Contracts.csproj" />
-    <ProjectReference Include="..\Emka3.PracticeLooper.Services.Contracts\Emka3.PracticeLooper.Services.Contracts.csproj" />
-    <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj" />
-    <ProjectReference Include="..\Emka3.PracticeLooper.Utils\Emka3.PracticeLooper.Utils.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-    <Folder Include="ViewModels\Common\" />
-    <Folder Include="Views\" />
-    <Folder Include="Common\" />
-    <Folder Include="Assets\" />
-    <Folder Include="Extensions\" />
-    <Folder Include="Behaviors\" />
-    <Folder Include="Navigation\" />
-    <Folder Include="TemplateSelectors\" />
-    <Folder Include="Themes\" />
-    <Folder Include="Converters\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Mono.Android">
-      <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.Android.framework\Versions\9.1.8-0\lib\xamarin.android\xbuild-frameworks\MonoAndroid\v8.1\Mono.Android.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.iOS">
-      <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\12.6.0.25\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.iOS">
-      <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\12.8.0.0\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.iOS">
-      <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\12.14.0.110\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\MainView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DebugType>pdbonly</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildIOS|AnyCPU' ">
+        <DebugType>
+        </DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\BuildIOS</OutputPath>
+        <DefineConstants>
+        </DefineConstants>
+        <WarningLevel>4</WarningLevel>
+        <IntermediateOutputPath>obj\BuildIOS</IntermediateOutputPath>
+        <NoWarn>
+        </NoWarn>
+        <NoStdLib>false</NoStdLib>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mock|AnyCPU' " />
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>
+        </DebugType>
+        <OutputPath>
+        </OutputPath>
+        <OutputPath>
+        </OutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugLite|AnyCPU' ">
+        <DebugType>pdbonly</DebugType>
+        <Optimize>false</Optimize>
+        <DefineConstants>TRACE;DEBUG;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+        <DebugSymbols>true</DebugSymbols>
+        <IntermediateOutputPath>obj\Debug\netstandard2.0</IntermediateOutputPath>
+        <NoWarn>1701;1702</NoWarn>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseLite|AnyCPU' ">
+        <DebugType>
+        </DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>
+        </OutputPath>
+        <DefineConstants>TRACE;RELEASE;NETSTANDARD;NETSTANDARD2_0;PREMIUM</DefineConstants>
+        <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleasePremium|AnyCPU' ">
+        <WarningLevel>
+        </WarningLevel>
+        <WarningLevel>
+        </WarningLevel>
+        <DebugType>
+        </DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>
+        </OutputPath>
+        <DefineConstants>TRACE;RELEASE;NETSTANDARD;NETSTANDARD2_0;PREMIUM;</DefineConstants>
+        <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugPremium|AnyCPU' ">
+      <DebugType>pdbonly</DebugType>
+      <Optimize>false</Optimize>
+      <DefineConstants>TRACE;DEBUG;NETSTANDARD;NETSTANDARD2_0;PREMIUM</DefineConstants>
+      <DebugSymbols>true</DebugSymbols>
+      <IntermediateOutputPath>obj\Debug\netstandard2.0</IntermediateOutputPath>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Xamarin.Forms" Version="4.5.0.396" />
+        <PackageReference Include="Autofac" Version="4.9.4" />
+        <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.1.1" />
+        <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.34" />
+        <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.5.1" />
+        <PackageReference Include="Mobile.BuildTools" Version="1.4.0.638">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
+        <PackageReference Include="Plugin.MediaManager" Version="0.9.5" />
+        <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.0.0" />
+        <PackageReference Include="Microsoft.AppCenter" Version="3.0.0" />
+        <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />
+        <ProjectReference Include="..\Emka3.PracticeLooper.Mappings.Contracts\Emka3.PracticeLooper.Mappings.Contracts.csproj" />
+        <ProjectReference Include="..\Emka3.PracticeLooper.Services.Contracts\Emka3.PracticeLooper.Services.Contracts.csproj" />
+        <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj" />
+        <ProjectReference Include="..\Emka3.PracticeLooper.Utils\Emka3.PracticeLooper.Utils.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="ViewModels\" />
+        <Folder Include="ViewModels\Common\" />
+        <Folder Include="Views\" />
+        <Folder Include="Common\" />
+        <Folder Include="Assets\" />
+        <Folder Include="Extensions\" />
+        <Folder Include="Behaviors\" />
+        <Folder Include="Navigation\" />
+        <Folder Include="TemplateSelectors\" />
+        <Folder Include="Themes\" />
+        <Folder Include="Converters\" />
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="Mono.Android">
+            <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.Android.framework\Versions\9.1.8-0\lib\xamarin.android\xbuild-frameworks\MonoAndroid\v8.1\Mono.Android.dll</HintPath>
+        </Reference>
+        <Reference Include="Xamarin.iOS">
+            <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\12.6.0.25\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
+        </Reference>
+        <Reference Include="Xamarin.iOS">
+            <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\12.8.0.0\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
+        </Reference>
+        <Reference Include="Xamarin.iOS">
+            <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\12.14.0.110\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\MainView.xaml.cs">
+            <SubType>Code</SubType>
+        </Compile>
+    </ItemGroup>
 </Project>

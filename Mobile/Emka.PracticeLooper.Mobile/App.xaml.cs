@@ -24,8 +24,11 @@ namespace Emka.PracticeLooper.Mobile
     {
         public static IConfigurationService ConfigurationService { get; private set; }
         public static string BannerAddUnitId { get; private set; }
-
+#if PREMIUM
         public static bool HasPremium = true;
+#else
+        public static bool HasPremium = false;
+#endif
 
         public App()
         {
@@ -63,6 +66,7 @@ namespace Emka.PracticeLooper.Mobile
         private void InitApp()
         {
             FeatureRegistry.Add<AdMobView>(!HasPremium);
+            FeatureRegistry.Add<LoopButton>(HasPremium);
             FeatureRegistry.Add<IInterstitialAd>(!HasPremium);
             FeatureRegistry.Add<IPremiumAudioPlayer>(HasPremium && DeviceInfo.DeviceType == DeviceType.Physical, "Spotify");
             FeatureRegistry.Add<ISourcePicker>(HasPremium);

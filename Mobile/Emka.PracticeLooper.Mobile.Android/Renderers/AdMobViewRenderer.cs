@@ -47,7 +47,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
 
             try
             {
-                adView.LoadAd(new AdRequest.Builder().AddTestDevice("5AA4626A9DD6CA8B9D4608A74539FA19").Build());
+                adView.LoadAd(new AdRequest.Builder().AddTestDevice("F05EA53323F18138CB1722DD1F00A0F0").Build());
             }
             catch (Exception ex)
             {

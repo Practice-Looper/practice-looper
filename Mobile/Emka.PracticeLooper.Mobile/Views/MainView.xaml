@@ -98,19 +98,31 @@
                             Grid.Column="1"
                             HorizontalOptions="Start"
                             VerticalOptions="Center"
+                            TextColor="{DynamicResource SecondaryColor}"
                             FontSize="Large"
-                            Margin="0,0,5,0"
-                            Style="{StaticResource LabelStyle}">
-                            <Label.Triggers>
-                                <DataTrigger
+                            Margin="0,0,5,0">
+                            <Label.Style>
+                                <Style
                                     TargetType="Label"
-                                    Binding="{Binding IsInitialized}"
-                                    Value="False">
+                                    BasedOn="{StaticResource LabelStyle}">
                                     <Setter
                                         Property="IsVisible"
-                                        Value="False" />
-                                </DataTrigger>
-                            </Label.Triggers>
+                                        Value="True" />
+                                    <Setter
+                                        Property="TextColor"
+                                        Value="{DynamicResource PrimaryColor}" />
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            TargetType="Label"
+                                            Binding="{Binding IsInitialized}"
+                                            Value="False">
+                                            <Setter
+                                                Property="IsVisible"
+                                                Value="False" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
                         </Label>
                         <Label
                             Text="{Binding LoopEndPosition, StringFormat='{0}]'}"
@@ -118,18 +130,29 @@
                             VerticalOptions="Center"
                             HorizontalOptions="End"
                             FontSize="Large"
-                            Margin="5,0,0,0"
-                            Style="{StaticResource LabelStyle}">
-                            <Label.Triggers>
-                                <DataTrigger
+                            Margin="5,0,0,0">
+                            <Label.Style>
+                                <Style
                                     TargetType="Label"
-                                    Binding="{Binding IsInitialized}"
-                                    Value="False">
+                                    BasedOn="{StaticResource LabelStyle}">
                                     <Setter
                                         Property="IsVisible"
-                                        Value="False" />
-                                </DataTrigger>
-                            </Label.Triggers>
+                                        Value="True" />
+                                    <Setter
+                                        Property="TextColor"
+                                        Value="{DynamicResource PrimaryColor}" />
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            TargetType="Label"
+                                            Binding="{Binding IsInitialized}"
+                                            Value="False">
+                                            <Setter
+                                                Property="IsVisible"
+                                                Value="False" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
                         </Label>
                         <Label
                             Text="{Binding SongDuration}"
@@ -203,7 +226,7 @@
                                 </DataTrigger>
                             </ImageButton.Triggers>
                         </ImageButton>
-                        <ImageButton
+                        <views:LoopButton
                             Grid.Row="1"
                             WidthRequest="48"
                             HeightRequest="48"
@@ -211,15 +234,26 @@
                             HorizontalOptions="End"
                             VerticalOptions="Center"
                             Command="{Binding AddNewLoopCommand}">
-                            <ImageButton.Source>
+                            <views:LoopButton.Source>
                                 <FontImageSource
                                     FontFamily="{DynamicResource MaterialFontFamily}"
                                     Glyph="{StaticResource AddBookmark}"
                                     Size="48"
                                     Color="{DynamicResource PrimaryColor}">
                                 </FontImageSource>
-                            </ImageButton.Source>
-                        </ImageButton>
+                            </views:LoopButton.Source>
+                            <views:LoopButton.BackgroundColor>
+                                <OnPlatform
+                                    x:TypeArguments="Color">
+                                    <On
+                                        Platform="iOS"
+                                        Value="{Binding Source={RelativeSource Self}, Path=BackgroundColor}" />
+                                    <On
+                                        Platform="Android"
+                                        Value="Transparent" />
+                                </OnPlatform>
+                            </views:LoopButton.BackgroundColor>
+                        </views:LoopButton>
                     </Grid>
                     <Slider
                         VerticalOptions="Center" />

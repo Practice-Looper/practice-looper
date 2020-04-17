@@ -3,7 +3,6 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Emka3.PracticeLooper.Config.Feature
 {
@@ -37,13 +36,13 @@ namespace Emka3.PracticeLooper.Config.Feature
             }
         }
 
+        public static void Add<T>(string name = "") where T : IFeature
+        {
+            Add<T>(true, name);
+        }
+
         public static bool IsEnabled<T>(string name = "") where T : IFeature
         {
-            if (string.IsNullOrEmpty(name) || !Features.ContainsKey(name))
-            {
-                return false;
-            }
-
             var feature = string.IsNullOrEmpty(name) ? Features[typeof(T)] as FeatureToggle<T> : Features[name] as FeatureToggle<T>;
             return feature != null && feature.Enabled;
         }
