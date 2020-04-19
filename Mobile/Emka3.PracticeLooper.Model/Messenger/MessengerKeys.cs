@@ -15,6 +15,7 @@ namespace Emka.PracticeLooper.Model
         public const string AudioSourcePickerClosed = nameof(AudioSourcePickerClosed);
         public const string DeleteSession = nameof(DeleteSession);
         public const string DeleteLoop = nameof(DeleteLoop);
+        public const string LoopChanged = nameof(LoopChanged);
         public const string ShowDialog = nameof(ShowDialog);
     }
 }

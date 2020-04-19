@@ -34,22 +34,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             Session = session;
             Task.Run(() => InitializeAsync(null));
-            MessagingCenter.Subscribe<LoopViewModel, Loop>(this, MessengerKeys.DeleteLoop, OnDeleteLoop);
         }
 
-        private async void OnDeleteLoop(LoopViewModel sender, Loop loop)
-        {
-            try
-            {
-                await looperRepository.DeleteAsync(loop);
-                Session.Loops.Remove(loop);
-            }
-            catch (Exception ex)
-            {
-                await logger.LogErrorAsync(ex);
-                await dialogService.ShowAlertAsync("Opps, failed to delete loop");
-            }
-        }
         #endregion
 
         #region Properties

@@ -10,7 +10,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
-using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
@@ -27,8 +26,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     public class MainViewModel : ViewModelBase
     {
         #region Fields
-        private IConfigurationService configService;
-        private IDictionary<AudioSourceType, IAudioPlayer> audioPlayers;
         private IInterstitialAd interstitialAd;
         private IRepository<Session> sessionsRepository;
         private IRepository<Loop> loopsRepository;
@@ -64,8 +61,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             Maximum = 1;
             MaximumValue = 1;
 
-            MessagingCenter.Subscribe<Session>(this, MessengerKeys.NewTrackAdded, (session) => Sessions.Add(new SessionViewModel(session)));
+            MessagingCenter.Subscribe<SpotifySearchViewModel, AudioSource>(this, MessengerKeys.NewTrackAdded, (sender, audioSorce) => CreateSessionCommand.Execute(audioSorce));
             MessagingCenter.Subscribe<SessionViewModel, SessionViewModel>(this, MessengerKeys.DeleteSession, (sender, arg) => DeleteSessionCommand.Execute(arg));
+            MessagingCenter.Subscribe<LoopsDetailsViewModel, LoopViewModel>(this, MessengerKeys.LoopChanged, OnLoopChanged);
+            MessagingCenter.Subscribe<LoopViewModel, Loop>(this, MessengerKeys.DeleteLoop, OnDeleteLoop);
         }
         #endregion
 
@@ -204,10 +203,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 currentSession = value;
                 if (currentSession != null)
                 {
-                    InitAudioSourceSelected();
+                    InitAudioPlayer();
                     NotifyPropertyChanged("IsInitialized");
+                    Task.Run(async () => await sessionsRepository.UpdateAsync(currentSession.Session));
                 }
-
 
                 NotifyPropertyChanged();
                 PlayCommand.ChangeCanExecute();
@@ -256,7 +255,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         Sessions.Add(new SessionViewModel(item));
                     }
 
-                    CurrentSession = Sessions.FirstOrDefault();
+                    CurrentSession = Sessions.FirstOrDefault(s => s.Session.IsFavorite);
                 });
                 //todo: check app and purchase status
             }
@@ -342,19 +341,23 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         Name = source.FileName,
                         AudioSource = source,
                         Loops = new List<Loop>
+                        {
+                            new Loop
                             {
-                                new Loop
-                                {
-                                    Name = source.FileName,
-                                    StartPosition = 0.0,
-                                    EndPosition = 1.0,
-                                    Repititions = 0
-                                }
+                                Name = source.FileName,
+                                StartPosition = 0.0,
+                                EndPosition = 1.0,
+                                Repititions = 0,
+                                IsFavorite = true
                             }
+                        },
+                        IsFavorite = !Sessions.Any()
                     };
 
-                    Sessions.Add(new SessionViewModel(newSession));
                     await sessionsRepository.SaveAsync(newSession);
+                    var newSessionViewModel = new SessionViewModel(newSession);
+                    Sessions.Add(newSessionViewModel);
+                    CurrentSession = newSessionViewModel;
                 }
                 catch (Exception ex)
                 {
@@ -415,12 +418,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         CurrentAudioPlayer.Pause();
                     }
 
+                    await sessionsRepository.DeleteAsync(tmpSession.Session);
+
                     if (tmpSession.Session.AudioSource.Type == AudioSourceType.Local)
                     {
                         await fileRepository.DeleteFileAsync(tmpSession.Session.AudioSource.Source);
                     }
-
-                    await sessionsRepository.DeleteAsync(tmpSession.Session);
 
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -508,7 +511,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        private void InitAudioSourceSelected()
+        private void InitAudioPlayer()
         {
             try
             {
@@ -520,11 +523,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (CurrentSession != null)
                 {
                     CurrentAudioPlayer = Factory.GetResolver().ResolveAll<IAudioPlayer>().First(p => p.Type == CurrentSession.Session.AudioSource.Type);
-                    CurrentLoop = CurrentSession.Session.Loops[0];
+                    CurrentLoop = CurrentSession.Session.Loops.FirstOrDefault(l => l.IsFavorite);
                     MinimumValue = CurrentLoop.StartPosition;
                     MaximumValue = CurrentLoop.EndPosition;
-                    SongDuration = FormatTime(CurrentLoop.Session.AudioSource.Duration * 1000);
-                    CurrentSongTime = FormatTime(CurrentLoop.Session.AudioSource.Duration * 1000 * MinimumValue);
+                    SongDuration = FormatTime(CurrentSession.Session.AudioSource.Duration * 1000);
+                    CurrentSongTime = FormatTime(CurrentSession.Session.AudioSource.Duration * 1000 * MinimumValue);
                 }
                 else
                 {
@@ -584,6 +587,50 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
 
             return TimeSpan.FromMilliseconds(0).ToString(@"mm\:ss");
+        }
+
+        private async void OnLoopChanged(LoopsDetailsViewModel sender, LoopViewModel loop)
+        {
+            try
+            {
+                var isCurrentlyPlaying = CurrentAudioPlayer?.IsPlaying;
+                CurrentLoop = loop.Loop;
+                InitAudioPlayer();
+
+                if (isCurrentlyPlaying.HasValue && isCurrentlyPlaying.Value)
+                {
+                    CurrentAudioPlayer.Play();
+                }
+
+                loop.Loop.IsFavorite = true;
+                await loopsRepository?.UpdateAsync(loop.Loop);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private async void OnDeleteLoop(LoopViewModel sender, Loop loop)
+        {
+            try
+            {
+                await loopsRepository.DeleteAsync(loop);
+                CurrentSession.Session.Loops.Remove(loop);
+
+                if (loop == CurrentLoop)
+                {
+                    Pause();
+                    CurrentLoop = CurrentSession.Session.Loops[0];
+                    CurrentLoop.IsFavorite = true;
+                    await loopsRepository.UpdateAsync(CurrentLoop);
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogErrorAsync(ex);
+                await dialogService.ShowAlertAsync("Opps, failed to delete loop");
+            }
         }
         #endregion
     }

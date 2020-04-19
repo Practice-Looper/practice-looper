@@ -7,8 +7,6 @@ using Emka.PracticeLooper.Mobile.iOS.Common;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
-using Foundation;
-using UIKit;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
 namespace Emka.PracticeLooper.Mobile.iOS
@@ -20,7 +18,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
             ConfigurationService = Factory.GetConfigService();
             MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
             resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
-            resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
+            resolver.Register(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
             resolver.RegisterSingleton(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
             resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));

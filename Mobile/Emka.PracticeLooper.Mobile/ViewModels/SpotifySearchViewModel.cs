@@ -64,32 +64,38 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
             try
             {
-                Analytics.TrackEvent("[SpotifySearchViewModel] Create new session");
-                var newSession = new Session
+                //var newSession = new Session
+                //{
+                //    Name = track.Name,
+                //    AudioSource = new AudioSource
+                //    {
+                //        FileName = track.Id,
+                //        Type = AudioSourceType.Spotify,
+                //        Source = track.Uri,
+                //        Duration = track.Duration / 1000
+                //    },
+                //    Loops = new List<Loop>
+                //            {
+                //                new Loop
+                //                {
+                //                    Name = track.Name,
+                //                    StartPosition = 0.0,
+                //                    EndPosition = 1.0,
+                //                    Repititions = 0,
+                //                    IsFavorite = true
+                //                }
+                //            }
+                //};
+
+                Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(this, MessengerKeys.NewTrackAdded, new AudioSource
                 {
-                    Name = track.Name,
-                    AudioSource = new AudioSource
-                    {
-                        FileName = track.Id,
-                        Type = AudioSourceType.Spotify,
-                        Source = track.Uri,
-                        Duration = track.Duration / 1000
-                    },
-                    Loops = new List<Loop>
-                            {
-                                new Loop
-                                {
-                                    Name = track.Name,
-                                    StartPosition = 0.0,
-                                    EndPosition = 1.0,
-                                    Repititions = 0
-                                }
-                            }
-                };
+                    FileName = track.Name,
+                    Type = AudioSourceType.Spotify,
+                    Source = track.Uri,
+                    Duration = track.Duration / 1000
+                }));
 
-                Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(newSession, MessengerKeys.NewTrackAdded));
-
-                await sessionsRepository.SaveAsync(newSession);
+                //await sessionsRepository.SaveAsync(newSession);
 
                 await NavigationService.GoBackAsync();
             }
@@ -172,7 +178,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.LogError(ex);
                 ShowErrorDialog();

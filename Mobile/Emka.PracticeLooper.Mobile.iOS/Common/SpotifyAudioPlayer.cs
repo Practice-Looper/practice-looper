@@ -261,10 +261,17 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         ~SpotifyAudioPlayer()
         {
-            CurrentLoop.StartPositionChanged -= OnStartPositionChanged;
-            CurrentLoop.EndPositionChanged -= OnEndPositionChanged;
-            timer.LoopTimerExpired -= LoopTimerExpired;
-            timer.CurrentPositionTimerExpired -= CurrentPositionTimerExpired;
+            if (CurrentLoop != null)
+            {
+                CurrentLoop.StartPositionChanged -= OnStartPositionChanged;
+                CurrentLoop.EndPositionChanged -= OnEndPositionChanged;
+            }
+
+            if (timer != null)
+            {
+                timer.LoopTimerExpired -= LoopTimerExpired;
+                timer.CurrentPositionTimerExpired -= CurrentPositionTimerExpired;
+            }
         }
         #endregion
     }

@@ -5,7 +5,8 @@
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     xmlns:conv="clr-namespace:Emka.PracticeLooper.Mobile.Converters"
     x:Class="Emka.PracticeLooper.Mobile.Views.LoopsDetailsView"
-    BackgroundColor="{DynamicResource BackgroundColor}">
+    BackgroundColor="{DynamicResource BackgroundColor}"
+    Title="Loops">
     <ContentPage.Resources>
         <conv:DoubleToTimeConverter
             x:Key="TimeConverter" />
@@ -19,7 +20,8 @@
             <ListView
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand"
-                ItemsSource="{Binding Loops}">
+                ItemsSource="{Binding Loops}"
+                SelectedItem="{Binding SelectedLoop}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <views:CustomViewCell>
@@ -50,7 +52,7 @@
                                     VerticalTextAlignment="Center"
                                     VerticalOptions="Center"
                                     HorizontalOptions="StartAndExpand"
-                                    LineBreakMode="TailTruncation"/>
+                                    LineBreakMode="TailTruncation" />
                                 <Label
                                     Text="{Binding .,
                                     Converter={StaticResource TimeConverter},

@@ -15,6 +15,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     public class LoopsDetailsViewModel : ViewModelBase
     {
         private SessionViewModel session;
+        private LoopViewModel selectedLoop;
         #region Ctor
 
         public LoopsDetailsViewModel()
@@ -42,6 +43,18 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             get;
             private set;
+        }
+
+        public LoopViewModel SelectedLoop
+        {
+            get => selectedLoop; set
+            {
+                selectedLoop = value;
+                if (value != null)
+                {
+                    MessagingCenter.Send(this, MessengerKeys.LoopChanged, selectedLoop);
+                }
+            }
         }
         #endregion
 

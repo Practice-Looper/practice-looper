@@ -27,7 +27,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Properties
 
-        public Command DeleteCommand => deleteSessionCommand ?? (deleteSessionCommand = new Command((o) => ExecuteDeleteCommandAsync(o)));
+        public Command DeleteCommand => deleteSessionCommand ?? (deleteSessionCommand = new Command((o) => ExecuteDeleteCommandAsync(o), CanExecuteDeleteCommand));
 
         public Loop Loop { get; }
         #endregion
@@ -39,6 +39,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             return Task.CompletedTask;
         }
 
+        private bool CanExecuteDeleteCommand(object arg)
+        {
+            return Loop != null && Loop.Id != 0;
+        }
 
         private void ExecuteDeleteCommandAsync(object o)
         {

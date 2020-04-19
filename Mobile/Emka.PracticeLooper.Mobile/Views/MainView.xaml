@@ -242,17 +242,17 @@
                                     Color="{DynamicResource PrimaryColor}">
                                 </FontImageSource>
                             </views:LoopButton.Source>
-                            <views:LoopButton.BackgroundColor>
+                            <!--<views:LoopButton.BackgroundColor>
                                 <OnPlatform
                                     x:TypeArguments="Color">
                                     <On
                                         Platform="iOS"
-                                        Value="{Binding Source={RelativeSource Self}, Path=BackgroundColor}" />
+                                        Value="Transparent" />
                                     <On
                                         Platform="Android"
                                         Value="Transparent" />
                                 </OnPlatform>
-                            </views:LoopButton.BackgroundColor>
+                            </views:LoopButton.BackgroundColor>-->
                         </views:LoopButton>
                     </Grid>
                     <Slider

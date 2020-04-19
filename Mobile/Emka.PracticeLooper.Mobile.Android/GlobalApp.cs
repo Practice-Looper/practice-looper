@@ -24,7 +24,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
             resolver.RegisterSingleton(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
-            resolver.RegisterSingleton(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
+            resolver.Register(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
             resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
         }
 

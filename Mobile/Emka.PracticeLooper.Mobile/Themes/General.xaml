@@ -163,25 +163,16 @@
                     Grid.Column="2"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
-                    Command="{Binding PickLoopCommand}">
+                    HeightRequest="32"
+                    Command="{Binding PickLoopCommand}"
+                    BackgroundColor="Transparent">
                     <views:LoopButton.Source>
                         <FontImageSource
                             FontFamily="{DynamicResource MaterialFontFamily}"
                             Glyph="{StaticResource Bookmark}"
-                            Size="30"
+                            Size="{Binding Source={RelativeSource AncestorType={x:Type views:LoopButton}}, Path=HeightRequest}"
                             Color="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}" />
                     </views:LoopButton.Source>
-                    <views:LoopButton.BackgroundColor>
-                        <OnPlatform
-                            x:TypeArguments="Color">
-                            <On
-                                Platform="iOS"
-                                Value="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=SelectedBackgroundColor}" />
-                            <On
-                                Platform="Android"
-                                Value="Transparent" />
-                        </OnPlatform>
-                    </views:LoopButton.BackgroundColor>
                 </views:LoopButton>
             </Grid>
         </views:CustomViewCell>
@@ -226,26 +217,16 @@
                     Grid.Column="2"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
-                    Command="{Binding PickLoopCommand}"
-                    BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=SelectedBackgroundColor}">
+                    HeightRequest="32"
+                    BackgroundColor="Transparent"
+                    Command="{Binding PickLoopCommand}">
                     <views:LoopButton.Source>
                         <FontImageSource
                             FontFamily="{DynamicResource MaterialFontFamily}"
                             Glyph="{StaticResource Bookmark}"
-                            Size="24"
+                            Size="{Binding Source={RelativeSource AncestorType={x:Type views:LoopButton}}, Path=HeightRequest}"
                             Color="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}" />
                     </views:LoopButton.Source>
-                    <views:LoopButton.BackgroundColor>
-                        <OnPlatform
-                            x:TypeArguments="Color">
-                            <On
-                                Platform="iOS"
-                                Value="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=SelectedBackgroundColor}" />
-                            <On
-                                Platform="Android"
-                                Value="Transparent" />
-                        </OnPlatform>
-                    </views:LoopButton.BackgroundColor>
                 </views:LoopButton>
             </Grid>
         </views:CustomViewCell>
@@ -291,8 +272,9 @@
                     Grid.Column="2"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
+                    HeightRequest="32"
                     Command="{Binding PickLoopCommand}"
-                    BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=SelectedBackgroundColor}">
+                    BackgroundColor="Transparent">
                     <views:LoopButton.Source>
                         <FontImageSource
                             FontFamily="{DynamicResource MaterialFontFamily}"
@@ -300,17 +282,6 @@
                             Size="24"
                             Color="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}" />
                     </views:LoopButton.Source>
-                    <views:LoopButton.BackgroundColor>
-                        <OnPlatform
-                            x:TypeArguments="Color">
-                            <On
-                                Platform="iOS"
-                                Value="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=SelectedBackgroundColor}" />
-                            <On
-                                Platform="Android"
-                                Value="Transparent" />
-                        </OnPlatform>
-                    </views:LoopButton.BackgroundColor>
                 </views:LoopButton>
             </Grid>
         </views:CustomViewCell>
