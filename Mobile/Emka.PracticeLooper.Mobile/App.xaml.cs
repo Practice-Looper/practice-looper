@@ -41,6 +41,7 @@ namespace Emka.PracticeLooper.Mobile
 
             try
             {
+                VersionTracking.Track();
                 InitConfig();
                 InitApp();
                 await InitNavigation().ConfigureAwait(true);
@@ -70,6 +71,7 @@ namespace Emka.PracticeLooper.Mobile
             FeatureRegistry.Add<IInterstitialAd>(!HasPremium);
             FeatureRegistry.Add<IPremiumAudioPlayer>(HasPremium && DeviceInfo.DeviceType == DeviceType.Physical, "Spotify");
             FeatureRegistry.Add<ISourcePicker>(HasPremium);
+            FeatureRegistry.Add<IPremiumRepository>(HasPremium);
 
             // Register common forms types
             MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
@@ -105,6 +107,7 @@ namespace Emka.PracticeLooper.Mobile
                 ConfigurationService.LocalPath = Environment.GetFolderPath(Environment.SpecialFolder.Resources);
                 BannerAddUnitId = Helpers.Secrets.AdmobIosTopBannerAdId;
                 ConfigurationService.SetValue(nameof(Helpers.Secrets.AdmobIosInterstitialProjectAdId), Helpers.Secrets.AdmobIosInterstitialProjectAdId);
+                ConfigurationService.SetValue(nameof(Helpers.Secrets.InAppIosPremiumGeneral), Helpers.Secrets.InAppIosPremiumGeneral);
             }
             else if (Device.RuntimePlatform == Device.Android)
             {
@@ -113,6 +116,7 @@ namespace Emka.PracticeLooper.Mobile
 
                 ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientRequestCode), Helpers.Secrets.SpotifyClientRequestCode);
                 ConfigurationService.SetValue(nameof(Helpers.Secrets.AdmobAndroidInterstitialProjectAdId), Helpers.Secrets.AdmobAndroidInterstitialProjectAdId);
+                ConfigurationService.SetValue(nameof(Helpers.Secrets.InAppAndroidPremiumGeneral), Helpers.Secrets.InAppAndroidPremiumGeneral);
             }
         }
 

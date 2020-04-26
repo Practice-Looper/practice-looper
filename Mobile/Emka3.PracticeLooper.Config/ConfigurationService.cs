@@ -32,6 +32,10 @@ namespace Emka3.PracticeLooper.Config
         }
         #endregion
 
+        #region Events
+        public event EventHandler<string> ValueChanged;
+        #endregion
+
         #region Properties
         public static ConfigurationService Instance
         {
@@ -52,39 +56,20 @@ namespace Emka3.PracticeLooper.Config
         /// </summary>
         private void Initialize()
         {
-            //// Load config
-            //string json;
-            //using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Emka3.PracticeLooper.Config.App.config.json"))
-            //using (var reader = new StreamReader(stream))
-            //{
-            //    json = reader.ReadToEnd();
-            //}
-
-            //if (string.IsNullOrEmpty(json))
-            //{
-            //    throw new ArgumentNullException(nameof(json));
-            //}
-
-            //try
-            //{
-            //    // remove comment properties, since we don't need them in code.
-            //    JObject conf = JObject.Parse(json);
-            //    conf.Property("comment").Remove();
-
-            //    // crate dictionary.
-            //    configs = JsonConvert.DeserializeObject<Dictionary<string, object>>(conf.ToString());
-            //    conf = null;
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
             configs = new Dictionary<string, object>();
         }
 
         private async Task InitializeAsync()
         {
             await Task.Run(() => Initialize());
+        }
+
+        private void OnValueChanged(string value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                ValueChanged?.Invoke(this, value);
+            }
         }
 
         public string GetValue(string key)
@@ -123,6 +108,12 @@ namespace Emka3.PracticeLooper.Config
             {
                 // todo : log
                 throw new ArgumentException(nameof(key));
+            }
+
+            if (configs != null && configs.ContainsKey(key))
+            {
+                configs[key] = value;
+                OnValueChanged(key);
             }
 
             if (configs != null && !configs.ContainsKey(key))

@@ -3,6 +3,7 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Emka3.PracticeLooper.Config.Feature
 {
@@ -45,6 +46,14 @@ namespace Emka3.PracticeLooper.Config.Feature
         {
             var feature = string.IsNullOrEmpty(name) ? Features[typeof(T)] as FeatureToggle<T> : Features[name] as FeatureToggle<T>;
             return feature != null && feature.Enabled;
+        }
+
+        public static void Clear()
+        {
+            if (Features != null && Features.Any())
+            {
+                Features.Clear();
+            }
         }
         #endregion
     }

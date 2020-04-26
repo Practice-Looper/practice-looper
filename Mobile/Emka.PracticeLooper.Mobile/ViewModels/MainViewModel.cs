@@ -19,6 +19,7 @@ using Emka3.PracticeLooper.Utils;
 using Emka3.PracticeLooper.Config.Feature;
 using Emka.PracticeLooper.Model;
 using Emka.PracticeLooper.Services.Contracts;
+using Xamarin.Essentials;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -38,6 +39,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private Command createSessionCommand;
         private Command deleteSessionCommand;
         private Command pickSourceCommand;
+        private Command navigateToSettingsCommand;
         private SessionViewModel currentSession;
         private Loop currentLoop;
         private bool isPlaying;
@@ -79,6 +81,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public Command AddNewLoopCommand => addNewLoopCommand ?? (addNewLoopCommand = new Command(async (o) => await ExecuteAddNewLoopCommand(o), CanExecuteAddNewLoopCommand));
 
+        public Command NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new Command(async () => await ExecuteNavigateToSettingsCommand()));
+        
         public IAudioPlayer CurrentAudioPlayer { get; private set; }
 
         public bool IsPlaying
@@ -201,11 +205,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             set
             {
                 currentSession = value;
+
                 if (currentSession != null)
                 {
                     InitAudioPlayer();
                     NotifyPropertyChanged("IsInitialized");
-                    Task.Run(async () => await sessionsRepository.UpdateAsync(currentSession.Session));
+                    Preferences.Set("LastSession", currentSession.Session.Id);
                 }
 
                 NotifyPropertyChanged();
@@ -224,6 +229,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             set
             {
                 currentLoop = value;
+                if (currentLoop != null)
+                {
+                    Preferences.Set("LastLoop", CurrentLoop.Id);
+                }
             }
         }
         #endregion
@@ -255,7 +264,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         Sessions.Add(new SessionViewModel(item));
                     }
 
-                    CurrentSession = Sessions.FirstOrDefault(s => s.Session.IsFavorite);
+                    CurrentSession = Sessions.FirstOrDefault(s => s.Session.Id == Preferences.Get("LastSession", default(int)));
                 });
                 //todo: check app and purchase status
             }
@@ -354,10 +363,26 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         IsFavorite = !Sessions.Any()
                     };
 
-                    await sessionsRepository.SaveAsync(newSession);
+
                     var newSessionViewModel = new SessionViewModel(newSession);
+
+                    if (FeatureRegistry.IsEnabled<IPremiumRepository>())
+                    {
+                        await sessionsRepository.SaveAsync(newSession);
+                    }
+                    else
+                    {
+                        if (CurrentAudioPlayer.IsPlaying)
+                        {
+                            await CurrentAudioPlayer.PauseAsync();
+                        }
+
+                        await sessionsRepository.UpdateAsync(newSession);
+                        Sessions.Clear();
+                        CurrentSession = newSessionViewModel;
+                    }
+
                     Sessions.Add(newSessionViewModel);
-                    CurrentSession = newSessionViewModel;
                 }
                 catch (Exception ex)
                 {
@@ -523,7 +548,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (CurrentSession != null)
                 {
                     CurrentAudioPlayer = Factory.GetResolver().ResolveAll<IAudioPlayer>().First(p => p.Type == CurrentSession.Session.AudioSource.Type);
-                    CurrentLoop = CurrentSession.Session.Loops.FirstOrDefault(l => l.IsFavorite);
+                    CurrentLoop = CurrentSession.Session.Loops.FirstOrDefault(l => l.Id == Preferences.Get("LastLoop", default(int)));
                     MinimumValue = CurrentLoop.StartPosition;
                     MaximumValue = CurrentLoop.EndPosition;
                     SongDuration = FormatTime(CurrentSession.Session.AudioSource.Duration * 1000);
@@ -589,7 +614,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             return TimeSpan.FromMilliseconds(0).ToString(@"mm\:ss");
         }
 
-        private async void OnLoopChanged(LoopsDetailsViewModel sender, LoopViewModel loop)
+        private void OnLoopChanged(LoopsDetailsViewModel sender, LoopViewModel loop)
         {
             try
             {
@@ -601,9 +626,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     CurrentAudioPlayer.Play();
                 }
-
-                loop.Loop.IsFavorite = true;
-                await loopsRepository?.UpdateAsync(loop.Loop);
             }
             catch (Exception ex)
             {
@@ -631,6 +653,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 await Logger.LogErrorAsync(ex);
                 await dialogService.ShowAlertAsync("Opps, failed to delete loop");
             }
+        }
+        
+        private async Task ExecuteNavigateToSettingsCommand()
+        {
+            await NavigationService?.NavigateToAsync<SettingsViewModel>();
         }
         #endregion
     }

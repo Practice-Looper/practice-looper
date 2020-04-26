@@ -9,6 +9,19 @@
     Title="Practice Looper"
     Style="{StaticResource PageMainStyle}"
     x:Name="mainPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Order="Primary"
+            Command="{Binding NavigateToSettingsCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    FontFamily="{DynamicResource MaterialFontFamily}"
+                    Glyph="{StaticResource Settings}"
+                    Size="24"
+                    Color="{DynamicResource PrimaryColor}" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <!--https://mycolor.space/?hex=%2359677C&sub=1-->
     <Grid
         x:Name="MainGrid">
@@ -242,17 +255,6 @@
                                     Color="{DynamicResource PrimaryColor}">
                                 </FontImageSource>
                             </views:LoopButton.Source>
-                            <!--<views:LoopButton.BackgroundColor>
-                                <OnPlatform
-                                    x:TypeArguments="Color">
-                                    <On
-                                        Platform="iOS"
-                                        Value="Transparent" />
-                                    <On
-                                        Platform="Android"
-                                        Value="Transparent" />
-                                </OnPlatform>
-                            </views:LoopButton.BackgroundColor>-->
                         </views:LoopButton>
                     </Grid>
                     <Slider

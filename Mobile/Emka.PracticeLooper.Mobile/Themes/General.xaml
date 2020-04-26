@@ -260,7 +260,8 @@
                     FontSize="24"
                     TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                     VerticalTextAlignment="Center"
-                    VerticalOptions="Center" />
+                    VerticalOptions="Center"
+                    LineBreakMode="TailTruncation"/>
                 <Label
                     Grid.Column="1"
                     Text="{Binding Session.Name}"

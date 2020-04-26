@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
+    x:Class="Emka.PracticeLooper.Mobile.Views.SettingsView"
+    Style="{StaticResource PageMainStyle}"
+    Title="Settings"
+    Padding="10">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ListView
+            Grid.Row="0"
+            ItemsSource="{Binding Products}">
+            <ListView.Header>
+                <Label
+                    Text="Header"
+                    FontSize="Header"
+                    TextColor="{DynamicResource SecondaryColor}"/>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <views:CustomViewCell>
+                        <Grid
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width="Auto" />
+                                <ColumnDefinition
+                                    Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Column="0"
+                                Text="{Binding Name}"
+                                FontSize="Default"
+                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                                VerticalTextAlignment="Center"
+                                VerticalOptions="Center" />
+                            <Label
+                                Grid.Column="1"
+                                FontSize="Default"
+                                Text="{Binding LocalizedPrice}"
+                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                                VerticalTextAlignment="Center"
+                                VerticalOptions="Center"
+                                HorizontalOptions="End" />
+                        </Grid>
+                    </views:CustomViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Label
+            Grid.Row="1"
+            FontSize="Header"
+            Text="{Binding AppVersion, StringFormat='App vesion: {0}'}"
+            TextColor="{DynamicResource SecondaryColor}" />
+    </Grid>
+</ContentPage>

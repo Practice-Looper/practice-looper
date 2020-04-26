@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behav="clr-namespace:Emka.PracticeLooper.Mobile.Behaviors"
     x:Class="Emka.PracticeLooper.Mobile.Views.SpotifySearchView"
-    Style="{StaticResource PageMainStyle}"
-    Title="Create Spotify Session">
+        Style="{StaticResource PageMainStyle}"
+        Title="Create Spotify Session">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
