@@ -3,7 +3,9 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using Emka.PracticeLooper.Mobile.ViewModels;
+using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
 using Xamarin.Forms;
 
@@ -15,7 +17,16 @@ namespace Emka.PracticeLooper.Mobile.Views
         public SettingsView()
         {
             InitializeComponent();
-            BindingContext = new SettingsViewModel(Factory.GetConfigService());
+            var resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
+            BindingContext = new SettingsViewModel(Factory.GetConfigService(), resolver.Resolve<ILogger>(), resolver.Resolve<IDialogService>(), resolver.Resolve<IAppTracker>());
+        }
+        
+        void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (BindingContext is SettingsViewModel vm)
+            {
+                vm.PurchaseItemCommand.Execute(e.Item);
+            }
         }
     }
 }

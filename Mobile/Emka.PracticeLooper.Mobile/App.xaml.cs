@@ -24,11 +24,6 @@ namespace Emka.PracticeLooper.Mobile
     {
         public static IConfigurationService ConfigurationService { get; private set; }
         public static string BannerAddUnitId { get; private set; }
-#if PREMIUM
-        public static bool HasPremium = true;
-#else
-        public static bool HasPremium = false;
-#endif
 
         public App()
         {
@@ -66,12 +61,12 @@ namespace Emka.PracticeLooper.Mobile
 
         private void InitApp()
         {
-            FeatureRegistry.Add<AdMobView>(!HasPremium);
-            FeatureRegistry.Add<LoopButton>(HasPremium);
-            FeatureRegistry.Add<IInterstitialAd>(!HasPremium);
-            FeatureRegistry.Add<IPremiumAudioPlayer>(HasPremium && DeviceInfo.DeviceType == DeviceType.Physical, "Spotify");
-            FeatureRegistry.Add<ISourcePicker>(HasPremium);
-            FeatureRegistry.Add<IPremiumRepository>(HasPremium);
+            //FeatureRegistry.Add<AdMobView>(!HasPremium);
+            //FeatureRegistry.Add<LoopButton>(HasPremium);
+            //FeatureRegistry.Add<IInterstitialAd>(!HasPremium);
+            //FeatureRegistry.Add<IPremiumAudioPlayer>(HasPremium && DeviceInfo.DeviceType == DeviceType.Physical, "Spotify");
+            //FeatureRegistry.Add<ISourcePicker>(HasPremium);
+            //FeatureRegistry.Add<IPremiumRepository>(HasPremium);
 
             // Register common forms types
             MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
@@ -92,8 +87,13 @@ namespace Emka.PracticeLooper.Mobile
 
         private void InitConfig()
         {
+#if PREMIUM
+            Preferences.Set(PreferenceKeys.HasPremiumGeneral, true);
+#else
+            //Preferences.Set(PreferenceKeys.PremiumGeneral, false);
+#endif
             ConfigurationService = Factory.GetConfigService();
-            ConfigurationService.SetValue(nameof(HasPremium), HasPremium);
+            ConfigurationService.SetValue(PreferenceKeys.PremiumGeneral, Preferences.Get(PreferenceKeys.PremiumGeneral, default(bool)));
             // todo: unnötige attribute aussortieren und den einzelnen files!
             ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientApiUri), Helpers.Secrets.SpotifyClientApiUri);
             ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyApiLimit), Helpers.Secrets.SpotifyApiLimit);

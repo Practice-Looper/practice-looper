@@ -12,7 +12,7 @@ namespace Emka.PracticeLooper.Services.Contracts
     public interface IDialogService
     {
         Task ShowAlertAsync(string message);
-        Task ShowConfirmAsync(string message, string negative, string confirm);
+        Task<bool> ShowConfirmAsync(string caption, string message, string negative, string confirm);
         Task<string> ShowPromptAsync(string title, string message, string accept, string cancel, string placeholder, int maxLength = 250);
     }
 }

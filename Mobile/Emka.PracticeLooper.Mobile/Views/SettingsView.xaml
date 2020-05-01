@@ -9,34 +9,64 @@
     Padding="10">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition
+                Height="*" />
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition
+                Height="Auto" />
         </Grid.RowDefinitions>
+        <Label
+            Grid.Row="0"
+            FontSize="Header"
+            Text="Failed to load upgrades, try again later."
+            IsVisible="False"
+            TextColor="{DynamicResource SecondaryColor}"
+            Margin="0,25">
+            <Label.Style>
+                <Style
+                    TargetType="Label">
+                    <Style.Triggers>
+                        <DataTrigger
+                            TargetType="Label"
+                            Binding="{Binding HasProducts}"
+                            Value="False">
+                            <Setter
+                                Property="IsVisible"
+                                Value="True" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
         <ListView
             Grid.Row="0"
-            ItemsSource="{Binding Products}">
+            ItemsSource="{Binding Products}"
+            ItemTapped="ListView_ItemTapped"
+            VerticalOptions="Start"
+            HorizontalOptions="FillAndExpand">
             <ListView.Header>
                 <Label
-                    Text="Header"
+                    Text="Upgrades"
                     FontSize="Header"
-                    TextColor="{DynamicResource SecondaryColor}"/>
+                    TextColor="{DynamicResource SecondaryColor}" />
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <views:CustomViewCell>
                         <Grid
                             VerticalOptions="FillAndExpand"
-                            HorizontalOptions="FillAndExpand">
+                            HorizontalOptions="FillAndExpand"
+                            BackgroundColor="Red">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition
-                                    Width="Auto" />
-                                <ColumnDefinition
                                     Width="*" />
+                                <ColumnDefinition
+                                    Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Label
                                 Grid.Column="0"
-                                Text="{Binding Name}"
+                                Text="{Binding Model.Name}"
                                 FontSize="Default"
                                 TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                                 VerticalTextAlignment="Center"
@@ -44,11 +74,40 @@
                             <Label
                                 Grid.Column="1"
                                 FontSize="Default"
-                                Text="{Binding LocalizedPrice}"
+                                Text="{Binding Model.LocalizedPrice}"
                                 TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                                 VerticalTextAlignment="Center"
                                 VerticalOptions="Center"
-                                HorizontalOptions="End" />
+                                HorizontalOptions="End">
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding Purchased}"
+                                        Value="False">
+                                        <Setter
+                                            Property="IsVisible"
+                                            Value="True" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding Purchased}"
+                                        Value="True">
+                                        <Setter
+                                            Property="IsVisible"
+                                            Value="False" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="{DynamicResource MaterialFontFamily}"
+                                Text="{StaticResource Check}"
+                                FontSize="24"
+                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                                VerticalTextAlignment="End"
+                                VerticalOptions="Center"
+                                IsVisible="{Binding Purchased}">
+                            </Label>
                         </Grid>
                     </views:CustomViewCell>
                 </DataTemplate>
@@ -59,5 +118,17 @@
             FontSize="Header"
             Text="{Binding AppVersion, StringFormat='App vesion: {0}'}"
             TextColor="{DynamicResource SecondaryColor}" />
+        <ContentView
+            Grid.Row="0"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="FillAndExpand">
+            <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
+                Color="{DynamicResource PrimaryColor}"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="{DynamicResource BackgroundColor}"
+                Opacity="0.9" />
+        </ContentView>
     </Grid>
 </ContentPage>

@@ -1,4 +1,7 @@
-﻿using Emka.PracticeLooper.Mobile.ViewModels;
+﻿using System;
+using Emka.PracticeLooper.Mobile.Common;
+using Emka.PracticeLooper.Mobile.ViewModels;
+using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Config.Feature;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -8,11 +11,23 @@ namespace Emka.PracticeLooper.Mobile.Views
     [Preserve(AllMembers = true)]
     public partial class MainView : ContentPage
     {
+        private readonly IConfigurationService configService;
+
         #region Ctor
         public MainView()
         {
             InitializeComponent();
+            configService = Factory.GetConfigService();
+            configService.ValueChanged += ConfigService_ValueChanged;
             BindingContext = new MainViewModel();
+        }
+
+        private void ConfigService_ValueChanged(object sender, string e)
+        {
+            if (e == PreferenceKeys.PremiumGeneral)
+            {
+                ToggleAd();
+            }
         }
         #endregion
 
@@ -23,7 +38,12 @@ namespace Emka.PracticeLooper.Mobile.Views
         #region Methods
         protected override void OnAppearing()
         {
-            if (!FeatureRegistry.IsEnabled<AdMobView>())
+            ToggleAd();
+        }
+
+        private void ToggleAd()
+        {
+            if (configService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
             {
                 MainGrid.Children.Remove(AdmobBanner);
             }

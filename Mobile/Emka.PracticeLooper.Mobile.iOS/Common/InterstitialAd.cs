@@ -6,6 +6,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Config.Feature;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Foundation;
@@ -29,7 +30,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public InterstitialAd(ILogger logger)
         {
             this.logger = logger;
-            if (FeatureRegistry.IsEnabled<IInterstitialAd>())
+            if (!Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral))
             {
                 LoadAd();
             }
@@ -50,7 +51,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public async Task ShowAdAsync()
         {
             // todo: block if ad is loading...
-            if (FeatureRegistry.IsEnabled<IInterstitialAd>() && interstitialAd.IsReady)
+            if (!Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral) && interstitialAd.IsReady)
             {
                 adClosedEvent = new AutoResetEvent(false);
                 await Task.Run(() =>
@@ -67,7 +68,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 });
             }
 
-            if (FeatureRegistry.IsEnabled<IInterstitialAd>())
+            if (!Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral))
             {
                 MainThread.BeginInvokeOnMainThread(LoadAd);
             }

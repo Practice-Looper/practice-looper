@@ -1,46 +1,76 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
-        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-        xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-        x:Class="Emka.PracticeLooper.Mobile.Views.PickAudioSourceView"
-        CloseWhenBackgroundIsClicked="True">
+<pages:PopupPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    x:Class="Emka.PracticeLooper.Mobile.Views.PickAudioSourceView"
+    CloseWhenBackgroundIsClicked="True">
     <pages:PopupPage.Padding>
-        <OnPlatform x:TypeArguments="Thickness">
-            <On Platform="iOS" Value="0,0,0,0" />
-            <On Platform="Android" Value="20,0" />
+        <OnPlatform
+            x:TypeArguments="Thickness">
+            <On
+                Platform="iOS"
+                Value="0,0,0,0" />
+            <On
+                Platform="Android"
+                Value="20,0" />
         </OnPlatform>
     </pages:PopupPage.Padding>
-    <Frame BackgroundColor="{DynamicResource BackgroundColor}"
-            HorizontalOptions="FillAndExpand"
-            BorderColor="{DynamicResource SecondaryColor}" CornerRadius="0">
+    <Frame
+        BackgroundColor="{DynamicResource BackgroundColor}"
+        HorizontalOptions="FillAndExpand"
+        BorderColor="{DynamicResource SecondaryColor}"
+        CornerRadius="0">
         <Frame.VerticalOptions>
-            <OnPlatform x:TypeArguments="LayoutOptions">
-                <On Platform="iOS" Value="End" />
-                <On Platform="Android" Value="Center" />
+            <OnPlatform
+                x:TypeArguments="LayoutOptions">
+                <On
+                    Platform="iOS"
+                    Value="End" />
+                <On
+                    Platform="Android"
+                    Value="Center" />
             </OnPlatform>
         </Frame.VerticalOptions>
-        <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="Center"
-                BackgroundColor="{DynamicResource BackgroundColor}">
+        <Grid
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="Center"
+            BackgroundColor="{DynamicResource BackgroundColor}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="4*" />
-                <RowDefinition Height="2*" />
+                <RowDefinition
+                    Height="4*" />
+                <RowDefinition
+                    Height="2*" />
             </Grid.RowDefinitions>
-            <ListView x:Name="ItemsListView" BackgroundColor="Transparent"
-                    Grid.Row="0" VerticalOptions="FillAndExpand"
-                    SeparatorColor="{DynamicResource SecondaryColor}"
-                    ItemTemplate="{StaticResource AudioTypeTemplateSelector}"
-                    ItemSelected="ItemsListView_ItemSelected" Margin="0,5">
+            <ListView
+                x:Name="ItemsListView"
+                BackgroundColor="Transparent"
+                Grid.Row="0"
+                VerticalOptions="FillAndExpand"
+                SeparatorColor="{DynamicResource SecondaryColor}"
+                ItemTemplate="{StaticResource AudioTypeTemplateSelector}"
+                ItemSelected="ItemsListView_ItemSelected"
+                Margin="0,5">
                 <ListView.RowHeight>
-                    <OnPlatform x:TypeArguments="x:Int32">
-                        <On Platform="iOS" Value="60" />
-                        <On Platform="Android" Value="50" />
+                    <OnPlatform
+                        x:TypeArguments="x:Int32">
+                        <On
+                            Platform="iOS"
+                            Value="60" />
+                        <On
+                            Platform="Android"
+                            Value="50" />
                     </OnPlatform>
                 </ListView.RowHeight>
             </ListView>
-            <Button Text="Cancel" FontSize="18" Grid.Row="1"
-                    TextColor="{DynamicResource PrimaryColor}"
-                    BackgroundColor="Transparent" Margin="0,10,0,0"
-                    Clicked="OnClose" />
+            <Button
+                Text="Cancel"
+                FontSize="18"
+                Grid.Row="1"
+                TextColor="{DynamicResource PrimaryColor}"
+                BackgroundColor="Transparent"
+                Margin="0,10,0,0"
+                Clicked="OnClose" />
         </Grid>
     </Frame>
 </pages:PopupPage>

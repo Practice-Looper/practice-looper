@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Gms.Ads;
+using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Config.Feature;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Xamarin.Essentials;
@@ -39,7 +40,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             interstitialAd.AdListener = this;
             interstitialAd.AdUnitId = GlobalApp.ConfigurationService.GetValue<string>("AdmobAndroidInterstitialProjectAdId");
 
-            if (FeatureRegistry.IsEnabled<IInterstitialAd>())
+            if (!Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral))
             {
                 LoadAd();
             }
@@ -55,8 +56,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public async Task ShowAdAsync()
         {
-            // todo: block if ad is loading...
-            if (FeatureRegistry.IsEnabled<IInterstitialAd>() && interstitialAd.IsLoaded)
+            if (!Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral) && interstitialAd.IsLoaded)
             {
                 adClosedEvent = new AutoResetEvent(false);
                 await Task.Run(() =>
@@ -70,7 +70,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 });
             }
 
-            if (FeatureRegistry.IsEnabled<IInterstitialAd>())
+            if (!Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral))
             {
                 MainThread.BeginInvokeOnMainThread(LoadAd);
             }

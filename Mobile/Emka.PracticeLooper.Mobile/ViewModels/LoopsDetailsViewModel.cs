@@ -7,7 +7,9 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka.PracticeLooper.Model;
+using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Model.Player;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels

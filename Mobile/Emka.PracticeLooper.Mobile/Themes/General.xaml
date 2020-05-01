@@ -121,6 +121,8 @@
         x:Key="AddBookmark">&#xf0c4;</x:String>
     <x:String
         x:Key="Close">&#xf156;</x:String>
+    <x:String
+        x:Key="Check">&#xf12c;</x:String>
 
     <!-- Data Templates ############################################### -->
 

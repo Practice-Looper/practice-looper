@@ -21,9 +21,9 @@ namespace Emka.PracticeLooper.Mobile.Common
             await Application.Current.MainPage?.DisplayAlert("Error occured", message, "OK");
         }
 
-        public Task ShowConfirmAsync(string message, string negative, string confirm)
+        public async Task<bool> ShowConfirmAsync(string caption, string message, string negative, string confirm)
         {
-            throw new System.NotImplementedException();
+            return await Application.Current.MainPage?.DisplayAlert(caption, message, confirm, negative);
         }
 
         public async Task<string> ShowPromptAsync(string title, string message, string accept, string cancel, string placeholder, int maxLength = 250)

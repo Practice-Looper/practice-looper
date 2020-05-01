@@ -189,7 +189,7 @@
                             PrimaryColor="{DynamicResource PrimaryColor}"
                             SecondaryColor="{DynamicResource SecondaryColor}"
                             DraggingCompleted="OnDraggingCompleted"
-                            HorizontalOptions="FillAndExpand" />
+                            HorizontalOptions="FillAndExpand"/>
                         <ImageButton
                             Grid.Row="1"
                             WidthRequest="72"

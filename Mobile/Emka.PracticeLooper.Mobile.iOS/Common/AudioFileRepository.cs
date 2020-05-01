@@ -29,7 +29,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             var url = await CheckCloudAccess();
             string targetPath = string.Empty;
-            hasCloudAccess = url != null;
+            hasCloudAccess = false;// url != null;
 
             if (hasCloudAccess)
             {
