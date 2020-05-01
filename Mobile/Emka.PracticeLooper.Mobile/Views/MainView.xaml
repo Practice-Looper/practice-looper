@@ -264,7 +264,7 @@
                                         <Setter.Value>
                                             <FontImageSource
                                                 FontFamily="{DynamicResource MaterialFontFamily}"
-                                                Glyph="{StaticResource Pause}"
+                                                Glyph="{StaticResource Stop}"
                                                 Size="72"
                                                 Color="{DynamicResource PrimaryColor}">
                                             </FontImageSource>

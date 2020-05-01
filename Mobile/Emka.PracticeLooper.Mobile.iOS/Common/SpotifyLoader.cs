@@ -137,9 +137,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 Authorized = false;
                 api = null;
-                // todo: show dialog
-                logger?.LogError(new Exception(error.Description));
-                await dialogService.ShowAlertAsync("Oops, lost connection to Spotify!");
+                if (error.LocalizedRecoveryOptions != null)
+                {
+                    logger?.LogError(new Exception(error.LocalizedDescription));
+                    await dialogService.ShowAlertAsync("Oops, lost connection to Spotify!");
+                }
             }
             catch (ObjectDisposedException ex)
             {

@@ -115,6 +115,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 Api.PlayerApi
                     .Pause()
                     .SetErrorCallback(this);
+                spotifyLoader.Disconnect();
+                Initialized = false;
             }
         }
 

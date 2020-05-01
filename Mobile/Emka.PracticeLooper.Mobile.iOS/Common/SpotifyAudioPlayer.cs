@@ -90,6 +90,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                     }
                 });
                 RaisePlayingStatusChanged();
+                spotifyLoader.Disconnect();
+                Initialized = false;
             }
         }
 
