@@ -27,6 +27,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private readonly ILogger logger;
         private readonly IDialogService dialogService;
         private readonly IAppTracker appTracker;
+        private readonly IInAppBillingVerifyPurchase purchaseVerifier;
         private Command purchaseItemCommand;
         private bool isBusy;
         private bool hasProducts;
@@ -34,12 +35,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Ctor
 
-        public SettingsViewModel(IConfigurationService configService, ILogger logger, IDialogService dialogService, IAppTracker appTracker)
+        public SettingsViewModel(IConfigurationService configService, ILogger logger, IDialogService dialogService, IAppTracker appTracker, IInAppBillingVerifyPurchase purchaseVerifier)
         {
             this.configService = configService;
             this.logger = logger;
             this.dialogService = dialogService;
             this.appTracker = appTracker;
+            this.purchaseVerifier = purchaseVerifier;
             Products = new ObservableCollection<InAppBillingProductViewModel>();
             HasProducts = true;
         }
@@ -141,6 +143,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             if (o is InAppBillingProductViewModel product)
             {
+                if (product.Purchased)
+                {
+                    await dialogService.ShowAlertAsync("You already purchased this upgrade.");
+                    return;
+                }
+
                 IsBusy = true;
                 var billing = CrossInAppBilling.Current;
                 try
@@ -155,7 +163,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                     //check purchases
                     var payload = Guid.NewGuid().ToString();
-                    var purchase = await billing.PurchaseAsync(product.Model.ProductId, ItemType.InAppPurchase, payload);
+                    var purchase = await billing.PurchaseAsync(product.Model.ProductId, ItemType.InAppPurchase, payload, purchaseVerifier);
 
                     //possibility that a null came through.
                     if (purchase == null)

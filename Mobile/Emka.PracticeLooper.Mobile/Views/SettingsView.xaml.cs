@@ -7,6 +7,7 @@ using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
+using Plugin.InAppBilling;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.Views
@@ -18,7 +19,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             InitializeComponent();
             var resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
-            BindingContext = new SettingsViewModel(Factory.GetConfigService(), resolver.Resolve<ILogger>(), resolver.Resolve<IDialogService>(), resolver.Resolve<IAppTracker>());
+            BindingContext = new SettingsViewModel(Factory.GetConfigService(), resolver.Resolve<ILogger>(), resolver.Resolve<IDialogService>(), resolver.Resolve<IAppTracker>(), resolver.Resolve<IInAppBillingVerifyPurchase>());
         }
         
         void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -26,6 +27,11 @@ namespace Emka.PracticeLooper.Mobile.Views
             if (BindingContext is SettingsViewModel vm)
             {
                 vm.PurchaseItemCommand.Execute(e.Item);
+            }
+
+            if (sender is ListView listView)
+            {
+                listView.SelectedItem = null;
             }
         }
     }
