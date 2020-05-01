@@ -461,11 +461,26 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         if (Sessions.Any() && CurrentSession != null)
                         {
                             CurrentSession = Sessions.First();
+                            CurrentLoop = currentSession.Session.Loops.First();
                         }
                         else
                         {
+                            if (Preferences.Get(PreferenceKeys.LastLoop, -1) == CurrentLoop.Id)
+                            {
+                                Preferences.Clear(PreferenceKeys.LastLoop);
+                            }
+
+                            CurrentLoop = null;
+
+                            if (Preferences.Get(PreferenceKeys.LastSession, -1) == CurrentSession.Session.Id)
+                            {
+                                Preferences.Clear(PreferenceKeys.LastSession);
+                            }
+
                             CurrentSession = null;
                         }
+
+                        NotifyPropertyChanged(nameof(IsInitialized));
                     });
                 }
                 catch (Exception ex)

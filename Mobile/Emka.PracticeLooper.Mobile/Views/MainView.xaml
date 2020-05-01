@@ -103,8 +103,26 @@
                             Text="{Binding CurrentSongTime}"
                             Grid.Column="0"
                             HorizontalOptions="Start"
-                            VerticalOptions="Center"
-                            Style="{StaticResource LabelStyle}">
+                            VerticalOptions="Center">
+                            <Label.Style>
+                                <Style
+                                    TargetType="Label"
+                                    BasedOn="{StaticResource LabelStyle}">
+                                    <Setter
+                                        Property="IsVisible"
+                                        Value="True" />
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            TargetType="Label"
+                                            Binding="{Binding IsInitialized}"
+                                            Value="False">
+                                            <Setter
+                                                Property="IsVisible"
+                                                Value="False" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
                         </Label>
                         <Label
                             Text="{Binding LoopStartPosition, StringFormat='[{0}'}"
@@ -171,8 +189,27 @@
                             Text="{Binding SongDuration}"
                             Grid.Column="2"
                             VerticalOptions="Center"
-                            HorizontalOptions="End"
-                            Style="{StaticResource LabelStyle}" />
+                            HorizontalOptions="End">
+                            <Label.Style>
+                                <Style
+                                    TargetType="Label"
+                                    BasedOn="{StaticResource LabelStyle}">
+                                    <Setter
+                                        Property="IsVisible"
+                                        Value="True" />
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            TargetType="Label"
+                                            Binding="{Binding IsInitialized}"
+                                            Value="False">
+                                            <Setter
+                                                Property="IsVisible"
+                                                Value="False" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
                     </Grid>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -189,7 +226,20 @@
                             PrimaryColor="{DynamicResource PrimaryColor}"
                             SecondaryColor="{DynamicResource SecondaryColor}"
                             DraggingCompleted="OnDraggingCompleted"
-                            HorizontalOptions="FillAndExpand"/>
+                            HorizontalOptions="FillAndExpand"
+                            Opacity="1"
+                            IsEnabled="{Binding IsInitialized}">
+                            <views:RangeSlider.Triggers>
+                                <DataTrigger
+                                    TargetType="views:RangeSlider"
+                                    Binding="{Binding IsInitialized}"
+                                    Value="False">
+                                    <Setter
+                                        Property="Opacity"
+                                        Value="0.5" />
+                                </DataTrigger>
+                            </views:RangeSlider.Triggers>
+                        </views:RangeSlider>
                         <ImageButton
                             Grid.Row="1"
                             WidthRequest="72"

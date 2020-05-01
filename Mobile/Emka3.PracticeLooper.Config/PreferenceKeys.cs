@@ -6,7 +6,7 @@ namespace Emka3.PracticeLooper.Config
 {
     public static class PreferenceKeys
     {
-        public static readonly string PremiumGeneral = nameof(PremiumGeneral);
+        public static readonly string PremiumGeneral = "pl.premium.general";
         public static readonly string LastSession = nameof(LastSession);
         public static readonly string LastLoop = nameof(LastLoop);
     }
