@@ -91,7 +91,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             try
             {
                 var requestbuilder = new AdRequest.Builder();
-                requestbuilder.AddTestDevice("F05EA53323F18138CB1722DD1F00A0F0");
+                requestbuilder.AddTestDevice("7E7FE7BDD31E1B60AAA1ABA764B55E8B");
                 interstitialAd.LoadAd(requestbuilder.Build());
             }
             catch (Exception ex)

@@ -9,9 +9,6 @@ using Emka.PracticeLooper.Mobile.Navigation;
 using System.Threading.Tasks;
 using Microsoft.AppCenter.Crashes;
 using Device = Xamarin.Forms.Device;
-using Emka3.PracticeLooper.Config.Feature;
-using Emka.PracticeLooper.Mobile.Views;
-using Emka3.PracticeLooper.Services.Contracts.Common;
 using Xamarin.Essentials;
 using Emka.PracticeLooper.Services.Contracts;
 using System.Collections.Generic;
@@ -61,13 +58,6 @@ namespace Emka.PracticeLooper.Mobile
 
         private void InitApp()
         {
-            //FeatureRegistry.Add<AdMobView>(!HasPremium);
-            //FeatureRegistry.Add<LoopButton>(HasPremium);
-            //FeatureRegistry.Add<IInterstitialAd>(!HasPremium);
-            //FeatureRegistry.Add<IPremiumAudioPlayer>(HasPremium && DeviceInfo.DeviceType == DeviceType.Physical, "Spotify");
-            //FeatureRegistry.Add<ISourcePicker>(HasPremium);
-            //FeatureRegistry.Add<IPremiumRepository>(HasPremium);
-
             // Register common forms types
             MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
             resolver.RegisterSingleton(typeof(FilePicker), typeof(Common.IFilePicker));
@@ -88,7 +78,7 @@ namespace Emka.PracticeLooper.Mobile
         private void InitConfig()
         {
 #if PREMIUM
-            Preferences.Set(PreferenceKeys.HasPremiumGeneral, true);
+            Preferences.Set(PreferenceKeys.PremiumGeneral, true);
 #else
             //Preferences.Set(PreferenceKeys.PremiumGeneral, false);
 #endif
@@ -122,9 +112,6 @@ namespace Emka.PracticeLooper.Mobile
 
         private async Task InitNavigation()
         {
-            var navigationService = MappingsFactory.Factory.GetResolver()?.Resolve<INavigationService>();
-            await navigationService?.InitializeAsync();
-
             ICollection<ResourceDictionary> mergedDictionaries = Current.Resources.MergedDictionaries;
 
             if (mergedDictionaries != null)
@@ -140,6 +127,9 @@ namespace Emka.PracticeLooper.Mobile
                         break;
                 }
             }
+
+            var navigationService = MappingsFactory.Factory.GetResolver()?.Resolve<INavigationService>();
+            await navigationService?.InitializeAsync();
         }
     }
 }

@@ -13,7 +13,7 @@ using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
 using Plugin.InAppBilling;
-using Xamarin.Essentials;
+//using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
@@ -49,7 +49,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Properties
         public Command PurchaseItemCommand => purchaseItemCommand ?? (purchaseItemCommand = new Command(async o => await ExecutePurchaseItemCommand(o)));
-        public string AppVersion => VersionTracking.CurrentVersion;
+        public string AppVersion => Xamarin.Essentials.VersionTracking.CurrentVersion;
         public ObservableCollection<InAppBillingProductViewModel> Products { get; set; }
         public bool IsBusy
         {
@@ -85,19 +85,18 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             var billing = CrossInAppBilling.Current;
             try
             {
-                var productIds = new[] { PreferenceKeys.PremiumGeneral };
+                var productIds = new[] { PreferenceKeys.PremiumGeneral, "android.test.purchased" };
                 //You must connect
                 var connected = await billing.ConnectAsync(ItemType.InAppPurchase);
 
                 if (!connected)
                 {
-                    await logger.LogErrorAsync(new Exception($"Could not connect to store {DeviceInfo.Platform}"));
+                    await logger.LogErrorAsync(new Exception($"Could not connect to store {Xamarin.Essentials.DeviceInfo.Platform}"));
                     await dialogService.ShowAlertAsync("Oops, could not connect store! Please try again later.");
                     return;
                 }
 
                 //check purchases
-
                 var items = await billing.GetProductInfoAsync(ItemType.InAppPurchase, productIds);
 
                 foreach (var item in items)
@@ -109,9 +108,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     Products.Add(vm);
                     if (vm.Purchased)
                     {
-                        await MainThread.InvokeOnMainThreadAsync(() =>
+                        await Xamarin.Essentials.MainThread.InvokeOnMainThreadAsync(() =>
                          {
-                             Preferences.Set(PreferenceKeys.PremiumGeneral, true);
+                             Xamarin.Essentials.Preferences.Set(PreferenceKeys.PremiumGeneral, true);
                              configService.SetValue(PreferenceKeys.PremiumGeneral, true);
                          });
                     }
@@ -172,9 +171,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     }
                     else if (purchase.State == PurchaseState.Purchased)
                     {
-                        await MainThread.InvokeOnMainThreadAsync(() =>
+                        await Xamarin.Essentials.MainThread.InvokeOnMainThreadAsync(() =>
                         {
-                            Preferences.Set(PreferenceKeys.PremiumGeneral, true);
+                            Xamarin.Essentials.Preferences.Set(PreferenceKeys.PremiumGeneral, true);
                             configService.SetValue(PreferenceKeys.PremiumGeneral, true);
                         });
                         var purchasedVm = Products.FirstOrDefault(p => p.Model.ProductId == product.Model.ProductId);
@@ -209,7 +208,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             var billing = CrossInAppBilling.Current;
             try
             {
-                if (Preferences.Get(productId, null) != null)
+                if (Xamarin.Essentials.Preferences.Get(productId, null) != null)
                 {
                     return true;
                 }

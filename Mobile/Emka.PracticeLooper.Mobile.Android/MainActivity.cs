@@ -19,6 +19,7 @@ using Emka3.PracticeLooper.Services.Contracts.Player;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Plugin.InAppBilling;
 using Xamarin.Essentials;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
@@ -59,6 +60,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
             base.SetTheme(Resource.Style.MainTheme);
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = Platform.CurrentActivity;
             stopWatch.Stop();
             Analytics.TrackEvent(TrackerEvents.GeneralInformation.ToString(), new Dictionary<string, string>
             {
@@ -124,13 +126,12 @@ namespace Emka.PracticeLooper.Mobile.Droid
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
-
+            InAppBillingImplementation.HandleActivityResult(requestCode, resultCode, data);
             // Check if result comes from the correct activity
             try
             {
                 if (requestCode == GlobalApp.ConfigurationService.GetValue<int>("SpotifyClientRequestCode"))
                 {
-
                     var spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
                     Com.Spotify.Sdk.Android.Auth.AuthorizationResponse response = Com.Spotify.Sdk.Android.Auth.AuthorizationClient.GetResponse((int)resultCode, data);
 

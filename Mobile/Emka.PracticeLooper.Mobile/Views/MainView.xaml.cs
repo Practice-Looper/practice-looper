@@ -1,8 +1,6 @@
-﻿using System;
-using Emka.PracticeLooper.Mobile.Common;
+﻿using System.Linq;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka3.PracticeLooper.Config;
-using Emka3.PracticeLooper.Config.Feature;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -38,6 +36,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         #region Methods
         protected override void OnAppearing()
         {
+            SettingsImage.Color = (Color)Application.Current.Resources["PrimaryColor"];
             ToggleAd();
         }
 

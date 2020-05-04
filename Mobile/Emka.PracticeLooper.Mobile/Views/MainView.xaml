@@ -15,6 +15,7 @@
             Command="{Binding NavigateToSettingsCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
+                    x:Name="SettingsImage"
                     FontFamily="{DynamicResource MaterialFontFamily}"
                     Glyph="{StaticResource Settings}"
                     Size="24"

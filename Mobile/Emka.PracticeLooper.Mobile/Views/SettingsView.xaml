@@ -48,7 +48,7 @@
             <ListView.Header>
                 <Label
                     Text="Upgrades"
-                    FontSize="Header"
+                    FontSize="Default"
                     TextColor="{DynamicResource SecondaryColor}" />
             </ListView.Header>
             <ListView.ItemTemplate>
@@ -115,7 +115,7 @@
         </ListView>
         <Label
             Grid.Row="1"
-            FontSize="Header"
+            FontSize="Caption"
             Text="{Binding AppVersion, StringFormat='App vesion: {0}'}"
             TextColor="{DynamicResource SecondaryColor}" />
         <ContentView
