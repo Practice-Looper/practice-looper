@@ -79,14 +79,7 @@ namespace Emka.PracticeLooper.Mobile
         {
 #if PREMIUM
             Preferences.Set(PreferenceKeys.PremiumGeneral, true);
-#else
-            //Preferences.Set(PreferenceKeys.PremiumGeneral, false);
 #endif
-            if (VersionTracking.IsFirstLaunchEver)
-            {
-                var random = new Random();
-                Preferences.Set(PreferenceKeys.NrLoopChanged, random.Next(1, 10));
-            }
 
             ConfigurationService = Factory.GetConfigService();
             ConfigurationService.SetValue(PreferenceKeys.PremiumGeneral, Preferences.Get(PreferenceKeys.PremiumGeneral, default(bool)));

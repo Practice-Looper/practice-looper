@@ -683,27 +683,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             await NavigationService?.NavigateToAsync<SettingsViewModel>();
         }
-
-        private void ShowInterstitialAdAsync()
-        {
-            if (configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
-            {
-                return;
-            }
-
-            var currentCounter = Preferences.Get(PreferenceKeys.NrLoopChanged, 0) - 1;
-
-            if (currentCounter == 0)
-            {
-                interstitialAd?.ShowAd();
-                var random = new Random();
-                Preferences.Set(PreferenceKeys.NrLoopChanged, random.Next(1, 10));
-            }
-            else
-            {
-                Preferences.Set(PreferenceKeys.NrLoopChanged, currentCounter);
-            }
-        }
         #endregion
     }
 }
