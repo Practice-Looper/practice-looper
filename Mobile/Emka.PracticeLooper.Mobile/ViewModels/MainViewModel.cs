@@ -35,6 +35,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private IFileRepository fileRepository;
         private ISourcePicker sourcePicker;
         private ISpotifyLoader spotifyLoader;
+        private IConfigurationService configurationService;
         private Mobile.Common.IFilePicker filePicker;
         private Command playCommand;
         private Command createSessionCommand;
@@ -249,6 +250,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
+                configurationService = Emka3.PracticeLooper.Config.Factory.GetConfigService();
                 spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
                 dialogService = Factory.GetResolver().Resolve<IDialogService>();
                 sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
@@ -413,6 +415,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
                     CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
+
+                    await interstitialAd?.ShowAdAsync();
                 }
                 else
                 {
@@ -678,6 +682,27 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private async Task ExecuteNavigateToSettingsCommand()
         {
             await NavigationService?.NavigateToAsync<SettingsViewModel>();
+        }
+
+        private void ShowInterstitialAdAsync()
+        {
+            if (configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
+            {
+                return;
+            }
+
+            var currentCounter = Preferences.Get(PreferenceKeys.NrLoopChanged, 0) - 1;
+
+            if (currentCounter == 0)
+            {
+                interstitialAd?.ShowAd();
+                var random = new Random();
+                Preferences.Set(PreferenceKeys.NrLoopChanged, random.Next(1, 10));
+            }
+            else
+            {
+                Preferences.Set(PreferenceKeys.NrLoopChanged, currentCounter);
+            }
         }
         #endregion
     }
