@@ -242,6 +242,7 @@
                             WidthRequest="72"
                             HeightRequest="72"
                             HorizontalOptions="Center"
+                            BackgroundColor="Transparent"
                             Command="{Binding PlayCommand}">
                             <ImageButton.Source>
                                 <FontImageSource
@@ -293,6 +294,7 @@
                             Margin="20,0"
                             HorizontalOptions="End"
                             VerticalOptions="Center"
+                            BackgroundColor="Transparent"
                             Command="{Binding AddNewLoopCommand}">
                             <views:LoopButton.Source>
                                 <FontImageSource
