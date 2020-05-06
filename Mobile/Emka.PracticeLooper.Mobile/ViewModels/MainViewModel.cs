@@ -120,7 +120,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             set
             {
                 minimumValue = value;
-                if (Sessions.Any())
+                if (IsInitialized)
                 {
                     LoopStartPosition = FormatTime(minimumValue * CurrentLoop.Session.AudioSource.Duration * 1000);
                 }
@@ -145,7 +145,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             set
             {
                 maximumValue = value;
-                if (Sessions.Any())
+                if (IsInitialized)
                 {
                     LoopEndPosition = FormatTime(maximumValue * CurrentLoop.Session.AudioSource.Duration * 1000);
                 }
@@ -363,32 +363,32 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                                 Repititions = 0,
                                 IsFavorite = true
                             }
-                        },
-                        IsFavorite = !Sessions.Any()
+                        }
                     };
 
+                    newSession.Loops.First().Session = newSession;
 
                     var newSessionViewModel = new SessionViewModel(newSession);
 
-                    if (!Sessions.Any() || Emka3.PracticeLooper.Config.Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral))
-                    {
-                        await sessionsRepository.SaveAsync(newSession);
-                    }
-                    else
+                    if (!Emka3.PracticeLooper.Config.Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral))
                     {
                         if (CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying)
                         {
                             await CurrentAudioPlayer.PauseAsync();
                         }
 
-                        await sessionsRepository.UpdateAsync(newSession);
+                        if (CurrentSession != null)
+                        {
+                            await sessionsRepository.DeleteAsync(CurrentSession.Session);
+                            Sessions.Clear();
+                        }
 
-                        Sessions.Clear();
-                        CurrentSession = newSessionViewModel;
                         Preferences.Set(PreferenceKeys.LastSession, newSession.Id);
                         Preferences.Set(PreferenceKeys.LastLoop, newSession.Loops.First().Id);
+                        CurrentSession = newSessionViewModel;
                     }
 
+                    await sessionsRepository.SaveAsync(newSession);
                     Sessions.Add(newSessionViewModel);
                 }
                 catch (Exception ex)
