@@ -85,7 +85,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             var billing = CrossInAppBilling.Current;
             try
             {
-                var productIds = new[] { PreferenceKeys.PremiumGeneral, "android.test.purchased" };
+                var productIds = new[] { PreferenceKeys.PremiumGeneral};
                 //You must connect
                 var connected = await billing.ConnectAsync(ItemType.InAppPurchase);
 
@@ -208,7 +208,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             var billing = CrossInAppBilling.Current;
             try
             {
-                if (Xamarin.Essentials.Preferences.Get(productId, null) != null)
+                if (Xamarin.Essentials.Preferences.Get(productId, false))
                 {
                     return true;
                 }

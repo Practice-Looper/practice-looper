@@ -15,6 +15,7 @@
                     Height="Auto" />
             </Grid.RowDefinitions>
             <SearchBar
+                Grid.Row="0"
                 x:Name="SearchBar"
                 Placeholder="Artist, album or track"
                 SearchCommand="{Binding SearchCommand}"
