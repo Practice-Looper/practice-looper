@@ -15,12 +15,14 @@ using Emka3.PracticeLooper.Services.Contracts.Player;
 using Java.Lang;
 using Java.Util.Concurrent;
 using Xamarin.Essentials;
+using Xamarin.Forms.Internals;
 using static Com.Spotify.Protocol.Client.CallResult;
 using static Com.Spotify.Protocol.Client.Subscription;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
-    public class SpotifyAudioPlayer : Java.Lang.Object, IAudioPlayer, IPremiumAudioPlayer, IResultCallback, IEventCallback, IErrorCallback
+    [Preserve(AllMembers = true)]
+    public class SpotifyAudioPlayer : Java.Lang.Object, IAudioPlayer
     {
         #region Fields
         private readonly IPlayerTimer timer;
@@ -30,6 +32,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         private double internalSongDuration;
         const int CURRENT_TIME_UPDATE_INTERVAL = 1000;
         private CancellationTokenSource currentTimeCancelTokenSource;
+        private SpotifyDelegate spotifyDelegate;
         bool pausedByUser;
         #endregion
 
@@ -65,11 +68,13 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         #region Methods
 
-        public void OnEvent(Java.Lang.Object p0)
+        public void OnEvent(object sender, Java.Lang.Object state)
         {
-            var playerState = p0 as PlayerState;
-            IsPlaying = !playerState.IsPaused;
-            PlayStatusChanged?.Invoke(this, !playerState.IsPaused);
+            if (state is PlayerState playerState)
+            {
+                IsPlaying = !playerState.IsPaused;
+                PlayStatusChanged?.Invoke(this, !playerState.IsPaused);
+            }
         }
 
         public void GetCurrentPosition(Action<double> callback)
@@ -103,18 +108,32 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
             timer.LoopTimerExpired += LoopTimerExpired;
             timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
+            spotifyDelegate = new SpotifyDelegate();
             Initialized = true;
         }
 
         public void Pause()
         {
-            if (IsPlaying)
+            try
             {
-                IsPlaying = false;
-                timer.StopTimers();
-                Api.PlayerApi
-                    .Pause()
-                    .SetErrorCallback(this);
+                if (IsPlaying)
+                {
+                    IsPlaying = false;
+                    timer.StopTimers();
+                    Api.PlayerApi
+                        .Pause()
+                        .SetErrorCallback(spotifyDelegate);
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                spotifyDelegate.SpotifyErrorHandler -= OnError;
+                spotifyDelegate.SpotifyEventHandler -= OnEvent;
+                spotifyDelegate.SpotifyResultHandler -= OnResult;
                 spotifyLoader.Disconnect();
                 Initialized = false;
             }
@@ -125,16 +144,20 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             CurrentStartPosition = (int)(CurrentLoop.StartPosition * SongDuration);
             CurrentEndPosition = (int)(CurrentLoop.EndPosition * SongDuration);
 
+            spotifyDelegate.SpotifyErrorHandler += OnError;
+            spotifyDelegate.SpotifyEventHandler += OnEvent;
+            spotifyDelegate.SpotifyResultHandler += OnResult;
+
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 Api.PlayerApi
-                .Play(session.AudioSource.Source)
-                .SetResultCallback(this)
-                .SetErrorCallback(this);
+            .Play(session.AudioSource.Source)
+            .SetResultCallback(spotifyDelegate)
+            .SetErrorCallback(spotifyDelegate);
 
                 Api.PlayerApi.SubscribeToPlayerState()
-                .SetEventCallback(this)
-                .SetErrorCallback(this);
+                .SetEventCallback(spotifyDelegate)
+                .SetErrorCallback(spotifyDelegate);
             });
 
             ResetAllTimers();
@@ -149,7 +172,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 var seekTo = Convert.ToInt64(time * internalSongDuration);
                 Api.PlayerApi
                     .SeekTo(seekTo)
-                    .SetErrorCallback(this);
+                    .SetErrorCallback(spotifyDelegate);
             }
         }
 
@@ -252,12 +275,14 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             }
         }
 
-        public void OnResult(Java.Lang.Object p0)
+        public void OnResult(object sender, Java.Lang.Object state)
         {
             try
             {
-                Api.PlayerApi.SeekTo(CurrentStartPosition);
-                var playerState = p0 as PlayerState;
+                if (IsPlaying)
+                {
+                    Api.PlayerApi.SeekTo(CurrentStartPosition);
+                }
             }
             catch (System.Exception ex)
             {
@@ -266,7 +291,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             }
         }
 
-        public async void OnError(Throwable error)
+        public async void OnError(object sender, Throwable error)
         {
             // todo: show dialog
             await logger?.LogErrorAsync(new System.Exception(error.Message));
@@ -278,6 +303,34 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             CurrentLoop.EndPositionChanged -= OnEndPositionChanged;
             timer.LoopTimerExpired -= LoopTimerExpired;
             timer.CurrentPositionTimerExpired -= CurrentPositionTimerExpired;
+        }
+        #endregion
+    }
+
+    internal class SpotifyDelegate : Java.Lang.Object, IResultCallback, IErrorCallback, IEventCallback
+    {
+        #region Events
+
+        public EventHandler<Java.Lang.Object> SpotifyEventHandler;
+        public EventHandler<Java.Lang.Object> SpotifyResultHandler;
+        public EventHandler<Throwable> SpotifyErrorHandler;
+        #endregion
+
+        #region Methods
+
+        public void OnError(Throwable error)
+        {
+            SpotifyErrorHandler?.Invoke(this, error);
+        }
+
+        public void OnEvent(Java.Lang.Object state)
+        {
+            SpotifyEventHandler?.Invoke(this, state);
+        }
+
+        public void OnResult(Java.Lang.Object state)
+        {
+            SpotifyResultHandler?.Invoke(this, state);
         }
         #endregion
     }

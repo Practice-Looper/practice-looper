@@ -211,7 +211,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (currentSession != null)
                 {
                     InitAudioPlayer();
-                    NotifyPropertyChanged("IsInitialized");
                     if (Preferences.Get(PreferenceKeys.LastSession, default(int)) != currentSession.Session.Id)
                     {
                         Preferences.Set(PreferenceKeys.LastLoop, currentSession.Session.Id);
@@ -219,6 +218,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 }
 
                 NotifyPropertyChanged();
+                NotifyPropertyChanged("IsInitialized");
                 PlayCommand.ChangeCanExecute();
                 AddNewLoopCommand.ChangeCanExecute();
             }
