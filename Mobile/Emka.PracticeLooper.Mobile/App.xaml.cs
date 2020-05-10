@@ -115,15 +115,31 @@ namespace Emka.PracticeLooper.Mobile
 
             if (mergedDictionaries != null)
             {
-                switch (AppInfo.RequestedTheme)
+                if (Preferences.Get(PreferenceKeys.ColorScheme, -1) == (int)AppTheme.Light)
                 {
-                    case AppTheme.Unspecified:
-                    case AppTheme.Dark:
-                        mergedDictionaries.Add(new DarkTheme());
-                        break;
-                    case AppTheme.Light:
-                        mergedDictionaries.Add(new LightTheme());
-                        break;
+                    mergedDictionaries.Add(new LightTheme());
+                }
+                else if (Preferences.Get(PreferenceKeys.ColorScheme, -1) == (int)AppTheme.Dark)
+                {
+                    mergedDictionaries.Add(new DarkTheme());
+                }
+                else
+                {
+                    if (Device.RuntimePlatform == Device.iOS)
+                    {
+                        MainPage = new Page();
+                    }
+
+                    switch (AppInfo.RequestedTheme)
+                    {
+                        case AppTheme.Dark:
+                            mergedDictionaries.Add(new DarkTheme());
+                            break;
+                        case AppTheme.Unspecified:
+                        case AppTheme.Light:
+                            mergedDictionaries.Add(new LightTheme());
+                            break;
+                    }
                 }
             }
 

@@ -18,14 +18,14 @@
         <!-- Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette -->
         <!-- colorPrimary is used for the default action bar background -->
         <item
-            name="colorPrimary">#2196F3</item>
+            name="colorPrimary">#008B69</item>
         <!-- colorPrimaryDark is used for the status bar -->
         <item
-            name="colorPrimaryDark">#1976D2</item>
+            name="colorPrimaryDark">#4EBC9A</item>
         <!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets -->
         <item
-            name="colorAccent">#FF4081</item>
+            name="colorAccent">#4EBC9A</item>
         <!-- You can also set colorControlNormal, colorControlActivated
          colorControlHighlight and colorSwitchThumbNormal. -->
         <item
@@ -37,7 +37,7 @@
         name="AppCompatDialogStyle"
         parent="Theme.AppCompat.Light.Dialog">
         <item
-            name="colorAccent">#FF4081</item>
+            name="colorAccent">#008B69</item>
     </style>
    <style name="Splash" parent ="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowBackground">@drawable/splash_screen</item>

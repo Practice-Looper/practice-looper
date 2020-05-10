@@ -58,18 +58,39 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #endregion
 
         #region Ctor
-        public MainViewModel()
+        public MainViewModel(IInterstitialAd interstitialAd,
+            IRepository<Session> sessionsRepository,
+            IRepository<Loop> loopsRepository,
+            IDialogService dialogService,
+            IFileRepository fileRepository,
+            ISourcePicker sourcePicker,
+            ISpotifyLoader spotifyLoader,
+            IConfigurationService configurationService,
+            Mobile.Common.IFilePicker filePicker)
         {
+            this.interstitialAd = interstitialAd;
+            this.sessionsRepository = sessionsRepository;
+            this.loopsRepository = loopsRepository;
+            this.dialogService = dialogService;
+            this.fileRepository = fileRepository;
+            this.sourcePicker = sourcePicker;
+            this.spotifyLoader = spotifyLoader;
+            this.configurationService = configurationService;
+            this.filePicker = filePicker;
             Sessions = new ObservableCollection<SessionViewModel>();
             CurrentSession = null;
             isPlaying = false;
             Maximum = 1;
             MaximumValue = 1;
-
             MessagingCenter.Subscribe<SpotifySearchViewModel, AudioSource>(this, MessengerKeys.NewTrackAdded, (sender, audioSorce) => CreateSessionCommand.Execute(audioSorce));
             MessagingCenter.Subscribe<SessionViewModel, SessionViewModel>(this, MessengerKeys.DeleteSession, (sender, arg) => DeleteSessionCommand.Execute(arg));
             MessagingCenter.Subscribe<LoopsDetailsViewModel, LoopViewModel>(this, MessengerKeys.LoopChanged, OnLoopChanged);
             MessagingCenter.Subscribe<LoopViewModel, Loop>(this, MessengerKeys.DeleteLoop, OnDeleteLoop);
+        }
+
+        public MainViewModel()
+        {
+
         }
         #endregion
 
@@ -262,25 +283,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             IsBusy = true;
             try
             {
-                configurationService = Emka3.PracticeLooper.Config.Factory.GetConfigService();
-                spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
-                dialogService = Factory.GetResolver().Resolve<IDialogService>();
-                sourcePicker = Factory.GetResolver().Resolve<ISourcePicker>();
-                interstitialAd = Factory.GetResolver().Resolve<IInterstitialAd>();
-                sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
-                loopsRepository = Factory.GetResolver().Resolve<IRepository<Loop>>();
                 await sessionsRepository.InitAsync();
                 await loopsRepository.InitAsync();
-                fileRepository = Factory.GetResolver().Resolve<IFileRepository>();
-                filePicker = Factory.GetResolver().Resolve<Mobile.Common.IFilePicker>();
                 var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
-                Device.BeginInvokeOnMainThread(() =>
+
+                await MainThread.InvokeOnMainThreadAsync(() =>
                 {
                     foreach (var item in items)
                     {
                         Sessions.Add(new SessionViewModel(item));
                     }
-
                     CurrentSession = Sessions.FirstOrDefault(s => s.Session.Id == Preferences.Get(PreferenceKeys.LastSession, default(int))) ?? Sessions.FirstOrDefault();
                 });
             }

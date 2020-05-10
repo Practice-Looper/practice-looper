@@ -4,16 +4,17 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Cms;
 using Plugin.InAppBilling;
+using Xamarin.Forms.Internals;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
+    [Preserve(AllMembers = true)]
     public class InAppBillingVerifyPurchase : IInAppBillingVerifyPurchase
     {
-        public async Task<bool> VerifyPurchase(string signedData, string signature, string productId = null, string transactionId = null)
+        public Task<bool> VerifyPurchase(string signedData, string signature, string productId = null, string transactionId = null)
         {
             bool result = false;
             var data = Convert.FromBase64String(signedData);
@@ -23,7 +24,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             var memoryStream = new MemoryStream();
             contentStream.CopyTo(memoryStream);
             byte[] contentBytes = memoryStream.ToArray();
-            var decodedContent = Encoding.UTF8.GetString(contentBytes);
 
             cmsParser.GetSignedContent().Drain();
             var certStore = cmsParser.GetCertificates("Collection");
@@ -43,7 +43,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 }
             }
 
-            return result;
+            return Task.FromResult(result);
         }
     }
 }

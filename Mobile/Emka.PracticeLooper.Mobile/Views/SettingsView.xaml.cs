@@ -2,6 +2,8 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
+using System.Collections.Generic;
+using Emka.PracticeLooper.Mobile.Themes;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config;

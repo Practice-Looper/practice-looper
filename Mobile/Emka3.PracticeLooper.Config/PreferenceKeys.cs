@@ -10,5 +10,6 @@ namespace Emka3.PracticeLooper.Config
         public static readonly string NrLoopChanged = nameof(NrLoopChanged);
         public static readonly string LastSession = nameof(LastSession);
         public static readonly string LastLoop = nameof(LastLoop);
+        public static readonly string ColorScheme = nameof(ColorScheme);
     }
 }

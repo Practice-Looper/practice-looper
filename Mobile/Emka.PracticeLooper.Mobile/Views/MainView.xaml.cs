@@ -1,6 +1,11 @@
 ﻿using System.Linq;
+using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.ViewModels;
+using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Model.Player;
+using Emka3.PracticeLooper.Services.Contracts.Common;
+using Emka3.PracticeLooper.Services.Contracts.Player;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -17,7 +22,17 @@ namespace Emka.PracticeLooper.Mobile.Views
             InitializeComponent();
             configService = Factory.GetConfigService();
             configService.ValueChanged += ConfigService_ValueChanged;
-            BindingContext = new MainViewModel();
+
+            var resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
+            BindingContext = new MainViewModel(resolver.Resolve<IInterstitialAd>(),
+                resolver.Resolve<IRepository<Session>>(),
+                resolver.Resolve<IRepository<Loop>>(),
+                resolver.Resolve<IDialogService>(),
+                resolver.Resolve<IFileRepository>(),
+                resolver.Resolve<ISourcePicker>(),
+                resolver.Resolve<ISpotifyLoader>(),
+                configService,
+                resolver.Resolve<Common.IFilePicker>());
         }
 
         private void ConfigService_ValueChanged(object sender, string e)
