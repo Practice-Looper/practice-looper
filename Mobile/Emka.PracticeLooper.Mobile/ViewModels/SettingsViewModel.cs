@@ -6,7 +6,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config;

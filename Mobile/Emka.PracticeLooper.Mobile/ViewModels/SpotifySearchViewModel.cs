@@ -4,7 +4,6 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,7 +16,6 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Emka3.PracticeLooper.Utils;
-using Microsoft.AppCenter.Analytics;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
@@ -33,6 +31,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private Command createSessionCommand;
         private LooprTimer timer;
         private CancellationTokenSource searchCancelTokenSource;
+        private bool isBusy;
         #endregion
 
         #region Ctor
@@ -46,11 +45,21 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #region Properties
         public ObservableCollection<SpotifyTrack> SearchResults { get; set; }
 
-        public Command SearchCommand => searchCommand ?? (searchCommand = new Command((o) => ExecuteSearchCommandAsync(o)));
+        public Command SearchCommand => searchCommand ?? (searchCommand = new Command(o => ExecuteSearchCommand(o)));
 
         public Command CreateSessionCommand => createSessionCommand ?? (createSessionCommand = new Command(async o => await ExecuteCreateSessionCommand(o)));
 
         private string SearchTerm { get; set; }
+
+        public bool IsBusy
+        {
+            get => isBusy;
+            set
+            {
+                isBusy = value;
+                NotifyPropertyChanged();
+            }
+        }
         #endregion
 
         #region Methods
@@ -64,29 +73,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
             try
             {
-                //var newSession = new Session
-                //{
-                //    Name = track.Name,
-                //    AudioSource = new AudioSource
-                //    {
-                //        FileName = track.Id,
-                //        Type = AudioSourceType.Spotify,
-                //        Source = track.Uri,
-                //        Duration = track.Duration / 1000
-                //    },
-                //    Loops = new List<Loop>
-                //            {
-                //                new Loop
-                //                {
-                //                    Name = track.Name,
-                //                    StartPosition = 0.0,
-                //                    EndPosition = 1.0,
-                //                    Repititions = 0,
-                //                    IsFavorite = true
-                //                }
-                //            }
-                //};
-
                 Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(this, MessengerKeys.NewTrackAdded, new AudioSource
                 {
                     FileName = track.Name,
@@ -94,8 +80,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     Source = track.Uri,
                     Duration = track.Duration / 1000
                 }));
-
-                //await sessionsRepository.SaveAsync(newSession);
 
                 await NavigationService.GoBackAsync();
             }
@@ -106,10 +90,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        private void ExecuteSearchCommandAsync(object o)
+        private void ExecuteSearchCommand(object o)
         {
             try
             {
+                IsBusy = true;
                 /**/
                 SearchTerm = o as string;
 
@@ -125,7 +110,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     if (timer == null)
                     {
                         timer = new LooprTimer(TimeSpan.FromMilliseconds(500),
-                            () => { Search(); });
+                           async () => await Search());
                         timer.Start();
                     }
                     else
@@ -149,29 +134,26 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 Logger.LogError(ex);
                 ShowErrorDialog();
             }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
-        private void Search()
+        private async Task Search()
         {
+            IsBusy = true;
             try
             {
                 if (!searchCancelTokenSource.IsCancellationRequested)
                 {
-                    Task.Run(async () =>
-                {
-
                     var res = await spotifyApiService.SearchTrackByName(SearchTerm, searchCancelTokenSource.Token);
 
-                    Device.BeginInvokeOnMainThread(() =>
+                    SearchResults.Clear();
+                    foreach (var item in res)
                     {
-                        SearchResults.Clear();
-                        foreach (var item in res)
-                        {
-                            SearchResults.Add(item);
-                        }
-                    });
-
-                }, searchCancelTokenSource.Token);
+                        SearchResults.Add(item);
+                    }
                 }
             }
             catch (TaskCanceledException)
@@ -182,6 +164,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 Logger.LogError(ex);
                 ShowErrorDialog();
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 

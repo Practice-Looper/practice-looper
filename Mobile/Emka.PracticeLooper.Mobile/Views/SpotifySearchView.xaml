@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behav="clr-namespace:Emka.PracticeLooper.Mobile.Behaviors"
     x:Class="Emka.PracticeLooper.Mobile.Views.SpotifySearchView"
-        Style="{StaticResource PageMainStyle}"
-        Title="Create Spotify Session">
+    Style="{StaticResource PageMainStyle}"
+    Title="Create Spotify Session">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -14,17 +14,35 @@
                 <RowDefinition
                     Height="Auto" />
             </Grid.RowDefinitions>
-            <SearchBar
-                Grid.Row="0"
-                x:Name="SearchBar"
-                Placeholder="Artist, album or track"
-                SearchCommand="{Binding SearchCommand}"
-                CancelButtonColor="{DynamicResource SecondaryColor}"
-                SearchCommandParameter="{Binding Text, Source={x:Reference SearchBar}}">
-                <SearchBar.Behaviors>
-                    <behav:TextChangedBehavior />
-                </SearchBar.Behaviors>
-            </SearchBar>
+            <Grid
+                Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <SearchBar
+                    Grid.Column="0"
+                    x:Name="SearchBar"
+                    Placeholder="Artist, album or track"
+                    SearchCommand="{Binding SearchCommand}"
+                    CancelButtonColor="{DynamicResource SecondaryColor}"
+                    SearchCommandParameter="{Binding Text, Source={x:Reference SearchBar}}">
+                    <SearchBar.Behaviors>
+                        <behav:TextChangedBehavior />
+                    </SearchBar.Behaviors>
+                </SearchBar>
+                <ContentView
+                    Grid.Column="1"
+                    IsVisible="{Binding IsBusy}"
+                    VerticalOptions="FillAndExpand">
+                    <ActivityIndicator
+                        IsRunning="{Binding IsBusy}"
+                        Color="{DynamicResource PrimaryColor}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        BackgroundColor="{DynamicResource BackgroundColor}"/>
+                </ContentView>
+            </Grid>
             <StackLayout
                 Grid.Row="1">
                 <ListView

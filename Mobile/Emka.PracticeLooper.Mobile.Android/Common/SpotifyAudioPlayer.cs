@@ -279,10 +279,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
-                if (IsPlaying)
-                {
-                    Api.PlayerApi.SeekTo(CurrentStartPosition);
-                }
+                Api.PlayerApi.SeekTo(CurrentStartPosition);
             }
             catch (System.Exception ex)
             {
