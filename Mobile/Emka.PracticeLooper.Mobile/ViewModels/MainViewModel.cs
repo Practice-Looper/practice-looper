@@ -54,6 +54,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private string loopStartPosition;
         private string loopEndPosition;
         private Command addNewLoopCommand;
+        private bool isBusy;
         #endregion
 
         #region Ctor
@@ -243,11 +244,22 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 }
             }
         }
+
+        public bool IsBusy
+        {
+            get => isBusy;
+            set
+            {
+                isBusy = value;
+                NotifyPropertyChanged();
+            }
+        }
         #endregion
 
         #region Metods
         public override async Task InitializeAsync(object parameter)
         {
+            IsBusy = true;
             try
             {
                 configurationService = Emka3.PracticeLooper.Config.Factory.GetConfigService();
@@ -276,6 +288,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 await Logger?.LogErrorAsync(ex);
                 await dialogService.ShowAlertAsync(ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 

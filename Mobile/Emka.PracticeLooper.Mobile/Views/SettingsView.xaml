@@ -121,14 +121,15 @@
         <ContentView
             Grid.Row="0"
             IsVisible="{Binding IsBusy}"
-            VerticalOptions="FillAndExpand">
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            Opacity="0.9">
             <ActivityIndicator
                 IsRunning="{Binding IsBusy}"
                 Color="{DynamicResource PrimaryColor}"
-                VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand"
-                BackgroundColor="{DynamicResource BackgroundColor}"
-                Opacity="0.9" />
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                BackgroundColor="{DynamicResource BackgroundColor}" />
         </ContentView>
     </Grid>
 </ContentPage>

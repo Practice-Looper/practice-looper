@@ -74,6 +74,17 @@
                         SelectedItem="{Binding CurrentSession, Mode=TwoWay}"
                         ItemsSource="{Binding Sessions}"
                         ItemTemplate="{StaticResource SessionItemTemplateSelector}" />
+                    <ContentView
+                        Grid.Row="1"
+                        IsVisible="{Binding IsBusy}"
+                        VerticalOptions="FillAndExpand">
+                        <ActivityIndicator
+                            IsRunning="{Binding IsBusy}"
+                            Color="{DynamicResource PrimaryColor}"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BackgroundColor="{DynamicResource BackgroundColor}"/>
+                    </ContentView>
                 </Grid>
             </ContentView>
             <BoxView
