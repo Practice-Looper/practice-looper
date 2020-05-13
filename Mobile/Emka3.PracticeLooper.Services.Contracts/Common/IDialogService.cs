@@ -11,7 +11,7 @@ namespace Emka.PracticeLooper.Services.Contracts
     [Preserve(AllMembers = true)]
     public interface IDialogService
     {
-        Task ShowAlertAsync(string message);
+        Task ShowAlertAsync(string message, string caption = "Error occured");
         Task<bool> ShowConfirmAsync(string caption, string message, string negative, string confirm);
         Task<string> ShowPromptAsync(string title, string message, string accept, string cancel, string placeholder, int maxLength = 250);
     }

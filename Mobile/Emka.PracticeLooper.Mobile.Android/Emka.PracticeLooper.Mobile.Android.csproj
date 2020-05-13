@@ -216,6 +216,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\CustomViewCellRenderer.cs" />
     <Compile Include="Common\InAppBillingVerifyPurchase.cs" />
+    <Compile Include="Renderers\CustomSearchBarRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

@@ -12,7 +12,7 @@ using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
 using Plugin.InAppBilling;
-//using Xamarin.Essentials;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
@@ -48,7 +48,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Properties
         public Command PurchaseItemCommand => purchaseItemCommand ?? (purchaseItemCommand = new Command(async o => await ExecutePurchaseItemCommand(o)));
-        public string AppVersion => Xamarin.Essentials.VersionTracking.CurrentVersion;
+        public string AppVersion => VersionTracking.CurrentVersion;
         public ObservableCollection<InAppBillingProductViewModel> Products { get; set; }
         public bool IsBusy
         {
@@ -107,9 +107,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     Products.Add(vm);
                     if (vm.Purchased)
                     {
-                        await Xamarin.Essentials.MainThread.InvokeOnMainThreadAsync(() =>
+                        await MainThread.InvokeOnMainThreadAsync(() =>
                          {
-                             Xamarin.Essentials.Preferences.Set(PreferenceKeys.PremiumGeneral, true);
+                             Preferences.Set(PreferenceKeys.PremiumGeneral, true);
                              configService.SetValue(PreferenceKeys.PremiumGeneral, true);
                          });
                     }
@@ -143,7 +143,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 if (product.Purchased)
                 {
-                    await dialogService.ShowAlertAsync("You already purchased this upgrade.");
+                    await dialogService.ShowAlertAsync("Already purchased", "You already purchased this upgrade.");
                     return;
                 }
 
@@ -170,9 +170,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     }
                     else if (purchase.State == PurchaseState.Purchased)
                     {
-                        await Xamarin.Essentials.MainThread.InvokeOnMainThreadAsync(() =>
+                        await MainThread.InvokeOnMainThreadAsync(() =>
                         {
-                            Xamarin.Essentials.Preferences.Set(PreferenceKeys.PremiumGeneral, true);
+                            Preferences.Set(PreferenceKeys.PremiumGeneral, true);
                             configService.SetValue(PreferenceKeys.PremiumGeneral, true);
                         });
                         var purchasedVm = Products.FirstOrDefault(p => p.Model.ProductId == product.Model.ProductId);
@@ -207,7 +207,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             var billing = CrossInAppBilling.Current;
             try
             {
-                if (Xamarin.Essentials.Preferences.Get(productId, false))
+                if (Preferences.Get(productId, false))
                 {
                     return true;
                 }

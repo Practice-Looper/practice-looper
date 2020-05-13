@@ -72,6 +72,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public bool Authorized { get; private set; }
         #endregion
 
+        #region Events
+
+        public event EventHandler Disconnected;
+        #endregion
+
         #region Methods
 
         public bool Initialize(string songUri = "")
@@ -140,8 +145,9 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 if (error.LocalizedRecoveryOptions != null)
                 {
                     logger?.LogError(new Exception(error.LocalizedDescription));
-                    await dialogService.ShowAlertAsync("Oops, lost connection to Spotify!");
                 }
+
+                Disconnected?.Invoke(this, new EventArgs());
             }
             catch (ObjectDisposedException ex)
             {
@@ -200,6 +206,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 {
                     api.Disconnect();
                 }
+
+                Disconnected?.Invoke(this, new EventArgs());
             }
             catch (Exception ex)
             {

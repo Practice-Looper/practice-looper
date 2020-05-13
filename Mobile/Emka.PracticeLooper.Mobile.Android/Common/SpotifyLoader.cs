@@ -39,6 +39,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         }
         #endregion
 
+        #region Events
+
+        public event EventHandler OnDisconnected;
+        #endregion
+
         #region Properties
         public object RemoteApi => api;
 

@@ -16,9 +16,9 @@ namespace Emka.PracticeLooper.Mobile.Common
         {
         }
 
-        public async Task ShowAlertAsync(string message)
+        public async Task ShowAlertAsync(string message, string caption = "Error occured")
         {
-            await Application.Current.MainPage?.DisplayAlert("Error occured", message, "OK");
+            await Application.Current.MainPage?.DisplayAlert(caption, message, "OK");
         }
 
         public async Task<bool> ShowConfirmAsync(string caption, string message, string negative, string confirm)

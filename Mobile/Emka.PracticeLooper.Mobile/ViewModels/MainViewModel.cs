@@ -286,7 +286,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 await sessionsRepository.InitAsync();
                 await loopsRepository.InitAsync();
                 var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
-
+                spotifyLoader.Disconnected += OnSpotifyDisconnected;
                 await MainThread.InvokeOnMainThreadAsync(() =>
                 {
                     foreach (var item in items)
@@ -304,6 +304,15 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        private async void OnSpotifyDisconnected(object sender, EventArgs args)
+        {
+            if (CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying)
+            {
+                Pause();
+                await dialogService.ShowAlertAsync("Oops, lost connection to Spotify!");
             }
         }
 
@@ -328,15 +337,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
-                if (CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying)
-                {
-                    CurrentAudioPlayer?.Pause();
-                }
-
-                if (spotifyLoader != null && spotifyLoader.Authorized)
-                {
-                    spotifyLoader?.Disconnect();
-                }
+                CurrentAudioPlayer?.Pause();
+                spotifyLoader?.Disconnect();
             }
             catch (Exception ex)
             {
@@ -413,11 +415,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                         Preferences.Set(PreferenceKeys.LastSession, newSession.Id);
                         Preferences.Set(PreferenceKeys.LastLoop, newSession.Loops.First().Id);
-                        CurrentSession = newSessionViewModel;
                     }
 
                     await sessionsRepository.SaveAsync(newSession);
                     Sessions.Add(newSessionViewModel);
+                    CurrentSession = newSessionViewModel;
                 }
                 catch (Exception ex)
                 {
@@ -710,6 +712,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private async Task ExecuteNavigateToSettingsCommand()
         {
             await NavigationService?.NavigateToAsync<SettingsViewModel>();
+        }
+
+        ~MainViewModel()
+        {
+            spotifyLoader.Disconnected -= OnSpotifyDisconnected;
         }
         #endregion
     }

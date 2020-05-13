@@ -26,6 +26,7 @@
                     Placeholder="Artist, album or track"
                     SearchCommand="{Binding SearchCommand}"
                     CancelButtonColor="{DynamicResource SecondaryColor}"
+                    PlaceholderColor="{DynamicResource SecondaryColor}"
                     SearchCommandParameter="{Binding Text, Source={x:Reference SearchBar}}">
                     <SearchBar.Behaviors>
                         <behav:TextChangedBehavior />
