@@ -5,7 +5,8 @@
     xmlns:behav="clr-namespace:Emka.PracticeLooper.Mobile.Behaviors"
     x:Class="Emka.PracticeLooper.Mobile.Views.SpotifySearchView"
     Style="{StaticResource PageMainStyle}"
-    Title="Create Spotify Session">
+    xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
+    Title="{x:Static rsrcs:AppResources.SpotifySearchView_Title}">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

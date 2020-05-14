@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader
+        name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader
+        name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader
+        name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader
+        name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <!--General-->
+    <data name="AppName" xml:space="preserve">
+        <value>Practice Looper</value>
+    </data>
+    <data name="Spotify" xml:space="preserve">
+        <value>Spotify</value>
+    </data>
+    <data name="AudioFile" xml:space="preserve">
+        <value>Audio File</value>
+    </data>
+    <data name="Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="Ok" xml:space="preserve">
+        <value>OK</value>
+    </data>
+    <!--LoopsDetailsView-->
+    <data name="LoopsDetailsView_Title" xml:space="preserve">
+        <value>Loops</value>
+    </data>
+    <!--SpotifySearchView-->
+     <data name="SpotifySearchView_Title" xml:space="preserve">
+        <value>Add Spotify Song</value>
+    </data>   
+     <data name="SpotifySearchView_SearchBox_Placeholder" xml:space="preserve">
+        <value>Search track</value>
+    </data>
+    <!--SettingsView-->
+     <data name="SettingsView_Title" xml:space="preserve">
+        <value>Settings</value>
+    </data>
+     <data name="SettingsView_DarkMode" xml:space="preserve">
+        <value>Dark Mode</value>
+    </data>
+     <data name="SettingsView_DarkMode" xml:space="preserve">
+        <value>Dark Mode</value>
+    </data>
+     <data name="SettingsView_AppVersion" xml:space="preserve">
+        <value>App vesion: {0}</value>
+    </data>
+     <data name="SettingsView_ListView_Header" xml:space="preserve">
+        <value>Upgrades</value>
+    </data>
+     <data name="SettingsView_NoUpgradesDescription" xml:space="preserve">
+        <value>Failed to load upgrades, try again later.</value>
+    </data>
+</root>

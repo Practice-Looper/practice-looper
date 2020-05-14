@@ -4,8 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     x:Class="Emka.PracticeLooper.Mobile.Views.SettingsView"
+    xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
     Style="{StaticResource PageMainStyle}"
-    Title="Settings"
+    Title="{x:Static rsrcs:AppResources.SettingsView_Title}"
     Padding="10">
     <Grid>
         <Grid.RowDefinitions>
@@ -21,7 +22,7 @@
         <Label
             Grid.Row="0"
             FontSize="Header"
-            Text="Failed to load upgrades, try again later."
+            Text="{x:Static rsrcs:AppResources.SettingsView_NoUpgradesDescription}"
             IsVisible="False"
             TextColor="{DynamicResource SecondaryColor}"
             Margin="0,25">
@@ -49,7 +50,7 @@
             HorizontalOptions="FillAndExpand">
             <ListView.Header>
                 <Label
-                    Text="Upgrades"
+                    Text="{x:Static rsrcs:AppResources.SettingsView_ListView_Header}"
                     FontSize="Default"
                     TextColor="{DynamicResource SecondaryColor}" />
             </ListView.Header>
@@ -119,7 +120,7 @@
         <Grid
             Grid.Row="1">
             <Label
-                Text="Dark Mode"
+                Text="{x:Static rsrcs:AppResources.SettingsView_DarkMode}"
                 HorizontalOptions="Start"
                 TextColor="{DynamicResource SecondaryColor}" />
             <views:ColorSchemeSwitch
@@ -129,7 +130,7 @@
         <Label
             Grid.Row="2"
             FontSize="Caption"
-            Text="{Binding AppVersion, StringFormat='App vesion: {0}'}"
+            Text="{Binding AppVersion, StringFormat={x:Static rsrcs:AppResources.SettingsView_AppVersion}}"
             TextColor="{DynamicResource SecondaryColor}" />
         <ContentView
             Grid.Row="0"

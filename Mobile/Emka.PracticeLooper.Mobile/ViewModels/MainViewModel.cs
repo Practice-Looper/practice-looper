@@ -307,13 +307,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        private async void OnSpotifyDisconnected(object sender, EventArgs args)
+        private void OnSpotifyDisconnected(object sender, EventArgs args)
         {
-            if (CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying)
+            if (CurrentAudioPlayer != null)
             {
-                Pause();
-                await dialogService.ShowAlertAsync("Oops, lost connection to Spotify!");
+                CurrentAudioPlayer?.Pause();
             }
+
+            //CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
+            //CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
+            //CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
         }
 
         public void UpdateMinMaxValues()

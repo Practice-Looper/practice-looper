@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Model;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
@@ -136,7 +137,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             return await Task.Run(() => Initialize(songUri));
         }
 
-        public async override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
+        public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
         {
             try
             {
@@ -147,7 +148,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                     logger?.LogError(new Exception(error.LocalizedDescription));
                 }
 
-                Disconnected?.Invoke(this, new EventArgs());
+                Disconnected?.Invoke(this, new SpotifyDisconnectedEventArgs(false));
             }
             catch (ObjectDisposedException ex)
             {
@@ -206,8 +207,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 {
                     api.Disconnect();
                 }
-
-                Disconnected?.Invoke(this, new EventArgs());
             }
             catch (Exception ex)
             {

@@ -35,8 +35,8 @@ namespace Emka.PracticeLooper.Mobile.Common
         {
             var sources = new List<AudioSourceVieModel>
             {
-                new AudioSourceVieModel("Spotify", AudioSourceType.Spotify),
-                new AudioSourceVieModel("Audio File", AudioSourceType.Local)
+                new AudioSourceVieModel(AppResources.Spotify, AudioSourceType.Spotify),
+                new AudioSourceVieModel(AppResources.AudioFile, AudioSourceType.Local)
             };
 
             await PopupNavigation.Instance.PushAsync(new PickAudioSourceView(sources));

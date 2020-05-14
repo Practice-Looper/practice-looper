@@ -41,7 +41,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         #region Events
 
-        public event EventHandler OnDisconnected;
+        public event EventHandler Disconnected;
         #endregion
 
         #region Properties

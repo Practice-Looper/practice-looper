@@ -5,8 +5,9 @@
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     xmlns:conv="clr-namespace:Emka.PracticeLooper.Mobile.Converters"
     x:Class="Emka.PracticeLooper.Mobile.Views.LoopsDetailsView"
+    xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
     BackgroundColor="{DynamicResource BackgroundColor}"
-    Title="Loops">
+    Title="{x:Static rsrcs:AppResources.LoopsDetailsView_Title}">
     <ContentPage.Resources>
         <conv:DoubleToTimeConverter
             x:Key="TimeConverter" />

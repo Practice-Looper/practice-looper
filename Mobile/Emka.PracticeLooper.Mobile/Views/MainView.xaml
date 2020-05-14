@@ -4,9 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
     ios:Page.UseSafeArea="true"
+    Title="{x:Static rsrcs:AppResources.AppName}"
     x:Class="Emka.PracticeLooper.Mobile.Views.MainView"
-    Title="Practice Looper"
     Style="{StaticResource PageMainStyle}"
     x:Name="mainPage">
     <ContentPage.ToolbarItems>
@@ -83,7 +84,7 @@
                             Color="{DynamicResource PrimaryColor}"
                             VerticalOptions="Center"
                             HorizontalOptions="Center"
-                            BackgroundColor="{DynamicResource BackgroundColor}"/>
+                            BackgroundColor="{DynamicResource BackgroundColor}" />
                     </ContentView>
                 </Grid>
             </ContentView>

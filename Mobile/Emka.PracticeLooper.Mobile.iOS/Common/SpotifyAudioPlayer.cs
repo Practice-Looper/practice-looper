@@ -35,6 +35,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             this.logger = logger;
             IsPlaying = false;
             this.timer = timer;
+            spotifyLoader.Disconnected += SpotifyLoader_Disconnected;
         }
         #endregion
 
@@ -86,14 +87,17 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                     {
                         logger.LogError(new Exception(e.DebugDescription));
                     }
-
-                    IsPlaying = false;
                 });
-                RaisePlayingStatusChanged();
             }
 
-            spotifyLoader.Disconnect();
+            IsPlaying = false;
+            RaisePlayingStatusChanged();
             Initialized = false;
+
+            if (spotifyLoader.Authorized)
+            {
+                spotifyLoader.Disconnect();
+            }
         }
 
         public void Play()
@@ -262,6 +266,13 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 logger.LogError(ex);
                 throw;
             }
+        }
+
+        private void SpotifyLoader_Disconnected(object sender, EventArgs e)
+        {
+            //IsPlaying = false;
+            //RaisePlayingStatusChanged();
+            //Initialized = false;
         }
 
         ~SpotifyAudioPlayer()
