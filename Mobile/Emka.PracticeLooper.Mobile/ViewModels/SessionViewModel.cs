@@ -62,7 +62,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 await logger.LogErrorAsync(ex);
-                await dialogService.ShowAlertAsync("Oops, could not delete loop.");
+                await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
         }
 

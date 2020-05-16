@@ -299,7 +299,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 await Logger?.LogErrorAsync(ex);
-                await dialogService.ShowAlertAsync(ex.Message);
+                await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
             finally
             {
@@ -312,11 +312,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             if (CurrentAudioPlayer != null)
             {
                 CurrentAudioPlayer?.Pause();
+                CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
+                CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
+                CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
             }
-
-            //CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
-            //CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
-            //CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
         }
 
         public void UpdateMinMaxValues()
@@ -331,7 +330,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 catch (Exception ex)
                 {
                     Logger.LogError(ex);
-                    dialogService.ShowAlertAsync(ex.Message);
+                    dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
                 }
             }
         }
@@ -346,7 +345,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 Logger.LogError(ex);
-                dialogService.ShowAlertAsync(ex.Message);
+                dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
         }
 
@@ -364,7 +363,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 catch (Exception ex)
                 {
                     Logger.LogError(ex);
-                    dialogService.ShowAlertAsync(ex.Message);
+                    dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
                 }
             }
         }
@@ -427,7 +426,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 catch (Exception ex)
                 {
                     await Logger.LogErrorAsync(ex);
-                    await dialogService.ShowAlertAsync(ex.Message);
+                    await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotCreateSession, AppResources.Error_Caption);
                 }
             }
         }
@@ -453,14 +452,22 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 }
                 else
                 {
+                    if (!CurrentAudioPlayer.Initialized)
+                    {
+                        try
+                        {
+                            await CurrentAudioPlayer.InitAsync(CurrentLoop);
+                        }
+                        catch (Exception ex)
+                        {
+                            await dialogService.ShowAlertAsync(ex.Message, AppResources.Error_Caption);
+                            return;
+                        }
+                    }
+
                     CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
                     CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
-
-                    if (!CurrentAudioPlayer.Initialized)
-                    {
-                        await CurrentAudioPlayer.InitAsync(CurrentLoop);
-                    }
 
                     await CurrentAudioPlayer.PlayAsync();
                     Device.BeginInvokeOnMainThread(() => IsPlaying = true);
@@ -469,7 +476,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 await Logger.LogErrorAsync(ex);
-                await dialogService.ShowAlertAsync(ex.Message);
+                await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotPlaySong, AppResources.Error_Caption);
             }
         }
 
@@ -523,7 +530,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 catch (Exception ex)
                 {
                     await Logger.LogErrorAsync(ex);
-                    await dialogService.ShowAlertAsync(ex.Message);
+                    await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotDeleteSong,AppResources.Error_Caption);
                 }
             }
         }
@@ -565,7 +572,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 await Logger.LogErrorAsync(ex);
-                await dialogService.ShowAlertAsync("Oops, something went wrong!");
+                await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
         }
 
@@ -578,7 +585,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
-                var name = await dialogService.ShowPromptAsync("New loop", "Enter a name", "Save", "Cancel", $"Loop{CurrentSession.Session.Loops.Count + 1}");
+                var name = await dialogService.ShowPromptAsync(AppResources.Prompt_Caption_NewLoop, AppResources.Prompt_Content_NewLoop, AppResources.Save, AppResources.Cancel, string.Format(AppResources.Prompt_Content_NewLoo_NamePlaceholder, CurrentSession.Session.Loops.Count + 1));
                 if (!string.IsNullOrEmpty(name))
                 {
                     var loop = new Loop() { Name = name, StartPosition = MinimumValue, EndPosition = MaximumValue, Session = CurrentSession.Session, SessionId = CurrentSession.Session.Id };
@@ -589,7 +596,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 await Logger.LogErrorAsync(ex);
-                await dialogService.ShowAlertAsync("Oops, failed to add loop. Please try again.");
+                await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotCreateLoop, AppResources.Error_Caption);
             }
         }
 
@@ -628,7 +635,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 Logger.LogErrorAsync(ex);
-                dialogService.ShowAlertAsync(ex.Message);
+                dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
         }
 
@@ -652,7 +659,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 Logger.LogError(ex);
-                dialogService.ShowAlertAsync(ex.Message);
+                dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
         }
 
@@ -708,7 +715,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 await Logger.LogErrorAsync(ex);
-                await dialogService.ShowAlertAsync("Opps, failed to delete loop");
+                await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotDeleteLoop, AppResources.Error_Caption);
             }
         }
 

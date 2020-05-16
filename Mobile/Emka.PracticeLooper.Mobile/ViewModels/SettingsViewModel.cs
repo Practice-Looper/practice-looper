@@ -90,8 +90,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 if (!connected)
                 {
-                    await logger.LogErrorAsync(new Exception($"Could not connect to store {Xamarin.Essentials.DeviceInfo.Platform}"));
-                    await dialogService.ShowAlertAsync("Oops, could not connect store! Please try again later.");
+                    await logger.LogErrorAsync(new Exception($"Could not connect to store {DeviceInfo.Platform}"));
+                    await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToStore, AppResources.Error_Caption);
                     return;
                 }
 
@@ -122,12 +122,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (string.IsNullOrWhiteSpace(message))
                     return;
 
-                await dialogService.ShowAlertAsync(message);
+                await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
             catch (Exception ex)
             {
                 await logger.LogErrorAsync(ex);
-                await dialogService.ShowAlertAsync("Something went wrong, please try again.");
+                await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
             finally
             {
@@ -143,7 +143,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 if (product.Purchased)
                 {
-                    await dialogService.ShowAlertAsync("Already purchased", "You already purchased this upgrade.");
+                    await dialogService.ShowAlertAsync(AppResources.Hint_Content_AlreadyPurchased, AppResources.Hint_Caption_AlreadyPurchased);
                     return;
                 }
 
@@ -155,7 +155,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     if (!connected)
                     {
                         //we are offline or can't connect, don't try to purchase
-                        await dialogService.ShowAlertAsync("Oops, could not connect store! Please try again later.");
+                        await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToStore, AppResources.Error_Caption);
                         return;
                     }
 
@@ -166,7 +166,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     //possibility that a null came through.
                     if (purchase == null)
                     {
-                        await dialogService.ShowAlertAsync("Oops, purchase failed! Please try again later.");
+                        await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotPurchaseItem, AppResources.Error_Caption);
                     }
                     else if (purchase.State == PurchaseState.Purchased)
                     {
@@ -192,7 +192,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 catch (Exception ex)
                 {
                     await logger.LogErrorAsync(ex);
-                    await dialogService.ShowAlertAsync("Something went wrong, please try again.");
+                    await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
                 }
                 finally
                 {
@@ -216,7 +216,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 if (!connected)
                 {
-                    await dialogService.ShowAlertAsync("Oops, could not connect store! Please try again later.");
+                    await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToStore, AppResources.Error_Caption);
                     return false;
                 }
 
@@ -247,7 +247,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 await logger.LogErrorAsync(ex);
-                await dialogService.ShowAlertAsync("Something went wrong, please try again.");
+                await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
             finally
             {
@@ -263,16 +263,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             switch (error)
             {
                 case PurchaseError.AppStoreUnavailable:
-                    message = "Currently the app store seems to be unavailble. Try again later.";
+                    message = AppResources.Error_Content_StoreUnavailable;
                     break;
                 case PurchaseError.BillingUnavailable:
-                    message = "Billing seems to be unavailable, please try again later.";
+                    message = AppResources.Error_Content_BillingUnavailable;
                     break;
                 case PurchaseError.PaymentInvalid:
-                    message = "Payment seems to be invalid, please try again.";
+                    message = AppResources.Error_Content_PaymentInvalid;
                     break;
                 case PurchaseError.PaymentNotAllowed:
-                    message = "Payment does not seem to be enabled/allowed, please try again.";
+                    message = AppResources.Error_Content_PaymentNotAllowed;
                     break;
 
                 case PurchaseError.InvalidProduct:
@@ -280,14 +280,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 case PurchaseError.ItemUnavailable:
                 case PurchaseError.GeneralError:
                 case PurchaseError.ProductRequestFailed:
-
                 case PurchaseError.ServiceUnavailable:
-                    message = "Something went wrong, please contact the support.";
+                    message = AppResources.Error_Content_General;
                     break;
                 case PurchaseError.UserCancelled:
                     break;
                 case PurchaseError.RestoreFailed:
-                    message = "Failed to restore purchase, please try again.";
+                    message = AppResources.Error_Content_RestoreFailed;
                     break;
                 case PurchaseError.AlreadyOwned:
                     break;

@@ -122,13 +122,27 @@
         <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\MainView.xaml.cs">
             <SubType>Code</SubType>
         </Compile>
+        <Compile Update="AppResources.de-DE.Designer.cs">
+          <DependentUpon>AppResources.de-DE.resx</DependentUpon>
+        </Compile>
+        <Compile Update="AppResources.en-US.Designer.cs">
+          <DependentUpon>AppResources.en-US.resx</DependentUpon>
+        </Compile>
         <Compile Update="AppResources.Designer.cs">
           <DependentUpon>AppResources.resx</DependentUpon>
         </Compile>
     </ItemGroup>
     <ItemGroup>
-      <EmbeddedResource Update="AppResources.resx">
+      <EmbeddedResource Update="AppResources.de-DE.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>AppResources.de-DE.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="AppResources.en-US.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>AppResources.en-US.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="AppResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>

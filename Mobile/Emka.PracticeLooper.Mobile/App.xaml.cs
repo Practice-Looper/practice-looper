@@ -13,6 +13,8 @@ using Xamarin.Essentials;
 using Emka.PracticeLooper.Services.Contracts;
 using System.Collections.Generic;
 using Emka.PracticeLooper.Mobile.Themes;
+using System.Threading;
+using System.Globalization;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -80,6 +82,13 @@ namespace Emka.PracticeLooper.Mobile
 #if PREMIUM
             Preferences.Set(PreferenceKeys.PremiumGeneral, true);
 #endif
+            
+
+            // Force the app to use a specific style
+            Thread.CurrentThread.CurrentCulture =
+            new CultureInfo("es-US");
+            Thread.CurrentThread.CurrentUICulture =
+            Thread.CurrentThread.CurrentCulture;
 
             ConfigurationService = Factory.GetConfigService();
             ConfigurationService.SetValue(PreferenceKeys.PremiumGeneral, Preferences.Get(PreferenceKeys.PremiumGeneral, default(bool)));

@@ -190,12 +190,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
                 connectedEvent.Set();
                 tokenEvent.Set();
-                await dialogService.ShowAlertAsync("Oops, failed to connecto to Spotify.");
             }
             catch (Exception ex)
             {
                 logger?.LogError(ex);
-                throw;
+                throw new Exception(error.LocalizedDescription);
             }
         }
 
