@@ -54,6 +54,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
                 { "OS version", $"{AppInfo.VersionString}" },
                 { "Device", $"{DeviceInfo.Manufacturer} {DeviceInfo.Model}" }
             });
+            GlobalApp.ConfigurationService.SetValue("Locale", NSLocale.CurrentLocale.LocaleIdentifier);
 
             return base.FinishedLaunching(app, options);
         }

@@ -82,14 +82,6 @@ namespace Emka.PracticeLooper.Mobile
 #if PREMIUM
             Preferences.Set(PreferenceKeys.PremiumGeneral, true);
 #endif
-            
-
-            // Force the app to use a specific style
-            Thread.CurrentThread.CurrentCulture =
-            new CultureInfo("es-US");
-            Thread.CurrentThread.CurrentUICulture =
-            Thread.CurrentThread.CurrentCulture;
-
             ConfigurationService = Factory.GetConfigService();
             ConfigurationService.SetValue(PreferenceKeys.PremiumGeneral, Preferences.Get(PreferenceKeys.PremiumGeneral, default(bool)));
             // todo: unnötige attribute aussortieren und den einzelnen files!
@@ -116,6 +108,14 @@ namespace Emka.PracticeLooper.Mobile
                 ConfigurationService.SetValue(nameof(Helpers.Secrets.AdmobAndroidInterstitialProjectAdId), Helpers.Secrets.AdmobAndroidInterstitialProjectAdId);
                 ConfigurationService.SetValue(nameof(Helpers.Secrets.InAppAndroidPremiumGeneral), Helpers.Secrets.InAppAndroidPremiumGeneral);
             }
+
+            var locale = ConfigurationService.GetValue("Locale");
+
+            // Force the app to use a specific style
+            Thread.CurrentThread.CurrentCulture =
+            new CultureInfo("es-US");
+            Thread.CurrentThread.CurrentUICulture =
+            Thread.CurrentThread.CurrentCulture;
         }
 
         private async Task InitNavigation()

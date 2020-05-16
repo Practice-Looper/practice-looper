@@ -64,5 +64,12 @@
 	<string>0.1</string>
 	<key>UILaunchStoryboardName</key>
 	<string>PracticeLooperLaunchScreen</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>de</string>
+	</array>
 </dict>
 </plist>

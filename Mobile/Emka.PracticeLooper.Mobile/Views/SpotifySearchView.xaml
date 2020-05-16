@@ -24,7 +24,7 @@
                 <SearchBar
                     Grid.Column="0"
                     x:Name="SearchBar"
-                    Placeholder="Artist, album or track"
+                    Placeholder="{x:Static rsrcs:AppResources.SpotifySearchView_SearchBox_Placeholder}"
                     SearchCommand="{Binding SearchCommand}"
                     CancelButtonColor="{DynamicResource SecondaryColor}"
                     PlaceholderColor="{DynamicResource SecondaryColor}"

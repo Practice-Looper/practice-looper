@@ -57,6 +57,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             SQLitePCL.Batteries_V2.Init();
             Platform.Init(this, savedInstanceState);
 
+            GlobalApp.ConfigurationService.SetValue("Locale", Resources.Configuration.Locale);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
             base.SetTheme(Resource.Style.MainTheme);
