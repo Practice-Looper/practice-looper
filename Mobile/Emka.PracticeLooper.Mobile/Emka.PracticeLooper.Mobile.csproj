@@ -134,11 +134,11 @@
     </ItemGroup>
     <ItemGroup>
       <EmbeddedResource Update="AppResources.de-DE.resx">
-        <Generator>PublicResXFileCodeGenerator</Generator>
+        <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AppResources.de-DE.Designer.cs</LastGenOutput>
       </EmbeddedResource>
       <EmbeddedResource Update="AppResources.en-US.resx">
-        <Generator>PublicResXFileCodeGenerator</Generator>
+        <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AppResources.en-US.Designer.cs</LastGenOutput>
       </EmbeddedResource>
       <EmbeddedResource Update="AppResources.resx">

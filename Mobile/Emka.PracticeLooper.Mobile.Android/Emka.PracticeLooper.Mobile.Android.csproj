@@ -127,6 +127,7 @@
     <AndroidSigningKeyStore>/Users/Maksim/Library/Developer/Xamarin/Keystore/dev/dev.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>AhiexBn8MUkzfdeH</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>dev</AndroidSigningKeyAlias>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />

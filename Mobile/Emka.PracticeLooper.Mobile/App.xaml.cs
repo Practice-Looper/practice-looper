@@ -109,13 +109,12 @@ namespace Emka.PracticeLooper.Mobile
                 ConfigurationService.SetValue(nameof(Helpers.Secrets.InAppAndroidPremiumGeneral), Helpers.Secrets.InAppAndroidPremiumGeneral);
             }
 
-            var locale = ConfigurationService.GetValue("Locale");
+            var locale = ConfigurationService.GetValue<string>("Locale");
 
             // Force the app to use a specific style
-            Thread.CurrentThread.CurrentCulture =
-            new CultureInfo("es-US");
-            Thread.CurrentThread.CurrentUICulture =
-            Thread.CurrentThread.CurrentCulture;
+            //Thread.CurrentThread.CurrentCulture =
+            //new CultureInfo(locale);
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
         }
 
         private async Task InitNavigation()
