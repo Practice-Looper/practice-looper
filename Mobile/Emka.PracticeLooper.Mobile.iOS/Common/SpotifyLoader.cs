@@ -178,7 +178,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
         }
 
-        public async override void DidFailConnectionAttemptWithError(SPTAppRemote appRemote, NSError error)
+        public override void DidFailConnectionAttemptWithError(SPTAppRemote appRemote, NSError error)
         {
             try
             {

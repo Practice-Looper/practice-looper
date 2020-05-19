@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka.PracticeLooper.Model;
 using Emka3.PracticeLooper.Model.Player;
+using Emka3.PracticeLooper.Utils;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class LoopViewModel : ViewModelBase
     {
         #region Fields

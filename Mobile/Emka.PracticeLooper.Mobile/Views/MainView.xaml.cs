@@ -32,7 +32,8 @@ namespace Emka.PracticeLooper.Mobile.Views
                 resolver.Resolve<ISourcePicker>(),
                 resolver.Resolve<ISpotifyLoader>(),
                 configService,
-                resolver.Resolve<Common.IFilePicker>());
+                resolver.Resolve<Common.IFilePicker>(),
+                resolver.Resolve<IConnectivityService>());
         }
 
         private void ConfigService_ValueChanged(object sender, string e)

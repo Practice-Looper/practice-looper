@@ -140,6 +140,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 // todo: show error dialog!
                 connectedEvent.Set();
                 tokenEvent.Set();
+                throw error;
             }
         }
 

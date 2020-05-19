@@ -75,17 +75,6 @@
                         SelectedItem="{Binding CurrentSession, Mode=TwoWay}"
                         ItemsSource="{Binding Sessions}"
                         ItemTemplate="{StaticResource SessionItemTemplateSelector}" />
-                    <ContentView
-                        Grid.Row="1"
-                        IsVisible="{Binding IsBusy}"
-                        VerticalOptions="FillAndExpand">
-                        <ActivityIndicator
-                            IsRunning="{Binding IsBusy}"
-                            Color="{DynamicResource PrimaryColor}"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Center"
-                            BackgroundColor="{DynamicResource BackgroundColor}" />
-                    </ContentView>
                 </Grid>
             </ContentView>
             <BoxView
@@ -328,5 +317,19 @@
             Grid.Row="1"
             x:Name="AdmobBanner"
             HeightRequest="50" />
+
+        <ContentView
+            Grid.Row="0"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            Opacity="0.9"
+            BackgroundColor="{DynamicResource BackgroundColor}">
+            <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
+                Color="{DynamicResource SecondaryColor}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center" />
+        </ContentView>
     </Grid>
 </ContentPage>

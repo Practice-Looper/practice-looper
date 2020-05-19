@@ -2,18 +2,20 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
-using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka.PracticeLooper.Model;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Model.Player;
+using Emka3.PracticeLooper.Utils;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class LoopsDetailsViewModel : ViewModelBase
     {
         private SessionViewModel session;
@@ -49,13 +51,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public LoopViewModel SelectedLoop
         {
-            get => selectedLoop; set
+            get => selectedLoop;
+            set
             {
-                selectedLoop = value;
-                if (value != null)
+                if (value != null && value != selectedLoop)
                 {
+                    selectedLoop = value;
                     MessagingCenter.Send(this, MessengerKeys.LoopChanged, selectedLoop);
                 }
+
+                NotifyPropertyChanged();
             }
         }
         #endregion
@@ -70,6 +75,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 foreach (var item in session.Session.Loops)
                 {
                     Loops.Add(new LoopViewModel(item));
+                }
+
+                var currentLoopId = Preferences.Get(PreferenceKeys.LastLoop, -1);
+                if (currentLoopId > 0)
+                {
+                    MainThread.BeginInvokeOnMainThread(() => SelectedLoop = Loops.FirstOrDefault(l => l.Loop.Id == currentLoopId));
                 }
             }
 

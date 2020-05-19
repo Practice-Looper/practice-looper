@@ -115,6 +115,12 @@
     <data name="Hint_Content_AlreadyPurchased" xml:space="preserve">
         <value>Sie haben diesen Artikel bereits gekauft!</value>
     </data>
+         <data name="Hint_Caption_SlowConnection" xml:space="preserve">
+        <value>Verbindungprobleme</value>
+    </data>
+     <data name="Hint_Content_SlowConnection" xml:space="preserve">
+        <value>Ihre Internetverbindung scheint schlecht zu sein. Dies kann sich auf die Bedienung der App auswirken.</value>
+    </data>
     <!--Prompt Dialogs-->
     <data name="Prompt_Caption_NewLoop" xml:space="preserve">
         <value>Neue Markierung</value>

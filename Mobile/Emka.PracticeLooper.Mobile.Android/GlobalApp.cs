@@ -28,6 +28,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             resolver.Register(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
             resolver.Register(typeof(InAppBillingVerifyPurchase), typeof(IInAppBillingVerifyPurchase));
             resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
+            resolver.RegisterSingleton(typeof(ConnectivityService), typeof(IConnectivityService));
         }
 
         internal static IConfigurationService ConfigurationService { get; private set; }

@@ -112,7 +112,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             Initialized = true;
         }
 
-        public void Pause()
+        public void Pause(bool triggeredByUser = true)
         {
             if (IsPlaying)
             {
@@ -129,7 +129,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             spotifyDelegate.SpotifyErrorHandler -= OnError;
             spotifyDelegate.SpotifyEventHandler -= OnEvent;
             spotifyDelegate.SpotifyResultHandler -= OnResult;
-            spotifyLoader.Disconnect();
+            if (spotifyLoader.Authorized && triggeredByUser)
+            {
+                spotifyLoader.Disconnect();
+            }
+
             Initialized = false;
         }
 
@@ -180,9 +184,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             await Task.Run(() => Init(loop));
         }
 
-        public async Task PauseAsync()
+        public async Task PauseAsync(bool triggeredByUser = true)
         {
-            await Task.Run(Pause);
+            await Task.Run(() => Pause(triggeredByUser));
         }
 
         public async Task PlayAsync()

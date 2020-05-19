@@ -233,6 +233,18 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string Hint_Caption_SlowConnection {
+            get {
+                return ResourceManager.GetString("Hint_Caption_SlowConnection", resourceCulture);
+            }
+        }
+        
+        internal static string Hint_Content_SlowConnection {
+            get {
+                return ResourceManager.GetString("Hint_Content_SlowConnection", resourceCulture);
+            }
+        }
+        
         internal static string Prompt_Caption_NewLoop {
             get {
                 return ResourceManager.GetString("Prompt_Caption_NewLoop", resourceCulture);

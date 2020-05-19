@@ -63,7 +63,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             session = loop.Session;
 
             internalSongDuration = TimeSpan.FromSeconds(session.AudioSource.Duration).TotalMilliseconds;
-            CurrentLoop = session.Loops[0];
+            CurrentLoop = loop;
             CurrentLoop.StartPositionChanged += OnStartPositionChanged;
             CurrentLoop.EndPositionChanged += OnEndPositionChanged;
             CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
@@ -75,7 +75,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             Initialized = true;
         }
 
-        public void Pause()
+        public void Pause(bool triggeredByUser = true)
         {
             if (IsPlaying)
             {
@@ -93,7 +93,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             RaisePlayingStatusChanged();
             Initialized = false;
 
-            if (spotifyLoader.Authorized)
+            if (spotifyLoader.Authorized && triggeredByUser)
             {
                 spotifyLoader.Disconnect();
             }
@@ -173,9 +173,9 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             await Task.Run(Play);
         }
 
-        public async Task PauseAsync()
+        public async Task PauseAsync(bool triggeredByUser = true)
         {
-            await Task.Run(Pause);
+            await Task.Run(() => Pause(triggeredByUser));
         }
 
         public async Task SeekAsync(double time)

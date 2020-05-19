@@ -62,9 +62,9 @@ namespace Emka.PracticeLooper.Mobile.Common
             task.Wait();
         }
 
-        public void Pause()
+        public void Pause(bool triggeredByUser = true)
         {
-            var task = Task.Run(async () => await PauseAsync());
+            var task = Task.Run(async () => await PauseAsync(triggeredByUser));
             task.Wait();
         }
 
@@ -162,7 +162,7 @@ namespace Emka.PracticeLooper.Mobile.Common
             }
         }
 
-        public async Task PauseAsync()
+        public async Task PauseAsync(bool triggeredByUser = true)
         {
             if (IsPlaying)
             {

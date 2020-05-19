@@ -24,6 +24,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
             resolver.RegisterSingleton(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
             resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
+            resolver.RegisterSingleton(typeof(ConnectivityService), typeof(IConnectivityService));
         }
 
         internal static IConfigurationService ConfigurationService { get; private set; }

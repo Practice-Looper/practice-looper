@@ -118,6 +118,12 @@
     <data name="Hint_Content_AlreadyPurchased" xml:space="preserve">
         <value>You already purchased this item!</value>
     </data>
+     <data name="Hint_Caption_SlowConnection" xml:space="preserve">
+        <value>Slow connection</value>
+    </data>
+     <data name="Hint_Content_SlowConnection" xml:space="preserve">
+        <value>Your internet connection seems to be slow. This may impact the experience:</value>
+    </data>
     <!--Prompt Dialogs-->
     <data name="Prompt_Caption_NewLoop" xml:space="preserve">
         <value>New Loop</value>

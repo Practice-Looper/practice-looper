@@ -22,7 +22,7 @@
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand"
                 ItemsSource="{Binding Loops}"
-                SelectedItem="{Binding SelectedLoop}">
+                SelectedItem="{Binding SelectedLoop, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <views:CustomViewCell>
@@ -64,7 +64,7 @@
                                     VerticalOptions="Center"
                                     FontSize="Large"
                                     Margin="0,0,5,0"
-                                    Style="{StaticResource LabelStyle}">
+                                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}">
                                 </Label>
                                 <Label
                                     Text="-"
@@ -72,7 +72,7 @@
                                     VerticalOptions="Center"
                                     HorizontalOptions="Center"
                                     FontSize="Large"
-                                    Style="{StaticResource LabelStyle}">
+                                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}">
                                 </Label>
                                 <Label
                                     Text="{Binding .,
@@ -84,7 +84,7 @@
                                     HorizontalOptions="Center"
                                     FontSize="Large"
                                     Margin="5,0,0,0"
-                                    Style="{StaticResource LabelStyle}">
+                                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}">
                                 </Label>
                                 <!--<ImageButton
                             Grid.Column="2"

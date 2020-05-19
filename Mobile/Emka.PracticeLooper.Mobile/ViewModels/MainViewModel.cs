@@ -16,7 +16,6 @@ using Emka3.PracticeLooper.Services.Contracts.Player;
 using Xamarin.Forms;
 using Factory = Emka3.PracticeLooper.Mappings.Factory;
 using Emka3.PracticeLooper.Utils;
-using Emka3.PracticeLooper.Config.Feature;
 using Emka.PracticeLooper.Model;
 using Emka.PracticeLooper.Services.Contracts;
 using Xamarin.Essentials;
@@ -35,8 +34,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private IFileRepository fileRepository;
         private ISourcePicker sourcePicker;
         private ISpotifyLoader spotifyLoader;
-        private IConfigurationService configurationService;
+        private readonly IConfigurationService configurationService;
         private Mobile.Common.IFilePicker filePicker;
+        private readonly IConnectivityService connectivityService;
         private Command playCommand;
         private Command createSessionCommand;
         private Command deleteSessionCommand;
@@ -66,7 +66,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             ISourcePicker sourcePicker,
             ISpotifyLoader spotifyLoader,
             IConfigurationService configurationService,
-            Mobile.Common.IFilePicker filePicker)
+            Mobile.Common.IFilePicker filePicker,
+            IConnectivityService connectivityService)
         {
             this.interstitialAd = interstitialAd;
             this.sessionsRepository = sessionsRepository;
@@ -77,6 +78,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.spotifyLoader = spotifyLoader;
             this.configurationService = configurationService;
             this.filePicker = filePicker;
+            this.connectivityService = connectivityService;
             Sessions = new ObservableCollection<SessionViewModel>();
             CurrentSession = null;
             isPlaying = false;
@@ -229,18 +231,24 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             set
             {
                 currentSession = value;
-
+                var isCurrentlyPlaying = IsPlaying;
                 if (currentSession != null)
                 {
                     InitAudioPlayer();
                     if (Preferences.Get(PreferenceKeys.LastSession, default(int)) != currentSession.Session.Id)
                     {
-                        Preferences.Set(PreferenceKeys.LastLoop, currentSession.Session.Id);
+                        Preferences.Set(PreferenceKeys.LastSession, currentSession.Session.Id);
+                    }
+
+                    if (isCurrentlyPlaying)
+                    {
+                        PlayCommand.Execute(null);
                     }
                 }
 
                 NotifyPropertyChanged();
-                NotifyPropertyChanged("IsInitialized");
+                NotifyPropertyChanged(nameof(IsInitialized));
+                NotifyPropertyChanged(nameof(IsPlaying));
                 PlayCommand.ChangeCanExecute();
                 AddNewLoopCommand.ChangeCanExecute();
             }
@@ -293,8 +301,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     {
                         Sessions.Add(new SessionViewModel(item));
                     }
+
                     CurrentSession = Sessions.FirstOrDefault(s => s.Session.Id == Preferences.Get(PreferenceKeys.LastSession, default(int))) ?? Sessions.FirstOrDefault();
                 });
+
+                if (!connectivityService.HasFastConnection())
+                {
+                    await dialogService.ShowAlertAsync(AppResources.Hint_Content_SlowConnection, AppResources.Hint_Caption_SlowConnection);
+                }
             }
             catch (Exception ex)
             {
@@ -440,10 +454,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
+                IsBusy = true;
                 if (CurrentAudioPlayer.IsPlaying)
                 {
                     Device.BeginInvokeOnMainThread(() => IsPlaying = false);
-                    Device.BeginInvokeOnMainThread(CurrentAudioPlayer.Pause);
+                    Device.BeginInvokeOnMainThread(() => CurrentAudioPlayer.Pause());
                     CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
                     CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
@@ -477,6 +492,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 await Logger.LogErrorAsync(ex);
                 await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotPlaySong, AppResources.Error_Caption);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
@@ -530,7 +549,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 catch (Exception ex)
                 {
                     await Logger.LogErrorAsync(ex);
-                    await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotDeleteSong,AppResources.Error_Caption);
+                    await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotDeleteSong, AppResources.Error_Caption);
                 }
             }
         }
@@ -604,6 +623,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
+                IsBusy = true;
                 if (IsPlaying)
                 {
                     CurrentAudioPlayer.Pause();
@@ -636,6 +656,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 Logger.LogErrorAsync(ex);
                 dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
@@ -678,22 +702,23 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             return TimeSpan.FromMilliseconds(0).ToString(@"mm\:ss");
         }
 
-        private void OnLoopChanged(LoopsDetailsViewModel sender, LoopViewModel loop)
+        private async void OnLoopChanged(LoopsDetailsViewModel sender, LoopViewModel loop)
         {
-            try
+            if (loop.Loop != CurrentLoop)
             {
-                var isCurrentlyPlaying = CurrentAudioPlayer?.IsPlaying;
-                CurrentLoop = loop.Loop;
-                InitAudioPlayer();
-
-                if (isCurrentlyPlaying.HasValue && isCurrentlyPlaying.Value)
+                try
                 {
-                    CurrentAudioPlayer.Play();
-                }
-            }
-            catch (Exception ex)
-            {
+                    await NavigationService?.GoBackAsync();
+                    CurrentAudioPlayer.Pause(false);
+                    CurrentLoop = loop.Loop;
+                    await ExecutePlayCommand(null);
 
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError(ex);
+                    await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
+                }
             }
         }
 

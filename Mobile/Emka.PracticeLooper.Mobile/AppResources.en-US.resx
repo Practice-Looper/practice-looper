@@ -17,115 +17,195 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <!--General-->
-    <data name="AppName" xml:space="preserve">
+    <data
+        name="AppName"
+        xml:space="preserve">
         <value>Practice Looper</value>
     </data>
-    <data name="Spotify" xml:space="preserve">
+    <data
+        name="Spotify"
+        xml:space="preserve">
         <value>Spotify</value>
     </data>
-    <data name="AudioFile" xml:space="preserve">
+    <data
+        name="AudioFile"
+        xml:space="preserve">
         <value>Audio File</value>
     </data>
-    <data name="Cancel" xml:space="preserve">
+    <data
+        name="Cancel"
+        xml:space="preserve">
         <value>Cancel</value>
     </data>
-    <data name="Ok" xml:space="preserve">
+    <data
+        name="Ok"
+        xml:space="preserve">
         <value>OK</value>
     </data>
-     <data name="Save" xml:space="preserve">
+    <data
+        name="Save"
+        xml:space="preserve">
         <value>Save</value>
     </data>
     <!--LoopsDetailsView-->
-    <data name="LoopsDetailsView_Title" xml:space="preserve">
+    <data
+        name="LoopsDetailsView_Title"
+        xml:space="preserve">
         <value>Loops</value>
     </data>
     <!--SpotifySearchView-->
-     <data name="SpotifySearchView_Title" xml:space="preserve">
+    <data
+        name="SpotifySearchView_Title"
+        xml:space="preserve">
         <value>Add Spotify Song</value>
-    </data>   
-     <data name="SpotifySearchView_SearchBox_Placeholder" xml:space="preserve">
+    </data>
+    <data
+        name="SpotifySearchView_SearchBox_Placeholder"
+        xml:space="preserve">
         <value>Search track</value>
     </data>
     <!--SettingsView-->
-     <data name="SettingsView_Title" xml:space="preserve">
+    <data
+        name="SettingsView_Title"
+        xml:space="preserve">
         <value>Settings</value>
     </data>
-     <data name="SettingsView_DarkMode" xml:space="preserve">
+    <data
+        name="SettingsView_DarkMode"
+        xml:space="preserve">
         <value>Dark Mode</value>
     </data>
-     <data name="SettingsView_DarkMode" xml:space="preserve">
+    <data
+        name="SettingsView_DarkMode"
+        xml:space="preserve">
         <value>Dark Mode</value>
     </data>
-     <data name="SettingsView_AppVersion" xml:space="preserve">
+    <data
+        name="SettingsView_AppVersion"
+        xml:space="preserve">
         <value>App vesion: {0}</value>
     </data>
-     <data name="SettingsView_ListView_Header" xml:space="preserve">
+    <data
+        name="SettingsView_ListView_Header"
+        xml:space="preserve">
         <value>Upgrades</value>
     </data>
-     <data name="SettingsView_NoUpgradesDescription" xml:space="preserve">
+    <data
+        name="SettingsView_NoUpgradesDescription"
+        xml:space="preserve">
         <value>Failed to load upgrades, try again later.</value>
     </data>
     <!--Error Dialogs-->
-    <data name="Error_Caption" xml:space="preserve">
+    <data
+        name="Error_Caption"
+        xml:space="preserve">
         <value>Error</value>
     </data>
-    <data name="Error_Content_General" xml:space="preserve">
+    <data
+        name="Error_Content_General"
+        xml:space="preserve">
         <value>Oops, something went wrong!</value>
     </data>
-    <data name="Error_Content_CouldNotCreateSession" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotCreateSession"
+        xml:space="preserve">
         <value>Oops, could not add song, please try again.</value>
     </data>
-    <data name="Error_Content_CouldNotPlaySong" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotPlaySong"
+        xml:space="preserve">
         <value>Oops, could not play song, please try again.</value>
     </data>
-    <data name="Error_Content_CouldNotDeleteSong" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotDeleteSong"
+        xml:space="preserve">
         <value>Oops, could not delete song, please try again.</value>
     </data>
-    <data name="Error_Content_CouldNotCreateLoop" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotCreateLoop"
+        xml:space="preserve">
         <value>Oops, could not add loop, please try again.</value>
     </data>
-    <data name="Error_Content_CouldNotDeleteLoop" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotDeleteLoop"
+        xml:space="preserve">
         <value>Oops, could not delete loop, please try again.</value>
     </data>
-    <data name="Error_Content_CouldNotConnectToStore" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotConnectToStore"
+        xml:space="preserve">
         <value>Oops, could not connect to store, please try again.</value>
     </data>
-    <data name="Error_Content_CouldNotPurchaseItem" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotPurchaseItem"
+        xml:space="preserve">
         <value>Oops, could not purchase item, please try again.</value>
     </data>
-    <data name="Error_Content_StoreUnavailable" xml:space="preserve">
+    <data
+        name="Error_Content_StoreUnavailable"
+        xml:space="preserve">
         <value>Currently the app store seems to be unavailble. Try again later.</value>
     </data>
-    <data name="Error_Content_BillingUnavailable" xml:space="preserve">
+    <data
+        name="Error_Content_BillingUnavailable"
+        xml:space="preserve">
         <value>Billing seems to be unavailable, please try again later.</value>
     </data>
-     <data name="Error_Content_PaymentInvalid" xml:space="preserve">
+    <data
+        name="Error_Content_PaymentInvalid"
+        xml:space="preserve">
         <value>Payment seems to be invalid, please try again.</value>
     </data>
-    <data name="Error_Content_PaymentNotAllowed" xml:space="preserve">
+    <data
+        name="Error_Content_PaymentNotAllowed"
+        xml:space="preserve">
         <value>Payment does not seem to be enabled/allowed, please try again.</value>
     </data>
-    <data name="Error_Content_RestoreFailed" xml:space="preserve">
+    <data
+        name="Error_Content_RestoreFailed"
+        xml:space="preserve">
         <value>Failed to restore purchase, please try again.</value>
     </data>
-     <data name="Error_Content_CouldNotConnectToSpotify" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotConnectToSpotify"
+        xml:space="preserve">
         <value>Failed to connect to Spotify App, please try again.</value>
     </data>
     <!--Hint Dialogs-->
-    <data name="Hint_Caption_AlreadyPurchased" xml:space="preserve">
+    <data
+        name="Hint_Caption_AlreadyPurchased"
+        xml:space="preserve">
         <value>Purchased</value>
     </data>
-    <data name="Hint_Content_AlreadyPurchased" xml:space="preserve">
+    <data
+        name="Hint_Content_AlreadyPurchased"
+        xml:space="preserve">
         <value>You already purchased this item!</value>
     </data>
+    <data
+        name="Hint_Caption_SlowConnection"
+        xml:space="preserve">
+        <value>Slow connection</value>
+    </data>
+    <data
+        name="Hint_Content_SlowConnection"
+        xml:space="preserve">
+        <value>Your internet connection seems to be slow. This may impact the experience:</value>
+    </data>
     <!--Prompt Dialogs-->
-    <data name="Prompt_Caption_NewLoop" xml:space="preserve">
+    <data
+        name="Prompt_Caption_NewLoop"
+        xml:space="preserve">
         <value>New Loop</value>
     </data>
-    <data name="Prompt_Content_NewLoop" xml:space="preserve">
+    <data
+        name="Prompt_Content_NewLoop"
+        xml:space="preserve">
         <value>Enter a name</value>
     </data>
-     <data name="Prompt_Content_NewLoo_NamePlaceholder" xml:space="preserve">
+    <data
+        name="Prompt_Content_NewLoo_NamePlaceholder"
+        xml:space="preserve">
         <value>Loop{0}</value>
     </data>
 </root>
