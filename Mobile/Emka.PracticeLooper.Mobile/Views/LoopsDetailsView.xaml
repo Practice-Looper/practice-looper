@@ -18,6 +18,18 @@
             VerticalOptions="FillAndExpand"
             Margin="10"
             BackgroundColor="{DynamicResource BackgroundColor}">
+            <ContentView
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                Opacity="0.9"
+                BackgroundColor="{DynamicResource BackgroundColor}">
+                <ActivityIndicator
+                    IsRunning="{Binding IsBusy}"
+                    Color="{DynamicResource SecondaryColor}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center" />
+            </ContentView>
             <ListView
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand"
@@ -25,13 +37,14 @@
                 SelectedItem="{Binding SelectedLoop, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <views:CustomViewCell>
+                        <views:LoopViewCell>
                             <ViewCell.ContextActions>
                                 <MenuItem
-                                    Text="Delete"
+                                    Text="{x:Static rsrcs:AppResources.Delete}"
                                     IsDestructive="True"
                                     Command="{Binding DeleteCommand}"
-                                    CommandParameter="{Binding}" />
+                                    CommandParameter="{Binding}">
+                                </MenuItem>
                             </ViewCell.ContextActions>
                             <Grid
                                 VerticalOptions="FillAndExpand"
@@ -103,7 +116,7 @@
                             </ImageButton.Source>
                         </ImageButton>-->
                             </Grid>
-                        </views:CustomViewCell>
+                        </views:LoopViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
 

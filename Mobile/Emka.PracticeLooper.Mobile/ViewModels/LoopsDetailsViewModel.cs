@@ -20,6 +20,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     {
         private SessionViewModel session;
         private LoopViewModel selectedLoop;
+        private bool isBusy;
         #region Ctor
 
         public LoopsDetailsViewModel()
@@ -63,25 +64,46 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged();
             }
         }
+
+        public bool IsBusy
+        {
+            get => isBusy; set
+            {
+                isBusy = value;
+                NotifyPropertyChanged();
+            }
+        }
         #endregion
 
         #region Methods
 
         public override Task InitializeAsync(object parameter)
         {
-            if (parameter is SessionViewModel session)
+            IsBusy = true;
+            try
             {
-                Session = session;
-                foreach (var item in session.Session.Loops)
+                if (parameter is SessionViewModel session)
                 {
-                    Loops.Add(new LoopViewModel(item));
-                }
+                    Session = session;
+                    foreach (var item in session.Session.Loops)
+                    {
+                        Loops.Add(new LoopViewModel(item));
+                    }
 
-                var currentLoopId = Preferences.Get(PreferenceKeys.LastLoop, -1);
-                if (currentLoopId > 0)
-                {
-                    MainThread.BeginInvokeOnMainThread(() => SelectedLoop = Loops.FirstOrDefault(l => l.Loop.Id == currentLoopId));
+                    var currentLoopId = Preferences.Get(PreferenceKeys.LastLoop, -1);
+                    if (currentLoopId > 0)
+                    {
+                        MainThread.BeginInvokeOnMainThread(() => SelectedLoop = Loops.FirstOrDefault(l => l.Loop.Id == currentLoopId));
+                    }
                 }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                IsBusy = false;
             }
 
             return Task.CompletedTask;

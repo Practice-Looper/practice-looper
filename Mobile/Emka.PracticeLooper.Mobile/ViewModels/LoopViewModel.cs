@@ -17,6 +17,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #region Fields
 
         private Command deleteSessionCommand;
+        private double _startPosition;
+        private double _endPosition;
         #endregion
 
         #region Ctor
@@ -32,6 +34,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public Command DeleteCommand => deleteSessionCommand ?? (deleteSessionCommand = new Command((o) => ExecuteDeleteCommandAsync(o), CanExecuteDeleteCommand));
 
         public Loop Loop { get; }
+
+        public bool CanBeDeleted { get => Loop != null && !Loop.IsDefault; }
         #endregion
 
         #region Methods
@@ -43,7 +47,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private bool CanExecuteDeleteCommand(object arg)
         {
-            return Loop != null && Loop.Id != 0;
+            return Loop != null && !Loop.IsDefault;
         }
 
         private void ExecuteDeleteCommandAsync(object o)

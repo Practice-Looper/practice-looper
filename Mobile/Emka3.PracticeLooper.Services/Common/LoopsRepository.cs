@@ -97,7 +97,14 @@ namespace Emka3.PracticeLooper.Services.Common
         {
             try
             {
-                return Database.Get<Loop>(id);
+                var loop = Database.Get<Loop>(id);
+                if (loop != null)
+                {
+                    var session = Database.GetWithChildren<Session>(loop.SessionId);
+                    loop.Session = session;
+                }
+
+                return loop;
             }
             catch (Exception)
             {

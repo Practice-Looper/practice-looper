@@ -16,119 +16,196 @@
         name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-        <!--General-->
-    <data name="AppName" xml:space="preserve">
+    <!--General-->
+    <data
+        name="AppName"
+        xml:space="preserve">
         <value>Practice Looper</value>
     </data>
-    <data name="Spotify" xml:space="preserve">
+    <data
+        name="Spotify"
+        xml:space="preserve">
         <value>Spotify</value>
     </data>
-    <data name="AudioFile" xml:space="preserve">
+    <data
+        name="AudioFile"
+        xml:space="preserve">
         <value>Audio Datei</value>
     </data>
-    <data name="Cancel" xml:space="preserve">
+    <data
+        name="Cancel"
+        xml:space="preserve">
         <value>Abbrechen</value>
     </data>
-    <data name="Ok" xml:space="preserve">
+    <data
+        name="Ok"
+        xml:space="preserve">
         <value>OK</value>
     </data>
-     <data name="Save" xml:space="preserve">
+    <data
+        name="Save"
+        xml:space="preserve">
         <value>Speichern</value>
     </data>
+    <data
+        name="Delete"
+        xml:space="preserve">
+        <value>Löschen</value>
+    </data>
     <!--LoopsDetailsView-->
-    <data name="LoopsDetailsView_Title" xml:space="preserve">
-        <value>Loops</value>
+    <data
+        name="LoopsDetailsView_Title"
+        xml:space="preserve">
+        <value>Markierungen</value>
     </data>
     <!--SpotifySearchView-->
-     <data name="SpotifySearchView_Title" xml:space="preserve">
+    <data
+        name="SpotifySearchView_Title"
+        xml:space="preserve">
         <value>Song aus Spotify hinzufügen</value>
-    </data>   
-     <data name="SpotifySearchView_SearchBox_Placeholder" xml:space="preserve">
+    </data>
+    <data
+        name="SpotifySearchView_SearchBox_Placeholder"
+        xml:space="preserve">
         <value>Such nach einem Lied</value>
     </data>
     <!--SettingsView-->
-     <data name="SettingsView_Title" xml:space="preserve">
+    <data
+        name="SettingsView_Title"
+        xml:space="preserve">
         <value>Einstellungen</value>
     </data>
-     <data name="SettingsView_DarkMode" xml:space="preserve">
+    <data
+        name="SettingsView_DarkMode"
+        xml:space="preserve">
         <value>Dark Mode</value>
     </data>
-     <data name="SettingsView_AppVersion" xml:space="preserve">
+    <data
+        name="SettingsView_AppVersion"
+        xml:space="preserve">
         <value>App Vesion: {0}</value>
     </data>
-     <data name="SettingsView_ListView_Header" xml:space="preserve">
+    <data
+        name="SettingsView_ListView_Header"
+        xml:space="preserve">
         <value>Upgrades</value>
     </data>
-     <data name="SettingsView_NoUpgradesDescription" xml:space="preserve">
+    <data
+        name="SettingsView_NoUpgradesDescription"
+        xml:space="preserve">
         <value>Upgrades konnten nicht geladen werden, bitte versuchen Sie es später nochmal!</value>
     </data>
     <!--Error Dialogs-->
-    <data name="Error_Caption" xml:space="preserve">
+    <data
+        name="Error_Caption"
+        xml:space="preserve">
         <value>Fehler</value>
     </data>
-    <data name="Error_Content_General" xml:space="preserve">
+    <data
+        name="Error_Content_General"
+        xml:space="preserve">
         <value>Oops, etwas ist schief gelaufen!</value>
     </data>
-    <data name="Error_Content_CouldNotCreateSession" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotCreateSession"
+        xml:space="preserve">
         <value>Oops, Song konnte nicht hinzugefügt werden, bitte versuchen Sie es später nochmal!</value>
     </data>
-    <data name="Error_Content_CouldNotPlaySong" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotPlaySong"
+        xml:space="preserve">
         <value>Oops, Song konnte nicht abgespielt werden, bitte versuchen Sie es später nochmal!</value>
     </data>
-    <data name="Error_Content_CouldNotDeleteSong" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotDeleteSong"
+        xml:space="preserve">
         <value>Oops, Song konnte nicht gelöscht werden, bitte versuchen Sie es später nochmal!</value>
     </data>
-    <data name="Error_Content_CouldNotCreateLoop" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotCreateLoop"
+        xml:space="preserve">
         <value>Oops, Markierung konnte nicht hinzugefügt werden, bitte versuchen Sie es später nochmal!</value>
     </data>
-    <data name="Error_Content_CouldNotDeleteLoop" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotDeleteLoop"
+        xml:space="preserve">
         <value>Oops, Markierung konnte nicht gelöscht werden, bitte versuchen Sie es später nochmal!</value>
     </data>
-    <data name="Error_Content_CouldNotConnectToStore" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotConnectToStore"
+        xml:space="preserve">
         <value>Oops, Verbindung zum Store konnte nicht hergestellt werden, bitte versuchen Sie es später nochmal!</value>
     </data>
-    <data name="Error_Content_CouldNotPurchaseItem" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotPurchaseItem"
+        xml:space="preserve">
         <value>Oops, Kauf konnte nicht abgeschlossen werden, bitte versuchen Sie es später nochmal!</value>
     </data>
-    <data name="Error_Content_StoreUnavailable" xml:space="preserve">
+    <data
+        name="Error_Content_StoreUnavailable"
+        xml:space="preserve">
         <value>Der Store scheint nicht verfügbar zu sein, bitte versuchen Sie es später nochmal!</value>
     </data>
-    <data name="Error_Content_BillingUnavailable" xml:space="preserve">
+    <data
+        name="Error_Content_BillingUnavailable"
+        xml:space="preserve">
         <value>Der Bezahldienst scheint nicht verfügbar zu sein, bitte versuchen Sie es später nochmal!</value>
     </data>
-     <data name="Error_Content_PaymentInvalid" xml:space="preserve">
+    <data
+        name="Error_Content_PaymentInvalid"
+        xml:space="preserve">
         <value>Die Zahlung scheint ungültig zu sein, bitte versuchen Sie es später erneut.</value>
     </data>
-    <data name="Error_Content_PaymentNotAllowed" xml:space="preserve">
+    <data
+        name="Error_Content_PaymentNotAllowed"
+        xml:space="preserve">
         <value>Die Zahlung scheint nicht aktiviert/erlaubt zu sein, bitte versuchen Sie es erneut.</value>
     </data>
-    <data name="Error_Content_RestoreFailed" xml:space="preserve">
+    <data
+        name="Error_Content_RestoreFailed"
+        xml:space="preserve">
         <value>Der Kauf konnte nicht wiederhergestellt werden, bitte versuchen Sie es erneut.</value>
     </data>
-     <data name="Error_Content_CouldNotConnectToSpotify" xml:space="preserve">
+    <data
+        name="Error_Content_CouldNotConnectToSpotify"
+        xml:space="preserve">
         <value>Verbindung mit Spotify App fehlgeschlagen, bitte versuchen Sie es erneut.</value>
     </data>
     <!--Hint Dialogs-->
-    <data name="Hint_Caption_AlreadyPurchased" xml:space="preserve">
+    <data
+        name="Hint_Caption_AlreadyPurchased"
+        xml:space="preserve">
         <value>Gekaut</value>
     </data>
-    <data name="Hint_Content_AlreadyPurchased" xml:space="preserve">
+    <data
+        name="Hint_Content_AlreadyPurchased"
+        xml:space="preserve">
         <value>Sie haben diesen Artikel bereits gekauft!</value>
     </data>
-         <data name="Hint_Caption_SlowConnection" xml:space="preserve">
+    <data
+        name="Hint_Caption_SlowConnection"
+        xml:space="preserve">
         <value>Verbindungprobleme</value>
     </data>
-     <data name="Hint_Content_SlowConnection" xml:space="preserve">
+    <data
+        name="Hint_Content_SlowConnection"
+        xml:space="preserve">
         <value>Ihre Internetverbindung scheint schlecht zu sein. Dies kann sich auf die Bedienung der App auswirken.</value>
     </data>
     <!--Prompt Dialogs-->
-    <data name="Prompt_Caption_NewLoop" xml:space="preserve">
+    <data
+        name="Prompt_Caption_NewLoop"
+        xml:space="preserve">
         <value>Neue Markierung</value>
     </data>
-    <data name="Prompt_Content_NewLoop" xml:space="preserve">
+    <data
+        name="Prompt_Content_NewLoop"
+        xml:space="preserve">
         <value>Geben Sie einen Namen ein</value>
     </data>
-     <data name="Prompt_Content_NewLoo_NamePlaceholder" xml:space="preserve">
+    <data
+        name="Prompt_Content_NewLoo_NamePlaceholder"
+        xml:space="preserve">
         <value>Markierung{0}</value>
     </data>
 </root>

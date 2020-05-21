@@ -80,7 +80,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.filePicker = filePicker;
             this.connectivityService = connectivityService;
             Sessions = new ObservableCollection<SessionViewModel>();
-            CurrentSession = null;
             isPlaying = false;
             Maximum = 1;
             MaximumValue = 1;
@@ -140,16 +139,17 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public double MinimumValue
         {
-            get => minimumValue;
+            get => CurrentLoop != null ? CurrentLoop.StartPosition : default;
             set
             {
                 minimumValue = value;
-                if (IsInitialized)
+                if (IsInitialized && CurrentLoop != null)
                 {
-                    LoopStartPosition = FormatTime(minimumValue * CurrentLoop.Session.AudioSource.Duration * 1000);
+                    CurrentLoop.StartPosition = minimumValue;
                 }
 
                 NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(LoopStartPosition));
             }
         }
 
@@ -165,16 +165,17 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public double MaximumValue
         {
-            get => maximumValue;
+            get => CurrentLoop != null ? CurrentLoop.EndPosition : default;
             set
             {
                 maximumValue = value;
-                if (IsInitialized)
+                if (IsInitialized && CurrentLoop != null)
                 {
-                    LoopEndPosition = FormatTime(maximumValue * CurrentLoop.Session.AudioSource.Duration * 1000);
+                    CurrentLoop.EndPosition = maximumValue;
                 }
 
                 NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(LoopEndPosition));
             }
         }
 
@@ -200,22 +201,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public string LoopStartPosition
         {
-            get => loopStartPosition;
-            set
-            {
-                loopStartPosition = value;
-                NotifyPropertyChanged();
-            }
+            get => CurrentLoop != null ? FormatTime(minimumValue * CurrentLoop.Session.AudioSource.Duration * 1000) : string.Empty;
         }
 
         public string LoopEndPosition
         {
-            get => loopEndPosition;
-            set
-            {
-                loopEndPosition = value;
-                NotifyPropertyChanged();
-            }
+            get => CurrentLoop != null ? FormatTime(maximumValue * CurrentLoop.Session.AudioSource.Duration * 1000) : string.Empty;
         }
 
         public bool IsInitialized => CurrentSession != null;
@@ -271,6 +262,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         Preferences.Set(PreferenceKeys.LastLoop, currentLoop.Id);
                     }
                 }
+
+                NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(MinimumValue));
+                NotifyPropertyChanged(nameof(MaximumValue));
             }
         }
 
@@ -334,12 +329,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public void UpdateMinMaxValues()
         {
-            if (CurrentSession != null)
+            if (CurrentLoop != null)
             {
                 try
                 {
-                    CurrentSession.Session.Loops[0].StartPosition = MinimumValue;
-                    CurrentSession.Session.Loops[0].EndPosition = MaximumValue;
+                    CurrentLoop.StartPosition = MinimumValue;
+                    CurrentLoop.EndPosition = MaximumValue;
                 }
                 catch (Exception ex)
                 {
@@ -407,12 +402,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                                 StartPosition = 0.0,
                                 EndPosition = 1.0,
                                 Repititions = 0,
-                                IsFavorite = true
+                                IsDefault = true
                             }
                         }
                     };
 
-                    newSession.Loops.First().Session = newSession;
+                    //newSession.Loops.First().Session = newSession;
 
                     var newSessionViewModel = new SessionViewModel(newSession);
 
@@ -433,7 +428,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         Preferences.Set(PreferenceKeys.LastLoop, newSession.Loops.First().Id);
                     }
 
-                    await sessionsRepository.SaveAsync(newSession);
+                    newSession.Id = await sessionsRepository.SaveAsync(newSession);
                     Sessions.Add(newSessionViewModel);
                     CurrentSession = newSessionViewModel;
                 }
@@ -602,20 +597,31 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private async Task ExecuteAddNewLoopCommand(object o)
         {
+            IsBusy = true;
             try
             {
                 var name = await dialogService.ShowPromptAsync(AppResources.Prompt_Caption_NewLoop, AppResources.Prompt_Content_NewLoop, AppResources.Save, AppResources.Cancel, string.Format(AppResources.Prompt_Content_NewLoo_NamePlaceholder, CurrentSession.Session.Loops.Count + 1));
                 if (!string.IsNullOrEmpty(name))
                 {
-                    var loop = new Loop() { Name = name, StartPosition = MinimumValue, EndPosition = MaximumValue, Session = CurrentSession.Session, SessionId = CurrentSession.Session.Id };
+                    // reset current loop
+                    var unmodifiedLoop = await loopsRepository.GetByIdAsync(CurrentLoop.Id);
+                    CurrentSession.Session.Loops[CurrentSession.Session.Loops.IndexOf(CurrentLoop)] = unmodifiedLoop;
+
+                    // create new loop and set it as current loop
+                    var loop = new Loop() { Name = name, StartPosition = MinimumValue, EndPosition = MaximumValue, Session = CurrentSession.Session, SessionId = CurrentSession.Session.Id, IsDefault = false };
                     loop.Id = await loopsRepository.SaveAsync(loop);
                     CurrentSession.Session.Loops.Add(loop);
+                    CurrentLoop = loop;
                 }
             }
             catch (Exception ex)
             {
                 await Logger.LogErrorAsync(ex);
                 await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotCreateLoop, AppResources.Error_Caption);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
@@ -632,7 +638,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (CurrentSession != null)
                 {
                     CurrentAudioPlayer = Factory.GetResolver().ResolveAll<IAudioPlayer>().First(p => p.Type == CurrentSession.Session.AudioSource.Type);
-                    CurrentLoop = CurrentSession.Session.Loops.FirstOrDefault(l => l.Id == Preferences.Get(PreferenceKeys.LastLoop, default(int))) ?? CurrentSession.Session.Loops[0];
+                    CurrentLoop = CurrentSession.Session.Loops.FirstOrDefault(l => l.Id == Preferences.Get(PreferenceKeys.LastLoop, default(int))) ?? CurrentSession.Session.Loops.First(l => l.IsDefault);
                     MinimumValue = CurrentLoop.StartPosition;
                     MaximumValue = CurrentLoop.EndPosition;
                     SongDuration = FormatTime(CurrentSession.Session.AudioSource.Duration * 1000);
@@ -708,11 +714,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 try
                 {
-                    await NavigationService?.GoBackAsync();
                     CurrentAudioPlayer.Pause(false);
                     CurrentLoop = loop.Loop;
                     await ExecutePlayCommand(null);
-
+                    await NavigationService?.GoBackAsync();
                 }
                 catch (Exception ex)
                 {
@@ -732,8 +737,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (loop == CurrentLoop)
                 {
                     Pause();
-                    CurrentLoop = CurrentSession.Session.Loops[0];
-                    CurrentLoop.IsFavorite = true;
+                    CurrentLoop = CurrentSession.Session.Loops.First(l => l.IsDefault);
                     await loopsRepository.UpdateAsync(CurrentLoop);
                 }
             }

@@ -83,6 +83,12 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
         internal static string LoopsDetailsView_Title {
             get {
                 return ResourceManager.GetString("LoopsDetailsView_Title", resourceCulture);

@@ -120,6 +120,7 @@ namespace Emka3.PracticeLooper.Services.Common
         {
             try
             {
+                item.Loops.First().Session = item;
                 Database.Insert(item.AudioSource);
                 Database.InsertAll(item.Loops, true);
                 Database.InsertWithChildren(item, true);

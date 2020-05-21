@@ -47,6 +47,11 @@
         xml:space="preserve">
         <value>Save</value>
     </data>
+    <data
+        name="Delete"
+        xml:space="preserve">
+        <value>Delete</value>
+    </data>
     <!--LoopsDetailsView-->
     <data
         name="LoopsDetailsView_Title"

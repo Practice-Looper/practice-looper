@@ -77,14 +77,14 @@ namespace Emka3.PracticeLooper.Model.Player
         [ForeignKey(typeof(Session))]
         public int SessionId { get; set; }
 
-        [ManyToOne]
+        [ManyToOne(CascadeOperations = CascadeOperation.CascadeRead)]
         public Session Session { get; set; }
 
         // <summary>
         /// Used to auto select last used loop.
         /// </summary>
         /// <value><c>true</c> if is favorite; otherwise, <c>false</c>.</value>
-        public bool IsFavorite { get; set; }
+        public bool IsDefault { get; set; }
         #endregion Properties
 
         #region Methods
