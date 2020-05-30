@@ -52,6 +52,31 @@
         xml:space="preserve">
         <value>Löschen</value>
     </data>
+    <data
+        name="Close"
+        xml:space="preserve">
+        <value>Schließen</value>
+    </data>
+    <data
+        name="Minutes"
+        xml:space="preserve">
+        <value>Minuten</value>
+    </data>
+     <data
+        name="Seconds"
+        xml:space="preserve">
+        <value>Sekunden</value>
+    </data>
+        <data
+        name="LoopStartPosition"
+        xml:space="preserve">
+        <value>Start Markierung</value>
+    </data>
+    <data
+        name="LoopEndPosition"
+        xml:space="preserve">
+        <value>End Markierung</value>
+    </data>
     <!--LoopsDetailsView-->
     <data
         name="LoopsDetailsView_Title"

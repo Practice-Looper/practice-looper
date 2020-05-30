@@ -152,9 +152,6 @@
     <PackageReference Include="Xamarin.Android.Support.Compat">
       <Version>28.0.0.3</Version>
     </PackageReference>
-    <PackageReference Include="SkiaSharp.Views.Forms">
-      <Version>1.68.1.1</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Plugin.FilePicker">
       <Version>2.1.34</Version>
     </PackageReference>

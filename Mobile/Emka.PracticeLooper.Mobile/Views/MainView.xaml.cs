@@ -96,23 +96,25 @@ namespace Emka.PracticeLooper.Mobile.Views
 
         async void OnStartPositionClicked(object sender, System.EventArgs e)
         {
-            picker.IsOpen = true;
             if (BindingContext is MainViewModel vm)
             {
                 var rangeVm = new RangePickerViewModel(vm.CurrentSession.Session.AudioSource, vm.CurrentLoop, true, resolver.Resolve<IDialogService>(), resolver.Resolve<ILogger>());
                 await rangeVm.InitializeAsync(default);
                 picker.BindingContext = rangeVm;
+                picker.IsOpen = true;
+                picker.HeaderText = AppResources.LoopStartPosition;
             }
         }
 
         async void OnEndPositionClicked(object sender, System.EventArgs e)
         {
-            picker.IsOpen = true;
             if (BindingContext is MainViewModel vm)
             {
                 var rangeVm = new RangePickerViewModel(vm.CurrentSession.Session.AudioSource, vm.CurrentLoop, false, resolver.Resolve<IDialogService>(), resolver.Resolve<ILogger>());
                 await rangeVm.InitializeAsync(default);
                 picker.BindingContext = rangeVm;
+                picker.IsOpen = true;
+                picker.HeaderText = AppResources.LoopEndPosition;
             }
         }
 
@@ -147,6 +149,11 @@ namespace Emka.PracticeLooper.Mobile.Views
                     }
                 }
             }
+        }
+
+        void OnClosePicker(object sender, EventArgs e)
+        {
+            picker.IsOpen = !picker.IsOpen;
         }
         #endregion
     }

@@ -89,6 +89,36 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        internal static string Minutes {
+            get {
+                return ResourceManager.GetString("Minutes", resourceCulture);
+            }
+        }
+        
+        internal static string Seconds {
+            get {
+                return ResourceManager.GetString("Seconds", resourceCulture);
+            }
+        }
+        
+        internal static string LoopStartPosition {
+            get {
+                return ResourceManager.GetString("LoopStartPosition", resourceCulture);
+            }
+        }
+        
+        internal static string LoopEndPosition {
+            get {
+                return ResourceManager.GetString("LoopEndPosition", resourceCulture);
+            }
+        }
+        
         internal static string LoopsDetailsView_Title {
             get {
                 return ResourceManager.GetString("LoopsDetailsView_Title", resourceCulture);

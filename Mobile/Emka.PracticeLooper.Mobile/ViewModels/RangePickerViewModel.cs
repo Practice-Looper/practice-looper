@@ -42,7 +42,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             Headers = new ObservableCollection<string>
             {
-                "Minutes", "Seconds"
+                AppResources.Minutes, AppResources.Seconds
             };
 
             Time = new ObservableCollection<object>

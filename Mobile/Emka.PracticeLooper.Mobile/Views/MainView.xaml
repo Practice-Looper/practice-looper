@@ -256,27 +256,6 @@
                             ShowCustomLabel="False"
                             ToolTipPlacement="None">
                         </range:SfRangeSlider>
-                        <!--<views:RangeSlider
-                            
-                            LeftThumbValue="{Binding MinimumValue}"
-                            RightThumbValue="{Binding MaximumValue}"
-                            PrimaryColor="{DynamicResource PrimaryColor}"
-                            SecondaryColor="{DynamicResource SecondaryColor}"
-                            DraggingCompleted="OnDraggingCompleted"
-                            HorizontalOptions="FillAndExpand"
-                            Opacity="1"
-                            IsEnabled="{Binding IsInitialized}">
-                            <views:RangeSlider.Triggers>
-                                <DataTrigger
-                                    TargetType="views:RangeSlider"
-                                    Binding="{Binding IsInitialized}"
-                                    Value="False">
-                                    <Setter
-                                        Property="Opacity"
-                                        Value="0.5" />
-                                </DataTrigger>
-                            </views:RangeSlider.Triggers>
-                        </views:RangeSlider>-->
                         <ImageButton
                             Grid.Row="1"
                             WidthRequest="72"
@@ -370,8 +349,8 @@
                 HorizontalOptions="Center" />
         </ContentView>
         <syncfusion:SfPicker
+            Grid.Row="0"
             x:Name="picker"
-            ShowHeader="False"
             VerticalOptions="End"
             HorizontalOptions="FillAndExpand"
             ColumnHeaderText="{Binding Headers}"
@@ -386,13 +365,18 @@
             HeaderBackgroundColor="{DynamicResource BackgroundColor}"
             HeaderTextColor="{DynamicResource SecondaryColor}"
             ShowFooter="True"
-            ShowColumnHeader="True"
-            ColumnHeaderBackgroundColor="{DynamicResource BackgroundColor}"
-            ColumnHeaderTextColor="{DynamicResource SecondaryColor}"
-            CancelButtonBackgroundColor="{DynamicResource BackgroundColor}"
-            OKButtonBackgroundColor="{DynamicResource BackgroundColor}"
-            CancelButtonTextColor="{DynamicResource SecondaryColor}"
-            OKButtonTextColor="{DynamicResource SecondaryColor}"
-            SelectionChanged="SelectionChanged" />
+            ShowHeader="True"
+            SelectionChanged="SelectionChanged">
+            <syncfusion:SfPicker.FooterView>
+                <Grid
+                    HorizontalOptions="Center">
+                    <Button
+                        Text="{x:Static rsrcs:AppResources.Close}"
+                        Clicked="OnClosePicker"
+                        HorizontalOptions="Center"
+                        TextColor="{DynamicResource PrimaryColor}"/>
+                </Grid>
+            </syncfusion:SfPicker.FooterView>
+        </syncfusion:SfPicker>
     </Grid>
 </ContentPage>
