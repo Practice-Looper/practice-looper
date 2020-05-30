@@ -202,6 +202,12 @@
     <PackageReference Include="Plugin.InAppBilling">
       <Version>3.0.0-beta</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker">
+      <Version>18.1.0.53</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
+      <Version>18.1.0.54</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />

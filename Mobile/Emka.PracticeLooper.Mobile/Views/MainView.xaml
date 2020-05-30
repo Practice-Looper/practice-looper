@@ -5,6 +5,8 @@
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
+    xmlns:syncfusion="clr-namespace:Syncfusion.SfPicker.XForms;assembly=Syncfusion.SfPicker.XForms"
+    xmlns:range="clr-namespace:Syncfusion.SfRangeSlider.XForms;assembly=Syncfusion.SfRangeSlider.XForms"
     ios:Page.UseSafeArea="true"
     Title="{x:Static rsrcs:AppResources.AppName}"
     x:Class="Emka.PracticeLooper.Mobile.Views.MainView"
@@ -38,11 +40,11 @@
             Margin="0,10,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition
-                    Height="7*" />
+                    Height="6*" />
                 <RowDefinition
                     Height="Auto" />
                 <RowDefinition
-                    Height="3*" />
+                    Height="4*" />
             </Grid.RowDefinitions>
             <ContentView
                 Grid.Row="0"
@@ -88,7 +90,10 @@
                 Padding="10,0">
                 <StackLayout>
                     <Grid
-                        HorizontalOptions="FillAndExpand">
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        Margin="0,10,0,0"
+                        HeightRequest="70">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition
                                 Width="2*" />
@@ -128,13 +133,17 @@
                             Grid.Column="1"
                             HorizontalOptions="Start"
                             VerticalOptions="Center"
+                            BackgroundColor="Transparent"
                             TextColor="{DynamicResource PrimaryColor}"
                             FontSize="Large"
                             Margin="0,0,5,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="OnStartPositionClicked" />
+                            </Label.GestureRecognizers>
                             <Label.Style>
                                 <Style
-                                    TargetType="Label"
-                                    BasedOn="{StaticResource LabelStyle}">
+                                    TargetType="Label">
                                     <Setter
                                         Property="IsVisible"
                                         Value="True" />
@@ -159,12 +168,16 @@
                             Grid.Column="1"
                             VerticalOptions="Center"
                             HorizontalOptions="End"
+                            BackgroundColor="Transparent"
                             FontSize="Large"
                             Margin="5,0,0,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="OnEndPositionClicked" />
+                            </Label.GestureRecognizers>
                             <Label.Style>
                                 <Style
-                                    TargetType="Label"
-                                    BasedOn="{StaticResource LabelStyle}">
+                                    TargetType="Label">
                                     <Setter
                                         Property="IsVisible"
                                         Value="True" />
@@ -214,13 +227,37 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition
-                                Height="Auto" />
+                                Height="*" />
                             <RowDefinition
                                 Height="Auto" />
                         </Grid.RowDefinitions>
-                        <views:RangeSlider
+                        <range:SfRangeSlider
                             Grid.Row="0"
-                            Padding="20,0,20,0"
+                            ShowRange="True"
+                            RangeStart="{Binding MinimumValue}"
+                            RangeEnd="{Binding MaximumValue}"
+                            Margin="0"
+                            Minimum="0"
+                            Maximum="1"
+                            ValueChangeMode="OnThumb"
+                            TickPlacement="Inline"
+                            TickColor="{DynamicResource SecondaryColor}"
+                            TickFrequency="{Binding TickFrequency}"
+                            StepFrequency="{Binding StepFrequency}"
+                            SnapsTo="StepValues"
+                            KnobColor="{DynamicResource PrimaryColor}"
+                            TrackSelectionColor="{DynamicResource PrimaryColor}"
+                            TrackColor="{DynamicResource SecondaryColor}"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center"
+                            Orientation="Horizontal"
+                            IsEnabled="{Binding IsInitialized}"
+                            ShowValueLabel="False"
+                            ShowCustomLabel="False"
+                            ToolTipPlacement="None">
+                        </range:SfRangeSlider>
+                        <!--<views:RangeSlider
+                            
                             LeftThumbValue="{Binding MinimumValue}"
                             RightThumbValue="{Binding MaximumValue}"
                             PrimaryColor="{DynamicResource PrimaryColor}"
@@ -239,14 +276,15 @@
                                         Value="0.5" />
                                 </DataTrigger>
                             </views:RangeSlider.Triggers>
-                        </views:RangeSlider>
+                        </views:RangeSlider>-->
                         <ImageButton
                             Grid.Row="1"
                             WidthRequest="72"
                             HeightRequest="72"
                             HorizontalOptions="Center"
                             BackgroundColor="Transparent"
-                            Command="{Binding PlayCommand}">
+                            Command="{Binding PlayCommand}"
+                            Margin="0,0,0,10">
                             <ImageButton.Source>
                                 <FontImageSource
                                     FontFamily="{DynamicResource MaterialFontFamily}"
@@ -331,5 +369,30 @@
                 VerticalOptions="Center"
                 HorizontalOptions="Center" />
         </ContentView>
+        <syncfusion:SfPicker
+            x:Name="picker"
+            ShowHeader="False"
+            VerticalOptions="End"
+            HorizontalOptions="FillAndExpand"
+            ColumnHeaderText="{Binding Headers}"
+            SelectedItem="{Binding SelectedTime, Mode=TwoWay}"
+            ItemsSource="{Binding Time}"
+            PickerMode="Dialog"
+            BackgroundColor="{DynamicResource BackgroundColor}"
+            BorderColor="{DynamicResource SecondaryColor}"
+            SelectedItemTextColor="{DynamicResource PrimaryColor}"
+            SelectionBackgroundColor="{DynamicResource SecondaryColor}"
+            UnSelectedItemTextColor="{DynamicResource SecondaryColor}"
+            HeaderBackgroundColor="{DynamicResource BackgroundColor}"
+            HeaderTextColor="{DynamicResource SecondaryColor}"
+            ShowFooter="True"
+            ShowColumnHeader="True"
+            ColumnHeaderBackgroundColor="{DynamicResource BackgroundColor}"
+            ColumnHeaderTextColor="{DynamicResource SecondaryColor}"
+            CancelButtonBackgroundColor="{DynamicResource BackgroundColor}"
+            OKButtonBackgroundColor="{DynamicResource BackgroundColor}"
+            CancelButtonTextColor="{DynamicResource SecondaryColor}"
+            OKButtonTextColor="{DynamicResource SecondaryColor}"
+            SelectionChanged="SelectionChanged" />
     </Grid>
 </ContentPage>

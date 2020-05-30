@@ -192,6 +192,16 @@
         xml:space="preserve">
         <value>Ihre Internetverbindung scheint schlecht zu sein. Dies kann sich auf die Bedienung der App auswirken.</value>
     </data>
+        <data
+        name="Hint_Caption_FileTooLong_Caption"
+        xml:space="preserve">
+        <value>Lieder die länger als eine Stunde sind, werden nicht unterstützt.</value>
+    </data>
+    <data
+        name="Hint_Content_FileTooLong_Content"
+        xml:space="preserve">
+        <value>Songs longer than one hour are not supported.</value>
+    </data>
     <!--Prompt Dialogs-->
     <data
         name="Prompt_Caption_NewLoop"

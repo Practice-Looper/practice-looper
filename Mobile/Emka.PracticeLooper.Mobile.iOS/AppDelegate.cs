@@ -14,6 +14,8 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using SpotifyBindings.iOS;
+using Syncfusion.SfPicker.XForms.iOS;
+using Syncfusion.SfRangeSlider.XForms.iOS;
 using UIKit;
 using Xamarin.Essentials;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
@@ -44,8 +46,10 @@ namespace Emka.PracticeLooper.Mobile.iOS
             Rg.Plugins.Popup.Popup.Init();
             Google.MobileAds.MobileAds.SharedInstance.Start(null);
             CrossMediaManager.Current.Init();
+            SfPickerRenderer.Init();
 
             global::Xamarin.Forms.Forms.Init();
+            new SfRangeSliderRenderer();
             LoadApplication(new App());
             stopWatch.Stop();
             Analytics.TrackEvent(TrackerEvents.GeneralInformation.ToString(), new Dictionary<string, string>

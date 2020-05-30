@@ -197,6 +197,16 @@
         xml:space="preserve">
         <value>Your internet connection seems to be slow. This may impact the experience:</value>
     </data>
+    <data
+        name="Hint_Caption_FileTooLong_Caption"
+        xml:space="preserve">
+        <value>Not supported</value>
+    </data>
+    <data
+        name="Hint_Content_FileTooLon_Content"
+        xml:space="preserve">
+        <value>Songs longer than one hour are not supported.</value>
+    </data>
     <!--Prompt Dialogs-->
     <data
         name="Prompt_Caption_NewLoop"

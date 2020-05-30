@@ -20,6 +20,7 @@ using Emka.PracticeLooper.Model;
 using Emka.PracticeLooper.Services.Contracts;
 using Xamarin.Essentials;
 using Emka3.PracticeLooper.Config;
+using System.Diagnostics;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -174,6 +175,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     CurrentLoop.EndPosition = maximumValue;
                 }
 
+                Debug.WriteLine($"MaximumValue {maximumValue}");
+
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(LoopEndPosition));
             }
@@ -240,6 +243,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(IsInitialized));
                 NotifyPropertyChanged(nameof(IsPlaying));
+                NotifyPropertyChanged(nameof(StepFrequency));
+                NotifyPropertyChanged(nameof(TickFrequency));
                 PlayCommand.ChangeCanExecute();
                 AddNewLoopCommand.ChangeCanExecute();
             }
@@ -278,6 +283,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged();
             }
         }
+
+        public double StepFrequency => CurrentSession != null ? Math.Round(1 / CurrentSession.Session.AudioSource.Duration, 3) : 0;
+        public double TickFrequency => StepFrequency * 5;
         #endregion
 
         #region Metods
@@ -697,7 +705,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
-                return TimeSpan.FromMilliseconds(time).ToString(@"mm\:ss");
+                var result = TimeSpan.FromMilliseconds(time).ToString(@"mm\:ss");
+                Debug.WriteLine($"FormatTime {result}");
+                return result;
             }
             catch (Exception ex)
             {

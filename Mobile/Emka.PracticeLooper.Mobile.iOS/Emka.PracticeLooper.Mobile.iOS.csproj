@@ -192,7 +192,7 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignProvision>practice-looper-dev</CodesignProvision>
-    <MtouchLink>Full</MtouchLink>
+    <MtouchLink>SdkOnly</MtouchLink>
     <BuildIpa>true</BuildIpa>
     <MtouchExtraArgs>--linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker --linkskip=Plugin.InAppBilling</MtouchExtraArgs>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
@@ -299,6 +299,12 @@
     </PackageReference>
     <PackageReference Include="Portable.BouncyCastle">
       <Version>1.8.6.7</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker">
+      <Version>18.1.0.53</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
+      <Version>18.1.0.54</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Mappings.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
@@ -15,6 +21,7 @@ namespace Emka.PracticeLooper.Mobile.Views
     public partial class MainView : ContentPage
     {
         private readonly IConfigurationService configService;
+        private IResolver resolver;
 
         #region Ctor
         public MainView()
@@ -23,7 +30,7 @@ namespace Emka.PracticeLooper.Mobile.Views
             configService = Factory.GetConfigService();
             configService.ValueChanged += ConfigService_ValueChanged;
 
-            var resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
+            resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
             BindingContext = new MainViewModel(resolver.Resolve<IInterstitialAd>(),
                 resolver.Resolve<IRepository<Session>>(),
                 resolver.Resolve<IRepository<Loop>>(),
@@ -87,6 +94,60 @@ namespace Emka.PracticeLooper.Mobile.Views
             }
         }
 
+        async void OnStartPositionClicked(object sender, System.EventArgs e)
+        {
+            picker.IsOpen = true;
+            if (BindingContext is MainViewModel vm)
+            {
+                var rangeVm = new RangePickerViewModel(vm.CurrentSession.Session.AudioSource, vm.CurrentLoop, true, resolver.Resolve<IDialogService>(), resolver.Resolve<ILogger>());
+                await rangeVm.InitializeAsync(default);
+                picker.BindingContext = rangeVm;
+            }
+        }
+
+        async void OnEndPositionClicked(object sender, System.EventArgs e)
+        {
+            picker.IsOpen = true;
+            if (BindingContext is MainViewModel vm)
+            {
+                var rangeVm = new RangePickerViewModel(vm.CurrentSession.Session.AudioSource, vm.CurrentLoop, false, resolver.Resolve<IDialogService>(), resolver.Resolve<ILogger>());
+                await rangeVm.InitializeAsync(default);
+                picker.BindingContext = rangeVm;
+            }
+        }
+
+        void SelectionChanged(object sender, Syncfusion.SfPicker.XForms.SelectionChangedEventArgs e)
+        {
+            if (picker.ItemsSource != null && e.NewValue is IList && (picker.ItemsSource as IList).Count > 1)
+            {
+                //Updated the second column collection based on first column selected value.
+                if (picker.BindingContext is RangePickerViewModel vm)
+                {
+                    var time = (IList)e.NewValue;
+                    if (e.OldValue != null)
+                    {
+                        vm.UpdateSeconds(time[0].ToString(), time[1].ToString());
+
+                        if (BindingContext is MainViewModel mainVm && picker.SelectedItem is IList selectedTime)
+                        {
+                            if (vm.IsStartPosition)
+                            {
+                                var secs = TimeSpan.Parse($"{0}:{selectedTime[0]}:{selectedTime[1]}").TotalSeconds;
+                                var currentStartTime = 100 / mainVm.CurrentSession.Session.AudioSource.Duration * secs;
+                                mainVm.MinimumValue = currentStartTime < 0 ? 0 : currentStartTime / 100;
+                            }
+                            else
+                            {
+                                var secs = TimeSpan.Parse($"{0}:{selectedTime[0]}:{selectedTime[1]}").TotalSeconds;
+                                var currentEndTime = 100 / mainVm.CurrentSession.Session.AudioSource.Duration * secs;
+                                Debug.WriteLine($"currentEndTime {currentEndTime}");
+                                mainVm.MaximumValue = currentEndTime > 100 ? 1 : currentEndTime / 100;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         #endregion
     }
 }

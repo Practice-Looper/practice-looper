@@ -251,6 +251,18 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string Hint_Caption_FileTooLong_Caption {
+            get {
+                return ResourceManager.GetString("Hint_Caption_FileTooLong_Caption", resourceCulture);
+            }
+        }
+        
+        internal static string Hint_Content_FileTooLong_Content {
+            get {
+                return ResourceManager.GetString("Hint_Content_FileTooLong_Content", resourceCulture);
+            }
+        }
+        
         internal static string Prompt_Caption_NewLoop {
             get {
                 return ResourceManager.GetString("Prompt_Caption_NewLoop", resourceCulture);

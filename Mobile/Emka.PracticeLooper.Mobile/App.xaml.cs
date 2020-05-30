@@ -13,8 +13,6 @@ using Xamarin.Essentials;
 using Emka.PracticeLooper.Services.Contracts;
 using System.Collections.Generic;
 using Emka.PracticeLooper.Mobile.Themes;
-using System.Threading;
-using System.Globalization;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -26,6 +24,7 @@ namespace Emka.PracticeLooper.Mobile
 
         public App()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Helpers.Secrets.SyncFusionLicenseKey);
             InitializeComponent();
         }
 
