@@ -46,14 +46,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private SessionViewModel currentSession;
         private Loop currentLoop;
         private bool isPlaying;
-        private double minimum;
-        private double maximum;
         private double minimumValue;
         private double maximumValue;
         private string songDuration;
         private string currentSongTime;
-        private string loopStartPosition;
-        private string loopEndPosition;
         private Command addNewLoopCommand;
         private bool isBusy;
         #endregion
@@ -82,8 +78,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.connectivityService = connectivityService;
             Sessions = new ObservableCollection<SessionViewModel>();
             isPlaying = false;
-            Maximum = 1;
-            MaximumValue = 1;
             MessagingCenter.Subscribe<SpotifySearchViewModel, AudioSource>(this, MessengerKeys.NewTrackAdded, (sender, audioSorce) => CreateSessionCommand.Execute(audioSorce));
             MessagingCenter.Subscribe<SessionViewModel, SessionViewModel>(this, MessengerKeys.DeleteSession, (sender, arg) => DeleteSessionCommand.Execute(arg));
             MessagingCenter.Subscribe<LoopsDetailsViewModel, LoopViewModel>(this, MessengerKeys.LoopChanged, OnLoopChanged);
@@ -126,16 +120,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public double Minimum
         {
-            get
-            {
-                return minimum;
-            }
-
-            set
-            {
-                minimum = value;
-                NotifyPropertyChanged();
-            }
+            get => 0;
         }
 
         public double MinimumValue
@@ -151,17 +136,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(LoopStartPosition));
+                if (minimumValue > 0.5)
+                {
+                    NotifyPropertyChanged(nameof(Minimum));
+                }
             }
         }
 
         public double Maximum
         {
-            get => maximum;
-            set
-            {
-                maximum = value;
-                NotifyPropertyChanged();
-            }
+            get => 1;
         }
 
         public double MaximumValue
@@ -175,10 +159,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     CurrentLoop.EndPosition = maximumValue;
                 }
 
-                Debug.WriteLine($"MaximumValue {maximumValue}");
-
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(LoopEndPosition));
+                if (maximumValue < 0.5)
+                {
+                    NotifyPropertyChanged(nameof(Maximum));
+                }
             }
         }
 
@@ -211,6 +197,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             get => CurrentLoop != null ? FormatTime(maximumValue * CurrentLoop.Session.AudioSource.Duration * 1000) : string.Empty;
         }
+
+        public double MinimumRange { get => StepFrequency * 5; }
 
         public bool IsInitialized => CurrentSession != null;
 
@@ -245,6 +233,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged(nameof(IsPlaying));
                 NotifyPropertyChanged(nameof(StepFrequency));
                 NotifyPropertyChanged(nameof(TickFrequency));
+                NotifyPropertyChanged(nameof(MinimumRange));
                 PlayCommand.ChangeCanExecute();
                 AddNewLoopCommand.ChangeCanExecute();
             }
@@ -284,7 +273,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        public double StepFrequency => CurrentSession != null ? Math.Round(1 / CurrentSession.Session.AudioSource.Duration, 3) : 0;
+        public double StepFrequency => CurrentSession != null ? 1 / CurrentSession.Session.AudioSource.Duration : 0;
         public double TickFrequency => StepFrequency * 5;
         #endregion
 
@@ -703,11 +692,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private string FormatTime(double time)
         {
+            var result = TimeSpan.FromMilliseconds(0).ToString(@"mm\:ss");
             try
             {
-                var result = TimeSpan.FromMilliseconds(time).ToString(@"mm\:ss");
-                Debug.WriteLine($"FormatTime {result}");
-                return result;
+                result = TimeSpan.FromMilliseconds(time).ToString(@"mm\:ss");
             }
             catch (Exception ex)
             {
@@ -715,7 +703,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 dialogService.ShowAlertAsync(ex.Message);
             }
 
-            return TimeSpan.FromMilliseconds(0).ToString(@"mm\:ss");
+            return result;
         }
 
         private async void OnLoopChanged(LoopsDetailsViewModel sender, LoopViewModel loop)
@@ -761,6 +749,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private async Task ExecuteNavigateToSettingsCommand()
         {
             await NavigationService?.NavigateToAsync<SettingsViewModel>();
+        }
+
+        private double EnsureMinValue(double currentValue)
+        {
+            return minimumValue + StepFrequency * 5 >= maximumValue ? maximumValue - StepFrequency * 5 : currentValue;
         }
 
         ~MainViewModel()
