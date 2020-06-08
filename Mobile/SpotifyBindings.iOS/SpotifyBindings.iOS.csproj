@@ -57,7 +57,7 @@
     <ObjcBindingCoreSource Include="Structs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <NativeReference Include="..\..\libs\iOS\spotify sdk 1.2.0\SpotifyiOS.framework">
+    <NativeReference Include="..\..\libs\iOS\spotify sdk 1.2.2\SpotifyiOS.framework">
       <Kind>Framework</Kind>
       <SmartLink>False</SmartLink>
     </NativeReference>

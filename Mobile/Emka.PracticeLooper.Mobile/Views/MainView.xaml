@@ -240,10 +240,8 @@
                             Minimum="{Binding Minimum}"
                             Maximum="{Binding Maximum}"
                             ValueChangeMode="OnThumb"
-                            TickPlacement="Outside"
-                            TickColor="{DynamicResource SecondaryColor}"
-                            TickFrequency="{Binding TickFrequency}"
-                            StepFrequency="{Binding StepFrequency}"
+                            TickPlacement="None"
+                            SnapsTo="None"
                             KnobColor="{DynamicResource PrimaryColor}"
                             TrackSelectionColor="{DynamicResource PrimaryColor}"
                             TrackColor="{DynamicResource SecondaryColor}"
@@ -254,7 +252,8 @@
                             ShowValueLabel="False"
                             ShowCustomLabel="False"
                             ToolTipPlacement="None"
-                            MinimumRange="{Binding MinimumRange}">
+                            MinimumRange="{Binding MinimumRange}"
+                            ThumbSize="2">
                         </range:SfRangeSlider>
                         <ImageButton
                             Grid.Row="1"

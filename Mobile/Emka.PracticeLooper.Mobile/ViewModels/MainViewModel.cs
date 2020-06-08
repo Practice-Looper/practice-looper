@@ -136,10 +136,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(LoopStartPosition));
-                if (minimumValue > 0.5)
-                {
-                    NotifyPropertyChanged(nameof(Minimum));
-                }
             }
         }
 
@@ -161,10 +157,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(LoopEndPosition));
-                if (maximumValue < 0.5)
-                {
-                    NotifyPropertyChanged(nameof(Maximum));
-                }
             }
         }
 
@@ -749,11 +741,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private async Task ExecuteNavigateToSettingsCommand()
         {
             await NavigationService?.NavigateToAsync<SettingsViewModel>();
-        }
-
-        private double EnsureMinValue(double currentValue)
-        {
-            return minimumValue + StepFrequency * 5 >= maximumValue ? maximumValue - StepFrequency * 5 : currentValue;
         }
 
         ~MainViewModel()

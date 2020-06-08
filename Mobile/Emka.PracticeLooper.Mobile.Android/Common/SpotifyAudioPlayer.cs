@@ -116,12 +116,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             if (IsPlaying)
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    Api.PlayerApi
-                    .Pause()
-                    .SetErrorCallback(spotifyDelegate);
-                });
+                Api.PlayerApi
+                .Pause()
+                .SetErrorCallback(spotifyDelegate);
             }
 
             IsPlaying = false;
@@ -139,28 +136,28 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void Play()
         {
-            CurrentStartPosition = (int)(CurrentLoop.StartPosition * SongDuration);
-            CurrentEndPosition = (int)(CurrentLoop.EndPosition * SongDuration);
-
-            spotifyDelegate.SpotifyErrorHandler += OnError;
-            spotifyDelegate.SpotifyEventHandler += OnEvent;
-            spotifyDelegate.SpotifyResultHandler += OnResult;
-
-            MainThread.BeginInvokeOnMainThread(() =>
+            if (!IsPlaying)
             {
-                Api.PlayerApi
-            .Play(session.AudioSource.Source)
-            .SetResultCallback(spotifyDelegate)
-            .SetErrorCallback(spotifyDelegate);
+                spotifyDelegate.SpotifyErrorHandler += OnError;
+                spotifyDelegate.SpotifyEventHandler += OnEvent;
+                spotifyDelegate.SpotifyResultHandler += OnResult;
 
                 Api.PlayerApi.SubscribeToPlayerState()
                 .SetEventCallback(spotifyDelegate)
                 .SetErrorCallback(spotifyDelegate);
-            });
+
+                IsPlaying = true;
+            }
+
+            CurrentStartPosition = (int)(CurrentLoop.StartPosition * SongDuration);
+            CurrentEndPosition = (int)(CurrentLoop.EndPosition * SongDuration);
+
+            Api.PlayerApi
+        .Play(session.AudioSource.Source)
+        .SetResultCallback(spotifyDelegate)
+        .SetErrorCallback(spotifyDelegate);
 
             ResetAllTimers();
-
-            IsPlaying = true;
         }
 
         public void Seek(double time)
@@ -225,13 +222,13 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             return result;
         }
 
-        private void OnStartPositionChanged(object sender, double e)
+        private async void OnStartPositionChanged(object sender, double e)
         {
             try
             {
                 if (IsPlaying)
                 {
-                    Play();
+                    await PlayAsync();
                 }
             }
             catch (System.Exception ex)
@@ -241,13 +238,13 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             }
         }
 
-        private void OnEndPositionChanged(object sender, double e)
+        private async void OnEndPositionChanged(object sender, double e)
         {
             try
             {
                 if (IsPlaying)
                 {
-                    Play();
+                    await PlayAsync();
                 }
             }
             catch (System.Exception ex)

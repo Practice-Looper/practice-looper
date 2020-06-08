@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Com.Spotify.Android.Appremote.Api.Error;
 using Com.Spotify.Sdk.Android.Auth;
+using Emka3.PracticeLooper.Model;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
@@ -134,6 +135,12 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
                 Dialog diag = alertDiag.Create();
                 diag.Show();
+            }
+            else if (error is SpotifyConnectionTerminatedException)
+            {
+                Authorized = false;
+                api = null;
+                Disconnected?.Invoke(this, new SpotifyDisconnectedEventArgs(false));
             }
             else
             {

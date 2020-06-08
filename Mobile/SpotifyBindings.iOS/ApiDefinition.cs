@@ -322,7 +322,7 @@ namespace SpotifyBindings.iOS
         // @required -(void)subscribeToPlayerState:(SPTAppRemoteCallback _Nullable)callback;
         [Abstract]
         [Export("subscribeToPlayerState:")]
-        void SubscribeToPlayerState([NullAllowed] SPTAppRemoteCallback callback);
+        void SubscribeToPlayerState([NullAllowed] SPTAppRemotePlayerStateCallback callback);
 
         // @required -(void)unsubscribeToPlayerState:(SPTAppRemoteCallback _Nullable)callback;
         [Abstract]
