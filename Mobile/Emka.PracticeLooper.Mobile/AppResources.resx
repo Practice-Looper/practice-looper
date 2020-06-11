@@ -232,6 +232,16 @@
         xml:space="preserve">
         <value>Songs longer than one hour are not supported.</value>
     </data>
+    <data
+        name="Hint_Caption_SpotifyMissing_Caption"
+        xml:space="preserve">
+        <value>Spotify App missing</value>
+    </data>
+    <data
+        name="Hint_Content_SpotifyMissing_Content"
+        xml:space="preserve">
+        <value>Spotify app ist missing on your device. Wanna go download it now?</value>
+    </data>
     <!--Prompt Dialogs-->
     <data
         name="Prompt_Caption_NewLoop"

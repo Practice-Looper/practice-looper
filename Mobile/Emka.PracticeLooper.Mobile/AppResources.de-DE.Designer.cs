@@ -293,6 +293,18 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string Hint_Caption_SpotifyMissing {
+            get {
+                return ResourceManager.GetString("Hint_Caption_SpotifyMissing", resourceCulture);
+            }
+        }
+        
+        internal static string Hint_Content_SpotifyMissing {
+            get {
+                return ResourceManager.GetString("Hint_Content_SpotifyMissing", resourceCulture);
+            }
+        }
+        
         internal static string Prompt_Caption_NewLoop {
             get {
                 return ResourceManager.GetString("Prompt_Caption_NewLoop", resourceCulture);

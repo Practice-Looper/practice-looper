@@ -17,6 +17,7 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 using Com.Spotify.Android.Appremote.Api.Error;
 using Com.Spotify.Sdk.Android.Auth;
 using Emka3.PracticeLooper.Model;
+using Emka.PracticeLooper.Mobile.Common;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
@@ -29,14 +30,16 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         private string token;
         private readonly IConfigurationService configurationService;
         private readonly ILogger logger;
+        private readonly IStringLocalizer stringLocalizer;
         #endregion
 
         #region Ctor
 
-        public SpotifyLoader(ILogger logger)
+        public SpotifyLoader(ILogger logger, IStringLocalizer stringLocalizer)
         {
             configurationService = Factory.GetConfigService();
             this.logger = logger;
+            this.stringLocalizer = stringLocalizer;
         }
         #endregion
 
@@ -109,7 +112,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                      { "SpotifyClientId", configurationService.GetValue("SpotifyClientId") },
                      { "requestCode", configurationService.GetValue<int>("SpotifyClientRequestCode").ToString() }
                 });
-
             if (error is NotLoggedInException || error is UserNotAuthorizedException)
             {
                 StartAuthorization();
@@ -117,16 +119,16 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             else if (error is CouldNotFindSpotifyApp)
             {
                 AlertDialog.Builder alertDiag = new AlertDialog.Builder(GlobalApp.MainActivity);
-                alertDiag.SetTitle("Spotify missing");
-                alertDiag.SetMessage("Spotify app ist missing on your device. Wanna go download it now?");
-                alertDiag.SetPositiveButton("GO!", (senderAlert, args) =>
+                alertDiag.SetTitle(stringLocalizer.GetLocalizedString("Hint_Caption_SpotifyMissing"));
+                alertDiag.SetMessage(stringLocalizer.GetLocalizedString("Hint_Content_SpotifyMissing"));
+                alertDiag.SetPositiveButton(stringLocalizer.GetLocalizedString("Ok"), (senderAlert, args) =>
                 {
                     AuthorizationClient.OpenDownloadSpotifyActivity(GlobalApp.MainActivity);
                     connectedEvent.Set();
                     tokenEvent.Set();
                 });
 
-                alertDiag.SetNegativeButton("Nope", (senderAlert, args) =>
+                alertDiag.SetNegativeButton(stringLocalizer.GetLocalizedString("Cancel"), (senderAlert, args) =>
                 {
                     alertDiag.Dispose();
                     connectedEvent.Set();

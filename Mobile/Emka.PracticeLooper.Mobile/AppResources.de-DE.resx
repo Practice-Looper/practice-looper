@@ -227,6 +227,16 @@
         xml:space="preserve">
         <value>Songs longer than one hour are not supported.</value>
     </data>
+     <data
+        name="Hint_Caption_SpotifyMissing"
+        xml:space="preserve">
+        <value>Spotify App</value>
+    </data>
+    <data
+        name="Hint_Content_SpotifyMissing"
+        xml:space="preserve">
+        <value>Spotify-App fehlt auf Ihrem Gerät. Möchten Sie sie jetzt herunterladen?</value>
+    </data>
     <!--Prompt Dialogs-->
     <data
         name="Prompt_Caption_NewLoop"

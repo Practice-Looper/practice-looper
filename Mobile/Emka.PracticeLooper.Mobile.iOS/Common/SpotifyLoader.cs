@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Model;
@@ -32,15 +33,17 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private readonly IConfigurationService configurationService;
         private readonly ILogger logger;
         private readonly IDialogService dialogService;
+        private readonly IStringLocalizer stringLocalizer;
         #endregion
 
         #region Ctor
 
-        public SpotifyLoader(ILogger logger, IDialogService dialogService)
+        public SpotifyLoader(ILogger logger, IDialogService dialogService, IStringLocalizer stringLocalizer)
         {
             configurationService = Factory.GetConfigService();
             this.logger = logger;
             this.dialogService = dialogService;
+            this.stringLocalizer = stringLocalizer;
         }
         #endregion
 
@@ -234,6 +237,19 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private void InstallSpotify()
         {
             // todo: show dialog and ask user if go to appstore
+            var installSpotify = dialogService.ShowConfirmAsync(
+                stringLocalizer.GetLocalizedString("Hint_Caption_SpotifyMissing"),
+                stringLocalizer.GetLocalizedString("Hint_Content_SpotifyMissing"),
+                stringLocalizer.GetLocalizedString("Cancel"),
+                stringLocalizer.GetLocalizedString("Ok")).Result;
+            if (!installSpotify)
+            {
+                installedEvent.Set();
+                tokenEvent.Set();
+                connectedEvent.Set();
+                return;
+            }
+
             var storeViewController = new SKStoreProductViewController();
             storeViewController.Delegate = this;
             //storeViewController.Finished += OnStoreViewControllerFinished;
