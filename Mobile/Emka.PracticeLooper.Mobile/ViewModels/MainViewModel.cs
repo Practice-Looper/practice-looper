@@ -20,7 +20,6 @@ using Emka.PracticeLooper.Model;
 using Emka.PracticeLooper.Services.Contracts;
 using Xamarin.Essentials;
 using Emka3.PracticeLooper.Config;
-using System.Diagnostics;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -128,8 +127,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             get => CurrentLoop != null ? CurrentLoop.StartPosition : default;
             set
             {
-                minimumValue = value;
-                if (IsInitialized && CurrentLoop != null)
+                minimumValue = Math.Round(value, 4);
+                if (IsInitialized && CurrentLoop != null && CurrentLoop.StartPosition != value)
                 {
                     CurrentLoop.StartPosition = minimumValue;
                 }
@@ -149,8 +148,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             get => CurrentLoop != null ? CurrentLoop.EndPosition : default;
             set
             {
-                maximumValue = value;
-                if (IsInitialized && CurrentLoop != null)
+                maximumValue = Math.Round(value, 4);
+                if (IsInitialized && CurrentLoop != null && CurrentLoop.EndPosition != value)
                 {
                     CurrentLoop.EndPosition = maximumValue;
                 }
@@ -542,6 +541,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
+                MainThread.BeginInvokeOnMainThread(() => IsBusy = true);
                 var source = await sourcePicker?.SelectFileSource();
                 await interstitialAd?.ShowAdAsync();
 
@@ -576,6 +576,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 await Logger.LogErrorAsync(ex);
                 await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
+            }
+            finally
+            {
+                MainThread.BeginInvokeOnMainThread(() => IsBusy = false);
             }
         }
 
@@ -635,8 +639,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 }
                 else
                 {
-                    MinimumValue = 0.0;
-                    MaximumValue = 1.0;
+                    MinimumValue = 0;
+                    MaximumValue = 1;
                     SongDuration = FormatTime(0.0);
                     CurrentSongTime = FormatTime(0.0);
 
@@ -704,8 +708,20 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 try
                 {
-                    CurrentAudioPlayer.Pause(false);
+                    if (CurrentAudioPlayer.IsPlaying)
+                    {
+                        CurrentAudioPlayer.Pause(false);
+                    }
+
+                    //MainThread.BeginInvokeOnMainThread(() =>
+                    //{
+                    //    MinimumValue = CurrentLoop.StartPosition;
+                    //    MaximumValue = CurrentLoop.EndPosition;
+                    //});
+
                     CurrentLoop = loop.Loop;
+                    CurrentSession = Sessions.FirstOrDefault(s => s.Session.Id == loop.Loop.SessionId);
+
                     await ExecutePlayCommand(null);
                     await NavigationService?.GoBackAsync();
                 }

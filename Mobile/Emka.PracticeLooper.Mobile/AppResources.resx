@@ -233,12 +233,12 @@
         <value>Songs longer than one hour are not supported.</value>
     </data>
     <data
-        name="Hint_Caption_SpotifyMissing_Caption"
+        name="Hint_Caption_SpotifyMissing"
         xml:space="preserve">
         <value>Spotify App missing</value>
     </data>
     <data
-        name="Hint_Content_SpotifyMissing_Content"
+        name="Hint_Content_SpotifyMissing"
         xml:space="preserve">
         <value>Spotify app ist missing on your device. Wanna go download it now?</value>
     </data>

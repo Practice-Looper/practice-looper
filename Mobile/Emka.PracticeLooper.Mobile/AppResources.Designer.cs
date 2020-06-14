@@ -293,15 +293,15 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
-        internal static string Hint_Caption_SpotifyMissing_Caption {
+        internal static string Hint_Caption_SpotifyMissing {
             get {
-                return ResourceManager.GetString("Hint_Caption_SpotifyMissing_Caption", resourceCulture);
+                return ResourceManager.GetString("Hint_Caption_SpotifyMissing", resourceCulture);
             }
         }
         
-        internal static string Hint_Content_SpotifyMissing_Content {
+        internal static string Hint_Content_SpotifyMissing {
             get {
-                return ResourceManager.GetString("Hint_Content_SpotifyMissing_Content", resourceCulture);
+                return ResourceManager.GetString("Hint_Content_SpotifyMissing", resourceCulture);
             }
         }
         

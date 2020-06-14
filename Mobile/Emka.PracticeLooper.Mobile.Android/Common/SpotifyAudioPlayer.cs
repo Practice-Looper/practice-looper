@@ -99,7 +99,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             session = loop.Session;
             internalSongDuration = TimeSpan.FromSeconds(session.AudioSource.Duration).TotalMilliseconds;
-            CurrentLoop = session.Loops[0];
+            CurrentLoop = loop;
             CurrentLoop.StartPositionChanged += OnStartPositionChanged;
             CurrentLoop.EndPositionChanged += OnEndPositionChanged;
             CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
@@ -116,17 +116,22 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             if (IsPlaying)
             {
-                Api.PlayerApi
+                Api?.PlayerApi?
                 .Pause()
                 .SetErrorCallback(spotifyDelegate);
             }
 
             IsPlaying = false;
-            timer.StopTimers();
-            spotifyDelegate.SpotifyErrorHandler -= OnError;
-            spotifyDelegate.SpotifyEventHandler -= OnEvent;
-            spotifyDelegate.SpotifyResultHandler -= OnResult;
-            if (spotifyLoader.Authorized && triggeredByUser)
+            timer?.StopTimers();
+
+            if (spotifyDelegate != null)
+            {
+                spotifyDelegate.SpotifyErrorHandler -= OnError;
+                spotifyDelegate.SpotifyEventHandler -= OnEvent;
+                spotifyDelegate.SpotifyResultHandler -= OnResult;
+            }
+
+            if (spotifyLoader != null && spotifyLoader.Authorized && triggeredByUser)
             {
                 spotifyLoader.Disconnect();
             }

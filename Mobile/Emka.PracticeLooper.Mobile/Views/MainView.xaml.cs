@@ -63,6 +63,11 @@ namespace Emka.PracticeLooper.Mobile.Views
             ToggleAd();
         }
 
+        private void CurrentLoop_StartPositionChanged(object sender, double e)
+        {
+            Slider.RangeStart = e;
+        }
+
         private void ToggleAd()
         {
             if (configService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
@@ -75,7 +80,7 @@ namespace Emka.PracticeLooper.Mobile.Views
             }
         }
 
-        void OnDraggingCompleted(object sender, System.EventArgs e)
+        void OnDraggingCompleted(object sender, EventArgs e)
         {
             var viewModel = BindingContext as MainViewModel;
             if (viewModel != null && viewModel.CurrentLoop != null)
@@ -136,14 +141,14 @@ namespace Emka.PracticeLooper.Mobile.Views
                             {
                                 var secs = TimeSpan.Parse($"{0}:{selectedTime[0]}:{selectedTime[1]}").TotalSeconds;
                                 var currentStartTime = 100 / mainVm.CurrentSession.Session.AudioSource.Duration * secs;
-                                mainVm.MinimumValue = currentStartTime < 0 ? 0 : currentStartTime / 100;
+                                mainVm.MinimumValue = (float)(currentStartTime < 0 ? 0 : currentStartTime / 100);
                             }
                             else
                             {
                                 var secs = TimeSpan.Parse($"{0}:{selectedTime[0]}:{selectedTime[1]}").TotalSeconds;
                                 var currentEndTime = 100 / mainVm.CurrentSession.Session.AudioSource.Duration * secs;
                                 Debug.WriteLine($"currentEndTime {currentEndTime}");
-                                mainVm.MaximumValue = currentEndTime > 100 ? 1 : currentEndTime / 100;
+                                mainVm.MaximumValue = (float)(currentEndTime > 100 ? 1 : currentEndTime / 100);
                             }
                         }
                     }

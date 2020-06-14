@@ -232,10 +232,11 @@
                                 Height="Auto" />
                         </Grid.RowDefinitions>
                         <range:SfRangeSlider
+                            x:Name="Slider"
                             Grid.Row="0"
                             ShowRange="True"
-                            RangeStart="{Binding MinimumValue}"
-                            RangeEnd="{Binding MaximumValue}"
+                            RangeStart="{Binding MinimumValue, Mode=TwoWay}"
+                            RangeEnd="{Binding MaximumValue, Mode=TwoWay}"
                             Margin="0"
                             Minimum="{Binding Minimum}"
                             Maximum="{Binding Maximum}"
@@ -253,7 +254,7 @@
                             ShowCustomLabel="False"
                             ToolTipPlacement="None"
                             MinimumRange="{Binding MinimumRange}"
-                            ThumbSize="2">
+                            ThumbSize="1.5">
                         </range:SfRangeSlider>
                         <ImageButton
                             Grid.Row="1"

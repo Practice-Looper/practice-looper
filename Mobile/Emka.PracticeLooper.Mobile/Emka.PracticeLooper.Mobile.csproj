@@ -43,21 +43,24 @@
         <Optimize>true</Optimize>
         <OutputPath>
         </OutputPath>
-        <DefineConstants>TRACE;RELEASE;NETSTANDARD;NETSTANDARD2_0;PREMIUM</DefineConstants>
+        <DefineConstants>TRACE;RELEASE;RELEASELITE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
         <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleasePremium|AnyCPU' ">
         <WarningLevel>
         </WarningLevel>
+        <TreatWarningsAsErrors></TreatWarningsAsErrors>
         <WarningLevel>
         </WarningLevel>
-        <DebugType>
-        </DebugType>
+        <Optimize>true</Optimize>
         <Optimize>true</Optimize>
         <OutputPath>
         </OutputPath>
         <DefineConstants>TRACE;RELEASE;NETSTANDARD;NETSTANDARD2_0;PREMIUM;</DefineConstants>
         <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+        <PlatformTarget>anycpu</PlatformTarget>
+        <WarningsNotAsErrors></WarningsNotAsErrors>
+        <Nullable></Nullable>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugPremium|AnyCPU' ">
       <DebugType>pdbonly</DebugType>
@@ -83,7 +86,7 @@
         <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.0.0" />
         <PackageReference Include="Plugin.InAppBilling" Version="3.0.0-beta" />
         <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.1.0.53" />
-        <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.1.0.54" />
+        <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.1.0.56" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />

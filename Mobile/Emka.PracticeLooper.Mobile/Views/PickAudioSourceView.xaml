@@ -34,7 +34,7 @@
             </OnPlatform>
         </Frame.VerticalOptions>
         <Grid
-            VerticalOptions="CenterAndExpand"
+            VerticalOptions="FillAndExpand"
             HorizontalOptions="Center"
             BackgroundColor="{DynamicResource BackgroundColor}">
             <Grid.RowDefinitions>
@@ -51,6 +51,8 @@
                 SeparatorColor="{DynamicResource SecondaryColor}"
                 ItemTemplate="{StaticResource AudioTypeTemplateSelector}"
                 ItemSelected="ItemsListView_ItemSelected"
+                HorizontalScrollBarVisibility="Never"
+                VerticalScrollBarVisibility="Never"
                 Margin="0,5">
                 <ListView.RowHeight>
                     <OnPlatform

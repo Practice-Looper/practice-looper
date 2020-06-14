@@ -4,9 +4,11 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Services.Contracts.Common;
+using Emka3.PracticeLooper.Utils;
 
 namespace Emka.PracticeLooper.Mobile.Common
 {
+    [Preserve(AllMembers = true)]
     public class StringLocalizer : IStringLocalizer
     {
         #region Fields
