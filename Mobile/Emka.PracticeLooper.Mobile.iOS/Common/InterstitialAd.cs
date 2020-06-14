@@ -79,10 +79,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             try
             {
                 interstitialAd = new Interstitial(GlobalApp.ConfigurationService.GetValue<string>("AdmobIosInterstitialProjectAdId"));
+                MobileAds.SharedInstance.RequestConfiguration.TestDeviceIdentifiers = new[] { Request.SimulatorId.ToString(), "6fb304bbcc401debac41d2255509463f" };
                 interstitialAd.FailedToPresentScreen += OnFailedToPresentScreen;
                 interstitialAd.ReceiveAdFailed += OnReceiveAdFailed;
                 var request = Request.GetDefaultRequest();
-                request.TestDevices = new[] { Request.SimulatorId.ToString(), "6fb304bbcc401debac41d2255509463f" };
                 interstitialAd.LoadRequest(request);
             }
             catch (Exception ex)
