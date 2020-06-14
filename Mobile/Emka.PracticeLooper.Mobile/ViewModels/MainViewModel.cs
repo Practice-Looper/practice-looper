@@ -127,13 +127,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             get => CurrentLoop != null ? CurrentLoop.StartPosition : default;
             set
             {
-                minimumValue = Math.Round(value, 4);
-                if (IsInitialized && CurrentLoop != null && CurrentLoop.StartPosition != value)
+                minimumValue = value < Minimum ? Minimum : value;
+                if (IsInitialized && CurrentLoop != null && CurrentLoop.StartPosition != minimumValue)
                 {
                     CurrentLoop.StartPosition = minimumValue;
+
+                    NotifyPropertyChanged();
                 }
 
-                NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(LoopStartPosition));
             }
         }
@@ -148,13 +149,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             get => CurrentLoop != null ? CurrentLoop.EndPosition : default;
             set
             {
-                maximumValue = Math.Round(value, 4);
-                if (IsInitialized && CurrentLoop != null && CurrentLoop.EndPosition != value)
+                maximumValue = value > Maximum ? Maximum : value;
+                if (IsInitialized && CurrentLoop != null && CurrentLoop.EndPosition != maximumValue)
                 {
                     CurrentLoop.EndPosition = maximumValue;
+
+                    NotifyPropertyChanged();
                 }
 
-                NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(LoopEndPosition));
             }
         }

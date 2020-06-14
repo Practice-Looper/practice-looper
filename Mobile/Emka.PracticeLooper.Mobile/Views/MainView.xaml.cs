@@ -63,11 +63,6 @@ namespace Emka.PracticeLooper.Mobile.Views
             ToggleAd();
         }
 
-        private void CurrentLoop_StartPositionChanged(object sender, double e)
-        {
-            Slider.RangeStart = e;
-        }
-
         private void ToggleAd()
         {
             if (configService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
@@ -89,7 +84,7 @@ namespace Emka.PracticeLooper.Mobile.Views
             }
         }
 
-        void OnDeleteSession(object sender, System.EventArgs e)
+        void OnDeleteSession(object sender, EventArgs e)
         {
             var menuItem = ((MenuItem)sender);
             var mainViewModel = BindingContext as MainViewModel;
@@ -99,7 +94,7 @@ namespace Emka.PracticeLooper.Mobile.Views
             }
         }
 
-        async void OnStartPositionClicked(object sender, System.EventArgs e)
+        async void OnStartPositionClicked(object sender, EventArgs e)
         {
             if (BindingContext is MainViewModel vm)
             {
@@ -111,7 +106,7 @@ namespace Emka.PracticeLooper.Mobile.Views
             }
         }
 
-        async void OnEndPositionClicked(object sender, System.EventArgs e)
+        async void OnEndPositionClicked(object sender, EventArgs e)
         {
             if (BindingContext is MainViewModel vm)
             {
@@ -141,14 +136,14 @@ namespace Emka.PracticeLooper.Mobile.Views
                             {
                                 var secs = TimeSpan.Parse($"{0}:{selectedTime[0]}:{selectedTime[1]}").TotalSeconds;
                                 var currentStartTime = 100 / mainVm.CurrentSession.Session.AudioSource.Duration * secs;
-                                mainVm.MinimumValue = (float)(currentStartTime < 0 ? 0 : currentStartTime / 100);
+                                mainVm.MinimumValue = (currentStartTime < 0 ? 0 : currentStartTime / 100);
                             }
                             else
                             {
                                 var secs = TimeSpan.Parse($"{0}:{selectedTime[0]}:{selectedTime[1]}").TotalSeconds;
                                 var currentEndTime = 100 / mainVm.CurrentSession.Session.AudioSource.Duration * secs;
                                 Debug.WriteLine($"currentEndTime {currentEndTime}");
-                                mainVm.MaximumValue = (float)(currentEndTime > 100 ? 1 : currentEndTime / 100);
+                                mainVm.MaximumValue = (currentEndTime > 100 ? 1 : currentEndTime / 100);
                             }
                         }
                     }

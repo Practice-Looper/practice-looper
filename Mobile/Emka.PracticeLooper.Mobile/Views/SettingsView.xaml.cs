@@ -2,15 +2,16 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
-using System.Collections.Generic;
-using Emka.PracticeLooper.Mobile.Themes;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
 using Plugin.InAppBilling;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace Emka.PracticeLooper.Mobile.Views
 {
@@ -31,9 +32,21 @@ namespace Emka.PracticeLooper.Mobile.Views
                 vm.PurchaseItemCommand.Execute(e.Item);
             }
 
-            if (sender is ListView listView)
+            if (sender is Xamarin.Forms.ListView listView)
             {
                 listView.SelectedItem = null;
+            }
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (DeviceInfo.Platform == DevicePlatform.iOS)
+            {
+                var safeInsets = On<iOS>().SafeAreaInsets();
+                safeInsets.Left = safeInsets.Right = 10;
+                Padding = safeInsets;
             }
         }
     }

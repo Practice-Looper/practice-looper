@@ -5,6 +5,8 @@
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     x:Class="Emka.PracticeLooper.Mobile.Views.PickAudioSourceView"
     xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="True"
     CloseWhenBackgroundIsClicked="True">
     <pages:PopupPage.Padding>
         <OnPlatform

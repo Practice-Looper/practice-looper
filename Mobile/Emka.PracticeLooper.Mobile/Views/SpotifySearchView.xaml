@@ -3,9 +3,11 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behav="clr-namespace:Emka.PracticeLooper.Mobile.Behaviors"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     x:Class="Emka.PracticeLooper.Mobile.Views.SpotifySearchView"
     Style="{StaticResource PageMainStyle}"
     xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
+    ios:Page.UseSafeArea="True"
     Title="{x:Static rsrcs:AppResources.SpotifySearchView_Title}">
     <ContentPage.Content>
         <Grid>

@@ -90,11 +90,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         Loops.Add(new LoopViewModel(item));
                     }
 
-                    var currentLoopId = Preferences.Get(PreferenceKeys.LastLoop, -1);
-                    if (currentLoopId > 0)
-                    {
-                        MainThread.BeginInvokeOnMainThread(() => SelectedLoop = Loops.FirstOrDefault(l => l.Loop.Id == currentLoopId));
-                    }
+                    var currentLoopId = Preferences.Get(PreferenceKeys.LastLoop, 0);
+                    MainThread.BeginInvokeOnMainThread(() => SelectedLoop = Loops.FirstOrDefault(l => l.Loop.Id == currentLoopId));
                 }
             }
             catch (System.Exception)
