@@ -2,9 +2,9 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
-using Emka.PracticeLooper.Mobile.Common;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Config.Feature;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.Views
@@ -22,6 +22,7 @@ namespace Emka.PracticeLooper.Mobile.Views
             AdUnitId = App.BannerAddUnitId;
             IsVisible = !Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral);
             Factory.GetConfigService().ValueChanged += AdMobView_ValueChanged;
+            Logger = Emka3.PracticeLooper.Mappings.Factory.GetResolver().Resolve<ILogger>();
         }
 
         private void AdMobView_ValueChanged(object sender, string e)
@@ -37,5 +38,7 @@ namespace Emka.PracticeLooper.Mobile.Views
             get => (string)GetValue(AdUnitIdProperty);
             set => SetValue(AdUnitIdProperty, value);
         }
+
+        public ILogger Logger { get; }
     }
 }

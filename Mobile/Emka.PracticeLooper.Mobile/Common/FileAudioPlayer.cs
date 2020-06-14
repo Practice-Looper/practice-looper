@@ -4,6 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Player;
@@ -82,7 +83,6 @@ namespace Emka.PracticeLooper.Mobile.Common
 
         private void OnStartPositionChanged(object sender, double e)
         {
-            CurrentStartPosition = ConvertToInt(e);
             if (IsPlaying)
             {
                 Play();
@@ -91,11 +91,8 @@ namespace Emka.PracticeLooper.Mobile.Common
 
         private void OnEndPositionChanged(object sender, double e)
         {
-            CurrentEndPosition = ConvertToInt(e);
             if (IsPlaying)
             {
-                Pause();
-                Seek(e);
                 Play();
             }
         }
@@ -214,14 +211,10 @@ namespace Emka.PracticeLooper.Mobile.Common
             try
             {
                 CurrentLoop = loop;
-
                 internalSongDuration = loop.Session.AudioSource.Duration;
-
+                mediaItem = await CrossMediaManager.Current.Extractor.CreateMediaItem(loop.Session.AudioSource.Source);
                 CrossMediaManager.Current.PositionChanged += OnPositionChanged;
                 CrossMediaManager.Current.StateChanged += PlayerStateChanged;
-
-                mediaItem = await CrossMediaManager.Current.Extractor.CreateMediaItem(loop.Session.AudioSource.Source);
-
                 CurrentLoop.StartPositionChanged += OnStartPositionChanged;
                 CurrentLoop.EndPositionChanged += OnEndPositionChanged;
                 Initialized = true;

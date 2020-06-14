@@ -48,7 +48,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
             {
                 var request = Request.GetDefaultRequest();
 #if DEBUG
-                request.TestDevices = new[] { "6fb304bbcc401debac41d2255509463f" };
+                MobileAds.SharedInstance.RequestConfiguration.TestDeviceIdentifiers = new[] { "6fb304bbcc401debac41d2255509463f" };
 #endif
                 return request;
             }

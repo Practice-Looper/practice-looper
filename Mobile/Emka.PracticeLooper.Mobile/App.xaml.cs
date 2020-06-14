@@ -93,7 +93,7 @@ namespace Emka.PracticeLooper.Mobile
 
             if (Device.RuntimePlatform == Device.iOS)
             {
-                ConfigurationService.LocalPath = Environment.GetFolderPath(Environment.SpecialFolder.Resources);
+                ConfigurationService.LocalPath = FileSystem.AppDataDirectory;
                 BannerAddUnitId = Helpers.Secrets.AdmobIosTopBannerAdId;
                 ConfigurationService.SetValue(nameof(Helpers.Secrets.AdmobIosInterstitialProjectAdId), Helpers.Secrets.AdmobIosInterstitialProjectAdId);
                 ConfigurationService.SetValue(nameof(Helpers.Secrets.InAppIosPremiumGeneral), Helpers.Secrets.InAppIosPremiumGeneral);
@@ -101,19 +101,12 @@ namespace Emka.PracticeLooper.Mobile
             else if (Device.RuntimePlatform == Device.Android)
             {
                 BannerAddUnitId = Helpers.Secrets.AdmobAndroidTopBanneAdId;
-                ConfigurationService.LocalPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                ConfigurationService.LocalPath = FileSystem.AppDataDirectory;
 
                 ConfigurationService.SetValue(nameof(Helpers.Secrets.SpotifyClientRequestCode), Helpers.Secrets.SpotifyClientRequestCode);
                 ConfigurationService.SetValue(nameof(Helpers.Secrets.AdmobAndroidInterstitialProjectAdId), Helpers.Secrets.AdmobAndroidInterstitialProjectAdId);
                 ConfigurationService.SetValue(nameof(Helpers.Secrets.InAppAndroidPremiumGeneral), Helpers.Secrets.InAppAndroidPremiumGeneral);
             }
-
-            var locale = ConfigurationService.GetValue<string>("Locale");
-
-            // Force the app to use a specific style
-            //Thread.CurrentThread.CurrentCulture =
-            //new CultureInfo(locale);
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo(locale);
         }
 
         private async Task InitNavigation()

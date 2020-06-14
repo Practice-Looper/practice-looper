@@ -17,14 +17,16 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
 {
     public class AdMobViewRenderer : ViewRenderer<AdMobView, AdView>
     {
-        public AdMobViewRenderer(Context context) : base(context) { }
+        public AdMobViewRenderer(Context context) : base(context)
+        {
+        }
 
         protected override void OnElementChanged(ElementChangedEventArgs<AdMobView> e)
         {
             base.OnElementChanged(e);
 
-                if (e.NewElement != null && Control == null)
-                    SetNativeControl(CreateAdView());
+            if (e.NewElement != null && Control == null)
+                SetNativeControl(CreateAdView());
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -37,7 +39,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
 
         private AdView CreateAdView()
         {
-                var adView = new AdView(Context)
+            var adView = new AdView(Context)
             {
                 AdSize = AdSize.SmartBanner,
                 AdUnitId = Element.AdUnitId
@@ -47,12 +49,17 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
 
             try
             {
-                adView.LoadAd(new AdRequest.Builder().AddTestDevice("7E7FE7BDD31E1B60AAA1ABA764B55E8B").Build());
+                AdRequest request;
+#if DEBUG
+                request = new AdRequest.Builder().AddTestDevice("7E7FE7BDD31E1B60AAA1ABA764B55E8B").Build();
+#else
+                request = new AdRequest.Builder().Build();
+#endif
+                adView.LoadAd(request);
             }
             catch (Exception ex)
             {
-                // todo: log
-                Console.WriteLine(ex.Message);
+                Element?.Logger.LogError(ex);
             }
 
             return adView;

@@ -101,30 +101,28 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public void Play()
         {
-            if (!IsPlaying)
+            CurrentStartPosition = (int)(CurrentLoop.StartPosition * SongDuration);
+            CurrentEndPosition = (int)(CurrentLoop.EndPosition * SongDuration);
+
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
-
-                MainThread.BeginInvokeOnMainThread(() =>
+                Api?.PlayerAPI?.Play(session.AudioSource.Source, (o, e) =>
                 {
-                    Api?.PlayerAPI?.Play(session.AudioSource.Source, (o, e) =>
+                    if (e != null)
                     {
-                        if (e != null)
-                        {
-                            logger?.LogError(new Exception(e.DebugDescription));
-                        }
-
+                        logger?.LogError(new Exception(e.DebugDescription));
+                    }
+                    else
+                    {
                         Seek(CurrentLoop.StartPosition);
-                    });
+                        IsPlaying = true;
+                        CurrentPositionTimerExpired(this, new EventArgs());
+                        RaisePlayingStatusChanged();
+                    }
                 });
+            });
 
-                timer.SetLoopTimer(CurrentEndPosition - CurrentStartPosition);
-                timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
-
-                CurrentPositionTimerExpired(this, new EventArgs());
-                IsPlaying = true;
-                RaisePlayingStatusChanged();
-            }
+            ResetAllTimers();
         }
 
         public void Seek(double time)
@@ -214,16 +212,13 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             return result;
         }
 
-        private void OnStartPositionChanged(object sender, double e)
+        private async void OnStartPositionChanged(object sender, double e)
         {
             try
             {
-                CurrentStartPosition = ConvertToInt(e);
-
-                Seek(e);
                 if (IsPlaying)
                 {
-                    ResetAllTimers();
+                    await PlayAsync();
                 }
             }
             catch (Exception ex)
@@ -233,15 +228,13 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
         }
 
-        private void OnEndPositionChanged(object sender, double e)
+        private async void OnEndPositionChanged(object sender, double e)
         {
             try
             {
-                CurrentEndPosition = ConvertToInt(e);
-
                 if (IsPlaying)
                 {
-                    ResetAllTimers();
+                    await PlayAsync();
                 }
             }
             catch (Exception ex)

@@ -44,7 +44,7 @@
         <ContentView
             Grid.Row="1"
             IsVisible="{Binding IsBusy}"
-            VerticalOptions="Center"
+            VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand"
             Opacity="0.9"
             BackgroundColor="{DynamicResource BackgroundColor}">

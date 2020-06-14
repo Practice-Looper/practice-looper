@@ -51,7 +51,7 @@ namespace Emka.PracticeLooper.Mobile.Common
             autoResetEvent.Set();
         }
 
-        private async void OnSourcePickerClosed(PickAudioSourceView obj)
+        private void OnSourcePickerClosed(PickAudioSourceView obj)
         {
             selectedSource = new AudioSourceVieModel(string.Empty, AudioSourceType.None);
             autoResetEvent.Set();
