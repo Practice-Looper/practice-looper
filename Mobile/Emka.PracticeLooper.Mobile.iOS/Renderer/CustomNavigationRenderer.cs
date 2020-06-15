@@ -6,6 +6,7 @@ using System.Linq;
 using Emka.PracticeLooper.Mobile.iOS.Renderer;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Foundation;
 using UIKit;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -15,6 +16,7 @@ using MappingsFactory = Emka3.PracticeLooper.Mappings;
 [assembly: ExportRenderer(typeof(NavigationPage), typeof(CustomNavigationRenderer))]
 namespace Emka.PracticeLooper.Mobile.iOS.Renderer
 {
+    [Preserve(AllMembers = true)]
     public class CustomNavigationRenderer : NavigationRenderer
     {
         public override void ViewDidLoad()
