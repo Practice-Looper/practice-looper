@@ -222,6 +222,7 @@
     <Compile Include="Common\InAppBillingVerifyPurchase.cs" />
     <Compile Include="Renderers\CustomSearchBarRenderer.cs" />
     <Compile Include="Common\ConnectivityService.cs" />
+    <Compile Include="Common\RemoteControlBroadCastReceiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

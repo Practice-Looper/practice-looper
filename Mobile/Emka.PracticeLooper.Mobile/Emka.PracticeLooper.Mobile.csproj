@@ -80,7 +80,7 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
-        <PackageReference Include="Plugin.MediaManager" Version="0.9.5" />
+        <PackageReference Include="Plugin.MediaManager" Version="0.9.7" />
         <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.0.0" />
         <PackageReference Include="Microsoft.AppCenter" Version="3.0.0" />
         <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.0.0" />

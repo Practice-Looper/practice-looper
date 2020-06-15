@@ -64,7 +64,7 @@ namespace Emka.PracticeLooper.Mobile
             resolver.RegisterSingleton(typeof(FilePicker), typeof(IFilePicker));
             resolver.RegisterSingleton(typeof(NavigationService), typeof(INavigationService));
             resolver.RegisterSingleton(typeof(SourcePicker), typeof(ISourcePicker));
-            resolver.Register(typeof(FileAudioPlayer), typeof(IAudioPlayer));
+            resolver.RegisterSingleton(typeof(FileAudioPlayer), typeof(IAudioPlayer));
             resolver.RegisterInstance(new DialogService(), typeof(IDialogService));
             resolver.Register(typeof(StringLocalizer), typeof(IStringLocalizer));
             // Build container after platform implementations have been registered

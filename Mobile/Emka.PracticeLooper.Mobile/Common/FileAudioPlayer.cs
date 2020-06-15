@@ -10,6 +10,7 @@ using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using MediaManager;
 using MediaManager.Library;
+using Xamarin.Essentials;
 using Xamarin.Forms.Internals;
 
 namespace Emka.PracticeLooper.Mobile.Common
@@ -20,8 +21,9 @@ namespace Emka.PracticeLooper.Mobile.Common
         #region Fields
         double internalSongDuration;
         private IMediaItem mediaItem;
-        bool pausedByUser;
         private bool isActive = false;
+        private object locker = new object();
+        private bool pausedByUser;
         #endregion
 
         #region Ctor
@@ -48,6 +50,42 @@ namespace Emka.PracticeLooper.Mobile.Common
         public AudioSourceType Type => AudioSourceType.Local;
 
         public string DisplayName => "File";
+
+        public bool PausedByUser
+        {
+            get
+            {
+                lock (locker)
+                {
+                    return pausedByUser;
+                }
+            }
+            private set
+            {
+                lock (locker)
+                {
+                    pausedByUser = value;
+                }
+            }
+        }
+
+        public bool IsActive
+        {
+            get
+            {
+                lock (locker)
+                {
+                    return isActive;
+                }
+            }
+            set
+            {
+                lock (locker)
+                {
+                    isActive = value;
+                }
+            }
+        }
         #endregion
 
         #region Methods
@@ -124,7 +162,8 @@ namespace Emka.PracticeLooper.Mobile.Common
 
         private async void PlayerStateChanged(object sender, MediaManager.Playback.StateChangedEventArgs e)
         {
-            if (e.State == MediaManager.Player.MediaPlayerState.Paused && isActive && !pausedByUser)
+            /**/
+            if (e.State == MediaManager.Player.MediaPlayerState.Paused && IsActive && !PausedByUser)
             {
                 try
                 {
@@ -136,11 +175,6 @@ namespace Emka.PracticeLooper.Mobile.Common
                 }
             }
 
-            if (e.State == MediaManager.Player.MediaPlayerState.Playing)
-            {
-                isActive = true;
-            }
-
             PlayStatusChanged?.Invoke(this, e.State == MediaManager.Player.MediaPlayerState.Playing);
         }
 
@@ -148,10 +182,14 @@ namespace Emka.PracticeLooper.Mobile.Common
         {
             try
             {
+
+                CrossMediaManager.Current.StateChanged -= PlayerStateChanged;
                 CurrentStartPosition = (int)(CurrentLoop.StartPosition * internalSongDuration);
                 CurrentEndPosition = (int)(CurrentLoop.EndPosition * internalSongDuration);
+                CrossMediaManager.Current.StateChanged += PlayerStateChanged;
                 await CrossMediaManager.Current.Play(mediaItem, TimeSpan.FromSeconds(CurrentStartPosition), TimeSpan.FromSeconds(CurrentEndPosition));
-                pausedByUser = false;
+                IsActive = true;
+                PausedByUser = false;
             }
             catch (Exception)
             {
@@ -165,9 +203,10 @@ namespace Emka.PracticeLooper.Mobile.Common
             {
                 try
                 {
-                    pausedByUser = true;
-                    isActive = false;
+                    PausedByUser = triggeredByUser;
+                    IsActive = false;
                     await CrossMediaManager.Current.Pause();
+                    CrossMediaManager.Current.StateChanged -= PlayerStateChanged;
                     RaisePlayingStatusChanged();
                 }
                 catch (Exception)
@@ -214,11 +253,10 @@ namespace Emka.PracticeLooper.Mobile.Common
                 internalSongDuration = loop.Session.AudioSource.Duration;
                 mediaItem = await CrossMediaManager.Current.Extractor.CreateMediaItem(loop.Session.AudioSource.Source);
                 CrossMediaManager.Current.PositionChanged += OnPositionChanged;
-                CrossMediaManager.Current.StateChanged += PlayerStateChanged;
                 CurrentLoop.StartPositionChanged += OnStartPositionChanged;
                 CurrentLoop.EndPositionChanged += OnEndPositionChanged;
                 Initialized = true;
-                pausedByUser = true;
+                PausedByUser = false;
             }
             catch (Exception)
             {
