@@ -4,13 +4,11 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using MediaManager;
 using MediaManager.Library;
-using Xamarin.Essentials;
 using Xamarin.Forms.Internals;
 
 namespace Emka.PracticeLooper.Mobile.Common
@@ -182,12 +180,13 @@ namespace Emka.PracticeLooper.Mobile.Common
         {
             try
             {
-
                 CrossMediaManager.Current.StateChanged -= PlayerStateChanged;
+                CrossMediaManager.Current.KeepScreenOn = true;
                 CurrentStartPosition = (int)(CurrentLoop.StartPosition * internalSongDuration);
                 CurrentEndPosition = (int)(CurrentLoop.EndPosition * internalSongDuration);
                 CrossMediaManager.Current.StateChanged += PlayerStateChanged;
                 await CrossMediaManager.Current.Play(mediaItem, TimeSpan.FromSeconds(CurrentStartPosition), TimeSpan.FromSeconds(CurrentEndPosition));
+
                 IsActive = true;
                 PausedByUser = false;
             }
@@ -252,6 +251,10 @@ namespace Emka.PracticeLooper.Mobile.Common
                 CurrentLoop = loop;
                 internalSongDuration = loop.Session.AudioSource.Duration;
                 mediaItem = await CrossMediaManager.Current.Extractor.CreateMediaItem(loop.Session.AudioSource.Source);
+
+                CrossMediaManager.Current.Notification.ShowNavigationControls = false;
+                CrossMediaManager.Current.Notification.ShowPlayPauseControls = false;
+                CrossMediaManager.Current.Notification.Enabled = false;
                 CrossMediaManager.Current.PositionChanged += OnPositionChanged;
                 CurrentLoop.StartPositionChanged += OnStartPositionChanged;
                 CurrentLoop.EndPositionChanged += OnEndPositionChanged;
@@ -278,6 +281,6 @@ namespace Emka.PracticeLooper.Mobile.Common
                 CrossMediaManager.Current.StateChanged -= PlayerStateChanged;
             }
         }
-        #endregion
+#endregion
     }
 }

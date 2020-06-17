@@ -121,6 +121,9 @@
         <Reference Include="Xamarin.iOS">
             <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\12.14.0.110\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
         </Reference>
+        <Reference Include="Mono.Android">
+          <HintPath>..\..\..\..\..\..\..\Library\Frameworks\Xamarin.Android.framework\Versions\10.2.0.100\lib\xamarin.android\xbuild-frameworks\MonoAndroid\v9.0\Mono.Android.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\MainView.xaml.cs">

@@ -74,7 +74,7 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Rg.Plugins.Popup;Plugin.InAppBilling;Xamarin.Android.Google.BillingClient;</AndroidLinkSkip>
+    <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Rg.Plugins.Popup;Plugin.InAppBilling;Xamarin.Android.Google.BillingClient;Plugin.InAppBilling;</AndroidLinkSkip>
     <AndroidLinkMode>None</AndroidLinkMode>
     <AndroidSigningKeyStore>/Users/Maksim/Library/Developer/Xamarin/Keystore/PlayConsoleAlpha/PlayConsoleAlpha.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>8ExDbiTtXNN3ECugopuB</AndroidSigningStorePass>
@@ -99,7 +99,7 @@
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
-    <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Plugin.InAppBilling;Xamarin.Android.Google.BillingClient;</AndroidLinkSkip>
+    <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Plugin.InAppBilling;Xamarin.Android.Google.BillingClient;Plugin.InAppBilling;</AndroidLinkSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleasePremium|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -111,7 +111,7 @@
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
-    <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Plugin.InAppBilling;Xamarin.Android.Google.BillingClient;</AndroidLinkSkip>
+    <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Plugin.InAppBilling;Xamarin.Android.Google.BillingClient;Plugin.InAppBilling;</AndroidLinkSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugPremium|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -121,7 +121,7 @@
     <DefineConstants>DEBUG;PREMIUM</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidLinkSkip>SpotifyBindings.Droid;Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Rg.Plugins.Popup;Plugin.InAppBilling;Xamarin.Android.Google.BillingClient;</AndroidLinkSkip>
+    <AndroidLinkSkip>SpotifyBindings.Droid;Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Rg.Plugins.Popup;Plugin.InAppBilling;Xamarin.Android.Google.BillingClient;Plugin.InAppBilling;</AndroidLinkSkip>
     <AndroidLinkMode>None</AndroidLinkMode>
     <AndroidSupportedAbis>arm64-v8a;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
     <AndroidSigningKeyStore>/Users/Maksim/Library/Developer/Xamarin/Keystore/dev/dev.keystore</AndroidSigningKeyStore>
@@ -205,6 +205,9 @@
     <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
       <Version>18.1.0.56</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Build.Download">
+      <Version>0.10.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -222,7 +225,6 @@
     <Compile Include="Common\InAppBillingVerifyPurchase.cs" />
     <Compile Include="Renderers\CustomSearchBarRenderer.cs" />
     <Compile Include="Common\ConnectivityService.cs" />
-    <Compile Include="Common\RemoteControlBroadCastReceiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

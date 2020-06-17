@@ -40,53 +40,7 @@
             Grid.Row="0"
             x:Name="AdmobBanner"
             HeightRequest="70"/>
-
-        <ContentView
-            Grid.Row="1"
-            IsVisible="{Binding IsBusy}"
-            VerticalOptions="FillAndExpand"
-            HorizontalOptions="FillAndExpand"
-            Opacity="0.9"
-            BackgroundColor="{DynamicResource BackgroundColor}">
-            <ActivityIndicator
-                IsRunning="{Binding IsBusy}"
-                Color="{DynamicResource SecondaryColor}"
-                VerticalOptions="Center"
-                HorizontalOptions="Center" />
-        </ContentView>
-
-        <syncfusion:SfPicker
-            Grid.Row="1"
-            x:Name="picker"
-            VerticalOptions="End"
-            HorizontalOptions="FillAndExpand"
-            ColumnHeaderText="{Binding Headers}"
-            SelectedItem="{Binding SelectedTime, Mode=TwoWay}"
-            ItemsSource="{Binding Time}"
-            PickerMode="Dialog"
-            BackgroundColor="{DynamicResource BackgroundColor}"
-            BorderColor="{DynamicResource SecondaryColor}"
-            SelectedItemTextColor="{DynamicResource PrimaryColor}"
-            SelectionBackgroundColor="{DynamicResource SecondaryColor}"
-            UnSelectedItemTextColor="{DynamicResource SecondaryColor}"
-            HeaderBackgroundColor="{DynamicResource BackgroundColor}"
-            HeaderTextColor="{DynamicResource SecondaryColor}"
-            ShowFooter="True"
-            ShowHeader="True"
-            SelectionChanged="SelectionChanged">
-            <syncfusion:SfPicker.FooterView>
-                <Grid
-                    HorizontalOptions="Center">
-                    <Button
-                        Text="{x:Static rsrcs:AppResources.Close}"
-                        Clicked="OnClosePicker"
-                        HorizontalOptions="Center"
-                        TextColor="{DynamicResource PrimaryColor}" />
-                </Grid>
-            </syncfusion:SfPicker.FooterView>
-
-        </syncfusion:SfPicker>
-
+                
         <Grid
             Grid.Row="1"
             Margin="0,10,0,0">
@@ -381,5 +335,51 @@
                 </StackLayout>
             </ContentView>
         </Grid>
+
+        <ContentView
+            Grid.Row="1"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            Opacity="0.9"
+            BackgroundColor="{DynamicResource BackgroundColor}">
+            <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
+                Color="{DynamicResource SecondaryColor}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center" />
+        </ContentView>
+
+        <syncfusion:SfPicker
+            Grid.Row="1"
+            x:Name="picker"
+            VerticalOptions="End"
+            HorizontalOptions="FillAndExpand"
+            ColumnHeaderText="{Binding Headers}"
+            SelectedItem="{Binding SelectedTime, Mode=TwoWay}"
+            ItemsSource="{Binding Time}"
+            PickerMode="Dialog"
+            BackgroundColor="{DynamicResource BackgroundColor}"
+            BorderColor="{DynamicResource SecondaryColor}"
+            SelectedItemTextColor="{DynamicResource PrimaryColor}"
+            SelectionBackgroundColor="{DynamicResource SecondaryColor}"
+            UnSelectedItemTextColor="{DynamicResource SecondaryColor}"
+            HeaderBackgroundColor="{DynamicResource BackgroundColor}"
+            HeaderTextColor="{DynamicResource SecondaryColor}"
+            ShowFooter="True"
+            ShowHeader="True"
+            SelectionChanged="SelectionChanged">
+            <syncfusion:SfPicker.FooterView>
+                <Grid
+                    HorizontalOptions="Center">
+                    <Button
+                        Text="{x:Static rsrcs:AppResources.Close}"
+                        Clicked="OnClosePicker"
+                        HorizontalOptions="Center"
+                        TextColor="{DynamicResource PrimaryColor}" />
+                </Grid>
+            </syncfusion:SfPicker.FooterView>
+
+        </syncfusion:SfPicker>
     </Grid>
 </ContentPage>

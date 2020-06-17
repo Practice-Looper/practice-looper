@@ -3,19 +3,24 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Media.Session;
 using Android.OS;
 using Android.Support.V4.Content;
+using Android.Support.V4.Media.Session;
+using Android.Widget;
+using Emka.PracticeLooper.Mobile.Common;
+using Emka.PracticeLooper.Mobile.Droid.Common;
 using Emka.PracticeLooper.Mobile.Droid.Helpers;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using MediaManager;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
@@ -37,11 +42,10 @@ namespace Emka.PracticeLooper.Mobile.Droid
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
             GlobalApp.Init();
-            MediaManager.CrossMediaManager.Current.Init();
+            CrossMediaManager.Current.Init(this);
             GlobalApp.MainActivity = this;
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) == (int)Permission.Granted)
             {
                 var mounted = Android.OS.Environment.ExternalStorageState == Android.OS.Environment.MediaMounted;
@@ -56,12 +60,12 @@ namespace Emka.PracticeLooper.Mobile.Droid
             Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, Secrets.AdmobAndroidAppId);
             SQLitePCL.Batteries_V2.Init();
             Platform.Init(this, savedInstanceState);
-
             GlobalApp.ConfigurationService.SetValue("Locale", Resources.Configuration.Locale.ToString());
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
             base.SetTheme(Resource.Style.MainTheme);
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = Platform.CurrentActivity;
+
             stopWatch.Stop();
             Analytics.TrackEvent(TrackerEvents.GeneralInformation.ToString(), new Dictionary<string, string>
             {
@@ -69,6 +73,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
                 { "OS version", $"{AppInfo.VersionString}" },
                 { "Device", $"{DeviceInfo.Manufacturer} {DeviceInfo.Model}" }
             });
+
         }
 
         protected override void OnDestroy()
@@ -188,8 +193,36 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    public class MediaSessionCallback : MediaSessionCompat.Callback
+    {
+        public override void OnPause()
+        {
+            base.OnPause();
+        }
+
+        public override void OnPlay()
+        {
+            base.OnPlay();
+        }
+
+        public override void OnSkipToNext()
+        {
+            base.OnSkipToNext();
+        }
+
+        public override void OnSkipToPrevious()
+        {
+            base.OnSkipToPrevious();
+        }
+
+        public override void OnStop()
+        {
+            base.OnStop();
         }
     }
 }

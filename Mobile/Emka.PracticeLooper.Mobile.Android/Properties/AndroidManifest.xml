@@ -8,7 +8,7 @@
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
-	<uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
 	<application android:label="Practice Looper" android:name="android.app.Application" android:allowBackup="false" android:icon="@mipmap/ic_launcher">
 		<activity android:configChanges="orientation|screenSize" android:icon="@mipmap/ic_launcher" android:label="Practice Looper" android:theme="@style/Splash" android:name="crc64106a7de43e0e5d6c.MainActivity">
 			<intent-filter>
@@ -23,6 +23,11 @@
 		</service>
 		<activity android:configChanges="orientation|screenSize" android:name="crc64424a8adc5a1fbe28.FilePickerActivity" />
 		<service android:name="crc64a98abb514ffad9f1.KeepAliveService" />
+		<receiver android:name=".RemoteBroadcastReceiver" android:enabled="false">
+			<intent-filter>
+				<action android:name="android.intent.action.MEDIA_BUTTON" />
+			</intent-filter>
+		</receiver>
 		<receiver android:enabled="true" android:exported="false" android:label="Essentials Battery Broadcast Receiver" android:name="crc64a0e0a82d0db9a07d.BatteryBroadcastReceiver" />
 		<receiver android:enabled="true" android:exported="false" android:label="Essentials Energy Saver Broadcast Receiver" android:name="crc64a0e0a82d0db9a07d.EnergySaverBroadcastReceiver" />
 		<receiver android:enabled="true" android:exported="false" android:label="Essentials Connectivity Broadcast Receiver" android:name="crc64a0e0a82d0db9a07d.ConnectivityBroadcastReceiver" />
@@ -72,6 +77,4 @@
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 		<activity android:name="com.spotify.sdk.android.authentication.LoginActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 	</application>
-	<uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
-	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 </manifest>

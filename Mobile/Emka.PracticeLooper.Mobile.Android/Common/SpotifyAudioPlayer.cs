@@ -14,7 +14,6 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Java.Lang;
 using Java.Util.Concurrent;
-using Xamarin.Essentials;
 using Xamarin.Forms.Internals;
 using static Com.Spotify.Protocol.Client.CallResult;
 using static Com.Spotify.Protocol.Client.Subscription;
