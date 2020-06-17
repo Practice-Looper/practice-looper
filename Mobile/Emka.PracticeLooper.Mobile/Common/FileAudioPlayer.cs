@@ -198,20 +198,19 @@ namespace Emka.PracticeLooper.Mobile.Common
 
         public async Task PauseAsync(bool triggeredByUser = true)
         {
-            if (IsPlaying)
+            try
             {
-                try
-                {
-                    PausedByUser = triggeredByUser;
-                    IsActive = false;
-                    await CrossMediaManager.Current.Pause();
-                    CrossMediaManager.Current.StateChanged -= PlayerStateChanged;
-                    RaisePlayingStatusChanged();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                PausedByUser = triggeredByUser;
+                IsActive = false;
+                Initialized = false;
+                await CrossMediaManager.Current.Pause();
+                CrossMediaManager.Current.StateChanged -= PlayerStateChanged;
+                RaisePlayingStatusChanged();
+                
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
@@ -281,6 +280,6 @@ namespace Emka.PracticeLooper.Mobile.Common
                 CrossMediaManager.Current.StateChanged -= PlayerStateChanged;
             }
         }
-#endregion
+        #endregion
     }
 }

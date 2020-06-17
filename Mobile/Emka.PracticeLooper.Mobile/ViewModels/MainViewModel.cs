@@ -397,17 +397,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         }
                     };
 
-                    //newSession.Loops.First().Session = newSession;
-
                     var newSessionViewModel = new SessionViewModel(newSession);
+                    var isCurrentlyPlayling = CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying;
+
+                    CurrentAudioPlayer?.Pause();
 
                     if (!Emka3.PracticeLooper.Config.Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral))
                     {
-                        if (CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying)
-                        {
-                            await CurrentAudioPlayer.PauseAsync();
-                        }
-
                         if (CurrentSession != null)
                         {
                             await sessionsRepository.DeleteAsync(CurrentSession.Session);
@@ -421,6 +417,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     newSession.Id = await sessionsRepository.SaveAsync(newSession);
                     Sessions.Add(newSessionViewModel);
                     CurrentSession = newSessionViewModel;
+
+                    if (isCurrentlyPlayling)
+                    {
+                        PlayCommand.Execute(default);
+                    }
                 }
                 catch (Exception ex)
                 {
