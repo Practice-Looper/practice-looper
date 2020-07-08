@@ -194,7 +194,7 @@
       <Version>60.1142.1</Version>
     </PackageReference>
     <PackageReference Include="Plugin.MediaManager">
-      <Version>0.9.5</Version>
+      <Version>0.9.4</Version>
     </PackageReference>
     <PackageReference Include="Plugin.InAppBilling">
       <Version>3.0.0-beta</Version>

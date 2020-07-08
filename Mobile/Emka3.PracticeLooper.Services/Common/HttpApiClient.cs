@@ -11,7 +11,7 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 
 namespace Emka3.PracticeLooper.Services.Common
 {
-    public class HttpApiClient
+    public class HttpApiClient : IHttpApiClient
     {
         readonly HttpClient httpClient;
         private readonly IAccountManager accountManager;
