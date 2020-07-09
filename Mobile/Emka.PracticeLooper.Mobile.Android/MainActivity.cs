@@ -147,7 +147,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
                             if (!string.IsNullOrEmpty(response.AccessToken))
                             {
-                                var accountMngr = Factory.GetResolver().Resolve<IAccountManager>();
+                                var accountMngr = Factory.GetResolver().Resolve<ITokenStorage>();
                                 accountMngr.UpdateTokenAsync(response.AccessToken).Wait();
                                 spotifyLoader.Token = response.AccessToken;
                             }

@@ -14,9 +14,9 @@ namespace Emka3.PracticeLooper.Services.Common
     public class HttpApiClient : IHttpApiClient
     {
         readonly HttpClient httpClient;
-        private readonly IAccountManager accountManager;
+        private readonly ITokenStorage accountManager;
 
-        public HttpApiClient(string baseAddress, IAccountManager accountManager)
+        public HttpApiClient(string baseAddress, ITokenStorage accountManager)
         {
             this.accountManager = accountManager;
             this.accountManager.TokenChanged += OnTokenChanged;

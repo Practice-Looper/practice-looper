@@ -7,6 +7,7 @@ using Autofac;
 using Emka3.PracticeLooper.Services.Common;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
+using SQLite;
 
 namespace Emka3.PracticeLooper.Mappings.Common
 {
@@ -27,9 +28,11 @@ namespace Emka3.PracticeLooper.Mappings.Common
 
             builder.RegisterType<AppCenterLogger>().As<ILogger>().SingleInstance();
             builder.RegisterType<AppCenterTracker>().As<IAppTracker>().SingleInstance();
+            builder.RegisterType<SQLiteDbInitializer>().As<IDbInitializer<SQLiteConnection>>();
             builder.RegisterType<SessionsDbRepository>().As<IRepository<Session>>();
             builder.RegisterType<LoopsRepository>().As<IRepository<Loop>>().SingleInstance();
-            builder.RegisterType<AccountManager>().As<IAccountManager>().SingleInstance();
+            builder.RegisterType<SecurePracticeLooperStorage>().As<ISecureRepository>();
+            builder.RegisterType<SpotifyTokenStorage>().As<ITokenStorage>().SingleInstance();
         }
     }
 }

@@ -16,11 +16,14 @@
 <PrivateAssets>all</PrivateAssets>
 </PackageReference>
     <PackageReference Include="Moq" Version="4.14.5" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Emka3.PracticeLooper.Services\Emka3.PracticeLooper.Services.csproj" />
     <ProjectReference Include="..\Emka3.PracticeLooper.Model\Emka3.PracticeLooper.Model.csproj" />
+    <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TestData\" />

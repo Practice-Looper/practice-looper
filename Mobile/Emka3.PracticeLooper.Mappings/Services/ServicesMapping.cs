@@ -24,7 +24,7 @@ namespace Emka3.PracticeLooper.Mappings.Services
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            builder.Register(c => new HttpApiClient(Config.Factory.GetConfigService().GetValue("SpotifyClientApiUri"), c.Resolve<IAccountManager>())).As<IHttpApiClient>().SingleInstance();
+            builder.Register(c => new HttpApiClient(Config.Factory.GetConfigService().GetValue("SpotifyClientApiUri"), c.Resolve<ITokenStorage>())).As<IHttpApiClient>().SingleInstance();
             builder.RegisterType<SpotifyApiService>().As<ISpotifyApiService>().SingleInstance();
         }
     }
