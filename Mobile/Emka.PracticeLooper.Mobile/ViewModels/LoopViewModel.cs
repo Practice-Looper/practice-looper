@@ -17,8 +17,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #region Fields
 
         private Command deleteSessionCommand;
-        private double _startPosition;
-        private double _endPosition;
         #endregion
 
         #region Ctor

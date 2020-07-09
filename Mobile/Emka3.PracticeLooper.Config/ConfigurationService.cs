@@ -11,7 +11,7 @@ namespace Emka3.PracticeLooper.Config
     /// <summary>
     /// Configuration service imlementation.
     /// </summary>
-    internal class ConfigurationService : IConfigurationService
+    public class ConfigurationService : IConfigurationService
     {
         #region Fields
         /// <summary>

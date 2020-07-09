@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
@@ -16,13 +17,26 @@ using SQLiteNetExtensions.Extensions;
 namespace Emka3.PracticeLooper.Services.Common
 {
     [Preserve(AllMembers = true)]
-    public class SessionsDbRepository : RepositoryBase, IRepository<Session>
+    public class SessionsDbRepository : IRepository<Session>
     {
-        #region Ctor
-        public SessionsDbRepository()
-        {
+        #region Fields
+        private bool initialized = false;
+        private Lazy<SQLiteConnection> lazyInitializer;
+        private readonly IDbInitializer<SQLiteConnection> dbInitializer;
+        private readonly IConfigurationService configurationService;
+        #endregion
 
+        #region Ctor
+        public SessionsDbRepository(IConfigurationService configurationService, IDbInitializer<SQLiteConnection> dbInitializer)
+        {
+            this.configurationService = configurationService;
+            this.dbInitializer = dbInitializer;
         }
+        #endregion
+
+        #region Properties
+
+        public SQLiteConnection Database => lazyInitializer.Value;
         #endregion
 
         #region Methods
@@ -30,8 +44,7 @@ namespace Emka3.PracticeLooper.Services.Common
         {
             lazyInitializer = new Lazy<SQLiteConnection>(() =>
             {
-                return new SQLiteConnection(
-                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), dbName), Flags);
+                return dbInitializer.Initialize(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), configurationService.GetValue("DbName"));
             });
 
             if (!initialized)
@@ -57,127 +70,56 @@ namespace Emka3.PracticeLooper.Services.Common
 
         public async Task DeleteAsync(Session item)
         {
-            try
-            {
-                await Task.Run(() => Delete(item));
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            await Task.Run(() => Delete(item));
         }
 
         public async Task<List<Session>> GetAllItemsAsync()
         {
-            try
-            {
-                return await Task.Run(GetAllItems);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return await Task.Run(GetAllItems);
         }
 
         public async Task<Session> GetByIdAsync(int id)
         {
-            try
-            {
-                return await Task.Run(() => GetById(id));
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return await Task.Run(() => GetById(id));
         }
 
         public async Task<int> SaveAsync(Session item)
         {
-            try
-            {
-                return await Task.Run(() => Save(item));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return await Task.Run(() => Save(item));
         }
 
         public void Delete(Session item)
         {
-            try
-            {
-                Database.Delete(item, true);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            Database.Delete(item, true);
         }
 
         public int Save(Session item)
         {
-            try
-            {
-                item.Loops.First().Session = item;
-                Database.Insert(item.AudioSource);
-                Database.InsertAll(item.Loops, true);
-                Database.InsertWithChildren(item, true);
-                return item.Id;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            item.Loops.First().Session = item;
+            Database.Insert(item.AudioSource);
+            Database.InsertAll(item.Loops, true);
+            Database.InsertWithChildren(item, true);
+            return item.Id;
         }
 
         public Session GetById(int id)
         {
-            try
-            {
-                return Database.GetWithChildren<Session>(id);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return Database.GetWithChildren<Session>(id);
         }
 
         public List<Session> GetAllItems()
         {
-            try
-            {
-                return Database.GetAllWithChildren<Session>(recursive: true);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return Database.GetAllWithChildren<Session>(recursive: true);
         }
 
         public void Update(Session item)
         {
-            try
-            {
-                Database.UpdateWithChildren(item);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            Database.UpdateWithChildren(item);
         }
 
         public async Task UpdateAsync(Session item)
         {
-            try
-            {
-                await Task.Run(() => Update(item));
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            await Task.Run(() => Update(item));
         }
         #endregion
     }

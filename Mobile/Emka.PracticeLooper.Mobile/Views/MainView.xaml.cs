@@ -31,16 +31,23 @@ namespace Emka.PracticeLooper.Mobile.Views
             configService.ValueChanged += ConfigService_ValueChanged;
 
             resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
-            BindingContext = new MainViewModel(resolver.Resolve<IInterstitialAd>(),
-                resolver.Resolve<IRepository<Session>>(),
-                resolver.Resolve<IRepository<Loop>>(),
-                resolver.Resolve<IDialogService>(),
-                resolver.Resolve<IFileRepository>(),
-                resolver.Resolve<ISourcePicker>(),
-                resolver.Resolve<ISpotifyLoader>(),
-                configService,
-                resolver.Resolve<Common.IFilePicker>(),
-                resolver.Resolve<IConnectivityService>());
+            try
+            {
+                BindingContext = new MainViewModel(resolver.Resolve<IInterstitialAd>(),
+                       resolver.Resolve<IRepository<Session>>(),
+                       resolver.Resolve<IRepository<Loop>>(),
+                       resolver.Resolve<IDialogService>(),
+                       resolver.Resolve<IFileRepository>(),
+                       resolver.Resolve<ISourcePicker>(),
+                       resolver.Resolve<ISpotifyLoader>(),
+                       configService,
+                       resolver.Resolve<Common.IFilePicker>(),
+                       resolver.Resolve<IConnectivityService>());
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void ConfigService_ValueChanged(object sender, string e)

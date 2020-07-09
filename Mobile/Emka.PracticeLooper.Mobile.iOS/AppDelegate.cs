@@ -74,7 +74,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
                 if (!string.IsNullOrEmpty(token))
                 {
                     spotifyLoader.Token = token;
-                    var accountMngr = Factory.GetResolver().Resolve<IAccountManager>();
+                    var accountMngr = Factory.GetResolver().Resolve<ITokenStorage>();
                     accountMngr.UpdateTokenAsync(token).Wait();
                 }
             }
