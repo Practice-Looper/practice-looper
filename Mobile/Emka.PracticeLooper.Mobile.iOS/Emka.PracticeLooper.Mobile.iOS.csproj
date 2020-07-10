@@ -222,6 +222,7 @@
     <Compile Include="Renderer\CustomNavigationRenderer.cs" />
     <Compile Include="Common\InAppBillingVerifyPurchase.cs" />
     <Compile Include="Common\ConnectivityService.cs" />
+    <None Include="secrets.json" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -274,11 +275,6 @@
     </PackageReference>
     <PackageReference Include="Plugin.MediaManager">
       <Version>0.9.8-alpha3</Version>
-    </PackageReference>
-    <PackageReference Include="Mobile.BuildTools">
-      <Version>1.4.0.638</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter">
       <Version>3.0.0</Version>
@@ -347,7 +343,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Sounds\Coumarin_Mirage_Vers3.mp3" />
-    <BundleResource Include="secrets.json" />
     <BundleResource Include="materialdesignicons.ttf" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
