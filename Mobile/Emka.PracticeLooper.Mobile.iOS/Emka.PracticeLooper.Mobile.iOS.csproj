@@ -222,7 +222,6 @@
     <Compile Include="Renderer\CustomNavigationRenderer.cs" />
     <Compile Include="Common\InAppBillingVerifyPurchase.cs" />
     <Compile Include="Common\ConnectivityService.cs" />
-    <None Include="secrets.json" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
