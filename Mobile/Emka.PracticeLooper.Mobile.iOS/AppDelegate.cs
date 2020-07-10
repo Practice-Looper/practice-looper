@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Emka.PracticeLooper.Mobile.iOS.Helpers;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using static Emka3.PracticeLooper.Config.Secrets;
 using Foundation;
 using MediaManager;
 using Microsoft.AppCenter;
@@ -38,7 +38,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            AppCenter.Start(Secrets.AppCenterIos, typeof(Analytics), typeof(Crashes));
+            AppCenter.Start(GetSecrets().AppCenterIos, typeof(Analytics), typeof(Crashes));
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
             GlobalApp.Init();

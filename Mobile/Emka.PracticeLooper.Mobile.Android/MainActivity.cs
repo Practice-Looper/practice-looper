@@ -8,17 +8,13 @@ using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
-using Android.Media.Session;
 using Android.OS;
 using Android.Support.V4.Content;
 using Android.Support.V4.Media.Session;
-using Android.Widget;
-using Emka.PracticeLooper.Mobile.Common;
-using Emka.PracticeLooper.Mobile.Droid.Common;
-using Emka.PracticeLooper.Mobile.Droid.Helpers;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
+using static Emka3.PracticeLooper.Config.Secrets;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using MediaManager;
 using Microsoft.AppCenter;
@@ -37,7 +33,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            AppCenter.Start(Secrets.AppCenterAndroid, typeof(Analytics), typeof(Crashes));
+            AppCenter.Start(GetSecrets().AppCenterAndroid, typeof(Analytics), typeof(Crashes));
             base.OnCreate(savedInstanceState);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
@@ -57,7 +53,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             }
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
-            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, Secrets.AdmobAndroidAppId);
+            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, GetSecrets().AdmobAndroidAppId);
             SQLitePCL.Batteries_V2.Init();
             Platform.Init(this, savedInstanceState);
             GlobalApp.ConfigurationService.SetValue("Locale", Resources.Configuration.Locale.ToString());
