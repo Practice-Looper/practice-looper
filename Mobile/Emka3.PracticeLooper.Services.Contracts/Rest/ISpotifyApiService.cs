@@ -12,5 +12,6 @@ namespace Emka3.PracticeLooper.Services.Contracts.Rest
     public interface ISpotifyApiService
     {
         Task<List<SpotifyTrack>> SearchTrackByName(string term, CancellationToken cancellationToken);
+        Task<SpotifyAlbum> SearchAlbumById(string id, CancellationToken cancellationToken);
     }
 }

@@ -4,6 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -23,12 +24,35 @@ namespace Emka3.PracticeLooper.Services.Rest
     [Preserve(AllMembers = true)]
     public class SpotifyApiService : ISpotifyApiService
     {
-        IHttpApiClient apiClient;
+        HttpApiClient apiClient;
         int limit;
-        public SpotifyApiService(IHttpApiClient apiClient)
+        public SpotifyApiService(IAccountManager accountManager)
         {
-            this.apiClient = apiClient;
+            apiClient = new HttpApiClient(Factory.GetConfigService().GetValue("SpotifyClientApiUri"), accountManager);
             limit = Factory.GetConfigService().GetValue<int>("SpotifyApiLimit");
+        }
+
+        public async Task<SpotifyAlbum> SearchAlbumById(string id, CancellationToken cancellationToken)
+        {
+            List<SpotifyAlbum> results = new List<SpotifyAlbum>();
+            var uri = $"albums/{id}";
+
+            try
+            {
+                string result;
+                using (var response = await apiClient.SendRequestAsync(HttpMethod.Get, uri, cancellationToken))
+                {
+                    response.EnsureSuccessStatusCode();
+                    result = await response.Content.ReadAsStringAsync();
+                }
+
+                var album = JsonConvert.DeserializeObject<SpotifyAlbum>(result);
+                return album;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<List<SpotifyTrack>> SearchTrackByName(string name, CancellationToken cancellationToken)

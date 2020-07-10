@@ -8,7 +8,7 @@
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
-	<uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
 	<application android:label="Practice Looper" android:name="android.app.Application" android:allowBackup="false" android:icon="@mipmap/ic_launcher">
 		<activity android:configChanges="orientation|screenSize" android:icon="@mipmap/ic_launcher" android:label="Practice Looper" android:theme="@style/Splash" android:name="crc64106a7de43e0e5d6c.MainActivity">
 			<intent-filter>

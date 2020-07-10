@@ -359,7 +359,6 @@ src/Mobile/_Emka.PracticeLooper.Mobile.iOS/App.config.json
 build/Certificates.p12
 build/LooprDEV.mobileprovision
 secrets.json
-Secrets.cs
 Mobile/Emka.PracticeLooper.Mobile.Android/secrets.json
 Mobile/Emka.PracticeLooper.Mobile.iOS/secrets.json
 Mobile/Emka.PracticeLooper.Mobile/secrets.json
