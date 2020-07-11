@@ -136,9 +136,8 @@ namespace Emka3.PracticeLooper.Config
 
         public void SetValue(string key, object value)
         {
-            if (string.IsNullOrEmpty(key))
+            if (string.IsNullOrWhiteSpace(key))
             {
-                // todo : log
                 throw new ArgumentException(nameof(key));
             }
 

@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka3.PracticeLooper.Utils"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka3.PracticeLooper.Services.Tests", "Emka3.PracticeLooper.Services.Tests\Emka3.PracticeLooper.Services.Tests.csproj", "{69E7C631-2164-49E7-98BC-1F50188F0BD5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka3.PracticeLooper.Config.Tests", "Emka3.PracticeLooper.Config.Tests\Emka3.PracticeLooper.Config.Tests.csproj", "{1969373C-F57E-4E35-B1FE-32CA3B164EEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -345,6 +347,28 @@ Global
 		{69E7C631-2164-49E7-98BC-1F50188F0BD5}.DebugPremium|Any CPU.Build.0 = Debug|Any CPU
 		{69E7C631-2164-49E7-98BC-1F50188F0BD5}.ReleaseAppCenterPremium|Any CPU.ActiveCfg = Release|Any CPU
 		{69E7C631-2164-49E7-98BC-1F50188F0BD5}.ReleaseAppCenterPremium|Any CPU.Build.0 = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.Release|iPhone.Build.0 = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.BuildIOS|Any CPU.ActiveCfg = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.BuildIOS|Any CPU.Build.0 = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.ReleaseLite|Any CPU.ActiveCfg = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.ReleaseLite|Any CPU.Build.0 = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.ReleasePremium|Any CPU.ActiveCfg = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.ReleasePremium|Any CPU.Build.0 = Release|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.DebugLite|Any CPU.ActiveCfg = Debug|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.DebugLite|Any CPU.Build.0 = Debug|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.DebugPremium|Any CPU.ActiveCfg = Debug|Any CPU
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE}.DebugPremium|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F0F8BA3B-BC2E-4475-AD1E-0B08767E52C5} = {859AB886-3E50-454C-BCB8-9DA93F801178}
@@ -361,6 +385,7 @@ Global
 		{CF132663-0895-4522-9457-ED006BE32E86} = {31E0EB53-2365-4681-8DE9-5EB4DAD34402}
 		{BB8017A5-359F-45BD-AE7B-2835EF380F79} = {16396CBE-692B-4FC7-A2D2-66DCDDD7FAD5}
 		{69E7C631-2164-49E7-98BC-1F50188F0BD5} = {B6418745-95F3-4B15-96C2-DC0114A9F6D7}
+		{1969373C-F57E-4E35-B1FE-32CA3B164EEE} = {16396CBE-692B-4FC7-A2D2-66DCDDD7FAD5}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
