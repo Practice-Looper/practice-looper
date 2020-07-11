@@ -44,7 +44,7 @@ namespace Emka3.PracticeLooper.Services.Common
         {
             lazyInitializer = new Lazy<SQLiteConnection>(() =>
             {
-                return dbInitializer.Initialize(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), configurationService.GetValue("DbName"));
+                return dbInitializer.Initialize(configurationService.LocalPath, configurationService.GetValue("DbName"));
             });
 
             if (!initialized)

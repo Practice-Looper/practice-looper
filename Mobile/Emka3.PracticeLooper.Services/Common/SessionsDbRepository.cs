@@ -4,7 +4,6 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config;
@@ -44,7 +43,7 @@ namespace Emka3.PracticeLooper.Services.Common
         {
             lazyInitializer = new Lazy<SQLiteConnection>(() =>
             {
-                return dbInitializer.Initialize(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), configurationService.GetValue("DbName"));
+                return dbInitializer.Initialize(configurationService.LocalPath, configurationService.GetValue("DbName"));
             });
 
             if (!initialized)
