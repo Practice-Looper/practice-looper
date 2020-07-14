@@ -23,17 +23,17 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private Command deleteSessionCommand;
         private Command pickLoopCommand;
-        private IRepository<Loop> looperRepository;
-        private IDialogService dialogService;
-        private ILogger logger;
+        private readonly IDialogService dialogService;
+        private readonly ILogger logger;
         #endregion
 
         #region Ctor
 
-        public SessionViewModel(Session session)
+        public SessionViewModel(Session session, IDialogService dialogService, ILogger logger)
         {
             Session = session;
-            Task.Run(() => InitializeAsync(null));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
         }
 
         #endregion
@@ -57,20 +57,17 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
-                await NavigationService.NavigateToAsync<LoopsDetailsViewModel>(this);
+                await NavigationService?.NavigateToAsync<SessionDetailsViewModel>(this);
             }
             catch (Exception ex)
             {
-                await logger.LogErrorAsync(ex);
-                await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
+                await logger?.LogErrorAsync(ex);
+                await dialogService?.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
         }
 
         public override Task InitializeAsync(object parameter)
         {
-            looperRepository = Factory.GetResolver().Resolve<IRepository<Loop>>();
-            dialogService = Factory.GetResolver().Resolve<IDialogService>();
-            logger = Factory.GetResolver().Resolve<ILogger>();
             return Task.CompletedTask;
         }
         #endregion

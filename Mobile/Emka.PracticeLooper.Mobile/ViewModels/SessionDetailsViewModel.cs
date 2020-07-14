@@ -2,6 +2,7 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,14 +17,14 @@ using Xamarin.Forms;
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
     [Preserve(AllMembers = true)]
-    public class LoopsDetailsViewModel : ViewModelBase
+    public class SessionDetailsViewModel : ViewModelBase
     {
         private SessionViewModel session;
         private LoopViewModel selectedLoop;
         private bool isBusy;
         #region Ctor
 
-        public LoopsDetailsViewModel()
+        public SessionDetailsViewModel()
         {
             Loops = new ObservableCollection<LoopViewModel>();
             MessagingCenter.Subscribe<LoopViewModel, Loop>(this, MessengerKeys.DeleteLoop, OnDeleteLoop);
@@ -94,9 +95,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     MainThread.BeginInvokeOnMainThread(() => SelectedLoop = Loops.FirstOrDefault(l => l.Loop.Id == currentLoopId));
                 }
             }
-            catch (System.Exception)
+            catch (NotImplementedInReferenceAssemblyException ex)
             {
-                throw;
+                Logger?.LogError(ex);
+                SelectedLoop = Loops?.FirstOrDefault();
+                // catch and ignore, since Preferences from Xamarin.Essentials is not available for .NET Core test assembly!
             }
             finally
             {
@@ -106,9 +109,24 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             return Task.CompletedTask;
         }
 
-        private void OnDeleteLoop(LoopViewModel sender, Loop loop)
+        public void OnDeleteLoop(LoopViewModel sender, Loop loop)
         {
-            Loops.Remove(sender);
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+
+            if (loop == null)
+            {
+                throw new ArgumentNullException(nameof(loop));
+            }
+
+            var loopToRemove = Loops?.FirstOrDefault(l => l.Loop.Id == loop.Id && l.Loop.SessionId == loop.SessionId);
+
+            if (loopToRemove != null)
+            {
+                Loops.Remove(loopToRemove);
+            }
         }
         #endregion
     }
