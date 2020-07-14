@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using Emka.PracticeLooper.Mobile.Common;
+using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config;
@@ -31,23 +29,18 @@ namespace Emka.PracticeLooper.Mobile.Views
             configService.ValueChanged += ConfigService_ValueChanged;
 
             resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
-            try
-            {
-                BindingContext = new MainViewModel(resolver.Resolve<IInterstitialAd>(),
-                       resolver.Resolve<IRepository<Session>>(),
-                       resolver.Resolve<IRepository<Loop>>(),
-                       resolver.Resolve<IDialogService>(),
-                       resolver.Resolve<IFileRepository>(),
-                       resolver.Resolve<ISourcePicker>(),
-                       resolver.Resolve<ISpotifyLoader>(),
-                       configService,
-                       resolver.Resolve<Common.IFilePicker>(),
-                       resolver.Resolve<IConnectivityService>());
-            }
-            catch (Exception ex)
-            {
-
-            }
+            BindingContext = new MainViewModel(resolver.Resolve<IInterstitialAd>(),
+                   resolver.Resolve<IRepository<Session>>(),
+                   resolver.Resolve<IRepository<Loop>>(),
+                   resolver.Resolve<IDialogService>(),
+                   resolver.Resolve<IFileRepository>(),
+                   resolver.Resolve<ISourcePicker>(),
+                   resolver.Resolve<ISpotifyLoader>(),
+                   resolver.Resolve<Common.IFilePicker>(),
+                   resolver.Resolve<IConnectivityService>(),
+                   resolver.Resolve<INavigationService>(),
+                   resolver.Resolve<ILogger>(),
+                   resolver.Resolve<IAppTracker>());
         }
 
         private void ConfigService_ValueChanged(object sender, string e)

@@ -9,7 +9,6 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Model;
-using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Xamarin.Forms;
 
@@ -19,9 +18,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels.Common
     {
         public ViewModelBase()
         {
-            NavigationService = Factory.GetResolver().Resolve<INavigationService>();
-            Logger = Factory.GetResolver().Resolve<ILogger>();
-            Tracker = Factory.GetResolver().Resolve<IAppTracker>();
+        }
+
+        public ViewModelBase(INavigationService navigationService, ILogger logger, IAppTracker appTracker)
+        {
+            NavigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
+            Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            Tracker = appTracker ?? throw new ArgumentNullException(nameof(appTracker));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

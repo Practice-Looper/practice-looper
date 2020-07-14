@@ -20,6 +20,7 @@ using Emka.PracticeLooper.Model;
 using Emka.PracticeLooper.Services.Contracts;
 using Xamarin.Essentials;
 using Emka3.PracticeLooper.Config;
+using Emka.PracticeLooper.Mobile.Navigation;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -34,7 +35,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private IFileRepository fileRepository;
         private ISourcePicker sourcePicker;
         private ISpotifyLoader spotifyLoader;
-        private readonly IConfigurationService configurationService;
         private Mobile.Common.IFilePicker filePicker;
         private readonly IConnectivityService connectivityService;
         private Command playCommand;
@@ -61,9 +61,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             IFileRepository fileRepository,
             ISourcePicker sourcePicker,
             ISpotifyLoader spotifyLoader,
-            IConfigurationService configurationService,
             Mobile.Common.IFilePicker filePicker,
-            IConnectivityService connectivityService)
+            IConnectivityService connectivityService,
+            INavigationService navigationService,
+            ILogger logger,
+            IAppTracker appTracker)
+            : base(navigationService, logger, appTracker)
         {
             this.interstitialAd = interstitialAd;
             this.sessionsRepository = sessionsRepository;
@@ -72,20 +75,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.fileRepository = fileRepository;
             this.sourcePicker = sourcePicker;
             this.spotifyLoader = spotifyLoader;
-            this.configurationService = configurationService;
             this.filePicker = filePicker;
             this.connectivityService = connectivityService;
             Sessions = new ObservableCollection<SessionViewModel>();
             isPlaying = false;
             MessagingCenter.Subscribe<SpotifySearchViewModel, AudioSource>(this, MessengerKeys.NewTrackAdded, (sender, audioSorce) => CreateSessionCommand.Execute(audioSorce));
             MessagingCenter.Subscribe<SessionViewModel, SessionViewModel>(this, MessengerKeys.DeleteSession, (sender, arg) => DeleteSessionCommand.Execute(arg));
-            MessagingCenter.Subscribe<LoopsDetailsViewModel, LoopViewModel>(this, MessengerKeys.LoopChanged, OnLoopChanged);
+            MessagingCenter.Subscribe<SessionDetailsViewModel, LoopViewModel>(this, MessengerKeys.LoopChanged, OnLoopChanged);
             MessagingCenter.Subscribe<LoopViewModel, Loop>(this, MessengerKeys.DeleteLoop, OnDeleteLoop);
-        }
-
-        public MainViewModel()
-        {
-
         }
         #endregion
 
@@ -284,7 +281,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     foreach (var item in items)
                     {
-                        Sessions.Add(new SessionViewModel(item));
+                        Sessions.Add(new SessionViewModel(item, dialogService, Logger));
                     }
 
                     CurrentSession = Sessions.FirstOrDefault(s => s.Session.Id == Preferences.Get(PreferenceKeys.LastSession, default(int))) ?? Sessions.FirstOrDefault();
@@ -397,7 +394,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         }
                     };
 
-                    var newSessionViewModel = new SessionViewModel(newSession);
+                    var newSessionViewModel = new SessionViewModel(newSession, dialogService, Logger);
                     var isCurrentlyPlayling = CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying;
 
                     CurrentAudioPlayer?.Pause();
@@ -705,7 +702,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             return result;
         }
 
-        private async void OnLoopChanged(LoopsDetailsViewModel sender, LoopViewModel loop)
+        private async void OnLoopChanged(SessionDetailsViewModel sender, LoopViewModel loop)
         {
             if (loop.Loop != CurrentLoop)
             {

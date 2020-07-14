@@ -17,7 +17,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         public LoopsDetailsView()
         {
             InitializeComponent();
-            BindingContext = new LoopsDetailsViewModel();
+            BindingContext = new SessionDetailsViewModel();
         }
 
         protected override void OnAppearing()
