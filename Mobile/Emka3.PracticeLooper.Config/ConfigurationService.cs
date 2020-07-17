@@ -4,7 +4,11 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Emka3.PracticeLooper.Config
 {
@@ -18,6 +22,11 @@ namespace Emka3.PracticeLooper.Config
         /// Config strings.
         /// </summary>
         IDictionary<string, object> configs;
+
+        /// <summary>
+        /// Secret strings.
+        /// </summary>
+        IDictionary<string, object> secrets;
 
         private static ConfigurationService instance;
         #endregion Fields
@@ -57,6 +66,36 @@ namespace Emka3.PracticeLooper.Config
         private void Initialize()
         {
             configs = new Dictionary<string, object>();
+            secrets = readSecreats();
+        }
+
+        /// <summary>
+        /// Read the secrets.
+        /// </summary>
+        private IDictionary<string, object> readSecreats()
+        {
+            string json;
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Emka3.PracticeLooper.Config.secrets.json"))
+            using (var reader = new StreamReader(stream))
+            {
+                json = reader.ReadToEnd();
+            }
+
+            if (string.IsNullOrEmpty(json))
+            {
+                throw new ArgumentNullException(nameof(json));
+            }
+
+            try
+            { 
+                JObject conf = JObject.Parse(json);
+                // crate dictionary.
+                return JsonConvert.DeserializeObject<Dictionary<string, object>>(conf.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private async Task InitializeAsync()
@@ -92,6 +131,16 @@ namespace Emka3.PracticeLooper.Config
             if (configs != null && !string.IsNullOrEmpty(key) && configs.ContainsKey(key))
             {
                 return (T)configs[key];
+            }
+
+            return default;
+        }
+
+        public T GetSecret<T>(string key)
+        {
+            if (secrets != null && !string.IsNullOrEmpty(key) && secrets.ContainsKey(key))
+            {
+                return (T)secrets[key];
             }
 
             return default;

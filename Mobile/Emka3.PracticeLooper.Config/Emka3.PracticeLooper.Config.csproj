@@ -23,9 +23,12 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="App.config.json" />
+    <None Remove="secrets.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Feature\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="secrets.json" />
   </ItemGroup>
 </Project>

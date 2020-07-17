@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
-using static Emka3.PracticeLooper.Config.Secrets;
 using Foundation;
 using MediaManager;
 using Microsoft.AppCenter;
@@ -18,7 +16,9 @@ using Syncfusion.SfPicker.XForms.iOS;
 using Syncfusion.SfRangeSlider.XForms.iOS;
 using UIKit;
 using Xamarin.Essentials;
-using MappingsFactory = Emka3.PracticeLooper.Mappings;
+using ConfigFactory = Emka3.PracticeLooper.Config.Factory;
+using Factory = Emka3.PracticeLooper.Mappings.Factory;
+using Emka3.PracticeLooper.Mappings.Contracts;
 
 namespace Emka.PracticeLooper.Mobile.iOS
 {
@@ -38,7 +38,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            AppCenter.Start(GetSecrets().AppCenterIos, typeof(Analytics), typeof(Crashes));
+            AppCenter.Start(ConfigFactory.GetConfigService().GetSecret<string>("AppCenterIos"), typeof(Analytics), typeof(Crashes));
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
             GlobalApp.Init();
@@ -101,7 +101,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
             try
             {
                 base.WillTerminate(uiApplication);
-                MappingsFactory.Contracts.IResolver resolver = Factory.GetResolver();
+                IResolver resolver = Factory.GetResolver();
                 var audioPlayers = resolver.ResolveAll<IAudioPlayer>();
                 var spotifyLoader = resolver.Resolve<ISpotifyLoader>();
 

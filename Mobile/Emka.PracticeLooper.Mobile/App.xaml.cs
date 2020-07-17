@@ -9,7 +9,6 @@ using Emka.PracticeLooper.Mobile.Navigation;
 using System.Threading.Tasks;
 using Microsoft.AppCenter.Crashes;
 using Device = Xamarin.Forms.Device;
-using static Emka3.PracticeLooper.Config.Secrets;
 using Xamarin.Essentials;
 using Emka.PracticeLooper.Services.Contracts;
 using System.Collections.Generic;
@@ -25,7 +24,7 @@ namespace Emka.PracticeLooper.Mobile
 
         public App()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(GetSecrets().SyncFusionLicenseKey);
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Factory.GetConfigService().GetSecret<string>("SyncFusionLicenseKey"));
             InitializeComponent();
         }
 
@@ -85,28 +84,28 @@ namespace Emka.PracticeLooper.Mobile
             ConfigurationService = Factory.GetConfigService();
             ConfigurationService.SetValue(PreferenceKeys.PremiumGeneral, Preferences.Get(PreferenceKeys.PremiumGeneral, default(bool)));
             // todo: unnötige attribute aussortieren und den einzelnen files!
-            ConfigurationService.SetValue("SpotifyClientApiUri", GetSecrets().SpotifyClientApiUri);
-            ConfigurationService.SetValue("SpotifyApiLimit", GetSecrets().SpotifyApiLimit);
-            ConfigurationService.SetValue("SpotifyClientId", GetSecrets().SpotifyClientId);
-            ConfigurationService.SetValue("SpotifyClientRedirectUri", GetSecrets().SpotifyClientRedirectUri);
-            ConfigurationService.SetValue("SpotifyClientScopes", GetSecrets().SpotifyClientScopes);
-            ConfigurationService.SetValue("DbName", GetSecrets().DbName);
+            ConfigurationService.SetValue("SpotifyClientApiUri", ConfigurationService.GetSecret<string>("SpotifyClientApiUri"));
+            ConfigurationService.SetValue("SpotifyApiLimit", ConfigurationService.GetSecret<int>("SpotifyApiLimit"));
+            ConfigurationService.SetValue("SpotifyClientId", ConfigurationService.GetSecret<string>("SpotifyClientId"));
+            ConfigurationService.SetValue("SpotifyClientRedirectUri", ConfigurationService.GetSecret<string>("SpotifyClientRedirectUri"));
+            ConfigurationService.SetValue("SpotifyClientScopes", ConfigurationService.GetSecret<string>("SpotifyClientScopes"));
+            ConfigurationService.SetValue("DbName", ConfigurationService.GetSecret<string>("DbName"));
 
             if (Device.RuntimePlatform == Device.iOS)
             {
                 ConfigurationService.LocalPath = FileSystem.AppDataDirectory;
-                BannerAddUnitId = GetSecrets().AdmobIosTopBannerAdId;
-                ConfigurationService.SetValue("AdmobIosInterstitialProjectAdId", GetSecrets().AdmobIosInterstitialProjectAdId);
-                ConfigurationService.SetValue("InAppIosPremiumGeneral", GetSecrets().InAppIosPremiumGeneral);
+                BannerAddUnitId = ConfigurationService.GetSecret<string>("AdmobIosTopBannerAdId");
+                ConfigurationService.SetValue("AdmobIosInterstitialProjectAdId", ConfigurationService.GetSecret<string>("AdmobIosInterstitialProjectAdId"));
+                ConfigurationService.SetValue("InAppIosPremiumGeneral", ConfigurationService.GetSecret<string>("InAppIosPremiumGeneral"));
             }
             else if (Device.RuntimePlatform == Device.Android)
             {
-                BannerAddUnitId = GetSecrets().AdmobAndroidTopBanneAdId;
+                BannerAddUnitId = ConfigurationService.GetSecret<string>("AdmobAndroidTopBanneAdId");
                 ConfigurationService.LocalPath = FileSystem.AppDataDirectory;
 
-                ConfigurationService.SetValue("SpotifyClientRequestCode", GetSecrets().SpotifyClientRequestCode);
-                ConfigurationService.SetValue("AdmobAndroidInterstitialProjectAdId", GetSecrets().AdmobAndroidInterstitialProjectAdId);
-                ConfigurationService.SetValue("InAppAndroidPremiumGeneral", GetSecrets().InAppAndroidPremiumGeneral);
+                ConfigurationService.SetValue("SpotifyClientRequestCode", ConfigurationService.GetSecret<int>("SpotifyClientRequestCode"));
+                ConfigurationService.SetValue("AdmobAndroidInterstitialProjectAdId", ConfigurationService.GetSecret<string>("AdmobAndroidInterstitialProjectAdId"));
+                ConfigurationService.SetValue("InAppAndroidPremiumGeneral", ConfigurationService.GetSecret<string>("InAppAndroidPremiumGeneral"));
             }
         }
 

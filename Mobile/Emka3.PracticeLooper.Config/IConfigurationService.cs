@@ -55,6 +55,14 @@ namespace Emka3.PracticeLooper.Config
         T GetValue<T>(string key);
 
         /// <summary>
+        /// Gets the value for a generic secret.
+        /// </summary>
+        /// <returns>The secret.</returns>
+        /// <param name="key">Key.</param>
+        /// <typeparam name="T">The generic type parameter.</typeparam>
+        T GetSecret<T>(string key);
+
+        /// <summary>
         /// Gets the value for a generic type async.
         /// </summary>
         /// <returns>The value.</returns>

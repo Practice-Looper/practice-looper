@@ -11,10 +11,11 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Support.V4.Content;
 using Android.Support.V4.Media.Session;
-using Emka3.PracticeLooper.Mappings;
+using Factory = Emka3.PracticeLooper.Mappings.Factory;
+using ConfigFactory = Emka3.PracticeLooper.Config.Factory;
+using Emka3.PracticeLooper.Mappings.Contracts;
 using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
-using static Emka3.PracticeLooper.Config.Secrets;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using MediaManager;
 using Microsoft.AppCenter;
@@ -22,7 +23,6 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Plugin.InAppBilling;
 using Xamarin.Essentials;
-using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
 namespace Emka.PracticeLooper.Mobile.Droid
 {
@@ -33,7 +33,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            AppCenter.Start(GetSecrets().AppCenterAndroid, typeof(Analytics), typeof(Crashes));
+            AppCenter.Start(ConfigFactory.GetConfigService().GetSecret<string>("AppCenterAndroid"), typeof(Analytics), typeof(Crashes));
             base.OnCreate(savedInstanceState);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
@@ -53,7 +53,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             }
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
-            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, GetSecrets().AdmobAndroidAppId);
+            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, ConfigFactory.GetConfigService().GetSecret<string>("AdmobAndroidAppId"));
             SQLitePCL.Batteries_V2.Init();
             Platform.Init(this, savedInstanceState);
             GlobalApp.ConfigurationService.SetValue("Locale", Resources.Configuration.Locale.ToString());
@@ -77,7 +77,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             try
             {
                 base.OnDestroy();
-                MappingsFactory.Contracts.IResolver resolver = Factory.GetResolver();
+                IResolver resolver = Factory.GetResolver();
                 var audioPlayers = resolver.ResolveAll<IAudioPlayer>();
                 var spotifyLoader = resolver.Resolve<ISpotifyLoader>();
 
