@@ -125,6 +125,16 @@ namespace Emka3.PracticeLooper.Config
         {
             await Task.Run(() => SetValue(key, value)).ConfigureAwait(false);
         }
+
+        public void PersistValue<T>(string key, T value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<T> GetPersistedValue<T>(string key, T defaultValue = default)
+        {
+            throw new NotImplementedException();
+        }
         #endregion Methods
     }
 }

@@ -3,6 +3,8 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.Navigation;
@@ -31,6 +33,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         Mock<INavigationService> navigationServiceMock;
         Mock<ILogger> loggerMock;
         Mock<IAppTracker> appTrackerMock;
+        List<Session> sessions;
 
         public MainViewModelTests()
         {
@@ -46,13 +49,15 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             navigationServiceMock = new Mock<INavigationService>();
             loggerMock = new Mock<ILogger>();
             appTrackerMock = new Mock<IAppTracker>();
+
+            sessions = new List<Session>();
         }
 
         [Fact]
         public async Task When_Initialize_Expect_IsInitialized()
         {
             connectivityServiceMock.Setup(cs => cs.HasFastConnection()).Returns(true);
-            mainViewModel = new MainViewModel(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(interstitialAdMock.Object,
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -68,6 +73,87 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             await mainViewModel.InitializeAsync(null);
             Assert.Empty(mainViewModel.Sessions);
             Assert.Null(mainViewModel.CurrentSession);
+        }
+
+        [Fact]
+        public async Task When_HasNoSessionsAndCreatesSession_Expect_HasOneNewSession()
+        {
+            var audioSource = new AudioSource
+            {
+                Duration = 666,
+                FileName = "fileName",
+                Source = "/folder/subFolder",
+                Type = AudioSourceType.Local
+            };
+
+            sessionsRepositoryMock.Setup(sr => sr.SaveAsync(It.IsAny<Session>())).Callback((Session s) => { sessions.Add(s); }).ReturnsAsync(0);
+            sessionsRepositoryMock.Setup(sr => sr.GetByIdAsync(It.IsAny<int>())).ReturnsAsync((int id) => { return sessions.FirstOrDefault(s => s.Id == id); });
+
+            mainViewModel = CreateDefault(interstitialAdMock.Object,
+                sessionsRepositoryMock.Object,
+                loopsRepositoryMock.Object,
+                dialogServiceMock.Object,
+                fileRepositoryMock.Object,
+                sourcePickerMock.Object,
+                spotifyLoaderMock.Object,
+                filePickerMock.Object,
+                connectivityServiceMock.Object,
+                navigationServiceMock.Object,
+                loggerMock.Object,
+                appTrackerMock.Object);
+
+            await mainViewModel.ExecuteCreateSessionCommandAsync(audioSource);
+            Assert.NotNull(mainViewModel.CurrentSession);
+            Assert.Single(mainViewModel.Sessions);
+            Assert.Equal(mainViewModel.CurrentSession.Session.AudioSource, audioSource);
+
+            sessionsRepositoryMock.Verify(s => s.SaveAsync(It.IsAny<Session>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task When_CreateWithNullAudioSource_Expect_ThrowsArgumentNullException()
+        {
+            mainViewModel = CreateDefault(interstitialAdMock.Object,
+                sessionsRepositoryMock.Object,
+                loopsRepositoryMock.Object,
+                dialogServiceMock.Object,
+                fileRepositoryMock.Object,
+                sourcePickerMock.Object,
+                spotifyLoaderMock.Object,
+                filePickerMock.Object,
+                connectivityServiceMock.Object,
+                navigationServiceMock.Object,
+                loggerMock.Object,
+                appTrackerMock.Object);
+
+            await Assert.ThrowsAsync<ArgumentNullException>(() => mainViewModel.ExecuteCreateSessionCommandAsync(null));
+        }
+
+        private MainViewModel CreateDefault(IInterstitialAd interstitialAd,
+            IRepository<Session> sessionsRepository,
+            IRepository<Loop> loopsRepository,
+            IDialogService dialogService,
+            IFileRepository fileRepository,
+            ISourcePicker sourcePicker,
+            ISpotifyLoader spotifyLoader,
+            Mobile.Common.IFilePicker filePicker,
+            IConnectivityService connectivityService,
+            INavigationService navigationService,
+            ILogger logger,
+            IAppTracker appTracker)
+        {
+            return new MainViewModel(interstitialAd,
+                sessionsRepository,
+                loopsRepository,
+                dialogService,
+                fileRepository,
+                sourcePicker,
+                spotifyLoader,
+                filePicker,
+                connectivityService,
+                navigationService,
+                logger,
+                appTracker);
         }
     }
 }
