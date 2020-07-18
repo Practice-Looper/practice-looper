@@ -41,9 +41,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka3.PracticeLooper.Utils"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka3.PracticeLooper.Services.Tests", "Emka3.PracticeLooper.Services.Tests\Emka3.PracticeLooper.Services.Tests.csproj", "{69E7C631-2164-49E7-98BC-1F50188F0BD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka3.PracticeLooper.Config.Tests", "Emka3.PracticeLooper.Config.Tests\Emka3.PracticeLooper.Config.Tests.csproj", "{1969373C-F57E-4E35-B1FE-32CA3B164EEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka.PracticeLooper.Mobile.Tests", "Emka.PracticeLooper.Mobile.Tests\Emka.PracticeLooper.Mobile.Tests.csproj", "{CF6647A9-FB50-4FE3-B998-09D6C2D71E4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka.PracticeLooper.Mobile.Tests", "Emka.PracticeLooper.Mobile.Tests\Emka.PracticeLooper.Mobile.Tests.csproj", "{991B058C-BEEC-4A63-B63D-B861B3AE5868}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka3.PracticeLooper.Config.Tests", "Emka3.PracticeLooper.Config.Tests\Emka3.PracticeLooper.Config.Tests.csproj", "{EBF55BE3-8200-4C3C-8DB8-0D215D906ECB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -409,8 +409,8 @@ Global
 		{CF132663-0895-4522-9457-ED006BE32E86} = {31E0EB53-2365-4681-8DE9-5EB4DAD34402}
 		{BB8017A5-359F-45BD-AE7B-2835EF380F79} = {16396CBE-692B-4FC7-A2D2-66DCDDD7FAD5}
 		{69E7C631-2164-49E7-98BC-1F50188F0BD5} = {B6418745-95F3-4B15-96C2-DC0114A9F6D7}
-		{1969373C-F57E-4E35-B1FE-32CA3B164EEE} = {16396CBE-692B-4FC7-A2D2-66DCDDD7FAD5}
-		{991B058C-BEEC-4A63-B63D-B861B3AE5868} = {03C26D68-5166-41EF-A53D-502F4D70F144}
+		{CF6647A9-FB50-4FE3-B998-09D6C2D71E4A} = {03C26D68-5166-41EF-A53D-502F4D70F144}
+		{EBF55BE3-8200-4C3C-8DB8-0D215D906ECB} = {16396CBE-692B-4FC7-A2D2-66DCDDD7FAD5}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

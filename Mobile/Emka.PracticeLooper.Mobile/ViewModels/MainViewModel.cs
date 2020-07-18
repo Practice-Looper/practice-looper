@@ -343,7 +343,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 Logger.LogError(ex);
                 dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
-        }
+        } 
 
         private void CurrentAudioPlayer_TimerElapsed(object sender, EventArgs e)
         {
@@ -369,8 +369,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             return true;
         }
 
-        private async Task ExecuteCreateSessionCommandAsync(object o)
+        public async Task ExecuteCreateSessionCommandAsync(object o)
         {
+            if (o == null)
+            {
+                throw new ArgumentNullException(nameof(o));
+            }
+
             var source = o as AudioSource;
 
             if (source != null)
