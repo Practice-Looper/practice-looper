@@ -38,7 +38,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            AppCenter.Start(ConfigFactory.GetConfigService().GetSecret<string>("AppCenterIos"), typeof(Analytics), typeof(Crashes));
+            AppCenter.Start(ConfigFactory.GetConfigService().GetValue("AppCenterIos"), typeof(Analytics), typeof(Crashes));
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
             GlobalApp.Init();

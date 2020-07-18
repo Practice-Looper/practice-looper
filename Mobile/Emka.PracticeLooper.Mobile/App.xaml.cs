@@ -24,7 +24,7 @@ namespace Emka.PracticeLooper.Mobile
 
         public App()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Factory.GetConfigService().GetSecret<string>("SyncFusionLicenseKey"));
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Factory.GetConfigService().GetValue("SyncFusionLicenseKey"));
             InitializeComponent();
         }
 
@@ -83,29 +83,16 @@ namespace Emka.PracticeLooper.Mobile
 #endif
             ConfigurationService = Factory.GetConfigService();
             ConfigurationService.SetValue(PreferenceKeys.PremiumGeneral, Preferences.Get(PreferenceKeys.PremiumGeneral, default(bool)));
-            // todo: unnötige attribute aussortieren und den einzelnen files!
-            ConfigurationService.SetValue("SpotifyClientApiUri", ConfigurationService.GetSecret<string>("SpotifyClientApiUri"));
-            ConfigurationService.SetValue("SpotifyApiLimit", ConfigurationService.GetSecret<int>("SpotifyApiLimit"));
-            ConfigurationService.SetValue("SpotifyClientId", ConfigurationService.GetSecret<string>("SpotifyClientId"));
-            ConfigurationService.SetValue("SpotifyClientRedirectUri", ConfigurationService.GetSecret<string>("SpotifyClientRedirectUri"));
-            ConfigurationService.SetValue("SpotifyClientScopes", ConfigurationService.GetSecret<string>("SpotifyClientScopes"));
-            ConfigurationService.SetValue("DbName", ConfigurationService.GetSecret<string>("DbName"));
 
             if (Device.RuntimePlatform == Device.iOS)
             {
                 ConfigurationService.LocalPath = FileSystem.AppDataDirectory;
-                BannerAddUnitId = ConfigurationService.GetSecret<string>("AdmobIosTopBannerAdId");
-                ConfigurationService.SetValue("AdmobIosInterstitialProjectAdId", ConfigurationService.GetSecret<string>("AdmobIosInterstitialProjectAdId"));
-                ConfigurationService.SetValue("InAppIosPremiumGeneral", ConfigurationService.GetSecret<string>("InAppIosPremiumGeneral"));
+                BannerAddUnitId = ConfigurationService.GetValue("AdmobIosTopBannerAdId");
             }
             else if (Device.RuntimePlatform == Device.Android)
             {
-                BannerAddUnitId = ConfigurationService.GetSecret<string>("AdmobAndroidTopBanneAdId");
+                BannerAddUnitId = ConfigurationService.GetValue("AdmobAndroidTopBanneAdId");
                 ConfigurationService.LocalPath = FileSystem.AppDataDirectory;
-
-                ConfigurationService.SetValue("SpotifyClientRequestCode", ConfigurationService.GetSecret<int>("SpotifyClientRequestCode"));
-                ConfigurationService.SetValue("AdmobAndroidInterstitialProjectAdId", ConfigurationService.GetSecret<string>("AdmobAndroidInterstitialProjectAdId"));
-                ConfigurationService.SetValue("InAppAndroidPremiumGeneral", ConfigurationService.GetSecret<string>("InAppAndroidPremiumGeneral"));
             }
         }
 

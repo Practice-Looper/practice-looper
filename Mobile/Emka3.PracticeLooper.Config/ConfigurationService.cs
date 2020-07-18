@@ -22,12 +22,6 @@ namespace Emka3.PracticeLooper.Config
         /// Config strings.
         /// </summary>
         IDictionary<string, object> configs;
-
-        /// <summary>
-        /// Secret strings.
-        /// </summary>
-        IDictionary<string, object> secrets;
-
         private static ConfigurationService instance;
         #endregion Fields
 
@@ -65,14 +59,13 @@ namespace Emka3.PracticeLooper.Config
         /// </summary>
         private void Initialize()
         {
-            configs = new Dictionary<string, object>();
-            secrets = readSecreats();
+            configs = ReadSecrets();
         }
 
         /// <summary>
         /// Read the secrets.
         /// </summary>
-        private IDictionary<string, object> readSecreats()
+        private IDictionary<string, object> ReadSecrets()
         {
             string json;
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Emka3.PracticeLooper.Config.secrets.json"))
@@ -130,17 +123,7 @@ namespace Emka3.PracticeLooper.Config
         {
             if (configs != null && !string.IsNullOrEmpty(key) && configs.ContainsKey(key))
             {
-                return (T)configs[key];
-            }
-
-            return default;
-        }
-
-        public T GetSecret<T>(string key)
-        {
-            if (secrets != null && !string.IsNullOrEmpty(key) && secrets.ContainsKey(key))
-            {
-                return (T)secrets[key];
+                return (T)Convert.ChangeType(configs[key], typeof(T));
             }
 
             return default;

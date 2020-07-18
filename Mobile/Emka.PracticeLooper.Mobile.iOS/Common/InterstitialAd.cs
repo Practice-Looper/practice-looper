@@ -78,7 +78,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             try
             {
-                interstitialAd = new Interstitial(GlobalApp.ConfigurationService.GetValue<string>("AdmobIosInterstitialProjectAdId"));
+                interstitialAd = new Interstitial(GlobalApp.ConfigurationService.GetValue("AdmobIosInterstitialProjectAdId"));
 #if DEBUG
                 MobileAds.SharedInstance.RequestConfiguration.TestDeviceIdentifiers = new[] { "6fb304bbcc401debac41d2255509463f" };
 #endif
