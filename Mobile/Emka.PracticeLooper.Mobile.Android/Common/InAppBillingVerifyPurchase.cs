@@ -13,9 +13,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         public Task<bool> VerifyPurchase(string signedData, string signature, string productId = null, string transactionId = null)
         {
             IConfigurationService ConfigurationService = Factory.GetConfigService();
-            var key1Transform = InAppBillingImplementation.InAppBillingSecurity.TransformString(ConfigurationService.GetSecret<string>("PublicKey1"), 1);
-            var key2Transform = InAppBillingImplementation.InAppBillingSecurity.TransformString(ConfigurationService.GetSecret<string>("PublicKey2"), 2);
-            var key3Transform = InAppBillingImplementation.InAppBillingSecurity.TransformString(ConfigurationService.GetSecret<string>("PublicKey3"), 3);
+            var key1Transform = InAppBillingImplementation.InAppBillingSecurity.TransformString(ConfigurationService.GetValue("PublicKey1"), 1);
+            var key2Transform = InAppBillingImplementation.InAppBillingSecurity.TransformString(ConfigurationService.GetValue("PublicKey2"), 2);
+            var key3Transform = InAppBillingImplementation.InAppBillingSecurity.TransformString(ConfigurationService.GetValue("PublicKey3"), 3);
 
             return Task.FromResult(InAppBillingImplementation.InAppBillingSecurity.VerifyPurchase(key1Transform + key2Transform + key3Transform, signedData, signature));
         }

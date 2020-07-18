@@ -33,7 +33,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            AppCenter.Start(ConfigFactory.GetConfigService().GetSecret<string>("AppCenterAndroid"), typeof(Analytics), typeof(Crashes));
+            AppCenter.Start(ConfigFactory.GetConfigService().GetValue("AppCenterAndroid"), typeof(Analytics), typeof(Crashes));
             base.OnCreate(savedInstanceState);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
@@ -53,7 +53,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             }
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
-            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, ConfigFactory.GetConfigService().GetSecret<string>("AdmobAndroidAppId"));
+            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, ConfigFactory.GetConfigService().GetValue("AdmobAndroidAppId"));
             SQLitePCL.Batteries_V2.Init();
             Platform.Init(this, savedInstanceState);
             GlobalApp.ConfigurationService.SetValue("Locale", Resources.Configuration.Locale.ToString());
