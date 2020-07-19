@@ -4,7 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
 using System.Threading.Tasks;
-using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Config.Contracts;
 using Xamarin.Essentials;
 
 namespace Emka.PracticeLooper.Mobile.Common

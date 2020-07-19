@@ -2,9 +2,10 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
+using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Services.Contracts;
-using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
 using Plugin.InAppBilling;
@@ -22,7 +23,12 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             InitializeComponent();
             var resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
-            BindingContext = new SettingsViewModel(resolver.Resolve<IConfigurationService>(), resolver.Resolve<ILogger>(), resolver.Resolve<IDialogService>(), resolver.Resolve<IAppTracker>(), resolver.Resolve<IInAppBillingVerifyPurchase>());
+            BindingContext = new SettingsViewModel(resolver.Resolve<IConfigurationService>(),
+                resolver.Resolve<ILogger>(),
+                resolver.Resolve<IDialogService>(),
+                resolver.Resolve<IAppTracker>(),
+                resolver.Resolve<IInAppBillingVerifyPurchase>(),
+                resolver.Resolve<INavigationService>());
         }
         
         void ListView_ItemTapped(object sender, ItemTappedEventArgs e)

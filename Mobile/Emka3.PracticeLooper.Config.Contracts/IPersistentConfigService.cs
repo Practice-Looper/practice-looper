@@ -4,7 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System.Threading.Tasks;
 
-namespace Emka3.PracticeLooper.Config
+namespace Emka3.PracticeLooper.Config.Contracts
 {
     public interface IPersistentConfigService
     {

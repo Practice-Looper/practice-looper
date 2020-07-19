@@ -6,9 +6,10 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka.PracticeLooper.Services.Contracts;
-using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
 using Plugin.InAppBilling;
@@ -23,9 +24,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #region Fields
 
         private readonly IConfigurationService configService;
-        private readonly ILogger logger;
         private readonly IDialogService dialogService;
-        private readonly IAppTracker appTracker;
         private readonly IInAppBillingVerifyPurchase purchaseVerifier;
         private Command purchaseItemCommand;
         private bool isBusy;
@@ -34,12 +33,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Ctor
 
-        public SettingsViewModel(IConfigurationService configService, ILogger logger, IDialogService dialogService, IAppTracker appTracker, IInAppBillingVerifyPurchase purchaseVerifier)
+        public SettingsViewModel(IConfigurationService configService, ILogger logger, IDialogService dialogService, IAppTracker appTracker, IInAppBillingVerifyPurchase purchaseVerifier, INavigationService navigationService)
+            : base(navigationService, logger, appTracker)
         {
             this.configService = configService;
-            this.logger = logger;
             this.dialogService = dialogService;
-            this.appTracker = appTracker;
             this.purchaseVerifier = purchaseVerifier;
             Products = new ObservableCollection<InAppBillingProductViewModel>();
             HasProducts = true;
@@ -90,7 +88,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 if (!connected)
                 {
-                    await logger.LogErrorAsync(new Exception($"Could not connect to store {DeviceInfo.Platform}"));
+                    await Logger.LogErrorAsync(new Exception($"Could not connect to store {DeviceInfo.Platform}"));
                     await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToStore, AppResources.Error_Caption);
                     return;
                 }
@@ -126,7 +124,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
             catch (Exception ex)
             {
-                await logger.LogErrorAsync(ex);
+                await Logger.LogErrorAsync(ex);
                 await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
             finally
@@ -191,7 +189,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    await logger.LogErrorAsync(ex);
+                    await Logger.LogErrorAsync(ex);
                     await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
                 }
                 finally
@@ -246,7 +244,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
             catch (Exception ex)
             {
-                await logger.LogErrorAsync(ex);
+                await Logger.LogErrorAsync(ex);
                 await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
             finally

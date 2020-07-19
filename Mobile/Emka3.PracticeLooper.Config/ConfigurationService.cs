@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Emka3.PracticeLooper.Config.Contracts;
 
 namespace Emka3.PracticeLooper.Config
 {

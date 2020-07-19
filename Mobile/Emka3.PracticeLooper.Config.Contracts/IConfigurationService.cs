@@ -5,7 +5,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Emka3.PracticeLooper.Config
+namespace Emka3.PracticeLooper.Config.Contracts
 {
     /// <summary>
     /// App Configuration service.

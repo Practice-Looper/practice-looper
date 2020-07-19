@@ -19,7 +19,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     public class RangePickerViewModel : ViewModelBase
     {
         private readonly IDialogService dialogService;
-        private readonly ILogger logger;
         private readonly TimeSpan fiveSecondsSpan = new TimeSpan(0, 0, 5);
         #region Properties
 
@@ -29,12 +28,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Ctor
         public RangePickerViewModel(AudioSource audioSource, Loop loop, bool isStartPosition, IDialogService dialogService, ILogger logger)
+            : base(null, logger, null)
         {
             AudioSource = audioSource;
             Loop = loop;
             IsStartPosition = isStartPosition;
             this.dialogService = dialogService;
-            this.logger = logger;
             Hours = new RangeObservableCollection<string>();
             Minutes = new RangeObservableCollection<string>();
 
@@ -98,7 +97,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (LengthHours > 0)
                 {
                     await dialogService?.ShowAlertAsync(AppResources.Hint_Content_FileTooLong_Content, AppResources.Hint_Caption_FileTooLong_Caption);
-                    await logger.LogErrorAsync(new Exception("File too long!"));
+                    await Logger.LogErrorAsync(new Exception("File too long!"));
                     return;
                 }
 

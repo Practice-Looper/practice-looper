@@ -6,8 +6,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Emka3.PracticeLooper.Config;
-using Emka3.PracticeLooper.Config.Feature;
+using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Foundation;
 using Google.MobileAds;
