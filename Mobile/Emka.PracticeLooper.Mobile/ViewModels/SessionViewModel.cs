@@ -4,10 +4,10 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
 using System.Threading.Tasks;
+using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka.PracticeLooper.Model;
 using Emka.PracticeLooper.Services.Contracts;
-using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
@@ -24,15 +24,18 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private Command deleteSessionCommand;
         private Command pickLoopCommand;
         private readonly IDialogService dialogService;
-        private readonly ILogger logger;
         #endregion
 
         #region Ctor
 
-        public SessionViewModel(Session session, IDialogService dialogService, ILogger logger)
+        public SessionViewModel(Session session,
+            IDialogService dialogService,
+            ILogger logger,
+            INavigationService navigationService,
+            IAppTracker appTracker)
+            : base(navigationService, logger, appTracker)
         {
             Session = session;
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
         }
 
@@ -61,7 +64,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
             catch (Exception ex)
             {
-                await logger?.LogErrorAsync(ex);
+                await Logger?.LogErrorAsync(ex);
                 await dialogService?.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
         }

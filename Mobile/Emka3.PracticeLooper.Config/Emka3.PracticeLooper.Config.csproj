@@ -28,10 +28,7 @@
   <ItemGroup>
     <Folder Include="Feature\" />
   </ItemGroup>
-    <ItemGroup>
-    <None Remove="App.config.json" />
-  </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="secrets.json" />
+    <ProjectReference Include="..\Emka3.PracticeLooper.Config.Contracts\Emka3.PracticeLooper.Config.Contracts.csproj" />
   </ItemGroup>
 </Project>

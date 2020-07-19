@@ -6,6 +6,7 @@ using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Mappings.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;

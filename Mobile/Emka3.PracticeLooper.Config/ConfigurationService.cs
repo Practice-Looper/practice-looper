@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Emka3.PracticeLooper.Config.Contracts;
 
 namespace Emka3.PracticeLooper.Config
 {

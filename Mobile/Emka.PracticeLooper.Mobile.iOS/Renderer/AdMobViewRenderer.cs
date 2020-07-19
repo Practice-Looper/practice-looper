@@ -6,7 +6,7 @@
 using System.ComponentModel;
 using Emka.PracticeLooper.Mobile.iOS.Renderer;
 using Emka.PracticeLooper.Mobile.Views;
-using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Config.Contracts;
 using Google.MobileAds;
 using UIKit;
 using Xamarin.Forms;

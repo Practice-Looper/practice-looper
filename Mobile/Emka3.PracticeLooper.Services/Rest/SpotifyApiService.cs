@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Rest;

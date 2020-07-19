@@ -19,8 +19,8 @@ using Emka3.PracticeLooper.Utils;
 using Emka.PracticeLooper.Model;
 using Emka.PracticeLooper.Services.Contracts;
 using Xamarin.Essentials;
-using Emka3.PracticeLooper.Config;
 using Emka.PracticeLooper.Mobile.Navigation;
+using Emka3.PracticeLooper.Config.Contracts;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -284,7 +284,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     foreach (var item in items)
                     {
-                        Sessions.Add(new SessionViewModel(item, dialogService, Logger));
+                        Sessions.Add(new SessionViewModel(item, dialogService, Logger, NavigationService, Tracker));
                     }
 
                     CurrentSession = Sessions.FirstOrDefault(s => s.Session.Id == Preferences.Get(PreferenceKeys.LastSession, default(int))) ?? Sessions.FirstOrDefault();
@@ -402,7 +402,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         }
                     };
 
-                    var newSessionViewModel = new SessionViewModel(newSession, dialogService, Logger);
+                    var newSessionViewModel = new SessionViewModel(newSession, dialogService, Logger, NavigationService, Tracker);
                     var isCurrentlyPlayling = CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying;
 
                     CurrentAudioPlayer?.Pause();

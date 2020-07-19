@@ -321,6 +321,10 @@
       <Project>{649B2834-BBE9-4B71-AA24-3F416B9A034E}</Project>
       <Name>Emka3.PracticeLooper.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Emka3.PracticeLooper.Config.Contracts\Emka3.PracticeLooper.Config.Contracts.csproj">
+      <Project>{FC6130F5-C5E5-442C-9E60-8BCCE5FE4514}</Project>
+      <Name>Emka3.PracticeLooper.Config.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj">
       <Project>{C15009EA-B815-485E-88A0-FDB49F1842B4}</Project>
       <Name>Emka3.PracticeLooper.Config</Name>

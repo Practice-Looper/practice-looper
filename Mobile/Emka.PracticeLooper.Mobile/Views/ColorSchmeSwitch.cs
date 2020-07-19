@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using Emka.PracticeLooper.Mobile.Themes;
 using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Utils;
 using Xamarin.Essentials;
 using Xamarin.Forms;

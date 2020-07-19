@@ -13,6 +13,7 @@ using Xamarin.Essentials;
 using Emka.PracticeLooper.Services.Contracts;
 using System.Collections.Generic;
 using Emka.PracticeLooper.Mobile.Themes;
+using Emka3.PracticeLooper.Config.Contracts;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
