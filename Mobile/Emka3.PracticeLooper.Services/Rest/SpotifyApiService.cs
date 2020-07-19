@@ -22,13 +22,24 @@ namespace Emka3.PracticeLooper.Services.Rest
     [Preserve(AllMembers = true)]
     public class SpotifyApiService : ISpotifyApiService
     {
+        #region Fields
+
         IHttpApiClient apiClient;
+        private readonly IConfigurationService configurationService;
         int limit;
-        public SpotifyApiService(IHttpApiClient apiClient)
+        #endregion
+
+        #region Ctor
+
+        public SpotifyApiService(IHttpApiClient apiClient, IConfigurationService configurationService)
         {
-            this.apiClient = apiClient;
-            limit = Factory.GetConfigService().GetValue<int>("SpotifyApiLimit");
+            this.apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
+            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
+            limit = configurationService.GetValue<int>("SpotifyApiLimit");
         }
+        #endregion
+
+        #region Methods
 
         public async Task<List<SpotifyTrack>> SearchTrackByName(string name, CancellationToken cancellationToken)
         {
@@ -63,5 +74,6 @@ namespace Emka3.PracticeLooper.Services.Rest
                 throw;
             }
         }
+        #endregion
     }
 }

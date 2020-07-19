@@ -8,9 +8,9 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Common;
+using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka.PracticeLooper.Model;
-using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
@@ -26,7 +26,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #region Fields
         private ISpotifyApiService spotifyApiService;
         private ISpotifyLoader spotifyLoader;
-        private IRepository<Session> sessionsRepository;
         private Command searchCommand;
         private Command createSessionCommand;
         private LooprTimer timer;
@@ -35,10 +34,17 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #endregion
 
         #region Ctor
-        public SpotifySearchViewModel()
+        public SpotifySearchViewModel(ISpotifyApiService spotifyApiService,
+            ISpotifyLoader spotifyLoader,
+            INavigationService navigationService,
+            ILogger logger,
+            IAppTracker appTracker)
+            : base(navigationService, logger, appTracker)
         {
             searchCancelTokenSource = new CancellationTokenSource();
             SearchResults = new ObservableCollection<SpotifyTrack>();
+            this.spotifyApiService = spotifyApiService ?? throw new ArgumentNullException(nameof(spotifyApiService));
+            this.spotifyLoader = spotifyLoader ?? throw new ArgumentNullException(nameof(spotifyLoader)); ;
         }
         #endregion
 
@@ -175,10 +181,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
-                spotifyApiService = Factory.GetResolver().Resolve<ISpotifyApiService>();
-                sessionsRepository = Factory.GetResolver().Resolve<IRepository<Session>>();
-                spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
-
                 if (!spotifyLoader.Authorized)
                 {
                     await spotifyLoader.InitializeAsync();

@@ -22,7 +22,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             InitializeComponent();
             var resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
-            BindingContext = new SettingsViewModel(Factory.GetConfigService(), resolver.Resolve<ILogger>(), resolver.Resolve<IDialogService>(), resolver.Resolve<IAppTracker>(), resolver.Resolve<IInAppBillingVerifyPurchase>());
+            BindingContext = new SettingsViewModel(resolver.Resolve<IConfigurationService>(), resolver.Resolve<ILogger>(), resolver.Resolve<IDialogService>(), resolver.Resolve<IAppTracker>(), resolver.Resolve<IInAppBillingVerifyPurchase>());
         }
         
         void ListView_ItemTapped(object sender, ItemTappedEventArgs e)

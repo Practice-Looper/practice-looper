@@ -8,19 +8,30 @@ using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Utils;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
 namespace Emka.PracticeLooper.Mobile.Views
 {
     [Preserve(AllMembers = true)]
     public class ColorSchemeSwitch : Switch
     {
+        #region Fields
+        private readonly IConfigurationService configurationService;
+        #endregion
+
+        #region Ctor
+
         public ColorSchemeSwitch()
         {
-            IsVisible = Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral);
-            Factory.GetConfigService().ValueChanged += ConfigValueChanged;
+            configurationService = MappingsFactory.Factory.GetResolver().Resolve<IConfigurationService>();
+            IsVisible = configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral);
+            configurationService.ValueChanged += ConfigValueChanged;
             Toggled += Switch_Toggled;
             IsToggled = AppInfo.RequestedTheme == AppTheme.Dark || Preferences.Get(PreferenceKeys.ColorScheme, -1) == (int)AppTheme.Dark;
         }
+        #endregion
+
+        #region Methods
 
         void Switch_Toggled(object sender, ToggledEventArgs e)
         {
@@ -42,8 +53,9 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             if (e == PreferenceKeys.PremiumGeneral)
             {
-                IsVisible = Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral);
+                IsVisible = configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral);
             }
         }
+        #endregion
     }
 }

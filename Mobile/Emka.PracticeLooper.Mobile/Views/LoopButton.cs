@@ -6,24 +6,37 @@ using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Config.Feature;
 using Emka3.PracticeLooper.Utils;
 using Xamarin.Forms;
+using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
 namespace Emka.PracticeLooper.Mobile.Views
 {
     [Preserve(AllMembers = true)]
     public class LoopButton : ImageButton, IFeature
     {
+        #region Fields
+
+        private readonly IConfigurationService configurationService;
+        #endregion
+
+        #region Ctor
+
         public LoopButton()
         {
-            IsVisible = Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral);
-            Factory.GetConfigService().ValueChanged += ConfigValueChanged;
+            configurationService = MappingsFactory.Factory.GetResolver().Resolve<IConfigurationService>();
+            IsVisible = configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral);
+            configurationService.ValueChanged += ConfigValueChanged;
         }
+        #endregion
+
+        #region Methods
 
         private void ConfigValueChanged(object sender, string e)
         {
             if (e == PreferenceKeys.PremiumGeneral)
             {
-                IsVisible = Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral);
+                IsVisible = configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral);
             }
         }
+        #endregion
     }
 }

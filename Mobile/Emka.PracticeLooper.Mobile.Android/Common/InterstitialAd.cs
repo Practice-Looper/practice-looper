@@ -21,6 +21,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         AutoResetEvent adClosedEvent;
         Android.Gms.Ads.InterstitialAd interstitialAd;
         private readonly ILogger logger;
+        private readonly IConfigurationService configurationService;
         #endregion
 
         #region Events
@@ -32,15 +33,16 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         #region Ctor
 
-        public InterstitialAd(ILogger logger)
+        public InterstitialAd(ILogger logger, IConfigurationService configurationService)
         {
-            this.logger = logger;
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             interstitialAd = new Android.Gms.Ads.InterstitialAd(Application.Context);
             interstitialAd.RewardedVideoAdFailedToLoad += OnRewardedVideoAdFailedToLoad;
             interstitialAd.AdListener = this;
             interstitialAd.AdUnitId = GlobalApp.ConfigurationService.GetValue<string>("AdmobAndroidInterstitialProjectAdId");
 
-            if (!Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral))
+            if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
             {
                 LoadAd();
             }
@@ -56,7 +58,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public async Task ShowAdAsync()
         {
-            if (!Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral) && interstitialAd.IsLoaded)
+            if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral) && interstitialAd.IsLoaded)
             {
                 adClosedEvent = new AutoResetEvent(false);
                 await Task.Run(() =>
@@ -70,7 +72,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 });
             }
 
-            if (!Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral))
+            if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
             {
                 MainThread.BeginInvokeOnMainThread(LoadAd);
             }

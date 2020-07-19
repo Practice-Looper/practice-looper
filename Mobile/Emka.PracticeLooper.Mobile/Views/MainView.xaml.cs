@@ -18,17 +18,20 @@ namespace Emka.PracticeLooper.Mobile.Views
     [Preserve(AllMembers = true)]
     public partial class MainView : ContentPage
     {
+        #region Fields
+
         private readonly IConfigurationService configService;
         private IResolver resolver;
+        #endregion
 
         #region Ctor
         public MainView()
         {
             InitializeComponent();
-            configService = Factory.GetConfigService();
-            configService.ValueChanged += ConfigService_ValueChanged;
 
             resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
+            configService = resolver.Resolve<IConfigurationService>();
+            configService.ValueChanged += ConfigService_ValueChanged;
             BindingContext = new MainViewModel(resolver.Resolve<IInterstitialAd>(),
                    resolver.Resolve<IRepository<Session>>(),
                    resolver.Resolve<IRepository<Loop>>(),
@@ -40,7 +43,8 @@ namespace Emka.PracticeLooper.Mobile.Views
                    resolver.Resolve<IConnectivityService>(),
                    resolver.Resolve<INavigationService>(),
                    resolver.Resolve<ILogger>(),
-                   resolver.Resolve<IAppTracker>());
+                   resolver.Resolve<IAppTracker>(),
+                   configService);
         }
 
         private void ConfigService_ValueChanged(object sender, string e)
