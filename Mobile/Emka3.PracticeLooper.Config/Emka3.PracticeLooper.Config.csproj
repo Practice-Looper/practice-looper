@@ -28,6 +28,9 @@
   <ItemGroup>
     <Folder Include="Feature\" />
   </ItemGroup>
+    <ItemGroup>
+    <None Remove="App.config.json" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="secrets.json" />
   </ItemGroup>
