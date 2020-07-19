@@ -16,12 +16,14 @@ namespace Emka.PracticeLooper.Mobile.Views
                        typeof(string),
                        typeof(AdMobView),
                        string.Empty);
+        private readonly IConfigurationService configurationService;
 
         public AdMobView()
         {
             AdUnitId = App.BannerAddUnitId;
-            IsVisible = !Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral);
-            Factory.GetConfigService().ValueChanged += AdMobView_ValueChanged;
+            configurationService = Emka3.PracticeLooper.Mappings.Factory.GetResolver().Resolve<IConfigurationService>();
+            IsVisible = !configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral);
+            configurationService.ValueChanged += AdMobView_ValueChanged;
             Logger = Emka3.PracticeLooper.Mappings.Factory.GetResolver().Resolve<ILogger>();
         }
 
@@ -29,7 +31,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             if (e == PreferenceKeys.PremiumGeneral)
             {
-                IsVisible = !Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral);
+                IsVisible = !configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral);
             }
         }
 

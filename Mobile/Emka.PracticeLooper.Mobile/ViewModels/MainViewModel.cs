@@ -37,6 +37,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private ISpotifyLoader spotifyLoader;
         private Mobile.Common.IFilePicker filePicker;
         private readonly IConnectivityService connectivityService;
+        private readonly IConfigurationService configurationService;
         private Command playCommand;
         private Command createSessionCommand;
         private Command deleteSessionCommand;
@@ -65,7 +66,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             IConnectivityService connectivityService,
             INavigationService navigationService,
             ILogger logger,
-            IAppTracker appTracker)
+            IAppTracker appTracker,
+            IConfigurationService configurationService)
             : base(navigationService, logger, appTracker)
         {
             this.interstitialAd = interstitialAd;
@@ -77,6 +79,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.spotifyLoader = spotifyLoader;
             this.filePicker = filePicker;
             this.connectivityService = connectivityService;
+            this.configurationService = configurationService;
             Sessions = new ObservableCollection<SessionViewModel>();
             isPlaying = false;
             MessagingCenter.Subscribe<SpotifySearchViewModel, AudioSource>(this, MessengerKeys.NewTrackAdded, (sender, audioSorce) => CreateSessionCommand.Execute(audioSorce));
@@ -404,7 +407,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                     CurrentAudioPlayer?.Pause();
 
-                    if (!Emka3.PracticeLooper.Config.Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral))
+                    if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
                     {
                         if (CurrentSession != null)
                         {

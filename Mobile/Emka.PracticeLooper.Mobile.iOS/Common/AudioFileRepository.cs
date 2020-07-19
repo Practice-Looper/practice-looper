@@ -5,6 +5,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Foundation;
 
@@ -15,11 +16,13 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
     {
         #region Fields
         private bool hasCloudAccess;
+        private readonly IConfigurationService configurationService;
         #endregion
 
         #region Ctor
-        public AudioFileRepository()
+        public AudioFileRepository(IConfigurationService configurationService)
         {
+            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             hasCloudAccess = false;
         }
         #endregion
@@ -39,7 +42,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
             else
             {
-                targetPath = GlobalApp.ConfigurationService.LocalPath;
+                targetPath = configurationService.LocalPath;
             }
 
             await Task.Run(() =>

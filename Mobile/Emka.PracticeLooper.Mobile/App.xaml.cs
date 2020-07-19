@@ -66,7 +66,7 @@ namespace Emka.PracticeLooper.Mobile
             resolver.RegisterSingleton(typeof(SourcePicker), typeof(ISourcePicker));
             resolver.RegisterSingleton(typeof(FileAudioPlayer), typeof(IAudioPlayer));
             resolver.RegisterInstance(new DialogService(), typeof(IDialogService));
-            resolver.RegisterInstance(Factory.GetConfigService(), typeof(IConfigurationService));
+            resolver.RegisterInstance(ConfigurationService, typeof(IConfigurationService));
             resolver.Register(typeof(StringLocalizer), typeof(IStringLocalizer));
             // Build container after platform implementations have been registered
             MappingsFactory.Factory.GetResolver().BuildContainer();
@@ -82,7 +82,7 @@ namespace Emka.PracticeLooper.Mobile
 #if PREMIUM
             Preferences.Set(PreferenceKeys.PremiumGeneral, true);
 #endif
-            ConfigurationService = Factory.GetConfigService();
+            ConfigurationService = new ConfigurationService(new PersistentConfigService());
             ConfigurationService.SetValue(PreferenceKeys.PremiumGeneral, Preferences.Get(PreferenceKeys.PremiumGeneral, default(bool)));
 
             if (Device.RuntimePlatform == Device.iOS)

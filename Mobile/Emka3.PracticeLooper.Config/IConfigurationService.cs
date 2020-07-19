@@ -84,7 +84,7 @@ namespace Emka3.PracticeLooper.Config
         /// <param name="key"></param>
         /// <param name="defaultValue"></param>
         /// <returns>Either found value or predefined default</returns>
-        Task<T> GetPersistedValue<T>(string key, T defaultValue = default);
+        T GetPersistedValue<T>(string key, T defaultValue = default);
         #endregion Methods
     }
 }

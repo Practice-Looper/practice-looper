@@ -4,6 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
 using Autofac;
+using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
@@ -24,7 +25,7 @@ namespace Emka3.PracticeLooper.Mappings.Services
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            builder.Register(c => new HttpApiClient(Config.Factory.GetConfigService().GetValue("SpotifyClientApiUri"), c.Resolve<ITokenStorage>())).As<IHttpApiClient>().SingleInstance();
+            builder.RegisterType<HttpApiClient>().As<IHttpApiClient>().SingleInstance();
             builder.RegisterType<SpotifyApiService>().As<ISpotifyApiService>().SingleInstance();
         }
     }

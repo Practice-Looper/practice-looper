@@ -4,7 +4,6 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 
 using Emka.PracticeLooper.Mobile.iOS.Common;
-using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Plugin.InAppBilling;
@@ -16,7 +15,6 @@ namespace Emka.PracticeLooper.Mobile.iOS
     {
         public static void Init()
         {
-            ConfigurationService = Factory.GetConfigService();
             MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
             resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
             resolver.Register(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
@@ -26,7 +24,5 @@ namespace Emka.PracticeLooper.Mobile.iOS
             resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
             resolver.RegisterSingleton(typeof(ConnectivityService), typeof(IConnectivityService));
         }
-
-        internal static IConfigurationService ConfigurationService { get; private set; }
     }
 }

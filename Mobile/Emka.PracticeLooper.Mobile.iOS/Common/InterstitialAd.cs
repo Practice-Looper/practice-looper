@@ -23,14 +23,16 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         Interstitial interstitialAd;
         AutoResetEvent adClosedEvent;
         private readonly ILogger logger;
+        private readonly IConfigurationService configurationService;
         #endregion
 
         #region Ctor
 
-        public InterstitialAd(ILogger logger)
+        public InterstitialAd(ILogger logger, IConfigurationService configurationService)
         {
-            this.logger = logger;
-            if (!Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral))
+            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
             {
                 LoadAd();
             }
@@ -51,7 +53,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public async Task ShowAdAsync()
         {
             // todo: block if ad is loading...
-            if (!Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral) && interstitialAd.IsReady)
+            if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral) && interstitialAd.IsReady)
             {
                 adClosedEvent = new AutoResetEvent(false);
                 await Task.Run(() =>
@@ -68,7 +70,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 });
             }
 
-            if (!Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral))
+            if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
             {
                 MainThread.BeginInvokeOnMainThread(LoadAd);
             }
@@ -78,7 +80,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             try
             {
-                interstitialAd = new Interstitial(GlobalApp.ConfigurationService.GetValue("AdmobIosInterstitialProjectAdId"));
+                interstitialAd = new Interstitial(configurationService.GetValue<string>("AdmobIosInterstitialProjectAdId"));
 #if DEBUG
                 MobileAds.SharedInstance.RequestConfiguration.TestDeviceIdentifiers = new[] { "6fb304bbcc401debac41d2255509463f", "3408f4ee8f8d77f2efcbf255ead140d6" };
 #endif

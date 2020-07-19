@@ -11,16 +11,31 @@ using Google.MobileAds;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
+using MappingsFactory = Emka3.PracticeLooper.Mappings;
 
 [assembly: ExportRenderer(typeof(AdMobView), typeof(AdMobViewRenderer))]
 namespace Emka.PracticeLooper.Mobile.iOS.Renderer
 {
     public class AdMobViewRenderer : ViewRenderer<AdMobView, BannerView>
     {
+        #region Fields
+        private readonly IConfigurationService configurationService;
+        #endregion
+
+        #region Ctor
+
+        public AdMobViewRenderer()
+        {
+            configurationService = MappingsFactory.Factory.GetResolver().Resolve<IConfigurationService>();
+        }
+        #endregion
+
+        #region Methods
+
         protected override void OnElementChanged(ElementChangedEventArgs<AdMobView> e)
         {
             base.OnElementChanged(e);
-            if (!Factory.GetConfigService().GetValue<bool>(PreferenceKeys.PremiumGeneral) && Control == null)
+            if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral) && Control == null)
             {
                 SetNativeControl(CreateBannerView());
             }
@@ -68,5 +83,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
             }
             return null;
         }
+        #endregion
     }
 }

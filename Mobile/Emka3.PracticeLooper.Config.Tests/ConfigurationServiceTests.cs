@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Moq;
 using Xunit;
 
 namespace Emka3.PracticeLooper.Config.Tests
@@ -7,10 +8,12 @@ namespace Emka3.PracticeLooper.Config.Tests
     public class ConfigurationServiceTests
     {
         private readonly IConfigurationService configurationService;
+        private readonly Mock<IPersistentConfigService> persistentConfigServiceMock;
 
         public ConfigurationServiceTests()
         {
-            configurationService = Factory.GetConfigService();
+            persistentConfigServiceMock = new Mock<IPersistentConfigService>();
+            configurationService = new ConfigurationService(persistentConfigServiceMock.Object);
         }
 
         [Theory]

@@ -38,12 +38,12 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         #region Ctor
 
-        public SpotifyLoader(ILogger logger, IDialogService dialogService, IStringLocalizer stringLocalizer)
+        public SpotifyLoader(ILogger logger, IDialogService dialogService, IStringLocalizer stringLocalizer, IConfigurationService configurationService)
         {
-            configurationService = Factory.GetConfigService();
-            this.logger = logger;
-            this.dialogService = dialogService;
-            this.stringLocalizer = stringLocalizer;
+            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
+            this.stringLocalizer = stringLocalizer ?? throw new ArgumentNullException(nameof(stringLocalizer));
         }
         #endregion
 

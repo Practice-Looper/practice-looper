@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 
 namespace Emka3.PracticeLooper.Services.Common
@@ -14,15 +15,17 @@ namespace Emka3.PracticeLooper.Services.Common
     public class HttpApiClient : IHttpApiClient
     {
         readonly HttpClient httpClient;
+        private readonly IConfigurationService configurationService;
         private readonly ITokenStorage accountManager;
 
-        public HttpApiClient(string baseAddress, ITokenStorage accountManager)
+        public HttpApiClient(IConfigurationService configurationService, ITokenStorage accountManager)
         {
-            this.accountManager = accountManager;
+            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
+            this.accountManager = accountManager ?? throw new ArgumentNullException(nameof(accountManager)); ;
             this.accountManager.TokenChanged += OnTokenChanged;
             httpClient = new HttpClient
             {
-                BaseAddress = new Uri(baseAddress)
+                BaseAddress = new Uri(configurationService.GetValue("SpotifyClientApiUri"))
             };
 
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

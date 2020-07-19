@@ -3,8 +3,13 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 
+using System;
+using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka3.PracticeLooper.Model.Player;
+using Emka3.PracticeLooper.Services.Contracts.Common;
+using Emka3.PracticeLooper.Services.Contracts.Player;
+using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Emka3.PracticeLooper.Utils;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -19,7 +24,12 @@ namespace Emka.PracticeLooper.Mobile.Views
         public SpotifySearchView()
         {
             InitializeComponent();
-            BindingContext = new SpotifySearchViewModel();
+            var resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver() ?? throw new ArgumentNullException("resolver");
+            BindingContext = new SpotifySearchViewModel(resolver.Resolve<ISpotifyApiService>(),
+                resolver.Resolve<ISpotifyLoader>(),
+                resolver.Resolve<INavigationService>(),
+                resolver.Resolve<ILogger>(),
+                resolver.Resolve<IAppTracker>());
         }
 
         private void OnTrackTapped(object sender, ItemTappedEventArgs e)

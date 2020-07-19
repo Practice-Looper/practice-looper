@@ -22,10 +22,16 @@ namespace Emka3.PracticeLooper.Config
         /// Config strings.
         /// </summary>
         IDictionary<string, object> configs;
-        private static ConfigurationService instance;
+        private readonly IPersistentConfigService persistentConfigService;
         #endregion Fields
 
         #region Ctor
+        public ConfigurationService(IPersistentConfigService persistentConfigService)
+        {
+            this.persistentConfigService = persistentConfigService;
+            Initialize();
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Emka3.PracticeLooper.Services.ConfigurationService"/> class.
         /// </summary>
@@ -40,14 +46,6 @@ namespace Emka3.PracticeLooper.Config
         #endregion
 
         #region Properties
-        public static ConfigurationService Instance
-        {
-            get
-            {
-                return instance ?? (instance = new ConfigurationService());
-            }
-        }
-
         public string LocalPath { get; set; }
 
         public bool IsSpotifyInstalled { get; set; }
@@ -80,7 +78,7 @@ namespace Emka3.PracticeLooper.Config
             }
 
             try
-            { 
+            {
                 JObject conf = JObject.Parse(json);
                 // crate dictionary.
                 return JsonConvert.DeserializeObject<Dictionary<string, object>>(conf.ToString());
@@ -89,11 +87,6 @@ namespace Emka3.PracticeLooper.Config
             {
                 throw ex;
             }
-        }
-
-        private async Task InitializeAsync()
-        {
-            await Task.Run(() => Initialize());
         }
 
         private void OnValueChanged(string value)
@@ -160,12 +153,12 @@ namespace Emka3.PracticeLooper.Config
 
         public void PersistValue<T>(string key, T value)
         {
-            throw new NotImplementedException();
+            persistentConfigService.PersistValue(key, value);
         }
 
-        public Task<T> GetPersistedValue<T>(string key, T defaultValue = default)
+        public T GetPersistedValue<T>(string key, T defaultValue = default)
         {
-            throw new NotImplementedException();
+            return persistentConfigService.GetPersistedValue(key, defaultValue);
         }
         #endregion Methods
     }
