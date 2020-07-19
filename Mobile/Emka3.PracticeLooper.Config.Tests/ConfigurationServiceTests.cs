@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Emka3.PracticeLooper.Config.Contracts;
 using Moq;
 using Xunit;
 

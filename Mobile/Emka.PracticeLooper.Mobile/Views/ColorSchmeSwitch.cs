@@ -28,7 +28,7 @@ namespace Emka.PracticeLooper.Mobile.Views
             IsVisible = configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral);
             configurationService.ValueChanged += ConfigValueChanged;
             Toggled += Switch_Toggled;
-            IsToggled = AppInfo.RequestedTheme == AppTheme.Dark || Preferences.Get(PreferenceKeys.ColorScheme, -1) == (int)AppTheme.Dark;
+            IsToggled = AppInfo.RequestedTheme == AppTheme.Dark || configurationService.GetValue(PreferenceKeys.ColorScheme, -1) == (int)AppTheme.Dark;
         }
         #endregion
 
@@ -42,12 +42,12 @@ namespace Emka.PracticeLooper.Mobile.Views
             if (e.Value)
             {
                 mergedDictionaries.Add(new DarkTheme());
-                Preferences.Set(PreferenceKeys.ColorScheme, (int)AppTheme.Dark);
+                configurationService.SetValue(PreferenceKeys.ColorScheme, (int)AppTheme.Dark, true);
                 return;
             }
 
             mergedDictionaries.Add(new LightTheme());
-            Preferences.Set(PreferenceKeys.ColorScheme, (int)AppTheme.Light);
+            configurationService.SetValue(PreferenceKeys.ColorScheme, (int)AppTheme.Light, true);
         }
 
         private void ConfigValueChanged(object sender, string e)

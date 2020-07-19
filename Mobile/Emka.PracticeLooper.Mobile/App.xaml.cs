@@ -20,7 +20,7 @@ namespace Emka.PracticeLooper.Mobile
 {
     public partial class App : Application
     {
-        public static IConfigurationService ConfigurationService { get; private set; }
+        public IConfigurationService ConfigurationService { get; private set; }
         public static string BannerAddUnitId { get; private set; }
 
         public App()
@@ -81,10 +81,9 @@ namespace Emka.PracticeLooper.Mobile
         private void InitConfig()
         {
 #if PREMIUM
-            Preferences.Set(PreferenceKeys.PremiumGeneral, true);
+            ConfigurationService.SetValue(PreferenceKeys.PremiumGeneral, true, true);
 #endif
             ConfigurationService = new ConfigurationService(new PersistentConfigService());
-            ConfigurationService.SetValue(PreferenceKeys.PremiumGeneral, Preferences.Get(PreferenceKeys.PremiumGeneral, default(bool)));
 
             if (Device.RuntimePlatform == Device.iOS)
             {
@@ -104,11 +103,11 @@ namespace Emka.PracticeLooper.Mobile
 
             if (mergedDictionaries != null)
             {
-                if (Preferences.Get(PreferenceKeys.ColorScheme, -1) == (int)AppTheme.Light)
+                if (ConfigurationService.GetValue(PreferenceKeys.ColorScheme, -1) == (int)AppTheme.Light)
                 {
                     mergedDictionaries.Add(new LightTheme());
                 }
-                else if (Preferences.Get(PreferenceKeys.ColorScheme, -1) == (int)AppTheme.Dark)
+                else if (ConfigurationService.GetValue(PreferenceKeys.ColorScheme, -1) == (int)AppTheme.Dark)
                 {
                     mergedDictionaries.Add(new DarkTheme());
                 }

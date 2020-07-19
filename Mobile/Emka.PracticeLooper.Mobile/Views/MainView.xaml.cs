@@ -5,7 +5,6 @@ using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Services.Contracts;
-using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Mappings.Contracts;
 using Emka3.PracticeLooper.Model.Player;
@@ -46,6 +45,11 @@ namespace Emka.PracticeLooper.Mobile.Views
                    resolver.Resolve<ILogger>(),
                    resolver.Resolve<IAppTracker>(),
                    configService);
+
+
+            configService.SetValue("test", 666, true);
+            var x = configService.GetValue("test", -1);
+
         }
 
         private void ConfigService_ValueChanged(object sender, string e)

@@ -37,14 +37,14 @@ namespace Emka3.PracticeLooper.Config.Contracts
         /// </summary>
         /// <param name="key">key for value storage.</param>
         /// <param name="value">value to store.</param>
-        void SetValue(string key, object value);
+        void SetValue(string key, object value, bool persist = default);
 
         /// <summary>
         /// Adds a value to config service async.
         /// </summary>
         /// <param name="key">key for value storage.</param>
         /// <param name="value">value to store.</param>
-        Task SetValueAsync(string key, object value);
+        Task SetValueAsync(string key, object value, bool persist = default);
 
         /// <summary>
         /// Gets the value for a generic type.
@@ -52,7 +52,7 @@ namespace Emka3.PracticeLooper.Config.Contracts
         /// <returns>The value.</returns>
         /// <param name="key">Key.</param>
         /// <typeparam name="T">The generic type parameter.</typeparam>
-        T GetValue<T>(string key);
+        T GetValue<T>(string key, T defaultValue = default);
 
         /// <summary>
         /// Gets the value for a generic type async.
@@ -60,7 +60,7 @@ namespace Emka3.PracticeLooper.Config.Contracts
         /// <returns>The value.</returns>
         /// <param name="key">Key.</param>
         /// <typeparam name="T">The generic type parameter.</typeparam>
-        Task<T> GetValueAsync<T>(string key);
+        Task<T> GetValueAsync<T>(string key, T defaultValue = default);
 
         /// <summary>
         /// Gets the value for a specific async.
@@ -68,23 +68,6 @@ namespace Emka3.PracticeLooper.Config.Contracts
         /// <returns> Config value.</returns>
         /// <param name="key">Key.</param>
         Task<string> GetValueAsync(string key);
-
-        /// <summary>
-        /// Saves a value permanently.
-        /// </summary>
-        /// <typeparam name="T">Generic type of value</typeparam>
-        /// <param name="key">key to fetch stored value afterwards</param>
-        /// <param name="value">value to store</param>
-        void PersistValue<T>(string key, T value);
-
-        /// <summary>
-        /// Get the specified persisted value.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="key"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns>Either found value or predefined default</returns>
-        T GetPersistedValue<T>(string key, T defaultValue = default);
         #endregion Methods
     }
 }

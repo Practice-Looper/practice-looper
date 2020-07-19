@@ -107,8 +107,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     {
                         await MainThread.InvokeOnMainThreadAsync(() =>
                          {
-                             Preferences.Set(PreferenceKeys.PremiumGeneral, true);
-                             configService.SetValue(PreferenceKeys.PremiumGeneral, true);
+                             configService.SetValue(PreferenceKeys.PremiumGeneral, true, true);
                          });
                     }
                 }
@@ -170,8 +169,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     {
                         await MainThread.InvokeOnMainThreadAsync(() =>
                         {
-                            Preferences.Set(PreferenceKeys.PremiumGeneral, true);
-                            configService.SetValue(PreferenceKeys.PremiumGeneral, true);
+                            configService.SetValue(PreferenceKeys.PremiumGeneral, true, true);
                         });
                         var purchasedVm = Products.FirstOrDefault(p => p.Model.ProductId == product.Model.ProductId);
                         purchasedVm.Purchased = true;
@@ -205,7 +203,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             var billing = CrossInAppBilling.Current;
             try
             {
-                if (Preferences.Get(productId, false))
+                if (configService.GetValue<bool>(productId, default))
                 {
                     return true;
                 }

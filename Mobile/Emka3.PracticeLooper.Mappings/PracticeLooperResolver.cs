@@ -106,7 +106,7 @@ namespace Emka3.PracticeLooper.Mappings
         {
             if (builder != null)
             {
-                builder.RegisterInstance(instance).As(type);
+                builder.RegisterInstance(instance).As(type).SingleInstance();
             }
         }
 

@@ -23,7 +23,7 @@ namespace Emka3.PracticeLooper.Config
         /// Config strings.
         /// </summary>
         IDictionary<string, object> configs;
-        private readonly IPersistentConfigService persistentConfigService;
+        private IPersistentConfigService persistentConfigService;
         #endregion Fields
 
         #region Ctor
@@ -113,22 +113,22 @@ namespace Emka3.PracticeLooper.Config
             return await Task.Run(() => GetValue(key));
         }
 
-        public T GetValue<T>(string key)
+        public T GetValue<T>(string key, T defaultValue = default)
         {
             if (configs != null && !string.IsNullOrEmpty(key) && configs.ContainsKey(key))
             {
                 return (T)Convert.ChangeType(configs[key], typeof(T));
             }
-
-            return default;
+            
+            return persistentConfigService.GetPersistedValue(key, defaultValue);
         }
 
-        public async Task<T> GetValueAsync<T>(string key)
+        public async Task<T> GetValueAsync<T>(string key, T defaultValue = default)
         {
             return await Task.Run(() => GetValue<T>(key));
         }
 
-        public void SetValue(string key, object value)
+        public void SetValue(string key, object value, bool persist = default)
         {
             if (string.IsNullOrWhiteSpace(key))
             {
@@ -141,25 +141,20 @@ namespace Emka3.PracticeLooper.Config
                 OnValueChanged(key);
             }
 
-            if (configs != null && !configs.ContainsKey(key))
+            if (persist)
+            {
+                persistentConfigService.PersistValue(key, value);
+            }
+
+            if (configs != null && !configs.ContainsKey(key) && !persist)
             {
                 configs.Add(key, value);
             }
         }
 
-        public async Task SetValueAsync(string key, object value)
+        public async Task SetValueAsync(string key, object value, bool persist = default)
         {
             await Task.Run(() => SetValue(key, value)).ConfigureAwait(false);
-        }
-
-        public void PersistValue<T>(string key, T value)
-        {
-            persistentConfigService.PersistValue(key, value);
-        }
-
-        public T GetPersistedValue<T>(string key, T defaultValue = default)
-        {
-            return persistentConfigService.GetPersistedValue(key, defaultValue);
         }
         #endregion Methods
     }
