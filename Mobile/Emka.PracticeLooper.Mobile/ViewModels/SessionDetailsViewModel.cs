@@ -19,15 +19,17 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     [Preserve(AllMembers = true)]
     public class SessionDetailsViewModel : ViewModelBase
     {
+        private readonly IConfigurationService configurationService;
         private SessionViewModel session;
         private LoopViewModel selectedLoop;
         private bool isBusy;
         #region Ctor
 
-        public SessionDetailsViewModel()
+        public SessionDetailsViewModel(IConfigurationService configurationService)
         {
             Loops = new ObservableCollection<LoopViewModel>();
             MessagingCenter.Subscribe<LoopViewModel, Loop>(this, MessengerKeys.DeleteLoop, OnDeleteLoop);
+            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
         }
         #endregion
 
@@ -91,7 +93,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         Loops.Add(new LoopViewModel(item));
                     }
 
-                    var currentLoopId = Preferences.Get(PreferenceKeys.LastLoop, 0);
+                    var currentLoopId = configurationService.GetValue(PreferenceKeys.LastLoop, 0);
                     MainThread.BeginInvokeOnMainThread(() => SelectedLoop = Loops.FirstOrDefault(l => l.Loop.Id == currentLoopId));
                 }
             }

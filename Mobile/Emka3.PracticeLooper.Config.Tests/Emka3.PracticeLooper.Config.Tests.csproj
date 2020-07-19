@@ -16,5 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj" />
+    <ProjectReference Include="..\Emka3.PracticeLooper.Config.Contracts\Emka3.PracticeLooper.Config.Contracts.csproj" />
   </ItemGroup>
 </Project>

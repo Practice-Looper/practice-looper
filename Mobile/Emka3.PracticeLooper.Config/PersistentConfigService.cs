@@ -7,15 +7,29 @@ using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config.Contracts;
 using Xamarin.Essentials;
 
-namespace Emka.PracticeLooper.Mobile.Common
+namespace Emka3.PracticeLooper.Config
 {
     public class PersistentConfigService : IPersistentConfigService
     {
+        #region Fields
+
+        private readonly Type preferencesType;
+        #endregion
+
+        #region Ctor
+
+        public PersistentConfigService()
+        {
+            preferencesType = typeof(Preferences) ?? throw new NullReferenceException(nameof(preferencesType));
+        }
+        #endregion
+
+        #region Methods
+
         public T GetPersistedValue<T>(string key, T defaultValue)
         {
-            Type t = typeof(Preferences);
-            var result = t?
-            .GetMethod("Get", new Type[] { typeof(string), typeof(T) })?
+            var result = preferencesType
+            .GetMethod("Get", new Type[] { typeof(string), typeof(T) })
             .Invoke(null, new object[] { key, defaultValue });
 
             return (T)Convert.ChangeType(result, typeof(T));
@@ -28,15 +42,22 @@ namespace Emka.PracticeLooper.Mobile.Common
 
         public void PersistValue<T>(string key, T value)
         {
-            Type t = typeof(Preferences);
-            t?
-            .GetMethod("Set", new Type[] { typeof(string), typeof(T) })?
-            .Invoke(null, new object[] { key, value });
+            try
+            {
+                var type = Type.GetType("Xamarin.Essentials.Preferences, Xamarin.Essentials");
+                var x = preferencesType.GetMethod("Set", new Type[] { typeof(string), typeof(T) });
+                //methods?.Invoke(null, new object[] { key, value });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         public async Task PersistValueAsync<T>(string key, T value)
         {
             await Task.Run(() => PersistValue(key, value));
         }
+        #endregion
     }
 }

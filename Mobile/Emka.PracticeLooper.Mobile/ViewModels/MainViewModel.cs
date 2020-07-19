@@ -210,9 +210,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (currentSession != null)
                 {
                     InitAudioPlayer();
-                    if (Preferences.Get(PreferenceKeys.LastSession, default(int)) != currentSession.Session.Id)
+                    if (configurationService.GetValue(PreferenceKeys.LastSession, default(int)) != currentSession.Session.Id)
                     {
-                        Preferences.Set(PreferenceKeys.LastSession, currentSession.Session.Id);
+                        configurationService.SetValue(PreferenceKeys.LastSession, currentSession.Session.Id, true);
                     }
 
                     if (isCurrentlyPlaying)
@@ -244,9 +244,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 currentLoop = value;
                 if (currentLoop != null)
                 {
-                    if (Preferences.Get(PreferenceKeys.LastLoop, default(int)) != currentLoop.Id)
+                    if (configurationService.GetValue(PreferenceKeys.LastLoop, default(int)) != currentLoop.Id)
                     {
-                        Preferences.Set(PreferenceKeys.LastLoop, currentLoop.Id);
+                        configurationService.SetValue(PreferenceKeys.LastLoop, currentLoop.Id, true);
                     }
                 }
 
@@ -287,7 +287,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         Sessions.Add(new SessionViewModel(item, dialogService, Logger, NavigationService, Tracker));
                     }
 
-                    CurrentSession = Sessions.FirstOrDefault(s => s.Session.Id == Preferences.Get(PreferenceKeys.LastSession, default(int))) ?? Sessions.FirstOrDefault();
+                    CurrentSession = Sessions.FirstOrDefault(s => s.Session.Id == configurationService.GetValue(PreferenceKeys.LastSession, default(int))) ?? Sessions.FirstOrDefault();
                 });
 
                 if (!connectivityService.HasFastConnection())
@@ -415,8 +415,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                             Sessions.Clear();
                         }
 
-                        Preferences.Set(PreferenceKeys.LastSession, newSession.Id);
-                        Preferences.Set(PreferenceKeys.LastLoop, newSession.Loops.First().Id);
+                        configurationService.SetValue(PreferenceKeys.LastSession, newSession.Id, true);
+                        configurationService.SetValue(PreferenceKeys.LastLoop, newSession.Loops.First().Id, true);
                     }
 
                     newSession.Id = await sessionsRepository.SaveAsync(newSession);
@@ -519,14 +519,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         }
                         else
                         {
-                            if (Preferences.Get(PreferenceKeys.LastLoop, -1) == CurrentLoop.Id)
+                            if (configurationService.GetValue(PreferenceKeys.LastLoop, -1) == CurrentLoop.Id)
                             {
                                 Preferences.Clear(PreferenceKeys.LastLoop);
                             }
 
                             CurrentLoop = null;
 
-                            if (Preferences.Get(PreferenceKeys.LastSession, -1) == CurrentSession.Session.Id)
+                            if (configurationService.GetValue(PreferenceKeys.LastSession, -1) == CurrentSession.Session.Id)
                             {
                                 Preferences.Clear(PreferenceKeys.LastSession);
                             }
@@ -639,7 +639,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (CurrentSession != null)
                 {
                     CurrentAudioPlayer = Factory.GetResolver().ResolveAll<IAudioPlayer>().First(p => p.Type == CurrentSession.Session.AudioSource.Type);
-                    CurrentLoop = CurrentSession.Session.Loops.FirstOrDefault(l => l.Id == Preferences.Get(PreferenceKeys.LastLoop, default(int))) ?? CurrentSession.Session.Loops.First(l => l.IsDefault);
+                    CurrentLoop = CurrentSession.Session.Loops.FirstOrDefault(l => l.Id == configurationService.GetValue(PreferenceKeys.LastLoop, default(int))) ?? CurrentSession.Session.Loops.First(l => l.IsDefault);
                     MinimumValue = CurrentLoop.StartPosition;
                     MaximumValue = CurrentLoop.EndPosition;
                     SongDuration = FormatTime(CurrentSession.Session.AudioSource.Duration * 1000);
