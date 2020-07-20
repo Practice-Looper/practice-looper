@@ -2,6 +2,7 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
+using System;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Utils;
 
@@ -16,7 +17,7 @@ namespace Emka3.PracticeLooper.Config.Contracts
         /// <typeparam name="T">Generic type of value</typeparam>
         /// <param name="key">key to fetch stored value afterwards</param>
         /// <param name="value">value to store</param>
-        void PersistValue<T>(string key, T value);
+        void PersistValue(string key, object value, Type type);
 
         /// <summary>
         /// Saves a value permanently async.
@@ -24,7 +25,7 @@ namespace Emka3.PracticeLooper.Config.Contracts
         /// <typeparam name="T">Generic type of value</typeparam>
         /// <param name="key">key to fetch stored value afterwards</param>
         /// <param name="value">value to store</param>
-        Task PersistValueAsync<T>(string key, T value);
+        Task PersistValueAsync(string key, object value, Type type);
 
         /// <summary>
         /// Get the specified persisted value async.

@@ -5,11 +5,13 @@ using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Services.Contracts;
+using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Mappings.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -45,7 +47,6 @@ namespace Emka.PracticeLooper.Mobile.Views
                    resolver.Resolve<ILogger>(),
                    resolver.Resolve<IAppTracker>(),
                    configService);
-
 
             configService.SetValue("test", 666, true);
             var x = configService.GetValue("test", -1);
