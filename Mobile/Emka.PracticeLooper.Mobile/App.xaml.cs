@@ -91,7 +91,7 @@ namespace Emka.PracticeLooper.Mobile
             }
             else if (Device.RuntimePlatform == Device.Android)
             {
-                BannerAddUnitId = ConfigurationService.GetValue("AdmobAndroidTopBanneAdId");
+                BannerAddUnitId = ConfigurationService.GetValue("AdmobAndroidTopBannerAdId");
                 ConfigurationService.LocalPath = FileSystem.AppDataDirectory;
             }
         }
