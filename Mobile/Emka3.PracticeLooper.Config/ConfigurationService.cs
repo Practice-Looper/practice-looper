@@ -10,12 +10,15 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Emka3.PracticeLooper.Config.Contracts;
+using Emka3.PracticeLooper.Utils;
+using Xamarin.Essentials;
 
 namespace Emka3.PracticeLooper.Config
 {
     /// <summary>
     /// Configuration service imlementation.
     /// </summary>
+    [Preserve(AllMembers = true)]
     public class ConfigurationService : IConfigurationService
     {
         #region Fields
@@ -30,14 +33,6 @@ namespace Emka3.PracticeLooper.Config
         public ConfigurationService(IPersistentConfigService persistentConfigService)
         {
             this.persistentConfigService = persistentConfigService;
-            Initialize();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Emka3.PracticeLooper.Services.ConfigurationService"/> class.
-        /// </summary>
-        private ConfigurationService()
-        {
             Initialize();
         }
         #endregion
@@ -119,7 +114,7 @@ namespace Emka3.PracticeLooper.Config
             {
                 return (T)Convert.ChangeType(configs[key], typeof(T));
             }
-            
+
             return persistentConfigService.GetPersistedValue(key, defaultValue);
         }
 
@@ -143,7 +138,7 @@ namespace Emka3.PracticeLooper.Config
 
             if (persist)
             {
-                persistentConfigService.PersistValue(key, value);
+                persistentConfigService.PersistValue(key, value, value.GetType());
             }
 
             if (configs != null && !configs.ContainsKey(key) && !persist)

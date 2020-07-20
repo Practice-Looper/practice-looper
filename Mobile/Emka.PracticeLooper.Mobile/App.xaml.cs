@@ -14,10 +14,12 @@ using Emka.PracticeLooper.Services.Contracts;
 using System.Collections.Generic;
 using Emka.PracticeLooper.Mobile.Themes;
 using Emka3.PracticeLooper.Config.Contracts;
+using Emka3.PracticeLooper.Utils;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
 {
+    [Preserve(AllMembers = true)]
     public partial class App : Application
     {
         public IConfigurationService ConfigurationService { get; private set; }
@@ -83,6 +85,7 @@ namespace Emka.PracticeLooper.Mobile
 #if PREMIUM
             ConfigurationService.SetValue(PreferenceKeys.PremiumGeneral, true, true);
 #endif
+            var x = typeof(Preferences);
             ConfigurationService = new ConfigurationService(new PersistentConfigService());
 
             if (Device.RuntimePlatform == Device.iOS)

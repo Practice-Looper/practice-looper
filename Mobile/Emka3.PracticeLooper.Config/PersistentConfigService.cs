@@ -40,13 +40,13 @@ namespace Emka3.PracticeLooper.Config
             return await Task.Run(() => GetPersistedValue(key, defaultValue));
         }
 
-        public void PersistValue<T>(string key, T value)
+        public void PersistValue(string key, object value, Type type)
         {
             try
             {
-                var type = Type.GetType("Xamarin.Essentials.Preferences, Xamarin.Essentials");
-                var x = preferencesType.GetMethod("Set", new Type[] { typeof(string), typeof(T) });
-                //methods?.Invoke(null, new object[] { key, value });
+                preferencesType
+                    .GetMethod("Set", new Type[] { typeof(string), type })
+                    .Invoke(null, new object[] { key, value });
             }
             catch (Exception ex)
             {
@@ -54,9 +54,9 @@ namespace Emka3.PracticeLooper.Config
             }
         }
 
-        public async Task PersistValueAsync<T>(string key, T value)
+        public async Task PersistValueAsync(string key, object value, Type type)
         {
-            await Task.Run(() => PersistValue(key, value));
+            await Task.Run(() => PersistValue(key, value, type));
         }
         #endregion
     }

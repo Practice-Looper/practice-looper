@@ -4,12 +4,14 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
 using System.Threading.Tasks;
+using Emka3.PracticeLooper.Utils;
 
 namespace Emka3.PracticeLooper.Config.Contracts
 {
     /// <summary>
     /// App Configuration service.
     /// </summary>
+    [Preserve(AllMembers = true)]
     public interface IConfigurationService
     {
         event EventHandler<string> ValueChanged;
