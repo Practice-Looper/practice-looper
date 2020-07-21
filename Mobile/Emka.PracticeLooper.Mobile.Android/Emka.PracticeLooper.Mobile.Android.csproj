@@ -50,7 +50,7 @@
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Plugin.InAppBilling;Xamarin.Android.Google.BillingClient;</AndroidLinkSkip>
     <AndroidKeyStore>True</AndroidKeyStore>
-    <AndroidSigningKeyStore>/Users/Maksim/Library/Developer/Xamarin/Keystore/PlayConsoleAlpha/PlayConsoleAlpha.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyStore>/Users/simonsymhoven/Library/Developer/Xamarin/Keystore/playconsolealpha/playconsolealpha.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>8ExDbiTtXNN3ECugopuB</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>PlayConsoleAlpha</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>8ExDbiTtXNN3ECugopuB</AndroidSigningKeyPass>
@@ -76,7 +76,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Rg.Plugins.Popup;Plugin.InAppBilling;Xamarin.Android.Google.BillingClient;Plugin.InAppBilling;</AndroidLinkSkip>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <AndroidSigningKeyStore>/Users/Maksim/Library/Developer/Xamarin/Keystore/PlayConsoleAlpha/PlayConsoleAlpha.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyStore>/Users/simonsymhoven/Library/Developer/Xamarin/Keystore/playconsolealpha/playconsolealpha.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>8ExDbiTtXNN3ECugopuB</AndroidSigningStorePass>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>

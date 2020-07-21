@@ -136,7 +136,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>Apple Development: Maksim Kolesnik (2Y42L78UD6)</CodesignKey>
+    <CodesignKey>Apple Development: Simon Symhoven (RQ53RSRKVU)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignProvision>practice-looper-dev</CodesignProvision>
@@ -155,7 +155,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>Apple Development: Maksim Kolesnik (2Y42L78UD6)</CodesignKey>
+    <CodesignKey>Apple Development: Simon Symhoven (RQ53RSRKVU)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignProvision>practice-looper-dev</CodesignProvision>
