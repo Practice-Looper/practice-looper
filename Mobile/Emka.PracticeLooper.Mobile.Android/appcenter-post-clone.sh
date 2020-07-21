@@ -4,6 +4,13 @@ echo "**************************************************************************
 echo "************* Custom Post Clone Script -- Android Edition ********************"
 echo "******************************************************************************"
 
+
+echo "************************ Install .NET 3.0.100 ********************************"
+wget https://dot.net/v1/dotnet-install.sh
+chmod +x dotnet-install.sh
+./dotnet-install.sh --version "3.0.100-preview8-013656" --install-dir "$AGENT_TOOLSDIRECTORY/dotnet"
+echo "************************ Install .NET 3.0.100 ********************************"
+
 echo "********************** Build secrets.json Android ****************************"
 
 secrets_location=$APPCENTER_SOURCE_DIRECTORY/Mobile/Emka3.PracticeLooper.Config/secrets.json
