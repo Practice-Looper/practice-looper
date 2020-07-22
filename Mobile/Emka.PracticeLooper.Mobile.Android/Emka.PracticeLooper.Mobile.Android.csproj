@@ -54,7 +54,7 @@
     <AndroidSigningStorePass>8ExDbiTtXNN3ECugopuB</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>PlayConsoleAlpha</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>8ExDbiTtXNN3ECugopuB</AndroidSigningKeyPass>
-    <!-- <AndroidPackageFormat>aab</AndroidPackageFormat> -->
+    <AndroidPackageFormat>aab</AndroidPackageFormat>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildIOS|AnyCPU' ">
     <DebugType></DebugType>
