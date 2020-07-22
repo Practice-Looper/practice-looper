@@ -13,3 +13,8 @@ echo "{SpotifyApiLimit: $SpotifyApiLimit, SpotifyClientId:\"$SpotifyClientId\", 
 
 echo "************************** secrets.json Android *****************************"
 cat $secrets_location
+
+echo "************************ Install custom .NET Core ***************************"
+wget https://dot.net/v1/dotnet-install.sh
+chmod +x dotnet-install.sh
+./dotnet-install.sh --version $netcoreversion --install-dir "$AGENT_TOOLSDIRECTORY/dotnet"
