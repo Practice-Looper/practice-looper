@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using Emka.PracticeLooper.Mobile.Themes;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Utils;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -27,7 +29,9 @@ namespace Emka.PracticeLooper.Mobile
 
         public App()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Factory.GetConfigService().GetValue("SyncFusionLicenseKey"));
+            ConfigurationService = new ConfigurationService(new PersistentConfigService());
+            AppCenter.Start($"ios={ConfigurationService.GetValue("AppCenterIos")};android={ConfigurationService.GetValue("AppCenterAndroid")}", typeof(Analytics), typeof(Crashes));
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(ConfigurationService.GetValue("SyncFusionLicenseKey"));
             InitializeComponent();
         }
 
@@ -85,9 +89,6 @@ namespace Emka.PracticeLooper.Mobile
 #if PREMIUM
             ConfigurationService.SetValue(PreferenceKeys.PremiumGeneral, true, true);
 #endif
-            var x = typeof(Preferences);
-            ConfigurationService = new ConfigurationService(new PersistentConfigService());
-
             if (Device.RuntimePlatform == Device.iOS)
             {
                 ConfigurationService.LocalPath = FileSystem.AppDataDirectory;

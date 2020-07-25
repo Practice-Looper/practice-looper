@@ -41,9 +41,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka3.PracticeLooper.Utils"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka3.PracticeLooper.Services.Tests", "Emka3.PracticeLooper.Services.Tests\Emka3.PracticeLooper.Services.Tests.csproj", "{69E7C631-2164-49E7-98BC-1F50188F0BD5}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Emka.PracticeLooper.Mobile.Tests", "Emka.PracticeLooper.Mobile.Tests\Emka.PracticeLooper.Mobile.Tests.csproj", "{A424FFC8-DD6C-4B7F-A18F-B6AE68796BEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka.PracticeLooper.Mobile.Tests", "Emka.PracticeLooper.Mobile.Tests\Emka.PracticeLooper.Mobile.Tests.csproj", "{A424FFC8-DD6C-4B7F-A18F-B6AE68796BEC}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Emka3.PracticeLooper.Config.Tests", "Emka3.PracticeLooper.Config.Tests\Emka3.PracticeLooper.Config.Tests.csproj", "{E3C72425-C8C7-49DD-9081-94FE1A1FE336}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka3.PracticeLooper.Config.Tests", "Emka3.PracticeLooper.Config.Tests\Emka3.PracticeLooper.Config.Tests.csproj", "{E3C72425-C8C7-49DD-9081-94FE1A1FE336}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emka3.PracticeLooper.Config.Contracts", "Emka3.PracticeLooper.Config.Contracts\Emka3.PracticeLooper.Config.Contracts.csproj", "{FC6130F5-C5E5-442C-9E60-8BCCE5FE4514}"
 EndProject
@@ -395,6 +395,12 @@ Global
 		{991B058C-BEEC-4A63-B63D-B861B3AE5868}.DebugLite|Any CPU.Build.0 = Debug|Any CPU
 		{991B058C-BEEC-4A63-B63D-B861B3AE5868}.DebugPremium|Any CPU.ActiveCfg = Debug|Any CPU
 		{991B058C-BEEC-4A63-B63D-B861B3AE5868}.DebugPremium|Any CPU.Build.0 = Debug|Any CPU
+		{A424FFC8-DD6C-4B7F-A18F-B6AE68796BEC}.DebugLite|Any CPU.ActiveCfg = Debug|Any CPU
+		{A424FFC8-DD6C-4B7F-A18F-B6AE68796BEC}.DebugLite|Any CPU.Build.0 = Debug|Any CPU
+		{E3C72425-C8C7-49DD-9081-94FE1A1FE336}.DebugLite|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3C72425-C8C7-49DD-9081-94FE1A1FE336}.DebugLite|Any CPU.Build.0 = Debug|Any CPU
+		{FC6130F5-C5E5-442C-9E60-8BCCE5FE4514}.DebugLite|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC6130F5-C5E5-442C-9E60-8BCCE5FE4514}.DebugLite|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F0F8BA3B-BC2E-4475-AD1E-0B08767E52C5} = {859AB886-3E50-454C-BCB8-9DA93F801178}

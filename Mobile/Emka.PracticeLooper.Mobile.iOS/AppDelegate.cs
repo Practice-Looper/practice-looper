@@ -16,7 +16,6 @@ using Syncfusion.SfPicker.XForms.iOS;
 using Syncfusion.SfRangeSlider.XForms.iOS;
 using UIKit;
 using Xamarin.Essentials;
-using ConfigFactory = Emka3.PracticeLooper.Config.Factory;
 using Factory = Emka3.PracticeLooper.Mappings.Factory;
 using Emka3.PracticeLooper.Mappings.Contracts;
 
@@ -38,7 +37,6 @@ namespace Emka.PracticeLooper.Mobile.iOS
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            AppCenter.Start(ConfigFactory.GetConfigService().GetValue("AppCenterIos"), typeof(Analytics), typeof(Crashes));
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
             GlobalApp.Init();
