@@ -47,10 +47,6 @@ namespace Emka.PracticeLooper.Mobile.Views
                    resolver.Resolve<ILogger>(),
                    resolver.Resolve<IAppTracker>(),
                    configService);
-
-            configService.SetValue("test", 666, true);
-            var x = configService.GetValue("test", -1);
-
         }
 
         private void ConfigService_ValueChanged(object sender, string e)
