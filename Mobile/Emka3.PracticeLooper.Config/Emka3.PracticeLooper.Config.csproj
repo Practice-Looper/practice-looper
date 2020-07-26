@@ -27,6 +27,9 @@
     <None Remove="secrets.json" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="secrets.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Feature\" />
   </ItemGroup>
   <ItemGroup>
