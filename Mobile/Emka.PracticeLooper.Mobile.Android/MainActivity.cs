@@ -56,7 +56,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
-            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, Factory.GetResolver().Resolve<IConfigurationService>().GetValue("AdmobAndroidAppId"));
+            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, App.ConfigurationService.GetValue("AdmobAndroidAppId"));
             base.SetTheme(Resource.Style.MainTheme);
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = Platform.CurrentActivity;
 
