@@ -133,7 +133,6 @@ namespace Emka3.PracticeLooper.Config
             if (configs != null && configs.ContainsKey(key))
             {
                 configs[key] = value;
-                OnValueChanged(key);
             }
 
             if (persist)
@@ -145,6 +144,8 @@ namespace Emka3.PracticeLooper.Config
             {
                 configs.Add(key, value);
             }
+
+            OnValueChanged(key);
         }
 
         public async Task SetValueAsync(string key, object value, bool persist = default)

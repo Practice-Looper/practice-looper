@@ -78,7 +78,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <AndroidDexTool>d8</AndroidDexTool>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
-    <AndroidKeyStore>True</AndroidKeyStore>
     <AndroidSigningKeyAlias>PlayConsoleAlpha</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>8ExDbiTtXNN3ECugopuB</AndroidSigningKeyPass>
   </PropertyGroup>
