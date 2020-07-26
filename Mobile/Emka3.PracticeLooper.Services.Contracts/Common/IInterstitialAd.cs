@@ -4,7 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 
 using System.Threading.Tasks;
-using Emka3.PracticeLooper.Config.Feature;
+using Emka3.PracticeLooper.Config.Contracts;
 
 namespace Emka3.PracticeLooper.Services.Contracts.Common
 {

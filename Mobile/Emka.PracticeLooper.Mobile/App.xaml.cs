@@ -24,7 +24,7 @@ namespace Emka.PracticeLooper.Mobile
     [Preserve(AllMembers = true)]
     public partial class App : Application
     {
-        public IConfigurationService ConfigurationService { get; private set; }
+        public static IConfigurationService ConfigurationService { get; private set; }
         public static string BannerAddUnitId { get; private set; }
 
         public App()

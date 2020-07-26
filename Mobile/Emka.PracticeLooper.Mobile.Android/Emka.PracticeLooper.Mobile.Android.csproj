@@ -372,9 +372,9 @@
       <Project>{11D1F05C-156B-4DE2-9EB6-B0AF60C6B9F1}</Project>
       <Name>Emka3.PracticeLooper.Mappings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj">
-      <Project>{C15009EA-B815-485E-88A0-FDB49F1842B4}</Project>
-      <Name>Emka3.PracticeLooper.Config</Name>
+    <ProjectReference Include="..\Emka3.PracticeLooper.Config.Contracts\Emka3.PracticeLooper.Config.Contracts.csproj">
+      <Project>{FC6130F5-C5E5-442C-9E60-8BCCE5FE4514}</Project>
+      <Name>Emka3.PracticeLooper.Config.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

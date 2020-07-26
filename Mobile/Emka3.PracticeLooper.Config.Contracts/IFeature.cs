@@ -3,7 +3,7 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 
-namespace Emka3.PracticeLooper.Config.Feature
+namespace Emka3.PracticeLooper.Config.Contracts
 {
     public interface IFeature
     {

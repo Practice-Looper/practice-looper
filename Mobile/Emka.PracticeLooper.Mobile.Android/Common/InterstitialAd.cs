@@ -8,8 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Gms.Ads;
-using Emka3.PracticeLooper.Config;
-using Emka3.PracticeLooper.Config.Feature;
+using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Xamarin.Essentials;
 
@@ -40,7 +39,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             interstitialAd = new Android.Gms.Ads.InterstitialAd(Application.Context);
             interstitialAd.RewardedVideoAdFailedToLoad += OnRewardedVideoAdFailedToLoad;
             interstitialAd.AdListener = this;
-            interstitialAd.AdUnitId = GlobalApp.ConfigurationService.GetValue<string>("AdmobAndroidInterstitialProjectAdId");
+            interstitialAd.AdUnitId = configurationService.GetValue<string>("AdmobAndroidInterstitialProjectAdId");
 
             if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
             {
