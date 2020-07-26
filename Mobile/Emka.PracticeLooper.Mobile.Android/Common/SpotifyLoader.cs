@@ -6,7 +6,6 @@
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Com.Spotify.Android.Appremote.Api;
-using Emka3.PracticeLooper.Config;
 using Android.App;
 using Java.Lang;
 using System.Threading;
@@ -18,6 +17,7 @@ using Com.Spotify.Android.Appremote.Api.Error;
 using Com.Spotify.Sdk.Android.Auth;
 using Emka3.PracticeLooper.Model;
 using Emka.PracticeLooper.Mobile.Common;
+using Emka3.PracticeLooper.Config.Contracts;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {

@@ -5,12 +5,26 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
     public class AudioFileRepository : IFileRepository
     {
+        #region Fields
+
+        private readonly IConfigurationService configurationService;
+        #endregion
+
+        #region Ctor
+
+        public AudioFileRepository(IConfigurationService configurationService)
+        {
+            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
+        }
+        #endregion
+
         #region Methods
         public async Task<string> SaveFileAsync(string fileName, byte[] data)
         {
@@ -21,7 +35,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             }
             else
             {
-                targetPath = GlobalApp.ConfigurationService.LocalPath;
+                targetPath = configurationService.LocalPath;
             }
 
             await Task.Run(() =>

@@ -12,7 +12,6 @@ using Android.OS;
 using Android.Support.V4.Content;
 using Android.Support.V4.Media.Session;
 using Factory = Emka3.PracticeLooper.Mappings.Factory;
-using ConfigFactory = Emka3.PracticeLooper.Config.Factory;
 using Emka3.PracticeLooper.Mappings.Contracts;
 using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
@@ -23,6 +22,7 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Plugin.InAppBilling;
 using Xamarin.Essentials;
+using Emka3.PracticeLooper.Config.Contracts;
 
 namespace Emka.PracticeLooper.Mobile.Droid
 {
@@ -33,7 +33,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            AppCenter.Start(ConfigFactory.GetConfigService().GetValue("AppCenterAndroid"), typeof(Analytics), typeof(Crashes));
             base.OnCreate(savedInstanceState);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
@@ -53,12 +52,11 @@ namespace Emka.PracticeLooper.Mobile.Droid
             }
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
-            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, ConfigFactory.GetConfigService().GetValue("AdmobAndroidAppId"));
             SQLitePCL.Batteries_V2.Init();
             Platform.Init(this, savedInstanceState);
-            GlobalApp.ConfigurationService.SetValue("Locale", Resources.Configuration.Locale.ToString());
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
+            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, App.ConfigurationService.GetValue("AdmobAndroidAppId"));
             base.SetTheme(Resource.Style.MainTheme);
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = Platform.CurrentActivity;
 
@@ -132,7 +130,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             // Check if result comes from the correct activity
             try
             {
-                if (requestCode == GlobalApp.ConfigurationService.GetValue<int>("SpotifyClientRequestCode"))
+                if (requestCode == Factory.GetResolver().Resolve<IConfigurationService>()?.GetValue<int>("SpotifyClientRequestCode"))
                 {
                     var spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
                     Com.Spotify.Sdk.Android.Auth.AuthorizationResponse response = Com.Spotify.Sdk.Android.Auth.AuthorizationClient.GetResponse((int)resultCode, data);

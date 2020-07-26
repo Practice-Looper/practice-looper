@@ -4,6 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System.Collections.Generic;
 using System.Linq;
+using Emka3.PracticeLooper.Config.Contracts;
 
 namespace Emka3.PracticeLooper.Config.Feature
 {
