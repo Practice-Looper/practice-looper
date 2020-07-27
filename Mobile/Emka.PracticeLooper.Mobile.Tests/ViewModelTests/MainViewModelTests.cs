@@ -10,6 +10,7 @@ using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Services.Contracts;
+using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
@@ -33,6 +34,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         Mock<INavigationService> navigationServiceMock;
         Mock<ILogger> loggerMock;
         Mock<IAppTracker> appTrackerMock;
+        Mock<IConfigurationService> configurationServiceMock;
         List<Session> sessions;
 
         public MainViewModelTests()
@@ -49,6 +51,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             navigationServiceMock = new Mock<INavigationService>();
             loggerMock = new Mock<ILogger>();
             appTrackerMock = new Mock<IAppTracker>();
+            configurationServiceMock = new Mock<IConfigurationService>();
 
             sessions = new List<Session>();
         }
@@ -68,7 +71,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 connectivityServiceMock.Object,
                 navigationServiceMock.Object,
                 loggerMock.Object,
-                appTrackerMock.Object);
+                appTrackerMock.Object,
+                configurationServiceMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             Assert.Empty(mainViewModel.Sessions);
@@ -100,7 +104,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 connectivityServiceMock.Object,
                 navigationServiceMock.Object,
                 loggerMock.Object,
-                appTrackerMock.Object);
+                appTrackerMock.Object,
+                configurationServiceMock.Object);
 
             await mainViewModel.ExecuteCreateSessionCommandAsync(audioSource);
             Assert.NotNull(mainViewModel.CurrentSession);
@@ -124,7 +129,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 connectivityServiceMock.Object,
                 navigationServiceMock.Object,
                 loggerMock.Object,
-                appTrackerMock.Object);
+                appTrackerMock.Object,
+                configurationServiceMock.Object);
 
             await Assert.ThrowsAsync<ArgumentNullException>(() => mainViewModel.ExecuteCreateSessionCommandAsync(null));
         }
@@ -140,7 +146,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             IConnectivityService connectivityService,
             INavigationService navigationService,
             ILogger logger,
-            IAppTracker appTracker)
+            IAppTracker appTracker,
+            IConfigurationService configurationService)
         {
             return new MainViewModel(interstitialAd,
                 sessionsRepository,
@@ -153,7 +160,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 connectivityService,
                 navigationService,
                 logger,
-                appTracker);
+                appTracker,
+                configurationService);
         }
     }
 }

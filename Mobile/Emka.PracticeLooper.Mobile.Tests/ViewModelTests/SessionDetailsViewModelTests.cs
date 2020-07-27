@@ -1,8 +1,10 @@
 using System;
 using System.Linq;
+using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Model;
 using Emka.PracticeLooper.Services.Contracts;
+using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Moq;
@@ -16,12 +18,19 @@ namespace Emka.PracticeLooper.Mobile.Tests
         private SessionDetailsViewModel sessionDetailsViewModel;
         private readonly Mock<ILogger> loggerMock;
         private readonly Mock<IDialogService> dialogServiceMock;
+        private readonly Mock<INavigationService> navigationServiceMock;
+        private readonly Mock<IConfigurationService> configurationServiceMock;
+        private readonly Mock<IAppTracker> appTrackerMock;
 
         public SessionDetailsViewModelTests()
         {
-            sessionDetailsViewModel = new SessionDetailsViewModel();
             loggerMock = new Mock<ILogger>();
             dialogServiceMock = new Mock<IDialogService>();
+            configurationServiceMock = new Mock<IConfigurationService>();
+            appTrackerMock = new Mock<IAppTracker>();
+            sessionDetailsViewModel = new SessionDetailsViewModel(configurationServiceMock.Object);
+            navigationServiceMock = new Mock<INavigationService>();
+            appTrackerMock = new Mock<IAppTracker>();
         }
 
         [Fact]
@@ -56,7 +65,7 @@ namespace Emka.PracticeLooper.Mobile.Tests
                 {
                     loop
                 }
-            }, dialogServiceMock.Object, loggerMock.Object);
+            }, dialogServiceMock.Object, loggerMock.Object, navigationServiceMock.Object, appTrackerMock.Object);
 
             sessionDetailsViewModel.InitializeAsync(sessionViewModel);
 
@@ -99,7 +108,7 @@ namespace Emka.PracticeLooper.Mobile.Tests
                 {
                     loop
                 }
-            }, dialogServiceMock.Object, loggerMock.Object);
+            }, dialogServiceMock.Object, loggerMock.Object, navigationServiceMock.Object, appTrackerMock.Object);
 
             sessionDetailsViewModel.InitializeAsync(sessionViewModel);
 
