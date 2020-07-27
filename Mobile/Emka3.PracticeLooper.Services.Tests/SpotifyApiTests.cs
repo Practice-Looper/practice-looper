@@ -2,6 +2,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Rest;
 using Moq;
@@ -12,10 +13,12 @@ namespace Emka3.PracticeLooper.Services.Tests
     public class SpotifyApiTests
     {
         private readonly Mock<IHttpApiClient> HttpApiClientMock;
+        private readonly Mock<IConfigurationService> ConfigurationServiceMock;
 
         public SpotifyApiTests()
         {
             HttpApiClientMock = new Mock<IHttpApiClient>();
+            ConfigurationServiceMock = new Mock<IConfigurationService>();
         }
 
         [Fact]
@@ -27,7 +30,7 @@ namespace Emka3.PracticeLooper.Services.Tests
                 .ReturnsAsync(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK, Content = new StringContent(jsonString) })
                 .Verifiable();
 
-            var spotifyService = new SpotifyApiService(HttpApiClientMock.Object);
+            var spotifyService = new SpotifyApiService(HttpApiClientMock.Object, ConfigurationServiceMock.Object);
             var result = await spotifyService.SearchTrackByName(string.Empty, CancellationToken.None);
 
             Assert.NotNull(result);

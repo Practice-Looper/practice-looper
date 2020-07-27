@@ -25,7 +25,7 @@ namespace Emka3.PracticeLooper.Config.Tests
             configurationService.SetValue(key, value);
             var getValueMethodInfo = typeof(ConfigurationService).GetMethods().First(m => m.Name == "GetValue" && m.IsGenericMethod);
             var method = getValueMethodInfo.MakeGenericMethod(new[] { value.GetType() });
-            var result = method.Invoke(configurationService, new[] { key });
+            var result = method.Invoke(configurationService, new[] { key, default });
 
             Assert.NotNull(result);
             Assert.Equal(result, value);
@@ -58,12 +58,8 @@ namespace Emka3.PracticeLooper.Config.Tests
             };
 
             configurationService.SetValue("a", "b");
-            Assert.Equal(string.Empty, changedValue);
-            Assert.Equal("b", configurationService.GetValue("a"));
-
-            configurationService.SetValue("a", "c");
-            Assert.Equal("c", configurationService.GetValue("a"));
             Assert.Equal("a", changedValue);
+            Assert.Equal("b", configurationService.GetValue("a"));
         }
 
         [Theory]
