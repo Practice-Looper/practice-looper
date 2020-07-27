@@ -87,6 +87,7 @@ namespace Emka.PracticeLooper.Mobile
         private void InitConfig()
         {
 #if PREMIUM
+            Analytics.TrackEvent("Symbols", new Dictionary<string, string> { { "premium", "true" } });
             ConfigurationService.SetValue(PreferenceKeys.PremiumGeneral, true, true);
 #endif
             if (Device.RuntimePlatform == Device.iOS)
