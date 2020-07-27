@@ -6,7 +6,7 @@ echo "**************************************************************************
 
 echo "Running a search for XUnit test projects:"
 
-array=(`find $APPCENTER_SOURCE_DIRECTORY\Mobile -regex '.*Tests*.csproj'`)
+array=(`find $APPCENTER_SOURCE_DIRECTORY/Mobile -regex '.*Tests*.csproj'`)
 
 for projectFile in "${array[@]}"
 do :
@@ -23,7 +23,7 @@ do :
 	
 	echo "Analyse Log-File:"
 	testResultPath=$(find $(dirname "${projectFile}") -name 'xunitestresults.trx')
-	
+
 	if [ -z "$testResultPath" ]
 	then
 		echo "Found no testresults"
