@@ -70,18 +70,6 @@
       <DebugSymbols>true</DebugSymbols>
       <IntermediateOutputPath>obj\Debug\netstandard2.0</IntermediateOutputPath>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseAppCenterPremium|AnyCPU' ">
-      <WarningLevel></WarningLevel>
-      <TreatWarningsAsErrors></TreatWarningsAsErrors>
-      <DebugType></DebugType>
-      <Optimize>true</Optimize>
-      <OutputPath></OutputPath>
-      <DefineConstants>TRACE;RELEASE;PREMIUM;RELEASEPREMIUM;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
-      <IntermediateOutputPath>obj\Release\netstandard2.0\netstandard2.0</IntermediateOutputPath>
-      <PlatformTarget>anycpu</PlatformTarget>
-      <WarningsNotAsErrors></WarningsNotAsErrors>
-      <Nullable></Nullable>
-    </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Xamarin.Forms" Version="4.7.0.1142" />
         <PackageReference Include="Autofac" Version="4.9.4" />
