@@ -15,8 +15,6 @@ using System.Collections.Generic;
 using Emka.PracticeLooper.Mobile.Themes;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Utils;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -24,14 +22,10 @@ namespace Emka.PracticeLooper.Mobile
     [Preserve(AllMembers = true)]
     public partial class App : Application
     {
-        public static IConfigurationService ConfigurationService { get; private set; }
         public static string BannerAddUnitId { get; private set; }
 
         public App()
         {
-            ConfigurationService = new ConfigurationService(new PersistentConfigService());
-            AppCenter.Start($"ios={ConfigurationService.GetValue("AppCenterIos")};android={ConfigurationService.GetValue("AppCenterAndroid")}", typeof(Analytics), typeof(Crashes));
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(ConfigurationService.GetValue("SyncFusionLicenseKey"));
             InitializeComponent();
         }
 
@@ -42,7 +36,6 @@ namespace Emka.PracticeLooper.Mobile
             try
             {
                 VersionTracking.Track();
-                InitConfig();
                 InitApp();
                 await InitNavigation().ConfigureAwait(true);
             }
@@ -73,7 +66,6 @@ namespace Emka.PracticeLooper.Mobile
             resolver.RegisterSingleton(typeof(SourcePicker), typeof(ISourcePicker));
             resolver.RegisterSingleton(typeof(FileAudioPlayer), typeof(IAudioPlayer));
             resolver.RegisterInstance(new DialogService(), typeof(IDialogService));
-            resolver.RegisterInstance(ConfigurationService, typeof(IConfigurationService));
             resolver.Register(typeof(StringLocalizer), typeof(IStringLocalizer));
             // Build container after platform implementations have been registered
             MappingsFactory.Factory.GetResolver().BuildContainer();
@@ -84,34 +76,17 @@ namespace Emka.PracticeLooper.Mobile
             }
         }
 
-        private void InitConfig()
-        {
-#if PREMIUM
-            ConfigurationService.SetValue(PreferenceKeys.PremiumGeneral, true, true);
-#endif
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                ConfigurationService.LocalPath = FileSystem.AppDataDirectory;
-                BannerAddUnitId = ConfigurationService.GetValue("AdmobIosTopBannerAdId");
-            }
-            else if (Device.RuntimePlatform == Device.Android)
-            {
-                BannerAddUnitId = ConfigurationService.GetValue("AdmobAndroidTopBannerAdId");
-                ConfigurationService.LocalPath = FileSystem.AppDataDirectory;
-            }
-        }
-
         private async Task InitNavigation()
         {
             ICollection<ResourceDictionary> mergedDictionaries = Current.Resources.MergedDictionaries;
-
+            var configService = MappingsFactory.Factory.GetResolver().Resolve<IConfigurationService>() ?? throw new ArgumentNullException("configService");
             if (mergedDictionaries != null)
             {
-                if (ConfigurationService.GetValue(PreferenceKeys.ColorScheme, -1) == (int)AppTheme.Light)
+                if (configService.GetValue(PreferenceKeys.ColorScheme, -1) == (int)AppTheme.Light)
                 {
                     mergedDictionaries.Add(new LightTheme());
                 }
-                else if (ConfigurationService.GetValue(PreferenceKeys.ColorScheme, -1) == (int)AppTheme.Dark)
+                else if (configService.GetValue(PreferenceKeys.ColorScheme, -1) == (int)AppTheme.Dark)
                 {
                     mergedDictionaries.Add(new DarkTheme());
                 }

@@ -50,14 +50,10 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
             try
             {
                 AdRequest request;
-#if DEBUG
                 request = new AdRequest.Builder()
                     .AddTestDevice("F05EA53323F18138CB1722DD1F00A0F0")
-                    .AddTestDevice("05EAB5D891232107FF441DD3903FD547")
+                    .AddTestDevice("B0B92426A54BF08C56BC62D5703161F3")
                     .Build();
-#else
-                request = new AdRequest.Builder().Build();
-#endif
                 adView.LoadAd(request);
             }
             catch (Exception ex)
