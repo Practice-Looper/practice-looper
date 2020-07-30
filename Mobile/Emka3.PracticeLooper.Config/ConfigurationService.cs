@@ -31,6 +31,7 @@ namespace Emka3.PracticeLooper.Config
         #region Ctor
         public ConfigurationService(IPersistentConfigService persistentConfigService)
         {
+            configs = new Dictionary<string, object>();
             this.persistentConfigService = persistentConfigService;
             Initialize();
         }
@@ -52,7 +53,11 @@ namespace Emka3.PracticeLooper.Config
         /// </summary>
         private void Initialize()
         {
-            configs = ReadSecrets();
+            var loadedSecrets = ReadSecrets() ?? throw new Exception("could not read configs!");
+            foreach (var loadedKeyValuePair in loadedSecrets)
+            {
+                configs.Add(loadedKeyValuePair);
+            }
         }
 
         /// <summary>

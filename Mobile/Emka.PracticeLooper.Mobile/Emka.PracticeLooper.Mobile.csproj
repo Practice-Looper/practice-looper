@@ -101,7 +101,6 @@
         <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />
         <ProjectReference Include="..\Emka3.PracticeLooper.Mappings.Contracts\Emka3.PracticeLooper.Mappings.Contracts.csproj" />
         <ProjectReference Include="..\Emka3.PracticeLooper.Services.Contracts\Emka3.PracticeLooper.Services.Contracts.csproj" />
-        <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj" />
         <ProjectReference Include="..\Emka3.PracticeLooper.Utils\Emka3.PracticeLooper.Utils.csproj" />
         <ProjectReference Include="..\Emka3.PracticeLooper.Config.Contracts\Emka3.PracticeLooper.Config.Contracts.csproj" />
     </ItemGroup>

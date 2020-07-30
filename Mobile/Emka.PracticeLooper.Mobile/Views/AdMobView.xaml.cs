@@ -19,8 +19,8 @@ namespace Emka.PracticeLooper.Mobile.Views
 
         public AdMobView()
         {
-            AdUnitId = App.BannerAddUnitId;
             configurationService = Emka3.PracticeLooper.Mappings.Factory.GetResolver().Resolve<IConfigurationService>();
+            AdUnitId = configurationService.GetValue(Device.RuntimePlatform == Device.iOS ? "AdmobIosTopBannerAdId" : "AdmobAndroidTopBannerAdId");
             IsVisible = !configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral);
             configurationService.ValueChanged += AdMobView_ValueChanged;
             Logger = Emka3.PracticeLooper.Mappings.Factory.GetResolver().Resolve<ILogger>();

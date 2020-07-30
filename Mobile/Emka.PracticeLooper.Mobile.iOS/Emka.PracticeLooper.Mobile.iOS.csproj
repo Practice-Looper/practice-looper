@@ -203,7 +203,6 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GlobalApp.cs" />
     <Compile Include="Renderer\EntryBorderRenderer.cs" />
     <Compile Include="Effects\SafeAreaPaddingEffect.cs" />
     <Compile Include="Extensions\UIColorExtensions.cs" />
