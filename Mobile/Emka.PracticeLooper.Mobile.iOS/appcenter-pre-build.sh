@@ -11,7 +11,7 @@ echo "-----------------"
 # APPCENTER_SOURCE_DIRECTORY=/Users/simonsymhoven/Desktop/projects/practice-looper
 
 array=(`find $APPCENTER_SOURCE_DIRECTORY/Mobile -regex '.*Tests*.csproj'`)
-successfull=0
+successful=0
 error=0
 numberOfTests=${#array[@]}
 
@@ -63,9 +63,9 @@ do :
 		# return true if failed="0" is exactly 1
 		if [[ $failures -eq 1 ]]
 		then
-			# tests were executed successfull
+			# tests were executed successful
 			echo "Unit Tests for project $(basename "${projectFile}") passed!"
-			successfull=$((successfull+1))
+			successful=$((successful+1))
 		else
 			# tests failed
 			echo "Unit Tests for project $(basename "${projectFile}") failed!"
@@ -75,12 +75,12 @@ do :
 	echo "-----------------"
 done
 
-if [[ $successfull -eq $numberOfTests  ]]
+if [[ $successful -eq $numberOfTests  ]]
 then
-	echo "All tests were executed successfull. App will build now in next step."
-	echo "Build successfull!"
+	echo "All tests were executed successful. App will build now in next step."
+	echo "Build successful!"
 else
-	echo "${error} of ${numberOfTests} are failed. ${successfull} of ${numberOfTests} passed."
+	echo "${error} of ${numberOfTests} are failed. ${successful} of ${numberOfTests} passed."
 	echo "Build failed!"
 	exit 1
 fi
