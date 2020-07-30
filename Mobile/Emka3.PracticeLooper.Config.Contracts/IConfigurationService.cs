@@ -28,6 +28,11 @@ namespace Emka3.PracticeLooper.Config.Contracts
 
         #region Methods
         /// <summary>
+        /// Read configs from secrets file.
+        /// </summary>
+        void ReadConfigs();
+
+        /// <summary>
         /// Gets the value for a specific key.
         /// </summary>
         /// <returns> Config value.</returns>

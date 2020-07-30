@@ -10,18 +10,20 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Support.V4.Content;
-using Android.Support.V4.Media.Session;
-using Factory = Emka3.PracticeLooper.Mappings.Factory;
+using Emka.PracticeLooper.Mobile.Droid.Common;
+using Emka3.PracticeLooper.Config;
+using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Mappings.Contracts;
 using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using MediaManager;
+using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Plugin.InAppBilling;
 using Xamarin.Essentials;
-using Emka3.PracticeLooper.Config.Contracts;
+using Factory = Emka3.PracticeLooper.Mappings.Factory;
 
 namespace Emka.PracticeLooper.Mobile.Droid
 {
@@ -32,14 +34,17 @@ namespace Emka.PracticeLooper.Mobile.Droid
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
-            base.OnCreate(savedInstanceState);
+
+            Setup();
+
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
-            GlobalApp.Init();
+            base.OnCreate(savedInstanceState);
             CrossMediaManager.Current.Init(this);
             GlobalApp.MainActivity = this;
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+            // Todo validate permission request
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) == (int)Permission.Granted)
             {
                 var mounted = Android.OS.Environment.ExternalStorageState == Android.OS.Environment.MediaMounted;
@@ -55,7 +60,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
             Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
-            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, App.ConfigurationService.GetValue("AdmobAndroidAppId"));
             base.SetTheme(Resource.Style.MainTheme);
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = Platform.CurrentActivity;
 
@@ -189,33 +193,31 @@ namespace Emka.PracticeLooper.Mobile.Droid
             Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-    }
 
-    public class MediaSessionCallback : MediaSessionCompat.Callback
-    {
-        public override void OnPause()
+        private void Setup()
         {
-            base.OnPause();
-        }
-
-        public override void OnPlay()
-        {
-            base.OnPlay();
-        }
-
-        public override void OnSkipToNext()
-        {
-            base.OnSkipToNext();
-        }
-
-        public override void OnSkipToPrevious()
-        {
-            base.OnSkipToPrevious();
-        }
-
-        public override void OnStop()
-        {
-            base.OnStop();
+            var configService = new ConfigurationService(new PersistentConfigService()) ?? throw new ArgumentNullException("configService");
+            configService.ReadConfigs();
+            string key;
+#if PREMIUM
+            key = configService.GetValue("AppCenterAndroidPremium");
+            configService.SetValue(PreferenceKeys.PremiumGeneral, true, true);
+#else
+            key = configService.GetValue("AppCenterAndroidLite");
+#endif
+            AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(configService.GetValue("SyncFusionLicenseKey"));
+            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, configService.GetValue("AdmobAndroidAppId"));
+            configService.LocalPath = FileSystem.AppDataDirectory;
+            var resolver = Factory.GetResolver() ?? throw new ArgumentNullException("resolver");
+            resolver.RegisterInstance(configService, typeof(IConfigurationService));
+            resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
+            resolver.RegisterSingleton(typeof(AudioFileRepository), typeof(IFileRepository));
+            resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
+            resolver.Register(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
+            resolver.Register(typeof(InAppBillingVerifyPurchase), typeof(IInAppBillingVerifyPurchase));
+            resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
+            resolver.RegisterSingleton(typeof(ConnectivityService), typeof(IConnectivityService));
         }
     }
 }

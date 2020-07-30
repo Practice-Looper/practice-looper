@@ -93,28 +93,9 @@
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
     <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Plugin.InAppBilling;Xamarin.Android.Google.BillingClient;Plugin.InAppBilling;</AndroidLinkSkip>
-    <AndroidKeyStore>True</AndroidKeyStore>
-    <AndroidSigningKeyStore>/Users/simonsymhoven/Library/Developer/Xamarin/Keystore/PlayConsoleAlpha/PlayConsoleAlpha.keystore</AndroidSigningKeyStore>
-    <AndroidSigningStorePass>8ExDbiTtXNN3ECugopuB</AndroidSigningStorePass>
-    <AndroidSigningKeyAlias>PlayConsoleAlpha</AndroidSigningKeyAlias>
-    <AndroidSigningKeyPass>8ExDbiTtXNN3ECugopuB</AndroidSigningKeyPass>
     <AndroidPackageFormat>aab</AndroidPackageFormat>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleasePremium|AnyCPU' ">
-    <DebugType></DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\ReleasePremium</OutputPath>
-    <DefineConstants>PREMIUM;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AndroidManagedSymbols>true</AndroidManagedSymbols>
-    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
-    <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Plugin.InAppBilling;Xamarin.Android.Google.BillingClient;Plugin.InAppBilling;</AndroidLinkSkip>
-    <AndroidPackageFormat>aab</AndroidPackageFormat>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseAppCenterPremium|AnyCPU' ">
     <DebugType></DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\ReleasePremium</OutputPath>
@@ -376,6 +357,10 @@
     <ProjectReference Include="..\Emka3.PracticeLooper.Config.Contracts\Emka3.PracticeLooper.Config.Contracts.csproj">
       <Project>{FC6130F5-C5E5-442C-9E60-8BCCE5FE4514}</Project>
       <Name>Emka3.PracticeLooper.Config.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj">
+      <Project>{C15009EA-B815-485E-88A0-FDB49F1842B4}</Project>
+      <Name>Emka3.PracticeLooper.Config</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
