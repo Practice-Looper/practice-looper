@@ -32,13 +32,13 @@ namespace Emka.PracticeLooper.Mobile.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
             Setup();
 
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-            TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
             base.OnCreate(savedInstanceState);
             CrossMediaManager.Current.Init(this);
             GlobalApp.MainActivity = this;
