@@ -197,7 +197,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
         private void Setup()
         {
             var configService = new ConfigurationService(new PersistentConfigService()) ?? throw new ArgumentNullException("configService");
-
+            configService.ReadConfigs();
             string key;
 #if PREMIUM
             key = configService.GetValue("AppCenterAndroidPremium");

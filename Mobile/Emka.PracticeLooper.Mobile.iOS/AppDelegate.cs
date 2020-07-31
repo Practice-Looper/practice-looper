@@ -133,7 +133,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
         private void Setup()
         {
             var configService = new ConfigurationService(new PersistentConfigService()) ?? throw new ArgumentNullException("configService");
-
+            configService.ReadConfigs();
             string key;
 #if PREMIUM
             key = configService.GetValue("AppCenterIosPremium");

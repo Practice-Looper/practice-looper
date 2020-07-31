@@ -26,7 +26,8 @@ namespace Emka3.PracticeLooper.Services.Tests
             playerTimer = new PlayerTimer(loggerMock.Object);
 
         }
-
+		
+		/* 
         [Theory]
         [InlineData(500)]
         [InlineData(1000)]
@@ -46,6 +47,7 @@ namespace Emka3.PracticeLooper.Services.Tests
             playerTimer.StopTimers();
             Assert.InRange(watch.ElapsedMilliseconds, ms - Deviation, ms + Deviation);
         }
+		*/
 
         [Fact]
         public async Task When_SetCurrentPositionTimer_Expect_FiresCurrentPositionTimerExpired()

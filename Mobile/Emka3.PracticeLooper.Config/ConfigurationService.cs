@@ -33,7 +33,6 @@ namespace Emka3.PracticeLooper.Config
         {
             configs = new Dictionary<string, object>();
             this.persistentConfigService = persistentConfigService;
-            Initialize();
         }
         #endregion
 
@@ -48,18 +47,6 @@ namespace Emka3.PracticeLooper.Config
         #endregion
 
         #region Methods
-        /// <summary>
-        /// Initialize the config.
-        /// </summary>
-        private void Initialize()
-        {
-            var loadedSecrets = ReadSecrets() ?? throw new Exception("could not read configs!");
-            foreach (var loadedKeyValuePair in loadedSecrets)
-            {
-                configs.Add(loadedKeyValuePair);
-            }
-        }
-
         /// <summary>
         /// Read the secrets.
         /// </summary>
@@ -155,6 +142,15 @@ namespace Emka3.PracticeLooper.Config
         public async Task SetValueAsync(string key, object value, bool persist = default)
         {
             await Task.Run(() => SetValue(key, value)).ConfigureAwait(false);
+        }
+
+        public void ReadConfigs()
+        {
+            var loadedSecrets = ReadSecrets() ?? throw new Exception("could not read configs!");
+            foreach (var loadedKeyValuePair in loadedSecrets)
+            {
+                configs.Add(loadedKeyValuePair);
+            }
         }
         #endregion Methods
     }
