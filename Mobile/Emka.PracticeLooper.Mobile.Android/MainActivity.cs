@@ -70,7 +70,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
                 { "OS version", $"{AppInfo.VersionString}" },
                 { "Device", $"{DeviceInfo.Manufacturer} {DeviceInfo.Model}" }
             });
-
         }
 
         protected override void OnDestroy()
@@ -186,8 +185,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
             {
                 Crashes.TrackError(ex);
             }
-
-            Analytics.TrackEvent("OnCreate");
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -220,7 +217,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
             resolver.Register(typeof(InAppBillingVerifyPurchase), typeof(IInAppBillingVerifyPurchase));
             resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
             resolver.RegisterSingleton(typeof(ConnectivityService), typeof(IConnectivityService));
-            Analytics.TrackEvent("Setup");
         }
     }
 }

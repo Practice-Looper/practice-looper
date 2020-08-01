@@ -106,11 +106,6 @@
         <value>Dark Mode</value>
     </data>
     <data
-        name="SettingsView_DarkMode"
-        xml:space="preserve">
-        <value>Dark Mode</value>
-    </data>
-    <data
         name="SettingsView_AppVersion"
         xml:space="preserve">
         <value>App vesion: {0}</value>
