@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Common;
+using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Model.Player;
@@ -27,8 +28,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #endregion
 
         #region Ctor
-        public RangePickerViewModel(AudioSource audioSource, Loop loop, bool isStartPosition, IDialogService dialogService, ILogger logger)
-            : base(null, logger, null)
+        public RangePickerViewModel(AudioSource audioSource,
+            Loop loop,
+            bool isStartPosition,
+            IDialogService dialogService,
+            ILogger logger,
+            INavigationService navigationService,
+            IAppTracker appTracker)
+            : base(navigationService, logger, appTracker)
         {
             AudioSource = audioSource;
             Loop = loop;

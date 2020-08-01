@@ -5,7 +5,7 @@
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:conv="clr-namespace:Emka.PracticeLooper.Mobile.Converters"
-    x:Class="Emka.PracticeLooper.Mobile.Views.SessionDetailsView"
+    x:Class="Emka.PracticeLooper.Mobile.Views.LoopsDetailsView"
     xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
     ios:Page.UseSafeArea="True"
     BackgroundColor="{DynamicResource BackgroundColor}"

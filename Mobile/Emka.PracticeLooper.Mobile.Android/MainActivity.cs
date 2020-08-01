@@ -32,14 +32,14 @@ namespace Emka.PracticeLooper.Mobile.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            base.OnCreate(savedInstanceState);
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
             Setup();
 
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-            TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
-            base.OnCreate(savedInstanceState);
             CrossMediaManager.Current.Init(this);
             GlobalApp.MainActivity = this;
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -70,7 +70,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
                 { "OS version", $"{AppInfo.VersionString}" },
                 { "Device", $"{DeviceInfo.Manufacturer} {DeviceInfo.Model}" }
             });
-
         }
 
         protected override void OnDestroy()
