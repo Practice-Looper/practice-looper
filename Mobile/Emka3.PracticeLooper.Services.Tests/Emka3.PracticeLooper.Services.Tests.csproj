@@ -5,6 +5,7 @@
 
     <IsPackable>false</IsPackable>
     <OutputType>Library</OutputType>
+    <ReleaseVersion>0.1.0</ReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>

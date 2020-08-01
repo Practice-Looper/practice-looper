@@ -2,6 +2,7 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
+using System;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Xamarin.Forms;
@@ -19,7 +20,7 @@ namespace Emka.PracticeLooper.Mobile.Views
 
         public AdMobView()
         {
-            configurationService = Emka3.PracticeLooper.Mappings.Factory.GetResolver().Resolve<IConfigurationService>();
+            configurationService = Emka3.PracticeLooper.Mappings.Factory.GetResolver().Resolve<IConfigurationService>() ?? throw new NullReferenceException("configurationService");
             AdUnitId = configurationService.GetValue(Device.RuntimePlatform == Device.iOS ? "AdmobIosTopBannerAdId" : "AdmobAndroidTopBannerAdId");
             IsVisible = !configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral);
             configurationService.ValueChanged += AdMobView_ValueChanged;

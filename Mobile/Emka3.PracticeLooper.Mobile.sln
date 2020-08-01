@@ -419,5 +419,6 @@ Global
 		Policies = $0
 		$0.StandardHeader = $1
 		$1.Text = @Copyright (C) ${CopyrightHolder} - All Rights Reserved\nUnauthorized copying of this file, via any medium is strictly prohibited\nProprietary and confidential\n${AuthorName} ${AuthorEmail}, ${Year}
+		version = 0.1.0
 	EndGlobalSection
 EndGlobal
