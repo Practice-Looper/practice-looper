@@ -32,6 +32,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            base.OnCreate(savedInstanceState);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
             var stopWatch = new Stopwatch();
@@ -39,7 +40,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
             Setup();
 
-            base.OnCreate(savedInstanceState);
             CrossMediaManager.Current.Init(this);
             GlobalApp.MainActivity = this;
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -186,6 +186,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
             {
                 Crashes.TrackError(ex);
             }
+
+            Analytics.TrackEvent("OnCreate");
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -218,6 +220,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             resolver.Register(typeof(InAppBillingVerifyPurchase), typeof(IInAppBillingVerifyPurchase));
             resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
             resolver.RegisterSingleton(typeof(ConnectivityService), typeof(IConnectivityService));
+            Analytics.TrackEvent("Setup");
         }
     }
 }
