@@ -104,7 +104,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             if (BindingContext is MainViewModel vm)
             {
-                var rangeVm = new RangePickerViewModel(vm.CurrentSession.Session.AudioSource, vm.CurrentLoop, true, resolver.Resolve<IDialogService>(), resolver.Resolve<ILogger>());
+                var rangeVm = new RangePickerViewModel(vm.CurrentSession.Session.AudioSource, vm.CurrentLoop, true, resolver.Resolve<IDialogService>(), resolver.Resolve<ILogger>(), resolver.Resolve<INavigationService>(), resolver.Resolve<IAppTracker>());
                 await rangeVm.InitializeAsync(default);
                 picker.BindingContext = rangeVm;
                 picker.IsOpen = true;
@@ -116,7 +116,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             if (BindingContext is MainViewModel vm)
             {
-                var rangeVm = new RangePickerViewModel(vm.CurrentSession.Session.AudioSource, vm.CurrentLoop, false, resolver.Resolve<IDialogService>(), resolver.Resolve<ILogger>());
+                var rangeVm = new RangePickerViewModel(vm.CurrentSession.Session.AudioSource, vm.CurrentLoop, false, resolver.Resolve<IDialogService>(), resolver.Resolve<ILogger>(), resolver.Resolve<INavigationService>(), resolver.Resolve<IAppTracker>());
                 await rangeVm.InitializeAsync(default);
                 picker.BindingContext = rangeVm;
                 picker.IsOpen = true;

@@ -13,9 +13,9 @@ using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 namespace Emka.PracticeLooper.Mobile.Views
 {
     [Preserve(AllMembers = true)]
-    public partial class LoopsDetailsView : ContentPage
+    public partial class SessionDetailsView : ContentPage
     {
-        public LoopsDetailsView()
+        public SessionDetailsView()
         {
             InitializeComponent();
             var resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
