@@ -290,9 +290,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     CurrentSession = Sessions.FirstOrDefault(s => s.Session.Id == configurationService.GetValue(PreferenceKeys.LastSession, default(int))) ?? Sessions.FirstOrDefault();
                 });
 
-                if (!connectivityService.HasFastConnection())
+                if (!connectivityService.HasFastConnection() && !configurationService.GetValue(PreferenceKeys.SlowConnectionWarning, default(bool)))
                 {
                     await dialogService.ShowAlertAsync(AppResources.Hint_Content_SlowConnection, AppResources.Hint_Caption_SlowConnection);
+                    await configurationService.SetValueAsync(PreferenceKeys.SlowConnectionWarning, true, true);
                 }
             }
             catch (Exception ex)

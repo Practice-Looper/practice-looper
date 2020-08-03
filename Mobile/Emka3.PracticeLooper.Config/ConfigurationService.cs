@@ -141,7 +141,7 @@ namespace Emka3.PracticeLooper.Config
 
         public async Task SetValueAsync(string key, object value, bool persist = default)
         {
-            await Task.Run(() => SetValue(key, value)).ConfigureAwait(false);
+            await Task.Run(() => SetValue(key, value, persist)).ConfigureAwait(false);
         }
 
         public void ReadConfigs()
