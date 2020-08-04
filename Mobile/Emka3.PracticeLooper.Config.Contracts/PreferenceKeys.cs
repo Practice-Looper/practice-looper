@@ -11,5 +11,6 @@ namespace Emka3.PracticeLooper.Config.Contracts
         public static readonly string LastSession = nameof(LastSession);
         public static readonly string LastLoop = nameof(LastLoop);
         public static readonly string ColorScheme = nameof(ColorScheme);
+        public static readonly string SlowConnectionWarning = nameof(SlowConnectionWarning);
     }
 }

@@ -5,6 +5,7 @@
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Utils;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.Common
@@ -18,17 +19,17 @@ namespace Emka.PracticeLooper.Mobile.Common
 
         public async Task ShowAlertAsync(string message, string caption = "Error occured")
         {
-            await Application.Current.MainPage?.DisplayAlert(caption, message, "OK");
+            await MainThread.InvokeOnMainThreadAsync(() => Application.Current.MainPage?.DisplayAlert(caption, message, "OK"));
         }
 
         public async Task<bool> ShowConfirmAsync(string caption, string message, string negative, string confirm)
         {
-            return await Application.Current.MainPage?.DisplayAlert(caption, message, confirm, negative);
+            return await MainThread.InvokeOnMainThreadAsync(() => Application.Current.MainPage?.DisplayAlert(caption, message, confirm, negative));
         }
 
         public async Task<string> ShowPromptAsync(string title, string message, string accept, string cancel, string placeholder, int maxLength = 250)
         {
-            return await Application.Current.MainPage?.DisplayPromptAsync(title, message, accept, cancel, placeholder, maxLength);
+            return await MainThread.InvokeOnMainThreadAsync(() => Application.Current.MainPage?.DisplayPromptAsync(title, message, accept, cancel, placeholder, maxLength));
         }
     }
 }
