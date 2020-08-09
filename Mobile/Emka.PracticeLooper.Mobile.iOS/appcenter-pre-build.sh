@@ -88,3 +88,29 @@ fi
 echo "******************************************************************************"
 echo "**************************** Finish Tests ************************************"
 echo "******************************************************************************"
+
+echo "-----------------"
+echo "Increment Build Number"
+echo "-----------------"
+
+# Path to Info.plist
+INFO_PLIST_PATH="$APPCENTER_SOURCE_DIRECTORY/Mobile/Emka.PracticeLooper.Mobile.iOS/Info.plist"
+
+# Extract version number out of Info.plist
+VERSION_STRING=$(grep -o -A1 '<key>CFBundleVersion</key>' $INFO_PLIST_PATH | grep -o '[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}')
+
+# Split Version Number into different parts (Major.Minor.Build)
+echo "Actual Version Number: $VERSION_STRING"
+IFS='.' read -r -a VERSION_ELEMENTS <<< "$VERSION_STRING"
+
+# Increment build number
+NEW_BUILD_NUMBER=$((VERSION_ELEMENTS[2]+1))
+
+# Generate new version number
+NEW_VERSION="${VERSION_ELEMENTS[0]}.${VERSION_ELEMENTS[1]}.${NEW_BUILD_NUMBER}"
+
+echo "New Version Number: ${NEW_VERSION}"
+echo $NEW_VERSION
+
+# Replace version number in Info.plist
+plutil -replace CFBundleVersion -string "$NEW_VERSION" $INFO_PLIST_PATH
