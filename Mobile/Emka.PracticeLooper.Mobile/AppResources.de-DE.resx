@@ -251,6 +251,6 @@
     <data
         name="Prompt_Content_NewLoo_NamePlaceholder"
         xml:space="preserve">
-        <value>Markierung{0}</value>
+        <value>{0}. Markierung</value>
     </data>
 </root>
