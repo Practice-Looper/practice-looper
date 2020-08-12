@@ -41,21 +41,15 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 new OnboardingModel
                 {
-                    Title = "Willkomme bei Practice Looper",
+                    Title = "Willkommen bei Practice Looper",
                     Content = "Practice, Loop - Loop, Practice",
-                    ImageUrl = "Image url 1"
+                    ImageUrl = "WordLogo.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "FÜge einen Song hinzu",
-                    Content = "Beschriebung 1",
-                    ImageUrl = "Image url 1"
-                },
-                new OnboardingModel
-                {
-                    Title = "Tue was andere",
-                    Content = "Beschriebung 2",
-                    ImageUrl = "Image url 2"
+                    Title = "Onboarding",
+                    Content = "Beschreibung",
+                    ImageUrl = "WordLogo.png"
                 }
             };
         }

@@ -6,48 +6,62 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
+
+            <BoxView BackgroundColor="{DynamicResource BackgroundColor}" Grid.RowSpan="3"/>
+
             <Button
                 Grid.Row="0"
-                Margin="0,10,10,0"
+                Margin="0,0,20,10"
                 BackgroundColor="Transparent"
-                HorizontalOptions="End"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="Center"
                 Text="Überspringen"
                 Command="{Binding SkipCommand}"
                 TextColor="{DynamicResource PrimaryColor}" />
 
-            <BoxView BackgroundColor="{DynamicResource BackgroundColor}" Grid.RowSpan="2"/>
-
-            <StackLayout Grid.Row="1">
-                <CarouselView
+            <CarouselView
+                x:Name="OnboardingCarousel"
+                Grid.Row="1"
                 ItemsSource="{Binding Items}"
-                IndicatorView="indicatorView">
+                IndicatorView="indicatorView"
+                VerticalOptions="Center">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
                         <ContentView>
-                            <StackLayout>
+                            <FlexLayout Direction="Column"
+                                        JustifyContent="Center"
+                                        AlignItems="Center">
+                                <Image Source="{Binding ImageUrl}"
+                                       WidthRequest="300"
+                                       Aspect="AspectFill"/>
                                 <Label Text="{Binding Title}"
-                                       VerticalOptions="Center"
-                                       HorizontalOptions="Center"
-                                       TextColor="{DynamicResource SecondaryColor}"
-                                       FontSize="16" />
+                                       Margin="0,40,0,0"
+                                       TextColor="{DynamicResource PrimaryColor}"
+                                       FontSize="Title"/>
                                 <Label Text="{Binding Content}"
-                                       VerticalOptions="Center"
-                                       HorizontalOptions="Center"
-                                       TextColor="{DynamicResource SecondaryColor}" />
-                            </StackLayout>
+                                       Margin="0,5,0,0"
+                                       FontSize="Body"
+                                       TextColor="{DynamicResource PrimaryColor}"/>
+                            </FlexLayout>
                         </ContentView>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
 
-            <IndicatorView x:Name="indicatorView"
-                           IndicatorColor="{DynamicResource PrimaryColor}"
-                           SelectedIndicatorColor="{DynamicResource SecondaryColor}"
-                           HorizontalOptions="Center"/>
-            </StackLayout>
+            <IndicatorView
+                Grid.Row="2"
+                x:Name="indicatorView"
+                Margin="0,20,0,40"
+                IndicatorColor="{DynamicResource PrimaryColor}"
+                IndicatorsShape="Circle"
+                SelectedIndicatorColor="{DynamicResource SecondaryColor}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+            
         </Grid>
     </ContentPage.Content>
 </ContentPage>
