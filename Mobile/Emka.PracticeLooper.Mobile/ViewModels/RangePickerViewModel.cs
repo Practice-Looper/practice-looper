@@ -3,6 +3,7 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,162 +20,125 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     [Preserve(AllMembers = true)]
     public class RangePickerViewModel : ViewModelBase
     {
+        #region Fields
         private readonly IDialogService dialogService;
         private readonly TimeSpan fiveSecondsSpan = new TimeSpan(0, 0, 5);
-        #region Properties
-
-        private ObservableCollection<object> time;
-        private ObservableCollection<string> selectedTime;
+        private readonly object locker = new object();
         #endregion
 
         #region Ctor
-        public RangePickerViewModel(AudioSource audioSource,
-            Loop loop,
-            bool isStartPosition,
+        public RangePickerViewModel(
             IDialogService dialogService,
             ILogger logger,
             INavigationService navigationService,
             IAppTracker appTracker)
             : base(navigationService, logger, appTracker)
         {
-            AudioSource = audioSource;
-            Loop = loop;
-            IsStartPosition = isStartPosition;
             this.dialogService = dialogService;
-            Hours = new RangeObservableCollection<string>();
-            Minutes = new RangeObservableCollection<string>();
-
-            Seconds = new RangeObservableCollection<string>();
-
+            Minutes = new RangeObservableCollection<object>();
+            Time = new List<object>();
+            SelectedTime = new ObservableCollection<object>();
             Headers = new ObservableCollection<string>
             {
                 AppResources.Minutes, AppResources.Seconds
             };
-
-            Time = new ObservableCollection<object>
-            {
-                Minutes, Seconds
-            };
-
-            SelectedTime = new ObservableCollection<string>();
         }
         #endregion
 
         #region Properties
-        public ObservableCollection<object> Time { get => time; set => time = value; }
-        public RangeObservableCollection<string> Hours { get; set; }
-        public RangeObservableCollection<string> Minutes { get; set; }
-        public RangeObservableCollection<string> Seconds { get; set; }
+        public List<object> Time { get; private set; }
+        public RangeObservableCollection<object> Minutes { get; set; }
         public ObservableCollection<string> Headers { get; set; }
-        public ObservableCollection<string> SelectedTime
-        {
-            get => selectedTime;
-            set
-            {
-                selectedTime = value;
-                NotifyPropertyChanged();
-            }
-        }
+        public ObservableCollection<object> SelectedTime { get; private set; }
 
-        public AudioSource AudioSource { get; }
-        public Loop Loop { get; }
-        public bool IsStartPosition { get; }
+        public AudioSource AudioSource { get; set; }
+        public Loop Loop { get; set; }
+        public bool IsStartPosition { get; private set; }
         public int LengthHours { get; private set; }
         public int LengthMinutes { get; private set; }
         public int LengthSeconds { get; private set; }
         public double TotalSeconds { get; private set; }
         private int MinutesMinimum { get; set; }
         private int MinutesMaximum { get; set; }
-        private int SecondsMinimum { get; set; }
-        private int SecondsMaximum { get; set; }
         #endregion
 
         #region Methods
         public async override Task InitializeAsync(object parameter)
         {
-            if (AudioSource != null)
+            if (AudioSource == null || Loop == null)
             {
-                // total time
+                throw new InvalidOperationException("AudioSource or Loop null reference");
+            }
 
-                LengthHours = TimeSpan.FromSeconds(AudioSource.Duration).Hours;
-                LengthMinutes = TimeSpan.FromSeconds(AudioSource.Duration).Minutes;
-                LengthSeconds = TimeSpan.FromSeconds(AudioSource.Duration).Seconds;
-                TotalSeconds = TimeSpan.FromSeconds(AudioSource.Duration).TotalSeconds;
+            if (parameter is bool isStartPosition)
+            {
+                IsStartPosition = isStartPosition;
+            }
 
-                if (LengthHours > 0)
-                {
-                    await dialogService?.ShowAlertAsync(AppResources.Hint_Content_FileTooLong_Content, AppResources.Hint_Caption_FileTooLong_Caption);
-                    await Logger.LogErrorAsync(new Exception("File too long!"));
-                    return;
-                }
+            LengthHours = TimeSpan.FromSeconds(AudioSource.Duration).Hours;
+            LengthMinutes = TimeSpan.FromSeconds(AudioSource.Duration).Minutes;
+            LengthSeconds = TimeSpan.FromSeconds(AudioSource.Duration).Seconds;
+            TotalSeconds = TimeSpan.FromSeconds(AudioSource.Duration).TotalSeconds;
+
+            if (LengthHours > 0)
+            {
+                await dialogService?.ShowAlertAsync(AppResources.Hint_Content_FileTooLong_Content, AppResources.Hint_Caption_FileTooLong_Caption);
+                await Logger.LogErrorAsync(new Exception("File too long!"));
+                return;
+            }
+
+            lock (locker)
+            {
+                Minutes.Clear();
+                //SelectedTime.Clear();
+                //Time.Clear();
+                int minutesIndex;
+                int secondsIndex;
 
                 if (IsStartPosition)
                 {
                     MinutesMaximum = TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition).Subtract(fiveSecondsSpan).Minutes;
                     Minutes.InsertRange(Enumerable.Range(MinutesMinimum, MinutesMaximum + 1).Select(i => i.ToString("D2")));
-                    var minutesIndex = TimeSpan.FromSeconds(AudioSource.Duration * Loop.StartPosition).Minutes;
-                    var secondsIndex = TimeSpan.FromSeconds(AudioSource.Duration * Loop.StartPosition).Seconds;
-                    UpdateSeconds(minutesIndex.ToString("D2"), secondsIndex.ToString("D2"));
+                    minutesIndex = TimeSpan.FromSeconds(AudioSource.Duration * Loop.StartPosition).Minutes;
+                    secondsIndex = TimeSpan.FromSeconds(AudioSource.Duration * Loop.StartPosition).Seconds;
                 }
                 else
                 {
                     MinutesMinimum = TimeSpan.FromSeconds(AudioSource.Duration * Loop.StartPosition).Add(fiveSecondsSpan).Minutes;
-                    Minutes.InsertRange(Enumerable.Range(MinutesMinimum, LengthMinutes + 1).Select(i => i.ToString("D2")));
-                    var minutesIndex = TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition).Minutes;
-                    var secondsIndex = TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition).Seconds;
-                    UpdateSeconds(minutesIndex.ToString("D2"), secondsIndex.ToString("D2"));
+                    Minutes.InsertRange(Enumerable.Range(MinutesMinimum, LengthMinutes - MinutesMinimum + 1).Select(i => i.ToString("D2")));
+                    minutesIndex = TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition).Minutes;
+                    secondsIndex = TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition).Seconds;
                 }
+
+                //Time.Add(Minutes);
+                //Time.Add(GetValidSeconds(minutesIndex.ToString("D2")));
+                Time = new List<object> { Minutes, GetValidSeconds(minutesIndex.ToString("D2")) };
+
+                SelectedTime = new ObservableCollection<object> { minutesIndex.ToString("D2"), secondsIndex.ToString("D2") };
             }
         }
 
-        public void UpdateSeconds(string minutes, string seconds)
+        public RangeObservableCollection<object> GetValidSeconds(string minutes)
         {
-            if (SelectedTime.Any() && minutes == SelectedTime[0])
-            {
-                return;
-            }
+            var result = new RangeObservableCollection<object>();
 
+            var startSpan = TimeSpan.FromSeconds(AudioSource.Duration * Loop.StartPosition);
+            var currentMinuteSpan = TimeSpan.FromMinutes(int.Parse(minutes));
             if (IsStartPosition)
             {
-                Seconds.Clear();
-                if (Minutes.IndexOf(minutes) == Minutes.Count - 1)
-                {
-                    // create minutes and seconds ranges
-                    SecondsMaximum = TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition).Subtract(fiveSecondsSpan).Seconds;
-                    Seconds.InsertRange(Enumerable.Range(SecondsMinimum, SecondsMaximum + 1).Select(i => i.ToString("D2")));
-                    seconds = SecondsMinimum.ToString("D2");
-                }
-                else
-                {
-                    // adds 60 seconds if the song is not shorter in total length
-                    var maxValue = TotalSeconds < 60 ? TotalSeconds : 60;
-                    Seconds.InsertRange(Enumerable.Range(SecondsMinimum, (int)maxValue).Select(i => i.ToString("D2")));
-                }
+                var endSpan = TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition);
+                int maxValue = currentMinuteSpan.Minutes < endSpan.Minutes ? 60 : endSpan.Subtract(fiveSecondsSpan).Seconds;
+                result.InsertRange(Enumerable.Range(0, maxValue + 1).Select(i => i.ToString("D2")));
+                return result;
             }
             else
             {
-                Seconds.Clear();
-                if (Minutes.IndexOf(minutes) == 0)
-                {
-                    var maxValue = TotalSeconds < 60 ? TotalSeconds : 60;
-                    Seconds.InsertRange(Enumerable.Range(SecondsMinimum, (int)maxValue - 5).Select(i => i.ToString("D2")));
-                    seconds = SecondsMinimum.ToString("D2");
-                }
-                else if (Minutes.IndexOf(minutes) == Minutes.Count - 1)
-                {
-                    SecondsMaximum = TimeSpan.FromSeconds(AudioSource.Duration).Seconds;
-                    SecondsMinimum = TimeSpan.FromSeconds(AudioSource.Duration * Loop.StartPosition).Add(fiveSecondsSpan).Seconds;
-                    Seconds.InsertRange(Enumerable.Range(0, SecondsMaximum + 1).Select(i => i.ToString("D2")));
-                }
-                else
-                {
-                    Seconds.InsertRange(Enumerable.Range(0, 60).Select(i => i.ToString("D2")));
-                }
+                var endSpan = TimeSpan.FromSeconds(AudioSource.Duration);
+                int minValue = currentMinuteSpan.Minutes == startSpan.Minutes ? startSpan.Add(fiveSecondsSpan).Seconds : 0;
+                int maxValue = currentMinuteSpan.Minutes < endSpan.Minutes ? 60 - minValue : endSpan.Seconds + 1;
+                result.InsertRange(Enumerable.Range(minValue, maxValue).Select(i => i.ToString("D2")));
+                return result;
             }
-
-            Time.RemoveAt(1);
-            Time.Add(Seconds);
-            SelectedTime = new ObservableCollection<string> { minutes, seconds };
         }
     }
     #endregion

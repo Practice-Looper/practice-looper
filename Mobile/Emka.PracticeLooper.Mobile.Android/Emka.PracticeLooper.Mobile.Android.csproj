@@ -192,10 +192,10 @@
       <Version>3.0.0-beta</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfPicker">
-      <Version>18.1.0.53</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
-      <Version>18.1.0.56</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.10.0</Version>
@@ -336,7 +336,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Emka.PracticeLooper.Mobile\Emka.PracticeLooper.Mobile.csproj">
-      <Project>{7C0F82BD-B45B-42DC-92F5-30E199DD0719}</Project>
+      <Project>{A969A2E1-66A2-4DBE-9914-A96D4333411D}</Project>
       <Name>Emka.PracticeLooper.Mobile</Name>
     </ProjectReference>
     <ProjectReference Include="..\Emka3.PracticeLooper.Services.Contracts\Emka3.PracticeLooper.Services.Contracts.csproj">
