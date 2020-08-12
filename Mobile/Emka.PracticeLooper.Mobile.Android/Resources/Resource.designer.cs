@@ -11432,16 +11432,34 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int notify_panel_notification_icon_bg = 2131165560;
 			
 			// aapt resource value: 0x7F070179
-			public const int splash_screen = 2131165561;
+			public const int OnboardingAddMarker = 2131165561;
 			
 			// aapt resource value: 0x7F07017A
-			public const int tooltip_frame_dark = 2131165562;
+			public const int OnboardingAddSong = 2131165562;
 			
 			// aapt resource value: 0x7F07017B
-			public const int tooltip_frame_light = 2131165563;
+			public const int OnboardingEndPicker = 2131165563;
 			
 			// aapt resource value: 0x7F07017C
-			public const int word_logo = 2131165564;
+			public const int OnboardingIntro = 2131165564;
+			
+			// aapt resource value: 0x7F07017D
+			public const int OnboardingShowMarker = 2131165565;
+			
+			// aapt resource value: 0x7F07017E
+			public const int OnboardingStartPicker = 2131165566;
+			
+			// aapt resource value: 0x7F07017F
+			public const int splash_screen = 2131165567;
+			
+			// aapt resource value: 0x7F070180
+			public const int tooltip_frame_dark = 2131165568;
+			
+			// aapt resource value: 0x7F070181
+			public const int tooltip_frame_light = 2131165569;
+			
+			// aapt resource value: 0x7F070182
+			public const int word_logo = 2131165570;
 			
 			static Drawable()
 			{
@@ -13121,28 +13139,10 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int path_password_strike_through = 2131558515;
 			
 			// aapt resource value: 0x7F0D0074
-			public const int s1 = 2131558516;
+			public const int search_menu_title = 2131558516;
 			
 			// aapt resource value: 0x7F0D0075
-			public const int s2 = 2131558517;
-			
-			// aapt resource value: 0x7F0D0076
-			public const int s3 = 2131558518;
-			
-			// aapt resource value: 0x7F0D0077
-			public const int s4 = 2131558519;
-			
-			// aapt resource value: 0x7F0D0078
-			public const int s5 = 2131558520;
-			
-			// aapt resource value: 0x7F0D0079
-			public const int s6 = 2131558521;
-			
-			// aapt resource value: 0x7F0D007A
-			public const int search_menu_title = 2131558522;
-			
-			// aapt resource value: 0x7F0D007B
-			public const int status_bar_notification_info_overflow = 2131558523;
+			public const int status_bar_notification_info_overflow = 2131558517;
 			
 			static String()
 			{

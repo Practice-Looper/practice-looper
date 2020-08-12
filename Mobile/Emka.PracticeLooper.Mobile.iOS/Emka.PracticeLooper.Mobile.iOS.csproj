@@ -339,10 +339,18 @@
     <Folder Include="Assets.xcassets\Play.imageset\" />
     <Folder Include="Assets.xcassets\WordLogo.imageset\" />
     <Folder Include="Resources\" />
+    <Folder Include="Assets.xcassets\OnboardingSplashscreen.imageset\" />
+    <Folder Include="Assets.xcassets\.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Sounds\Coumarin_Mirage_Vers3.mp3" />
     <BundleResource Include="materialdesignicons.ttf" />
+    <BundleResource Include="Resources\OnboardingAddMarker.png" />
+    <BundleResource Include="Resources\OnboardingAddSong.png" />
+    <BundleResource Include="Resources\OnboardingEndPicker.png" />
+    <BundleResource Include="Resources\OnboardingShowMarker.png" />
+    <BundleResource Include="Resources\OnboardingIntro.png" />
+    <BundleResource Include="Resources\OnboardingStartPicker.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
