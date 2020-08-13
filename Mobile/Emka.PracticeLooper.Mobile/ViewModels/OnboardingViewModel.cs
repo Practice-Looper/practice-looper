@@ -27,7 +27,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #region Properties
         public ObservableCollection<OnboardingModel> Items { get; set; }
         public Command SkipCommand => skipCommand ?? (skipCommand = new Command(async (o) => await StartMainPageAsync(o)));
-        public int Position { get; set; }
         #endregion
 
         #region Ctor
@@ -37,6 +36,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             IAppTracker appTracker)
             : base(navigationService, logger, appTracker)
         {
+
             Items = new ObservableCollection<OnboardingModel>
             {
                 new OnboardingModel
@@ -48,32 +48,39 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 new OnboardingModel
                 {
                     Title = "Füge einen neuen Song hinzu",
-                    Content = "Beschreibung",
+                    Content = "Klicke auf \uf419 \uf641 um entweder einen neuen Song aus Spotify oder aus deiner lokalen Musikbibliothek hinzuzufügen.",
                     ImageUrl = "OnboardingAddSong.png"
                 },
                 new OnboardingModel
                 {
                     Title = "Wähle eine untere Grenze",
-                    Content = "Beschreibung",
+                    Content = "Wähle die untere Grenze entweder mit dem Slider oder klicke auf die untere Grenze um den Picker zu öffnen.",
                     ImageUrl = "OnboardingStartPicker.png"
                 },
                 new OnboardingModel
                 {
                     Title = "Wähle eine obere Grenze",
-                    Content = "Beschreibung",
+                    Content = "Mit dem Picker fällt es leichter Zeiträume genauer einzustellen.",
                     ImageUrl = "OnboardingEndPicker.png"
                 },
                 new OnboardingModel
                 {
                     Title = "Füge eine Markierung hinzu",
-                    Content = "Beschreibung",
+                    Content = "Klicke auf \uf0c4 um eine neue Markierung zu setzen.",
                     ImageUrl = "OnboardingAddMarker.png"
                 },
                 new OnboardingModel
                 {
                     Title = "Bearbeite deine Markierungen",
-                    Content = "Beschreibung",
+                    Content = "Klicke auf eine Markierung um diese abzuspielen oder wische nach links um diese zu löschen.",
                     ImageUrl = "OnboardingShowMarker.png"
+                },
+                new OnboardingModel
+                {
+                    Title = "Lets Loop!",
+                    Content = "Füge jetzt deinen ersten Song hinzu. \n Viel Spaß!",
+                    ImageUrl = "OnboardingLetsStart.png",
+                    ButtonVisible = true
                 }
             };
         }
@@ -89,6 +96,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             return Task.CompletedTask;
         }
+       
         #endregion
     }
 }

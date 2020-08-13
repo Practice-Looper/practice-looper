@@ -12,6 +12,8 @@ namespace Emka3.PracticeLooper.Model.Common
         public string Content { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public bool ButtonVisible { get; set; }
     }
 }
 

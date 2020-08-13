@@ -351,6 +351,7 @@
     <BundleResource Include="Resources\OnboardingShowMarker.png" />
     <BundleResource Include="Resources\OnboardingIntro.png" />
     <BundleResource Include="Resources\OnboardingStartPicker.png" />
+    <BundleResource Include="Resources\OnboardingLetsStart.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
