@@ -112,5 +112,7 @@ NEW_VERSION="${VERSION_ELEMENTS[0]}.${VERSION_ELEMENTS[1]}.${NEW_BUILD_NUMBER}"
 echo "New Version Number: ${NEW_VERSION}"
 echo $NEW_VERSION
 
-# Replace version number in Info.plist
+# Replace bundle version in Info.plist
 plutil -replace CFBundleVersion -string "$NEW_VERSION" $INFO_PLIST_PATH
+# Replace bundle version string  in Info.plist
+plutil -replace CFBundleShortVersionString -string "$NEW_VERSION" $INFO_PLIST_PATH
