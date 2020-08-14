@@ -50,13 +50,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     Title = "Füge einen neuen Song hinzu",
                     Icon = "\uf419",
-                    Content = "Füge entweder einen neuen Song aus Spotify oder aus deiner lokalen Musikbibliothek hinzuzufügen.",
+                    Content = "Füge entweder einen neuen Song aus Spotify oder aus deiner lokalen Musikbibliothek hinzu.",
                     ImageUrl = "OnboardingAddSong.png"
                 },
                 new OnboardingModel
                 {
                     Title = "Wähle eine untere Grenze",
-                    Content = "Wähle die untere Grenze entweder mit dem Slider oder klicke auf die untere Grenze um den Picker zu öffnen.",
+                    Content = "Wähle die Grenzen entweder mit dem Slider oder klicke auf die untere oder obere Grenze um den Picker zu öffnen.",
                     ImageUrl = "OnboardingStartPicker.png"
                 },
                 new OnboardingModel
@@ -69,7 +69,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     Title = "Füge eine Markierung hinzu",
                     Icon = "\uf0c4",
-                    Content = "Speicher deine Loops um sie jeder Zeit abzuspielen.",
+                    Content = "Speicher deine Loops um sie jeder Zeit wieder abzuspielen.",
                     ImageUrl = "OnboardingAddMarker.png"
                 },
                 new OnboardingModel
