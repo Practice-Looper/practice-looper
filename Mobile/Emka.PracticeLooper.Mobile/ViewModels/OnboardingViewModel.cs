@@ -43,46 +43,39 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 new OnboardingModel
                 {
                     Title = "Willkommen bei Practice Looper",
-                    Content = " Practice, Loop - Loop, Practice ",
-                    ImageUrl = "OnboardingIntro.png"
+                    Content = "Practice, Loop - Loop, Practice",
+                    ImageUrl = "01_intro.png"
                 },
                 new OnboardingModel
                 {
                     Title = "Füge einen neuen Song hinzu",
-                    Icon = "\uf419",
-                    Content = "Füge entweder einen neuen Song aus Spotify oder aus deiner lokalen Musikbibliothek hinzu.",
-                    ImageUrl = "OnboardingAddSong.png"
+                    ImageUrl = "02_add-song_v2.gif"
                 },
                 new OnboardingModel
                 {
-                    Title = "Wähle eine untere Grenze",
-                    Content = "Wähle die Grenzen entweder mit dem Slider oder klicke auf die untere oder obere Grenze um den Picker zu öffnen.",
-                    ImageUrl = "OnboardingStartPicker.png"
+                    Title = "Wähle eine Start- und Endmarkierung",
+                    ImageUrl = "01_intro.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "Wähle eine obere Grenze",
-                    Content = "Mit dem Picker fällt es leichter Zeiträume genauer einzustellen.",
-                    ImageUrl = "OnboardingEndPicker.png"
+                    Title = "Nutze den Picker um detaillierte Markierungen zu setzen",
+                    ImageUrl = "01_intro.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "Füge eine Markierung hinzu",
-                    Icon = "\uf0c4",
+                    Title = "Füge Markierungen hinzu",
                     Content = "Speicher deine Loops um sie jeder Zeit wieder abzuspielen.",
-                    ImageUrl = "OnboardingAddMarker.png"
+                    ImageUrl = "01_intro.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "Bearbeite deine Markierungen",
-                    Content = "Klicke auf eine Markierung um diese abzuspielen oder wische nach links um diese zu löschen.",
-                    ImageUrl = "OnboardingShowMarker.png"
+                    Title = "Spiele deine Markierung ab oder lösche sie",
+                    ImageUrl = "01_intro.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "Los gehts!",
-                    Content = "Füge jetzt deinen ersten Song hinzu. \n Viel Spaß!",
-                    ImageUrl = "OnboardingLetsStart.png",
+                    Title = "Füge jetzt deinen ersten Song hinzu. \n Viel Spaß!",
+                    ImageUrl = "07_outro.png",
                     ButtonVisible = true
                 }
             };

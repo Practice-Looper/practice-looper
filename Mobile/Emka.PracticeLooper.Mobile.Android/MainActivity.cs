@@ -217,6 +217,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
             resolver.Register(typeof(InAppBillingVerifyPurchase), typeof(IInAppBillingVerifyPurchase));
             resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
             resolver.RegisterSingleton(typeof(ConnectivityService), typeof(IConnectivityService));
+
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: [true] /[false]);
         }
     }
 }

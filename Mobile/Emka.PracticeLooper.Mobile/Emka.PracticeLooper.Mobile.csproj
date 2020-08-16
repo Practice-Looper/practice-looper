@@ -85,6 +85,7 @@
         <PackageReference Include="Plugin.InAppBilling" Version="3.0.0-beta" />
         <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.1.0.53" />
         <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.1.0.56" />
+        <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />

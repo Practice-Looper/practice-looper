@@ -324,31 +324,15 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\OnboardingStartPicker.png">
+    <AndroidResource Include="Resources\drawable\01_intro.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\OnboardingIntro.png">
+    <AndroidResource Include="Resources\drawable\07_outro.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\OnboardingShowMarker.png">
-      <SubType></SubType>
-      <Generator></Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\drawable\OnboardingEndPicker.png">
-      <SubType></SubType>
-      <Generator></Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\drawable\OnboardingAddSong.png">
-      <SubType></SubType>
-      <Generator></Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\drawable\OnboardingAddMarker.png">
-      <SubType></SubType>
-      <Generator></Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\drawable\OnboardingLetsStart.png">
+    <AndroidResource Include="Resources\drawable\02_add-song_v2.gif">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
