@@ -90,8 +90,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             lock (locker)
             {
                 Minutes.Clear();
-                //SelectedTime.Clear();
-                //Time.Clear();
                 int minutesIndex;
                 int secondsIndex;
 
@@ -110,10 +108,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     secondsIndex = TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition).Seconds;
                 }
 
-                //Time.Add(Minutes);
-                //Time.Add(GetValidSeconds(minutesIndex.ToString("D2")));
                 Time = new List<object> { Minutes, GetValidSeconds(minutesIndex.ToString("D2")) };
-
                 SelectedTime = new ObservableCollection<object> { minutesIndex.ToString("D2"), secondsIndex.ToString("D2") };
             }
         }
@@ -128,7 +123,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 var endSpan = TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition);
                 int maxValue = currentMinuteSpan.Minutes < endSpan.Minutes ? 60 : endSpan.Subtract(fiveSecondsSpan).Seconds;
-                result.InsertRange(Enumerable.Range(0, maxValue + 1).Select(i => i.ToString("D2")));
+                result.InsertRange(Enumerable.Range(0, maxValue).Select(i => i.ToString("D2")));
                 return result;
             }
             else

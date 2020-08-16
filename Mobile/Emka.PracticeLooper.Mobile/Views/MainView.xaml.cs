@@ -105,42 +105,12 @@ namespace Emka.PracticeLooper.Mobile.Views
 
         async void OnStartPositionClicked(object sender, EventArgs e)
         {
-            if (BindingContext is MainViewModel vm)
-            {
-                vm.IsBusy = true;
-                picker.ItemsSource = null;
-                picker.SelectedItem = null;
-                var pickerViewModel = (picker.BindingContext as RangePickerViewModel);
-                pickerViewModel.AudioSource = vm.CurrentSession.Session.AudioSource;
-                pickerViewModel.Loop = vm.CurrentLoop;
-                await pickerViewModel.InitializeAsync(true);
-                picker.HeaderText = AppResources.LoopStartPosition;
-                picker.ItemsSource = pickerViewModel.Time;
-                picker.SelectedItem = pickerViewModel.SelectedTime;
-                picker.SelectionChanged += SelectionChanged;
-                picker.IsOpen = true;
-                vm.IsBusy = false;
-            }
+            await InitPicker(true, AppResources.LoopStartPosition);
         }
 
         async void OnEndPositionClicked(object sender, EventArgs e)
         {
-            if (BindingContext is MainViewModel vm)
-            {
-                vm.IsBusy = true;
-                picker.ItemsSource = null;
-                picker.SelectedItem = null;
-                var pickerViewModel = (picker.BindingContext as RangePickerViewModel);
-                pickerViewModel.AudioSource = vm.CurrentSession.Session.AudioSource;
-                pickerViewModel.Loop = vm.CurrentLoop;
-                await pickerViewModel.InitializeAsync(false);
-                picker.HeaderText = AppResources.LoopEndPosition;
-                picker.ItemsSource = pickerViewModel.Time;
-                picker.SelectedItem = pickerViewModel.SelectedTime;
-                picker.SelectionChanged += SelectionChanged;
-                picker.IsOpen = true;
-                vm.IsBusy = false;
-            }
+            await InitPicker(false, AppResources.LoopEndPosition);
         }
 
         void SelectionChanged(object sender, Syncfusion.SfPicker.XForms.SelectionChangedEventArgs e)
@@ -211,6 +181,26 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             picker.IsOpen = !picker.IsOpen;
             picker.SelectionChanged -= SelectionChanged;
+        }
+
+        async Task InitPicker(bool isStartPosition, string header)
+        {
+            if (BindingContext is MainViewModel vm)
+            {
+                vm.IsBusy = true;
+                picker.ItemsSource = null;
+                picker.SelectedItem = null;
+                var pickerViewModel = (picker.BindingContext as RangePickerViewModel);
+                pickerViewModel.AudioSource = vm.CurrentSession.Session.AudioSource;
+                pickerViewModel.Loop = vm.CurrentLoop;
+                await pickerViewModel.InitializeAsync(isStartPosition);
+                picker.HeaderText = header;
+                picker.ItemsSource = pickerViewModel.Time;
+                picker.SelectedItem = pickerViewModel.SelectedTime;
+                picker.SelectionChanged += SelectionChanged;
+                picker.IsOpen = true;
+                vm.IsBusy = false;
+            }
         }
         #endregion
     }
