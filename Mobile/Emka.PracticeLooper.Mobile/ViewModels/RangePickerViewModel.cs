@@ -116,22 +116,24 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public RangeObservableCollection<object> GetValidSeconds(string minutes)
         {
             var result = new RangeObservableCollection<object>();
-
             var startSpan = TimeSpan.FromSeconds(AudioSource.Duration * Loop.StartPosition);
             var currentMinuteSpan = TimeSpan.FromMinutes(int.Parse(minutes));
+
             if (IsStartPosition)
             {
-                var endSpan = TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition);
-                int maxValue = currentMinuteSpan.Minutes < endSpan.Minutes ? 59 : endSpan.Subtract(fiveSecondsSpan).Seconds;
-                result.InsertRange(Enumerable.Range(0, maxValue + 1).Select(i => i.ToString("D2")));
+                var nextValue = TimeSpan.FromMinutes(int.Parse(minutes)).Add(TimeSpan.FromMinutes(1)).TotalSeconds;
+                var endValue = TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition).TotalSeconds;
+                var seconds = endValue - nextValue >= 5 ? 59 : TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition).Subtract(fiveSecondsSpan).Seconds;
+                result.InsertRange(Enumerable.Range(0, seconds + 1).Select(i => i.ToString("D2")));
                 return result;
             }
             else
             {
-                var endSpan = TimeSpan.FromSeconds(AudioSource.Duration);
-                int minValue = currentMinuteSpan.Minutes == startSpan.Minutes ? startSpan.Add(fiveSecondsSpan).Seconds : 0;
-                int maxValue = currentMinuteSpan.Minutes < endSpan.Minutes ? 60 - minValue : endSpan.Seconds + 1;
-                result.InsertRange(Enumerable.Range(minValue, maxValue).Select(i => i.ToString("D2")));
+                var nextValue = currentMinuteSpan.Add(TimeSpan.FromMinutes(1)).TotalSeconds;
+                var endValue = TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition).TotalSeconds;
+                var minSeconds = currentMinuteSpan.TotalSeconds - startSpan.TotalSeconds >= 5 ? 0 : startSpan.Add(fiveSecondsSpan).Seconds;
+                var maxSeconds = nextValue > TotalSeconds ? TimeSpan.FromSeconds(AudioSource.Duration).Seconds : 59;
+                result.InsertRange(Enumerable.Range(minSeconds, maxSeconds - minSeconds + 1).Select(i => i.ToString("D2")));
                 return result;
             }
         }
