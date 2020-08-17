@@ -96,7 +96,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (IsStartPosition)
                 {
                     MinutesMaximum = TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition).Subtract(fiveSecondsSpan).Minutes;
-                    Minutes.InsertRange(Enumerable.Range(MinutesMinimum, MinutesMaximum + 1).Select(i => i.ToString("D2")));
+                    Minutes.InsertRange(Enumerable.Range(0, MinutesMaximum + 1).Select(i => i.ToString("D2")));
                     minutesIndex = TimeSpan.FromSeconds(AudioSource.Duration * Loop.StartPosition).Minutes;
                     secondsIndex = TimeSpan.FromSeconds(AudioSource.Duration * Loop.StartPosition).Seconds;
                 }
@@ -122,8 +122,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             if (IsStartPosition)
             {
                 var endSpan = TimeSpan.FromSeconds(AudioSource.Duration * Loop.EndPosition);
-                int maxValue = currentMinuteSpan.Minutes < endSpan.Minutes ? 60 : endSpan.Subtract(fiveSecondsSpan).Seconds;
-                result.InsertRange(Enumerable.Range(0, maxValue).Select(i => i.ToString("D2")));
+                int maxValue = currentMinuteSpan.Minutes < endSpan.Minutes ? 59 : endSpan.Subtract(fiveSecondsSpan).Seconds;
+                result.InsertRange(Enumerable.Range(0, maxValue + 1).Select(i => i.ToString("D2")));
                 return result;
             }
             else
