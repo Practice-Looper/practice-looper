@@ -154,7 +154,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
             resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
             resolver.RegisterSingleton(typeof(ConnectivityService), typeof(IConnectivityService));
 
-            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+         
         }
     }
 }

@@ -345,9 +345,13 @@
   <ItemGroup>
     <BundleResource Include="Sounds\Coumarin_Mirage_Vers3.mp3" />
     <BundleResource Include="materialdesignicons.ttf" />
-    <BundleResource Include="Resources\01_intro.png" />
-    <BundleResource Include="Resources\07_outro.png" />
-    <BundleResource Include="Resources\02_add-song_v2.gif" />
+    <BundleResource Include="Resources\07_lets-start.png" />
+    <BundleResource Include="Resources\06_show-marker.png" />
+    <BundleResource Include="Resources\05_add-marker.png" />
+    <BundleResource Include="Resources\04_picker.png" />
+    <BundleResource Include="Resources\03_slider.png" />
+    <BundleResource Include="Resources\02_add-song.png" />
+    <BundleResource Include="Resources\01_start.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
