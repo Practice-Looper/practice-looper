@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              x:Class="Emka.PracticeLooper.Mobile.Views.OnboardingView"
              x:Name="View">
    
@@ -40,13 +39,12 @@
                             <FlexLayout Direction="Column"
                                         JustifyContent="Center"
                                         AlignItems="Center">
-                                <ffimageloadingsvg:SvgCachedImage                                  
-                                       Source="{Binding ImageUrl}"
+                                <Image Source="{Binding ImageUrl}"
                                        Margin="0,10,0,0"   
                                        Aspect="AspectFill"
-                                       WidthRequest="100"
-                                       HeightRequest="200"
-                                       FlexLayout.AlignSelf="Center"/>
+                                       WidthRequest="400"
+                                       FlexLayout.AlignSelf="Center"
+                                       IsAnimationPlaying="{Binding IsPlaying, Mode=TwoWay}"/>
                                 <Label Text="{Binding Title}"
                                        Margin="0,20,0,0"
                                        TextColor="{DynamicResource PrimaryColor}"
@@ -60,7 +58,7 @@
                                        HorizontalTextAlignment="Center"
                                        TextColor="{DynamicResource PrimaryColor}"/>
                                 <Button Text="Lets loop!"
-                                        IsVisible="{Binding ButtonVisible}"
+                                        IsVisible="{Binding StartButtonVisible}"
                                         BackgroundColor="{DynamicResource PrimaryColor}"
                                         TextColor="White"
                                         FontSize="16"

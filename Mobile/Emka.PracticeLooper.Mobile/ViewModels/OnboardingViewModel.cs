@@ -44,39 +44,38 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     Title = "Willkommen bei Practice Looper",
                     Content = "Practice, Loop - Loop, Practice",
-                    ImageUrl = "01_intro.png"
+                    ImageUrl = "01_start.png"
                 },
                 new OnboardingModel
                 {
                     Title = "Füge einen neuen Song hinzu",
-                    ImageUrl = "02_add-song_v2.gif"
+                    ImageUrl = "02_add-song.png"
                 },
                 new OnboardingModel
                 {
                     Title = "Wähle eine Start- und Endmarkierung",
-                    ImageUrl = "01_intro.png"
+                    ImageUrl = "03_slider.png"
                 },
                 new OnboardingModel
                 {
                     Title = "Nutze den Picker um detaillierte Markierungen zu setzen",
-                    ImageUrl = "01_intro.png"
+                    ImageUrl = "04_picker.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "Füge Markierungen hinzu",
-                    Content = "Speicher deine Loops um sie jeder Zeit wieder abzuspielen.",
-                    ImageUrl = "01_intro.png"
+                    Title = "Speicher deine Loops mit Markierungen",
+                    ImageUrl = "05_add-marker.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "Spiele deine Markierung ab oder lösche sie",
-                    ImageUrl = "01_intro.png"
+                    Title = "Spiele eine Markierung ab oder lösche sie",
+                    ImageUrl = "06_show-marker.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "Füge jetzt deinen ersten Song hinzu. \n Viel Spaß!",
-                    ImageUrl = "07_outro.png",
-                    ButtonVisible = true
+                    Title = "Füge jetzt deinen ersten Song hinzu \n Viel Spaß!",
+                    ImageUrl = "07_lets-start.png",
+                    StartButtonVisible = true
                 }
             };
         }
@@ -116,6 +115,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
 
             }
+        }
+
+        public bool LastPageReached()
+        {
+            return position == Items.Count - 1;
         }
 
 
