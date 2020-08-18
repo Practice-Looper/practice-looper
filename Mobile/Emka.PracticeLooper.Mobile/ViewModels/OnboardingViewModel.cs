@@ -42,38 +42,42 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 new OnboardingModel
                 {
-                    Title = "Willkommen bei Practice Looper",
+                    Title = AppResources.Slide_01,
                     Content = "Practice, Loop - Loop, Practice",
                     ImageUrl = "01_start.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "Füge einen neuen Song hinzu",
-                    ImageUrl = "02_add-song.png"
+                    Title = AppResources.Slide_02,
+                    ImageUrl = "02_add-song.png",
+                    Icon = "\uf419"
                 },
                 new OnboardingModel
                 {
-                    Title = "Wähle eine Start- und Endmarkierung für deinen Loop",
+                    Title = AppResources.Slide_03,
                     ImageUrl = "03_slider.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "Nutze den Picker für präzisere Markierungen",
+                    Title = AppResources.Slide_04,
                     ImageUrl = "04_picker.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "Speichere deine Loops",
-                    ImageUrl = "05_add-marker.png"
+                    Title = AppResources.Slide_05,
+                    ImageUrl = "05_add-marker.png",
+                    Icon = "\uf0c4"
                 },
                 new OnboardingModel
                 {
-                    Title = "Spiele einen Loop ab oder lösche ihn",
-                    ImageUrl = "06_show-marker.png"
+                    Title = AppResources.Slide_06,
+                    ImageUrl = "06_show-marker.png",
+                    Icon = "\U000f03a4"
                 },
                 new OnboardingModel
                 {
-                    Title = "Füge jetzt deinen ersten Song hinzu. \n Viel Spaß!",
+                    Title = AppResources.Slide_07,
+                    Content = AppResources.Slide_07_01,
                     ImageUrl = "07_lets-start.png",
                     StartButtonVisible = true
                 }

@@ -167,6 +167,54 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string Slide_01 {
+            get {
+                return ResourceManager.GetString("Slide_01", resourceCulture);
+            }
+        }
+        
+        internal static string Slide_02 {
+            get {
+                return ResourceManager.GetString("Slide_02", resourceCulture);
+            }
+        }
+        
+        internal static string Slide_03 {
+            get {
+                return ResourceManager.GetString("Slide_03", resourceCulture);
+            }
+        }
+        
+        internal static string Slide_04 {
+            get {
+                return ResourceManager.GetString("Slide_04", resourceCulture);
+            }
+        }
+        
+        internal static string Slide_05 {
+            get {
+                return ResourceManager.GetString("Slide_05", resourceCulture);
+            }
+        }
+        
+        internal static string Slide_06 {
+            get {
+                return ResourceManager.GetString("Slide_06", resourceCulture);
+            }
+        }
+        
+        internal static string Slide_07 {
+            get {
+                return ResourceManager.GetString("Slide_07", resourceCulture);
+            }
+        }
+        
+        internal static string Slide_07_01 {
+            get {
+                return ResourceManager.GetString("Slide_07_01", resourceCulture);
+            }
+        }
+        
         internal static string Error_Caption {
             get {
                 return ResourceManager.GetString("Error_Caption", resourceCulture);

@@ -120,6 +120,47 @@
         xml:space="preserve">
         <value>Upgrades konnten nicht geladen werden, bitte versuchen Sie es später nochmal!</value>
     </data>
+    <!--OnboardingView-->
+    <data
+        name="Slide_01"
+        xml:space="preserve">
+        <value>Willkommen bei Practice Looper</value>
+    </data>
+    <data
+        name="Slide_02"
+        xml:space="preserve">
+        <value>Füge einen neuen Song hinzu</value>
+    </data>
+    <data
+        name="Slide_03"
+        xml:space="preserve">
+        <value>Wähle eine Start- und Endmarkierung für deinen Loop</value>
+    </data>
+    <data
+        name="Slide_04"
+        xml:space="preserve">
+        <value>Nutze den Picker für präzisere Markierungen</value>
+    </data>
+    <data
+        name="Slide_05"
+        xml:space="preserve">
+        <value>Speicher deine Loops</value>
+    </data>
+    <data
+        name="Slide_06"
+        xml:space="preserve">
+        <value>Spiele einen Loop ab oder lösche ihn</value>
+    </data>
+    <data
+        name="Slide_07"
+        xml:space="preserve">
+        <value>Füge jetzt deinen ersten Song hinzu</value>
+    </data>
+    <data
+        name="Slide_07_01"
+        xml:space="preserve">
+        <value>Viel Spaß!</value>
+    </data>
     <!--Error Dialogs-->
     <data
         name="Error_Caption"

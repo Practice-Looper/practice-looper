@@ -120,6 +120,47 @@
         xml:space="preserve">
         <value>Failed to load upgrades, try again later.</value>
     </data>
+    <!--OnboardingView-->
+    <data
+        name="Slide_01"
+        xml:space="preserve">
+        <value>Welcome to Practice Looper</value>
+    </data>
+    <data
+        name="Slide_02"
+        xml:space="preserve">
+        <value>Add a new song</value>
+    </data>
+    <data
+        name="Slide_03"
+        xml:space="preserve">
+        <value>Choose a start and end marker for your loop</value>
+    </data>
+    <data
+        name="Slide_04"
+        xml:space="preserve">
+        <value>Use the picker for more precise markings</value>
+    </data>
+    <data
+        name="Slide_05"
+        xml:space="preserve">
+        <value>Save your loops</value>
+    </data>
+    <data
+        name="Slide_06"
+        xml:space="preserve">
+        <value>Play a loop or delete it</value>
+    </data>
+    <data
+        name="Slide_07"
+        xml:space="preserve">
+        <value>Now add your first song</value>
+    </data>
+    <data
+        name="Slide_07_01"
+        xml:space="preserve">
+        <value>Have fun!</value>
+    </data>
     <!--Error Dialogs-->
     <data
         name="Error_Caption"
