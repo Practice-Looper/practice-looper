@@ -53,27 +53,27 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 },
                 new OnboardingModel
                 {
-                    Title = "Wähle eine Start- und Endmarkierung",
+                    Title = "Wähle eine Start- und Endmarkierung für deinen Loop",
                     ImageUrl = "03_slider.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "Nutze den Picker um detaillierte Markierungen zu setzen",
+                    Title = "Nutze den Picker für präzisere Markierungen",
                     ImageUrl = "04_picker.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "Speicher deine Loops mit Markierungen",
+                    Title = "Speichere deine Loops",
                     ImageUrl = "05_add-marker.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "Spiele eine Markierung ab oder lösche sie",
+                    Title = "Spiele einen Loop ab oder lösche ihn",
                     ImageUrl = "06_show-marker.png"
                 },
                 new OnboardingModel
                 {
-                    Title = "Füge jetzt deinen ersten Song hinzu \n Viel Spaß!",
+                    Title = "Füge jetzt deinen ersten Song hinzu. \n Viel Spaß!",
                     ImageUrl = "07_lets-start.png",
                     StartButtonVisible = true
                 }

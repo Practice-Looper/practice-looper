@@ -40,9 +40,9 @@
                                         JustifyContent="Center"
                                         AlignItems="Center">
                                 <Image Source="{Binding ImageUrl}"
-                                       Margin="0,10,0,0"   
+                                       Margin="0,10,0,20"   
                                        Aspect="AspectFill"
-                                       WidthRequest="400"
+                                       WidthRequest="300"
                                        FlexLayout.AlignSelf="Center"/>
                                 <Label Text="{Binding Title}"
                                        Margin="0,20,0,0"

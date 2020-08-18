@@ -23,6 +23,7 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Plugin.InAppBilling;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 using Factory = Emka3.PracticeLooper.Mappings.Factory;
 
 namespace Emka.PracticeLooper.Mobile.Droid
@@ -58,6 +59,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             SQLitePCL.Batteries_V2.Init();
             Platform.Init(this, savedInstanceState);
+            Forms.SetFlags("CarouselView_Experimental");
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
             base.SetTheme(Resource.Style.MainTheme);

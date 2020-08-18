@@ -22,6 +22,7 @@ using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka.PracticeLooper.Mobile.iOS.Common;
 using Plugin.InAppBilling;
+using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.iOS
 {
@@ -51,7 +52,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
             Google.MobileAds.MobileAds.SharedInstance.Start(null);
             CrossMediaManager.Current.Init();
             SfPickerRenderer.Init();
-
+            Forms.SetFlags("CarouselView_Experimental");
             global::Xamarin.Forms.Forms.Init();
             new SfRangeSliderRenderer();
             LoadApplication(new App());
