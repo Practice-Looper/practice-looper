@@ -7,9 +7,11 @@ using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka3.PracticeLooper.Mappings.Contracts;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Emka.PracticeLooper.Mobile.Views
 {
+    [Preserve(AllMembers = true)]
     public partial class OnboardingView : ContentPage
     {
         #region Fields

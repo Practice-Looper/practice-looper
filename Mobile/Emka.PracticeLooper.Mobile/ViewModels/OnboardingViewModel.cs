@@ -117,12 +117,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        public bool LastPageReached()
-        {
-            return position == Items.Count - 1;
-        }
-
-
         private async Task StartMainPageAsync(object obj)
         {
             await NavigationService.NavigateToAsync<MainViewModel>();
