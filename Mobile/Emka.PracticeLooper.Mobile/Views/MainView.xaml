@@ -39,8 +39,8 @@
         <views:AdMobView
             Grid.Row="0"
             x:Name="AdmobBanner"
-            HeightRequest="70"/>
-                
+            HeightRequest="70" />
+
         <Grid
             Grid.Row="1"
             Margin="0,10,0,0">
@@ -260,7 +260,7 @@
                             ShowCustomLabel="False"
                             ToolTipPlacement="None"
                             MinimumRange="{Binding MinimumRange}"
-                            ThumbSize="1.4">
+                            ThumbSize="1">
                         </range:SfRangeSlider>
                         <ImageButton
                             Grid.Row="1"
@@ -356,8 +356,6 @@
             VerticalOptions="End"
             HorizontalOptions="FillAndExpand"
             ColumnHeaderText="{Binding Headers}"
-            SelectedItem="{Binding SelectedTime, Mode=TwoWay}"
-            ItemsSource="{Binding Time}"
             PickerMode="Dialog"
             BackgroundColor="{DynamicResource BackgroundColor}"
             BorderColor="{DynamicResource SecondaryColor}"
@@ -367,17 +365,15 @@
             HeaderBackgroundColor="{DynamicResource BackgroundColor}"
             HeaderTextColor="{DynamicResource SecondaryColor}"
             ShowFooter="True"
-            ShowHeader="True"
-            SelectionChanged="SelectionChanged">
+            ShowHeader="True">
             <syncfusion:SfPicker.FooterView>
-                <Grid
-                    HorizontalOptions="Center">
-                    <Button
-                        Text="{x:Static rsrcs:AppResources.Close}"
-                        Clicked="OnClosePicker"
-                        HorizontalOptions="Center"
-                        TextColor="{DynamicResource PrimaryColor}" />
-                </Grid>
+                <Button
+                    Text="{x:Static rsrcs:AppResources.Close}"
+                    Clicked="OnClosePicker"
+                    HorizontalOptions="Center"
+                    TextColor="{DynamicResource PrimaryColor}"
+                    BackgroundColor="{DynamicResource BackgroundColor}"
+                    BorderColor="{DynamicResource BackgroundColor}"/>
             </syncfusion:SfPicker.FooterView>
 
         </syncfusion:SfPicker>

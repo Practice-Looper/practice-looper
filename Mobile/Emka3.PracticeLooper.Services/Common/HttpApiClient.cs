@@ -80,6 +80,10 @@ namespace Emka3.PracticeLooper.Services.Common
                         throw new ArgumentOutOfRangeException(nameof(method), method, null);
                 }
             }
+            catch (TaskCanceledException)
+            {
+                return null;
+            }
             catch (HttpRequestException)
             {
                 throw;

@@ -83,8 +83,8 @@
         <PackageReference Include="Microsoft.AppCenter" Version="3.3.0" />
         <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.3.0" />
         <PackageReference Include="Plugin.InAppBilling" Version="3.0.0-beta" />
-        <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.1.0.53" />
-        <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.1.0.56" />
+        <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.2.0.48" />
+        <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.2.0.48" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />
