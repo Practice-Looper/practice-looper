@@ -42,42 +42,42 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 new OnboardingModel
                 {
-                    Title = AppResources.Slide_01,
-                    Content = "Practice, Loop - Loop, Practice",
+                    Title = AppResources.OnboardingView_Welcome_Title,
+                    Content = AppResources.OnboardingView_Welcome_Description,
                     ImageUrl = "start.png"
                 },
                 new OnboardingModel
                 {
-                    Title = AppResources.Slide_02,
+                    Title = AppResources.OnboardingView_AddSong_Title,
                     ImageUrl = "addSong.png",
                     Icon = "\uf419"
                 },
                 new OnboardingModel
                 {
-                    Title = AppResources.Slide_03,
+                    Title = AppResources.OnboardingView_Slider_Title,
                     ImageUrl = "slider.png"
                 },
                 new OnboardingModel
                 {
-                    Title = AppResources.Slide_04,
+                    Title = AppResources.OnboardingView_Picker_Title,
                     ImageUrl = "picker.png"
                 },
                 new OnboardingModel
                 {
-                    Title = AppResources.Slide_05,
+                    Title = AppResources.OnboardingView_AddMarker_Title,
                     ImageUrl = "addMarker.png",
                     Icon = "\uf0c4"
                 },
                 new OnboardingModel
                 {
-                    Title = AppResources.Slide_06,
+                    Title = AppResources.OnboardingView_ShowMarker_Title,
                     ImageUrl = "showMarker.png",
                     Icon = "\U000f03a4"
                 },
                 new OnboardingModel
                 {
-                    Title = AppResources.Slide_07,
-                    Content = AppResources.Slide_07_01,
+                    Title = AppResources.OnboardingView_LetsStart_Title,
+                    Content = AppResources.OnboardingView_LetsStart_Description,
                     ImageUrl = "letsStart.png",
                     StartButtonVisible = true
                 }

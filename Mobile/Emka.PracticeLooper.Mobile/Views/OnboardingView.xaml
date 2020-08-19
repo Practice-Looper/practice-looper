@@ -21,7 +21,7 @@
                 BackgroundColor="Transparent"
                 HorizontalOptions="EndAndExpand"
                 VerticalOptions="Center"
-                Text="{x:Static rsrcs:AppResources.TutorialButtonText}" 
+                Text="{x:Static rsrcs:AppResources.OnboardingView_TutorialButton}" 
                 IsVisible="{Binding IsSkipButtonVisible}"
                 Command="{Binding SkipCommand}"
                 TextColor="{DynamicResource PrimaryColor}"/>
@@ -62,7 +62,7 @@
                                        FontSize="Body"
                                        HorizontalTextAlignment="Center"
                                        TextColor="{DynamicResource PrimaryColor}"/>
-                                <Button Text="{x:Static rsrcs:AppResources.OnboardingView_Letsloop}"
+                                <Button Text="{x:Static rsrcs:AppResources.OnboardingView_LetsLoopButton}"
                                         IsVisible="{Binding StartButtonVisible}"
                                         BackgroundColor="{DynamicResource PrimaryColor}"
                                         TextColor="White"

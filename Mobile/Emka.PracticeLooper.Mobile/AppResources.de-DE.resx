@@ -122,52 +122,57 @@
     </data>
     <!--OnboardingView-->
     <data
-        name="TutorialButtonText"
+        name="OnboardingView_TutorialButton"
         xml:space="preserve">
         <value>Tutorial überspringen</value>
     </data>
     <data
-        name="Slide_01"
+        name="OnboardingView_Welcome_Title"
         xml:space="preserve">
         <value>Willkommen bei Practice Looper</value>
     </data>
     <data
-        name="Slide_02"
+        name="OnboardingView_Welcome_Description"
+        xml:space="preserve">
+        <value>Practice, Loop - Loop, Practice</value>
+    </data>
+    <data
+        name="OnboardingView_AddSong_Title"
         xml:space="preserve">
         <value>Füge einen neuen Song hinzu</value>
     </data>
     <data
-        name="Slide_03"
+        name="OnboardingView_Slider_Title"
         xml:space="preserve">
         <value>Wähle eine Start- und Endmarkierung für deinen Loop</value>
     </data>
     <data
-        name="Slide_04"
+        name="OnboardingView_Picker_Title"
         xml:space="preserve">
         <value>Nutze den Picker für präzisere Markierungen</value>
     </data>
     <data
-        name="Slide_05"
+        name="OnboardingView_AddMarker_Title"
         xml:space="preserve">
         <value>Speicher deine Loops</value>
     </data>
     <data
-        name="Slide_06"
+        name="OnboardingView_ShowMarker_Title"
         xml:space="preserve">
         <value>Spiele einen Loop ab oder lösche ihn</value>
     </data>
     <data
-        name="Slide_07"
+        name="OnboardingView_LetsStart_Title"
         xml:space="preserve">
         <value>Füge jetzt deinen ersten Song hinzu</value>
     </data>
     <data
-        name="Slide_07_01"
+        name="OnboardingView_LetsStart_Description"
         xml:space="preserve">
         <value>Viel Spaß!</value>
     </data>
      <data
-        name="OnboardingView_Letsloop"
+        name="OnboardingView_LetsLoopButton"
         xml:space="preserve">
         <value>Let's loop</value>
     </data>

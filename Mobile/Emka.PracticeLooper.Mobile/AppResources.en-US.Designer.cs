@@ -167,63 +167,63 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
-        internal static string TutorialButtonText {
+        internal static string OnboardingView_TutorialButton {
             get {
-                return ResourceManager.GetString("TutorialButtonText", resourceCulture);
+                return ResourceManager.GetString("OnboardingView_TutorialButton", resourceCulture);
             }
         }
         
-        internal static string Slide_01 {
+        internal static string OnboardingView_Welcome_Title {
             get {
-                return ResourceManager.GetString("Slide_01", resourceCulture);
+                return ResourceManager.GetString("OnboardingView_Welcome_Title", resourceCulture);
             }
         }
         
-        internal static string Slide_02 {
+        internal static string OnboardingView_AddSong_Title {
             get {
-                return ResourceManager.GetString("Slide_02", resourceCulture);
+                return ResourceManager.GetString("OnboardingView_AddSong_Title", resourceCulture);
             }
         }
         
-        internal static string Slide_03 {
+        internal static string OnboardingView_Slider_Title {
             get {
-                return ResourceManager.GetString("Slide_03", resourceCulture);
+                return ResourceManager.GetString("OnboardingView_Slider_Title", resourceCulture);
             }
         }
         
-        internal static string Slide_04 {
+        internal static string OnboardingView_Picker_Title {
             get {
-                return ResourceManager.GetString("Slide_04", resourceCulture);
+                return ResourceManager.GetString("OnboardingView_Picker_Title", resourceCulture);
             }
         }
         
-        internal static string Slide_05 {
+        internal static string OnboardingView_AddMarker_Title {
             get {
-                return ResourceManager.GetString("Slide_05", resourceCulture);
+                return ResourceManager.GetString("OnboardingView_AddMarker_Title", resourceCulture);
             }
         }
         
-        internal static string Slide_06 {
+        internal static string OnboardingView_ShowMarker_Title {
             get {
-                return ResourceManager.GetString("Slide_06", resourceCulture);
+                return ResourceManager.GetString("OnboardingView_ShowMarker_Title", resourceCulture);
             }
         }
         
-        internal static string Slide_07 {
+        internal static string OnboardingView_LetsStart_Title {
             get {
-                return ResourceManager.GetString("Slide_07", resourceCulture);
+                return ResourceManager.GetString("OnboardingView_LetsStart_Title", resourceCulture);
             }
         }
         
-        internal static string Slide_07_01 {
+        internal static string OnboardingView_LetsStart_Description {
             get {
-                return ResourceManager.GetString("Slide_07_01", resourceCulture);
+                return ResourceManager.GetString("OnboardingView_LetsStart_Description", resourceCulture);
             }
         }
         
-        internal static string OnboardingView_Letsloop {
+        internal static string OnboardingView_LetsLoopButton {
             get {
-                return ResourceManager.GetString("OnboardingView_Letsloop", resourceCulture);
+                return ResourceManager.GetString("OnboardingView_LetsLoopButton", resourceCulture);
             }
         }
         
