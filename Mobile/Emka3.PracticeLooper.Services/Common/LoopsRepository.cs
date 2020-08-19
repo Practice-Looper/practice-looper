@@ -97,7 +97,8 @@ namespace Emka3.PracticeLooper.Services.Common
 
         public int Save(Loop item)
         {
-            return Database.Insert(item);
+            Database.Insert(item);
+            return item.Id;
         }
 
         public async Task<int> SaveAsync(Loop item)

@@ -97,6 +97,21 @@ namespace Emka3.PracticeLooper.Model.Player
         {
             EndPositionChanged?.Invoke(this, EndPosition);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            if (GetType() != obj.GetType()) return false;
+
+            Loop s = (Loop)obj;
+            return (Id == s.Id) && Name.Equals(s.Name);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
         #endregion
     }
 }
