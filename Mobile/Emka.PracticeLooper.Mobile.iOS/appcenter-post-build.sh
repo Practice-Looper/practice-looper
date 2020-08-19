@@ -16,8 +16,6 @@ then
 
   VERSION_STRING=$(grep -o -A1 '<key>CFBundleVersion</key>' $INFO_PLIST_PATH | grep -o '[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}')
   git commit -m "[AppCenter] Bump version to ${VERSION_STRING}"
-  git push ${REPO_URL} issue\#51-git-version-bump
-  git push ${REPO_URL}
-  git push origin
+  git push ${REPO_URL} HEAD:issue\#51-git-version-bump
   git tag -a v${VERSION_STRING} -m "Release ${VERSION_STRING}"
 fi
