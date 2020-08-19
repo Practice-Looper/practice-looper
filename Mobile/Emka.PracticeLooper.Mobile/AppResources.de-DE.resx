@@ -307,6 +307,6 @@
     <data
         name="Prompt_Content_NewLoo_NamePlaceholder"
         xml:space="preserve">
-        <value>{0}. Markierung</value>
+        <value>{0}. Loop</value>
     </data>
 </root>
