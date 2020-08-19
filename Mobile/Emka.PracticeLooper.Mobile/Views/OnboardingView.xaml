@@ -62,7 +62,7 @@
                                        FontSize="Body"
                                        HorizontalTextAlignment="Center"
                                        TextColor="{DynamicResource PrimaryColor}"/>
-                                <Button Text="Lets loop!"
+                                <Button Text="{x:Static rsrcs:AppResources.OnboardingView_Letsloop}"
                                         IsVisible="{Binding StartButtonVisible}"
                                         BackgroundColor="{DynamicResource PrimaryColor}"
                                         TextColor="White"

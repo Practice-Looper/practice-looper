@@ -166,6 +166,11 @@
         xml:space="preserve">
         <value>Viel Spaß!</value>
     </data>
+     <data
+        name="OnboardingView_Letsloop"
+        xml:space="preserve">
+        <value>Let's loop</value>
+    </data>
     <!--Error Dialogs-->
     <data
         name="Error_Caption"

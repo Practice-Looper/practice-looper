@@ -221,6 +221,12 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string OnboardingView_Letsloop {
+            get {
+                return ResourceManager.GetString("OnboardingView_Letsloop", resourceCulture);
+            }
+        }
+        
         internal static string Error_Caption {
             get {
                 return ResourceManager.GetString("Error_Caption", resourceCulture);
