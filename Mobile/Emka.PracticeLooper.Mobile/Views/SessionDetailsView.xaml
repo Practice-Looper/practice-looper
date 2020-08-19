@@ -5,7 +5,7 @@
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:conv="clr-namespace:Emka.PracticeLooper.Mobile.Converters"
-    x:Class="Emka.PracticeLooper.Mobile.Views.LoopsDetailsView"
+    x:Class="Emka.PracticeLooper.Mobile.Views.SessionDetailsView"
     xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
     ios:Page.UseSafeArea="True"
     BackgroundColor="{DynamicResource BackgroundColor}"
@@ -14,115 +14,96 @@
         <conv:DoubleToTimeConverter
             x:Key="TimeConverter" />
     </ContentPage.Resources>
-    <ContentPage.Content>
-        <Grid
-            HorizontalOptions="FillAndExpand"
+    <Grid
+        Margin="0,10"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand"
+        BackgroundColor="{DynamicResource BackgroundColor}">
+        <ListView
             VerticalOptions="FillAndExpand"
-            Margin="10"
-            BackgroundColor="{DynamicResource BackgroundColor}">
-            <ContentView
-                IsVisible="{Binding IsBusy}"
-                VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand"
-                Opacity="0.9"
-                BackgroundColor="{DynamicResource BackgroundColor}">
-                <ActivityIndicator
-                    IsRunning="{Binding IsBusy}"
-                    Color="{DynamicResource SecondaryColor}"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center" />
-            </ContentView>
-            <ListView
-                VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand"
-                ItemsSource="{Binding Loops}"
-                SelectedItem="{Binding SelectedLoop, Mode=TwoWay}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <views:LoopViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem
-                                    Text="{x:Static rsrcs:AppResources.Delete}"
-                                    IsDestructive="True"
-                                    Command="{Binding DeleteCommand}"
-                                    CommandParameter="{Binding}">
-                                </MenuItem>
-                            </ViewCell.ContextActions>
-                            <Grid
-                                VerticalOptions="FillAndExpand"
-                                HorizontalOptions="FillAndExpand">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition
-                                        Width="*" />
-                                    <ColumnDefinition
-                                        Width="Auto" />
-                                    <ColumnDefinition
-                                        Width="Auto" />
-                                    <ColumnDefinition
-                                        Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Label
-                                    Grid.Column="0"
-                                    Text="{Binding Loop.Name}"
-                                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
-                                    VerticalTextAlignment="Center"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="StartAndExpand"
-                                    LineBreakMode="TailTruncation" />
-                                <Label
-                                    Text="{Binding .,
+            HorizontalOptions="FillAndExpand"
+            ItemsSource="{Binding Loops}"
+            SelectedItem="{Binding SelectedLoop, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <views:LoopViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem
+                                Text="{x:Static rsrcs:AppResources.Delete}"
+                                IsDestructive="True"
+                                Command="{Binding DeleteCommand}"
+                                CommandParameter="{Binding}">
+                            </MenuItem>
+                        </ViewCell.ContextActions>
+                        <Grid
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width="*" />
+                                <ColumnDefinition
+                                    Width="Auto" />
+                                <ColumnDefinition
+                                    Width="Auto" />
+                                <ColumnDefinition
+                                    Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Column="0"
+                                Text="{Binding Loop.Name}"
+                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                                VerticalTextAlignment="Center"
+                                VerticalOptions="Center"
+                                HorizontalOptions="StartAndExpand"
+                                LineBreakMode="TailTruncation" />
+                            <Label
+                                Text="{Binding .,
                                     Converter={StaticResource TimeConverter},
                                     ConverterParameter=Start,
                                     StringFormat='{0}'}"
-                                    Grid.Column="1"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Center"
-                                    FontSize="Large"
-                                    Margin="0,0,5,0"
-                                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}">
-                                </Label>
-                                <Label
-                                    Text="-"
-                                    Grid.Column="2"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="Center"
-                                    FontSize="Large"
-                                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}">
-                                </Label>
-                                <Label
-                                    Text="{Binding .,
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                FontSize="Large"
+                                Margin="0,0,5,0"
+                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}">
+                            </Label>
+                            <Label
+                                Text="-"
+                                Grid.Column="2"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                FontSize="Large"
+                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}">
+                            </Label>
+                            <Label
+                                Text="{Binding .,
                                     Converter={StaticResource TimeConverter},
                                     ConverterParameter=End,
                                     StringFormat='{0}'}"
-                                    Grid.Column="3"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="Center"
-                                    FontSize="Large"
-                                    Margin="5,0,0,0"
-                                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}">
-                                </Label>
-                                <!--<ImageButton
-                            Grid.Column="2"
-                            WidthRequest="24"
-                            HeightRequest="24"
-                            HorizontalOptions="End"
-                            VerticalOptions="Center"
-                            Command="{Binding PickLoopCommand}"
-                            BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=SelectedBackgroundColor}">
-                            <ImageButton.Source>
-                                <FontImageSource
-                                    FontFamily="{DynamicResource MaterialFontFamily}"
-                                    Glyph="{StaticResource Bookmark}"
-                                    Size="48"
-                                    Color="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}" />
-                            </ImageButton.Source>
-                        </ImageButton>-->
-                            </Grid>
-                        </views:LoopViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-
-            </ListView>
-        </Grid>
-    </ContentPage.Content>
+                                Grid.Column="3"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                FontSize="Large"
+                                Margin="5,0,0,0"
+                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}">
+                            </Label>
+                        </Grid>
+                    </views:LoopViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ContentView
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            Opacity="0.9"
+            BackgroundColor="{DynamicResource BackgroundColor}">
+            <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
+                Color="{DynamicResource SecondaryColor}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center" />
+        </ContentView>
+    </Grid>
 </ContentPage>

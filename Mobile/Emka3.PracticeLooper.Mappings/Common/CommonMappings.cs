@@ -30,7 +30,7 @@ namespace Emka3.PracticeLooper.Mappings.Common
             builder.RegisterType<AppCenterTracker>().As<IAppTracker>().SingleInstance();
             builder.RegisterType<SQLiteDbInitializer>().As<IDbInitializer<SQLiteConnection>>();
             builder.RegisterType<SessionsDbRepository>().As<IRepository<Session>>();
-            builder.RegisterType<LoopsRepository>().As<IRepository<Loop>>().SingleInstance();
+            builder.RegisterType<LoopsRepository>().As<IRepository<Loop>>();
             builder.RegisterType<SecurePracticeLooperStorage>().As<ISecureRepository>();
             builder.RegisterType<SpotifyTokenStorage>().As<ITokenStorage>().SingleInstance();
         }

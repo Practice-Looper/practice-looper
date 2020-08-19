@@ -722,12 +722,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         CurrentAudioPlayer.Pause(false);
                     }
 
-                    //MainThread.BeginInvokeOnMainThread(() =>
-                    //{
-                    //    MinimumValue = CurrentLoop.StartPosition;
-                    //    MaximumValue = CurrentLoop.EndPosition;
-                    //});
-
                     CurrentLoop = loop.Loop;
                     CurrentSession = Sessions.FirstOrDefault(s => s.Session.Id == loop.Loop.SessionId);
 
@@ -746,14 +740,25 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
-                await loopsRepository.DeleteAsync(loop);
-                CurrentSession.Session.Loops.Remove(loop);
+                bool isCurrentlyPlaying = false;
+                if (CurrentAudioPlayer.IsPlaying)
+                {
+                    isCurrentlyPlaying = true;
+                    CurrentAudioPlayer.Pause(false);
+                }
 
                 if (loop == CurrentLoop)
                 {
-                    Pause();
-                    CurrentLoop = CurrentSession.Session.Loops.First(l => l.IsDefault);
-                    await loopsRepository.UpdateAsync(CurrentLoop);
+                    CurrentLoop = CurrentSession.Session.Loops.First();
+                }
+
+                await loopsRepository.DeleteAsync(loop);
+                CurrentSession.Session.Loops.Remove(loop);
+
+                if (isCurrentlyPlaying)
+                {
+                    await CurrentAudioPlayer.InitAsync(CurrentLoop);
+                    await CurrentAudioPlayer?.PlayAsync();
                 }
             }
             catch (Exception ex)
