@@ -122,6 +122,11 @@
     </data>
     <!--OnboardingView-->
     <data
+        name="TutorialButtonText"
+        xml:space="preserve">
+        <value>Skip Tutorial</value>
+    </data>
+    <data
         name="Slide_01"
         xml:space="preserve">
         <value>Welcome to Practice Looper</value>
@@ -292,6 +297,6 @@
     <data
         name="Prompt_Content_NewLoo_NamePlaceholder"
         xml:space="preserve">
-        <value>Loop{0}</value>
+        <value>{0}. Loop</value>
     </data>
 </root>

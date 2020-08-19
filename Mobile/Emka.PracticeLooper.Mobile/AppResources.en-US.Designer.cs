@@ -167,6 +167,12 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string TutorialButtonText {
+            get {
+                return ResourceManager.GetString("TutorialButtonText", resourceCulture);
+            }
+        }
+        
         internal static string Slide_01 {
             get {
                 return ResourceManager.GetString("Slide_01", resourceCulture);

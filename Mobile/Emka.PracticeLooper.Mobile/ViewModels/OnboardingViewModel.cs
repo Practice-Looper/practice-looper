@@ -1,4 +1,4 @@
-﻿// Copyright (C) ${CopyrightHolder} - All Rights Reserved
+﻿// Copyright (C) - All Rights Reserved
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // simonsymhoven post@simon-symhoven.de, 2020
@@ -44,41 +44,41 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     Title = AppResources.Slide_01,
                     Content = "Practice, Loop - Loop, Practice",
-                    ImageUrl = "01_start.png"
+                    ImageUrl = "start.png"
                 },
                 new OnboardingModel
                 {
                     Title = AppResources.Slide_02,
-                    ImageUrl = "02_add-song.png",
+                    ImageUrl = "addSong.png",
                     Icon = "\uf419"
                 },
                 new OnboardingModel
                 {
                     Title = AppResources.Slide_03,
-                    ImageUrl = "03_slider.png"
+                    ImageUrl = "slider.png"
                 },
                 new OnboardingModel
                 {
                     Title = AppResources.Slide_04,
-                    ImageUrl = "04_picker.png"
+                    ImageUrl = "picker.png"
                 },
                 new OnboardingModel
                 {
                     Title = AppResources.Slide_05,
-                    ImageUrl = "05_add-marker.png",
+                    ImageUrl = "addMarker.png",
                     Icon = "\uf0c4"
                 },
                 new OnboardingModel
                 {
                     Title = AppResources.Slide_06,
-                    ImageUrl = "06_show-marker.png",
+                    ImageUrl = "showMarker.png",
                     Icon = "\U000f03a4"
                 },
                 new OnboardingModel
                 {
                     Title = AppResources.Slide_07,
                     Content = AppResources.Slide_07_01,
-                    ImageUrl = "07_lets-start.png",
+                    ImageUrl = "letsStart.png",
                     StartButtonVisible = true
                 }
             };
@@ -116,8 +116,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 }
 
                 NotifyPropertyChanged();
-
-
             }
         }
 

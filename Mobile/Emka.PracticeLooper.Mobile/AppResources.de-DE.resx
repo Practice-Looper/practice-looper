@@ -122,6 +122,11 @@
     </data>
     <!--OnboardingView-->
     <data
+        name="TutorialButtonText"
+        xml:space="preserve">
+        <value>Tutorial überspringen</value>
+    </data>
+    <data
         name="Slide_01"
         xml:space="preserve">
         <value>Willkommen bei Practice Looper</value>
