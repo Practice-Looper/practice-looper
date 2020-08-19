@@ -179,6 +179,12 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string OnboardingView_Welcome_Description {
+            get {
+                return ResourceManager.GetString("OnboardingView_Welcome_Description", resourceCulture);
+            }
+        }
+        
         internal static string OnboardingView_AddSong_Title {
             get {
                 return ResourceManager.GetString("OnboardingView_AddSong_Title", resourceCulture);
@@ -377,9 +383,9 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
-        internal static string Prompt_Content_NewLoo_NamePlaceholder {
+        internal static string Prompt_Content_NewLoop_NamePlaceholder {
             get {
-                return ResourceManager.GetString("Prompt_Content_NewLoo_NamePlaceholder", resourceCulture);
+                return ResourceManager.GetString("Prompt_Content_NewLoop_NamePlaceholder", resourceCulture);
             }
         }
     }

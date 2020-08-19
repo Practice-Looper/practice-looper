@@ -305,7 +305,7 @@
         <value>Geben Sie einen Namen ein</value>
     </data>
     <data
-        name="Prompt_Content_NewLoo_NamePlaceholder"
+        name="Prompt_Content_NewLoop_NamePlaceholder"
         xml:space="preserve">
         <value>{0}. Loop</value>
     </data>

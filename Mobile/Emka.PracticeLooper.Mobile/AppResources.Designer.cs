@@ -383,9 +383,9 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
-        internal static string Prompt_Content_NewLoo_NamePlaceholder {
+        internal static string Prompt_Content_NewLoop_NamePlaceholder {
             get {
-                return ResourceManager.GetString("Prompt_Content_NewLoo_NamePlaceholder", resourceCulture);
+                return ResourceManager.GetString("Prompt_Content_NewLoop_NamePlaceholder", resourceCulture);
             }
         }
     }
