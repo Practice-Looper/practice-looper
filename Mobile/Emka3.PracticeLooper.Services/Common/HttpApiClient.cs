@@ -84,6 +84,10 @@ namespace Emka3.PracticeLooper.Services.Common
             {
                 return null;
             }
+            catch (OperationCanceledException)
+            {
+                return null;
+            }
             catch (HttpRequestException)
             {
                 throw;
