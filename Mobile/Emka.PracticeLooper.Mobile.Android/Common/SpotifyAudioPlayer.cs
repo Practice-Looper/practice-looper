@@ -146,9 +146,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 spotifyDelegate.SpotifyEventHandler += OnEvent;
                 spotifyDelegate.SpotifyResultHandler += OnResult;
 
-                Api.PlayerApi.SubscribeToPlayerState()
-                .SetEventCallback(spotifyDelegate)
-                .SetErrorCallback(spotifyDelegate);
+                Api?.PlayerApi?.SubscribeToPlayerState()
+                ?.SetEventCallback(spotifyDelegate)
+                ?.SetErrorCallback(spotifyDelegate);
 
                 IsPlaying = true;
             }
@@ -156,10 +156,10 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             CurrentStartPosition = (int)(CurrentLoop.StartPosition * SongDuration);
             CurrentEndPosition = (int)(CurrentLoop.EndPosition * SongDuration);
 
-            Api.PlayerApi
-        .Play(session.AudioSource.Source)
-        .SetResultCallback(spotifyDelegate)
-        .SetErrorCallback(spotifyDelegate);
+            Api?.PlayerApi
+        ?.Play(session.AudioSource.Source)
+        ?.SetResultCallback(spotifyDelegate)
+        ?.SetErrorCallback(spotifyDelegate);
 
             ResetAllTimers();
         }
@@ -169,9 +169,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             if (Api != null)
             {
                 var seekTo = Convert.ToInt64(time * internalSongDuration);
-                Api.PlayerApi
-                    .SeekTo(seekTo)
-                    .SetErrorCallback(spotifyDelegate);
+                Api?.PlayerApi
+                    ?.SeekTo(seekTo)
+                    ?.SetErrorCallback(spotifyDelegate);
             }
         }
 
@@ -179,7 +179,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             if (!spotifyLoader.Authorized)
             {
-                await spotifyLoader.InitializeAsync();
+                await spotifyLoader?.InitializeAsync();
             }
 
             await Task.Run(() => Init(loop));
@@ -202,7 +202,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         private void CurrentPositionTimerExpired(object sender, EventArgs e)
         {
-            CurrentTimePositionChanged.Invoke(this, e);
+            CurrentTimePositionChanged?.Invoke(this, e);
         }
 
         private void LoopTimerExpired(object sender, EventArgs e)
@@ -262,10 +262,10 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
-                timer.StopTimers();
+                timer?.StopTimers();
                 var delta = CurrentEndPosition - CurrentStartPosition;
-                timer.SetLoopTimer(delta);
-                timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
+                timer?.SetLoopTimer(delta);
+                timer?.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
             }
             catch (System.Exception ex)
             {
@@ -278,7 +278,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
-                Api.PlayerApi.SeekTo(CurrentStartPosition);
+                Api?.PlayerApi?.SeekTo(CurrentStartPosition);
             }
             catch (System.Exception ex)
             {
