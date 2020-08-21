@@ -602,7 +602,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             IsBusy = true;
             try
             {
-                var name = await dialogService.ShowPromptAsync(AppResources.Prompt_Caption_NewLoop, AppResources.Prompt_Content_NewLoop, AppResources.Save, AppResources.Cancel, string.Format(AppResources.Prompt_Content_NewLoo_NamePlaceholder, CurrentSession.Session.Loops.Count));
+                var name = await dialogService.ShowPromptAsync(AppResources.Prompt_Caption_NewLoop, AppResources.Prompt_Content_NewLoop, AppResources.Save, AppResources.Cancel, string.Format(AppResources.Prompt_Content_NewLoop_NamePlaceholder, CurrentSession.Session.Loops.Count));
                 if (!string.IsNullOrEmpty(name))
                 {
                     // reset current loop

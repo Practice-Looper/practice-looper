@@ -13,6 +13,7 @@ using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -50,6 +51,11 @@ namespace Emka.PracticeLooper.Mobile.Navigation
 
         public Task InitializeAsync()
         {
+            if (VersionTracking.IsFirstLaunchEver)
+            {
+                return NavigateToAsync<OnboardingViewModel>();
+            }
+
             return NavigateToAsync<MainViewModel>();
         }
 

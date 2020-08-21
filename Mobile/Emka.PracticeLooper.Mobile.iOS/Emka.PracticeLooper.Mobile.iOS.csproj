@@ -255,7 +255,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.7.0.1142" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>1.2.0.223</Version>
     </PackageReference>
@@ -339,10 +339,36 @@
     <Folder Include="Assets.xcassets\Play.imageset\" />
     <Folder Include="Assets.xcassets\WordLogo.imageset\" />
     <Folder Include="Resources\" />
+    <Folder Include="Assets.xcassets\OnboardingSplashscreen.imageset\" />
+    <Folder Include="Assets.xcassets\.imageset\" />
+    <Folder Include="Resources\de.lproj\" />
+    <Folder Include="Resources\en.lproj\" />
+    <Folder Include="Resources\Base.lproj\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Sounds\Coumarin_Mirage_Vers3.mp3" />
     <BundleResource Include="materialdesignicons.ttf" />
+    <BundleResource Include="Resources\de.lproj\start.png" />
+    <BundleResource Include="Resources\de.lproj\addSong.png" />
+    <BundleResource Include="Resources\de.lproj\slider.png" />
+    <BundleResource Include="Resources\de.lproj\picker.png" />
+    <BundleResource Include="Resources\de.lproj\showMarker.png" />
+    <BundleResource Include="Resources\de.lproj\letsStart.png" />
+    <BundleResource Include="Resources\en.lproj\start.png" />
+    <BundleResource Include="Resources\en.lproj\letsStart.png" />
+    <BundleResource Include="Resources\en.lproj\slider.png" />
+    <BundleResource Include="Resources\en.lproj\addSong.png" />
+    <BundleResource Include="Resources\en.lproj\addMarker.png" />
+    <BundleResource Include="Resources\en.lproj\showMarker.png" />
+    <BundleResource Include="Resources\en.lproj\picker.png" />
+    <BundleResource Include="Resources\Base.lproj\addMarker.png" />
+    <BundleResource Include="Resources\Base.lproj\addSong.png" />
+    <BundleResource Include="Resources\Base.lproj\letsStart.png" />
+    <BundleResource Include="Resources\Base.lproj\picker.png" />
+    <BundleResource Include="Resources\Base.lproj\showMarker.png" />
+    <BundleResource Include="Resources\Base.lproj\slider.png" />
+    <BundleResource Include="Resources\Base.lproj\start.png" />
+    <BundleResource Include="Resources\de.lproj\addMarker.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

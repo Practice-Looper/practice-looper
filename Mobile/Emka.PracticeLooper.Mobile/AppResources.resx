@@ -120,6 +120,62 @@
         xml:space="preserve">
         <value>Failed to load upgrades, try again later.</value>
     </data>
+    <!--OnboardingView-->
+    <data
+        name="OnboardingView_TutorialButton"
+        xml:space="preserve">
+        <value>Skip Tutorial</value>
+    </data>
+    <data
+        name="OnboardingView_Welcome_Title"
+        xml:space="preserve">
+        <value>Welcome to Practice Looper</value>
+    </data>
+    <data
+        name="OnboardingView_Welcome_Description"
+        xml:space="preserve">
+        <value>Practice, Loop - Loop, Practice</value>
+    </data>
+    <data
+        name="OnboardingView_AddSong_Title"
+        xml:space="preserve">
+        <value>Add a new song</value>
+    </data>
+    <data
+        name="OnboardingView_Slider_Title"
+        xml:space="preserve">
+        <value>Choose start and end point for your loop</value>
+    </data>
+    <data
+        name="OnboardingView_Picker_Title"
+        xml:space="preserve">
+        <value>Use the picker to set points more precisely</value>
+    </data>
+    <data
+        name="OnboardingView_AddMarker_Title"
+        xml:space="preserve">
+        <value>Save your loops</value>
+    </data>
+    <data
+        name="OnboardingView_ShowMarker_Title"
+        xml:space="preserve">
+        <value>Play a loop or delete it</value>
+    </data>
+    <data
+        name="OnboardingView_LetsStart_Title"
+        xml:space="preserve">
+        <value>Now add your first song</value>
+    </data>
+    <data
+        name="OnboardingView_LetsStart_Description"
+        xml:space="preserve">
+        <value>Have fun!</value>
+    </data>
+     <data
+        name="OnboardingView_LetsLoopButton"
+        xml:space="preserve">
+        <value>Let's loop</value>
+    </data>
     <!--Error Dialogs-->
     <data
         name="Error_Caption"
@@ -249,8 +305,8 @@
         <value>Enter a name</value>
     </data>
     <data
-        name="Prompt_Content_NewLoo_NamePlaceholder"
+        name="Prompt_Content_NewLoop_NamePlaceholder"
         xml:space="preserve">
-        <value>Loop{0}</value>
+        <value>{0}. Loop</value>
     </data>
 </root>

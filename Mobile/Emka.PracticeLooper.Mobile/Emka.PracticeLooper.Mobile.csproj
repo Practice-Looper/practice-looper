@@ -72,7 +72,7 @@
       <IntermediateOutputPath>obj\Debug\netstandard2.0</IntermediateOutputPath>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Xamarin.Forms" Version="4.7.0.1142" />
+        <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
         <PackageReference Include="Autofac" Version="4.9.4" />
         <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.34" />
         <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
