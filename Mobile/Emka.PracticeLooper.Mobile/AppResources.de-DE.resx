@@ -81,7 +81,7 @@
     <data
         name="LoopsDetailsView_Title"
         xml:space="preserve">
-        <value>Markierungen</value>
+        <value>Loops</value>
     </data>
     <!--SpotifySearchView-->
     <data
@@ -205,12 +205,12 @@
     <data
         name="Error_Content_CouldNotCreateLoop"
         xml:space="preserve">
-        <value>Oops, Markierung konnte nicht hinzugefügt werden, bitte versuchen Sie es später nochmal!</value>
+        <value>Oops, Loop konnte nicht hinzugefügt werden, bitte versuchen Sie es später nochmal!</value>
     </data>
     <data
         name="Error_Content_CouldNotDeleteLoop"
         xml:space="preserve">
-        <value>Oops, Markierung konnte nicht gelöscht werden, bitte versuchen Sie es später nochmal!</value>
+        <value>Oops, Loop konnte nicht gelöscht werden, bitte versuchen Sie es später nochmal!</value>
     </data>
     <data
         name="Error_Content_CouldNotConnectToStore"
