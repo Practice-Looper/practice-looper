@@ -154,7 +154,7 @@
     <data
         name="OnboardingView_AddMarker_Title"
         xml:space="preserve">
-        <value>Speicher deine Loops</value>
+        <value>Speichere deine Loops</value>
     </data>
     <data
         name="OnboardingView_ShowMarker_Title"
