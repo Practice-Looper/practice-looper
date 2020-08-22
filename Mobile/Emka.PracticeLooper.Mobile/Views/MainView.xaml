@@ -246,7 +246,7 @@
                             Margin="0"
                             Minimum="{Binding Minimum}"
                             Maximum="{Binding Maximum}"
-                            ValueChangeMode="OnThumb"
+                            ValueChangeMode="Default"
                             TickPlacement="None"
                             SnapsTo="None"
                             KnobColor="{DynamicResource PrimaryColor}"
@@ -260,7 +260,8 @@
                             ShowCustomLabel="False"
                             ToolTipPlacement="None"
                             MinimumRange="{Binding MinimumRange}"
-                            ThumbSize="1">
+                            ThumbSize="1"
+                            ThumbTouchDown="Slider_ThumbTouchDown">
                         </range:SfRangeSlider>
                         <ImageButton
                             Grid.Row="1"
