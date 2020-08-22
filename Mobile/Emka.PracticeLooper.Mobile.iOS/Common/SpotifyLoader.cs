@@ -28,7 +28,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private SPTAppRemote api;
         static AutoResetEvent tokenEvent;
         static AutoResetEvent connectedEvent;
-        static AutoResetEvent installedEvent;
         private string token;
         private readonly IConfigurationService configurationService;
         private readonly ILogger logger;
@@ -38,7 +37,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         #region Ctor
 
-        public SpotifyLoader(ILogger logger, IDialogService dialogService, IStringLocalizer stringLocalizer, IConfigurationService configurationService)
+        public SpotifyLoader(ILogger logger,
+            IDialogService dialogService,
+            IStringLocalizer stringLocalizer,
+            IConfigurationService configurationService)
         {
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -89,12 +91,16 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 if (!configurationService.IsSpotifyInstalled)
                 {
-                    MainThread.BeginInvokeOnMainThread(() =>
-                    {
-                        InstallSpotify();
-                    });
+                    var installSpotify = dialogService.ShowConfirmAsync(
+                            stringLocalizer.GetLocalizedString("Hint_Caption_SpotifyMissing"),
+                            stringLocalizer.GetLocalizedString("Hint_Content_SpotifyMissing"),
+                            stringLocalizer.GetLocalizedString("Cancel"),
+                            stringLocalizer.GetLocalizedString("Ok")).Result;
 
-                    installedEvent.WaitOne();
+                    if (installSpotify) {
+                        InstallSpotify();
+                    }
+
                     return false;
                 }
 
@@ -130,14 +136,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             tokenEvent = new AutoResetEvent(false);
             connectedEvent = new AutoResetEvent(false);
-            installedEvent = new AutoResetEvent(false);
-
-            await MainThread.InvokeOnMainThreadAsync(() =>
-            {
-                configurationService.IsSpotifyInstalled = IsSpotifyInstalled();
-            });
-
+            configurationService.IsSpotifyInstalled = IsSpotifyInstalled();
+            
             return await Task.Run(() => Initialize(songUri));
+
         }
 
         public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
@@ -236,20 +238,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         private void InstallSpotify()
         {
-            // todo: show dialog and ask user if go to appstore
-            var installSpotify = dialogService.ShowConfirmAsync(
-                stringLocalizer.GetLocalizedString("Hint_Caption_SpotifyMissing"),
-                stringLocalizer.GetLocalizedString("Hint_Content_SpotifyMissing"),
-                stringLocalizer.GetLocalizedString("Cancel"),
-                stringLocalizer.GetLocalizedString("Ok")).Result;
-            if (!installSpotify)
-            {
-                installedEvent.Set();
-                tokenEvent.Set();
-                connectedEvent.Set();
-                return;
-            }
-
             var storeViewController = new SKStoreProductViewController();
             storeViewController.Delegate = this;
             //storeViewController.Finished += OnStoreViewControllerFinished;
@@ -259,7 +247,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 {
                     var window = UIApplication.SharedApplication.KeyWindow;
                     window?.RootViewController?.PresentModalViewController(storeViewController, true);
-                    installedEvent.Set();
                     tokenEvent.Set();
                     connectedEvent.Set();
                 }

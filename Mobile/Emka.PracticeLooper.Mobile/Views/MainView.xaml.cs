@@ -13,6 +13,7 @@ using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Syncfusion.SfRangeSlider.XForms;
+using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -43,6 +44,7 @@ namespace Emka.PracticeLooper.Mobile.Views
                    resolver.Resolve<IFileRepository>(),
                    resolver.Resolve<ISourcePicker>(),
                    resolver.Resolve<ISpotifyLoader>(),
+                   resolver.Resolve<ISpotifyApiService>(),
                    resolver.Resolve<Common.IFilePicker>(),
                    resolver.Resolve<IConnectivityService>(),
                    resolver.Resolve<INavigationService>(),

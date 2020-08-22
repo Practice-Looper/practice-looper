@@ -18,6 +18,8 @@ using Com.Spotify.Sdk.Android.Auth;
 using Emka3.PracticeLooper.Model;
 using Emka.PracticeLooper.Mobile.Common;
 using Emka3.PracticeLooper.Config.Contracts;
+using Emka.PracticeLooper.Services.Contracts;
+using Android.Content.PM;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
@@ -30,16 +32,22 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         private string token;
         private readonly IConfigurationService configurationService;
         private readonly ILogger logger;
+        private readonly IDialogService dialogService;
         private readonly IStringLocalizer stringLocalizer;
         #endregion
 
         #region Ctor
 
-        public SpotifyLoader(ILogger logger, IStringLocalizer stringLocalizer, IConfigurationService configurationService)
+        public SpotifyLoader(ILogger logger,
+            IStringLocalizer stringLocalizer,
+            IConfigurationService configurationService,
+            IDialogService dialogService
+            )
         {
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.stringLocalizer = stringLocalizer ?? throw new ArgumentNullException(nameof(stringLocalizer));
+            this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
         }
         #endregion
 
@@ -69,6 +77,22 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
+                if (!configurationService.IsSpotifyInstalled)
+                {
+                    var installSpotify = dialogService.ShowConfirmAsync(
+                            stringLocalizer.GetLocalizedString("Hint_Caption_SpotifyMissing"),
+                            stringLocalizer.GetLocalizedString("Hint_Content_SpotifyMissing"),
+                            stringLocalizer.GetLocalizedString("Cancel"),
+                            stringLocalizer.GetLocalizedString("Ok")).Result;
+
+                   if (installSpotify)
+                   {
+                        InstallSpotify();
+                   }
+
+                   return false;
+                }
+
                 StartAuthorization();
                 tokenEvent.WaitOne();
 
@@ -95,7 +119,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             tokenEvent = new AutoResetEvent(false);
             connectedEvent = new AutoResetEvent(false);
-
+            configurationService.IsSpotifyInstalled = IsSpotifyInstalled();
+          
             return await Task.Run(() => Initialize(songUri));
         }
 
@@ -116,35 +141,13 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             {
                 StartAuthorization();
             }
-            else if (error is CouldNotFindSpotifyApp)
-            {
-                AlertDialog.Builder alertDiag = new AlertDialog.Builder(GlobalApp.MainActivity);
-                alertDiag.SetTitle(stringLocalizer.GetLocalizedString("Hint_Caption_SpotifyMissing"));
-                alertDiag.SetMessage(stringLocalizer.GetLocalizedString("Hint_Content_SpotifyMissing"));
-                alertDiag.SetPositiveButton(stringLocalizer.GetLocalizedString("Ok"), (senderAlert, args) =>
-                {
-                    AuthorizationClient.OpenDownloadSpotifyActivity(GlobalApp.MainActivity);
-                    connectedEvent.Set();
-                    tokenEvent.Set();
-                });
-
-                alertDiag.SetNegativeButton(stringLocalizer.GetLocalizedString("Cancel"), (senderAlert, args) =>
-                {
-                    alertDiag.Dispose();
-                    connectedEvent.Set();
-                    tokenEvent.Set();
-                });
-
-                Dialog diag = alertDiag.Create();
-                diag.Show();
-            }
             else if (error is SpotifyConnectionTerminatedException)
             {
                 Authorized = false;
                 api = null;
                 Disconnected?.Invoke(this, new SpotifyDisconnectedEventArgs(false));
             }
-            else
+            else 
             {
                 // todo: show error dialog!
                 connectedEvent.Set();
@@ -195,6 +198,24 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             .ShowAuthView(true)
             .Build();
             MainThread.BeginInvokeOnMainThread(() => SpotifyAppRemote.Connect(Application.Context, connectionParams, this));
+        }
+
+        private void InstallSpotify()
+        {
+            AuthorizationClient.OpenDownloadSpotifyActivity(GlobalApp.MainActivity);
+        }
+
+        private bool IsSpotifyInstalled()
+        {
+            try
+            {
+                Application.Context.PackageManager.GetPackageInfo("com.spotify.music", PackageInfoFlags.Activities);
+                return true;
+            }
+            catch (PackageManager.NameNotFoundException)
+            {
+                return false;
+            }
         }
         #endregion
     }
