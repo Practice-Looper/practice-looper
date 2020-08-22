@@ -16,6 +16,7 @@ using Emka.PracticeLooper.Mobile.Themes;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Utils;
 using Emka.PracticeLooper.Mobile.Views;
+using System.Linq;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -37,12 +38,8 @@ namespace Emka.PracticeLooper.Mobile
             try
             {
                 VersionTracking.Track();
-
                 InitApp();
-
                 await InitNavigation().ConfigureAwait(true);
-
-                
             }
             catch (Exception ex)
             {

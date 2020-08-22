@@ -135,6 +135,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     }
                 }
             }
+            catch (TaskCanceledException)
+            {
+                // do nothing
+            }
             catch (Exception ex)
             {
                 Logger.LogError(ex);

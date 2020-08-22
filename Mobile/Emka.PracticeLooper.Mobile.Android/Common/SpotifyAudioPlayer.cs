@@ -99,8 +99,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             session = loop.Session;
             internalSongDuration = TimeSpan.FromSeconds(session.AudioSource.Duration).TotalMilliseconds;
             CurrentLoop = loop;
-            CurrentLoop.StartPositionChanged += OnStartPositionChanged;
-            CurrentLoop.EndPositionChanged += OnEndPositionChanged;
+            CurrentLoop.StartPositionChanged += OnLoopPositionChanged;
+            CurrentLoop.EndPositionChanged += OnLoopPositionChanged;
             CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
             CurrentEndPosition = ConvertToInt(CurrentLoop.EndPosition);
             currentTimeCancelTokenSource = new CancellationTokenSource();
@@ -115,8 +115,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             if (IsPlaying)
             {
-                Api?.PlayerApi?
-                .Pause()
+                Api?
+                .PlayerApi?
+                .Pause()?
                 .SetErrorCallback(spotifyDelegate);
             }
 
@@ -226,26 +227,23 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             return result;
         }
 
-        private async void OnStartPositionChanged(object sender, double e)
+        private async void OnLoopPositionChanged(object sender, double e)
         {
             try
             {
-                if (IsPlaying)
-                {
-                    await PlayAsync();
-                }
-            }
-            catch (System.Exception ex)
-            {
-                logger?.LogError(ex);
-                throw;
-            }
-        }
+                var delta = CurrentEndPosition - CurrentStartPosition;
 
-        private async void OnEndPositionChanged(object sender, double e)
-        {
-            try
-            {
+                // avoid negative values and values larger than int.MaxValue
+                if (delta < 0 || delta >= int.MaxValue)
+                {
+                    logger.LogError(new ArgumentException($"negative time value {delta}. CurrentStartPosition: {CurrentStartPosition}. CurrentEndPosition: {CurrentEndPosition}. Song: {CurrentLoop.Session.AudioSource.FileName}. Song duration {CurrentLoop.Session.AudioSource.Duration}"));
+                    if (IsPlaying)
+                    {
+                        await PauseAsync();
+                        return;
+                    }
+                }
+
                 if (IsPlaying)
                 {
                     await PlayAsync();
@@ -264,6 +262,14 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             {
                 timer?.StopTimers();
                 var delta = CurrentEndPosition - CurrentStartPosition;
+
+                // avoid negative values and values larger than int.MaxValue and set timer to 10s
+                if (delta < 0 || delta >= int.MaxValue)
+                {
+                    logger.LogError(new ArgumentException($"negative time value {delta}. CurrentStartPosition: {CurrentStartPosition}. CurrentEndPosition: {CurrentEndPosition}. Song: {CurrentLoop.Session.AudioSource.FileName}. Song duration {CurrentLoop.Session.AudioSource.Duration}"));
+                    Pause();
+                }
+
                 timer?.SetLoopTimer(delta);
                 timer?.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
             }
@@ -295,8 +301,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         ~SpotifyAudioPlayer()
         {
-            CurrentLoop.StartPositionChanged -= OnStartPositionChanged;
-            CurrentLoop.EndPositionChanged -= OnEndPositionChanged;
+            CurrentLoop.StartPositionChanged -= OnLoopPositionChanged;
+            CurrentLoop.EndPositionChanged -= OnLoopPositionChanged;
             timer.LoopTimerExpired -= LoopTimerExpired;
             timer.CurrentPositionTimerExpired -= CurrentPositionTimerExpired;
         }
