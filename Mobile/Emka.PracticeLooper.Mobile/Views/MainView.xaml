@@ -260,8 +260,7 @@
                             ShowCustomLabel="False"
                             ToolTipPlacement="None"
                             MinimumRange="{Binding MinimumRange}"
-                            ThumbSize="1"
-                            ThumbTouchDown="Slider_ThumbTouchDown">
+                            ThumbSize="1">
                         </range:SfRangeSlider>
                         <ImageButton
                             Grid.Row="1"
