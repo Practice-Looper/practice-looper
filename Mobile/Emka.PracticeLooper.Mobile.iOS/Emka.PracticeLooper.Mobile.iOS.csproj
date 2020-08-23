@@ -293,7 +293,7 @@
       <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
-      <Version>18.2.0.48</Version>
+      <Version>18.2.0.54</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -246,7 +246,7 @@
                             Margin="0"
                             Minimum="{Binding Minimum}"
                             Maximum="{Binding Maximum}"
-                            ValueChangeMode="OnThumb"
+                            ValueChangeMode="Default"
                             TickPlacement="None"
                             SnapsTo="None"
                             KnobColor="{DynamicResource PrimaryColor}"
