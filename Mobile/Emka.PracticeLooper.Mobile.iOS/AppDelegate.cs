@@ -114,7 +114,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
                 {
                     foreach (var player in audioPlayers)
                     {
-                        player.Pause();
+                        player.Pause(true);
                     }
                 }
 

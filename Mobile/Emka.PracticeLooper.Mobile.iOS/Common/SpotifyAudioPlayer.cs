@@ -64,8 +64,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
             internalSongDuration = TimeSpan.FromSeconds(session.AudioSource.Duration).TotalMilliseconds;
             CurrentLoop = loop;
-            CurrentLoop.StartPositionChanged += OnStartPositionChanged;
-            CurrentLoop.EndPositionChanged += OnEndPositionChanged;
+            CurrentLoop.StartPositionChanged += OnLoopPositionChanged;
+            CurrentLoop.EndPositionChanged += OnLoopPositionChanged;
             CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
             CurrentEndPosition = ConvertToInt(CurrentLoop.EndPosition);
             currentTimeCancelTokenSource = new CancellationTokenSource();
@@ -212,24 +212,21 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             return result;
         }
 
-        private async void OnStartPositionChanged(object sender, double e)
+        private async void OnLoopPositionChanged(object sender, double e)
         {
-            try
+            var delta = CurrentEndPosition - CurrentStartPosition;
+
+            // avoid negative values and values larger than int.MaxValue
+            if (delta < 0 || delta >= int.MaxValue)
             {
+                logger.LogError(new ArgumentException($"negative time value {delta}. CurrentStartPosition: {CurrentStartPosition}. CurrentEndPosition: {CurrentEndPosition}. Song: {CurrentLoop.Session.AudioSource.FileName}. Song duration {CurrentLoop.Session.AudioSource.Duration}"));
                 if (IsPlaying)
                 {
-                    await PlayAsync();
+                    await PauseAsync();
+                    return;
                 }
             }
-            catch (Exception ex)
-            {
-                logger.LogError(ex);
-                throw;
-            }
-        }
 
-        private async void OnEndPositionChanged(object sender, double e)
-        {
             try
             {
                 if (IsPlaying)
@@ -248,8 +245,17 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             try
             {
-                timer.StopTimers();
+                timer?.StopTimers();
                 var delta = CurrentEndPosition - CurrentStartPosition;
+
+                // avoid negative values and values larger than int.MaxValue
+                if (delta < 0 || delta >= int.MaxValue)
+                {
+                    logger.LogError(new ArgumentException($"negative time value {delta}. CurrentStartPosition: {CurrentStartPosition}. CurrentEndPosition: {CurrentEndPosition}. Song: {CurrentLoop.Session.AudioSource.FileName}. Song duration {CurrentLoop.Session.AudioSource.Duration}"));
+                    Pause();
+                    return;
+                }
+
                 timer.SetLoopTimer(delta);
                 timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
             }
@@ -264,8 +270,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             if (CurrentLoop != null)
             {
-                CurrentLoop.StartPositionChanged -= OnStartPositionChanged;
-                CurrentLoop.EndPositionChanged -= OnEndPositionChanged;
+                CurrentLoop.StartPositionChanged -= OnLoopPositionChanged;
+                CurrentLoop.EndPositionChanged -= OnLoopPositionChanged;
             }
 
             if (timer != null)

@@ -6,6 +6,7 @@
 using System;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using MediaManager;
 using MediaManager.Library;
@@ -22,11 +23,13 @@ namespace Emka.PracticeLooper.Mobile.Common
         private bool isActive = false;
         private object locker = new object();
         private bool pausedByUser;
+        private readonly ILogger logger;
         #endregion
 
         #region Ctor
-        public FileAudioPlayer()
+        public FileAudioPlayer(ILogger logger)
         {
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         #endregion
 
@@ -117,16 +120,22 @@ namespace Emka.PracticeLooper.Mobile.Common
             task.Wait();
         }
 
-        private void OnStartPositionChanged(object sender, double e)
+        private void OnLoopPositionChanged(object sender, double e)
         {
-            if (IsPlaying)
-            {
-                Play();
-            }
-        }
+            var delta = CurrentEndPosition - CurrentStartPosition;
 
-        private void OnEndPositionChanged(object sender, double e)
-        {
+            // avoid negative values and values larger than int.MaxValue
+            if (delta < 0 || delta >= int.MaxValue)
+            {
+                logger.LogError(new ArgumentException($"negative time value {delta}. CurrentStartPosition: {CurrentStartPosition}. CurrentEndPosition: {CurrentEndPosition}. Song: {CurrentLoop.Session.AudioSource.FileName}. Song duration {CurrentLoop.Session.AudioSource.Duration}"));
+
+                if (IsPlaying)
+                {
+                    Pause();
+                    return;
+                }
+            }
+
             if (IsPlaying)
             {
                 Play();
@@ -255,8 +264,8 @@ namespace Emka.PracticeLooper.Mobile.Common
                 CrossMediaManager.Current.Notification.ShowPlayPauseControls = false;
                 CrossMediaManager.Current.Notification.Enabled = false;
                 CrossMediaManager.Current.PositionChanged += OnPositionChanged;
-                CurrentLoop.StartPositionChanged += OnStartPositionChanged;
-                CurrentLoop.EndPositionChanged += OnEndPositionChanged;
+                CurrentLoop.StartPositionChanged += OnLoopPositionChanged;
+                CurrentLoop.EndPositionChanged += OnLoopPositionChanged;
                 Initialized = true;
                 PausedByUser = false;
             }
@@ -270,8 +279,8 @@ namespace Emka.PracticeLooper.Mobile.Common
         {
             if (CurrentLoop != null)
             {
-                CurrentLoop.StartPositionChanged -= OnStartPositionChanged;
-                CurrentLoop.EndPositionChanged -= OnEndPositionChanged;
+                CurrentLoop.StartPositionChanged -= OnLoopPositionChanged;
+                CurrentLoop.EndPositionChanged -= OnLoopPositionChanged;
             }
 
             if (CrossMediaManager.Current != null)

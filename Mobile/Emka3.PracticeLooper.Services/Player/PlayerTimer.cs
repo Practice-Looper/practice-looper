@@ -53,6 +53,9 @@ namespace Emka3.PracticeLooper.Services.Player
 
         public void SetLoopTimer(int time)
         {
+            // avoid negative values and values larger than int.MaxValue and timer to 10s
+            time = time < 0 || time > int.MaxValue ? 10000 : time;
+
             try
             {
                 looperTimer = new Timer(time);

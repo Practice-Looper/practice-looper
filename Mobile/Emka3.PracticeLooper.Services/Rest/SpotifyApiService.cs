@@ -64,7 +64,6 @@ namespace Emka3.PracticeLooper.Services.Rest
                 if (tracks != null && tracks.Any())
                 {
                     results.AddRange(tracks);
-
                 }
 
                 return results;

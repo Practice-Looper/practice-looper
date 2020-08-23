@@ -131,7 +131,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (IsInitialized && CurrentLoop != null && CurrentLoop.StartPosition != minimumValue)
                 {
                     CurrentLoop.StartPosition = minimumValue;
-
                     NotifyPropertyChanged();
                 }
 
