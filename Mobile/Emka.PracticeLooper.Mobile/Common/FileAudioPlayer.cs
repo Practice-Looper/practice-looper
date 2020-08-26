@@ -4,12 +4,13 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 
 using System;
+using System.IO;
 using System.Threading.Tasks;
+using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
-using MediaManager;
-using MediaManager.Library;
+using Plugin.SimpleAudioPlayer;
 using Xamarin.Forms.Internals;
 
 namespace Emka.PracticeLooper.Mobile.Common
@@ -18,18 +19,23 @@ namespace Emka.PracticeLooper.Mobile.Common
     public class FileAudioPlayer : IAudioPlayer
     {
         #region Fields
+        const int CURRENT_TIME_UPDATE_INTERVAL = 1000;
         double internalSongDuration;
-        private IMediaItem mediaItem;
-        private bool isActive = false;
         private object locker = new object();
         private bool pausedByUser;
+        private readonly IPlayerTimer timer;
         private readonly ILogger logger;
+        private readonly IConfigurationService configService;
+        private readonly ISimpleAudioPlayer audioPlayer;
         #endregion
 
         #region Ctor
-        public FileAudioPlayer(ILogger logger)
+        public FileAudioPlayer(IPlayerTimer timer, ILogger logger, IConfigurationService configService)
         {
+            this.timer = timer ?? throw new ArgumentNullException(nameof(timer));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.configService = configService ?? throw new ArgumentNullException(nameof(configService));
+            audioPlayer = CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
         }
         #endregion
 
@@ -42,7 +48,7 @@ namespace Emka.PracticeLooper.Mobile.Common
 
         #region Propeties
         public bool Initialized { get; private set; }
-        public bool IsPlaying => CrossMediaManager.Current != null && CrossMediaManager.Current.IsPlaying();
+        public bool IsPlaying => audioPlayer != null && audioPlayer.IsPlaying;
         public double SongDuration { get { return internalSongDuration * 1000; } }
         private Loop CurrentLoop { get; set; }
         private int CurrentStartPosition { get; set; }
@@ -69,173 +75,16 @@ namespace Emka.PracticeLooper.Mobile.Common
                 }
             }
         }
-
-        public bool IsActive
-        {
-            get
-            {
-                lock (locker)
-                {
-                    return isActive;
-                }
-            }
-            set
-            {
-                lock (locker)
-                {
-                    isActive = value;
-                }
-            }
-        }
         #endregion
 
         #region Methods
 
         public void GetCurrentPosition(Action<double> callback)
         {
-            callback?.Invoke(CrossMediaManager.Current.Position.TotalMilliseconds);
+            callback?.Invoke(TimeSpan.FromSeconds(Math.Round(audioPlayer.CurrentPosition, 1)).TotalMilliseconds);
         }
 
         public void Init(Loop loop)
-        {
-            var task = Task.Run(async () => await InitAsync(loop));
-            task.Wait();
-        }
-
-        public void Pause(bool triggeredByUser = true)
-        {
-            var task = Task.Run(async () => await PauseAsync(triggeredByUser));
-            task.Wait();
-        }
-
-        public void Play()
-        {
-            var task = Task.Run(async () => await PlayAsync());
-            task.Wait();
-        }
-
-        public void Seek(double time)
-        {
-            var task = Task.Run(async () => await SeekAsync(time));
-            task.Wait();
-        }
-
-        private void OnLoopPositionChanged(object sender, double e)
-        {
-            var delta = CurrentEndPosition - CurrentStartPosition;
-
-            // avoid negative values and values larger than int.MaxValue
-            if (delta < 0 || delta >= int.MaxValue)
-            {
-                logger.LogError(new ArgumentException($"negative time value {delta}. CurrentStartPosition: {CurrentStartPosition}. CurrentEndPosition: {CurrentEndPosition}. Song: {CurrentLoop.Session.AudioSource.FileName}. Song duration {CurrentLoop.Session.AudioSource.Duration}"));
-
-                if (IsPlaying)
-                {
-                    Pause();
-                    return;
-                }
-            }
-
-            if (IsPlaying)
-            {
-                Play();
-            }
-        }
-
-        private int ConvertToInt(double inValue)
-        {
-            int result;
-            try
-            {
-                result = Convert.ToInt32(inValue * internalSongDuration);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            return result;
-        }
-
-        private void RaisePlayingStatusChanged()
-        {
-            PlayStatusChanged?.Invoke(this, IsPlaying);
-        }
-
-        private void OnPositionChanged(object sender, MediaManager.Playback.PositionChangedEventArgs e)
-        {
-            CurrentTimePositionChanged?.Invoke(this, new EventArgs());
-        }
-
-        private async void PlayerStateChanged(object sender, MediaManager.Playback.StateChangedEventArgs e)
-        {
-            /**/
-            if (e.State == MediaManager.Player.MediaPlayerState.Paused && IsActive && !PausedByUser)
-            {
-                try
-                {
-                    await PlayAsync();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
-
-            PlayStatusChanged?.Invoke(this, e.State == MediaManager.Player.MediaPlayerState.Playing);
-        }
-
-        public async Task PlayAsync()
-        {
-            try
-            {
-                CrossMediaManager.Current.StateChanged -= PlayerStateChanged;
-                CrossMediaManager.Current.KeepScreenOn = true;
-                CurrentStartPosition = (int)(CurrentLoop.StartPosition * internalSongDuration);
-                CurrentEndPosition = (int)(CurrentLoop.EndPosition * internalSongDuration);
-                CrossMediaManager.Current.StateChanged += PlayerStateChanged;
-                await CrossMediaManager.Current.Play(mediaItem, TimeSpan.FromSeconds(CurrentStartPosition), TimeSpan.FromSeconds(CurrentEndPosition));
-
-                IsActive = true;
-                PausedByUser = false;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public async Task PauseAsync(bool triggeredByUser = true)
-        {
-            try
-            {
-                PausedByUser = triggeredByUser;
-                IsActive = false;
-                Initialized = false;
-                await CrossMediaManager.Current.Pause();
-                CrossMediaManager.Current.StateChanged -= PlayerStateChanged;
-                RaisePlayingStatusChanged();
-                
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public async Task SeekAsync(double time)
-        {
-            try
-            {
-                await CrossMediaManager.Current.SeekTo(TimeSpan.FromMilliseconds(time));
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public async Task InitAsync(Loop loop)
         {
             if (loop == null)
             {
@@ -247,30 +96,143 @@ namespace Emka.PracticeLooper.Mobile.Common
                 throw new ArgumentNullException(nameof(loop.Session));
             }
 
-            if (CrossMediaManager.Current.IsPlaying())
+            CurrentLoop = loop;
+            RemoveEventHandlers();
+            var x = new FileInfo(CurrentLoop.Session.AudioSource.Source);
+            using (var fsSource = new FileStream(Path.Combine(configService.LocalPath, CurrentLoop.Session.AudioSource.Source), FileMode.Open, FileAccess.Read))
             {
-                await PauseAsync();
-                CrossMediaManager.Current.PositionChanged -= OnPositionChanged;
-                CrossMediaManager.Current.StateChanged -= PlayerStateChanged;
+                audioPlayer.Load(fsSource);
+            }
+            timer.LoopTimerExpired += LoopTimerExpired;
+            timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
+            CurrentLoop.StartPositionChanged += OnLoopPositionChanged;
+            CurrentLoop.EndPositionChanged += OnLoopPositionChanged;
+            Initialized = true;
+            PausedByUser = false;
+        }
+
+        public async Task InitAsync(Loop loop)
+        {
+            await Task.Run(() => Init(loop));
+        }
+
+        public void Pause(bool triggeredByUser = true)
+        {
+            timer.StopTimers();
+            PausedByUser = triggeredByUser;
+            audioPlayer.Stop();
+            RaisePlayingStatusChanged();
+            Initialized = false;
+        }
+
+        public async Task PauseAsync(bool triggeredByUser = true)
+        {
+            await Task.Run(() => Pause(triggeredByUser));
+        }
+
+        public void Play()
+        {
+            if (!Initialized)
+            {
+                return;
             }
 
+            CurrentStartPosition = (int)(CurrentLoop.StartPosition * CurrentLoop.Session.AudioSource.Duration);
+            CurrentEndPosition = (int)(CurrentLoop.EndPosition * CurrentLoop.Session.AudioSource.Duration);
+            if (!audioPlayer.IsPlaying)
+            {
+                audioPlayer?.Play();
+            }
+
+            Seek(CurrentLoop.StartPosition);
+            PausedByUser = false;
+            ResetAllTimers();
+            RaisePlayingStatusChanged();
+            CurrentPositionTimerExpired(this, new EventArgs());
+        }
+
+        public async Task PlayAsync()
+        {
+            await Task.Run(Play);
+        }
+
+        public void Seek(double time)
+        {
+            var position = TimeSpan.FromSeconds(time * CurrentLoop.Session.AudioSource.Duration);
+            audioPlayer.Seek(position.TotalSeconds);
+        }
+
+        public async Task SeekAsync(double time)
+        {
+            await Task.Run(() => Seek(time));
+        }
+
+        private async void OnLoopPositionChanged(object sender, double e)
+        {
+            var delta = CurrentEndPosition - CurrentStartPosition;
+
+            // avoid negative values and values larger than int.MaxValue
+            if (delta < 0 || delta >= int.MaxValue)
+            {
+                logger.LogError(new ArgumentException($"negative time value {delta}. CurrentStartPosition: {CurrentStartPosition}. CurrentEndPosition: {CurrentEndPosition}. Song: {CurrentLoop.Session.AudioSource.FileName}. Song duration {CurrentLoop.Session.AudioSource.Duration}"));
+
+                if (IsPlaying)
+                {
+                    await PauseAsync();
+                    return;
+                }
+            }
+
+            if (IsPlaying)
+            {
+                await PlayAsync();
+            }
+        }
+
+        private void RaisePlayingStatusChanged()
+        {
+            PlayStatusChanged?.Invoke(this, IsPlaying);
+        }
+
+        private void RemoveEventHandlers()
+        {
+            timer.LoopTimerExpired -= LoopTimerExpired;
+            timer.CurrentPositionTimerExpired -= CurrentPositionTimerExpired;
+            CurrentLoop.StartPositionChanged -= OnLoopPositionChanged;
+            CurrentLoop.EndPositionChanged -= OnLoopPositionChanged;
+        }
+
+        private void LoopTimerExpired(object sender, EventArgs e)
+        {
+            TimerElapsed?.Invoke(this, e);
+        }
+
+        private void CurrentPositionTimerExpired(object sender, EventArgs e)
+        {
+            CurrentTimePositionChanged?.Invoke(this, e);
+        }
+
+        private void ResetAllTimers()
+        {
             try
             {
-                CurrentLoop = loop;
-                internalSongDuration = loop.Session.AudioSource.Duration;
-                mediaItem = await CrossMediaManager.Current.Extractor.CreateMediaItem(loop.Session.AudioSource.Source);
+                timer?.StopTimers();
+                var delta = CurrentEndPosition - CurrentStartPosition;
 
-                CrossMediaManager.Current.Notification.ShowNavigationControls = false;
-                CrossMediaManager.Current.Notification.ShowPlayPauseControls = false;
-                CrossMediaManager.Current.Notification.Enabled = false;
-                CrossMediaManager.Current.PositionChanged += OnPositionChanged;
-                CurrentLoop.StartPositionChanged += OnLoopPositionChanged;
-                CurrentLoop.EndPositionChanged += OnLoopPositionChanged;
-                Initialized = true;
-                PausedByUser = false;
+                // avoid negative values and values larger than int.MaxValue
+                if (delta < 0 || delta >= int.MaxValue)
+                {
+                    logger.LogError(new ArgumentException($"negative time value {delta}. CurrentStartPosition: {CurrentStartPosition}. CurrentEndPosition: {CurrentEndPosition}. Song: {CurrentLoop.Session.AudioSource.FileName}. Song duration {CurrentLoop.Session.AudioSource.Duration}"));
+                    Pause();
+                    return;
+                }
+
+                timer.SetLoopTimer((int)TimeSpan.FromSeconds(delta).TotalMilliseconds);
+                timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                logger.LogError(ex);
                 throw;
             }
         }
@@ -283,10 +245,9 @@ namespace Emka.PracticeLooper.Mobile.Common
                 CurrentLoop.EndPositionChanged -= OnLoopPositionChanged;
             }
 
-            if (CrossMediaManager.Current != null)
+            if (timer != null)
             {
-                CrossMediaManager.Current.PositionChanged -= OnPositionChanged;
-                CrossMediaManager.Current.StateChanged -= PlayerStateChanged;
+                timer.LoopTimerExpired -= LoopTimerExpired;
             }
         }
         #endregion

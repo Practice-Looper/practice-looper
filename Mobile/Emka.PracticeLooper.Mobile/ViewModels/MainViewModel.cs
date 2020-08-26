@@ -124,15 +124,15 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public double MinimumValue
         {
-            get => CurrentLoop != null ? CurrentLoop.StartPosition : default;
+            get => minimumValue;
             set
             {
                 minimumValue = value < Minimum ? Minimum : value;
-                if (IsInitialized && CurrentLoop != null && CurrentLoop.StartPosition != minimumValue)
-                {
-                    CurrentLoop.StartPosition = minimumValue;
-                    NotifyPropertyChanged();
-                }
+                //if (IsInitialized && CurrentLoop != null && CurrentLoop.StartPosition != minimumValue)
+                //{
+                //    CurrentLoop.StartPosition = minimumValue;
+                //    NotifyPropertyChanged();
+                //}
 
                 NotifyPropertyChanged(nameof(LoopStartPosition));
             }
@@ -145,16 +145,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public double MaximumValue
         {
-            get => CurrentLoop != null ? CurrentLoop.EndPosition : default;
+            get => maximumValue;
             set
             {
                 maximumValue = value > Maximum ? Maximum : value;
-                if (IsInitialized && CurrentLoop != null && CurrentLoop.EndPosition != maximumValue)
-                {
-                    CurrentLoop.EndPosition = maximumValue;
+                //if (IsInitialized && CurrentLoop != null && CurrentLoop.EndPosition != maximumValue)
+                //{
+                //    CurrentLoop.EndPosition = maximumValue;
 
-                    NotifyPropertyChanged();
-                }
+                //    NotifyPropertyChanged();
+                //}
 
                 NotifyPropertyChanged(nameof(LoopEndPosition));
             }
@@ -338,7 +338,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
-                CurrentAudioPlayer?.Pause();
+                if (CurrentAudioPlayer != null)
+                {
+                    CurrentAudioPlayer?.Pause();
+                    CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
+                    CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
+                    CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
+                }
+
                 spotifyLoader?.Disconnect();
             }
             catch (Exception ex)
@@ -346,7 +353,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 Logger.LogError(ex);
                 dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
-        } 
+        }
 
         private void CurrentAudioPlayer_TimerElapsed(object sender, EventArgs e)
         {
@@ -356,7 +363,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     Device.BeginInvokeOnMainThread(() =>
                             {
-                                CurrentAudioPlayer?.Seek(CurrentLoop.StartPosition);
+                                CurrentAudioPlayer?.Play();
                             });
                 }
                 catch (Exception ex)
@@ -405,7 +412,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     var newSessionViewModel = new SessionViewModel(newSession, dialogService, Logger, NavigationService, Tracker);
                     var isCurrentlyPlayling = CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying;
 
-                    CurrentAudioPlayer?.Pause();
+                    if (isCurrentlyPlayling)
+                    {
+                        CurrentAudioPlayer?.Pause();
+                    }
 
                     if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
                     {
@@ -446,14 +456,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             try
             {
                 IsBusy = true;
+
                 if (CurrentAudioPlayer.IsPlaying)
                 {
-                    Device.BeginInvokeOnMainThread(() => IsPlaying = false);
-                    Device.BeginInvokeOnMainThread(() => CurrentAudioPlayer.Pause());
+                    await CurrentAudioPlayer.PauseAsync(true);
                     CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
                     CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
-
                     await interstitialAd?.ShowAdAsync();
                 }
                 else
@@ -476,7 +485,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
 
                     await CurrentAudioPlayer.PlayAsync();
-                    Device.BeginInvokeOnMainThread(() => IsPlaying = true);
                 }
             }
             catch (Exception ex)
@@ -770,6 +778,24 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private async Task ExecuteNavigateToSettingsCommand()
         {
             await NavigationService?.NavigateToAsync<SettingsViewModel>();
+        }
+
+        public void UpdateLoopStartPosition()
+        {
+            if (IsInitialized && CurrentLoop != null && CurrentLoop.StartPosition != MinimumValue)
+            {
+                CurrentLoop.StartPosition = MinimumValue;
+                NotifyPropertyChanged(nameof(MinimumValue));
+            }
+        }
+
+        public void UpdateLoopEndPosition()
+        {
+            if (IsInitialized && CurrentLoop != null && CurrentLoop.EndPosition != MaximumValue)
+            {
+                CurrentLoop.EndPosition = MaximumValue;
+                NotifyPropertyChanged(nameof(MaximumValue));
+            }
         }
 
         ~MainViewModel()

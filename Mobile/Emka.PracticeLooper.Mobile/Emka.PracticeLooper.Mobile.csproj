@@ -78,13 +78,13 @@
         <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
         <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
         <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
-        <PackageReference Include="Plugin.MediaManager" Version="0.9.7" />
         <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.3.0" />
         <PackageReference Include="Microsoft.AppCenter" Version="3.3.0" />
         <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.3.0" />
         <PackageReference Include="Plugin.InAppBilling" Version="3.0.0-beta" />
         <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.2.0.48" />
         <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.2.0.54" />
+        <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />
@@ -124,9 +124,6 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\MainView.xaml.cs">
-            <SubType>Code</SubType>
-        </Compile>
         <Compile Update="AppResources.de-DE.Designer.cs">
           <DependentUpon>AppResources.de-DE.resx</DependentUpon>
         </Compile>

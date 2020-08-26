@@ -32,13 +32,13 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             var url = await CheckCloudAccess();
             string targetPath = string.Empty;
-            hasCloudAccess = false;// url != null;
+            // don't use cloud storage for now
+            hasCloudAccess = false;
 
             if (hasCloudAccess)
             {
                 targetPath = Path.Combine(url.Path, "Documents");
                 await EnsureDocumentsPath(Path.Combine(url.Path, "Documents"));
-
             }
             else
             {

@@ -260,6 +260,7 @@
                             ShowCustomLabel="False"
                             ToolTipPlacement="None"
                             MinimumRange="{Binding MinimumRange}"
+                            DragCompleted="OnDragCompleted"
                             ThumbSize="1">
                         </range:SfRangeSlider>
                         <ImageButton

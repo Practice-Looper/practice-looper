@@ -12,6 +12,7 @@ using Emka3.PracticeLooper.Mappings.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Syncfusion.SfRangeSlider.XForms;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -133,7 +134,7 @@ namespace Emka.PracticeLooper.Mobile.Views
                             itemsSourceCopy.RemoveAt(1);
                             itemsSourceCopy.Add(vm.GetValidSeconds(newValue[0].ToString()));
                             picker.ItemsSource = itemsSourceCopy;
-                             
+
                             if (itemsSourceCopy != null && (itemsSourceCopy.Last() as RangeObservableCollection<object>).Count < int.Parse(selectedTime[1].ToString()))
                             {
                                 var selectedSeconds = (itemsSourceCopy.Last() as RangeObservableCollection<object>).Last().ToString();
@@ -198,6 +199,21 @@ namespace Emka.PracticeLooper.Mobile.Views
                 picker.SelectionChanged += SelectionChanged;
                 picker.IsOpen = true;
                 vm.IsBusy = false;
+            }
+        }
+
+        void OnDragCompleted(object sender, DragThumbEventArgs e)
+        {
+            if (BindingContext is MainViewModel vm && sender is SfRangeSlider slider)
+            {
+                if (e.IsStartThumb)
+                {
+                    vm.UpdateLoopStartPosition();
+                }
+                else
+                {
+                    vm.UpdateLoopEndPosition();
+                }
             }
         }
         #endregion

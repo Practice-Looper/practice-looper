@@ -160,6 +160,7 @@
                     TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
+                    LineBreakMode="TailTruncation"
                     HorizontalOptions="StartAndExpand" />
                 <views:LoopButton
                     Grid.Column="2"
@@ -214,6 +215,7 @@
                     TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
+                    LineBreakMode="TailTruncation"
                     HorizontalOptions="StartAndExpand" />
                 <views:LoopButton
                     Grid.Column="2"
@@ -348,6 +350,7 @@
                     TextColor="{DynamicResource PrimaryColor}"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
+                    LineBreakMode="TailTruncation"
                     HorizontalOptions="StartAndExpand"
                     FontSize="24" />
             </Grid>
