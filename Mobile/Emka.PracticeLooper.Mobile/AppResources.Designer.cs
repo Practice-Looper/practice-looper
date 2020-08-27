@@ -323,6 +323,12 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string Error_Content_FileNotFound {
+            get {
+                return ResourceManager.GetString("Error_Content_FileNotFound", resourceCulture);
+            }
+        }
+        
         internal static string Hint_Caption_AlreadyPurchased {
             get {
                 return ResourceManager.GetString("Hint_Caption_AlreadyPurchased", resourceCulture);

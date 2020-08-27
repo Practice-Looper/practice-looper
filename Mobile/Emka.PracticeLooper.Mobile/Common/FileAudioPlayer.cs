@@ -81,7 +81,7 @@ namespace Emka.PracticeLooper.Mobile.Common
 
         public void GetCurrentPosition(Action<double> callback)
         {
-            callback?.Invoke(TimeSpan.FromSeconds(Math.Round(audioPlayer.CurrentPosition, 1)).TotalMilliseconds);
+            callback?.Invoke(TimeSpan.FromSeconds(Math.Round(audioPlayer.CurrentPosition, 0)).TotalMilliseconds);
         }
 
         public void Init(Loop loop)
@@ -98,11 +98,12 @@ namespace Emka.PracticeLooper.Mobile.Common
 
             CurrentLoop = loop;
             RemoveEventHandlers();
-            var x = new FileInfo(CurrentLoop.Session.AudioSource.Source);
+
             using (var fsSource = new FileStream(Path.Combine(configService.LocalPath, CurrentLoop.Session.AudioSource.Source), FileMode.Open, FileAccess.Read))
             {
                 audioPlayer.Load(fsSource);
             }
+
             timer.LoopTimerExpired += LoopTimerExpired;
             timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
             CurrentLoop.StartPositionChanged += OnLoopPositionChanged;

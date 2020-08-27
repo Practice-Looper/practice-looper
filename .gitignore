@@ -362,3 +362,4 @@ secrets.json
 Mobile/Emka.PracticeLooper.Mobile.Android/secrets.json
 Mobile/Emka.PracticeLooper.Mobile.iOS/secrets.json
 Mobile/Emka.PracticeLooper.Mobile/secrets.json
+Mobile/Emka.PracticeLooper.Mobile.Android/Resources/Resource.designer.cs

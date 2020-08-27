@@ -252,6 +252,11 @@
         xml:space="preserve">
         <value>Verbindung mit Spotify App fehlgeschlagen, bitte versuchen Sie es erneut.</value>
     </data>
+    <data
+        name="Error_Content_FileNotFound"
+        xml:space="preserve">
+        <value>Die ausgewählte Datei wurde nicht gefunden.</value>
+    </data>
     <!--Hint Dialogs-->
     <data
         name="Hint_Caption_AlreadyPurchased"

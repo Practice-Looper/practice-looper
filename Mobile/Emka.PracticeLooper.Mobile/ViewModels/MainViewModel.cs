@@ -21,6 +21,7 @@ using Emka.PracticeLooper.Services.Contracts;
 using Xamarin.Essentials;
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka3.PracticeLooper.Config.Contracts;
+using System.IO;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -473,11 +474,19 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         {
                             await CurrentAudioPlayer.InitAsync(CurrentLoop);
                         }
-                        catch (Exception ex)
+
+                        catch (FileNotFoundException ex)
                         {
-                            await dialogService.ShowAlertAsync(ex.Message, AppResources.Error_Caption);
+                            await Logger.LogErrorAsync(ex);
+                            await dialogService.ShowAlertAsync(AppResources.Error_Content_FileNotFound, AppResources.Error_Caption);
                             return;
                         }
+                        catch (Exception ex)
+                        {
+                            await Logger.LogErrorAsync(ex);
+                            await dialogService.ShowAlertAsync(ex.Message, AppResources.Error_Caption);
+                            return;
+                        }   
                     }
 
                     CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
