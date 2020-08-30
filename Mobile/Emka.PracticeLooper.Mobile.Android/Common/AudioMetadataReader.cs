@@ -36,7 +36,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             {
                 var player = new MediaPlayer();
                 player.Reset();
-                player.SetDataSource(Path.Combine(configurationService.LocalPath, audioSource.Source));
+                player.SetDataSource(Path.Combine(configurationService.GetValue(PreferenceKeys.InternalStoragePath), audioSource.Source));
                 player.Prepare();
                 return await Task.FromResult(new AudioMetadata(TimeSpan.FromMilliseconds(player.Duration).TotalSeconds));
             }

@@ -144,7 +144,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
 #endif
             AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(configService.GetValue("SyncFusionLicenseKey"));
-            configService.LocalPath = FileSystem.AppDataDirectory;
+            configService.SetValue(PreferenceKeys.InternalStoragePath, FileSystem.AppDataDirectory);
             var resolver = Factory.GetResolver() ?? throw new ArgumentNullException("resolver");
             resolver.RegisterInstance(configService, typeof(IConfigurationService));
             resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
@@ -154,8 +154,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
             resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
             resolver.RegisterSingleton(typeof(ConnectivityService), typeof(IConnectivityService));
-
-         
+            resolver.RegisterSingleton(typeof(DeviceStorageService), typeof(IDeviceStorageService));
         }
     }
 }

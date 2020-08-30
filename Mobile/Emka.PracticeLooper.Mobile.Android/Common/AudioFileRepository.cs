@@ -6,44 +6,80 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config.Contracts;
+using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
+using Xamarin.Essentials;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
     public class AudioFileRepository : IFileRepository
     {
         #region Fields
-
         private readonly IConfigurationService configurationService;
+        private readonly IDeviceStorageService deviceStorageService;
         #endregion
 
         #region Ctor
 
-        public AudioFileRepository(IConfigurationService configurationService)
+        public AudioFileRepository(IConfigurationService configurationService, IDeviceStorageService deviceStorageService)
         {
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
+            this.deviceStorageService = deviceStorageService ?? throw new ArgumentNullException(nameof(deviceStorageService));
         }
         #endregion
 
         #region Methods
-        public async Task<string> SaveFileAsync(string fileName, byte[] data)
+        public async Task<AudioSourceType> SaveFileAsync(string fileName, byte[] data)
         {
-            string targetPath;
-            if (GlobalApp.HasPermissionToWriteExternalStorage)
+            string targetPath = configurationService.GetValue(PreferenceKeys.InternalStoragePath);
+            double fileSize = (data.Length / 1024d) / 1024d;
+            var freeExternalStorage = deviceStorageService.GetAvailableExternalStorage();
+            var freeInternalStorage = deviceStorageService.GetAvailableInternalStorage();
+            var isNotEnoughInternalStorage = fileSize > freeInternalStorage;
+            
+            if (isNotEnoughInternalStorage)
             {
-                targetPath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+                var storageAccess = await Permissions.CheckStatusAsync<Permissions.StorageWrite>();
+                var mounted = false;
+                if (storageAccess == PermissionStatus.Granted)
+                {
+                    mounted = Android.OS.Environment.ExternalStorageState == Android.OS.Environment.MediaMounted;
+                }
+
+                if (mounted)
+                {
+                    targetPath = await configurationService.GetValueAsync(PreferenceKeys.ExternalStoragePath);
+
+                    if (fileSize > freeExternalStorage)
+                    {
+                        throw new InvalidOperationException();
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException();
+                }
             }
-            else
-            {
-                targetPath = configurationService.LocalPath;
-            }
+
 
             await Task.Run(() =>
             {
                 File.WriteAllBytes(Path.Combine(targetPath, fileName), data);
             });
 
-            return Path.Combine(targetPath, fileName);
+            var exists = File.Exists(Path.Combine(targetPath, fileName));
+
+            if (exists && isNotEnoughInternalStorage)
+            {
+                return AudioSourceType.LocalExternal;
+            }
+
+            if (exists && !isNotEnoughInternalStorage)
+            {
+                return AudioSourceType.LocalInternal;
+            }
+
+            return AudioSourceType.None;  
         }
 
         public async Task DeleteFileAsync(string fileName)

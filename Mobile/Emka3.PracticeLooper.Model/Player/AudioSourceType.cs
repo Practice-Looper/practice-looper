@@ -9,7 +9,8 @@ namespace Emka3.PracticeLooper.Model.Player
     public enum AudioSourceType
     {
         None = 0,
-        Local = 1,
-        Spotify = 2
+        LocalInternal = 1,
+        LocalExternal = 2,
+        Spotify = 3
     }
 }

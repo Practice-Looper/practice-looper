@@ -26,15 +26,17 @@ namespace Emka.PracticeLooper.Mobile.Common
         private readonly IPlayerTimer timer;
         private readonly ILogger logger;
         private readonly IConfigurationService configService;
+        private readonly IAudioFileLoader audioFileLoader;
         private readonly ISimpleAudioPlayer audioPlayer;
         #endregion
 
         #region Ctor
-        public FileAudioPlayer(IPlayerTimer timer, ILogger logger, IConfigurationService configService)
+        public FileAudioPlayer(IPlayerTimer timer, ILogger logger, IConfigurationService configService, IAudioFileLoader audioFileLoader)
         {
             this.timer = timer ?? throw new ArgumentNullException(nameof(timer));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.configService = configService ?? throw new ArgumentNullException(nameof(configService));
+            this.audioFileLoader = audioFileLoader ?? throw new ArgumentNullException(nameof(audioFileLoader));
             audioPlayer = CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
         }
         #endregion
@@ -54,7 +56,7 @@ namespace Emka.PracticeLooper.Mobile.Common
         private int CurrentStartPosition { get; set; }
         private int CurrentEndPosition { get; set; }
 
-        public AudioSourceType Type => AudioSourceType.Local;
+        public AudioSourceType Type => AudioSourceType.LocalInternal;
 
         public string DisplayName => "File";
 
@@ -98,12 +100,8 @@ namespace Emka.PracticeLooper.Mobile.Common
 
             CurrentLoop = loop;
             RemoveEventHandlers();
-
-            using (var fsSource = new FileStream(Path.Combine(configService.LocalPath, CurrentLoop.Session.AudioSource.Source), FileMode.Open, FileAccess.Read))
-            {
-                audioPlayer.Load(fsSource);
-            }
-
+            var file = audioFileLoader.GetAbsoluteFilePath(loop.Session.AudioSource);
+            audioPlayer.Load(file);
             timer.LoopTimerExpired += LoopTimerExpired;
             timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
             CurrentLoop.StartPositionChanged += OnLoopPositionChanged;

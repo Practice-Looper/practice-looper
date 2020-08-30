@@ -42,7 +42,7 @@ namespace Emka.PracticeLooper.Mobile.Tests
                 Duration = 123456,
                 Source = "/abc/def",
                 FileName = "file.mp3",
-                Type = AudioSourceType.Local
+                Type = AudioSourceType.LocalInternal
             };
 
             var loop = new Loop
@@ -85,7 +85,7 @@ namespace Emka.PracticeLooper.Mobile.Tests
                 Duration = 123456,
                 Source = "/abc/def",
                 FileName = "file.mp3",
-                Type = AudioSourceType.Local
+                Type = AudioSourceType.LocalInternal
             };
 
             var loop = new Loop

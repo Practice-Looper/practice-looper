@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Support.V4.Content;
 using Emka.PracticeLooper.Mobile.Droid.Common;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Config.Contracts;
@@ -43,17 +41,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             GlobalApp.MainActivity = this;
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-            // Todo validate permission request
-            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) == (int)Permission.Granted)
-            {
-                var mounted = Android.OS.Environment.ExternalStorageState == Android.OS.Environment.MediaMounted;
-                GlobalApp.HasPermissionToWriteExternalStorage = mounted;
-            }
-            else
-            {
-                // Todo: request permisstions
-            }
-
+           
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             SQLitePCL.Batteries_V2.Init();
             Platform.Init(this, savedInstanceState);
@@ -64,6 +52,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = Platform.CurrentActivity;
 
             stopWatch.Stop();
+
             Analytics.TrackEvent(TrackerEvents.GeneralInformation.ToString(), new Dictionary<string, string>
             {
                 { $"Startup time Android", $"duration {stopWatch.ElapsedMilliseconds} ms" },
@@ -207,7 +196,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
             AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(configService.GetValue("SyncFusionLicenseKey"));
             Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, configService.GetValue("AdmobAndroidAppId"));
-            configService.LocalPath = FileSystem.AppDataDirectory;
+            configService.SetValue(PreferenceKeys.InternalStoragePath, FileSystem.AppDataDirectory);
+            configService.SetValue(PreferenceKeys.ExternalStoragePath, Android.OS.Environment.ExternalStorageDirectory.AbsolutePath);
             var resolver = Factory.GetResolver() ?? throw new ArgumentNullException("resolver");
             resolver.RegisterInstance(configService, typeof(IConfigurationService));
             resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
@@ -217,6 +207,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             resolver.Register(typeof(InAppBillingVerifyPurchase), typeof(IInAppBillingVerifyPurchase));
             resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
             resolver.RegisterSingleton(typeof(ConnectivityService), typeof(IConnectivityService));
+            resolver.RegisterSingleton(typeof(DeviceStorageService), typeof(IDeviceStorageService));
         }
     }
 }

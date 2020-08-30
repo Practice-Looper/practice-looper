@@ -87,7 +87,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 Duration = 666,
                 FileName = "fileName",
                 Source = "/folder/subFolder",
-                Type = AudioSourceType.Local
+                Type = AudioSourceType.LocalInternal
             };
 
             sessionsRepositoryMock.Setup(sr => sr.SaveAsync(It.IsAny<Session>())).Callback((Session s) => { sessions.Add(s); }).ReturnsAsync(0);

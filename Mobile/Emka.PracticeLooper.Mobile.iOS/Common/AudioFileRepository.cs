@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config.Contracts;
+using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Foundation;
 
@@ -17,18 +18,20 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #region Fields
         private bool hasCloudAccess;
         private readonly IConfigurationService configurationService;
+        private readonly IDeviceStorageService deviceStorageService;
         #endregion
 
         #region Ctor
-        public AudioFileRepository(IConfigurationService configurationService)
+        public AudioFileRepository(IConfigurationService configurationService, IDeviceStorageService deviceStorageService)
         {
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
+            this.deviceStorageService = deviceStorageService ?? throw new ArgumentNullException(nameof(deviceStorageService));
             hasCloudAccess = false;
         }
         #endregion
 
         #region Methods
-        public async Task<string> SaveFileAsync(string fileName, byte[] data)
+        public async Task<AudioSourceType> SaveFileAsync(string fileName, byte[] data)
         {
             var url = await CheckCloudAccess();
             string targetPath = string.Empty;
@@ -42,7 +45,15 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
             else
             {
-                targetPath = configurationService.LocalPath;
+                targetPath = configurationService.GetValue(PreferenceKeys.InternalStoragePath);
+            }
+
+            var freeDiskSpace = deviceStorageService.GetAvailableInternalStorage();
+            double fileSize = (data.Length / 1024d) / 1024d;
+
+            if (fileSize > freeDiskSpace)
+            {
+                return AudioSourceType.None;
             }
 
             await Task.Run(() =>
@@ -50,7 +61,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 File.WriteAllBytes(Path.Combine(targetPath, fileName), data);
             });
 
-            return Path.Combine(targetPath, fileName);
+            var exists = File.Exists(Path.Combine(targetPath, fileName));
+            return exists ? AudioSourceType.LocalInternal : AudioSourceType.None;
         }
 
         private async Task<NSUrl> CheckCloudAccess()

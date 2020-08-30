@@ -34,7 +34,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             return await Task.Run(() =>
             {
-                var asset = AVAsset.FromUrl(NSUrl.FromFilename(Path.Combine(configurationService.LocalPath, audioSource.Source)));
+                var asset = AVAsset.FromUrl(NSUrl.FromFilename(Path.Combine(configurationService.GetValue(PreferenceKeys.InternalStoragePath), audioSource.Source)));
                 var metaData = new AudioMetadata((int)asset.Duration.Seconds);
                 return metaData;
             });

@@ -33,6 +33,7 @@ namespace Emka3.PracticeLooper.Mappings.Common
             builder.RegisterType<LoopsRepository>().As<IRepository<Loop>>();
             builder.RegisterType<SecurePracticeLooperStorage>().As<ISecureRepository>();
             builder.RegisterType<SpotifyTokenStorage>().As<ITokenStorage>().SingleInstance();
+            builder.RegisterType<AudioFileLoader>().As<IAudioFileLoader>();
         }
     }
 }

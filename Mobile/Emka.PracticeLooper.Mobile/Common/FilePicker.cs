@@ -11,6 +11,7 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -33,6 +34,13 @@ namespace Emka.PracticeLooper.Mobile.Common
             AudioSource result = null;
             bool isIos = Device.RuntimePlatform == Device.iOS;
 
+            var storageAccess = await Permissions.CheckStatusAsync<Permissions.StorageWrite>();
+
+            if (storageAccess != PermissionStatus.Granted)
+            {
+                await Permissions.RequestAsync<Permissions.StorageWrite>();
+            }
+
             string[] allowedTypes = isIos ? new string[] { "public.audio" } : new string[] { "audio/*" };
 
             FileData fileData = await CrossFilePicker.Current.PickFile(allowedTypes);
@@ -40,13 +48,18 @@ namespace Emka.PracticeLooper.Mobile.Common
             if (fileData == null)
                 return result; // user canceled file picking
 
-            await fileRepository.SaveFileAsync(fileData.FileName, fileData.DataArray);
+            var type = await fileRepository.SaveFileAsync(fileData.FileName, fileData.DataArray);
+
+            if (type == AudioSourceType.None)
+            {
+                throw new InvalidOperationException();
+            }
 
             result = new AudioSource
             {
                 FileName = Path.GetFileNameWithoutExtension(fileData.FileName),
                 Source = fileData.FileName,
-                Type = AudioSourceType.Local
+                Type = type
             };
 
             // get duration

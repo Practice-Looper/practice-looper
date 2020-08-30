@@ -135,12 +135,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             set
             {
                 minimumValue = value < Minimum ? Minimum : value;
-                //if (IsInitialized && CurrentLoop != null && CurrentLoop.StartPosition != minimumValue)
-                //{
-                //    CurrentLoop.StartPosition = minimumValue;
-                //    NotifyPropertyChanged();
-                //}
-
                 NotifyPropertyChanged(nameof(LoopStartPosition));
             }
         }
@@ -156,13 +150,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             set
             {
                 maximumValue = value > Maximum ? Maximum : value;
-                //if (IsInitialized && CurrentLoop != null && CurrentLoop.EndPosition != maximumValue)
-                //{
-                //    CurrentLoop.EndPosition = maximumValue;
-
-                //    NotifyPropertyChanged();
-                //}
-
                 NotifyPropertyChanged(nameof(LoopEndPosition));
             }
         }
@@ -558,7 +545,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                     await sessionsRepository.DeleteAsync(tmpSession.Session);
 
-                    if (tmpSession.Session.AudioSource.Type == AudioSourceType.Local)
+                    if (tmpSession.Session.AudioSource.Type == AudioSourceType.LocalInternal)
                     {
                         await fileRepository.DeleteFileAsync(tmpSession.Session.AudioSource.Source);
                     }
@@ -609,12 +596,21 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 switch (source)
                 {
-                    case AudioSourceType.Local:
-                        var newFile = await filePicker.ShowPicker();
-                        // file is null when user cancelled file picker!
-                        if (newFile != null)
+                    case AudioSourceType.LocalInternal:
+
+                        try
                         {
-                            CreateSessionCommand.Execute(newFile);
+                            var newFile = await filePicker.ShowPicker();
+                            // file is null when user cancelled file picker!
+                            if (newFile != null)
+                            {
+                                CreateSessionCommand.Execute(newFile);
+                            }
+                        }
+                        catch (InvalidOperationException ex)
+                        {
+                            await Logger.LogErrorAsync(ex);
+                            await dialogService.ShowAlertAsync(AppResources.Error_Content_NotEnoughSpace, AppResources.Error_Caption);
                         }
 
                         break;

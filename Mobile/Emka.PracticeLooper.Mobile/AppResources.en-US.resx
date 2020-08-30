@@ -313,6 +313,11 @@
         xml:space="preserve">
         <value>Warning</value>
     </data>
+    <data
+        name="Error_Content_NotEnoughSpace"
+        xml:space="preserve">
+        <value>The selected file could not be added because there was not enough space.</value>
+    </data>
     <!--Prompt Dialogs-->
     <data
         name="Prompt_Caption_NewLoop"

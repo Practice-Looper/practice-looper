@@ -448,6 +448,14 @@ namespace Emka.PracticeLooper.Mobile
             }
         }
 
+        internal static string Error_Content_NotEnoughSpace
+        {
+            get
+            {
+                return ResourceManager.GetString("Error_Content_NotEnoughSpace", resourceCulture);
+            }
+        }
+
         internal static string Hint_Caption_AlreadyPurchased
         {
             get
