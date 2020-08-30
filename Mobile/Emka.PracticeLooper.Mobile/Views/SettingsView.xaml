@@ -23,11 +23,11 @@
         </Grid.RowDefinitions>
         <Label
             Grid.Row="0"
-            FontSize="Header"
+            FontSize="Body"
             Text="{x:Static rsrcs:AppResources.SettingsView_NoUpgradesDescription}"
             IsVisible="False"
             TextColor="{DynamicResource SecondaryColor}"
-            Margin="0,25">
+            Margin="0,50">
             <Label.Style>
                 <Style
                     TargetType="Label">

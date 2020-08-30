@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="0.1.2" package="de.emka3.practice_looper">
-	<uses-sdk android:minSdkVersion="28" android:targetSdkVersion="28" />
+	<uses-sdk android:minSdkVersion="29" android:targetSdkVersion="29" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -9,7 +9,7 @@
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
-	<application android:label="Practice Looper" android:name="android.app.Application" android:allowBackup="false" android:icon="@mipmap/ic_launcher">
+	<application android:label="Practice Looper" android:name="android.app.Application" android:allowBackup="false" android:icon="@mipmap/ic_launcher" android:requestLegacyExternalStorage="true">
 		<activity android:screenOrientation="portrait" android:configChanges="orientation|screenSize" android:icon="@mipmap/ic_launcher" android:label="Practice Looper" android:theme="@style/Splash" android:name="crc64106a7de43e0e5d6c.MainActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

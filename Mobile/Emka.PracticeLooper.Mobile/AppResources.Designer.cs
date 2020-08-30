@@ -329,6 +329,12 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string Error_Content_NotEnoughSpace {
+            get {
+                return ResourceManager.GetString("Error_Content_NotEnoughSpace", resourceCulture);
+            }
+        }
+        
         internal static string Error_Content_NoPremiumUser {
             get {
                 return ResourceManager.GetString("Error_Content_NoPremiumUser", resourceCulture);
@@ -338,12 +344,6 @@ namespace Emka.PracticeLooper.Mobile {
         internal static string Error_Content_PremiumUserCheckFailed {
             get {
                 return ResourceManager.GetString("Error_Content_PremiumUserCheckFailed", resourceCulture);
-            }
-        }
-        
-        internal static string Error_Content_NotEnoughSpace {
-            get {
-                return ResourceManager.GetString("Error_Content_NotEnoughSpace", resourceCulture);
             }
         }
         

@@ -323,6 +323,18 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string Error_Content_FileNotFound {
+            get {
+                return ResourceManager.GetString("Error_Content_FileNotFound", resourceCulture);
+            }
+        }
+        
+        internal static string Error_Content_NotEnoughSpace {
+            get {
+                return ResourceManager.GetString("Error_Content_NotEnoughSpace", resourceCulture);
+            }
+        }
+        
         internal static string Error_Content_NoPremiumUser {
             get {
                 return ResourceManager.GetString("Error_Content_NoPremiumUser", resourceCulture);
@@ -383,21 +395,9 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
-        internal static string Error_Content_FileNotFound {
-            get {
-                return ResourceManager.GetString("Error_Content_FileNotFound", resourceCulture);
-            }
-        }
-        
         internal static string Hint_Caption_General {
             get {
                 return ResourceManager.GetString("Hint_Caption_General", resourceCulture);
-            }
-        }
-        
-        internal static string Error_Content_NotEnoughSpace {
-            get {
-                return ResourceManager.GetString("Error_Content_NotEnoughSpace", resourceCulture);
             }
         }
         

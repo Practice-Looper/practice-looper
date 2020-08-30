@@ -1,17 +1,21 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
-             x:Class="Emka.PracticeLooper.Mobile.Views.OnboardingView"
-             x:Name="View"
-             BackgroundColor="{DynamicResource BackgroundColor}">
-   
-    <ContentPage.Content >
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
+    x:Class="Emka.PracticeLooper.Mobile.Views.OnboardingView"
+    x:Name="View"
+    BackgroundColor="{DynamicResource BackgroundColor}">
+
+    <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition
+                    Height="50" />
+                <RowDefinition
+                    Height="*" />
+                <RowDefinition
+                    Height="auto" />
             </Grid.RowDefinitions>
 
             <Button
@@ -20,10 +24,10 @@
                 BackgroundColor="Transparent"
                 HorizontalOptions="EndAndExpand"
                 VerticalOptions="Center"
-                Text="{x:Static rsrcs:AppResources.OnboardingView_TutorialButton}" 
+                Text="{x:Static rsrcs:AppResources.OnboardingView_TutorialButton}"
                 IsVisible="{Binding IsSkipButtonVisible}"
                 Command="{Binding SkipCommand}"
-                TextColor="{DynamicResource PrimaryColor}"/>
+                TextColor="{DynamicResource PrimaryColor}" />
 
             <CarouselView
                 x:Name="OnboardingCarousel"
@@ -36,42 +40,65 @@
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
                         <ContentView>
-                            <FlexLayout Direction="Column"
-                                        JustifyContent="Center"
-                                        AlignItems="Center">
-                                <Image Margin="0,5,0,10"   
-                                       Aspect="AspectFill"
-                                       WidthRequest="300"
-                                       FlexLayout.AlignSelf="Center"
-                                       Source="{Binding ImageUrl}"/>
-                                <Label Text="{Binding Title}"
-                                       Margin="20,10,20,0"
-                                       TextColor="{DynamicResource PrimaryColor}"
-                                       LineBreakMode="WordWrap"
-                                       HorizontalTextAlignment="Center"
-                                       FontSize="Title"/>
-                                <Label FontFamily="{DynamicResource MaterialFontFamily}"
-                                       Text="{Binding Icon}"
-                                       FontSize="30"
-                                       Margin="0,10,0,10"
-                                       TextColor="{DynamicResource SecondaryColor}"/>
-                                <Label Text="{Binding Content}"
-                                       LineBreakMode="WordWrap"
-                                       Margin="0,0,0,10"
-                                       FontSize="Body"
-                                       HorizontalTextAlignment="Center"
-                                       TextColor="{DynamicResource PrimaryColor}"/>
-                                <Button Text="{x:Static rsrcs:AppResources.OnboardingView_LetsLoopButton}"
-                                        IsVisible="{Binding StartButtonVisible}"
-                                        BackgroundColor="{DynamicResource PrimaryColor}"
-                                        TextColor="White"
-                                        FontSize="16"
-                                        CornerRadius="5"
-                                        WidthRequest="180"
-                                        HeightRequest="50"
-                                        Command="{Binding BindingContext.SkipCommand, Source={x:Reference Name=View}}" 
-                                        Margin="0,20,0,0"/>
-                            </FlexLayout>
+                            <Grid
+                                VerticalOptions="CenterAndExpand"
+                                HorizontalOptions="FillAndExpand">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition
+                                        Height="5*" />
+                                    <RowDefinition
+                                        Height="Auto" />
+                                    <RowDefinition
+                                        Height="Auto" />
+                                    <RowDefinition
+                                        Height="Auto" />
+                                    <RowDefinition
+                                        Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Image
+                                    Grid.Row="0"
+                                    Margin="0,5,0,10"
+                                    Aspect="AspectFit"
+                                    WidthRequest="300"
+                                    Source="{Binding ImageUrl}" />
+                                <Label
+                                    Grid.Row="1"
+                                    Text="{Binding Title}"
+                                    Margin="20,10,20,0"
+                                    TextColor="{DynamicResource PrimaryColor}"
+                                    LineBreakMode="WordWrap"
+                                    HorizontalTextAlignment="Center"
+                                    FontSize="Title" />
+                                <Label
+                                    Grid.Row="2"
+                                    FontFamily="{DynamicResource MaterialFontFamily}"
+                                    Text="{Binding Icon}"
+                                    FontSize="50"
+                                    Margin="0,10,0,10"
+                                    HorizontalOptions="Center"
+                                    TextColor="{DynamicResource SecondaryColor}" />
+                                <Label
+                                    Grid.Row="3"
+                                    Text="{Binding Content}"
+                                    LineBreakMode="WordWrap"
+                                    Margin="0,0,0,10"
+                                    FontSize="Body"
+                                    HorizontalTextAlignment="Center"
+                                    TextColor="{DynamicResource PrimaryColor}" />
+                                <Button
+                                    Grid.Row="4"
+                                    Text="{x:Static rsrcs:AppResources.OnboardingView_LetsLoopButton}"
+                                    IsVisible="{Binding StartButtonVisible}"
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
+                                    TextColor="White"
+                                    FontSize="16"
+                                    CornerRadius="5"
+                                    WidthRequest="180"
+                                    HeightRequest="50"
+                                    Command="{Binding BindingContext.SkipCommand, Source={x:Reference Name=View}}"
+                                    Margin="0,20,0,0"
+                                    HorizontalOptions="Center"/>
+                            </Grid>
                         </ContentView>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
@@ -85,8 +112,8 @@
                 IndicatorsShape="Circle"
                 SelectedIndicatorColor="{DynamicResource SecondaryColor}"
                 HorizontalOptions="Center"
-                VerticalOptions="Center"/>
-            
+                VerticalOptions="Center" />
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>

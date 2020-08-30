@@ -108,7 +108,7 @@
     <data
         name="SettingsView_AppVersion"
         xml:space="preserve">
-        <value>App Vesion: {0}</value>
+        <value>App Version: {0}</value>
     </data>
     <data
         name="SettingsView_ListView_Header"
@@ -235,27 +235,32 @@
     <data
         name="Error_Content_PaymentInvalid"
         xml:space="preserve">
-        <value>Die Zahlung scheint ungültig zu sein, bitte versuchen Sie es später erneut.</value>
+        <value>Die Zahlung scheint ungültig zu sein, bitte versuchen Sie es später erneut!</value>
     </data>
     <data
         name="Error_Content_PaymentNotAllowed"
         xml:space="preserve">
-        <value>Die Zahlung scheint nicht aktiviert/erlaubt zu sein, bitte versuchen Sie es erneut.</value>
+        <value>Die Zahlung scheint nicht aktiviert/erlaubt zu sein, bitte versuchen Sie es erneut!</value>
     </data>
     <data
         name="Error_Content_RestoreFailed"
         xml:space="preserve">
-        <value>Der Kauf konnte nicht wiederhergestellt werden, bitte versuchen Sie es erneut.</value>
+        <value>Der Kauf konnte nicht wiederhergestellt werden, bitte versuchen Sie es erneut!</value>
     </data>
     <data
         name="Error_Content_CouldNotConnectToSpotify"
         xml:space="preserve">
-        <value>Verbindung mit Spotify App fehlgeschlagen, bitte versuchen Sie es erneut.</value>
+        <value>Verbindung mit Spotify App fehlgeschlagen, bitte versuchen Sie es erneut!</value>
     </data>
     <data
         name="Error_Content_FileNotFound"
         xml:space="preserve">
         <value>Die ausgewählte Datei wurde nicht gefunden. Soll die Session gelöscht werden?</value>
+    </data>
+     <data
+        name="Error_Content_NotEnoughSpace"
+        xml:space="preserve">
+        <value>Die ausgewählte Datei konnte nicht hinzugefügt werden, da nicht genügend Speicherplatz vorhanden ist.</value>
     </data>
     <data
         name="Error_Content_NoPremiumUser"
@@ -267,16 +272,11 @@
         xml:space="preserve">
         <value>Dein Spotify Account konnte nicht überprüft werden. Um Spotify Songs loopen zu können, brauchst du ein Spotify Premium Abo.</value>
      </data>
-     <data
-        name="Error_Content_NotEnoughSpace"
-        xml:space="preserve">
-        <value>Die ausgewählte Datei konnte nicht hinzugefügt werden, da nicht genügend Speicherplatz vorhanden ist.</value>
-    </data>
     <!--Hint Dialogs-->
     <data
         name="Hint_Caption_AlreadyPurchased"
         xml:space="preserve">
-        <value>Gekaut</value>
+        <value>Gekauft</value>
     </data>
     <data
         name="Hint_Content_AlreadyPurchased"
@@ -286,27 +286,27 @@
     <data
         name="Hint_Caption_SlowConnection"
         xml:space="preserve">
-        <value>Verbindungprobleme</value>
+        <value>Verbindungsprobleme</value>
     </data>
     <data
         name="Hint_Content_SlowConnection"
         xml:space="preserve">
         <value>Ihre Internetverbindung scheint schlecht zu sein. Dies kann sich auf die Bedienung der App auswirken.</value>
     </data>
-        <data
+    <data
         name="Hint_Caption_FileTooLong_Caption"
         xml:space="preserve">
-        <value>Lieder die länger als eine Stunde sind, werden nicht unterstützt.</value>
+        <value>Nicht unterstützt</value>
     </data>
     <data
         name="Hint_Content_FileTooLong_Content"
         xml:space="preserve">
-        <value>Songs longer than one hour are not supported.</value>
+        <value>Lieder die länger als eine Stunde sind, werden nicht unterstützt.</value>
     </data>
      <data
         name="Hint_Caption_SpotifyMissing"
         xml:space="preserve">
-        <value>Spotify App</value>
+        <value>Spotify-App fehlt</value>
     </data>
     <data
         name="Hint_Content_SpotifyMissing"
