@@ -7,7 +7,6 @@ using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
-using MediaManager;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
@@ -23,6 +22,7 @@ using Emka3.PracticeLooper.Config.Contracts;
 using Emka.PracticeLooper.Mobile.iOS.Common;
 using Plugin.InAppBilling;
 using Xamarin.Forms;
+using AVFoundation;
 
 namespace Emka.PracticeLooper.Mobile.iOS
 {
@@ -50,7 +50,6 @@ namespace Emka.PracticeLooper.Mobile.iOS
             SQLitePCL.Batteries_V2.Init();
             Rg.Plugins.Popup.Popup.Init();
             Google.MobileAds.MobileAds.SharedInstance.Start(null);
-            CrossMediaManager.Current.Init();
             SfPickerRenderer.Init();
             Forms.SetFlags("CarouselView_Experimental");
             global::Xamarin.Forms.Forms.Init();
@@ -133,6 +132,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
 
         private void Setup()
         {
+            NSError error = AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
             var configService = new ConfigurationService(new PersistentConfigService()) ?? throw new ArgumentNullException("configService");
             configService.ReadConfigs();
             string key;

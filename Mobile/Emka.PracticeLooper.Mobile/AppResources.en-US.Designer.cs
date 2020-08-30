@@ -371,6 +371,12 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string Error_Content_FileNotFound {
+            get {
+                return ResourceManager.GetString("Error_Content_FileNotFound", resourceCulture);
+            }
+        }
+        
         internal static string Prompt_Caption_NewLoop {
             get {
                 return ResourceManager.GetString("Prompt_Caption_NewLoop", resourceCulture);

@@ -31,10 +31,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #region Ctor
         public SpotifyAudioPlayer(IPlayerTimer timer, ISpotifyLoader spotifyLoader, ILogger logger)
         {
-            this.spotifyLoader = spotifyLoader;
-            this.logger = logger;
+            this.spotifyLoader = spotifyLoader ?? throw new ArgumentNullException(nameof(spotifyLoader));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             IsPlaying = false;
-            this.timer = timer;
+            this.timer = timer ?? throw new ArgumentNullException(nameof(timer));
         }
         #endregion
 

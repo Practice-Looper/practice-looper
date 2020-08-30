@@ -17,7 +17,6 @@ using Emka3.PracticeLooper.Mappings.Contracts;
 using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
-using MediaManager;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
@@ -41,7 +40,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
             Setup();
 
-            CrossMediaManager.Current.Init(this);
             GlobalApp.MainActivity = this;
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;

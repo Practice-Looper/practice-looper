@@ -40,18 +40,17 @@ namespace Emka.PracticeLooper.Mobile.Common
             if (fileData == null)
                 return result; // user canceled file picking
 
-            var path = await fileRepository.SaveFileAsync(fileData.FileName, fileData.DataArray);
+            await fileRepository.SaveFileAsync(fileData.FileName, fileData.DataArray);
 
             result = new AudioSource
             {
-                FileName = Path.GetFileNameWithoutExtension(path),
-                Source = path,
+                FileName = Path.GetFileNameWithoutExtension(fileData.FileName),
+                Source = fileData.FileName,
                 Type = AudioSourceType.Local
             };
 
             // get duration
             var metadata = await audioMetadataReader.GetMetaDataAsync(result);
-
             result.Duration = metadata.Duration;
 
             return result;
