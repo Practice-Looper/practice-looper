@@ -255,7 +255,7 @@
     <data
         name="Error_Content_FileNotFound"
         xml:space="preserve">
-        <value>The selected file was not found</value>
+        <value>The selected file was not found.</value>
     </data>
     <!--Hint Dialogs-->
     <data
