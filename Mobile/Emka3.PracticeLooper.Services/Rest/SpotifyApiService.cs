@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,6 +28,7 @@ namespace Emka3.PracticeLooper.Services.Rest
         IHttpApiClient apiClient;
         private readonly IConfigurationService configurationService;
         int limit;
+        public bool UserPremiumCheckSuccessful { get; set; }
         #endregion
 
         #region Ctor
@@ -36,6 +38,7 @@ namespace Emka3.PracticeLooper.Services.Rest
             this.apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             limit = configurationService.GetValue<int>("SpotifyApiLimit");
+            UserPremiumCheckSuccessful = false;
         }
         #endregion
 
@@ -71,6 +74,37 @@ namespace Emka3.PracticeLooper.Services.Rest
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        public async Task<Tuple<HttpStatusCode, bool>> IsPremiumUser()
+        {
+            try
+            {
+                string result;
+                HttpStatusCode statusCode;
+                using (var response = await apiClient.SendRequestAsync(HttpMethod.Get, "me", default))
+                {
+                    response.EnsureSuccessStatusCode();
+                    statusCode = response.StatusCode;
+                    result = await response.Content.ReadAsStringAsync();
+                }
+
+                var jObject = JObject.Parse(result);
+                var hasPremium = jObject["product"].ToString().Equals("premium");
+
+                UserPremiumCheckSuccessful = true;
+                return Tuple.Create(statusCode, hasPremium);
+            }
+            catch (HttpRequestException)
+            {
+                UserPremiumCheckSuccessful = false;
+                return Tuple.Create(HttpStatusCode.Conflict, false);
+            }
+            catch (Exception)
+            {
+                UserPremiumCheckSuccessful = false;
+                return Tuple.Create(HttpStatusCode.Conflict, false);
             }
         }
         #endregion

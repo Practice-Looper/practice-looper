@@ -257,6 +257,16 @@
         xml:space="preserve">
         <value>Die ausgewählte Datei wurde nicht gefunden.</value>
     </data>
+    <data
+        name="Error_Content_NoPremiumUser"
+        xml:space="preserve">
+        <value>Du scheinst keinen Spotify Premium Account zu haben. Um Spotify Songs loopen zu können, brauchst du ein Spotify Premium Abo.</value>
+    </data>
+     <data
+        name="Error_Content_PremiumUserCheckFailed"
+        xml:space="preserve">
+        <value>Dein Spotify Account konnte nicht überprüft werden. Um Spotify Songs loopen zu können, brauchst du ein Spotify Premium Abo.</value>
+    </data>
     <!--Hint Dialogs-->
     <data
         name="Hint_Caption_AlreadyPurchased"
@@ -297,6 +307,11 @@
         name="Hint_Content_SpotifyMissing"
         xml:space="preserve">
         <value>Spotify-App fehlt auf Ihrem Gerät. Möchten Sie sie jetzt herunterladen?</value>
+    </data>
+    <data
+        name="Hint_Caption_General"
+        xml:space="preserve">
+        <value>Warnung</value>
     </data>
     <!--Prompt Dialogs-->
     <data

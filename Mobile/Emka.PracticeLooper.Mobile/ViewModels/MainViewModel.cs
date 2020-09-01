@@ -22,6 +22,8 @@ using Xamarin.Essentials;
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka3.PracticeLooper.Config.Contracts;
 using System.IO;
+using Emka3.PracticeLooper.Services.Contracts.Rest;
+using System.Net;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -36,6 +38,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private IFileRepository fileRepository;
         private ISourcePicker sourcePicker;
         private ISpotifyLoader spotifyLoader;
+        private ISpotifyApiService spotifyApiService;
         private Mobile.Common.IFilePicker filePicker;
         private readonly IConnectivityService connectivityService;
         private readonly IConfigurationService configurationService;
@@ -53,6 +56,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private string currentSongTime;
         private Command addNewLoopCommand;
         private bool isBusy;
+        private bool isPremiumUser;
         #endregion
 
         #region Ctor
@@ -63,6 +67,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             IFileRepository fileRepository,
             ISourcePicker sourcePicker,
             ISpotifyLoader spotifyLoader,
+            ISpotifyApiService spotifyApiService,
             Mobile.Common.IFilePicker filePicker,
             IConnectivityService connectivityService,
             INavigationService navigationService,
@@ -78,6 +83,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.fileRepository = fileRepository;
             this.sourcePicker = sourcePicker;
             this.spotifyLoader = spotifyLoader;
+            this.spotifyApiService = spotifyApiService;
             this.filePicker = filePicker;
             this.connectivityService = connectivityService;
             this.configurationService = configurationService;
@@ -266,6 +272,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
+        public bool IsPremiumUser
+        {
+            get => isPremiumUser;
+            set
+            {
+                isPremiumUser = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public double StepFrequency => CurrentSession != null ? 1 / CurrentSession.Session.AudioSource.Duration : 0;
         public double TickFrequency => StepFrequency * 5;
         #endregion
@@ -280,6 +296,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 await loopsRepository.InitAsync();
                 var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
                 spotifyLoader.Disconnected += OnSpotifyDisconnected;
+
                 await MainThread.InvokeOnMainThreadAsync(() =>
                 {
                     foreach (var item in items)
@@ -460,7 +477,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 if (CurrentAudioPlayer.IsPlaying)
                 {
-                    await CurrentAudioPlayer.PauseAsync(true);
+                    Device.BeginInvokeOnMainThread(() => IsPlaying = false);
+                    Device.BeginInvokeOnMainThread(() => CurrentAudioPlayer.Pause(true));
                     CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
                     CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
@@ -486,12 +504,31 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                             await Logger.LogErrorAsync(ex);
                             await dialogService.ShowAlertAsync(ex.Message, AppResources.Error_Caption);
                             return;
-                        }   
+                        }
                     }
 
                     CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
                     CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
+
+                    if (CurrentAudioPlayer.Type.Equals(AudioSourceType.Spotify))
+                    {
+                        if (!spotifyApiService.UserPremiumCheckSuccessful)
+                        {
+                            var premiumCheck = await spotifyApiService.IsPremiumUser();
+                            IsPremiumUser = premiumCheck.Item2;
+
+                            if (!IsPremiumUser && premiumCheck.Item1.Equals(HttpStatusCode.OK))
+                            {
+                                await dialogService.ShowAlertAsync(AppResources.Error_Content_NoPremiumUser, AppResources.Hint_Caption_General);
+                            }
+                            else if (!IsPremiumUser && !premiumCheck.Item1.Equals(HttpStatusCode.OK))
+                            {
+                                await dialogService.ShowAlertAsync(AppResources.Error_Content_PremiumUserCheckFailed, AppResources.Hint_Caption_General);
+                            }
+                        }
+
+                    }
 
                     await CurrentAudioPlayer.PlayAsync();
                 }
@@ -591,7 +628,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         {
                             await NavigationService.NavigateToAsync<SpotifySearchViewModel>();
                         }
-
                         break;
                     default:
                         break;
