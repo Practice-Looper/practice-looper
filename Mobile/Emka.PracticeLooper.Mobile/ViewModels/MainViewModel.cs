@@ -655,18 +655,22 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             try
             {
                 var name = await dialogService.ShowPromptAsync(AppResources.Prompt_Caption_NewLoop, AppResources.Prompt_Content_NewLoop, AppResources.Save, AppResources.Cancel, string.Format(AppResources.Prompt_Content_NewLoop_NamePlaceholder, CurrentSession.Session.Loops.Count));
-                if (!string.IsNullOrEmpty(name))
-                {
-                    // reset current loop
-                    var unmodifiedLoop = await loopsRepository.GetByIdAsync(CurrentLoop.Id);
-                    CurrentSession.Session.Loops[CurrentSession.Session.Loops.IndexOf(CurrentLoop)] = unmodifiedLoop;
 
-                    // create new loop and set it as current loop
-                    var loop = new Loop() { Name = name, StartPosition = MinimumValue, EndPosition = MaximumValue, Session = CurrentSession.Session, SessionId = CurrentSession.Session.Id, IsDefault = false };
-                    loop.Id = await loopsRepository.SaveAsync(loop);
-                    CurrentSession.Session.Loops.Add(loop);
-                    CurrentLoop = loop;
+                if (string.IsNullOrEmpty(name))
+                {
+                    name = string.Format(AppResources.Prompt_Content_NewLoop_NamePlaceholder, CurrentSession.Session.Loops.Count);
                 }
+                
+                // reset current loop
+                var unmodifiedLoop = await loopsRepository.GetByIdAsync(CurrentLoop.Id);
+                CurrentSession.Session.Loops[CurrentSession.Session.Loops.IndexOf(CurrentLoop)] = unmodifiedLoop;
+
+                // create new loop and set it as current loop
+                var loop = new Loop() { Name = name, StartPosition = MinimumValue, EndPosition = MaximumValue, Session = CurrentSession.Session, SessionId = CurrentSession.Session.Id, IsDefault = false };
+                loop.Id = await loopsRepository.SaveAsync(loop);
+                CurrentSession.Session.Loops.Add(loop);
+                CurrentLoop = loop;
+                
             }
             catch (Exception ex)
             {
