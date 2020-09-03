@@ -161,12 +161,14 @@ namespace Emka.PracticeLooper.Mobile.Views
                             var secs = TimeSpan.Parse(timeString).TotalSeconds;
                             var currentStartTime = 100 / mainVm.CurrentSession.Session.AudioSource.Duration * secs;
                             mainVm.MinimumValue = (currentStartTime < 0 ? 0 : currentStartTime / 100);
+                            mainVm.UpdateLoopStartPosition();
                         }
                         else
                         {
                             var secs = TimeSpan.Parse(timeString).TotalSeconds;
                             var currentEndTime = 100 / mainVm.CurrentSession.Session.AudioSource.Duration * secs;
                             mainVm.MaximumValue = (currentEndTime > 100 ? 1 : currentEndTime / 100);
+                            mainVm.UpdateLoopEndPosition();
                         }
                     }
 
