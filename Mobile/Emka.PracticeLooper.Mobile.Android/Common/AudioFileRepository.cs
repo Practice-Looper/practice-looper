@@ -35,32 +35,28 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             double fileSize = (data.Length / 1024d) / 1024d;
             var freeExternalStorage = deviceStorageService.GetAvailableExternalStorage();
             var freeInternalStorage = deviceStorageService.GetAvailableInternalStorage();
-            var isNotEnoughInternalStorage = fileSize < freeInternalStorage;
-            
+            var isNotEnoughInternalStorage = fileSize > freeInternalStorage;
+           
             if (isNotEnoughInternalStorage)
             {
                 var storageAccess = await Permissions.CheckStatusAsync<Permissions.StorageWrite>();
-                var mounted = false;
+
                 if (storageAccess == PermissionStatus.Granted)
                 {
-                    mounted = Android.OS.Environment.ExternalStorageState == Android.OS.Environment.MediaMounted;
-                }
+                    var isNotEnoughExternalStorage = fileSize > freeExternalStorage;
 
-                if (mounted)
-                {
-                    targetPath = await configurationService.GetValueAsync(PreferenceKeys.ExternalStoragePath);
+                    targetPath = await configurationService.GetValueAsync(PreferenceKeys.ExternalStoragePath) ?? throw new InvalidOperationException();
 
-                    if (fileSize > freeExternalStorage)
+                    if (isNotEnoughExternalStorage)
                     {
-                        throw new InvalidOperationException();
+                        throw new InvalidOperationException("Not enough external space left.");
                     }
                 }
                 else
                 {
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException("Not enough internal space left.");
                 }
             }
-
 
             await Task.Run(() =>
             {
@@ -84,18 +80,32 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public async Task DeleteFileAsync(string fileName)
         {
+           
             if (string.IsNullOrEmpty(fileName))
             {
                 throw new ArgumentNullException(nameof(fileName));
             }
 
-            if (File.Exists(fileName))
+            var path = string.Empty; 
+
+            if (File.Exists(Path.Combine(configurationService.GetValue<string>(PreferenceKeys.InternalStoragePath), fileName)))
+            {
+                path = Path.Combine(configurationService.GetValue<string>(PreferenceKeys.InternalStoragePath), fileName);
+            }
+
+            if (File.Exists(Path.Combine(configurationService.GetValue<string>(PreferenceKeys.ExternalStoragePath), fileName)))
+            {
+                path = Path.Combine(configurationService.GetValue<string>(PreferenceKeys.ExternalStoragePath), fileName);
+            }
+
+            if (path != string.Empty)
             {
                 await Task.Run(() =>
                 {
-                    File.Delete(fileName);
+                    File.Delete(path);
                 });
             }
+            
         }
         #endregion Methods
     }

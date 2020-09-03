@@ -197,7 +197,10 @@ namespace Emka.PracticeLooper.Mobile.Droid
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(configService.GetValue("SyncFusionLicenseKey"));
             Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, configService.GetValue("AdmobAndroidAppId"));
             configService.SetValue(PreferenceKeys.InternalStoragePath, FileSystem.AppDataDirectory);
-            configService.SetValue(PreferenceKeys.ExternalStoragePath, Android.OS.Environment.ExternalStorageDirectory.AbsolutePath);
+
+            var externalDir = GetExternalFilesDirs(Android.OS.Environment.DirectoryMusic).FirstOrDefault(dir => dir.AbsolutePath.Contains("storage/emulated/0"));
+            configService.SetValue(PreferenceKeys.ExternalStoragePath, externalDir?.AbsolutePath);
+
             var resolver = Factory.GetResolver() ?? throw new ArgumentNullException("resolver");
             resolver.RegisterInstance(configService, typeof(IConfigurationService));
             resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));

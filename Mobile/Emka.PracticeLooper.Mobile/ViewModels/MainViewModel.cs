@@ -479,22 +479,27 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         {
                             await CurrentAudioPlayer.InitAsync(CurrentLoop);
                         }
-
                         catch (FileNotFoundException ex)
                         {
                             await Logger.LogErrorAsync(ex);
-                            var deleteFile = await dialogService.ShowConfirmAsync(AppResources.Error_Content_FileNotFound, AppResources.Error_Caption, AppResources.Cancel, AppResources.Ok);
+                            var deleteFile = await dialogService.ShowConfirmAsync(AppResources.Error_Caption, AppResources.Error_Content_FileNotFound, AppResources.Cancel, AppResources.Ok);
 
                             if (deleteFile)
                             {
-                                DeleteSessionCommand.Execute(o);
+                                DeleteSessionCommand.Execute(CurrentSession);
                             }
+
                             return;
+                        }
+                        catch (InvalidOperationException ex)
+                        {
+                            await Logger.LogErrorAsync(ex);
+                            await dialogService.ShowAlertAsync(AppResources.Error_Content_NotEnoughSpace, AppResources.Error_Caption);
                         }
                         catch (Exception ex)
                         {
                             await Logger.LogErrorAsync(ex);
-                            await dialogService.ShowAlertAsync(ex.Message, AppResources.Error_Caption);
+                            await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
                             return;
                         }
                     }
