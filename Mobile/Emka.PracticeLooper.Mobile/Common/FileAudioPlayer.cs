@@ -4,6 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config.Contracts;
@@ -56,7 +57,7 @@ namespace Emka.PracticeLooper.Mobile.Common
         private int CurrentStartPosition { get; set; }
         private int CurrentEndPosition { get; set; }
 
-        public AudioSourceType Type => AudioSourceType.LocalInternal;
+        public List<AudioSourceType> Types => new List<AudioSourceType> { AudioSourceType.LocalInternal, AudioSourceType.LocalExternal };
 
         public string DisplayName => "File";
 
@@ -100,7 +101,7 @@ namespace Emka.PracticeLooper.Mobile.Common
 
             CurrentLoop = loop;
             RemoveEventHandlers();
-            var file = audioFileLoader.GetAbsoluteFilePath(loop.Session.AudioSource);
+            var file = audioFileLoader.GetFileStream(loop.Session.AudioSource);
             audioPlayer.Load(file);
             timer.LoopTimerExpired += LoopTimerExpired;
             timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;

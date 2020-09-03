@@ -14,6 +14,7 @@ using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Moq;
 using Xunit;
 
@@ -29,6 +30,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         Mock<IFileRepository> fileRepositoryMock;
         Mock<ISourcePicker> sourcePickerMock;
         Mock<ISpotifyLoader> spotifyLoaderMock;
+        Mock<ISpotifyApiService> spotifyApiServiceMock;
         Mock<Common.IFilePicker> filePickerMock;
         Mock<IConnectivityService> connectivityServiceMock;
         Mock<INavigationService> navigationServiceMock;
@@ -46,6 +48,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             fileRepositoryMock = new Mock<IFileRepository>();
             sourcePickerMock = new Mock<ISourcePicker>();
             spotifyLoaderMock = new Mock<ISpotifyLoader>();
+            spotifyApiServiceMock = new Mock<ISpotifyApiService>();
             filePickerMock = new Mock<Common.IFilePicker>();
             connectivityServiceMock = new Mock<IConnectivityService>();
             navigationServiceMock = new Mock<INavigationService>();
@@ -67,6 +70,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 fileRepositoryMock.Object,
                 sourcePickerMock.Object,
                 spotifyLoaderMock.Object,
+                spotifyApiServiceMock.Object,
                 filePickerMock.Object,
                 connectivityServiceMock.Object,
                 navigationServiceMock.Object,
@@ -100,6 +104,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 fileRepositoryMock.Object,
                 sourcePickerMock.Object,
                 spotifyLoaderMock.Object,
+                spotifyApiServiceMock.Object,
                 filePickerMock.Object,
                 connectivityServiceMock.Object,
                 navigationServiceMock.Object,
@@ -125,6 +130,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 fileRepositoryMock.Object,
                 sourcePickerMock.Object,
                 spotifyLoaderMock.Object,
+                spotifyApiServiceMock.Object,
                 filePickerMock.Object,
                 connectivityServiceMock.Object,
                 navigationServiceMock.Object,
@@ -142,7 +148,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             IFileRepository fileRepository,
             ISourcePicker sourcePicker,
             ISpotifyLoader spotifyLoader,
-            Mobile.Common.IFilePicker filePicker,
+            ISpotifyApiService spotifyApiService,
+            Common.IFilePicker filePicker,
             IConnectivityService connectivityService,
             INavigationService navigationService,
             ILogger logger,
@@ -156,6 +163,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 fileRepository,
                 sourcePicker,
                 spotifyLoader,
+                spotifyApiService,
                 filePicker,
                 connectivityService,
                 navigationService,

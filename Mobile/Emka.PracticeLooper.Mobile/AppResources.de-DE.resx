@@ -255,7 +255,7 @@
     <data
         name="Error_Content_FileNotFound"
         xml:space="preserve">
-        <value>Die ausgewählte Datei wurde nicht gefunden.</value>
+        <value>Die ausgewählte Datei wurde nicht gefunden. Soll die Session gelöscht werden?</value>
     </data>
     <data
         name="Error_Content_NoPremiumUser"

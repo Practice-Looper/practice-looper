@@ -2,14 +2,13 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
-using System;
-using System.IO;
 using System.Threading.Tasks;
 using AVFoundation;
-using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 using Foundation;
+using Factory = Emka3.PracticeLooper.Mappings.Factory;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
@@ -17,14 +16,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
     [Preserve(AllMembers = true)]
     public class AudioMetadataReader : IAudioMetadataReader
     {
-        #region Fields
-        private readonly IConfigurationService configurationService;
-        #endregion
-
         #region Ctor
-        public AudioMetadataReader(IConfigurationService configurationService)
+        public AudioMetadataReader()
         {
-            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
+           
         }
         #endregion
 
@@ -34,7 +29,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             return await Task.Run(() =>
             {
-                var asset = AVAsset.FromUrl(NSUrl.FromFilename(Path.Combine(configurationService.GetValue(PreferenceKeys.InternalStoragePath), audioSource.Source)));
+                var dataSource = Factory.GetResolver().Resolve<IAudioFileLoader>()?.GetAbsoluteFilePath(audioSource);
+                var asset = AVAsset.FromUrl(NSUrl.FromFilename(dataSource));
                 var metaData = new AudioMetadata((int)asset.Duration.Seconds);
                 return metaData;
             });

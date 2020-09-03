@@ -4,6 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Com.Spotify.Android.Appremote.Api;
@@ -54,7 +55,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         private int CurrentStartPosition { get; set; }
         private int CurrentEndPosition { get; set; }
         public SpotifyAppRemote Api { get => spotifyLoader.RemoteApi as SpotifyAppRemote; }
-        public AudioSourceType Type => AudioSourceType.Spotify;
+        public List<AudioSourceType> Types => new List<AudioSourceType> { AudioSourceType.Spotify };
         public string DisplayName => "Spotify";
         #endregion
 

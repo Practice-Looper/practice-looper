@@ -14,5 +14,6 @@ namespace Emka3.PracticeLooper.Config.Contracts
         public static readonly string SlowConnectionWarning = nameof(SlowConnectionWarning);
         public static readonly string ExternalStoragePath = nameof(ExternalStoragePath);
         public static readonly string InternalStoragePath = nameof(InternalStoragePath);
+        public static readonly string IsSpotifyInstalled = nameof(IsSpotifyInstalled);
     }
 }

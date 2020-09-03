@@ -483,7 +483,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         catch (FileNotFoundException ex)
                         {
                             await Logger.LogErrorAsync(ex);
-                            await dialogService.ShowAlertAsync(AppResources.Error_Content_FileNotFound, AppResources.Error_Caption);
+                            var deleteFile = await dialogService.ShowConfirmAsync(AppResources.Error_Content_FileNotFound, AppResources.Error_Caption, AppResources.Cancel, AppResources.Ok);
+
+                            if (deleteFile)
+                            {
+                                DeleteSessionCommand.Execute(o);
+                            }
                             return;
                         }
                         catch (Exception ex)
@@ -498,7 +503,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
                     CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
 
-                    if (CurrentAudioPlayer.Type.Equals(AudioSourceType.Spotify))
+                    if (CurrentAudioPlayer.Types.Contains(AudioSourceType.Spotify))
                     {
                         if (!spotifyApiService.UserPremiumCheckSuccessful)
                         {
@@ -691,7 +696,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 if (CurrentSession != null)
                 {
-                    CurrentAudioPlayer = Factory.GetResolver().ResolveAll<IAudioPlayer>().First(p => p.Type == CurrentSession.Session.AudioSource.Type);
+                    var audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>();
+                    CurrentAudioPlayer = audioPlayers.First(p => p.Types.Contains(CurrentSession.Session.AudioSource.Type));
                     CurrentLoop = CurrentSession.Session.Loops.FirstOrDefault(l => l.Id == configurationService.GetValue(PreferenceKeys.LastLoop, default(int))) ?? CurrentSession.Session.Loops.First(l => l.IsDefault);
                     MinimumValue = CurrentLoop.StartPosition;
                     MaximumValue = CurrentLoop.EndPosition;

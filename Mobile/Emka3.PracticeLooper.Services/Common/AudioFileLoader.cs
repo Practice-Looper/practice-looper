@@ -39,7 +39,20 @@ namespace Emka3.PracticeLooper.Services.Common
 
         public Stream GetFileStream(AudioSource audioSource)
         {
-            throw new NotImplementedException();
+            switch (audioSource.Type)
+            {
+                case AudioSourceType.Spotify:
+                case AudioSourceType.None:
+                    return FileStream.Null;
+                case AudioSourceType.LocalInternal:
+                    var internalStream = new FileStream(Path.Combine(configurationService.GetValue(PreferenceKeys.InternalStoragePath), audioSource.Source), FileMode.Open, FileAccess.Read);
+                    return internalStream;
+                case AudioSourceType.LocalExternal:
+                    var externalStream = new FileStream(Path.Combine(configurationService.GetValue(PreferenceKeys.ExternalStoragePath), audioSource.Source), FileMode.Open, FileAccess.Read);
+                    return externalStream;
+                default:
+                    throw new ArgumentException($"invalid audio source type {audioSource.Type}");
+            }
         }
     }
 }

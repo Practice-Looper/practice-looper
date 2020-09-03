@@ -3,13 +3,12 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Android.Media;
-using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Factory = Emka3.PracticeLooper.Mappings.Factory;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
@@ -17,14 +16,12 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
     {
         #region Fields
         private readonly ILogger logger;
-        private readonly IConfigurationService configurationService;
         #endregion
 
         #region Ctor
-        public AudioMetadataReader(ILogger logger, IConfigurationService configurationService)
+        public AudioMetadataReader(ILogger logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
         }
         #endregion
 
@@ -36,7 +33,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             {
                 var player = new MediaPlayer();
                 player.Reset();
-                player.SetDataSource(Path.Combine(configurationService.GetValue(PreferenceKeys.InternalStoragePath), audioSource.Source));
+                var dataSource = Factory.GetResolver().Resolve<IAudioFileLoader>()?.GetAbsoluteFilePath(audioSource);
+                player.SetDataSource(dataSource);
                 player.Prepare();
                 return await Task.FromResult(new AudioMetadata(TimeSpan.FromMilliseconds(player.Duration).TotalSeconds));
             }

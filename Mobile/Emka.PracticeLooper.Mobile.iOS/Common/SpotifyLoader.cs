@@ -89,7 +89,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             try
             {
-                if (!configurationService.IsSpotifyInstalled)
+                if (!configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled))
                 {
                     var installSpotify = dialogService.ShowConfirmAsync(
                             stringLocalizer.GetLocalizedString("Hint_Caption_SpotifyMissing"),
@@ -136,8 +136,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             tokenEvent = new AutoResetEvent(false);
             connectedEvent = new AutoResetEvent(false);
-            configurationService.IsSpotifyInstalled = IsSpotifyInstalled();
-            
+            configurationService.SetValueAsync(PreferenceKeys.IsSpotifyInstalled, IsSpotifyInstalled());
+
             return await Task.Run(() => Initialize(songUri));
 
         }

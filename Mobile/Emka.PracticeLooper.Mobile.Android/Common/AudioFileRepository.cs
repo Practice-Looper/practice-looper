@@ -35,7 +35,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             double fileSize = (data.Length / 1024d) / 1024d;
             var freeExternalStorage = deviceStorageService.GetAvailableExternalStorage();
             var freeInternalStorage = deviceStorageService.GetAvailableInternalStorage();
-            var isNotEnoughInternalStorage = fileSize > freeInternalStorage;
+            var isNotEnoughInternalStorage = fileSize < freeInternalStorage;
             
             if (isNotEnoughInternalStorage)
             {

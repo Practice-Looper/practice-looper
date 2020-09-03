@@ -16,10 +16,6 @@ namespace Emka3.PracticeLooper.Config.Contracts
     {
         event EventHandler<string> ValueChanged;
 
-        #region Properties
-        bool IsSpotifyInstalled { get; set; }
-        #endregion
-
         #region Methods
         /// <summary>
         /// Read configs from secrets file.
