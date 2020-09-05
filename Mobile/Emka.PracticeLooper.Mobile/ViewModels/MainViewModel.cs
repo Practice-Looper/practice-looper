@@ -217,9 +217,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(IsInitialized));
                 NotifyPropertyChanged(nameof(IsPlaying));
-                NotifyPropertyChanged(nameof(StepFrequency));
-                NotifyPropertyChanged(nameof(TickFrequency));
                 NotifyPropertyChanged(nameof(MinimumRange));
+                NotifyPropertyChanged(nameof(MinimumValue));
+                NotifyPropertyChanged(nameof(MaximumValue));
                 PlayCommand.ChangeCanExecute();
                 AddNewLoopCommand.ChangeCanExecute();
             }
@@ -248,7 +248,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged(nameof(MaximumValue));
             }
         }
-
         public bool IsBusy
         {
             get => isBusy;
@@ -258,7 +257,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged();
             }
         }
-
         public bool IsPremiumUser
         {
             get => isPremiumUser;
@@ -268,7 +266,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged();
             }
         }
-
         public double StepFrequency => CurrentSession != null ? 1 / CurrentSession.Session.AudioSource.Duration : 0;
         public double TickFrequency => StepFrequency * 5;
         #endregion
@@ -318,24 +315,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 CurrentAudioPlayer?.Pause();
                 CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
                 CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
-                CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
-            }
-        }
-
-        public void UpdateMinMaxValues()
-        {
-            if (CurrentLoop != null)
-            {
-                try
-                {
-                    CurrentLoop.StartPosition = MinimumValue;
-                    CurrentLoop.EndPosition = MaximumValue;
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogError(ex);
-                    dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
-                }
             }
         }
 
@@ -348,7 +327,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     CurrentAudioPlayer?.Pause();
                     CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
-                    CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
                 }
 
                 spotifyLoader?.Disconnect();
@@ -357,25 +335,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 Logger.LogError(ex);
                 dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
-            }
-        }
-
-        private void CurrentAudioPlayer_TimerElapsed(object sender, EventArgs e)
-        {
-            if (CurrentLoop != null)
-            {
-                try
-                {
-                    Device.BeginInvokeOnMainThread(() =>
-                            {
-                                CurrentAudioPlayer?.Play();
-                            });
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogError(ex);
-                    dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
-                }
             }
         }
 
@@ -468,7 +427,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     Device.BeginInvokeOnMainThread(() => CurrentAudioPlayer.Pause(true));
                     CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
-                    CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
                     await interstitialAd?.ShowAdAsync();
                 }
                 else
@@ -506,7 +464,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                     CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
-                    CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
 
                     if (CurrentAudioPlayer.Types.HasFlag(AudioSourceType.Spotify))
                     {

@@ -52,14 +52,6 @@ namespace Emka.PracticeLooper.Mobile.Views
                    resolver.Resolve<IAppTracker>(),
                    configService);
         }
-
-        private void ConfigService_ValueChanged(object sender, string e)
-        {
-            if (e == PreferenceKeys.PremiumGeneral)
-            {
-                ToggleAd();
-            }
-        }
         #endregion
 
         #region Properties
@@ -82,15 +74,6 @@ namespace Emka.PracticeLooper.Mobile.Views
             else
             {
                 AdUnitId = App.BannerAddUnitId;
-            }
-        }
-
-        void OnDraggingCompleted(object sender, EventArgs e)
-        {
-            var viewModel = BindingContext as MainViewModel;
-            if (viewModel != null && viewModel.CurrentLoop != null)
-            {
-                viewModel.UpdateMinMaxValues();
             }
         }
 
@@ -206,9 +189,9 @@ namespace Emka.PracticeLooper.Mobile.Views
             }
         }
 
-        void OnDragCompleted(object sender, DragThumbEventArgs e)
+        private void OnSliderThumbTouchUp(object sender, DragThumbEventArgs e)
         {
-            if (BindingContext is MainViewModel vm && sender is SfRangeSlider slider)
+            if (BindingContext is MainViewModel vm)
             {
                 if (e.IsStartThumb)
                 {
@@ -218,6 +201,14 @@ namespace Emka.PracticeLooper.Mobile.Views
                 {
                     vm.UpdateLoopEndPosition();
                 }
+            }
+        }
+
+        private void ConfigService_ValueChanged(object sender, string e)
+        {
+            if (e == PreferenceKeys.PremiumGeneral)
+            {
+                ToggleAd();
             }
         }
         #endregion

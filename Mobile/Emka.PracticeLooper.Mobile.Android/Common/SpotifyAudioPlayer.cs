@@ -27,12 +27,12 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         private readonly IPlayerTimer timer;
         private readonly ISpotifyLoader spotifyLoader;
         private readonly ILogger logger;
-        private Session session;
-        private double internalSongDuration;
         const int CURRENT_TIME_UPDATE_INTERVAL = 1000;
         private CancellationTokenSource currentTimeCancelTokenSource;
         private SpotifyDelegate spotifyDelegate;
         bool pausedByUser;
+        private double loopStart;
+        private double loopEnd;
         #endregion
 
         #region Ctor
@@ -49,10 +49,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         #region Properties
         public bool Initialized { get; private set; }
         public bool IsPlaying { get; private set; }
-        public double SongDuration => internalSongDuration;
+        public double SongDuration => TimeSpan.FromSeconds(CurrentLoop.Session.AudioSource.Duration).TotalMilliseconds;
         public Loop CurrentLoop { get; set; }
-        private int CurrentStartPosition { get; set; }
-        private int CurrentEndPosition { get; set; }
         public SpotifyAppRemote Api { get => spotifyLoader.RemoteApi as SpotifyAppRemote; }
         public AudioSourceType Types => AudioSourceType.Spotify;
         public string DisplayName => "Spotify";
@@ -96,15 +94,22 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void Init(Loop loop)
         {
-            session = loop.Session;
-            internalSongDuration = TimeSpan.FromSeconds(session.AudioSource.Duration).TotalMilliseconds;
+            if (loop == null)
+            {
+                throw new ArgumentNullException(nameof(loop));
+            }
+
+            if (loop.Session == null)
+            {
+                throw new ArgumentNullException(nameof(loop.Session));
+            }
+
             CurrentLoop = loop;
             CurrentLoop.StartPositionChanged += OnLoopPositionChanged;
             CurrentLoop.EndPositionChanged += OnLoopPositionChanged;
-            CurrentStartPosition = ConvertToInt(CurrentLoop.StartPosition);
-            CurrentEndPosition = ConvertToInt(CurrentLoop.EndPosition);
+            loopStart = TimeSpan.FromSeconds(CurrentLoop.StartPosition * loop.Session.AudioSource.Duration).TotalMilliseconds;
+            loopEnd = TimeSpan.FromSeconds(CurrentLoop.EndPosition * loop.Session.AudioSource.Duration).TotalMilliseconds;
             currentTimeCancelTokenSource = new CancellationTokenSource();
-
             timer.LoopTimerExpired += LoopTimerExpired;
             timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
             spotifyDelegate = new SpotifyDelegate();
@@ -141,15 +146,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void Play()
         {
-            CurrentStartPosition = (int)(CurrentLoop.StartPosition * SongDuration);
-            CurrentEndPosition = (int)(CurrentLoop.EndPosition * SongDuration);
-
             if (!IsPlaying)
             {
                 spotifyDelegate.SpotifyErrorHandler += OnError;
                 spotifyDelegate.SpotifyEventHandler += OnEvent;
                 spotifyDelegate.SpotifyResultHandler += OnResult;
-
                 Api?.PlayerApi
                     ?.SubscribeToPlayerState()
                     ?.SetEventCallback(spotifyDelegate)
@@ -159,22 +160,18 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             }
 
             Api?.PlayerApi
-                ?.Play(session.AudioSource.Source)
+                ?.Play(CurrentLoop.Session.AudioSource.Source)
                 ?.SetResultCallback(spotifyDelegate)
                 ?.SetErrorCallback(spotifyDelegate);
 
             ResetAllTimers();
+            RaisePlayingStatusChanged();
+            CurrentPositionTimerExpired(this, new EventArgs());
         }
 
         public void Seek(double time)
         {
-            if (Api != null)
-            {
-                var seekTo = Convert.ToInt64(time * internalSongDuration);
-                Api?.PlayerApi
-                    ?.SeekTo(seekTo)
-                    ?.SetErrorCallback(spotifyDelegate);
-            }
+            Api?.PlayerApi?.SeekTo((long)loopStart);
         }
 
         public async Task InitAsync(Loop loop)
@@ -207,47 +204,32 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             CurrentTimePositionChanged?.Invoke(this, e);
         }
 
-        private void LoopTimerExpired(object sender, EventArgs e)
+        private async void LoopTimerExpired(object sender, EventArgs e)
         {
             TimerElapsed?.Invoke(this, e);
-        }
 
-        private int ConvertToInt(double inValue)
-        {
-            int result;
-            try
+            if (IsPlaying)
             {
-                result = Convert.ToInt32(inValue * internalSongDuration);
+                await SeekAsync(CurrentLoop.StartPosition);
+                ResetAllTimers();
             }
-            catch (System.Exception ex)
+            else
             {
-                logger?.LogError(ex);
-                throw;
+                await PlayAsync();
             }
-
-            return result;
         }
 
         private async void OnLoopPositionChanged(object sender, double e)
         {
             try
             {
-                var delta = CurrentEndPosition - CurrentStartPosition;
-
-                // avoid negative values and values larger than int.MaxValue
-                if (delta < 0 || delta >= int.MaxValue)
-                {
-                    logger.LogError(new ArgumentException($"negative time value {delta}. CurrentStartPosition: {CurrentStartPosition}. CurrentEndPosition: {CurrentEndPosition}. Song: {CurrentLoop.Session.AudioSource.FileName}. Song duration {CurrentLoop.Session.AudioSource.Duration}"));
-                    if (IsPlaying)
-                    {
-                        await PauseAsync();
-                        return;
-                    }
-                }
+                loopStart = TimeSpan.FromSeconds(CurrentLoop.StartPosition * CurrentLoop.Session.AudioSource.Duration).TotalMilliseconds;
+                loopEnd = TimeSpan.FromSeconds(CurrentLoop.EndPosition * CurrentLoop.Session.AudioSource.Duration).TotalMilliseconds;
 
                 if (IsPlaying)
                 {
-                    await PlayAsync();
+                    await SeekAsync(e);
+                    ResetAllTimers();
                 }
             }
             catch (System.Exception ex)
@@ -262,16 +244,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             try
             {
                 timer?.StopTimers();
-                var delta = CurrentEndPosition - CurrentStartPosition;
-
-                // avoid negative values and values larger than int.MaxValue and set timer to 10s
-                if (delta < 0 || delta >= int.MaxValue)
-                {
-                    logger.LogError(new ArgumentException($"negative time value {delta}. CurrentStartPosition: {CurrentStartPosition}. CurrentEndPosition: {CurrentEndPosition}. Song: {CurrentLoop.Session.AudioSource.FileName}. Song duration {CurrentLoop.Session.AudioSource.Duration}"));
-                    Pause();
-                }
-
-                timer?.SetLoopTimer(delta);
+                timer?.SetLoopTimer(loopEnd - loopStart);
                 timer?.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
             }
             catch (System.Exception ex)
@@ -285,7 +258,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
-                Api?.PlayerApi?.SeekTo(CurrentStartPosition);
+                Api?.PlayerApi?.SeekTo((long)loopStart);
             }
             catch (System.Exception ex)
             {
@@ -298,6 +271,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             // todo: show dialog
             await logger?.LogErrorAsync(new System.Exception(error.Message));
+        }
+
+        private void RaisePlayingStatusChanged()
+        {
+            PlayStatusChanged?.Invoke(this, IsPlaying);
         }
 
         ~SpotifyAudioPlayer()

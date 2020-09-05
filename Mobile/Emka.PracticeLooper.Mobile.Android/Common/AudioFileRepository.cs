@@ -106,7 +106,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                     File.Delete(path);
                 });
             }
-            
         }
         #endregion Methods
     }
