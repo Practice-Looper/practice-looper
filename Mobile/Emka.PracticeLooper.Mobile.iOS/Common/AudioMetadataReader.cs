@@ -8,7 +8,7 @@ using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Foundation;
-using Factory = Emka3.PracticeLooper.Mappings.Factory;
+using System;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
@@ -16,10 +16,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
     [Preserve(AllMembers = true)]
     public class AudioMetadataReader : IAudioMetadataReader
     {
+        private readonly IAudioFileLoader audioFileLoader;
         #region Ctor
-        public AudioMetadataReader()
+        public AudioMetadataReader(IAudioFileLoader audioFileLoader)
         {
-           
+            this.audioFileLoader = audioFileLoader ?? throw new ArgumentNullException(nameof(audioFileLoader));
         }
         #endregion
 
@@ -29,7 +30,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             return await Task.Run(() =>
             {
-                var dataSource = Factory.GetResolver().Resolve<IAudioFileLoader>()?.GetAbsoluteFilePath(audioSource);
+                var dataSource = audioFileLoader.GetAbsoluteFilePath(audioSource);
                 var asset = AVAsset.FromUrl(NSUrl.FromFilename(dataSource));
                 var metaData = new AudioMetadata((int)asset.Duration.Seconds);
                 return metaData;

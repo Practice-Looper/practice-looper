@@ -316,7 +316,7 @@
     <data
         name="Error_Content_NotEnoughSpace"
         xml:space="preserve">
-        <value>The selected file could not be added because there was not enough space.</value>
+        <value>The selected file could not be added because there is not enough free space.</value>
     </data>
     <!--Prompt Dialogs-->
     <data

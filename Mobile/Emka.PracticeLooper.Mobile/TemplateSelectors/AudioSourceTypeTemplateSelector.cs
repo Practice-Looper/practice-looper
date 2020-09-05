@@ -32,6 +32,7 @@ namespace Emka.PracticeLooper.Mobile.TemplateSelectors
 
                 switch (session.Session.AudioSource?.Type)
                 {
+                    case AudioSourceType.LocalExternal:
                     case AudioSourceType.LocalInternal:
                         return AudioFileTemplate;
                     case AudioSourceType.Spotify:
@@ -45,6 +46,7 @@ namespace Emka.PracticeLooper.Mobile.TemplateSelectors
             {
                 switch (vm.AudioType)
                 {
+                    case AudioSourceType.LocalExternal:
                     case AudioSourceType.LocalInternal:
                         return AudioFileTemplate;
                     case AudioSourceType.Spotify:

@@ -57,7 +57,7 @@ namespace Emka.PracticeLooper.Mobile.Common
         private int CurrentStartPosition { get; set; }
         private int CurrentEndPosition { get; set; }
 
-        public List<AudioSourceType> Types => new List<AudioSourceType> { AudioSourceType.LocalInternal, AudioSourceType.LocalExternal };
+        public AudioSourceType Types => AudioSourceType.LocalInternal | AudioSourceType.LocalExternal;
 
         public string DisplayName => "File";
 

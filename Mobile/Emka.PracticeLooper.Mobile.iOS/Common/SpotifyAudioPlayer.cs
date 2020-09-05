@@ -4,7 +4,6 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
@@ -34,8 +33,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             this.spotifyLoader = spotifyLoader ?? throw new ArgumentNullException(nameof(spotifyLoader));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            IsPlaying = false;
             this.timer = timer ?? throw new ArgumentNullException(nameof(timer));
+            IsPlaying = false;
         }
         #endregion
 
@@ -47,7 +46,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private int CurrentStartPosition { get; set; }
         private int CurrentEndPosition { get; set; }
         public SPTAppRemote Api { get => spotifyLoader.RemoteApi as SPTAppRemote; }
-        public List<AudioSourceType> Types => new List<AudioSourceType> { AudioSourceType.Spotify };
+        public AudioSourceType Types => AudioSourceType.Spotify;
 
         public string DisplayName => "Spotify";
         #endregion

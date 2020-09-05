@@ -97,7 +97,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                             stringLocalizer.GetLocalizedString("Cancel"),
                             stringLocalizer.GetLocalizedString("Ok")).Result;
 
-                    if (installSpotify) {
+                    if (installSpotify)
+                    {
                         InstallSpotify();
                     }
 
@@ -136,10 +137,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             tokenEvent = new AutoResetEvent(false);
             connectedEvent = new AutoResetEvent(false);
-            configurationService.SetValueAsync(PreferenceKeys.IsSpotifyInstalled, IsSpotifyInstalled());
-
+            await configurationService.SetValueAsync(PreferenceKeys.IsSpotifyInstalled, IsSpotifyInstalled());
             return await Task.Run(() => Initialize(songUri));
-
         }
 
         public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)

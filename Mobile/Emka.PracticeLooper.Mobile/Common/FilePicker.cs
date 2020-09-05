@@ -11,7 +11,6 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -22,11 +21,13 @@ namespace Emka.PracticeLooper.Mobile.Common
     {
         private readonly IFileRepository fileRepository;
         private readonly IAudioMetadataReader audioMetadataReader;
+        private readonly IPermissionsManager permissionsManager;
 
-        public FilePicker(IFileRepository fileRepository, IAudioMetadataReader audioMetadataReader)
+        public FilePicker(IFileRepository fileRepository, IAudioMetadataReader audioMetadataReader, IPermissionsManager permissionsManager)
         {
-            this.fileRepository = fileRepository;
-            this.audioMetadataReader = audioMetadataReader;
+            this.fileRepository = fileRepository ?? throw new ArgumentNullException(nameof(fileRepository));
+            this.audioMetadataReader = audioMetadataReader ?? throw new ArgumentNullException(nameof(audioMetadataReader));
+            this.permissionsManager = permissionsManager ?? throw new ArgumentNullException(nameof(permissionsManager));
         }
 
         public async Task<AudioSource> ShowPicker()
@@ -34,11 +35,11 @@ namespace Emka.PracticeLooper.Mobile.Common
             AudioSource result = null;
             bool isIos = Device.RuntimePlatform == Device.iOS;
 
-            var storageAccess = await Permissions.CheckStatusAsync<Permissions.StorageWrite>();
+            var storageAccess = await permissionsManager.CheckStorageWritePermissionAsync();
 
-            if (storageAccess != PermissionStatus.Granted)
+            if (!storageAccess)
             {
-                await Permissions.RequestAsync<Permissions.StorageWrite>();
+                await permissionsManager.RequestStorageWritePermissionAsync();
             }
 
             string[] allowedTypes = isIos ? new string[] { "public.audio" } : new string[] { "audio/*" };
@@ -52,7 +53,7 @@ namespace Emka.PracticeLooper.Mobile.Common
 
             if (type == AudioSourceType.None)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("unexpected error while saving file");
             }
 
             result = new AudioSource

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
-using Xamarin.Essentials;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
@@ -17,14 +16,16 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         #region Fields
         private readonly IConfigurationService configurationService;
         private readonly IDeviceStorageService deviceStorageService;
+        private readonly IPermissionsManager permissionsManager;
         #endregion
 
         #region Ctor
 
-        public AudioFileRepository(IConfigurationService configurationService, IDeviceStorageService deviceStorageService)
+        public AudioFileRepository(IConfigurationService configurationService, IDeviceStorageService deviceStorageService, IPermissionsManager permissionsManager)
         {
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             this.deviceStorageService = deviceStorageService ?? throw new ArgumentNullException(nameof(deviceStorageService));
+            this.permissionsManager = permissionsManager ?? throw new ArgumentNullException(nameof(permissionsManager));
         }
         #endregion
 
@@ -39,18 +40,18 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
            
             if (isNotEnoughInternalStorage)
             {
-                var storageAccess = await Permissions.CheckStatusAsync<Permissions.StorageWrite>();
+                var storageAccess = await permissionsManager.CheckStorageWritePermissionAsync();
 
-                if (storageAccess == PermissionStatus.Granted)
+                if (storageAccess)
                 {
                     var isNotEnoughExternalStorage = fileSize > freeExternalStorage;
-
-                    targetPath = await configurationService.GetValueAsync(PreferenceKeys.ExternalStoragePath) ?? throw new InvalidOperationException();
 
                     if (isNotEnoughExternalStorage)
                     {
                         throw new InvalidOperationException("Not enough external space left.");
                     }
+
+                    targetPath = await configurationService.GetValueAsync(PreferenceKeys.ExternalStoragePath) ?? throw new InvalidOperationException();
                 }
                 else
                 {

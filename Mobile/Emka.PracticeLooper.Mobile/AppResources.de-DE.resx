@@ -270,7 +270,7 @@
      <data
         name="Error_Content_NotEnoughSpace"
         xml:space="preserve">
-        <value>Die ausgewählte Datei konnte nicht hinzugefügt werden, da nich genügend Speicherplatz vorhanden ist.</value>
+        <value>Die ausgewählte Datei konnte nicht hinzugefügt werden, da nicht genügend Speicherplatz vorhanden ist.</value>
     </data>
     <!--Hint Dialogs-->
     <data

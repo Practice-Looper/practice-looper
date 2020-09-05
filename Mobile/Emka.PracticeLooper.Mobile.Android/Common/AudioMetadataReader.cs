@@ -8,7 +8,6 @@ using Android.Media;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
-using Factory = Emka3.PracticeLooper.Mappings.Factory;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
@@ -16,12 +15,14 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
     {
         #region Fields
         private readonly ILogger logger;
+        private readonly IAudioFileLoader audioFileLoader;
         #endregion
 
         #region Ctor
-        public AudioMetadataReader(ILogger logger)
+        public AudioMetadataReader(ILogger logger, IAudioFileLoader audioFileLoader)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.audioFileLoader = audioFileLoader ?? throw new ArgumentNullException(nameof(audioFileLoader));
         }
         #endregion
 
@@ -33,7 +34,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             {
                 var player = new MediaPlayer();
                 player.Reset();
-                var dataSource = Factory.GetResolver().Resolve<IAudioFileLoader>()?.GetAbsoluteFilePath(audioSource);
+                var dataSource = audioFileLoader.GetAbsoluteFilePath(audioSource);
                 player.SetDataSource(dataSource);
                 player.Prepare();
                 return await Task.FromResult(new AudioMetadata(TimeSpan.FromMilliseconds(player.Duration).TotalSeconds));

@@ -508,7 +508,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
                     CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
 
-                    if (CurrentAudioPlayer.Types.Contains(AudioSourceType.Spotify))
+                    if (CurrentAudioPlayer.Types.HasFlag(AudioSourceType.Spotify))
                     {
                         if (!spotifyApiService.UserPremiumCheckSuccessful)
                         {
@@ -702,7 +702,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (CurrentSession != null)
                 {
                     var audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>();
-                    CurrentAudioPlayer = audioPlayers.First(p => p.Types.Contains(CurrentSession.Session.AudioSource.Type));
+                    CurrentAudioPlayer = audioPlayers.First(p => p.Types.HasFlag(CurrentSession.Session.AudioSource.Type));
                     CurrentLoop = CurrentSession.Session.Loops.FirstOrDefault(l => l.Id == configurationService.GetValue(PreferenceKeys.LastLoop, default(int))) ?? CurrentSession.Session.Loops.First(l => l.IsDefault);
                     MinimumValue = CurrentLoop.StartPosition;
                     MaximumValue = CurrentLoop.EndPosition;
