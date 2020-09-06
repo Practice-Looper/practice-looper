@@ -20,5 +20,7 @@ namespace Emka3.PracticeLooper.Services.Contracts.Rest
         bool UserPremiumCheckSuccessful { get; set; }
 
         Task<Tuple<HttpStatusCode, bool>> IsPremiumUser();
+
+        Task PauseCurrentPlayback();
     }
 }

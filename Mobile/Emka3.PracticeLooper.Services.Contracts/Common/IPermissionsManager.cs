@@ -5,12 +5,12 @@
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Utils;
 
-namespace Emka.PracticeLooper.Mobile.Common
+namespace Emka3.PracticeLooper.Services.Contracts.Common
 {
     [Preserve(AllMembers = true)]
-    public interface IStringLocalizer
+    public interface IPermissionsManager
     {
-        string GetLocalizedString(string key);
-        Task<string> GetLocalizedStringAsync(string key);
+        Task RequestStorageWritePermissionAsync();
+        Task<bool> CheckStorageWritePermissionAsync();
     }
 }

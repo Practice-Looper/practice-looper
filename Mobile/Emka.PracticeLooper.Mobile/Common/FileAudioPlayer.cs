@@ -4,6 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config.Contracts;
@@ -26,15 +27,19 @@ namespace Emka.PracticeLooper.Mobile.Common
         private readonly IPlayerTimer timer;
         private readonly ILogger logger;
         private readonly IConfigurationService configService;
+        private readonly IAudioFileLoader audioFileLoader;
         private readonly ISimpleAudioPlayer audioPlayer;
+        private double loopStart;
+        private double loopEnd;
         #endregion
 
         #region Ctor
-        public FileAudioPlayer(IPlayerTimer timer, ILogger logger, IConfigurationService configService)
+        public FileAudioPlayer(IPlayerTimer timer, ILogger logger, IConfigurationService configService, IAudioFileLoader audioFileLoader)
         {
             this.timer = timer ?? throw new ArgumentNullException(nameof(timer));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.configService = configService ?? throw new ArgumentNullException(nameof(configService));
+            this.audioFileLoader = audioFileLoader ?? throw new ArgumentNullException(nameof(audioFileLoader));
             audioPlayer = CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
         }
         #endregion
@@ -51,11 +56,7 @@ namespace Emka.PracticeLooper.Mobile.Common
         public bool IsPlaying => audioPlayer != null && audioPlayer.IsPlaying;
         public double SongDuration { get { return internalSongDuration * 1000; } }
         private Loop CurrentLoop { get; set; }
-        private int CurrentStartPosition { get; set; }
-        private int CurrentEndPosition { get; set; }
-
-        public AudioSourceType Type => AudioSourceType.Local;
-
+        public AudioSourceType Types => AudioSourceType.LocalInternal | AudioSourceType.LocalExternal;
         public string DisplayName => "File";
 
         public bool PausedByUser
@@ -97,13 +98,11 @@ namespace Emka.PracticeLooper.Mobile.Common
             }
 
             CurrentLoop = loop;
+            loopStart = TimeSpan.FromSeconds(CurrentLoop.StartPosition * loop.Session.AudioSource.Duration).TotalMilliseconds;
+            loopEnd = TimeSpan.FromSeconds(CurrentLoop.EndPosition * loop.Session.AudioSource.Duration).TotalMilliseconds;
             RemoveEventHandlers();
-
-            using (var fsSource = new FileStream(Path.Combine(configService.LocalPath, CurrentLoop.Session.AudioSource.Source), FileMode.Open, FileAccess.Read))
-            {
-                audioPlayer.Load(fsSource);
-            }
-
+            var file = audioFileLoader.GetFileStream(loop.Session.AudioSource);
+            audioPlayer.Load(file);
             timer.LoopTimerExpired += LoopTimerExpired;
             timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
             CurrentLoop.StartPositionChanged += OnLoopPositionChanged;
@@ -138,8 +137,6 @@ namespace Emka.PracticeLooper.Mobile.Common
                 return;
             }
 
-            CurrentStartPosition = (int)(CurrentLoop.StartPosition * CurrentLoop.Session.AudioSource.Duration);
-            CurrentEndPosition = (int)(CurrentLoop.EndPosition * CurrentLoop.Session.AudioSource.Duration);
             if (!audioPlayer.IsPlaying)
             {
                 audioPlayer?.Play();
@@ -159,8 +156,7 @@ namespace Emka.PracticeLooper.Mobile.Common
 
         public void Seek(double time)
         {
-            var position = TimeSpan.FromSeconds(time * CurrentLoop.Session.AudioSource.Duration);
-            audioPlayer.Seek(position.TotalSeconds);
+            audioPlayer.Seek(TimeSpan.FromMilliseconds(loopStart).TotalSeconds);
         }
 
         public async Task SeekAsync(double time)
@@ -170,23 +166,13 @@ namespace Emka.PracticeLooper.Mobile.Common
 
         private async void OnLoopPositionChanged(object sender, double e)
         {
-            var delta = CurrentEndPosition - CurrentStartPosition;
-
-            // avoid negative values and values larger than int.MaxValue
-            if (delta < 0 || delta >= int.MaxValue)
-            {
-                logger.LogError(new ArgumentException($"negative time value {delta}. CurrentStartPosition: {CurrentStartPosition}. CurrentEndPosition: {CurrentEndPosition}. Song: {CurrentLoop.Session.AudioSource.FileName}. Song duration {CurrentLoop.Session.AudioSource.Duration}"));
-
-                if (IsPlaying)
-                {
-                    await PauseAsync();
-                    return;
-                }
-            }
+            loopStart = TimeSpan.FromSeconds(CurrentLoop.StartPosition * CurrentLoop.Session.AudioSource.Duration).TotalMilliseconds;
+            loopEnd = TimeSpan.FromSeconds(CurrentLoop.EndPosition * CurrentLoop.Session.AudioSource.Duration).TotalMilliseconds;
 
             if (IsPlaying)
             {
-                await PlayAsync();
+                await SeekAsync(e);
+                ResetAllTimers();
             }
         }
 
@@ -203,9 +189,19 @@ namespace Emka.PracticeLooper.Mobile.Common
             CurrentLoop.EndPositionChanged -= OnLoopPositionChanged;
         }
 
-        private void LoopTimerExpired(object sender, EventArgs e)
+        private async void LoopTimerExpired(object sender, EventArgs e)
         {
             TimerElapsed?.Invoke(this, e);
+
+            if (IsPlaying)
+            {
+                await SeekAsync(CurrentLoop.StartPosition);
+                ResetAllTimers();
+            }
+            else
+            {
+                await PlayAsync();
+            }
         }
 
         private void CurrentPositionTimerExpired(object sender, EventArgs e)
@@ -218,22 +214,12 @@ namespace Emka.PracticeLooper.Mobile.Common
             try
             {
                 timer?.StopTimers();
-                var delta = CurrentEndPosition - CurrentStartPosition;
-
-                // avoid negative values and values larger than int.MaxValue
-                if (delta < 0 || delta >= int.MaxValue)
-                {
-                    logger.LogError(new ArgumentException($"negative time value {delta}. CurrentStartPosition: {CurrentStartPosition}. CurrentEndPosition: {CurrentEndPosition}. Song: {CurrentLoop.Session.AudioSource.FileName}. Song duration {CurrentLoop.Session.AudioSource.Duration}"));
-                    Pause();
-                    return;
-                }
-
-                timer.SetLoopTimer((int)TimeSpan.FromSeconds(delta).TotalMilliseconds);
-                timer.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
+                timer?.SetLoopTimer((int)(loopEnd - loopStart));
+                timer?.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
             }
             catch (Exception ex)
             {
-                logger.LogError(ex);
+                logger?.LogError(ex);
                 throw;
             }
         }

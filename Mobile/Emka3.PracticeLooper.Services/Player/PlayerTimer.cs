@@ -25,7 +25,7 @@ namespace Emka3.PracticeLooper.Services.Player
         #region Ctor
         public PlayerTimer(ILogger logger)
         {
-            this.logger = logger;
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         #endregion
 
@@ -51,7 +51,7 @@ namespace Emka3.PracticeLooper.Services.Player
             }
         }
 
-        public void SetLoopTimer(int time)
+        public void SetLoopTimer(double time)
         {
             // avoid negative values and values larger than int.MaxValue and timer to 10s
             time = time < 0 || time > int.MaxValue ? 10000 : time;

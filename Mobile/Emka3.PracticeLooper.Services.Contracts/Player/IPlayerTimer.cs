@@ -10,7 +10,7 @@ namespace Emka3.PracticeLooper.Services.Contracts.Player
         event EventHandler LoopTimerExpired;
         event EventHandler CurrentPositionTimerExpired;
 
-        void SetLoopTimer(int time);
+        void SetLoopTimer(double time);
         void SetCurrentTimeTimer(int time);
         void StopTimers();
     }

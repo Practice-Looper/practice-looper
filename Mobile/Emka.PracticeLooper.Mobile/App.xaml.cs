@@ -4,7 +4,6 @@ using Emka3.PracticeLooper.Services.Contracts.Player;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
-using Emka3.PracticeLooper.Config;
 using Emka.PracticeLooper.Mobile.Navigation;
 using System.Threading.Tasks;
 using Microsoft.AppCenter.Crashes;
@@ -15,8 +14,8 @@ using System.Collections.Generic;
 using Emka.PracticeLooper.Mobile.Themes;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Utils;
-using Emka.PracticeLooper.Mobile.Views;
 using System.Linq;
+using Emka3.PracticeLooper.Services.Contracts.Rest;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -25,7 +24,7 @@ namespace Emka.PracticeLooper.Mobile
     public partial class App : Application
     {
         public static string BannerAddUnitId { get; private set; }
-
+        private MappingsFactory.Contracts.IResolver resolver;
         public App()
         {
             InitializeComponent();
@@ -54,15 +53,27 @@ namespace Emka.PracticeLooper.Mobile
             DeviceDisplay.KeepScreenOn = !DeviceDisplay.KeepScreenOn;
         }
 
-        protected override void OnSleep()
+        protected override async void OnSleep()
         {
             DeviceDisplay.KeepScreenOn = !DeviceDisplay.KeepScreenOn;
+            var audioPlayers = resolver.ResolveAll<IAudioPlayer>();
+            var service = resolver.Resolve<ISpotifyApiService>();
+
+            if (audioPlayers != null && audioPlayers.Any())
+            {
+                foreach (var player in audioPlayers)
+                {
+                    player.Pause(true);
+                }
+            }
+
+            await service.PauseCurrentPlayback();
         }
 
         private void InitApp()
         {
             // Register common forms types
-            MappingsFactory.Contracts.IResolver resolver = MappingsFactory.Factory.GetResolver();
+            resolver = MappingsFactory.Factory.GetResolver();
             resolver.RegisterSingleton(typeof(FilePicker), typeof(IFilePicker));
             resolver.RegisterSingleton(typeof(NavigationService), typeof(INavigationService));
             resolver.RegisterSingleton(typeof(SourcePicker), typeof(ISourcePicker));

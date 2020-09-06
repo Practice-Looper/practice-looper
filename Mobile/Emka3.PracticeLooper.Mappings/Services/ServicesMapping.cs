@@ -4,7 +4,6 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
 using Autofac;
-using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Services.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
@@ -27,6 +26,7 @@ namespace Emka3.PracticeLooper.Mappings.Services
 
             builder.RegisterType<HttpApiClient>().As<IHttpApiClient>().SingleInstance();
             builder.RegisterType<SpotifyApiService>().As<ISpotifyApiService>().SingleInstance();
+            builder.RegisterType<PermissionsManager>().As<IPermissionsManager>().SingleInstance();
         }
     }
 }

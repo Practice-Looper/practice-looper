@@ -41,8 +41,6 @@ namespace Emka3.PracticeLooper.Config
         #endregion
 
         #region Properties
-        public string LocalPath { get; set; }
-
         public bool IsSpotifyInstalled { get; set; }
         #endregion
 

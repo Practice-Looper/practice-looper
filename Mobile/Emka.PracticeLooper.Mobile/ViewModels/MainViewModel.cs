@@ -135,12 +135,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             set
             {
                 minimumValue = value < Minimum ? Minimum : value;
-                //if (IsInitialized && CurrentLoop != null && CurrentLoop.StartPosition != minimumValue)
-                //{
-                //    CurrentLoop.StartPosition = minimumValue;
-                //    NotifyPropertyChanged();
-                //}
-
                 NotifyPropertyChanged(nameof(LoopStartPosition));
             }
         }
@@ -156,13 +150,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             set
             {
                 maximumValue = value > Maximum ? Maximum : value;
-                //if (IsInitialized && CurrentLoop != null && CurrentLoop.EndPosition != maximumValue)
-                //{
-                //    CurrentLoop.EndPosition = maximumValue;
-
-                //    NotifyPropertyChanged();
-                //}
-
                 NotifyPropertyChanged(nameof(LoopEndPosition));
             }
         }
@@ -230,9 +217,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(IsInitialized));
                 NotifyPropertyChanged(nameof(IsPlaying));
-                NotifyPropertyChanged(nameof(StepFrequency));
-                NotifyPropertyChanged(nameof(TickFrequency));
                 NotifyPropertyChanged(nameof(MinimumRange));
+                NotifyPropertyChanged(nameof(MinimumValue));
+                NotifyPropertyChanged(nameof(MaximumValue));
                 PlayCommand.ChangeCanExecute();
                 AddNewLoopCommand.ChangeCanExecute();
             }
@@ -261,7 +248,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged(nameof(MaximumValue));
             }
         }
-
         public bool IsBusy
         {
             get => isBusy;
@@ -271,7 +257,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged();
             }
         }
-
         public bool IsPremiumUser
         {
             get => isPremiumUser;
@@ -281,7 +266,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged();
             }
         }
-
         public double StepFrequency => CurrentSession != null ? 1 / CurrentSession.Session.AudioSource.Duration : 0;
         public double TickFrequency => StepFrequency * 5;
         #endregion
@@ -331,24 +315,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 CurrentAudioPlayer?.Pause();
                 CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
                 CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
-                CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
-            }
-        }
-
-        public void UpdateMinMaxValues()
-        {
-            if (CurrentLoop != null)
-            {
-                try
-                {
-                    CurrentLoop.StartPosition = MinimumValue;
-                    CurrentLoop.EndPosition = MaximumValue;
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogError(ex);
-                    dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
-                }
             }
         }
 
@@ -361,7 +327,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     CurrentAudioPlayer?.Pause();
                     CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
-                    CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
                 }
 
                 spotifyLoader?.Disconnect();
@@ -370,25 +335,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 Logger.LogError(ex);
                 dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
-            }
-        }
-
-        private void CurrentAudioPlayer_TimerElapsed(object sender, EventArgs e)
-        {
-            if (CurrentLoop != null)
-            {
-                try
-                {
-                    Device.BeginInvokeOnMainThread(() =>
-                            {
-                                CurrentAudioPlayer?.Play();
-                            });
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogError(ex);
-                    dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
-                }
             }
         }
 
@@ -481,7 +427,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     Device.BeginInvokeOnMainThread(() => CurrentAudioPlayer.Pause(true));
                     CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
-                    CurrentAudioPlayer.TimerElapsed -= CurrentAudioPlayer_TimerElapsed;
                     await interstitialAd?.ShowAdAsync();
                 }
                 else
@@ -492,26 +437,35 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         {
                             await CurrentAudioPlayer.InitAsync(CurrentLoop);
                         }
-
                         catch (FileNotFoundException ex)
                         {
                             await Logger.LogErrorAsync(ex);
-                            await dialogService.ShowAlertAsync(AppResources.Error_Content_FileNotFound, AppResources.Error_Caption);
+                            var deleteFile = await dialogService.ShowConfirmAsync(AppResources.Error_Caption, AppResources.Error_Content_FileNotFound, AppResources.Cancel, AppResources.Ok);
+
+                            if (deleteFile)
+                            {
+                                DeleteSessionCommand.Execute(CurrentSession);
+                            }
+
                             return;
+                        }
+                        catch (InvalidOperationException ex)
+                        {
+                            await Logger.LogErrorAsync(ex);
+                            await dialogService.ShowAlertAsync(AppResources.Error_Content_NotEnoughSpace, AppResources.Error_Caption);
                         }
                         catch (Exception ex)
                         {
                             await Logger.LogErrorAsync(ex);
-                            await dialogService.ShowAlertAsync(ex.Message, AppResources.Error_Caption);
+                            await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
                             return;
                         }
                     }
 
                     CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
-                    CurrentAudioPlayer.TimerElapsed += CurrentAudioPlayer_TimerElapsed;
 
-                    if (CurrentAudioPlayer.Type.Equals(AudioSourceType.Spotify))
+                    if (CurrentAudioPlayer.Types.HasFlag(AudioSourceType.Spotify))
                     {
                         if (!spotifyApiService.UserPremiumCheckSuccessful)
                         {
@@ -558,7 +512,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                     await sessionsRepository.DeleteAsync(tmpSession.Session);
 
-                    if (tmpSession.Session.AudioSource.Type == AudioSourceType.Local)
+                    if (tmpSession.Session.AudioSource.Type == AudioSourceType.LocalInternal)
                     {
                         await fileRepository.DeleteFileAsync(tmpSession.Session.AudioSource.Source);
                     }
@@ -604,17 +558,26 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             try
             {
                 MainThread.BeginInvokeOnMainThread(() => IsBusy = true);
-                var source = await sourcePicker?.SelectFileSource();
                 await interstitialAd?.ShowAdAsync();
+                var source = await sourcePicker?.SelectFileSource();
 
                 switch (source)
                 {
-                    case AudioSourceType.Local:
-                        var newFile = await filePicker.ShowPicker();
-                        // file is null when user cancelled file picker!
-                        if (newFile != null)
+                    case AudioSourceType.LocalInternal:
+
+                        try
                         {
-                            CreateSessionCommand.Execute(newFile);
+                            var newFile = await filePicker.ShowPicker();
+                            // file is null when user cancelled file picker!
+                            if (newFile != null)
+                            {
+                                CreateSessionCommand.Execute(newFile);
+                            }
+                        }
+                        catch (InvalidOperationException ex)
+                        {
+                            await Logger.LogErrorAsync(ex);
+                            await dialogService.ShowAlertAsync(AppResources.Error_Content_NotEnoughSpace, AppResources.Error_Caption);
                         }
 
                         break;
@@ -695,7 +658,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 if (CurrentSession != null)
                 {
-                    CurrentAudioPlayer = Factory.GetResolver().ResolveAll<IAudioPlayer>().First(p => p.Type == CurrentSession.Session.AudioSource.Type);
+                    var audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>();
+                    CurrentAudioPlayer = audioPlayers.First(p => p.Types.HasFlag(CurrentSession.Session.AudioSource.Type));
                     CurrentLoop = CurrentSession.Session.Loops.FirstOrDefault(l => l.Id == configurationService.GetValue(PreferenceKeys.LastLoop, default(int))) ?? CurrentSession.Session.Loops.First(l => l.IsDefault);
                     MinimumValue = CurrentLoop.StartPosition;
                     MaximumValue = CurrentLoop.EndPosition;

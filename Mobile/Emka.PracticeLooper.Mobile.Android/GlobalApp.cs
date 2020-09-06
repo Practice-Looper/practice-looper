@@ -8,7 +8,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
 {
     internal static class GlobalApp
     {
-        internal static bool HasPermissionToWriteExternalStorage { get; set; }
         internal static Activity MainActivity { get; set; }
     }
 }

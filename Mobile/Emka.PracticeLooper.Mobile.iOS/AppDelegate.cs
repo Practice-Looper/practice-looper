@@ -23,6 +23,7 @@ using Emka.PracticeLooper.Mobile.iOS.Common;
 using Plugin.InAppBilling;
 using Xamarin.Forms;
 using AVFoundation;
+using Emka3.PracticeLooper.Services.Contracts.Rest;
 
 namespace Emka.PracticeLooper.Mobile.iOS
 {
@@ -100,36 +101,6 @@ namespace Emka.PracticeLooper.Mobile.iOS
             Crashes.TrackError(e.ExceptionObject as Exception);
         }
 
-        public override void WillTerminate(UIApplication uiApplication)
-        {
-            try
-            {
-                base.WillTerminate(uiApplication);
-                IResolver resolver = Factory.GetResolver();
-                var audioPlayers = resolver.ResolveAll<IAudioPlayer>();
-                var spotifyLoader = resolver.Resolve<ISpotifyLoader>();
-
-                if (audioPlayers != null && audioPlayers.Any())
-                {
-                    foreach (var player in audioPlayers)
-                    {
-                        player.Pause(true);
-                    }
-                }
-
-                if (spotifyLoader != null)
-                {
-                    spotifyLoader.Disconnect();
-                }
-
-                DeviceDisplay.KeepScreenOn = false;
-            }
-            catch (Exception ex)
-            {
-                Crashes.TrackError(ex);
-            }
-        }
-
         private void Setup()
         {
             NSError error = AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
@@ -144,7 +115,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
 #endif
             AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(configService.GetValue("SyncFusionLicenseKey"));
-            configService.LocalPath = FileSystem.AppDataDirectory;
+            configService.SetValue(PreferenceKeys.InternalStoragePath, FileSystem.AppDataDirectory);
             var resolver = Factory.GetResolver() ?? throw new ArgumentNullException("resolver");
             resolver.RegisterInstance(configService, typeof(IConfigurationService));
             resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
@@ -154,8 +125,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
             resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
             resolver.RegisterSingleton(typeof(ConnectivityService), typeof(IConnectivityService));
-
-         
+            resolver.RegisterSingleton(typeof(DeviceStorageService), typeof(IDeviceStorageService));
         }
     }
 }

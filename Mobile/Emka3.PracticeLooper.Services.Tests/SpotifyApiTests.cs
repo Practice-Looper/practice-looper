@@ -24,7 +24,7 @@ namespace Emka3.PracticeLooper.Services.Tests
         [Fact]
         public async Task When_SearchMeshuggah_Expect_30Results()
         {
-            var jsonString = LoadJson();
+            var jsonString = LoadJson("JsonTestData.txt");
             HttpApiClientMock
                 .Setup(c => c.SendRequestAsync(It.IsAny<HttpMethod>(), It.IsAny<string>(), CancellationToken.None, It.IsAny<HttpContent>()))
                 .ReturnsAsync(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK, Content = new StringContent(jsonString) })
@@ -39,9 +39,26 @@ namespace Emka3.PracticeLooper.Services.Tests
             HttpApiClientMock.Verify();
         }
 
-        private string LoadJson()
+        [Fact]
+        public async Task When_CheckPremiumUser_Await_True()
         {
-            using (StreamReader r = new StreamReader(Path.Combine(Directory.GetCurrentDirectory(), "TestData", "JsonTestData.txt")))
+            var jsonString = LoadJson("JsonUserData.txt");
+            HttpApiClientMock
+                .Setup(c => c.SendRequestAsync(HttpMethod.Get, It.IsAny<string>(), CancellationToken.None, It.IsAny<HttpContent>()))
+                .ReturnsAsync(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK, Content = new StringContent(jsonString) })
+                .Verifiable();
+
+            var spotifyService = new SpotifyApiService(HttpApiClientMock.Object, ConfigurationServiceMock.Object);
+            var result = await spotifyService.IsPremiumUser();
+
+            Assert.NotNull(result);
+            Assert.True(result.Item1 == System.Net.HttpStatusCode.OK && result.Item2);
+            HttpApiClientMock.Verify();
+        }
+
+        private string LoadJson(string fileName)
+        {
+            using (StreamReader r = new StreamReader(Path.Combine(Directory.GetCurrentDirectory(), "TestData", fileName)))
             {
                 return r.ReadToEnd();
             }

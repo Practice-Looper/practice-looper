@@ -16,16 +16,6 @@ namespace Emka3.PracticeLooper.Config.Contracts
     {
         event EventHandler<string> ValueChanged;
 
-        #region Properties
-        /// <summary>
-        /// Local path to store selected files.
-        /// </summary>
-        /// <value>The local path.</value>
-        string LocalPath { get; set; }
-
-        bool IsSpotifyInstalled { get; set; }
-        #endregion
-
         #region Methods
         /// <summary>
         /// Read configs from secrets file.

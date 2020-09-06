@@ -27,17 +27,18 @@ namespace Emka3.PracticeLooper.Services.Rest
 
         IHttpApiClient apiClient;
         private readonly IConfigurationService configurationService;
+        private readonly ILogger logger;
         int limit;
         public bool UserPremiumCheckSuccessful { get; set; }
         #endregion
 
         #region Ctor
 
-        public SpotifyApiService(IHttpApiClient apiClient, IConfigurationService configurationService)
+        public SpotifyApiService(IHttpApiClient apiClient, IConfigurationService configurationService, ILogger logger)
         {
             this.apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
-            limit = configurationService.GetValue<int>("SpotifyApiLimit");
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             UserPremiumCheckSuccessful = false;
         }
         #endregion
@@ -46,6 +47,7 @@ namespace Emka3.PracticeLooper.Services.Rest
 
         public async Task<List<SpotifyTrack>> SearchTrackByName(string name, CancellationToken cancellationToken)
         {
+            limit = configurationService.GetValue<int>("SpotifyApiLimit");
             List<SpotifyTrack> results = new List<SpotifyTrack>();
             var query = HttpUtility.ParseQueryString(string.Empty);
             query["q"] = name;
@@ -105,6 +107,21 @@ namespace Emka3.PracticeLooper.Services.Rest
             {
                 UserPremiumCheckSuccessful = false;
                 return Tuple.Create(HttpStatusCode.Conflict, false);
+            }
+        }
+
+        public async Task PauseCurrentPlayback()
+        {
+            try
+            {
+                var query = HttpUtility.ParseQueryString(string.Empty);
+                query["state"] = "off";
+                await apiClient.SendRequestAsync(HttpMethod.Put, "me/player/pause", default);
+                await apiClient.SendRequestAsync(HttpMethod.Put, "me/player/repeat?" + query, default);
+            }
+            catch (Exception ex)
+            {
+                await logger.LogErrorAsync(ex);
             }
         }
         #endregion

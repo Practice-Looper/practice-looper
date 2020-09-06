@@ -21,17 +21,26 @@ namespace Emka.PracticeLooper.Mobile.Common
     {
         private readonly IFileRepository fileRepository;
         private readonly IAudioMetadataReader audioMetadataReader;
+        private readonly IPermissionsManager permissionsManager;
 
-        public FilePicker(IFileRepository fileRepository, IAudioMetadataReader audioMetadataReader)
+        public FilePicker(IFileRepository fileRepository, IAudioMetadataReader audioMetadataReader, IPermissionsManager permissionsManager)
         {
-            this.fileRepository = fileRepository;
-            this.audioMetadataReader = audioMetadataReader;
+            this.fileRepository = fileRepository ?? throw new ArgumentNullException(nameof(fileRepository));
+            this.audioMetadataReader = audioMetadataReader ?? throw new ArgumentNullException(nameof(audioMetadataReader));
+            this.permissionsManager = permissionsManager ?? throw new ArgumentNullException(nameof(permissionsManager));
         }
 
         public async Task<AudioSource> ShowPicker()
         {
             AudioSource result = null;
             bool isIos = Device.RuntimePlatform == Device.iOS;
+
+            var storageAccess = await permissionsManager.CheckStorageWritePermissionAsync();
+
+            if (!storageAccess)
+            {
+                await permissionsManager.RequestStorageWritePermissionAsync();
+            }
 
             string[] allowedTypes = isIos ? new string[] { "public.audio" } : new string[] { "audio/*" };
 
@@ -40,13 +49,18 @@ namespace Emka.PracticeLooper.Mobile.Common
             if (fileData == null)
                 return result; // user canceled file picking
 
-            await fileRepository.SaveFileAsync(fileData.FileName, fileData.DataArray);
+            var type = await fileRepository.SaveFileAsync(fileData.FileName, fileData.DataArray);
+
+            if (type == AudioSourceType.None)
+            {
+                throw new InvalidOperationException("unexpected error while saving file");
+            }
 
             result = new AudioSource
             {
                 FileName = Path.GetFileNameWithoutExtension(fileData.FileName),
                 Source = fileData.FileName,
-                Type = AudioSourceType.Local
+                Type = type
             };
 
             // get duration

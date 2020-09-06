@@ -33,9 +33,13 @@
     <Content Include="TestData\JsonTestData.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestData\JsonUserData.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Remove="TestData\JsonTestData.txt" />
+    <None Remove="TestData\JsonTestData %28copy%29.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="SpotifyApiTests.cs">

@@ -255,7 +255,7 @@
     <data
         name="Error_Content_FileNotFound"
         xml:space="preserve">
-        <value>Die ausgewählte Datei wurde nicht gefunden.</value>
+        <value>Die ausgewählte Datei wurde nicht gefunden. Soll die Session gelöscht werden?</value>
     </data>
     <data
         name="Error_Content_NoPremiumUser"
@@ -266,6 +266,11 @@
         name="Error_Content_PremiumUserCheckFailed"
         xml:space="preserve">
         <value>Dein Spotify Account konnte nicht überprüft werden. Um Spotify Songs loopen zu können, brauchst du ein Spotify Premium Abo.</value>
+     </data>
+     <data
+        name="Error_Content_NotEnoughSpace"
+        xml:space="preserve">
+        <value>Die ausgewählte Datei konnte nicht hinzugefügt werden, da nicht genügend Speicherplatz vorhanden ist.</value>
     </data>
     <!--Hint Dialogs-->
     <data
