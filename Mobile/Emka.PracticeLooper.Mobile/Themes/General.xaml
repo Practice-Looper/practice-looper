@@ -153,7 +153,8 @@
                     FontSize="24"
                     TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                     VerticalTextAlignment="Center"
-                    VerticalOptions="Center" />
+                    VerticalOptions="Center"
+                    Margin="5,0,0,0"/>
                 <Label
                     Grid.Column="1"
                     Text="{Binding Session.Name}"
@@ -168,6 +169,7 @@
                     VerticalOptions="Center"
                     HeightRequest="32"
                     Command="{Binding PickLoopCommand}"
+                    Margin="0,0,5,0"
                     BackgroundColor="Transparent">
                     <views:LoopButton.Source>
                         <FontImageSource
@@ -208,7 +210,8 @@
                     FontSize="24"
                     TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                     VerticalTextAlignment="Center"
-                    VerticalOptions="Center" />
+                    VerticalOptions="Center"
+                    Margin="5,0,0,0"/>
                 <Label
                     Grid.Column="1"
                     Text="{Binding Session.Name}"
@@ -223,7 +226,8 @@
                     VerticalOptions="Center"
                     HeightRequest="32"
                     BackgroundColor="Transparent"
-                    Command="{Binding PickLoopCommand}">
+                    Command="{Binding PickLoopCommand}"
+                    Margin="0,0,5,0">
                     <views:LoopButton.Source>
                         <FontImageSource
                             FontFamily="{DynamicResource MaterialFontFamily}"
@@ -265,7 +269,8 @@
                     TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
-                    LineBreakMode="TailTruncation"/>
+                    LineBreakMode="TailTruncation"
+                    Margin="5,0,0,0"/>
                 <Label
                     Grid.Column="1"
                     Text="{Binding Session.Name}"
@@ -278,6 +283,7 @@
                     HorizontalOptions="End"
                     VerticalOptions="Center"
                     HeightRequest="32"
+                    Margin="0,0,5,0"
                     Command="{Binding PickLoopCommand}"
                     BackgroundColor="Transparent">
                     <views:LoopButton.Source>
@@ -311,7 +317,8 @@
                     TextColor="{DynamicResource PrimaryColor}"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
-                    HorizontalOptions="Center" />
+                    HorizontalOptions="Center"
+                    Margin="5,0,0,0"/>
                 <Label
                     Grid.Column="1"
                     Text="{Binding DisplayName}"
@@ -319,7 +326,8 @@
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
                     HorizontalOptions="StartAndExpand"
-                    FontSize="24" />
+                    FontSize="24"
+                    />
             </Grid>
         </ViewCell>
     </DataTemplate>
@@ -343,7 +351,8 @@
                     TextColor="{DynamicResource PrimaryColor}"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
-                    HorizontalOptions="Center" />
+                    HorizontalOptions="Center"
+                    Margin="5,0,0,0"/>
                 <Label
                     Grid.Column="1"
                     Text="{Binding DisplayName}"

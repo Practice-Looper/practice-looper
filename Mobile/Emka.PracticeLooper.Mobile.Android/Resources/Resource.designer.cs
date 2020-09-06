@@ -10920,10 +10920,28 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int path_password_strike_through = 2131558481;
 			
 			// aapt resource value: 0x7F0D0052
-			public const int search_menu_title = 2131558482;
+			public const int s1 = 2131558482;
 			
 			// aapt resource value: 0x7F0D0053
-			public const int status_bar_notification_info_overflow = 2131558483;
+			public const int s2 = 2131558483;
+			
+			// aapt resource value: 0x7F0D0054
+			public const int s3 = 2131558484;
+			
+			// aapt resource value: 0x7F0D0055
+			public const int s4 = 2131558485;
+			
+			// aapt resource value: 0x7F0D0056
+			public const int s5 = 2131558486;
+			
+			// aapt resource value: 0x7F0D0057
+			public const int s6 = 2131558487;
+			
+			// aapt resource value: 0x7F0D0058
+			public const int search_menu_title = 2131558488;
+			
+			// aapt resource value: 0x7F0D0059
+			public const int status_bar_notification_info_overflow = 2131558489;
 			
 			static String()
 			{
