@@ -8,6 +8,7 @@ using Foundation;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
+    [Preserve(AllMembers = true)]
     public class DeviceStorageService : IDeviceStorageService
     {
         public long GetAvailableExternalStorage()
