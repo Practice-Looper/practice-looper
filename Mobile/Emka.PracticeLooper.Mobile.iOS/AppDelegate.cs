@@ -104,7 +104,6 @@ namespace Emka.PracticeLooper.Mobile.iOS
         {
             try
             {
-                base.WillTerminate(uiApplication);
                 IResolver resolver = Factory.GetResolver();
                 var audioPlayers = resolver.ResolveAll<IAudioPlayer>();
                 var spotifyLoader = resolver.Resolve<ISpotifyLoader>();
@@ -123,6 +122,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
                 }
 
                 DeviceDisplay.KeepScreenOn = false;
+                base.WillTerminate(uiApplication);
             }
             catch (Exception ex)
             {

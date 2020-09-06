@@ -14,6 +14,7 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Java.Lang;
 using Java.Util.Concurrent;
+using Xamarin.Essentials;
 using Xamarin.Forms.Internals;
 using static Com.Spotify.Protocol.Client.CallResult;
 using static Com.Spotify.Protocol.Client.Subscription;
@@ -27,7 +28,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         private readonly IPlayerTimer timer;
         private readonly ISpotifyLoader spotifyLoader;
         private readonly ILogger logger;
-        const int CURRENT_TIME_UPDATE_INTERVAL = 1000;
+        const int CURRENT_TIME_UPDATE_INTERVAL = 500;
         private CancellationTokenSource currentTimeCancelTokenSource;
         private SpotifyDelegate spotifyDelegate;
         bool pausedByUser;
@@ -108,7 +109,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             CurrentLoop.StartPositionChanged += OnLoopPositionChanged;
             CurrentLoop.EndPositionChanged += OnLoopPositionChanged;
             loopStart = TimeSpan.FromSeconds(CurrentLoop.StartPosition * loop.Session.AudioSource.Duration).TotalMilliseconds;
-            loopEnd = TimeSpan.FromSeconds(CurrentLoop.EndPosition * loop.Session.AudioSource.Duration).TotalMilliseconds;
+            loopEnd = CurrentLoop.EndPosition == 1
+                ? TimeSpan.FromSeconds(CurrentLoop.EndPosition * CurrentLoop.Session.AudioSource.Duration).TotalMilliseconds - 100
+                : TimeSpan.FromSeconds(CurrentLoop.EndPosition * CurrentLoop.Session.AudioSource.Duration).TotalMilliseconds;
             currentTimeCancelTokenSource = new CancellationTokenSource();
             timer.LoopTimerExpired += LoopTimerExpired;
             timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
@@ -120,10 +123,15 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             if (IsPlaying)
             {
-                Api?
-                .PlayerApi?
-                .Pause()?
-                .SetErrorCallback(spotifyDelegate);
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    Api?
+                    .PlayerApi?
+                    .Pause()?
+                    .SetErrorCallback(spotifyDelegate);
+
+                    Api?.PlayerApi?.SetRepeat(0).SetErrorCallback(spotifyDelegate);
+                });
             }
 
             IsPlaying = false;
@@ -153,16 +161,18 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 spotifyDelegate.SpotifyResultHandler += OnResult;
                 Api?.PlayerApi
                     ?.SubscribeToPlayerState()
-                    ?.SetEventCallback(spotifyDelegate)
                     ?.SetErrorCallback(spotifyDelegate);
 
                 IsPlaying = true;
             }
 
-            Api?.PlayerApi
-                ?.Play(CurrentLoop.Session.AudioSource.Source)
-                ?.SetResultCallback(spotifyDelegate)
-                ?.SetErrorCallback(spotifyDelegate);
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                Api?.PlayerApi
+                    ?.Play(CurrentLoop.Session.AudioSource.Source)
+                    ?.SetResultCallback(spotifyDelegate)
+                    ?.SetErrorCallback(spotifyDelegate);
+            });
 
             ResetAllTimers();
             RaisePlayingStatusChanged();
@@ -171,7 +181,10 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void Seek(double time)
         {
-            Api?.PlayerApi?.SeekTo((long)loopStart);
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                Api?.PlayerApi?.SeekTo((long)loopStart).SetErrorCallback(spotifyDelegate);
+            });
         }
 
         public async Task InitAsync(Loop loop)
@@ -224,7 +237,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             try
             {
                 loopStart = TimeSpan.FromSeconds(CurrentLoop.StartPosition * CurrentLoop.Session.AudioSource.Duration).TotalMilliseconds;
-                loopEnd = TimeSpan.FromSeconds(CurrentLoop.EndPosition * CurrentLoop.Session.AudioSource.Duration).TotalMilliseconds;
+                loopEnd = CurrentLoop.EndPosition == 1
+                ? TimeSpan.FromSeconds(CurrentLoop.EndPosition * CurrentLoop.Session.AudioSource.Duration).TotalMilliseconds - 2
+                : TimeSpan.FromSeconds(CurrentLoop.EndPosition * CurrentLoop.Session.AudioSource.Duration).TotalMilliseconds;
 
                 if (IsPlaying)
                 {
@@ -258,6 +273,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
+                // repeat one
+                Api?.PlayerApi?.SetRepeat(1).SetErrorCallback(spotifyDelegate);
                 Api?.PlayerApi?.SeekTo((long)loopStart);
             }
             catch (System.Exception ex)
@@ -269,7 +286,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public async void OnError(object sender, Throwable error)
         {
-            // todo: show dialog
             await logger?.LogErrorAsync(new System.Exception(error.Message));
         }
 

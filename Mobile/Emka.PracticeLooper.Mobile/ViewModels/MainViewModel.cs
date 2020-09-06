@@ -558,8 +558,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             try
             {
                 MainThread.BeginInvokeOnMainThread(() => IsBusy = true);
-                var source = await sourcePicker?.SelectFileSource();
                 await interstitialAd?.ShowAdAsync();
+                var source = await sourcePicker?.SelectFileSource();
 
                 switch (source)
                 {
