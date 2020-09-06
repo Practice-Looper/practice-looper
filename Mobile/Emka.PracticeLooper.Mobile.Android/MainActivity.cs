@@ -15,6 +15,7 @@ using Emka3.PracticeLooper.Mappings.Contracts;
 using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
@@ -59,37 +60,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
                 { "OS version", $"{AppInfo.VersionString}" },
                 { "Device", $"{DeviceInfo.Manufacturer} {DeviceInfo.Model}" }
             });
-        }
-
-        protected override void OnDestroy()
-        {
-            try
-            {
-                base.OnDestroy();
-                IResolver resolver = Factory.GetResolver();
-                var audioPlayers = resolver.ResolveAll<IAudioPlayer>();
-                var spotifyLoader = resolver.Resolve<ISpotifyLoader>();
-
-                if (audioPlayers != null && audioPlayers.Any())
-                {
-                    foreach (var player in audioPlayers)
-                    {
-                        player.Pause();
-                    }
-                }
-
-                if (spotifyLoader != null)
-                {
-                    spotifyLoader.Disconnect();
-                }
-
-                DeviceDisplay.KeepScreenOn = false;
-            }
-            catch (Exception ex)
-            {
-                Crashes.TrackError(ex);
-                throw;
-            }
         }
 
         private void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)

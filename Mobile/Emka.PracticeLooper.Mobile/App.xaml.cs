@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using Emka.PracticeLooper.Mobile.Themes;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Utils;
+using System.Linq;
+using Emka3.PracticeLooper.Services.Contracts.Rest;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -51,9 +53,21 @@ namespace Emka.PracticeLooper.Mobile
             DeviceDisplay.KeepScreenOn = !DeviceDisplay.KeepScreenOn;
         }
 
-        protected override void OnSleep()
+        protected override async void OnSleep()
         {
             DeviceDisplay.KeepScreenOn = !DeviceDisplay.KeepScreenOn;
+            var audioPlayers = resolver.ResolveAll<IAudioPlayer>();
+            var service = resolver.Resolve<ISpotifyApiService>();
+
+            if (audioPlayers != null && audioPlayers.Any())
+            {
+                foreach (var player in audioPlayers)
+                {
+                    player.Pause(true);
+                }
+            }
+
+            await service.PauseCurrentPlayback();
         }
 
         private void InitApp()

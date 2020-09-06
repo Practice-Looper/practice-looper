@@ -121,18 +121,15 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void Pause(bool triggeredByUser = true)
         {
-            if (IsPlaying)
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    Api?
-                    .PlayerApi?
-                    .Pause()?
-                    .SetErrorCallback(spotifyDelegate);
+                Api?
+                .PlayerApi?
+                .Pause()?
+                .SetErrorCallback(spotifyDelegate);
 
-                    Api?.PlayerApi?.SetRepeat(0).SetErrorCallback(spotifyDelegate);
-                });
-            }
+                Api?.PlayerApi?.SetRepeat(0).SetErrorCallback(spotifyDelegate);
+            });
 
             IsPlaying = false;
             timer?.StopTimers();

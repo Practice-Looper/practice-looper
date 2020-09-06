@@ -16,11 +16,11 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<service android:enabled="true" android:exported="true" android:name="crc646e364d2ff34954e7.MediaBrowserService">
+		<!--<service android:enabled="true" android:exported="true" android:name="crc646e364d2ff34954e7.MediaBrowserService">
 			<intent-filter>
 				<action android:name="android.media.browse.MediaBrowserService" />
 			</intent-filter>
-		</service>
+		</service>-->
 		<activity android:configChanges="orientation|screenSize" android:name="crc64424a8adc5a1fbe28.FilePickerActivity" />
 		<service android:name="crc64a98abb514ffad9f1.KeepAliveService" />
 		<receiver android:name=".RemoteBroadcastReceiver" android:enabled="false">

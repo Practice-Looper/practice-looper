@@ -23,6 +23,7 @@ using Emka.PracticeLooper.Mobile.iOS.Common;
 using Plugin.InAppBilling;
 using Xamarin.Forms;
 using AVFoundation;
+using Emka3.PracticeLooper.Services.Contracts.Rest;
 
 namespace Emka.PracticeLooper.Mobile.iOS
 {
@@ -98,36 +99,6 @@ namespace Emka.PracticeLooper.Mobile.iOS
         private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Crashes.TrackError(e.ExceptionObject as Exception);
-        }
-
-        public override void WillTerminate(UIApplication uiApplication)
-        {
-            try
-            {
-                IResolver resolver = Factory.GetResolver();
-                var audioPlayers = resolver.ResolveAll<IAudioPlayer>();
-                var spotifyLoader = resolver.Resolve<ISpotifyLoader>();
-
-                if (audioPlayers != null && audioPlayers.Any())
-                {
-                    foreach (var player in audioPlayers)
-                    {
-                        player.Pause(true);
-                    }
-                }
-
-                if (spotifyLoader != null)
-                {
-                    spotifyLoader.Disconnect();
-                }
-
-                DeviceDisplay.KeepScreenOn = false;
-                base.WillTerminate(uiApplication);
-            }
-            catch (Exception ex)
-            {
-                Crashes.TrackError(ex);
-            }
         }
 
         private void Setup()
