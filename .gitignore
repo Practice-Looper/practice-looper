@@ -18,6 +18,7 @@ obj/
 *.rsuser
 *.suo
 *.user
+*.DS_Store
 *.userosscache
 *.sln.docstates
 
