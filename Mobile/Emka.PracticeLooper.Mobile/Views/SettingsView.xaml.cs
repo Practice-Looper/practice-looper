@@ -8,7 +8,6 @@ using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
-using Plugin.InAppBilling;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
@@ -27,8 +26,8 @@ namespace Emka.PracticeLooper.Mobile.Views
                 resolver.Resolve<ILogger>(),
                 resolver.Resolve<IDialogService>(),
                 resolver.Resolve<IAppTracker>(),
-                resolver.Resolve<IInAppBillingVerifyPurchase>(),
-                resolver.Resolve<INavigationService>());
+                resolver.Resolve<INavigationService>(),
+                resolver.Resolve<IInAppBillingService>());
         }
         
         void ListView_ItemTapped(object sender, ItemTappedEventArgs e)

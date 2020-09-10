@@ -25,14 +25,16 @@ namespace Emka3.PracticeLooper.Config
         /// Config strings.
         /// </summary>
         IDictionary<string, object> configs;
-        private IPersistentConfigService persistentConfigService;
+        private readonly IPersistentConfigService persistentConfigService;
+        private readonly IConfigurationLoader configurationLoader;
         #endregion Fields
 
         #region Ctor
-        public ConfigurationService(IPersistentConfigService persistentConfigService)
+        public ConfigurationService(IPersistentConfigService persistentConfigService, IConfigurationLoader configurationLoader)
         {
             configs = new Dictionary<string, object>();
-            this.persistentConfigService = persistentConfigService;
+            this.persistentConfigService = persistentConfigService ?? throw new ArgumentNullException(nameof(persistentConfigService));
+            this.configurationLoader = configurationLoader ?? throw new ArgumentNullException(nameof(configurationLoader));
         }
         #endregion
 
@@ -45,35 +47,6 @@ namespace Emka3.PracticeLooper.Config
         #endregion
 
         #region Methods
-        /// <summary>
-        /// Read the secrets.
-        /// </summary>
-        private IDictionary<string, object> ReadSecrets()
-        {
-            string json;
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Emka3.PracticeLooper.Config.secrets.json"))
-            using (var reader = new StreamReader(stream))
-            {
-                json = reader.ReadToEnd();
-            }
-
-            if (string.IsNullOrEmpty(json))
-            {
-                throw new ArgumentNullException(nameof(json));
-            }
-
-            try
-            {
-                JObject conf = JObject.Parse(json);
-                // crate dictionary.
-                return JsonConvert.DeserializeObject<Dictionary<string, object>>(conf.ToString());
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         private void OnValueChanged(string value)
         {
             if (!string.IsNullOrEmpty(value))
@@ -142,9 +115,14 @@ namespace Emka3.PracticeLooper.Config
             await Task.Run(() => SetValue(key, value, persist)).ConfigureAwait(false);
         }
 
-        public void ReadConfigs()
+        public void ReadConfigs(string path)
         {
-            var loadedSecrets = ReadSecrets() ?? throw new Exception("could not read configs!");
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+
+            var loadedSecrets = configurationLoader.LoadConfiguration(path) ?? throw new Exception("could not read configs!");
             foreach (var loadedKeyValuePair in loadedSecrets)
             {
                 configs.Add(loadedKeyValuePair);

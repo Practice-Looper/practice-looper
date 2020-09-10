@@ -2,8 +2,6 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
-using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Services.Contracts.Common;
@@ -26,28 +24,6 @@ namespace Emka3.PracticeLooper.Services.Tests
             playerTimer = new PlayerTimer(loggerMock.Object);
 
         }
-		
-		/* 
-        [Theory]
-        [InlineData(500)]
-        [InlineData(1000)]
-        public async Task When_SetLooperTimer_Expect_FiresLoopTimerExpiredEvent(int ms)
-        {
-            await Task.Run(() => timerEvent = new AutoResetEvent(false));
-            var watch = new Stopwatch();
-            playerTimer.LoopTimerExpired += (s, e) =>
-            {
-                watch.Stop();
-                timerEvent.Set();
-            };
-
-            playerTimer.SetLoopTimer(ms);
-            watch.Start();
-            await Task.Run(timerEvent.WaitOne);
-            playerTimer.StopTimers();
-            Assert.InRange(watch.ElapsedMilliseconds, ms - Deviation, ms + Deviation);
-        }
-		*/
 
         [Fact]
         public async Task When_SetCurrentPositionTimer_Expect_FiresCurrentPositionTimerExpired()
@@ -67,6 +43,30 @@ namespace Emka3.PracticeLooper.Services.Tests
             playerTimer.SetCurrentTimeTimer(1000);
             await Task.Run(timerEvent.WaitOne);
 
+            Assert.Equal(3, counter);
+        }
+
+        [Theory]
+        [InlineData(500)]
+        [InlineData(1000)]
+        [InlineData(2000)]
+        [InlineData(10000)]
+        public async Task When_SetLooperTimer_Expect_FiresLooperTimerExpired(double time)
+        {
+            await Task.Run(() => timerEvent = new AutoResetEvent(false));
+            int counter = 0;
+            playerTimer.LoopTimerExpired += (s, e) =>
+            {
+                counter++;
+                if (counter == 3)
+                {
+                    playerTimer.StopTimers();
+                    timerEvent.Set();
+                }
+            };
+
+            playerTimer.SetLoopTimer(time);
+            await Task.Run(timerEvent.WaitOne);
             Assert.Equal(3, counter);
         }
     }

@@ -19,7 +19,6 @@ using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using Plugin.InAppBilling;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Factory = Emka3.PracticeLooper.Mappings.Factory;
@@ -50,7 +49,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
             base.SetTheme(Resource.Style.MainTheme);
-            Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = Platform.CurrentActivity;
 
             stopWatch.Stop();
 
@@ -87,7 +85,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
-            InAppBillingImplementation.HandleActivityResult(requestCode, resultCode, data);
+          
             // Check if result comes from the correct activity
             try
             {
@@ -154,8 +152,8 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
         private void Setup()
         {
-            var configService = new ConfigurationService(new PersistentConfigService()) ?? throw new ArgumentNullException("configService");
-            configService.ReadConfigs();
+            var configService = new ConfigurationService(new PersistentConfigService(), new JsonConfigLoader()) ?? throw new ArgumentNullException("configService");
+            configService.ReadConfigs("Emka3.PracticeLooper.Config.secrets.json");
             string key;
 #if PREMIUM
             key = configService.GetValue("AppCenterAndroidPremium");
@@ -174,10 +172,10 @@ namespace Emka.PracticeLooper.Mobile.Droid
             var resolver = Factory.GetResolver() ?? throw new ArgumentNullException("resolver");
             resolver.RegisterInstance(configService, typeof(IConfigurationService));
             resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
+            resolver.RegisterSingleton(typeof(InAppBillingService), typeof(IInAppBillingService));
             resolver.RegisterSingleton(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
             resolver.Register(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
-            resolver.Register(typeof(InAppBillingVerifyPurchase), typeof(IInAppBillingVerifyPurchase));
             resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
             resolver.RegisterSingleton(typeof(ConnectivityService), typeof(IConnectivityService));
             resolver.RegisterSingleton(typeof(DeviceStorageService), typeof(IDeviceStorageService));

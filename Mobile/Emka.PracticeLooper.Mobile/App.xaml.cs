@@ -16,6 +16,7 @@ using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Utils;
 using System.Linq;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
+using Emka.PracticeLooper.Services.Contracts.Common;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile

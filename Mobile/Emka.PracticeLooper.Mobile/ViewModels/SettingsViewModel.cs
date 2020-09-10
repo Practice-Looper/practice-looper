@@ -12,7 +12,6 @@ using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
-using Plugin.InAppBilling;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -22,10 +21,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     public class SettingsViewModel : ViewModelBase
     {
         #region Fields
-
         private readonly IConfigurationService configService;
         private readonly IDialogService dialogService;
-        private readonly IInAppBillingVerifyPurchase purchaseVerifier;
+        private readonly IInAppBillingService inAppBillingService;
         private Command purchaseItemCommand;
         private bool isBusy;
         private bool hasProducts;
@@ -33,19 +31,19 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Ctor
 
-        public SettingsViewModel(IConfigurationService configService, ILogger logger, IDialogService dialogService, IAppTracker appTracker, IInAppBillingVerifyPurchase purchaseVerifier, INavigationService navigationService)
+        public SettingsViewModel(IConfigurationService configService, ILogger logger, IDialogService dialogService, IAppTracker appTracker, INavigationService navigationService, IInAppBillingService inAppBillingService)
             : base(navigationService, logger, appTracker)
         {
-            this.configService = configService;
-            this.dialogService = dialogService;
-            this.purchaseVerifier = purchaseVerifier;
+            this.configService = configService ?? throw new ArgumentNullException(nameof(configService));
+            this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
+            this.inAppBillingService = inAppBillingService ?? throw new ArgumentNullException(nameof(inAppBillingService));
             Products = new ObservableCollection<InAppBillingProductViewModel>();
             HasProducts = true;
         }
         #endregion
 
         #region Properties
-        public Command PurchaseItemCommand => purchaseItemCommand ?? (purchaseItemCommand = new Command(async o => await ExecutePurchaseItemCommand(o)));
+        public Command PurchaseItemCommand => purchaseItemCommand ?? new Command(async o => await ExecutePurchaseItemCommand(o));
         public string AppVersion => VersionTracking.CurrentVersion;
         public ObservableCollection<InAppBillingProductViewModel> Products { get; set; }
         public bool IsBusy
@@ -73,66 +71,26 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public async override Task InitializeAsync(object parameter)
         {
-            await GetInAppItems();
-        }
-
-        private async Task GetInAppItems()
-        {
             IsBusy = true;
-            var billing = CrossInAppBilling.Current;
-            try
+            HasProducts = true;
+            if (inAppBillingService.Products == null || !inAppBillingService.Products.Any())
             {
-                var productIds = new[] { PreferenceKeys.PremiumGeneral};
-                //You must connect
-                var connected = await billing.ConnectAsync(ItemType.InAppPurchase);
-
-                if (!connected)
-                {
-                    await Logger.LogErrorAsync(new Exception($"Could not connect to store {DeviceInfo.Platform}"));
-                    await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToStore, AppResources.Error_Caption);
-                    return;
-                }
-
-                //check purchases
-                var items = await billing.GetProductInfoAsync(ItemType.InAppPurchase, productIds);
-
-                foreach (var item in items)
-                {
-                    var vm = new InAppBillingProductViewModel(item)
-                    {
-                        Purchased = await WasItemPurchased(item.ProductId)
-                    };
-                    Products.Add(vm);
-                    if (vm.Purchased)
-                    {
-                        await MainThread.InvokeOnMainThreadAsync(() =>
-                         {
-                             configService.SetValue(PreferenceKeys.PremiumGeneral, true, true);
-                         });
-                    }
-                }
+                await inAppBillingService.FetchOfferingsAsync();
             }
-            catch (InAppBillingPurchaseException pEx)
+
+            var tmpProducts = inAppBillingService.Products.Select(p => new InAppBillingProductViewModel(p.Value)).ToList();
+
+            Products.Clear();
+            foreach (var item in tmpProducts)
             {
-                var message = GetErrorMessage(pEx.PurchaseError);
-                //Decide if it is an error we care about
-                if (string.IsNullOrWhiteSpace(message))
-                    return;
+                Products.Add(item);
+            }
 
-                await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
-            }
-            catch (Exception ex)
-            {
-                await Logger.LogErrorAsync(ex);
-                await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
-            }
-            finally
-            {
-                await billing.DisconnectAsync();
-                IsBusy = false;
-                HasProducts = Products.Any();
-            }
+            HasProducts = Products.Any();
+            IsBusy = false;
         }
+
+      
 
         private async Task ExecutePurchaseItemCommand(object o)
         {
@@ -145,45 +103,19 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 }
 
                 IsBusy = true;
-                var billing = CrossInAppBilling.Current;
                 try
                 {
-                    var connected = await billing.ConnectAsync(ItemType.InAppPurchase);
-                    if (!connected)
+                    var (success, error, cancelledByUser) = await inAppBillingService.PurchaseProductAsync(product.Model.Package);
+
+                    if (!success && !cancelledByUser)
                     {
-                        //we are offline or can't connect, don't try to purchase
-                        await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToStore, AppResources.Error_Caption);
-                        return;
+                        await dialogService.ShowAlertAsync(error ?? AppResources.Error_Content_General, AppResources.Error_Caption);
                     }
 
-                    //check purchases
-                    var payload = Guid.NewGuid().ToString();
-                    var purchase = await billing.PurchaseAsync(product.Model.ProductId, ItemType.InAppPurchase, payload, purchaseVerifier);
-
-                    //possibility that a null came through.
-                    if (purchase == null)
+                    if (success && !cancelledByUser)
                     {
-                        await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotPurchaseItem, AppResources.Error_Caption);
-                    }
-                    else if (purchase.State == PurchaseState.Purchased)
-                    {
-                        await MainThread.InvokeOnMainThreadAsync(() =>
-                        {
-                            configService.SetValue(PreferenceKeys.PremiumGeneral, true, true);
-                        });
-                        var purchasedVm = Products.FirstOrDefault(p => p.Model.ProductId == product.Model.ProductId);
-                        purchasedVm.Purchased = true;
-                    }
-                }
-                catch (InAppBillingPurchaseException pEx)
-                {
-                    //Billing Exception handle this based on the type
-                    var message = GetErrorMessage(pEx.PurchaseError);
-                    //Decide if it is an error we care about
-                    if (string.IsNullOrWhiteSpace(message))
-                        return;
-
-                    await dialogService.ShowAlertAsync(message);
+                        //unlock premium
+                    }                    
                 }
                 catch (Exception ex)
                 {
@@ -192,105 +124,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 }
                 finally
                 {
-                    await billing.DisconnectAsync();
                     IsBusy = false;
                 }
             }
-        }
-
-        public async Task<bool> WasItemPurchased(string productId)
-        {
-            var billing = CrossInAppBilling.Current;
-            try
-            {
-                if (configService.GetValue<bool>(productId, default))
-                {
-                    return true;
-                }
-
-                var connected = await billing.ConnectAsync(ItemType.InAppPurchase);
-
-                if (!connected)
-                {
-                    await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToStore, AppResources.Error_Caption);
-                    return false;
-                }
-
-                //check purchases
-                var purchases = await billing.GetPurchasesAsync(ItemType.InAppPurchase);
-
-                //check for null just incase
-                if (purchases?.Any(p => p.ProductId == productId) ?? false)
-                {
-                    return true;
-                }
-                else
-                {
-                    //no purchases found
-                    return false;
-                }
-            }
-            catch (InAppBillingPurchaseException purchaseEx)
-            {
-                //Billing Exception handle this based on the type
-                var message = GetErrorMessage(purchaseEx.PurchaseError);
-                //Decide if it is an error we care about
-                if (string.IsNullOrWhiteSpace(message))
-                    return false;
-
-                await dialogService.ShowAlertAsync(message);
-            }
-            catch (Exception ex)
-            {
-                await Logger.LogErrorAsync(ex);
-                await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
-            }
-            finally
-            {
-                await billing.DisconnectAsync();
-            }
-
-            return false;
-        }
-
-        private string GetErrorMessage(PurchaseError error)
-        {
-            var message = string.Empty;
-            switch (error)
-            {
-                case PurchaseError.AppStoreUnavailable:
-                    message = AppResources.Error_Content_StoreUnavailable;
-                    break;
-                case PurchaseError.BillingUnavailable:
-                    message = AppResources.Error_Content_BillingUnavailable;
-                    break;
-                case PurchaseError.PaymentInvalid:
-                    message = AppResources.Error_Content_PaymentInvalid;
-                    break;
-                case PurchaseError.PaymentNotAllowed:
-                    message = AppResources.Error_Content_PaymentNotAllowed;
-                    break;
-
-                case PurchaseError.InvalidProduct:
-                case PurchaseError.DeveloperError:
-                case PurchaseError.ItemUnavailable:
-                case PurchaseError.GeneralError:
-                case PurchaseError.ProductRequestFailed:
-                case PurchaseError.ServiceUnavailable:
-                    message = AppResources.Error_Content_General;
-                    break;
-                case PurchaseError.UserCancelled:
-                    break;
-                case PurchaseError.RestoreFailed:
-                    message = AppResources.Error_Content_RestoreFailed;
-                    break;
-                case PurchaseError.AlreadyOwned:
-                    break;
-                case PurchaseError.NotOwned:
-                    break;
-            }
-
-            return message;
         }
         #endregion
     }
