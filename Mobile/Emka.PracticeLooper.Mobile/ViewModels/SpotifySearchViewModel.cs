@@ -11,6 +11,7 @@ using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka.PracticeLooper.Model;
+using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
@@ -26,6 +27,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #region Fields
         private ISpotifyApiService spotifyApiService;
         private ISpotifyLoader spotifyLoader;
+        private IDialogService dialogService;
         private Command searchCommand;
         private Command createSessionCommand;
         private LooprTimer timer;
@@ -38,13 +40,15 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             ISpotifyLoader spotifyLoader,
             INavigationService navigationService,
             ILogger logger,
-            IAppTracker appTracker)
+            IAppTracker appTracker,
+            IDialogService dialogService)
             : base(navigationService, logger, appTracker)
         {
             searchCancelTokenSource = new CancellationTokenSource();
             SearchResults = new ObservableCollection<SpotifyTrack>();
             this.spotifyApiService = spotifyApiService ?? throw new ArgumentNullException(nameof(spotifyApiService));
-            this.spotifyLoader = spotifyLoader ?? throw new ArgumentNullException(nameof(spotifyLoader)); ;
+            this.spotifyLoader = spotifyLoader ?? throw new ArgumentNullException(nameof(spotifyLoader));
+            this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
         }
         #endregion
 
@@ -70,7 +74,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Methods
 
-        private async Task ExecuteCreateSessionCommand(object newTrack)
+        public async Task ExecuteCreateSessionCommand(object newTrack)
         {
             var track = newTrack as SpotifyTrack;
             if (track == null)
@@ -79,13 +83,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
             try
             {
-                Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(this, MessengerKeys.NewTrackAdded, new AudioSource
+                MessagingCenter.Send(this, MessengerKeys.NewTrackAdded, new AudioSource
                 {
                     FileName = track.Name,
                     Type = AudioSourceType.Spotify,
                     Source = track.Uri,
                     Duration = track.Duration / 1000
-                }));
+                });
 
                 await NavigationService.GoBackAsync();
             }
@@ -187,7 +191,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 if (!spotifyLoader.Authorized)
                 {
-                    await spotifyLoader.InitializeAsync();
+                    var authorized = await spotifyLoader.InitializeAsync();
+                    if (!authorized)
+                    {
+                        await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToSpotify, AppResources.Error_Caption);
+                        await NavigationService.GoBackAsync();
+                    }
                 }
             }
             catch (Exception ex)

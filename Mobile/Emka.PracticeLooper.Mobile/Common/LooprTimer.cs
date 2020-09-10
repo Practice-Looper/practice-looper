@@ -4,7 +4,8 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
 using System.Threading;
-using Xamarin.Forms;
+using System.Threading.Tasks;
+using System.Timers;
 
 namespace Emka.PracticeLooper.Mobile.Common
 {
@@ -15,7 +16,7 @@ namespace Emka.PracticeLooper.Mobile.Common
         private object activeLock = new object();
         private CancellationTokenSource cancellation;
         private bool isActive;
-
+        private System.Timers.Timer timer;
         public LooprTimer(TimeSpan timespan, Action callback)
         {
             this.timespan = timespan;
@@ -45,16 +46,33 @@ namespace Emka.PracticeLooper.Mobile.Common
 
         public void Start()
         {
-            CancellationTokenSource cts = cancellation; // safe copy
-            Device.StartTimer(timespan,
-                () =>
-                {
-                    if (cts.IsCancellationRequested) return false;
-                    callback.Invoke();
-                    return false; // or true for periodic behavior
-                });
-
+            timer = new System.Timers.Timer(timespan.TotalMilliseconds);
+            timer.Elapsed += OnTimedEvent;
+            timer.AutoReset = false;
+            timer.Enabled = true;
             IsActive = true;
+        }
+
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            try
+            {
+                CancellationTokenSource cts = cancellation;
+                if (!cts.IsCancellationRequested)
+                {
+                    callback.Invoke();
+                }
+
+                if (sender is System.Timers.Timer timer && timer == this.timer)
+                {
+                    timer.Elapsed -= OnTimedEvent;
+                    timer.Enabled = false;
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                // do nothing
+            }
         }
 
         public void Stop()

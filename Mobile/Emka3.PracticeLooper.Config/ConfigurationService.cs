@@ -24,14 +24,19 @@ namespace Emka3.PracticeLooper.Config
         IDictionary<string, object> configs;
         private readonly IPersistentConfigService persistentConfigService;
         private readonly IConfigurationLoader configurationLoader;
+        private readonly ISecureConfigService secureConfigService;
         #endregion Fields
 
         #region Ctor
-        public ConfigurationService(IPersistentConfigService persistentConfigService, IConfigurationLoader configurationLoader)
+        public ConfigurationService(
+            IPersistentConfigService persistentConfigService,
+            IConfigurationLoader configurationLoader,
+            ISecureConfigService secureConfigService)
         {
             configs = new Dictionary<string, object>();
             this.persistentConfigService = persistentConfigService ?? throw new ArgumentNullException(nameof(persistentConfigService));
             this.configurationLoader = configurationLoader ?? throw new ArgumentNullException(nameof(configurationLoader));
+            this.secureConfigService = secureConfigService ?? throw new ArgumentNullException(nameof(secureConfigService));
         }
         #endregion
 
@@ -77,7 +82,7 @@ namespace Emka3.PracticeLooper.Config
 
             var persistedValue = persistentConfigService.GetPersistedValue(key, defaultValue);
             return persistedValue;
-        } 
+        }
 
         public async Task<T> GetValueAsync<T>(string key, T defaultValue = default)
         {
@@ -130,21 +135,44 @@ namespace Emka3.PracticeLooper.Config
 
         public void SetSecureValue(string key, object value)
         {
-            var stringValue = value.ToString();
-            SecureStorage.SetAsync(key, stringValue).Wait();
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+
+            if (value == null || string.IsNullOrWhiteSpace(value?.ToString()))
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            secureConfigService.SetSecureValue(key, value.ToString());
             OnValueChanged(key);
         }
 
         public async Task SetSecureValueAsync(string key, object value)
         {
-            var stringValue = value.ToString();
-            await SecureStorage.SetAsync(key, stringValue);
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+
+            if (value == null || string.IsNullOrWhiteSpace(value?.ToString()))
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            await secureConfigService.SetSecureValueAsync(key, value.ToString());
             OnValueChanged(key);
         }
 
         public string GetSecureValue(string key)
         {
-            var result = SecureStorage.GetAsync(key).Result;
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+
+            var result = secureConfigService.GetSecureValue(key);
             return result;
         }
 
@@ -162,7 +190,12 @@ namespace Emka3.PracticeLooper.Config
 
         public async Task<string> GetSecureValueAsync(string key)
         {
-            return await SecureStorage.GetAsync(key);
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(key);
+            }
+
+            return await secureConfigService.GetSecureValueAsync(key);
         }
 
         public async Task<T> GetSecureValueAsync<T>(string key)

@@ -10,7 +10,7 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 
 namespace Emka3.PracticeLooper.Services.Common
 {
-    public class AudioFileLoader: IAudioFileLoader
+    public class AudioFileLoader : IAudioFileLoader
     {
         private readonly IConfigurationService configurationService;
 
@@ -21,6 +21,11 @@ namespace Emka3.PracticeLooper.Services.Common
 
         public string GetAbsoluteFilePath(AudioSource audioSource)
         {
+            if (audioSource == null)
+            {
+                throw new ArgumentNullException(nameof(audioSource));
+            }
+
             switch (audioSource.Type)
             {
                 case AudioSourceType.Spotify:
@@ -39,11 +44,16 @@ namespace Emka3.PracticeLooper.Services.Common
 
         public Stream GetFileStream(AudioSource audioSource)
         {
+            if (audioSource == null)
+            {
+                throw new ArgumentNullException(nameof(audioSource));
+            }
+
             switch (audioSource.Type)
             {
                 case AudioSourceType.Spotify:
                 case AudioSourceType.None:
-                    return FileStream.Null;
+                    return Stream.Null;
                 case AudioSourceType.LocalInternal:
                     var internalStream = new FileStream(Path.Combine(configurationService.GetValue(PreferenceKeys.InternalStoragePath), audioSource.Source), FileMode.Open, FileAccess.Read);
                     return internalStream;

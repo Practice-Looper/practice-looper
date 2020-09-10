@@ -24,6 +24,7 @@ using Emka3.PracticeLooper.Config.Contracts;
 using System.IO;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using System.Net;
+using System.Threading;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -75,7 +76,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             ILogger logger,
             IAppTracker appTracker,
             IConfigurationService configurationService,
-            IInAppBillingService inAppBillingService)
+            IInAppBillingService inAppBillingService,
+            IEnumerable<IAudioPlayer> audioPlayers)
             : base(navigationService, logger, appTracker)
         {
             this.interstitialAd = interstitialAd ?? throw new ArgumentNullException(nameof(interstitialAd));
@@ -90,6 +92,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.connectivityService = connectivityService ?? throw new ArgumentNullException(nameof(connectivityService));
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             this.inAppBillingService = inAppBillingService ?? throw new ArgumentNullException(nameof(inAppBillingService));
+            AudioPlayers = audioPlayers?.ToList() ?? throw new ArgumentNullException(nameof(audioPlayers));
 
             MessagingCenter.Subscribe<SpotifySearchViewModel, AudioSource>(this, MessengerKeys.NewTrackAdded, (sender, audioSorce) => CreateSessionCommand.Execute(audioSorce));
             MessagingCenter.Subscribe<SessionViewModel, SessionViewModel>(this, MessengerKeys.DeleteSession, (sender, arg) => DeleteSessionCommand.Execute(arg));
@@ -98,6 +101,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             Sessions = new ObservableCollection<SessionViewModel>();
             isPlaying = false;
+            UiContext = SynchronizationContext.Current;
         }
         #endregion
 
@@ -268,11 +272,18 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         }
         public double StepFrequency => CurrentSession != null ? 1 / CurrentSession.Session.AudioSource.Duration : 0;
         public double TickFrequency => StepFrequency * 5;
+
+        public List<IAudioPlayer> AudioPlayers { get; }
         #endregion
 
         #region Metods
         public override async Task InitializeAsync(object parameter)
         {
+            if (UiContext == null)
+            {
+                throw new InvalidOperationException("UiContext is null!");
+            }
+
             IsBusy = true;
             try
             {
@@ -281,15 +292,18 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
                 spotifyLoader.Disconnected += OnSpotifyDisconnected;
 
-                await MainThread.InvokeOnMainThreadAsync(() =>
+                if (items != null && items.Any())
                 {
-                    foreach (var item in items)
-                    {
-                        Sessions.Add(new SessionViewModel(item, dialogService, Logger, NavigationService, Tracker));
-                    }
+                    UiContext.Send(x =>
+                            {
+                                foreach (var item in items)
+                                {
+                                    Sessions.Add(new SessionViewModel(item, dialogService, Logger, NavigationService, Tracker));
+                                }
 
-                    CurrentSession = Sessions.FirstOrDefault(s => s.Session.Id == configurationService.GetValue(PreferenceKeys.LastSession, default(int))) ?? Sessions.FirstOrDefault();
-                });
+                                CurrentSession = Sessions.FirstOrDefault(s => s.Session.Id == configurationService.GetValue(PreferenceKeys.LastSession, default(int))) ?? Sessions.FirstOrDefault();
+                            }, null);
+                }
 
                 if (!connectivityService.HasFastConnection() && !configurationService.GetValue(PreferenceKeys.SlowConnectionWarning, default(bool)))
                 {
@@ -324,7 +338,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 if (CurrentAudioPlayer != null)
                 {
-                    CurrentAudioPlayer?.Pause();
+                    CurrentAudioPlayer.Pause();
                     CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
                 }
@@ -423,8 +437,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 if (CurrentAudioPlayer.IsPlaying)
                 {
-                    Device.BeginInvokeOnMainThread(() => IsPlaying = false);
-                    Device.BeginInvokeOnMainThread(() => CurrentAudioPlayer.Pause(true));
+                    UiContext.Send(x => IsPlaying = false, null);
+                    UiContext.Send(x => CurrentAudioPlayer.Pause(true), null);
                     CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
                     await interstitialAd?.ShowAdAsync();
@@ -557,7 +571,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
-                MainThread.BeginInvokeOnMainThread(() => IsBusy = true);
+                UiContext.Send(x => IsBusy = true, null);
                 await interstitialAd?.ShowAdAsync();
                 var source = await sourcePicker?.SelectFileSource();
 
@@ -603,7 +617,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
             finally
             {
-                MainThread.BeginInvokeOnMainThread(() => IsBusy = false);
+                UiContext.Send(x => IsBusy = false, null);
             }
         }
 
@@ -661,8 +675,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 if (CurrentSession != null)
                 {
-                    var audioPlayers = Factory.GetResolver().ResolveAll<IAudioPlayer>();
-                    CurrentAudioPlayer = audioPlayers.First(p => p.Types.HasFlag(CurrentSession.Session.AudioSource.Type));
+                    CurrentAudioPlayer = AudioPlayers.First(p => p.Types.HasFlag(CurrentSession.Session.AudioSource.Type));
                     CurrentLoop = CurrentSession.Session.Loops.FirstOrDefault(l => l.Id == configurationService.GetValue(PreferenceKeys.LastLoop, default(int))) ?? CurrentSession.Session.Loops.First(l => l.IsDefault);
                     MinimumValue = CurrentLoop.StartPosition;
                     MaximumValue = CurrentLoop.EndPosition;

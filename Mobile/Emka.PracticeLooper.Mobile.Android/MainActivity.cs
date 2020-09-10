@@ -153,7 +153,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
         private void Setup()
         {
-            var configService = new ConfigurationService(new PersistentConfigService(), new JsonConfigLoader()) ?? throw new ArgumentNullException("configService");
+            var configService = new ConfigurationService(new PersistentConfigService(), new JsonConfigLoader(), new SecureConfigService()) ?? throw new ArgumentNullException("configService");
             configService.ReadConfigs("Emka3.PracticeLooper.Config.secrets.json");
             string key;
 #if PREMIUM

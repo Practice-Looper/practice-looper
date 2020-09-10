@@ -6,6 +6,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Model;
@@ -34,6 +35,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels.Common
         public INavigationService NavigationService { get; set; }
         protected ILogger Logger { get; }
         protected IAppTracker Tracker { get; }
+
+
+        public SynchronizationContext UiContext { get; set; }
 
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {

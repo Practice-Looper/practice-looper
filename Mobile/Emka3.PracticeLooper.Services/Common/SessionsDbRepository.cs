@@ -41,26 +41,22 @@ namespace Emka3.PracticeLooper.Services.Common
         #region Methods
         public async Task InitAsync()
         {
-            lazyInitializer = new Lazy<SQLiteConnection>(() =>
-            {
-                return dbInitializer.Initialize(configurationService.GetValue(PreferenceKeys.InternalStoragePath), configurationService.GetValue("DbName"));
-            });
-
+            using var db = InitDbConnection();
             if (!initialized)
             {
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(Session).Name))
+                if (!db.TableMappings.Any(m => m.MappedType.Name == typeof(Session).Name))
                 {
-                    await Task.Run(() => Database.CreateTable<Session>(CreateFlags.None));
+                    await Task.Run(() => db.CreateTable<Session>(CreateFlags.None));
                 }
 
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(AudioSource).Name))
+                if (!db.TableMappings.Any(m => m.MappedType.Name == typeof(AudioSource).Name))
                 {
-                    await Task.Run(() => Database.CreateTable<AudioSource>(CreateFlags.None));
+                    await Task.Run(() => db.CreateTable<AudioSource>(CreateFlags.None));
                 }
 
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(Loop).Name))
+                if (!db.TableMappings.Any(m => m.MappedType.Name == typeof(Loop).Name))
                 {
-                    await Task.Run(() => Database.CreateTable<Loop>(CreateFlags.None));
+                    await Task.Run(() => db.CreateTable<Loop>(CreateFlags.None));
                 }
 
                 initialized = true;
@@ -89,36 +85,46 @@ namespace Emka3.PracticeLooper.Services.Common
 
         public void Delete(Session item)
         {
-            Database.Delete(item, true);
+            using var db = InitDbConnection();   
+            db.Delete(item, true);
         }
 
         public int Save(Session item)
         {
+            using var db = InitDbConnection();
             item.Loops.First().Session = item;
-            Database.Insert(item.AudioSource);
-            Database.InsertAll(item.Loops, true);
-            Database.InsertWithChildren(item, true);
+            db.Insert(item.AudioSource);
+            db.InsertAll(item.Loops, true);
+            db.InsertWithChildren(item, true);
             return item.Id;
         }
 
         public Session GetById(int id)
         {
-            return Database.GetWithChildren<Session>(id);
+            using var db = InitDbConnection();
+            return db.GetWithChildren<Session>(id);
         }
 
         public List<Session> GetAllItems()
         {
-            return Database.GetAllWithChildren<Session>(recursive: true);
+            using var db = InitDbConnection();
+            return db.GetAllWithChildren<Session>(recursive: true);
         }
 
         public void Update(Session item)
         {
-            Database.UpdateWithChildren(item);
+            using var db = InitDbConnection();
+            db.UpdateWithChildren(item);
         }
 
         public async Task UpdateAsync(Session item)
         {
             await Task.Run(() => Update(item));
+        }
+
+        private SQLiteConnection InitDbConnection()
+        {
+            return dbInitializer.Initialize(configurationService.GetValue(PreferenceKeys.InternalStoragePath), configurationService.GetValue("DbName"));
         }
         #endregion
     }
