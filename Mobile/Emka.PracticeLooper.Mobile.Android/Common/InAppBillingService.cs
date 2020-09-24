@@ -156,7 +156,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         void IMakePurchaseListener.OnCompleted(Purchase purchase, PurchaserInfo purchaserInfo)
         {
             // purchase succeeded
-            if (purchaserInfo.Entitlements.All["premium"].IsActive)
+            if (purchaserInfo.Entitlements.All["Premium"].IsActive)
             {
                 purchaseResult = (true, string.Empty, false);
             }
@@ -202,7 +202,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         void IReceivePurchaserInfoListener.OnReceived(PurchaserInfo purchaserInfo)
         {
-            if (purchaserInfo.Entitlements.All["premium"].IsActive)
+            if (purchaserInfo.Entitlements.All["Premium"].IsActive)
             {
                 restoreResult = (true, null);
             }
