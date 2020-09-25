@@ -50,7 +50,9 @@ namespace Emka.PracticeLooper.Mobile.Views
                    resolver.Resolve<INavigationService>(),
                    resolver.Resolve<ILogger>(),
                    resolver.Resolve<IAppTracker>(),
-                   configService);
+                   configService,
+                   resolver.Resolve<IInAppBillingService>()
+                   );
         }
         #endregion
 

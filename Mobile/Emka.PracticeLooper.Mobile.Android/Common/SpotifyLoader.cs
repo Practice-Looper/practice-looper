@@ -16,10 +16,10 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 using Com.Spotify.Android.Appremote.Api.Error;
 using Com.Spotify.Sdk.Android.Auth;
 using Emka3.PracticeLooper.Model;
-using Emka.PracticeLooper.Mobile.Common;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka.PracticeLooper.Services.Contracts;
 using Android.Content.PM;
+using Emka.PracticeLooper.Services.Contracts.Common;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {

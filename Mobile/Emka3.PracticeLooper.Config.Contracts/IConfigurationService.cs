@@ -20,7 +20,7 @@ namespace Emka3.PracticeLooper.Config.Contracts
         /// <summary>
         /// Read configs from secrets file.
         /// </summary>
-        void ReadConfigs();
+        void ReadConfigs(string path);
 
         /// <summary>
         /// Gets the value for a specific key.

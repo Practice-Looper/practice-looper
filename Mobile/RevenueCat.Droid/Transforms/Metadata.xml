@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <!--
+  This sample removes the class: android.support.v4.content.AsyncTaskLoader.LoadTask:
+  <remove-node path="/api/package[@name='android.support.v4.content']/class[@name='AsyncTaskLoader.LoadTask']" />
+  
+  This sample removes the method: android.support.v4.content.CursorLoader.loadInBackground:
+  <remove-node path="/api/package[@name='android.support.v4.content']/class[@name='CursorLoader']/method[@name='loadInBackground']" />
+  -->
+    <attr path="/api/package[@name='com.revenuecat.purchases.interfaces']/interface[@name='ReceivePurchaserInfoListener']/method[@name='onError']/parameter[@name='p0']" name="name">paramReceivePurchaseInfoOnError</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases.interfaces']/interface[@name='ReceivePurchaserInfoListener']/method[@name='onError']" name="argsType">ReceivePurchaseInfoListenerOnError</attr>
+    
+    <attr path="/api/package[@name='com.revenuecat.purchases.interfaces']/interface[@name='ReceivePurchaserInfoListener']/method[@name='onReceived']/parameter[@name='p0']" name="name">paramReceivePurchaseInfoOnReceived</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases.interfaces']/interface[@name='ReceivePurchaserInfoListener']/method[@name='onReceived']" name="argsType">ReceivePurchaseInfoListenerOnReceived</attr>
+    
+    <attr path="/api/package[@name='com.revenuecat.purchases.interfaces']/interface[@name='ReceiveOfferingsListener']/method[@name='onReceived']/parameter[@name='p0']" name="name">paramReceiveOfferingsOnReceived</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases.interfaces']/interface[@name='ReceiveOfferingsListener']/method[@name='onReceived']" name="argsType">ReceiveOfferingsListenerOnReceived</attr>
+    
+    <attr path="/api/package[@name='com.revenuecat.purchases.interfaces']/interface[@name='ReceiveOfferingsListener']/method[@name='onError']/parameter[@name='p0']" name="name">paramReceiveOfferingsOnError</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases.interfaces']/interface[@name='ReceiveOfferingsListener']/method[@name='onError']" name="argsType">ReceiveOfferingsListenerOnError</attr>
+    
+    <attr path="/api/package[@name='com.revenuecat.purchases.interfaces']/interface[@name='MakePurchaseListener']/method[@name='onError']/parameter[@name='p0']" name="name">paramReceivePurchasesOnError</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases.interfaces']/interface[@name='MakePurchaseListener']/method[@name='onError']" name="argsType">MakePurchaseListenerOnError</attr>
+
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='Purchases.Companion']" name="managedName">Purchases.PurchasesCompanion</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='PurchaserInfo.Companion']" name="managedName">PurchaserInfo.PurchaserInfoCompanion</attr>
+    
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='Offering.Creator']" name="managedName">Offering.OfferingCreator</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='Offerings.Creator']" name="managedName">Offerings.OfferingsCreator</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='PurchaserInfo.Creator']" name="managedName">PurchaserInfo.PurchaserInfoCreator</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='EntitlementInfo.Creator']" name="managedName">EntitlementInfo.EntitlementInfoCreator</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='EntitlementInfos.Creator']" name="managedName">EntitlementInfos.EntitlementInfosCreator</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='Package.Creator']" name="managedName">Package.PackageCreator</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases.models']/class[@name='Transaction.Creator']" name="managedName">Transaction.TransactionCreator</attr>   
+    
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.acknowledge.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.acknowledge.1.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.acknowledge.1.1.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.consumePurchase.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.consumePurchase.1.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.findPurchaseInPurchaseHistory.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.findPurchaseInPurchaseHistory.1.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.launchBillingFlow.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.makePurchaseAsync.2']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.onBillingSetupFinished..inlined.synchronized.lambda.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.onPurchasesUpdated.4.1']" name="obfuscated">true</attr>   
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.queryAllPurchases.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.queryAllPurchases.1.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.queryPurchaseHistoryAsync.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.queryPurchaseHistoryAsync.1.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.queryPurchaseHistoryAsync.1.1.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.querySkuDetailsAsync.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.querySkuDetailsAsync.1.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.querySkuDetailsAsync.1.1.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.querySkuDetailsAsync.1.1.1.1']" name="obfuscated">true</attr>    
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.endConnection.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.executePendingRequests.1.1.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.sam.com_android_billingclient_api_ConsumeResponseListener.0']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.QueryPurchasesResult']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BillingWrapper.startConnection.1']" name="obfuscated">true</attr>    
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='IdentityManager.createAlias.1']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases.caching']/class[@name='DeviceCache.legacyAppUserIDCacheKey.2']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases.caching']/class[@name='DeviceCache.appUserIDCacheKey.2']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases.caching']/class[@name='DeviceCache.subscriberAttributesCacheKey.2']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases.caching']/class[@name='DeviceCache.tokensCacheKey.2']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases.attributes']/class[@name='SubscriberAttributesManager.synchronizeSubscriberAttributesForAllUsers..inlined.forEach.lambda.1']" name="obfuscated">true</attr>   
+    <attr path="/api/package[@name='com.revenuecat.purchases']/interface[@name='BillingWrapper.PurchasesUpdatedListener']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/interface[@name='BillingWrapper.StateListener']" name="obfuscated">true</attr>
+    
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='BackendErrorCode.Companion']" name="obfuscated">true</attr>
+    <attr path="/api/package[@name='com.revenuecat.purchases']/class[@name='PurchaseType.Companion']" name="obfuscated">true</attr>
+</metadata>

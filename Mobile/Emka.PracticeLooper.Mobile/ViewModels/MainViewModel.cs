@@ -42,6 +42,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private Mobile.Common.IFilePicker filePicker;
         private readonly IConnectivityService connectivityService;
         private readonly IConfigurationService configurationService;
+        private readonly IInAppBillingService inAppBillingService;
         private Command playCommand;
         private Command createSessionCommand;
         private Command deleteSessionCommand;
@@ -73,40 +74,39 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             INavigationService navigationService,
             ILogger logger,
             IAppTracker appTracker,
-            IConfigurationService configurationService)
+            IConfigurationService configurationService,
+            IInAppBillingService inAppBillingService)
             : base(navigationService, logger, appTracker)
         {
-            this.interstitialAd = interstitialAd;
-            this.sessionsRepository = sessionsRepository;
-            this.loopsRepository = loopsRepository;
-            this.dialogService = dialogService;
-            this.fileRepository = fileRepository;
-            this.sourcePicker = sourcePicker;
-            this.spotifyLoader = spotifyLoader;
-            this.spotifyApiService = spotifyApiService;
-            this.filePicker = filePicker;
-            this.connectivityService = connectivityService;
-            this.configurationService = configurationService;
-            Sessions = new ObservableCollection<SessionViewModel>();
-            isPlaying = false;
+            this.interstitialAd = interstitialAd ?? throw new ArgumentNullException(nameof(interstitialAd));
+            this.sessionsRepository = sessionsRepository ?? throw new ArgumentNullException(nameof(sessionsRepository));
+            this.loopsRepository = loopsRepository ?? throw new ArgumentNullException(nameof(loopsRepository));
+            this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
+            this.fileRepository = fileRepository ?? throw new ArgumentNullException(nameof(fileRepository));
+            this.sourcePicker = sourcePicker ?? throw new ArgumentNullException(nameof(sourcePicker));
+            this.spotifyLoader = spotifyLoader ?? throw new ArgumentNullException(nameof(spotifyLoader));
+            this.spotifyApiService = spotifyApiService ?? throw new ArgumentNullException(nameof(spotifyApiService));
+            this.filePicker = filePicker ?? throw new ArgumentNullException(nameof(filePicker));
+            this.connectivityService = connectivityService ?? throw new ArgumentNullException(nameof(connectivityService));
+            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
+            this.inAppBillingService = inAppBillingService ?? throw new ArgumentNullException(nameof(inAppBillingService));
+
             MessagingCenter.Subscribe<SpotifySearchViewModel, AudioSource>(this, MessengerKeys.NewTrackAdded, (sender, audioSorce) => CreateSessionCommand.Execute(audioSorce));
             MessagingCenter.Subscribe<SessionViewModel, SessionViewModel>(this, MessengerKeys.DeleteSession, (sender, arg) => DeleteSessionCommand.Execute(arg));
             MessagingCenter.Subscribe<SessionDetailsViewModel, LoopViewModel>(this, MessengerKeys.LoopChanged, OnLoopChanged);
             MessagingCenter.Subscribe<LoopViewModel, Loop>(this, MessengerKeys.DeleteLoop, OnDeleteLoop);
+
+            Sessions = new ObservableCollection<SessionViewModel>();
+            isPlaying = false;
         }
         #endregion
 
         #region Properties
         public Command DeleteSessionCommand => deleteSessionCommand ?? (deleteSessionCommand = new Command(async (o) => await ExecuteDeleteSessionCommandAsync(o)));
-
         public Command PlayCommand => playCommand ?? (playCommand = new Command(async (o) => await ExecutePlayCommand(o), CanExecutePlayCommand));
-
         public Command CreateSessionCommand => createSessionCommand ?? (createSessionCommand = new Command(async (o) => await ExecuteCreateSessionCommandAsync(o), CanExecuteCreateSessionCommand));
-
         public Command PickSourceCommand => pickSourceCommand ?? (pickSourceCommand = new Command(async (o) => await ExecutePickSourceCommandAsync(o)));
-
         public Command AddNewLoopCommand => addNewLoopCommand ?? (addNewLoopCommand = new Command(async (o) => await ExecuteAddNewLoopCommand(o), CanExecuteAddNewLoopCommand));
-
         public Command NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new Command(async () => await ExecuteNavigateToSettingsCommand()));
 
         public IAudioPlayer CurrentAudioPlayer { get; private set; }
@@ -296,6 +296,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     await dialogService.ShowAlertAsync(AppResources.Hint_Content_SlowConnection, AppResources.Hint_Caption_SlowConnection);
                     await configurationService.SetValueAsync(PreferenceKeys.SlowConnectionWarning, true, true);
                 }
+
+                // start loading products in background
+                inAppBillingService.Init();
             }
             catch (Exception ex)
             {

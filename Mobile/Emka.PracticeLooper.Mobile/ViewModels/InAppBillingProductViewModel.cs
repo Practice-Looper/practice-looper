@@ -4,7 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
-using Plugin.InAppBilling;
+using Emka3.PracticeLooper.Model.Common;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -16,7 +16,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Ctor
 
-        public InAppBillingProductViewModel(InAppBillingProduct model)
+        public InAppBillingProductViewModel(InAppPurchaseProduct model)
         {
             Model = model;
         }
@@ -24,7 +24,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Properties
 
-        public InAppBillingProduct Model { get; }
+        public InAppPurchaseProduct Model { get; }
         public bool Purchased
         {
             get => purchased; set

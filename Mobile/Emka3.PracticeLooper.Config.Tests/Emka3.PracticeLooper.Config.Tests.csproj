@@ -13,10 +13,17 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
     <PackageReference Include="Moq" Version="4.14.5" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj" />
     <ProjectReference Include="..\Emka3.PracticeLooper.Config.Contracts\Emka3.PracticeLooper.Config.Contracts.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="secrets.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="secrets.json" />
   </ItemGroup>
 </Project>

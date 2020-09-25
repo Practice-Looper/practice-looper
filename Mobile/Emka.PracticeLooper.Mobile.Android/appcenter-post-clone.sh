@@ -36,7 +36,8 @@ echo "{
 	AdmobIosAppId: \"$AdmobIosAppId\", 
 	PublicKey1: \"$PublicKey1\",
 	PublicKey2: \"$PublicKey2\", 
-	PublicKey3: \"$PublicKey3\" 
+	PublicKey3: \"$PublicKey3\",
+	RevenueCatPubKey: \"$RevenueCatPubKey\"
 }" > $secrets_location
 
 
