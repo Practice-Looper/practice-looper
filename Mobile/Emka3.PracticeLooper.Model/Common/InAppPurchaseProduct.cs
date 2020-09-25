@@ -100,5 +100,15 @@ namespace Emka3.PracticeLooper.Model.Common
         /// Argument for purchase package call.
         /// </summary>
 		public object Package { get; set; }
+
+		/// <summary>
+        /// Indicates whether the item has been purchased or not.
+        /// </summary>
+		public bool Purchased { get; set; }
+
+		/// <summary>
+        /// Image for paywall presentation.
+        /// </summary>
+		public string Image { get; set; }
 	}
 }

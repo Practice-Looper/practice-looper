@@ -62,7 +62,7 @@
         xml:space="preserve">
         <value>Minutes</value>
     </data>
-     <data
+    <data
         name="Seconds"
         xml:space="preserve">
         <value>Seconds</value>
@@ -171,10 +171,37 @@
         xml:space="preserve">
         <value>Have fun!</value>
     </data>
-     <data
+    <data
         name="OnboardingView_LetsLoopButton"
         xml:space="preserve">
         <value>Let's loop</value>
+    </data>
+    <!--InAppBillingProductView-->
+    <data
+        name="InAppBillingProductView_Buy"
+        xml:space="preserve">
+        <value>Upgrade ({0})</value>
+    </data>
+    <data
+        name="InAppBillingProductView_Purchased"
+        xml:space="preserve">
+        <value>Purchased</value>
+    </data>
+    <!--InAppBilling Errors-->
+    <data
+        name="InAppBillingError_ProductNotAvailableForPurchase"
+        xml:space="preserve">
+        <value>The product is not available for purchase.</value>
+    </data>
+    <data
+        name="InAppBillingError_PaymentPending"
+        xml:space="preserve">
+        <value>Please follow the instructions to complete the purchase.</value>
+    </data>
+    <data
+        name="InAppBillingError_InsufficientPermissions"
+        xml:space="preserve">
+        <value>This device does not have sufficient permissions to make in-app purchases.</value>
     </data>
     <!--Error Dialogs-->
     <data
@@ -252,7 +279,7 @@
         xml:space="preserve">
         <value>Failed to connect to Spotify App, please try again!</value>
     </data>
-    <data 
+    <data
         name="Error_Content_FileNotFound"
         xml:space="preserve">
         <value>The selected file was not found.  Do you want to delete this session?</value>
@@ -333,5 +360,13 @@
         name="Prompt_Content_NewLoop_NamePlaceholder"
         xml:space="preserve">
         <value>{0}. Loop</value>
+    </data>
+    <!-- Purchase Items -->
+    <data
+        name="pl.premium.general"
+        xml:space="preserve">
+        <value>• Completely free of ads 
+• Any number of songs 
+• Save Loops</value>
     </data>
 </root>

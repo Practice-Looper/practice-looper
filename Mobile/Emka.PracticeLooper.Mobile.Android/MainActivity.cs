@@ -157,7 +157,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             string key;
 #if PREMIUM
             key = configService.GetValue("AppCenterAndroidPremium");
-            configService.SetValue(PreferenceKeys.PremiumGeneral, true, true);
+            configService.SetSecureValue(PreferenceKeys.PremiumGeneral, true.ToString());
 #else
             key = configService.GetValue("AppCenterAndroidLite");
 #endif

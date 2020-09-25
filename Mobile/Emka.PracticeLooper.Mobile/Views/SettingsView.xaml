@@ -45,6 +45,7 @@
             </Label.Style>
         </Label>
         <ListView
+            x:Name="ProductsListView"
             Grid.Row="0"
             ItemsSource="{Binding Products}"
             ItemTapped="ListView_ItemTapped"
@@ -63,7 +64,7 @@
                         <Grid
                             VerticalOptions="FillAndExpand"
                             HorizontalOptions="FillAndExpand"
-                            BackgroundColor="Red">
+                            BackgroundColor="{DynamicResource BackgroundColor}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition
                                     Width="*" />
@@ -72,7 +73,7 @@
                             </Grid.ColumnDefinitions>
                             <Label
                                 Grid.Column="0"
-                                Text="{Binding Model.Name}"
+                                Text="{Binding Name}"
                                 FontSize="Default"
                                 TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                                 VerticalTextAlignment="Center"
@@ -80,29 +81,29 @@
                             <Label
                                 Grid.Column="1"
                                 FontSize="Default"
-                                Text="{Binding Model.LocalizedPrice}"
+                                Text="{Binding LocalizedPrice}"
                                 TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                                 VerticalTextAlignment="Center"
                                 VerticalOptions="Center"
                                 HorizontalOptions="End">
-                                <Label.Triggers>
-                                    <DataTrigger
-                                        TargetType="Label"
-                                        Binding="{Binding Purchased}"
-                                        Value="False">
+                                <Label.Style>
+                                    <Style
+                                        TargetType="Label">
                                         <Setter
                                             Property="IsVisible"
                                             Value="True" />
-                                    </DataTrigger>
-                                    <DataTrigger
-                                        TargetType="Label"
-                                        Binding="{Binding Purchased}"
-                                        Value="True">
-                                        <Setter
-                                            Property="IsVisible"
-                                            Value="False" />
-                                    </DataTrigger>
-                                </Label.Triggers>
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                TargetType="Label"
+                                                Binding="{Binding Purchased}"
+                                                Value="True">
+                                                <Setter
+                                                    Property="IsVisible"
+                                                    Value="False" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
                             </Label>
                             <Label
                                 Grid.Column="1"
@@ -126,7 +127,7 @@
                 Text="{x:Static rsrcs:AppResources.SettingsView_DarkMode}"
                 HorizontalOptions="Start"
                 TextColor="{DynamicResource SecondaryColor}"
-                IsVisible="{Binding Path=IsVisible, Source={x:Reference SchemeSwitch}}"/>
+                IsVisible="{Binding Path=IsVisible, Source={x:Reference SchemeSwitch}}" />
             <views:ColorSchemeSwitch
                 x:Name="SchemeSwitch"
                 OnColor="{DynamicResource SecondaryColor}"

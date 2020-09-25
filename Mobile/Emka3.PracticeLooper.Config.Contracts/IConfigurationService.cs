@@ -44,6 +44,48 @@ namespace Emka3.PracticeLooper.Config.Contracts
         Task SetValueAsync(string key, object value, bool persist = default);
 
         /// <summary>
+        /// Gets secure stored value for a specific key.
+        /// </summary>
+        /// <returns> Config value.</returns>
+        /// <param name="key">Key.</param>
+        string GetSecureValue(string key);
+
+        /// <summary>
+        /// Gets secure stored value for a specific key and specific type.
+        /// </summary>
+        /// <returns> Config value.</returns>
+        /// <param name="key">Key.</param>
+        T GetSecureValue<T>(string key);
+
+        /// <summary>
+        /// Gets secure stored value for a specific key async and specific type.
+        /// </summary>
+        /// <returns> Config value.</returns>
+        /// <param name="key">Key.</param>
+        Task<T> GetSecureValueAsync<T>(string key);
+
+        /// <summary>
+        /// Gets secure stored value for a specific key async.
+        /// </summary>
+        /// <returns> Config value.</returns>
+        /// <param name="key">Key.</param>
+        Task<string> GetSecureValueAsync(string key);
+
+        /// <summary>
+        /// Adds a value to secure storage.
+        /// </summary>
+        /// <param name="key">key for value storage.</param>
+        /// <param name="value">value to store.</param>
+        void SetSecureValue(string key, object value);
+
+        /// <summary>
+        /// Adds a value to secure storage.
+        /// </summary>
+        /// <param name="key">key for value storage.</param>
+        /// <param name="value">value to store.</param>
+        Task SetSecureValueAsync(string key, object value);
+
+        /// <summary>
         /// Gets the value for a generic type.
         /// </summary>
         /// <returns>The value.</returns>

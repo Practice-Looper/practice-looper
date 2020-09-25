@@ -4,6 +4,7 @@
 // simonsymhoven post@simon-symhoven.de, 2020
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Android.BillingClient.Api;
@@ -21,7 +22,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
     public class InAppBillingService : Java.Lang.Object, IInAppBillingService, IReceiveOfferingsListener, ICallback, IMakePurchaseListener, IReceivePurchaserInfoListener
     {
         #region Fields
-          
+
         static AutoResetEvent fetchProductsEvent;
         static AutoResetEvent purchaseProductEvent;
         static AutoResetEvent restorePurchasesEvent;
@@ -32,6 +33,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         private Offerings offerings;
         private (bool Success, string Error, bool UserCancelled) purchaseResult = (false, string.Empty, false);
         private (bool success, string reason) restoreResult = (false, null);
+        private (bool Success, string Error) fetchOfferingsResult;
         private bool isBillingSupported = true;
         #endregion
 
@@ -48,6 +50,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
 
         #region Properties
+        public bool Initialized { get; private set; }
 
         public IDictionary<string, InAppPurchaseProduct> Products { get; private set; }
 
@@ -59,8 +62,21 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 throw new ArgumentNullException(nameof(key));
             }
 
-            Purchases.Configure(Android.App.Application.Context, key);
-            StartFetchingOfferings();
+            try
+            {
+#if DEBUG
+                Purchases.DebugLogsEnabled = true;
+#endif
+                Purchases.Configure(Android.App.Application.Context, key);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex);
+                Initialized = false;
+                return;
+            }
+
+            Initialized = true;
         }
 
         public void StartFetchingOfferings()
@@ -69,10 +85,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             Purchases.SharedInstance.GetOfferings(this);
         }
 
-        public async Task FetchOfferingsAsync()
+        public async Task<(bool Success, string Error)> FetchOfferingsAsync()
         {
             StartFetchingOfferings();
             await Task.Run(fetchProductsEvent.WaitOne);
+            return fetchOfferingsResult;
         }
 
         void IReceiveOfferingsListener.OnReceived(Offerings paramReceiveOfferingsOnReceived)
@@ -83,25 +100,30 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
             if (package != null && !Products.ContainsKey(package.Identifier))
             {
+                bool hasBeenPurchased;
+                bool.TryParse(configurationService.GetSecureValue(package.Product.Sku), out hasBeenPurchased);
                 Products.Add(package.Identifier, new InAppPurchaseProduct
                 {
                     CurrencyCode = package.Product.PriceCurrencyCode,
-                    Description = package.Product.Description,
+                    Description = stringLocalizer.GetLocalizedString(package.Product.Sku),
                     LocalizedIntroductoryPrice = package.Product?.IntroductoryPrice?.ToString(),
                     LocalizedPrice = package.Product.Price,
                     Name = package.Product.Title,
                     ProductId = package.Product.Sku,
+                    Purchased = hasBeenPurchased,
                     Package = package
                 });
             }
 
+            fetchOfferingsResult = (true, null);
             fetchProductsEvent?.Set();
         }
 
         void IReceiveOfferingsListener.OnError(PurchasesError error)
         {
+            fetchOfferingsResult = (false, stringLocalizer.GetLocalizedString("SettingsView_NoUpgradesDescription"));
             fetchProductsEvent?.Set();
-            throw new Exception(error.Message);
+            logger.LogError(new Exception(error.Message));
         }
 
         public async Task<(bool Success, string Error, bool UserCancelled)> PurchaseProductAsync(object package)
@@ -110,10 +132,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             isSupportedEvent = new AutoResetEvent(false);
 
             Purchases.IsBillingSupported(Android.App.Application.Context, this);
-            
+
             await Task.Run(() => { isSupportedEvent.WaitOne(); });
 
-            if (!isBillingSupported) {
+            if (!isBillingSupported)
+            {
                 return purchaseResult;
             }
 
@@ -156,23 +179,24 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         void IMakePurchaseListener.OnCompleted(Purchase purchase, PurchaserInfo purchaserInfo)
         {
             // purchase succeeded
-            if (purchaserInfo.Entitlements.All["Premium"].IsActive)
+            if (purchaserInfo.Entitlements.All["Premium"] is EntitlementInfo info && info.IsActive)
             {
+                configurationService.SetSecureValue(info.ProductIdentifier, info.IsActive.ToString());
                 purchaseResult = (true, string.Empty, false);
             }
 
             purchaseProductEvent.Set();
         }
 
-
         void ICallback.OnReceived(Java.Lang.Object isSupported)
         {
-            isBillingSupported = (bool) isSupported;
+            isBillingSupported = (bool)isSupported;
 
-            if (!isBillingSupported) {
+            if (!isBillingSupported)
+            {
                 purchaseResult = (false, "No purchases allowed", false);
             }
-            
+
             isSupportedEvent.Set();
         }
 
@@ -202,11 +226,20 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         void IReceivePurchaserInfoListener.OnReceived(PurchaserInfo purchaserInfo)
         {
-            if (purchaserInfo.Entitlements.All["Premium"].IsActive)
+            if (purchaserInfo.Entitlements.All.Count > 0)
             {
-                restoreResult = (true, null);
+                foreach (var entitlement in purchaserInfo.Entitlements.All.Values)
+                {
+                    var product = Products?.Values?.FirstOrDefault(p => p.ProductId == entitlement.ProductIdentifier);
+                    if (product != null)
+                    {
+                        product.Purchased = entitlement.IsActive;
+                        configurationService.SetSecureValue(entitlement.ProductIdentifier, entitlement.IsActive.ToString());
+                    }
+                }
             }
 
+            restoreResult = (true, null);
             restorePurchasesEvent.Set();
         }
 
@@ -225,6 +258,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 case nameof(PurchasesErrorCode.InvalidAppleSubscriptionKeyError):
                     return (false, stringLocalizer.GetLocalizedString("Error_Content_General"));
                 case nameof(PurchasesErrorCode.StoreProblemError):
+                    // return empty string, since this case doesn't needs to be handled
                     return (false, stringLocalizer.GetLocalizedString("Error_Content_CouldNotConnectToStore"));
                 case nameof(PurchasesErrorCode.ProductAlreadyPurchasedError):
                     return (true, stringLocalizer.GetLocalizedString("Hint_Content_AlreadyPurchased"));
@@ -249,14 +283,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                     // this errors should not occur!
                     return (false, stringLocalizer.GetLocalizedString("Error_Content_General"));
                 case nameof(PurchasesErrorCode.ProductNotAvailableForPurchaseError):
-                    // Das Produkt ist nicht zum Kauf verfügbar.
-                    return (false, "The product is not available for purchase.");
+                    return (false, stringLocalizer.GetLocalizedString("InAppBillingError_ProductNotAvaliable"));
                 case nameof(PurchasesErrorCode.PaymentPendingError):
-                    // Befolge bitte die Anweisungen von Apple, um den Kauf abzuschließen.
-                    return (false, "Please follow Apple's instructions to complete the purchase.");
+                    return (false, stringLocalizer.GetLocalizedString("InAppBillingError_PaymentPending"));
                 case nameof(PurchasesErrorCode.InsufficientPermissionsError):
-                    // Dieses Gerät verfügt nicht über ausreichende Berechtigungen, um In-App-Käufe zu tätigen.
-                    return (false, "This device does not have sufficient permissions to make in-app purchases.");
+                    return (false, stringLocalizer.GetLocalizedString("InAppBillingError_InsufficientPermissions"));
                 case nameof(PurchasesErrorCode.PurchaseCancelledError):
                 case nameof(PurchasesErrorCode.ReceiptAlreadyInUseError):
                     // try to restore and show error if restore failed!

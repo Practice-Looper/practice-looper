@@ -69,7 +69,7 @@ namespace Emka.PracticeLooper.Mobile.Views
 
         private void ToggleAd()
         {
-            if (configService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
+            if (configService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral))
             {
                 MainGrid.Children.Remove(AdmobBanner);
             }

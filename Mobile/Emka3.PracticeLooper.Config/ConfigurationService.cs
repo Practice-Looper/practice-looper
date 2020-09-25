@@ -4,13 +4,10 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Utils;
+using Xamarin.Essentials;
 
 namespace Emka3.PracticeLooper.Config
 {
@@ -74,11 +71,13 @@ namespace Emka3.PracticeLooper.Config
         {
             if (configs != null && !string.IsNullOrEmpty(key) && configs.ContainsKey(key))
             {
-                return (T)Convert.ChangeType(configs[key], typeof(T));
+                var value = (T)Convert.ChangeType(configs[key], typeof(T));
+                return value;
             }
 
-            return persistentConfigService.GetPersistedValue(key, defaultValue);
-        }
+            var persistedValue = persistentConfigService.GetPersistedValue(key, defaultValue);
+            return persistedValue;
+        } 
 
         public async Task<T> GetValueAsync<T>(string key, T defaultValue = default)
         {
@@ -127,6 +126,53 @@ namespace Emka3.PracticeLooper.Config
             {
                 configs.Add(loadedKeyValuePair);
             }
+        }
+
+        public void SetSecureValue(string key, object value)
+        {
+            SecureStorage.SetAsync(key, value.ToString()).Wait();
+            OnValueChanged(key);
+        }
+
+        public async Task SetSecureValueAsync(string key, object value)
+        {
+            await SecureStorage.SetAsync(key, value.ToString());
+            OnValueChanged(key);
+        }
+
+        public string GetSecureValue(string key)
+        {
+            var result = SecureStorage.GetAsync(key).Result;
+            return result;
+        }
+
+        public T GetSecureValue<T>(string key)
+        {
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(key);
+            }
+
+            var value = GetSecureValue(key);
+            var result = value == string.Empty || value == null ? default : (T)Convert.ChangeType(value, typeof(T));
+            return result;
+        }
+
+        public async Task<string> GetSecureValueAsync(string key)
+        {
+            return await SecureStorage.GetAsync(key);
+        }
+
+        public async Task<T> GetSecureValueAsync<T>(string key)
+        {
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(key);
+            }
+
+            var value = await GetSecureValueAsync(key);
+            var result = value == string.Empty || value == null ? default : (T)Convert.ChangeType(value, typeof(T));
+            return result;
         }
         #endregion Methods
     }

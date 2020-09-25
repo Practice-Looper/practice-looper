@@ -35,7 +35,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
         protected override void OnElementChanged(ElementChangedEventArgs<AdMobView> e)
         {
             base.OnElementChanged(e);
-            if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral) && Control == null)
+            if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral) && Control == null)
             {
                 SetNativeControl(CreateBannerView());
             }

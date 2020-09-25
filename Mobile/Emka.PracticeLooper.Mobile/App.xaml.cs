@@ -88,6 +88,11 @@ namespace Emka.PracticeLooper.Mobile
             {
                 DeviceDisplay.KeepScreenOn = !DeviceDisplay.KeepScreenOn;
             }
+
+            if (VersionTracking.IsFirstLaunchEver)
+            {
+                SecureStorage.RemoveAll();
+            }
         }
 
         private async Task InitNavigation()

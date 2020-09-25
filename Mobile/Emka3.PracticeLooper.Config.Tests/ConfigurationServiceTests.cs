@@ -83,15 +83,21 @@ namespace Emka3.PracticeLooper.Config.Tests
         [Fact]
         public async Task When_SetValueAndPersist_Expect_ValuePersisted()
         {
-            //persistentConfigServiceMock
-            //    .Setup(p => p.PersistValueAsync(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<Type>()))
-            //    .Callback((string key, object value, Type  type) =>
-            //    {
-            //        persistedValues.Add(key, value);
-            //    })
-            //    .Returns(Task.CompletedTask);
+            persistentConfigServiceMock
+                .Setup(p => p.PersistValue(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<Type>()))
+                .Callback((string key, object value, Type type) =>
+                {
+                    persistedValues.Add(key, value);
+                });
+
+            persistentConfigServiceMock.Setup(p => p.GetPersistedValue(It.IsAny<string>(), It.IsAny<object>()))
+                .Returns((string key, object defaultValue) =>
+                {
+                    var result = (int)persistedValues[key];
+                    return result;
+                });
             var configLoader = new JsonConfigLoader();
-            configurationService = new ConfigurationService(new PersistentConfigService(), configLoader);
+            configurationService = new ConfigurationService(persistentConfigServiceMock.Object, configLoader);
             await configurationService.SetValueAsync("magicNumber", 666, true);
             var magicNumber = await configurationService.GetValueAsync<int>("magicNumber");
 

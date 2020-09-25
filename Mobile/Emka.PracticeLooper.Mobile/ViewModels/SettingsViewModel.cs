@@ -24,7 +24,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private readonly IConfigurationService configService;
         private readonly IDialogService dialogService;
         private readonly IInAppBillingService inAppBillingService;
-        private Command purchaseItemCommand;
+        private Command showProductPaywallCommand;
         private bool isBusy;
         private bool hasProducts;
         #endregion
@@ -37,18 +37,19 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.configService = configService ?? throw new ArgumentNullException(nameof(configService));
             this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
             this.inAppBillingService = inAppBillingService ?? throw new ArgumentNullException(nameof(inAppBillingService));
-            Products = new ObservableCollection<InAppBillingProductViewModel>();
+            Products = new ObservableCollection<InAppPurchaseProductViewModel>();
             HasProducts = true;
         }
         #endregion
 
         #region Properties
-        public Command PurchaseItemCommand => purchaseItemCommand ?? new Command(async o => await ExecutePurchaseItemCommand(o));
+        public Command ShowProductPaywallCommand => showProductPaywallCommand ?? new Command(async (o) => await ExecuteShowProductPaywallCommand(o));
         public string AppVersion => VersionTracking.CurrentVersion;
-        public ObservableCollection<InAppBillingProductViewModel> Products { get; set; }
+        public ObservableCollection<InAppPurchaseProductViewModel> Products { get; set; }
         public bool IsBusy
         {
-            get => isBusy; set
+            get => isBusy;
+            set
             {
                 isBusy = value;
                 NotifyPropertyChanged();
@@ -58,7 +59,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public bool HasProducts
         {
             get => hasProducts;
-
             set
             {
                 hasProducts = value;
@@ -72,13 +72,28 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public async override Task InitializeAsync(object parameter)
         {
             IsBusy = true;
-            HasProducts = true;
-            if (inAppBillingService.Products == null || !inAppBillingService.Products.Any())
+
+            if (!inAppBillingService.Initialized)
             {
-                await inAppBillingService.FetchOfferingsAsync();
+                inAppBillingService.Init();
             }
 
-            var tmpProducts = inAppBillingService.Products.Select(p => new InAppBillingProductViewModel(p.Value)).ToList();
+            var (couldFetchOfferings, fetchOfferingsErrorReason) = await inAppBillingService.FetchOfferingsAsync();
+
+            if (!couldFetchOfferings)
+            {
+                await dialogService.ShowAlertAsync(AppResources.Error_Caption, fetchOfferingsErrorReason);
+                return;
+            }
+
+            var (couldRestorePurchases, restorePurchasesErrorReason) = await inAppBillingService.RestorePurchasesAsync();
+
+            if (!couldRestorePurchases)
+            {
+                await dialogService.ShowAlertAsync(AppResources.Error_Caption, restorePurchasesErrorReason);
+            }
+
+            var tmpProducts = inAppBillingService.Products.Select(p => p.Value).Select(p => new InAppPurchaseProductViewModel(p));
 
             Products.Clear();
             foreach (var item in tmpProducts)
@@ -90,42 +105,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             IsBusy = false;
         }
 
-      
-
-        private async Task ExecutePurchaseItemCommand(object o)
+        private async Task ExecuteShowProductPaywallCommand(object parameter)
         {
-            if (o is InAppBillingProductViewModel product)
+            if (parameter is InAppPurchaseProductViewModel product)
             {
-                if (product.Purchased)
-                {
-                    await dialogService.ShowAlertAsync(AppResources.Hint_Content_AlreadyPurchased, AppResources.Hint_Caption_AlreadyPurchased);
-                    return;
-                }
-
-                IsBusy = true;
-                try
-                {
-                    var (success, error, cancelledByUser) = await inAppBillingService.PurchaseProductAsync(product.Model.Package);
-
-                    if (!success && !cancelledByUser)
-                    {
-                        await dialogService.ShowAlertAsync(error ?? AppResources.Error_Content_General, AppResources.Error_Caption);
-                    }
-
-                    if (success && !cancelledByUser)
-                    {
-                        //unlock premium
-                    }                    
-                }
-                catch (Exception ex)
-                {
-                    await Logger.LogErrorAsync(ex);
-                    await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
-                }
-                finally
-                {
-                    IsBusy = false;
-                }
+                await NavigationService.NavigateToAsync<ProductPaywallViewModel>(product);
             }
         }
         #endregion

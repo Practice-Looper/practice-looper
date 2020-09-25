@@ -2,9 +2,7 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
-using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Config.Contracts;
-using Emka3.PracticeLooper.Config.Feature;
 using Emka3.PracticeLooper.Utils;
 using Xamarin.Forms;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
@@ -24,7 +22,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         public LoopButton()
         {
             configurationService = MappingsFactory.Factory.GetResolver().Resolve<IConfigurationService>();
-            IsVisible = configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral);
+            IsVisible = configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral);
             configurationService.ValueChanged += ConfigValueChanged;
         }
         #endregion
@@ -35,7 +33,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             if (e == PreferenceKeys.PremiumGeneral)
             {
-                IsVisible = configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral);
+                IsVisible = configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral);
             }
         }
         #endregion

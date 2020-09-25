@@ -233,6 +233,36 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string InAppBillingProductView_Buy {
+            get {
+                return ResourceManager.GetString("InAppBillingProductView_Buy", resourceCulture);
+            }
+        }
+        
+        internal static string InAppBillingProductView_Purchased {
+            get {
+                return ResourceManager.GetString("InAppBillingProductView_Purchased", resourceCulture);
+            }
+        }
+        
+        internal static string InAppBillingError_ProductNotAvailableForPurchase {
+            get {
+                return ResourceManager.GetString("InAppBillingError_ProductNotAvailableForPurchase", resourceCulture);
+            }
+        }
+        
+        internal static string InAppBillingError_PaymentPending {
+            get {
+                return ResourceManager.GetString("InAppBillingError_PaymentPending", resourceCulture);
+            }
+        }
+        
+        internal static string InAppBillingError_InsufficientPermissions {
+            get {
+                return ResourceManager.GetString("InAppBillingError_InsufficientPermissions", resourceCulture);
+            }
+        }
+        
         internal static string Error_Caption {
             get {
                 return ResourceManager.GetString("Error_Caption", resourceCulture);
@@ -416,6 +446,12 @@ namespace Emka.PracticeLooper.Mobile {
         internal static string Prompt_Content_NewLoop_NamePlaceholder {
             get {
                 return ResourceManager.GetString("Prompt_Content_NewLoop_NamePlaceholder", resourceCulture);
+            }
+        }
+        
+        internal static string pl_premium_general {
+            get {
+                return ResourceManager.GetString("pl.premium.general", resourceCulture);
             }
         }
     }

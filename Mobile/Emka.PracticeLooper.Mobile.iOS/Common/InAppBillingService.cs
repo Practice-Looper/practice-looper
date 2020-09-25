@@ -12,9 +12,11 @@ using System.Threading;
 using Emka3.PracticeLooper.Config.Contracts;
 using Foundation;
 using Emka.PracticeLooper.Services.Contracts.Common;
+using System.Linq;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
+    [Preserve(AllMembers = true)]
     public class InAppBillingService : IInAppBillingService
     {
         #region Fields
@@ -26,6 +28,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private readonly ILogger logger;
         private readonly IStringLocalizer stringLocalizer;
         private RCOfferings offerings;
+        private (bool Success, string Error) fetchOfferingsResult;
         #endregion
 
         #region Ctor
@@ -42,6 +45,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         #region Properties
 
+        public bool Initialized { get; private set; }
+
         public IDictionary<string, InAppPurchaseProduct> Products { get; private set; }
         #endregion
 
@@ -54,15 +59,28 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 throw new ArgumentNullException(nameof(key));
             }
+#if DEBUG
+            RCPurchases.DebugLogsEnabled = true;
+#endif
+            try
+            {
+                RCPurchases.ConfigureWithAPIKey(key);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex);
+                Initialized = false;
+                return;
+            }
 
-            RCPurchases.ConfigureWithAPIKey(key);
-            StartFetchingOfferings();
+            Initialized = true;
         }
 
-        public async Task FetchOfferingsAsync()
+        public async Task<(bool Success, string Error)> FetchOfferingsAsync()
         {
             StartFetchingOfferings();
             await Task.Run(fetchProductsEvent.WaitOne);
+            return fetchOfferingsResult;
         }
 
         public void StartFetchingOfferings()
@@ -72,8 +90,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 if (e != null)
                 {
-                    fetchProductsEvent?.Set();
-                    throw new Exception(e.Description);
+                    logger.LogError(new Exception(e.Description));
+                    fetchOfferingsResult = (false, stringLocalizer.GetLocalizedString("SettingsView_NoUpgradesDescription"));
                 }
 
                 offerings = o;
@@ -82,18 +100,22 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
                 if (package != null && !Products.ContainsKey(package.Identifier))
                 {
+                    bool hasBeenPurchased;
+                    bool.TryParse(configurationService.GetSecureValue(package.Product.ProductIdentifier), out hasBeenPurchased);
                     Products.Add(package.Identifier, new InAppPurchaseProduct
                     {
                         CurrencyCode = package.Product.PriceLocale.CurrencyCode,
-                        Description = package.Product.LocalizedDescription,
+                        Description = stringLocalizer.GetLocalizedString(package.Product.ProductIdentifier),
                         LocalizedIntroductoryPrice = package.Product?.IntroductoryPrice?.Price?.ToString(),
                         LocalizedPrice = package.LocalizedPriceString,
                         Name = package.Product.LocalizedTitle,
                         ProductId = package.Product.ProductIdentifier,
-                        Package = package
+                        Package = package,
+                        Purchased = hasBeenPurchased
                     });
                 }
 
+                fetchOfferingsResult = (true, null);
                 fetchProductsEvent?.Set();
             });
         }
@@ -132,8 +154,9 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                     }
 
                     // purchase succeeded
-                    if (purchaserInfo.Entitlements.All["Premium"] is RCEntitlementInfo info && info.IsActive)
+                    if (!userCancelled && error == null && purchaserInfo.Entitlements.All["Premium"] is RCEntitlementInfo info && info.IsActive)
                     {
+                        configurationService.SetSecureValue(info.ProductIdentifier, info.IsActive.ToString());
                         result = (true, string.Empty, false);
                     }
 
@@ -158,7 +181,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 {
                     logger.LogError(new Exception(err.Description), new Dictionary<string, string>
                         {
-                            { "ErrorCodeKey", err.UserInfo[Constants.RCReadableErrorCodeKey].ToString() },
+                            { "ErrorCodeKey", err.UserInfo[Constants.RCReadableErrorCodeKey]?.ToString() },
                             { "Message", err.Description },
                             { "Underlying Error", err.UserInfo["NSUnderlyingErrorKey"]?.ToString() }
                         });
@@ -167,16 +190,24 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                     result = (handled, restoreError);
                 }
 
-                // purchase succeeded
-                if (purchaserInfo.Entitlements.All["premium"] is RCEntitlementInfo info && info.IsActive)
+                if (error == null && purchaserInfo.Entitlements.All.Count > 0)
                 {
-                    result = (true, null);
+                    foreach (var entitlement in purchaserInfo.Entitlements.All.Values)
+                    {
+                        var product = Products?.Values?.FirstOrDefault(p => p.ProductId == entitlement.ProductIdentifier);
+                        if (product != null)
+                        {
+                            product.Purchased = entitlement.IsActive;
+                            configurationService.SetSecureValue(entitlement.ProductIdentifier, entitlement.IsActive.ToString());
+                        }
+                    }
                 }
 
+                result = (true, null);
                 restorePurchasesEvent.Set();
             });
 
-            await Task.Run(() => { restorePurchasesEvent.WaitOne(); });
+            await Task.Run(() => restorePurchasesEvent.WaitOne());
             return result;
         }
 
@@ -184,23 +215,24 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             switch (errorCode)
             {
-                case RCPurchasesErrorCode.UnknownBackendError:
-                case RCPurchasesErrorCode.InvalidAppUserIdError:
-                case RCPurchasesErrorCode.UnknownError:
-                case RCPurchasesErrorCode.UnexpectedBackendResponseError:
-                case RCPurchasesErrorCode.InvalidCredentialsError:
-                case RCPurchasesErrorCode.IneligibleError:
-                case RCPurchasesErrorCode.ReceiptInUseByOtherSubscriberError:
-                case RCPurchasesErrorCode.InvalidSubscriberAttributesError:
-                case RCPurchasesErrorCode.InvalidAppleSubscriptionKeyError:
+                case RCPurchasesErrorCode.UnknownBackend:
+                case RCPurchasesErrorCode.InvalidAppUserId:
+                case RCPurchasesErrorCode.Unknown:
+                case RCPurchasesErrorCode.UnexpectedBackendResponse:
+                case RCPurchasesErrorCode.InvalidCredentials:
+                case RCPurchasesErrorCode.Ineligible:
+                case RCPurchasesErrorCode.ReceiptInUseByOtherSubscriber:
+                case RCPurchasesErrorCode.InvalidSubscriberAttributes:
+                case RCPurchasesErrorCode.InvalidAppleSubscriptionKey:
                     return (false, stringLocalizer.GetLocalizedString("Error_Content_General"));
-                case RCPurchasesErrorCode.StoreProblemError:
+                case RCPurchasesErrorCode.StoreProblem:
+                    // return empty string, since this case doesn't needs to be handled
                     return (false, stringLocalizer.GetLocalizedString("Error_Content_CouldNotConnectToStore"));
-                case RCPurchasesErrorCode.ProductAlreadyPurchasedError:
+                case RCPurchasesErrorCode.ProductAlreadyPurchased:
                     return (true, stringLocalizer.GetLocalizedString("Hint_Content_AlreadyPurchased"));
-                case RCPurchasesErrorCode.NetworkError:
+                case RCPurchasesErrorCode.Network:
                     return (false, stringLocalizer.GetLocalizedString("Error_Content_CouldNotConnectToStore"));
-                case RCPurchasesErrorCode.OperationAlreadyInProgressError:
+                case RCPurchasesErrorCode.OperationAlreadyInProgress:
                     // Dein Kauf wird gerade getätigt, bitte warte einen Moment.
                     return (false, "Your purchase is being processed, please wait a moment.");
                 default:
@@ -211,29 +243,27 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         private async Task<(bool Handled, string Error)> HandlePurchaseError(NSError error)
         {
-            var purchasesError = Enum.Parse<RCPurchasesErrorCode>(error.UserInfo[Constants.RCReadableErrorCodeKey].ToString());
+            var code = error.UserInfo[Constants.RCReadableErrorCodeKey]?.ToString()?.Replace("_", "");
+            var purchasesError = Enum.Parse<RCPurchasesErrorCode>(code, true);
             switch (purchasesError)
             {
-                case RCPurchasesErrorCode.PurchaseInvalidError:
-                case RCPurchasesErrorCode.InvalidReceiptError:
-                case RCPurchasesErrorCode.MissingReceiptFileError:
+                case RCPurchasesErrorCode.PurchaseInvalid:
+                case RCPurchasesErrorCode.InvalidReceipt:
+                case RCPurchasesErrorCode.MissingReceiptFile:
                     // this errors should not occur!
                     return (false, stringLocalizer.GetLocalizedString("Error_Content_General"));
-                case RCPurchasesErrorCode.ProductNotAvailableForPurchaseError:
-                    // Das Produkt ist nicht zum Kauf verfügbar.
-                    return (false, "The product is not available for purchase.");
-                case RCPurchasesErrorCode.PaymentPendingError:
-                    // Befolge bitte die Anweisungen von Apple, um den Kauf abzuschließen.
-                    return (false, "Please follow Apple's instructions to complete the purchase.");
-                case RCPurchasesErrorCode.InsufficientPermissionsError:
-                    // Dieses Gerät verfügt nicht über ausreichende Berechtigungen, um In-App-Käufe zu tätigen.
-                    return (false, "This device does not have sufficient permissions to make in-app purchases.");
-                case RCPurchasesErrorCode.PurchaseCancelledError:
-                case RCPurchasesErrorCode.ReceiptAlreadyInUseError:
+                case RCPurchasesErrorCode.ProductNotAvailableForPurchase:
+                    return (false, stringLocalizer.GetLocalizedString("InAppBillingError_ProductNotAvaliable"));
+                case RCPurchasesErrorCode.PaymentPending:
+                    return (false, stringLocalizer.GetLocalizedString("InAppBillingError_PaymentPending"));
+                case RCPurchasesErrorCode.InsufficientPermissions:
+                    return (false, stringLocalizer.GetLocalizedString("InAppBillingError_InsufficientPermissions"));
+                case RCPurchasesErrorCode.PurchaseCancelled:
+                case RCPurchasesErrorCode.ReceiptAlreadyInUse:
                     // try to restore and show error if restore failed!
                     var (success, restoreError) = await RestorePurchasesAsync();
                     return (success, stringLocalizer.GetLocalizedString(restoreError));
-                case RCPurchasesErrorCode.PurchaseNotAllowedError:
+                case RCPurchasesErrorCode.PurchaseNotAllowed:
                     return (false, stringLocalizer.GetLocalizedString("Error_Content_PaymentNotAllowed"));
                 default:
                     return HandleCommonErrors(purchasesError);
@@ -247,11 +277,12 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 return (true, null);
             }
 
-            var purchasesError = Enum.Parse<RCPurchasesErrorCode>(error.UserInfo[Constants.RCReadableErrorCodeKey].ToString());
+            var code = error.UserInfo[Constants.RCReadableErrorCodeKey]?.ToString()?.Replace("_", "");
+            var purchasesError = Enum.Parse<RCPurchasesErrorCode>(code, true);
             switch (purchasesError)
             {
-                case RCPurchasesErrorCode.InvalidReceiptError:
-                case RCPurchasesErrorCode.MissingReceiptFileError:
+                case RCPurchasesErrorCode.InvalidReceipt:
+                case RCPurchasesErrorCode.MissingReceiptFile:
                     // this error shoudl not occur!
                     return (true, stringLocalizer.GetLocalizedString("Error_Content_General"));
                 default:
