@@ -1,0 +1,10 @@
+framework module RevenueCatProxy {
+  umbrella header "RevenueCatProxy.h"
+
+  export *
+  module * { export * }
+}
+
+module RevenueCatProxy.__Swift {
+    exclude header "RevenueCatProxy-Swift.h"
+}

@@ -1,0 +1,5 @@
+version: "Apple Swift version 5.2.4 (swiftlang-1103.0.32.9 clang-1103.0.32.53)"
+options: "69111baee9842b751d6ae958882e590b"
+build_time: [1600514053, 437517000]
+inputs:
+  "/Volumes/Work/Projekte/Mobile/practice-looper/libs/iOS/RevenueCat 3.5.3/RevenueCatProxy/RevenueCatProxy/RevenueCatProxy.swift": [9223372036, 854775807]

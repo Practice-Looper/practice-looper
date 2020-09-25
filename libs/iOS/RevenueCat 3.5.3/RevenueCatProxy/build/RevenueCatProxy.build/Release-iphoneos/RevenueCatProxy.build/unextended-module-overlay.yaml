@@ -1,0 +1,13 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Volumes/Work/Projekte/Mobile/practice-looper/libs/iOS/RevenueCat 3.5.3/RevenueCatProxy/build/Release-iphoneos/RevenueCatProxy.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Volumes/Work/Projekte/Mobile/practice-looper/libs/iOS/RevenueCat 3.5.3/RevenueCatProxy/build/RevenueCatProxy.build/Release-iphoneos/RevenueCatProxy.build/unextended-module.modulemap",
+    }]
+  }]
+}
