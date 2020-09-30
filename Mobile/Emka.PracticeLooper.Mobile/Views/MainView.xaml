@@ -14,6 +14,7 @@
     x:Name="mainPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem
+            AutomationId="SettingsButton"
             Order="Primary"
             Command="{Binding NavigateToSettingsCommand}">
             <ToolbarItem.IconImageSource>
@@ -37,6 +38,7 @@
         </Grid.RowDefinitions>
 
         <views:AdMobView
+            AutomationId="AdmobBanner"
             Grid.Row="0"
             x:Name="AdmobBanner"
             HeightRequest="70" />
@@ -64,6 +66,7 @@
                             Height="*" />
                     </Grid.RowDefinitions>
                     <ImageButton
+                        AutomationId="AddSongButton"
                         Grid.Row="0"
                         WidthRequest="48"
                         HeightRequest="48"
@@ -79,6 +82,7 @@
                         </ImageButton.Source>
                     </ImageButton>
                     <ListView
+                        AutomationId="SessionsList"
                         Grid.Row="1"
                         SelectedItem="{Binding CurrentSession, Mode=TwoWay}"
                         ItemsSource="{Binding Sessions}"
@@ -109,6 +113,7 @@
                                 Width="2*" />
                         </Grid.ColumnDefinitions>
                         <Label
+                            AutomationId="CurrentSongTime"
                             Text="{Binding CurrentSongTime}"
                             Grid.Column="0"
                             FontSize="Medium"
@@ -135,6 +140,7 @@
                             </Label.Style>
                         </Label>
                         <Label
+                            AutomationId="LoopStartPosition"
                             Text="{Binding LoopStartPosition, StringFormat='[{0}'}"
                             Grid.Column="1"
                             HorizontalOptions="Start"
@@ -170,6 +176,7 @@
                             </Label.Style>
                         </Label>
                         <Label
+                            AutomationId="LoopEndPosition"
                             Text="{Binding LoopEndPosition, StringFormat='{0}]'}"
                             Grid.Column="1"
                             VerticalOptions="Center"
@@ -204,6 +211,7 @@
                             </Label.Style>
                         </Label>
                         <Label
+                            AutomationId="SongDuration"
                             Text="{Binding SongDuration}"
                             Grid.Column="2"
                             VerticalOptions="Center"
@@ -238,6 +246,7 @@
                                 Height="Auto" />
                         </Grid.RowDefinitions>
                         <range:SfRangeSlider
+                            AutomationId="Slider"
                             x:Name="Slider"
                             Grid.Row="0"
                             ShowRange="True"
@@ -264,6 +273,7 @@
                             ThumbSize="1">
                         </range:SfRangeSlider>
                         <ImageButton
+                            AutomationId="PlayButton"
                             Grid.Row="1"
                             WidthRequest="72"
                             HeightRequest="72"
@@ -315,6 +325,7 @@
                             </ImageButton.Triggers>
                         </ImageButton>
                         <views:LoopButton
+                            AutomationId="AddBookmarkButton"
                             Grid.Row="1"
                             WidthRequest="48"
                             HeightRequest="48"
@@ -369,6 +380,7 @@
             ShowHeader="True">
             <syncfusion:SfPicker.FooterView>
                 <Button
+                    AutomationId="ClosePicker"
                     Text="{x:Static rsrcs:AppResources.Close}"
                     Clicked="OnClosePicker"
                     HorizontalOptions="Center"

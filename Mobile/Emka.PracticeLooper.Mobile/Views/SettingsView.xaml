@@ -46,6 +46,7 @@
         </Label>
         <ListView
             x:Name="ProductsListView"
+            AutomationId="SettingsListView"
             Grid.Row="0"
             ItemsSource="{Binding Products}"
             ItemTapped="ListView_ItemTapped"
@@ -129,6 +130,7 @@
                 TextColor="{DynamicResource SecondaryColor}"
                 IsVisible="{Binding Path=IsVisible, Source={x:Reference SchemeSwitch}}" />
             <views:ColorSchemeSwitch
+                AutomationId="SchemeSwitch"
                 x:Name="SchemeSwitch"
                 OnColor="{DynamicResource SecondaryColor}"
                 HorizontalOptions="End" />
@@ -146,6 +148,7 @@
             Opacity="0.9"
             BackgroundColor="{DynamicResource BackgroundColor}">
             <ActivityIndicator
+                AutomationId="ActivityIndicator"
                 IsRunning="{Binding IsBusy}"
                 Color="{DynamicResource SecondaryColor}"
                 VerticalOptions="Center"

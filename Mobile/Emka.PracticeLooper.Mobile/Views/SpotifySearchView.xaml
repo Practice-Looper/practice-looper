@@ -24,6 +24,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <SearchBar
+                    AutomationId="SearchBar"
                     Grid.Column="0"
                     x:Name="SearchBar"
                     Placeholder="{x:Static rsrcs:AppResources.SpotifySearchView_SearchBox_Placeholder}"
@@ -40,6 +41,7 @@
                     IsVisible="{Binding IsBusy}"
                     VerticalOptions="FillAndExpand">
                     <ActivityIndicator
+                        AutomationId="ActivityIndicator"
                         IsRunning="{Binding IsBusy}"
                         Color="{DynamicResource PrimaryColor}"
                         VerticalOptions="Center"

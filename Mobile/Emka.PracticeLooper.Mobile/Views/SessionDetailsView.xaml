@@ -39,6 +39,7 @@
                     <views:LoopViewCell>
                         <ViewCell.ContextActions>
                             <MenuItem
+                                AutomationId="DeleteLoopButton"
                                 Text="{x:Static rsrcs:AppResources.Delete}"
                                 IsDestructive="True"
                                 Command="{Binding DeleteCommand}"
