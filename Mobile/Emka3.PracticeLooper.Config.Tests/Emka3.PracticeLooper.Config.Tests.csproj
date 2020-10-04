@@ -24,6 +24,6 @@
     <None Remove="secrets.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="secrets.json" />
+    <EmbeddedResource Include="testSecrets.json" />
   </ItemGroup>
 </Project>
