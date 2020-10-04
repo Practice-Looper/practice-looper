@@ -62,12 +62,12 @@
         xml:space="preserve">
         <value>Minuten</value>
     </data>
-     <data
+    <data
         name="Seconds"
         xml:space="preserve">
         <value>Sekunden</value>
     </data>
-        <data
+    <data
         name="LoopStartPosition"
         xml:space="preserve">
         <value>Start Markierung</value>
@@ -171,10 +171,37 @@
         xml:space="preserve">
         <value>Viel Spaß!</value>
     </data>
-     <data
+    <data
         name="OnboardingView_LetsLoopButton"
         xml:space="preserve">
         <value>Let's loop</value>
+    </data>
+    <!--InAppBillingProductView-->
+    <data
+        name="InAppBillingProductView_Buy"
+        xml:space="preserve">
+        <value>Kaufen ({0})</value>
+    </data>
+    <data
+        name="InAppBillingProductView_Purchased"
+        xml:space="preserve">
+        <value>Gekauft</value>
+    </data>
+    <!--InAppBilling Errors-->
+    <data
+        name="InAppBillingError_ProductNotAvailableForPurchase"
+        xml:space="preserve">
+        <value>Das Produkt ist nicht zum Kauf verfügbar.</value>
+    </data>
+    <data
+        name="InAppBillingError_PaymentPending"
+        xml:space="preserve">
+        <value>Befolge bitte die Anweisungen, um den Kauf abzuschließen.</value>
+    </data>
+    <data
+        name="InAppBillingError_InsufficientPermissions"
+        xml:space="preserve">
+        <value>Dieses Gerät verfügt nicht über ausreichende Berechtigungen, um In-App-Käufe zu tätigen.</value>
     </data>
     <!--Error Dialogs-->
     <data
@@ -257,7 +284,7 @@
         xml:space="preserve">
         <value>Die ausgewählte Datei wurde nicht gefunden. Soll die Session gelöscht werden?</value>
     </data>
-     <data
+    <data
         name="Error_Content_NotEnoughSpace"
         xml:space="preserve">
         <value>Die ausgewählte Datei konnte nicht hinzugefügt werden, da nicht genügend Speicherplatz vorhanden ist.</value>
@@ -267,7 +294,7 @@
         xml:space="preserve">
         <value>Du scheinst keinen Spotify Premium Account zu haben. Um Spotify Songs loopen zu können, brauchst du ein Spotify Premium Abo.</value>
     </data>
-     <data
+    <data
         name="Error_Content_PremiumUserCheckFailed"
         xml:space="preserve">
         <value>Dein Spotify Account konnte nicht überprüft werden. Um Spotify Songs loopen zu können, brauchst du ein Spotify Premium Abo.</value>
@@ -303,7 +330,7 @@
         xml:space="preserve">
         <value>Lieder die länger als eine Stunde sind, werden nicht unterstützt.</value>
     </data>
-     <data
+    <data
         name="Hint_Caption_SpotifyMissing"
         xml:space="preserve">
         <value>Spotify-App fehlt</value>
@@ -333,5 +360,13 @@
         name="Prompt_Content_NewLoop_NamePlaceholder"
         xml:space="preserve">
         <value>{0}. Loop</value>
+    </data>
+    <!-- Purchase Items -->
+    <data
+        name="pl.premium.general"
+        xml:space="preserve">
+        <value>• Komplett werbefrei 
+• Beliebig viele Songs 
+• Loops speichern</value>
     </data>
 </root>

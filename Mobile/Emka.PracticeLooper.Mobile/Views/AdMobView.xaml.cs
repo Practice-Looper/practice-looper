@@ -22,7 +22,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             configurationService = Emka3.PracticeLooper.Mappings.Factory.GetResolver().Resolve<IConfigurationService>() ?? throw new NullReferenceException("configurationService");
             AdUnitId = configurationService.GetValue(Device.RuntimePlatform == Device.iOS ? "AdmobIosTopBannerAdId" : "AdmobAndroidTopBannerAdId");
-            IsVisible = !configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral);
+            IsVisible = !configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral);
             configurationService.ValueChanged += AdMobView_ValueChanged;
             Logger = Emka3.PracticeLooper.Mappings.Factory.GetResolver().Resolve<ILogger>();
         }
@@ -31,7 +31,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             if (e == PreferenceKeys.PremiumGeneral)
             {
-                IsVisible = !configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral);
+                IsVisible = !configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral);
             }
         }
 

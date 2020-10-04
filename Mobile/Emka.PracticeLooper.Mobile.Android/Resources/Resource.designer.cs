@@ -9684,25 +9684,28 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int picker = 2131165556;
 			
 			// aapt resource value: 0x7F070175
-			public const int showMarker = 2131165557;
+			public const int premium = 2131165557;
 			
 			// aapt resource value: 0x7F070176
-			public const int slider = 2131165558;
+			public const int showMarker = 2131165558;
 			
 			// aapt resource value: 0x7F070177
-			public const int splash_screen = 2131165559;
+			public const int slider = 2131165559;
 			
 			// aapt resource value: 0x7F070178
-			public const int start = 2131165560;
+			public const int splash_screen = 2131165560;
 			
 			// aapt resource value: 0x7F070179
-			public const int tooltip_frame_dark = 2131165561;
+			public const int start = 2131165561;
 			
 			// aapt resource value: 0x7F07017A
-			public const int tooltip_frame_light = 2131165562;
+			public const int tooltip_frame_dark = 2131165562;
 			
 			// aapt resource value: 0x7F07017B
-			public const int word_logo = 2131165563;
+			public const int tooltip_frame_light = 2131165563;
+			
+			// aapt resource value: 0x7F07017C
+			public const int word_logo = 2131165564;
 			
 			static Drawable()
 			{
@@ -11322,10 +11325,28 @@ namespace Emka.PracticeLooper.Mobile.Droid
 			public const int path_password_strike_through = 2131558469;
 			
 			// aapt resource value: 0x7F0D0046
-			public const int search_menu_title = 2131558470;
+			public const int s1 = 2131558470;
 			
 			// aapt resource value: 0x7F0D0047
-			public const int status_bar_notification_info_overflow = 2131558471;
+			public const int s2 = 2131558471;
+			
+			// aapt resource value: 0x7F0D0048
+			public const int s3 = 2131558472;
+			
+			// aapt resource value: 0x7F0D0049
+			public const int s4 = 2131558473;
+			
+			// aapt resource value: 0x7F0D004A
+			public const int s5 = 2131558474;
+			
+			// aapt resource value: 0x7F0D004B
+			public const int s6 = 2131558475;
+			
+			// aapt resource value: 0x7F0D004C
+			public const int search_menu_title = 2131558476;
+			
+			// aapt resource value: 0x7F0D004D
+			public const int status_bar_notification_info_overflow = 2131558477;
 			
 			static String()
 			{

@@ -14,11 +14,13 @@ namespace Emka3.PracticeLooper.Services.Tests
     {
         private readonly Mock<IHttpApiClient> HttpApiClientMock;
         private readonly Mock<IConfigurationService> ConfigurationServiceMock;
+        private readonly Mock<ILogger> LoggerMock;
 
         public SpotifyApiTests()
         {
             HttpApiClientMock = new Mock<IHttpApiClient>();
             ConfigurationServiceMock = new Mock<IConfigurationService>();
+            LoggerMock = new Mock<ILogger>();
         }
 
         [Fact]
@@ -30,7 +32,7 @@ namespace Emka3.PracticeLooper.Services.Tests
                 .ReturnsAsync(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK, Content = new StringContent(jsonString) })
                 .Verifiable();
 
-            var spotifyService = new SpotifyApiService(HttpApiClientMock.Object, ConfigurationServiceMock.Object);
+            var spotifyService = new SpotifyApiService(HttpApiClientMock.Object, ConfigurationServiceMock.Object, LoggerMock.Object);
             var result = await spotifyService.SearchTrackByName(string.Empty, CancellationToken.None);
 
             Assert.NotNull(result);
@@ -48,7 +50,7 @@ namespace Emka3.PracticeLooper.Services.Tests
                 .ReturnsAsync(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK, Content = new StringContent(jsonString) })
                 .Verifiable();
 
-            var spotifyService = new SpotifyApiService(HttpApiClientMock.Object, ConfigurationServiceMock.Object);
+            var spotifyService = new SpotifyApiService(HttpApiClientMock.Object, ConfigurationServiceMock.Object, LoggerMock.Object);
             var result = await spotifyService.IsPremiumUser();
 
             Assert.NotNull(result);

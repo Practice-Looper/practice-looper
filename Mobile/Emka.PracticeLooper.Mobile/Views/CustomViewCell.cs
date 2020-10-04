@@ -3,6 +3,8 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using Emka.PracticeLooper.Mobile.Extensions;
+using Emka3.PracticeLooper.Config.Contracts;
+using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Utils;
 using Xamarin.Forms;
 
@@ -19,12 +21,15 @@ namespace Emka.PracticeLooper.Mobile.Views
             BindableProperty.Create("SelectedBackgroundColor", typeof(Color), typeof(CustomViewCell), Color.Default);
         public static readonly BindableProperty FontColorProperty =
             BindableProperty.Create("FontColor", typeof(Color), typeof(CustomViewCell), Color.Default);
+        private readonly IConfigurationService configurationService;
         #endregion
 
         #region Ctor
 
         public CustomViewCell()
         {
+            configurationService = Factory.GetResolver().Resolve<IConfigurationService>();
+            configurationService.ValueChanged += ConfigValueChanged;
         }
         #endregion
 
@@ -73,6 +78,14 @@ namespace Emka.PracticeLooper.Mobile.Views
             {
                 View.BackgroundColor = Color.Transparent;
                 FontColor = (Color)Application.Current.Resources["PrimaryColor"];
+            }
+        }
+
+        private void ConfigValueChanged(object sender, string e)
+        {
+            if (e == PreferenceKeys.ColorScheme)
+            {
+                OnAppearing();
             }
         }
         #endregion

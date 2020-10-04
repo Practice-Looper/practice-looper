@@ -29,12 +29,12 @@ namespace Emka.PracticeLooper.Mobile.Views
                 resolver.Resolve<INavigationService>(),
                 resolver.Resolve<IInAppBillingService>());
         }
-        
+
         void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             if (BindingContext is SettingsViewModel vm)
             {
-                vm.PurchaseItemCommand.Execute(e.Item);
+                vm.ShowProductPaywallCommand.Execute(e.Item);
             }
 
             if (sender is Xamarin.Forms.ListView listView)

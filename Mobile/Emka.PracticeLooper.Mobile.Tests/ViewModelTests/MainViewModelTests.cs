@@ -37,6 +37,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         Mock<ILogger> loggerMock;
         Mock<IAppTracker> appTrackerMock;
         Mock<IConfigurationService> configurationServiceMock;
+        Mock<IInAppBillingService> inAppBillingServiceMock;
         List<Session> sessions;
 
         public MainViewModelTests()
@@ -55,6 +56,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             loggerMock = new Mock<ILogger>();
             appTrackerMock = new Mock<IAppTracker>();
             configurationServiceMock = new Mock<IConfigurationService>();
+            inAppBillingServiceMock = new Mock<IInAppBillingService>();
 
             sessions = new List<Session>();
         }
@@ -76,7 +78,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 navigationServiceMock.Object,
                 loggerMock.Object,
                 appTrackerMock.Object,
-                configurationServiceMock.Object);
+                configurationServiceMock.Object,
+                inAppBillingServiceMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             Assert.Empty(mainViewModel.Sessions);
@@ -110,7 +113,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 navigationServiceMock.Object,
                 loggerMock.Object,
                 appTrackerMock.Object,
-                configurationServiceMock.Object);
+                configurationServiceMock.Object,
+                inAppBillingServiceMock.Object);
 
             await mainViewModel.ExecuteCreateSessionCommandAsync(audioSource);
             Assert.NotNull(mainViewModel.CurrentSession);
@@ -136,7 +140,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 navigationServiceMock.Object,
                 loggerMock.Object,
                 appTrackerMock.Object,
-                configurationServiceMock.Object);
+                configurationServiceMock.Object,
+                inAppBillingServiceMock.Object);
 
             await Assert.ThrowsAsync<ArgumentNullException>(() => mainViewModel.ExecuteCreateSessionCommandAsync(null));
         }
@@ -154,7 +159,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             INavigationService navigationService,
             ILogger logger,
             IAppTracker appTracker,
-            IConfigurationService configurationService)
+            IConfigurationService configurationService,
+            IInAppBillingService inAppBillingService)
         {
             return new MainViewModel(interstitialAd,
                 sessionsRepository,
@@ -169,7 +175,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 navigationService,
                 logger,
                 appTracker,
-                configurationService);
+                configurationService,
+                inAppBillingService);
         }
     }
 }

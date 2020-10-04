@@ -41,7 +41,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             interstitialAd.AdListener = this;
             interstitialAd.AdUnitId = configurationService.GetValue<string>("AdmobAndroidInterstitialProjectAdId");
 
-            if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
+            if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral))
             {
                 LoadAd();
             }
@@ -57,7 +57,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public async Task ShowAdAsync()
         {
-            if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral) && interstitialAd.IsLoaded)
+            if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral) && interstitialAd.IsLoaded)
             {
                 adClosedEvent = new AutoResetEvent(false);
                 await Task.Run(() =>
@@ -71,7 +71,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 });
             }
 
-            if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
+            if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral))
             {
                 MainThread.BeginInvokeOnMainThread(LoadAd);
             }

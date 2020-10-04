@@ -31,7 +31,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
+            if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral))
             {
                 LoadAd();
             }
@@ -52,7 +52,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public async Task ShowAdAsync()
         {
             // todo: block if ad is loading...
-            if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral) && interstitialAd.IsReady)
+            if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral) && interstitialAd.IsReady)
             {
                 adClosedEvent = new AutoResetEvent(false);
                 await Task.Run(() =>
@@ -69,7 +69,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 });
             }
 
-            if (!configurationService.GetValue<bool>(PreferenceKeys.PremiumGeneral))
+            if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral))
             {
                 MainThread.BeginInvokeOnMainThread(LoadAd);
             }
