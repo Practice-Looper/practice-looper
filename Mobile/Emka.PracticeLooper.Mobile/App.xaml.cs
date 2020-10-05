@@ -120,10 +120,12 @@ namespace Emka.PracticeLooper.Mobile
                     {
                         case AppTheme.Dark:
                             mergedDictionaries.Add(new DarkTheme());
+                            configService.SetValue(PreferenceKeys.ColorScheme, (int)AppTheme.Dark);
                             break;
                         case AppTheme.Unspecified:
                         case AppTheme.Light:
                             mergedDictionaries.Add(new LightTheme());
+                            configService.SetValue(PreferenceKeys.ColorScheme, (int)AppTheme.Light);
                             break;
                     }
                 }
