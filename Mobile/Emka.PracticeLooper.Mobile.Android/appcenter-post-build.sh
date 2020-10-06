@@ -13,14 +13,12 @@ then
   then
 
     VERSION_STRING=$(grep -o 'android:versionName="*.*.*" ' $MANIFEST_PATH | grep -o '[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}')
+    
+    git add ${MANIFEST_PATH}
 
-    if [ $APP_VERSION != $VERSION_STRING ];
-    then
-      git add ${MANIFEST_PATH}
-
-      git commit -m "[AppCenter-Android]: Bump version to ${VERSION_STRING}"
-      git push ${REPO_URL} HEAD:master
-    fi
+    git commit -m "[AppCenter-Android]: Bump version to ${VERSION_STRING}"
+    git push ${REPO_URL} HEAD:master
+  
 
     echo "Push tag to origin"
     git tag -a v${VERSION_STRING}-Android-${APPCENTER_XAMARIN_CONFIGURATION} -m "Android ${APPCENTER_XAMARIN_CONFIGURATION} ${VERSION_STRING}"

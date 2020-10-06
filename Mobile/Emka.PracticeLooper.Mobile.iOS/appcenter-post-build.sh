@@ -14,14 +14,11 @@ then
 
     VERSION_STRING=$(grep -o -A1 '<key>CFBundleVersion</key>' $INFO_PLIST_PATH | grep -o '[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}')
 
-    if [ $APP_VERSION != $VERSION_STRING ];
-    then
-      git add ${INFO_PLIST_PATH}
+    git add ${INFO_PLIST_PATH}
 
-      git commit -m "[AppCenter-iOS] Bump version to ${VERSION_STRING}"
-      git push ${REPO_URL} HEAD:master
-    fi
-
+    git commit -m "[AppCenter-iOS] Bump version to ${VERSION_STRING}"
+    git push ${REPO_URL} HEAD:master
+   
     echo "Push tag to origin"
     git tag -a v${VERSION_STRING}-iOS-${APPCENTER_XAMARIN_CONFIGURATION} -m "iOS ${APPCENTER_XAMARIN_CONFIGURATION} ${VERSION_STRING}"
     git push ${REPO_URL} v${VERSION_STRING}-iOS-${APPCENTER_XAMARIN_CONFIGURATION}

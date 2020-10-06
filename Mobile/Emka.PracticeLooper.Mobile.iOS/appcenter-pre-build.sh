@@ -104,19 +104,10 @@ echo "Actual Version Number of AppCenter: $APP_VERSION"
 
 if [ $APP_VERSION != $VERSION_STRING ];
 then
-	# Split Version Number into different parts (Major.Minor.Build)
-	IFS='.' read -r -a VERSION_ELEMENTS <<< "$VERSION_STRING"
-
-	# Increment build number
-	NEW_BUILD_NUMBER=$((VERSION_ELEMENTS[2]+1))
-
-	# Generate new version number
-	NEW_VERSION="${VERSION_ELEMENTS[0]}.${VERSION_ELEMENTS[1]}.${NEW_BUILD_NUMBER}"
-
 	echo "New Version Number: ${NEW_VERSION}"
 
 	# Replace bundle version in Info.plist
-	plutil -replace CFBundleVersion -string "$NEW_VERSION" $INFO_PLIST_PATH
+	plutil -replace CFBundleVersion -string "$APP_VERSION" $INFO_PLIST_PATH
 	# Replace bundle version string  in Info.plist
-	plutil -replace CFBundleShortVersionString -string "$NEW_VERSION" $INFO_PLIST_PATH
+	plutil -replace CFBundleShortVersionString -string "$APP_VERSION" $INFO_PLIST_PATH
 fi

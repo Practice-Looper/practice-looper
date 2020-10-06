@@ -106,17 +106,8 @@ echo "Actual Version Number of AppCenter: $APP_VERSION"
 
 if [ $APP_VERSION != $VERSION_STRING ];
 then
-	IFS='.' read -r -a VERSION_ELEMENTS <<< "$VERSION_STRING"
-
-	# Increment build number
-	NEW_BUILD_NUMBER=$((VERSION_ELEMENTS[2]+1))
-
-	# Generate new version number
-	NEW_VERSION="${VERSION_ELEMENTS[0]}.${VERSION_ELEMENTS[1]}.${NEW_BUILD_NUMBER}"
-
-	echo "New Version Number: ${NEW_VERSION}"
-	echo $NEW_VERSION
+	echo "New Version Number: ${APP_VERSION}"
 
 	# Replace version number in manifest
-	sed -i "" 's/android:versionName="[^"]*"/android:versionName="'$NEW_VERSION'"/' $MANIFEST_PATH
+	sed -i "" 's/android:versionName="[^"]*"/android:versionName="'$APP_VERSION'"/' $MANIFEST_PATH
 fi
