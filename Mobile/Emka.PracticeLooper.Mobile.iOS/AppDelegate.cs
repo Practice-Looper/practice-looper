@@ -105,7 +105,6 @@ namespace Emka.PracticeLooper.Mobile.iOS
             string key;
 #if PREMIUM
             key = configService.GetValue("AppCenterIosPremium");
-            configService.SetSecureValue(PreferenceKeys.PremiumGeneral, true.ToString());
 #else
             key = configService.GetValue("AppCenterIosLite");
 #endif

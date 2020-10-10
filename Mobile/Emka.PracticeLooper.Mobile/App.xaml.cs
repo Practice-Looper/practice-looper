@@ -93,6 +93,10 @@ namespace Emka.PracticeLooper.Mobile
             {
                 SecureStorage.RemoveAll();
             }
+#if PREMIUM
+            var configService = resolver.Resolve<IConfigurationService>();
+            configService.SetSecureValue(PreferenceKeys.PremiumGeneral, true);
+#endif
         }
 
         private async Task InitNavigation()

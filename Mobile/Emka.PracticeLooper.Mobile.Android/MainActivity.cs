@@ -36,17 +36,17 @@ namespace Emka.PracticeLooper.Mobile.Droid
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
+            Platform.Init(this, savedInstanceState);
             Setup();
 
             GlobalApp.MainActivity = this;
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-           
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             SQLitePCL.Batteries_V2.Init();
             Platform.Init(this, savedInstanceState);
             Forms.SetFlags("CarouselView_Experimental");
-            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
             base.SetTheme(Resource.Style.MainTheme);
 
@@ -157,7 +157,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
             string key;
 #if PREMIUM
             key = configService.GetValue("AppCenterAndroidPremium");
-            configService.SetSecureValue(PreferenceKeys.PremiumGeneral, true.ToString());
 #else
             key = configService.GetValue("AppCenterAndroidLite");
 #endif
