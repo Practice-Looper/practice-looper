@@ -130,13 +130,15 @@ namespace Emka3.PracticeLooper.Config
 
         public void SetSecureValue(string key, object value)
         {
-            SecureStorage.SetAsync(key, value.ToString()).Wait();
+            var stringValue = value.ToString();
+            SecureStorage.SetAsync(key, stringValue).Wait();
             OnValueChanged(key);
         }
 
         public async Task SetSecureValueAsync(string key, object value)
         {
-            await SecureStorage.SetAsync(key, value.ToString());
+            var stringValue = value.ToString();
+            await SecureStorage.SetAsync(key, stringValue);
             OnValueChanged(key);
         }
 
