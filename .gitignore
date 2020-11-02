@@ -7,6 +7,7 @@ bin/
 obj/
 *.userprefs
 .packages
+tools/
 
 ### VisualStudio ###
 ## Ignore Visual Studio temporary files, build results, and
@@ -333,6 +334,8 @@ __pycache__/
 
 # OpenCover UI analysis results
 OpenCover/
+results/
+html-coverage-report/
 
 # Azure Stream Analytics local run output
 ASALocalRun/
@@ -366,3 +369,4 @@ Mobile/Emka.PracticeLooper.Mobile/secrets.json
 Mobile/Emka.PracticeLooper.Mobile.Android/Resources/Resource.designer.cs
 libs/iOS/RevenueCat*/RevenueCatProxy/build/*
 !libs/iOS/RevenueCat*/RevenueCatProxy/build/Release-fat
+PracticeLooperTests.db3
