@@ -35,8 +35,8 @@ namespace Emka.PracticeLooper.Mobile.UITests.Pages
         readonly Query ClosePicker;
         readonly Query MinutesPickerEngine;
         readonly Query SecondsPickerEngine;
-        private readonly Mock<ILogger> loggerMock;
-        private readonly IStringLocalizer stringLocalizer;
+        private static readonly Mock<ILogger> loggerMock = new Mock<ILogger>();
+        private readonly IStringLocalizer stringLocalizer = new StringLocalizer(loggerMock.Object);
 
         protected override PlatformQuery Trait => new PlatformQuery
         {
@@ -46,9 +46,6 @@ namespace Emka.PracticeLooper.Mobile.UITests.Pages
 
         public MainPage()
         {
-            loggerMock = new Mock<ILogger>();
-            stringLocalizer = new StringLocalizer(loggerMock.Object);
-
             SettingsButton = x => x.Marked("SettingsButton");
             AddSongButton = x => x.Marked("AddSongButton");
             SpotifyButton = x => x.Text("Spotify");

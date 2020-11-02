@@ -8,7 +8,6 @@ using Emka.PracticeLooper.Mobile.UITests.Common;
 using Emka.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Moq;
-using Xamarin.UITest.Queries;
 using Query = System.Func<Xamarin.UITest.Queries.AppQuery, Xamarin.UITest.Queries.AppQuery>;
 
 namespace Emka.PracticeLooper.Mobile.UITests.Pages
@@ -17,8 +16,8 @@ namespace Emka.PracticeLooper.Mobile.UITests.Pages
     {
         readonly Query ActivityIndicator;
         readonly Query ListView;
-        private readonly Mock<ILogger> loggerMock;
-        private readonly IStringLocalizer stringLocalizer;
+        private static readonly Mock<ILogger> loggerMock = new Mock<ILogger>();
+        private static readonly IStringLocalizer stringLocalizer = new StringLocalizer(loggerMock.Object);
 
         protected override PlatformQuery Trait => new PlatformQuery
         {
@@ -28,14 +27,12 @@ namespace Emka.PracticeLooper.Mobile.UITests.Pages
 
         public SpotifySearchPage()
         {
-            loggerMock = new Mock<ILogger>();
-            stringLocalizer = new StringLocalizer(loggerMock.Object);
-
             ActivityIndicator = x => x.Marked("ActivityIndicator");
             ListView = x => x.Class("LabelRenderer");
         }
 
-        public SpotifySearchPage SearchSong(string name) {
+        public SpotifySearchPage SearchSong(string name)
+        {
             app.Query(x => x.Id("search_src_text").Invoke("setText", name));
             AwaitSearchResults();
             return this;
@@ -47,9 +44,9 @@ namespace Emka.PracticeLooper.Mobile.UITests.Pages
 
             try
             {
-               app.Tap(songs[id].Id);
-               AwaitSongHasLoaded(songs[id].Label);
-               return songs[id].Text;
+                app.Tap(songs[id].Id);
+                AwaitSongHasLoaded(songs[id].Label);
+                return songs[id].Text;
             }
             catch (IndexOutOfRangeException e)
             {
@@ -57,7 +54,8 @@ namespace Emka.PracticeLooper.Mobile.UITests.Pages
             }
         }
 
-        protected void AwaitSearchResults() {
+        protected void AwaitSearchResults()
+        {
             app.WaitForElement(ActivityIndicator);
             app.WaitForNoElement(ActivityIndicator);
         }

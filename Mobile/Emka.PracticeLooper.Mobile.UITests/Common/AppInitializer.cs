@@ -46,17 +46,15 @@ namespace Emka.PracticeLooper.Mobile.UITests
 #if PREMIUM 
                 app = ConfigureApp
                         .Android
-                        .PreferIdeSettings()
                         .KeyStore("/Users/developer/PlayConsoleAlpha.keystore", "8ExDbiTtXNN3ECugopuB", "8ExDbiTtXNN3ECugopuB", "PlayConsoleAlpha")
-                        .InstalledApp("de.emka3.practice_looper")
+                        .ApkFile("../../../../Mobile/Emka.PracticeLooper.Mobile.Android/bin/DebugPremium/de.emka3.practice_looper-Signed.apk")
                         .StartApp();
                 IsLite = false;
 #else
                 app = ConfigureApp
                         .Android
-                        .PreferIdeSettings()
                         .KeyStore("/Users/developer/PlayConsoleAlpha.keystore", "8ExDbiTtXNN3ECugopuB", "8ExDbiTtXNN3ECugopuB", "PlayConsoleAlpha")
-                        .InstalledApp("de.emka3.practice_looper")
+                        .ApkFile("../../../../Mobile/Emka.PracticeLooper.Mobile.Android/bin/DebugLite/de.emka3.practice_looper-Signed.apk")
                         .StartApp();
                 IsLite = true;
 #endif
