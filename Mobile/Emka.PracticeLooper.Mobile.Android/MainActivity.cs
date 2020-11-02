@@ -16,6 +16,7 @@ using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
+using Java.Interop;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
@@ -178,6 +179,13 @@ namespace Emka.PracticeLooper.Mobile.Droid
             resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
             resolver.RegisterSingleton(typeof(ConnectivityService), typeof(IConnectivityService));
             resolver.RegisterSingleton(typeof(DeviceStorageService), typeof(IDeviceStorageService));
+        }
+
+        [Export("GetLanguage")]
+        public string GetLanguage()
+        {
+            var culture = System.Globalization.CultureInfo.CurrentCulture;
+            return culture.TwoLetterISOLanguageName;
         }
     }
 }

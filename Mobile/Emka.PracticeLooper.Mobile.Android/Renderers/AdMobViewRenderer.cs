@@ -53,6 +53,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
                 request = new AdRequest.Builder()
                     .AddTestDevice("F05EA53323F18138CB1722DD1F00A0F0")
                     .AddTestDevice("B0B92426A54BF08C56BC62D5703161F3")
+                    .AddTestDevice("A808EFF8867E3C5741E6456A4FFAB5D4")
+                    .AddTestDevice("7E7FE7BDD31E1B60AAA1ABA764B55E8B")
                     .Build();
                 adView.LoadAd(request);
             }

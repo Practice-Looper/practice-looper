@@ -70,6 +70,7 @@
                 </ListView.RowHeight>
             </ListView>
             <Button
+                AutomationId="CancelAudioSource"
                 Text="{x:Static rsrcs:AppResources.Cancel}"
                 FontSize="18"
                 Grid.Row="1"

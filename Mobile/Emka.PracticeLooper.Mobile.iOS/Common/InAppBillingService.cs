@@ -20,7 +20,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
     public class InAppBillingService : IInAppBillingService
     {
         #region Fields
-
         static AutoResetEvent fetchProductsEvent;
         static AutoResetEvent purchaseProductEvent;
         static AutoResetEvent restorePurchasesEvent;

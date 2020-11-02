@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Com.Spotify.Android.Appremote.Api;
 using Com.Spotify.Protocol.Client;
+using Com.Spotify.Protocol.Client.Error;
 using Com.Spotify.Protocol.Types;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
@@ -28,9 +29,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         private readonly IPlayerTimer timer;
         private readonly ISpotifyLoader spotifyLoader;
         private readonly ILogger logger;
+        private IPlayerApi playerApi;
         const int CURRENT_TIME_UPDATE_INTERVAL = 500;
         private CancellationTokenSource currentTimeCancelTokenSource;
         private SpotifyDelegate spotifyDelegate;
+        private PlayerStateDelegate stateDelegate;
         bool pausedByUser;
         private double loopStart;
         private double loopEnd;
@@ -115,7 +118,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             currentTimeCancelTokenSource = new CancellationTokenSource();
             timer.LoopTimerExpired += LoopTimerExpired;
             timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
-            spotifyDelegate = new SpotifyDelegate();
+            playerApi = Api?.PlayerApi;
             Initialized = true;
         }
 
@@ -123,12 +126,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                Api?
-                .PlayerApi?
+                playerApi?
                 .Pause()?
                 .SetErrorCallback(spotifyDelegate);
 
-                Api?.PlayerApi?.SetRepeat(0).SetErrorCallback(spotifyDelegate);
+                playerApi?.SetRepeat(0).SetErrorCallback(spotifyDelegate);
             });
 
             IsPlaying = false;
@@ -141,47 +143,70 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 spotifyDelegate.SpotifyResultHandler -= OnResult;
             }
 
+            if (stateDelegate != null)
+            {
+                stateDelegate.StateChanged -= OnStateChanged;
+            }
+
             if (spotifyLoader != null && spotifyLoader.Authorized && triggeredByUser)
             {
                 spotifyLoader.Disconnect();
             }
 
             Initialized = false;
+            spotifyDelegate = null;
+            stateDelegate = null;
         }
 
         public void Play()
         {
+            spotifyDelegate = new SpotifyDelegate();
+            stateDelegate = new PlayerStateDelegate();
+
             if (!IsPlaying)
             {
                 spotifyDelegate.SpotifyErrorHandler += OnError;
                 spotifyDelegate.SpotifyEventHandler += OnEvent;
                 spotifyDelegate.SpotifyResultHandler += OnResult;
-                Api?.PlayerApi
+                stateDelegate.StateChanged += OnStateChanged;
+                playerApi
                     ?.SubscribeToPlayerState()
-                    ?.SetErrorCallback(spotifyDelegate);
-
-                IsPlaying = true;
+                    ?.SetEventCallback(stateDelegate)
+                    ?.SetErrorCallback(stateDelegate);
             }
 
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                Api?.PlayerApi
-                    ?.Play(CurrentLoop.Session.AudioSource.Source)
-                    ?.SetResultCallback(spotifyDelegate)
-                    ?.SetErrorCallback(spotifyDelegate);
-            });
+            playerApi
+                ?.Play(CurrentLoop.Session.AudioSource.Source)
+                ?.SetResultCallback(spotifyDelegate)
+                ?.SetErrorCallback(spotifyDelegate);
 
             ResetAllTimers();
             RaisePlayingStatusChanged();
             CurrentPositionTimerExpired(this, new EventArgs());
         }
 
+        private async void OnStateChanged(object sender, PlayerState s)
+        {
+            var state = await Task.Run(() =>
+            {
+                CallResult playerStateCall = playerApi.PlayerState;
+                IResult result = playerStateCall.Await(5, TimeUnit.Seconds);
+                return result.Data as PlayerState; 
+            });
+            
+
+            if (!IsPlaying && state != null && !state.IsPaused && state.Track?.Uri == CurrentLoop.Session.AudioSource.Source)
+            {
+                playerApi.SetRepeat(1).SetErrorCallback(spotifyDelegate);
+                Seek(loopStart);
+                IsPlaying = !state.IsPaused;
+                RaisePlayingStatusChanged();
+            }
+        }
+
         public void Seek(double time)
         {
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                Api?.PlayerApi?.SeekTo((long)loopStart).SetErrorCallback(spotifyDelegate);
-            });
+            playerApi.SeekTo((long)loopStart).SetErrorCallback(spotifyDelegate);
         }
 
         public async Task InitAsync(Loop loop)
@@ -271,8 +296,10 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             try
             {
                 // repeat one
-                Api?.PlayerApi?.SetRepeat(1).SetErrorCallback(spotifyDelegate);
-                Api?.PlayerApi?.SeekTo((long)loopStart);
+
+                //IsPlaying = true;
+                //Api?.PlayerApi?.SetRepeat(1).SetErrorCallback(spotifyDelegate);
+                //Seek(loopStart);
             }
             catch (System.Exception ex)
             {
@@ -325,6 +352,28 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         public void OnResult(Java.Lang.Object state)
         {
             SpotifyResultHandler?.Invoke(this, state);
+        }
+        #endregion
+    }
+
+    internal class PlayerStateDelegate : Java.Lang.Object, IEventCallback, IErrorCallback
+    {
+        #region Events
+
+        public EventHandler<PlayerState> StateChanged;
+        public EventHandler<Throwable> SpotifyErrorHandler;
+        #endregion
+
+        #region Methods
+
+        public void OnError(Throwable error)
+        {
+            SpotifyErrorHandler?.Invoke(this, error);
+        }
+
+        public void OnEvent(Java.Lang.Object state)
+        {
+            StateChanged?.Invoke(this, state as PlayerState);
         }
         #endregion
     }
