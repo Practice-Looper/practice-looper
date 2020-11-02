@@ -6,6 +6,7 @@
 using System;
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels;
+using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
@@ -29,7 +30,8 @@ namespace Emka.PracticeLooper.Mobile.Views
                 resolver.Resolve<ISpotifyLoader>(),
                 resolver.Resolve<INavigationService>(),
                 resolver.Resolve<ILogger>(),
-                resolver.Resolve<IAppTracker>());
+                resolver.Resolve<IAppTracker>(),
+                resolver.Resolve<IDialogService>());
         }
 
         private void OnTrackTapped(object sender, ItemTappedEventArgs e)

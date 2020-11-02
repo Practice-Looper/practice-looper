@@ -1,5 +1,8 @@
+﻿// Copyright (C)  - All Rights Reserved
+// Unauthorized copying of this file, via any medium is strictly prohibited
+// Proprietary and confidential
+// Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
-using System.Linq;
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Model;
@@ -8,11 +11,12 @@ using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Moq;
+using NUnit.Framework;
 using Xamarin.Forms;
-using Xunit;
 
-namespace Emka.PracticeLooper.Mobile.Tests
+namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 {
+    [TestFixture()]
     public class SessionDetailsViewModelTests
     {
         private SessionDetailsViewModel sessionDetailsViewModel;
@@ -33,7 +37,7 @@ namespace Emka.PracticeLooper.Mobile.Tests
             appTrackerMock = new Mock<IAppTracker>();
         }
 
-        [Fact]
+        [Test()]
         public void When_InitializeAsync_Expect_Has1LoopAnd1SelectedLoop()
         {
             var audioSource = new AudioSource()
@@ -71,12 +75,12 @@ namespace Emka.PracticeLooper.Mobile.Tests
 
             Assert.NotNull(sessionDetailsViewModel.Session);
             Assert.NotNull(sessionDetailsViewModel.Loops);
-            Assert.NotEmpty(sessionDetailsViewModel.Loops);
-            Assert.Single(sessionDetailsViewModel.Loops);
+            Assert.IsNotEmpty(sessionDetailsViewModel.Loops);
+            Assert.That(sessionDetailsViewModel.Loops, Has.Count.EqualTo(1));
             Assert.NotNull(sessionDetailsViewModel.SelectedLoop);
         }
 
-        [Fact]
+        [Test()]
         public void When_Delete1Loop_Expect_HasNoLoops()
         {
             var audioSource = new AudioSource()
@@ -114,16 +118,16 @@ namespace Emka.PracticeLooper.Mobile.Tests
 
             Assert.NotNull(sessionDetailsViewModel.Session);
             Assert.NotNull(sessionDetailsViewModel.Loops);
-            Assert.NotEmpty(sessionDetailsViewModel.Loops);
-            Assert.Single(sessionDetailsViewModel.Loops);
+            Assert.IsNotEmpty(sessionDetailsViewModel.Loops);
+            Assert.That(sessionDetailsViewModel.Loops, Has.Count.EqualTo(1));
             Assert.NotNull(sessionDetailsViewModel.SelectedLoop);
 
             var loopViewModel = new LoopViewModel(loop);
             MessagingCenter.Send(loopViewModel, MessengerKeys.DeleteLoop, loop);
-            Assert.Empty(sessionDetailsViewModel.Loops);
+            Assert.IsEmpty(sessionDetailsViewModel.Loops);
         }
 
-        [Fact]
+        [Test()]
         public void When_DeleteNullLoop_Expect_ArgumentNullException()
         {
             var loop = new Loop

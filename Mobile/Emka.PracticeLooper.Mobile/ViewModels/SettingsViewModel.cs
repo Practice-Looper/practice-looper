@@ -21,7 +21,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     public class SettingsViewModel : ViewModelBase
     {
         #region Fields
-        private readonly IConfigurationService configService;
         private readonly IDialogService dialogService;
         private readonly IInAppBillingService inAppBillingService;
         private Command showProductPaywallCommand;
@@ -31,10 +30,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Ctor
 
-        public SettingsViewModel(IConfigurationService configService, ILogger logger, IDialogService dialogService, IAppTracker appTracker, INavigationService navigationService, IInAppBillingService inAppBillingService)
+        public SettingsViewModel(ILogger logger, IDialogService dialogService, IAppTracker appTracker, INavigationService navigationService, IInAppBillingService inAppBillingService)
             : base(navigationService, logger, appTracker)
         {
-            this.configService = configService ?? throw new ArgumentNullException(nameof(configService));
             this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
             this.inAppBillingService = inAppBillingService ?? throw new ArgumentNullException(nameof(inAppBillingService));
             Products = new ObservableCollection<InAppPurchaseProductViewModel>();
@@ -83,6 +81,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             if (!couldFetchOfferings)
             {
                 await dialogService.ShowAlertAsync(AppResources.Error_Caption, fetchOfferingsErrorReason);
+                HasProducts = false;
                 return;
             }
 

@@ -22,7 +22,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             InitializeComponent();
             var resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
-            BindingContext = new SettingsViewModel(resolver.Resolve<IConfigurationService>(),
+            BindingContext = new SettingsViewModel(
                 resolver.Resolve<ILogger>(),
                 resolver.Resolve<IDialogService>(),
                 resolver.Resolve<IAppTracker>(),

@@ -21,19 +21,17 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private bool isBusy;
         private readonly IInAppBillingService inAppBillingService;
         private readonly IDialogService dialogService;
-        private readonly IConfigurationService configurationService;
         private Command purchaseItemCommand;
         private InAppPurchaseProductViewModel product;
         #endregion
 
         #region Ctor
 
-        public ProductPaywallViewModel(INavigationService navigationService, ILogger logger, IAppTracker appTracker, IInAppBillingService inAppBillingService, IDialogService dialogService, IConfigurationService configurationService)
+        public ProductPaywallViewModel(INavigationService navigationService, ILogger logger, IAppTracker appTracker, IInAppBillingService inAppBillingService, IDialogService dialogService)
             : base(navigationService, logger, appTracker)
         {
             this.inAppBillingService = inAppBillingService ?? throw new ArgumentNullException(nameof(inAppBillingService));
             this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
-            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
         }
         #endregion
 
@@ -80,6 +78,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 Product = product;
             }
+            else
+            {
+                throw new ArgumentException(nameof(parameter));
+            }
 
             IsBusy = false;
             return Task.CompletedTask;
@@ -87,6 +89,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private async Task ExecutePurchaseItemCommand()
         {
+            if (Product == null)
+            {
+                throw new InvalidOperationException("product is null");
+            }
+
             if (Product != null && Product.Purchased)
             {
                 await dialogService.ShowAlertAsync(AppResources.Hint_Content_AlreadyPurchased, AppResources.Hint_Caption_AlreadyPurchased);

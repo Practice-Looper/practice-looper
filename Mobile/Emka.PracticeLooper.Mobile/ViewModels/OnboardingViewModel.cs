@@ -26,7 +26,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Properties
         public ObservableCollection<OnboardingModel> Items { get; set; }
-        public Command SkipCommand => skipCommand ?? (skipCommand = new Command(async (o) => await StartMainPageAsync(o)));
+        public Command SkipCommand => skipCommand ?? (skipCommand = new Command(async (o) => await ExecuteSkipCommandAsync(o)));
         #endregion
 
         #region Ctor
@@ -37,7 +37,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             : base(navigationService, logger, appTracker)
         {
             SetSkipButtonVisible(true);
-
             Items = new ObservableCollection<OnboardingModel>
             {
                 new OnboardingModel
@@ -119,7 +118,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        private async Task StartMainPageAsync(object obj)
+        private async Task ExecuteSkipCommandAsync(object obj)
         {
             await NavigationService.NavigateToAsync<MainViewModel>();
         }

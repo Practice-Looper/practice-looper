@@ -53,7 +53,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private void ExecuteDeleteSessionCommandAsync(object o)
         {
-            MainThread.BeginInvokeOnMainThread(() => MessagingCenter.Send(this, MessengerKeys.DeleteSession, this));
+            MessagingCenter.Send(this, MessengerKeys.DeleteSession, this);
         }
 
         private async Task ExecutePickLoopCommandAsync(object o)

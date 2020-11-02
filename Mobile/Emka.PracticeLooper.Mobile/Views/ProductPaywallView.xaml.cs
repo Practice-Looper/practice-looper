@@ -5,7 +5,6 @@
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Services.Contracts;
-using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Mappings;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
@@ -26,8 +25,7 @@ namespace Emka.PracticeLooper.Mobile.Views
                     resolver.Resolve<ILogger>(),
                     resolver.Resolve<IAppTracker>(),
                     resolver.Resolve<IInAppBillingService>(),
-                    resolver.Resolve<IDialogService>(),
-                    resolver.Resolve<IConfigurationService>());
+                    resolver.Resolve<IDialogService>());
         }
     }
 }

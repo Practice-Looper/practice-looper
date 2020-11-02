@@ -40,7 +40,8 @@ namespace Emka3.PracticeLooper.Services.Common
             }
 
             var path = Path.Combine(dbPath, dbName);
-            return new SQLiteConnection(path, Flags);
+            var connection = new SQLiteConnection(path, Flags);
+            return connection;
         }
 
         public async Task<SQLiteConnection> InitializeAsync(string dbPath, string dbName)
