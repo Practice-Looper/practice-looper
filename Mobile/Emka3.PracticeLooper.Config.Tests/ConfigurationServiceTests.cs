@@ -159,6 +159,50 @@ namespace Emka3.PracticeLooper.Config.Tests
             Assert.NotNull(ex);
         }
 
+        [Test]
+        public void When_ClearValue_Expect_ValueDeletedFromAllStorageVariations()
+        {
+            configurationLoaderMock
+                .Setup(c => c.LoadConfiguration(It.Is<string>(s => s.Contains("testSecrets.json"))))
+                .Returns(() =>
+                    {
+                        return ReadConfig("Emka3.PracticeLooper.ConfigTests.testSecrets.json");
+                    });
+
+            secureConfigServiceMock.Setup(s => s.ClearValue(It.IsAny<string>())).Verifiable();
+            persistentConfigServiceMock.Setup(p => p.ClearValue(It.IsAny<string>())).Verifiable();
+            secureConfigServiceMock.Setup(s => s.SetSecureValue(It.IsAny<string>(), It.IsAny<object>()));
+
+            var configService = new ConfigurationService(persistentConfigServiceMock.Object, configurationLoaderMock.Object, secureConfigServiceMock.Object);
+            configService.ReadConfigs("Emka3.PracticeLooper.ConfigTests.testSecrets.json");
+            var key = "key";
+            var value = "value";
+            configService.SetValue(key, value, true);
+            configService.SetSecureValue(key, value);
+
+            configService.ClearValue(key);
+            secureConfigServiceMock.Verify(s => s.ClearValue(It.IsAny<string>()), Times.Once);
+            persistentConfigServiceMock.Verify(p => p.ClearValue(It.IsAny<string>()), Times.Once);
+        }
+
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase(null)]
+        public void When_ClearValue_InvalidArgument_Expect_ThrowsArgumentNulltException(string key)
+        {
+            configurationLoaderMock
+                .Setup(c => c.LoadConfiguration(It.Is<string>(s => s.Contains("testSecrets.json"))))
+                .Returns(() =>
+                {
+                    return ReadConfig("Emka3.PracticeLooper.ConfigTests.testSecrets.json");
+                });
+
+            var configService = new ConfigurationService(persistentConfigServiceMock.Object, configurationLoaderMock.Object, secureConfigServiceMock.Object);
+            configService.ReadConfigs("Emka3.PracticeLooper.ConfigTests.testSecrets.json");
+            var ex = Assert.Throws<ArgumentNullException>(() => configService.ClearValue(key));
+            Assert.NotNull(ex);
+        }
+
         private IDictionary<string, object> ReadConfig(string path)
         {
             string json;

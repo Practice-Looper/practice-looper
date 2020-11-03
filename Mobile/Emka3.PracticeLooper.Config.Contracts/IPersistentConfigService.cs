@@ -43,5 +43,17 @@ namespace Emka3.PracticeLooper.Config.Contracts
         /// <param name="defaultValue"></param>
         /// <returns>Either found value or predefined default</returns>
         T GetPersistedValue<T>(string key, T defaultValue = default);
+
+        /// <summary>
+        /// Removes a value async.
+        /// </summary>
+        /// <param name="key"></param>
+        void ClearValue(string key);
+
+        /// <summary>
+        /// Removes a value.
+        /// </summary>
+        /// <param name="key"></param>
+        Task ClearValueAsync(string key);
     }
 }

@@ -29,7 +29,6 @@ namespace Emka3.PracticeLooper.Services.Rest
         private readonly IConfigurationService configurationService;
         private readonly ILogger logger;
         int limit;
-        public bool UserPremiumCheckSuccessful { get; set; }
         #endregion
 
         #region Ctor
@@ -41,6 +40,11 @@ namespace Emka3.PracticeLooper.Services.Rest
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             UserPremiumCheckSuccessful = false;
         }
+        #endregion
+
+        #region Properties
+
+        public bool UserPremiumCheckSuccessful { get; private set; }
         #endregion
 
         #region Methods

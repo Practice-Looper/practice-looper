@@ -3,7 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:tmpltSlctrs="clr-namespace:Emka.PracticeLooper.Mobile.TemplateSelectors;assembly=Emka.PracticeLooper.Mobile"
-    xmlns:vms="clr-namespace:Emka.PracticeLooper.Mobile.ViewModels;assembly=Emka.PracticeLooper.Mobile"
+    xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views;assembly=Emka.PracticeLooper.Mobile">
     <Style
         TargetType="Page"
@@ -131,7 +131,7 @@
         <views:CustomViewCell>
             <ViewCell.ContextActions>
                 <MenuItem
-                    Text="Delete"
+                    Text="{x:Static rsrcs:AppResources.Delete}"
                     IsDestructive="True"
                     Command="{Binding DeleteSessionCommand}" />
             </ViewCell.ContextActions>
@@ -188,7 +188,7 @@
         <views:CustomViewCell>
             <ViewCell.ContextActions>
                 <MenuItem
-                    Text="Delete"
+                    Text="{x:Static rsrcs:AppResources.Delete}"
                     IsDestructive="True"
                     Command="{Binding DeleteSessionCommand}" />
             </ViewCell.ContextActions>
@@ -246,7 +246,7 @@
             IsEnabled="False">
             <ViewCell.ContextActions>
                 <MenuItem
-                    Text="Delete"
+                    Text="{x:Static rsrcs:AppResources.Delete}"
                     IsDestructive="True"
                     Command="{Binding DeleteSessionCommand}" />
             </ViewCell.ContextActions>

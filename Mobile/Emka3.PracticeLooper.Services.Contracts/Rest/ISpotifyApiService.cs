@@ -17,7 +17,7 @@ namespace Emka3.PracticeLooper.Services.Contracts.Rest
 
         Task<List<SpotifyTrack>> SearchTrackByName(string term, CancellationToken cancellationToken);
 
-        bool UserPremiumCheckSuccessful { get; set; }
+        bool UserPremiumCheckSuccessful { get; }
 
         Task<Tuple<HttpStatusCode, bool>> IsPremiumUser();
 

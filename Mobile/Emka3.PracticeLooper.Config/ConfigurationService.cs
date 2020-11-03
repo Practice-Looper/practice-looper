@@ -209,6 +209,28 @@ namespace Emka3.PracticeLooper.Config
             var result = value == string.Empty || value == null ? default : (T)Convert.ChangeType(value, typeof(T));
             return result;
         }
+
+        public void ClearValue(string key)
+        {
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+
+            if (configs.ContainsKey(key))
+            {
+                configs.Remove(key);
+            }
+
+            persistentConfigService.ClearValue(key);
+            secureConfigService.ClearValue(key);
+            OnValueChanged(key);
+        }
+
+        public async Task ClearValueAsync(string key)
+        {
+            await Task.Run(() => { ClearValue(key); });
+        }
         #endregion Methods
     }
 }
