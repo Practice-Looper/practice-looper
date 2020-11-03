@@ -4,13 +4,13 @@ echo "**************************************************************************
 echo "************** Custom Pre Build Script -- Android Edition ********************"
 echo "******************************************************************************"
 echo "-----------------"
-echo "Running a search for XUnit test projects:"
+echo "Running a search for NUnit test projects:"
 echo "-----------------"
 
 # only for local decelopment
-# APPCENTER_SOURCE_DIRECTORY=/Users/simonsymhoven/Desktop/projects/practice-looper
-
-array=(`find $APPCENTER_SOURCE_DIRECTORY/Mobile -regex '.*Tests*.csproj'`)
+# APPCENTER_SOURCE_DIRECTORY=/Users/simonsymhoven/Projects/practice-looper
+# APPCENTER_SOURCE_DIRECTORY=/Volumes/Work/Projekte/Mobile/practice-looper
+array=(`find $APPCENTER_SOURCE_DIRECTORY/Mobile -name '*.Tests.csproj'`)
 successful=0
 error=0
 numberOfTests=${#array[@]}
@@ -22,7 +22,7 @@ do :
 	echo "-----------------"
 done
 
-echo "Running XUnit tests:"
+echo "Running NUnit tests:"
 echo "-----------------"
 for projectFile in "${array[@]}"
 do :
@@ -32,47 +32,18 @@ do :
 	echo "Change directory to $(dirname "${projectFile}")"
 	cd $(dirname "${projectFile}")
 
-	# Deletes old testreults if they exist
-	oldTestResult=$(dirname "${projectFile}")/TestResults/xunitestresults.trx
-	if [ -f $oldTestResult ] ;
+	echo "========================================= Start testing ================================================"
+	echo "================ ${projectFile} =============="
+	result=$(dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput='./results/')
+	echo "$result"
+
+	if [[ $result == *"Test Run Successful."* ]];
 	then
-		echo "Delete old testResult file"
-    rm $oldTestResult
-	fi
-
-	# Execute tests and save result into trx-file
-	echo "Start testing .."
-	dotnet test --logger "trx;LogFileName=xunitestresults.trx";
-
-	# Execute tests and save result into trx-file
-	testResultPath=$(find $(dirname "${projectFile}") -name 'xunitestresults.trx')
-
-	# return true if testResultPath is not set or empty
-	if [ -z "$testResultPath" ]
-	then
-		# if true, test were not executed
-		echo "Found no testresults"
-		echo "Unit Tests for project $(basename "${projectFile}") failed!"
-		error=$((error+1))
+		successful=$((successful+1))
 	else
-		# tests were executed
-		echo "Found testresult"
-		# search for failed="0" in generated trx-file and count the number
-		failures=$(grep -o 'failed="0"' $testResultPath | wc -l)
-
-		# return true if failed="0" is exactly 1
-		if [[ $failures -eq 1 ]]
-		then
-			# tests were executed successful
-			echo "Unit Tests for project $(basename "${projectFile}") passed!"
-			successful=$((successful+1))
-		else
-			# tests failed
-			echo "Unit Tests for project $(basename "${projectFile}") failed!"
-			error=$((error+1))
-		fi
+		error=$((error+1))
 	fi
-	echo "-----------------"
+	echo "========================================= End testing ================================================"
 done
 
 if [[ $successful -eq $numberOfTests  ]]
@@ -111,3 +82,21 @@ then
 	# Replace version number in manifest
 	sed -i "" 's/android:versionName="[^"]*"/android:versionName="'$APP_VERSION'"/' $MANIFEST_PATH
 fi
+
+echo "Install ReportGenerator"
+cd $APPCENTER_SOURCE_DIRECTORY/Mobile
+dotnet tool install -g dotnet-reportgenerator-globaltool
+dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
+dotnet new tool-manifest dotnet tool install dotnet-reportgenerator-globaltool
+dotnet tool restore
+
+echo "Collect data"
+DATA=""
+for projectFile in "${array[@]}"
+do :
+	DATA+="$(dirname "${projectFile}")/results/coverage.opencover.xml;"
+done
+echo "$DATA"
+
+echo "Generate report"
+reportgenerator "-reports:${DATA}" "-targetdir:../coverage-reports/${APP_VERSION}"
