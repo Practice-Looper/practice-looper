@@ -81,6 +81,9 @@
     <Reference Include="System.Collections.Immutable">
       <HintPath>..\packages\System.Collections.Immutable.1.4.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.CodeCoverage.Shim">
+      <HintPath>..\packages\Microsoft.CodeCoverage.16.7.1\lib\net45\Microsoft.VisualStudio.CodeCoverage.Shim.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.Forms.Core">
       <HintPath>..\packages\Xamarin.Forms.4.8.0.1269\lib\netstandard2.0\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
@@ -89,9 +92,6 @@
     </Reference>
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.4.8.0.1269\lib\netstandard2.0\Xamarin.Forms.Xaml.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.CodeCoverage.Shim">
-      <HintPath>..\packages\Microsoft.CodeCoverage.16.7.1\lib\net45\Microsoft.VisualStudio.CodeCoverage.Shim.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -142,4 +142,5 @@
   <Import Project="..\packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.0\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets" Condition="Exists('..\packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.0\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets')" />
   <Import Project="..\packages\Microsoft.CodeCoverage.16.7.1\build\netstandard1.0\Microsoft.CodeCoverage.targets" Condition="Exists('..\packages\Microsoft.CodeCoverage.16.7.1\build\netstandard1.0\Microsoft.CodeCoverage.targets')" />
   <Import Project="..\packages\Microsoft.NET.Test.Sdk.16.7.1\build\net40\Microsoft.NET.Test.Sdk.targets" Condition="Exists('..\packages\Microsoft.NET.Test.Sdk.16.7.1\build\net40\Microsoft.NET.Test.Sdk.targets')" />
+  <Import Project="..\packages\Xamarin.Forms.4.8.0.1269\build\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.4.8.0.1269\build\Xamarin.Forms.targets')" />
 </Project>

@@ -26,9 +26,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="secrets.json" />
+    <None Remove="credentials.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="secrets.json" />
+    <EmbeddedResource Include="credentials.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Feature\" />

@@ -375,6 +375,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             var tcs = new TaskCompletionSource<bool>();
             sourcePickerMock.Setup(s => s.SelectFileSource()).Returns(Task.FromResult(AudioSourceType.Spotify));
             spotifyLoaderMock.SetupGet(s => s.Authorized).Returns(false);
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(true);
             spotifyLoaderMock
                 .Setup(s => s.InitializeAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(false))

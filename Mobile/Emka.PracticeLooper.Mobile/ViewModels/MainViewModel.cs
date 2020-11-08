@@ -595,18 +595,20 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                         break;
                     case AudioSourceType.Spotify:
+
                         if (spotifyLoader != null && !spotifyLoader.Authorized)
                         {
                             await spotifyLoader.InitializeAsync();
                         }
 
+                        if (configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled) && !spotifyLoader.Authorized)
+                        {
+                            await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToSpotify, AppResources.Error_Caption);
+                        }
+
                         if (spotifyLoader.Authorized)
                         {
                             await NavigationService.NavigateToAsync<SpotifySearchViewModel>();
-                        }
-                        else
-                        {
-                            await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToSpotify, AppResources.Error_Caption);
                         }
                         break;
                     default:

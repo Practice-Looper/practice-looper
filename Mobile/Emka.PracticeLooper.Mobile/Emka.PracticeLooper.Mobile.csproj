@@ -72,7 +72,6 @@
       <IntermediateOutputPath>obj\Debug\netstandard2.0</IntermediateOutputPath>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
         <PackageReference Include="Autofac" Version="4.9.4" />
         <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.41" />
         <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
@@ -84,6 +83,7 @@
         <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.3.0.47" />
         <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.3.0.47" />
         <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
+        <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />

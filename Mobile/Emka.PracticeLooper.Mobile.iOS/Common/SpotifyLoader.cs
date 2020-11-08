@@ -255,10 +255,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                     tokenEvent.Set();
                     connectedEvent.Set();
                 }
+
                 if (error != null)
                 {
                     logger?.LogError(new NSErrorException(error));
-                    // todo: show dialog
                     throw new NSErrorException(error);
                 }
             });

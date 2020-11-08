@@ -27,9 +27,11 @@
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
+
     <!--https://mycolor.space/?hex=%2359677C&sub=1-->
     <Grid
         x:Name="MainGrid">
+
         <Grid.RowDefinitions>
             <RowDefinition
                 Height="Auto" />
@@ -45,7 +47,8 @@
 
         <Grid
             Grid.Row="1"
-            Margin="0,10,0,0">
+            Margin="0,10,0,0"
+            AutomationProperties.IsInAccessibleTree="False">
             <Grid.RowDefinitions>
                 <RowDefinition
                     Height="6*" />
@@ -54,6 +57,7 @@
                 <RowDefinition
                     Height="4*" />
             </Grid.RowDefinitions>
+            
             <ContentView
                 Grid.Row="0"
                 Margin="10,0"
@@ -83,6 +87,7 @@
                     </ImageButton>
                     <ListView
                         AutomationId="SessionsList"
+                        AutomationProperties.IsInAccessibleTree="False"
                         Grid.Row="1"
                         SelectedItem="{Binding CurrentSession, Mode=TwoWay}"
                         ItemsSource="{Binding Sessions}"
@@ -360,11 +365,12 @@
                 Color="{DynamicResource SecondaryColor}"
                 VerticalOptions="Center"
                 HorizontalOptions="Center" />
-        </ContentView>
+        </ContentView> 
 
         <syncfusion:SfPicker
             Grid.Row="1"
             x:Name="picker"
+            AutomationId="Picker"
             VerticalOptions="End"
             HorizontalOptions="FillAndExpand"
             ColumnHeaderText="{Binding Headers}"
@@ -389,7 +395,7 @@
                     BackgroundColor="{DynamicResource BackgroundColor}"
                     BorderColor="{DynamicResource BackgroundColor}"/>
             </syncfusion:SfPicker.FooterView>
-
         </syncfusion:SfPicker>
+        
     </Grid>
 </ContentPage>

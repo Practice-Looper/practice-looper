@@ -47,6 +47,7 @@
         <ListView
             x:Name="ProductsListView"
             AutomationId="SettingsListView"
+            AutomationProperties.IsInAccessibleTree="False"
             Grid.Row="0"
             ItemsSource="{Binding Products}"
             ItemTapped="ListView_ItemTapped"
@@ -75,6 +76,7 @@
                             <Label
                                 Grid.Column="0"
                                 Text="{Binding Name}"
+                                AutomationId="ProductName"
                                 FontSize="Default"
                                 TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                                 VerticalTextAlignment="Center"
@@ -82,6 +84,7 @@
                             <Label
                                 Grid.Column="1"
                                 FontSize="Default"
+                                AutomationId="ProductPrice"
                                 Text="{Binding LocalizedPrice}"
                                 TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                                 VerticalTextAlignment="Center"
@@ -107,6 +110,7 @@
                                 </Label.Style>
                             </Label>
                             <Label
+                                AutomationId="ProductCheck"
                                 Grid.Column="1"
                                 FontFamily="{DynamicResource MaterialFontFamily}"
                                 Text="{StaticResource Check}"
