@@ -107,6 +107,18 @@ namespace Emka3.PracticeLooper.Config.Contracts
         /// <returns> Config value.</returns>
         /// <param name="key">Key.</param>
         Task<string> GetValueAsync(string key);
+
+        /// <summary>
+        /// Removes a value from config service async. Also removes value if it's store in a secure storage.
+        /// </summary>
+        /// <param name="key"></param>
+        void ClearValue(string key);
+
+        /// <summary>
+        /// Removes a value from config service. Also removes value if it's store in a secure storage.
+        /// </summary>
+        /// <param name="key"></param>
+        Task ClearValueAsync(string key);
         #endregion Methods
     }
 }

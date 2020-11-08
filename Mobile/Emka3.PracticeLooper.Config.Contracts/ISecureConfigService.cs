@@ -14,5 +14,7 @@ namespace Emka3.PracticeLooper.Config.Contracts
         Task<string> GetSecureValueAsync(string key);
         void SetSecureValue(string key, object value);
         Task SetSecureValueAsync(string key, object value);
+        void ClearValue(string key);
+        Task ClearValueAsync(string key);
     }
 }

@@ -3,6 +3,7 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
+using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Model;
@@ -19,7 +20,6 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
     [TestFixture()]
     public class SessionDetailsViewModelTests
     {
-        private SessionDetailsViewModel sessionDetailsViewModel;
         private readonly Mock<ILogger> loggerMock;
         private readonly Mock<IDialogService> dialogServiceMock;
         private readonly Mock<INavigationService> navigationServiceMock;
@@ -32,14 +32,15 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             dialogServiceMock = new Mock<IDialogService>();
             configurationServiceMock = new Mock<IConfigurationService>();
             appTrackerMock = new Mock<IAppTracker>();
-            sessionDetailsViewModel = new SessionDetailsViewModel(configurationServiceMock.Object);
             navigationServiceMock = new Mock<INavigationService>();
             appTrackerMock = new Mock<IAppTracker>();
         }
 
         [Test()]
-        public void When_InitializeAsync_Expect_Has1LoopAnd1SelectedLoop()
+        [Apartment(System.Threading.ApartmentState.STA)]
+        public async Task When_InitializeAsync_Expect_Has1LoopAnd1SelectedLoop()
         {
+            var sessionDetailsViewModel = new SessionDetailsViewModel(configurationServiceMock.Object, dialogServiceMock.Object);
             var audioSource = new AudioSource()
             {
                 Id = 0,
@@ -71,7 +72,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 }
             }, dialogServiceMock.Object, loggerMock.Object, navigationServiceMock.Object, appTrackerMock.Object);
 
-            sessionDetailsViewModel.InitializeAsync(sessionViewModel);
+            await sessionDetailsViewModel.InitializeAsync(sessionViewModel);
 
             Assert.NotNull(sessionDetailsViewModel.Session);
             Assert.NotNull(sessionDetailsViewModel.Loops);
@@ -81,8 +82,10 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         }
 
         [Test()]
-        public void When_Delete1Loop_Expect_HasNoLoops()
+        [Apartment(System.Threading.ApartmentState.STA)]
+        public async Task When_Delete1Loop_Expect_HasNoLoops()
         {
+            var sessionDetailsViewModel = new SessionDetailsViewModel(configurationServiceMock.Object, dialogServiceMock.Object);
             var audioSource = new AudioSource()
             {
                 Id = 0,
@@ -114,7 +117,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 }
             }, dialogServiceMock.Object, loggerMock.Object, navigationServiceMock.Object, appTrackerMock.Object);
 
-            sessionDetailsViewModel.InitializeAsync(sessionViewModel);
+            await sessionDetailsViewModel.InitializeAsync(sessionViewModel);
 
             Assert.NotNull(sessionDetailsViewModel.Session);
             Assert.NotNull(sessionDetailsViewModel.Loops);
@@ -130,6 +133,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         [Test()]
         public void When_DeleteNullLoop_Expect_ArgumentNullException()
         {
+            var sessionDetailsViewModel = new SessionDetailsViewModel(configurationServiceMock.Object, dialogServiceMock.Object);
             var loop = new Loop
             {
                 Id = 0,

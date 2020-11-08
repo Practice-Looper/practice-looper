@@ -3,6 +3,7 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using Emka.PracticeLooper.Mobile.ViewModels;
+using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Utils;
 using Xamarin.Essentials;
@@ -19,7 +20,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             InitializeComponent();
             var resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
-            BindingContext = new SessionDetailsViewModel(resolver.Resolve<IConfigurationService>());
+            BindingContext = new SessionDetailsViewModel(resolver.Resolve<IConfigurationService>(), resolver.Resolve<IDialogService>());
         }
 
         protected override void OnAppearing()

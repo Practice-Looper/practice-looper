@@ -58,6 +58,21 @@ namespace Emka3.PracticeLooper.Config
         {
             await Task.Run(() => PersistValue(key, value, type));
         }
+
+        public void ClearValue(string key)
+        {
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+
+            Preferences.Clear(key);
+        }
+
+        public async Task ClearValueAsync(string key)
+        {
+            await Task.Run(() => { ClearValue(key); });
+        }
         #endregion
     }
 }

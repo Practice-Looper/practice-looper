@@ -5,13 +5,14 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka.PracticeLooper.Model;
+using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Utils;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
@@ -20,16 +21,19 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     public class SessionDetailsViewModel : ViewModelBase
     {
         private readonly IConfigurationService configurationService;
+        private readonly IDialogService dialogService;
         private SessionViewModel session;
         private LoopViewModel selectedLoop;
         private bool isBusy;
         #region Ctor
 
-        public SessionDetailsViewModel(IConfigurationService configurationService)
+        public SessionDetailsViewModel(IConfigurationService configurationService, IDialogService dialogService)
         {
             Loops = new ObservableCollection<LoopViewModel>();
             MessagingCenter.Subscribe<LoopViewModel, Loop>(this, MessengerKeys.DeleteLoop, OnDeleteLoop);
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
+            this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
+            UiContext = SynchronizationContext.Current;
         }
         #endregion
 
@@ -80,7 +84,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Methods
 
-        public override Task InitializeAsync(object parameter)
+        public override async Task InitializeAsync(object parameter)
         {
             IsBusy = true;
             try
@@ -94,21 +98,18 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     }
 
                     var currentLoopId = configurationService.GetValue(PreferenceKeys.LastLoop, 0);
-                    MainThread.BeginInvokeOnMainThread(() => SelectedLoop = Loops.FirstOrDefault(l => l.Loop.Id == currentLoopId));
+                    UiContext.Send(x => SelectedLoop = Loops.FirstOrDefault(l => l.Loop.Id == currentLoopId), null);
                 }
             }
-            catch (NotImplementedInReferenceAssemblyException ex)
+            catch (Exception ex)
             {
-                Logger?.LogError(ex);
-                SelectedLoop = Loops?.FirstOrDefault();
-                // catch and ignore, since Preferences from Xamarin.Essentials is not available for .NET Core test assembly!
+                await Logger?.LogErrorAsync(ex);
+                await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
             finally
             {
                 IsBusy = false;
             }
-
-            return Task.CompletedTask;
         }
 
         public void OnDeleteLoop(LoopViewModel sender, Loop loop)
