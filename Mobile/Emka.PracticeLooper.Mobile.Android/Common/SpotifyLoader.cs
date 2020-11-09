@@ -77,6 +77,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
+                var connectionTimeout = configurationService.GetValue<int>("SpotifyConnectionTimeOut");
                 if (!configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled))
                 {
                     var installSpotify = dialogService.ShowConfirmAsync(
@@ -94,10 +95,10 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 }
 
                 StartAuthorization();
-                tokenEvent.WaitOne();
+                tokenEvent.WaitOne(TimeSpan.FromSeconds(connectionTimeout));
 
                 StartConnection();
-                connectedEvent.WaitOne();
+                connectedEvent.WaitOne(TimeSpan.FromSeconds(connectionTimeout));
 
                 Authorized = api != null && api.IsConnected && !string.IsNullOrEmpty(token);
                 return Authorized;
@@ -119,7 +120,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             tokenEvent = new AutoResetEvent(false);
             connectedEvent = new AutoResetEvent(false);
-            configurationService.SetValueAsync(PreferenceKeys.IsSpotifyInstalled, IsSpotifyInstalled());
+            await configurationService.SetValueAsync(PreferenceKeys.IsSpotifyInstalled, IsSpotifyInstalled());
           
             return await Task.Run(() => Initialize(songUri));
         }
@@ -216,6 +217,32 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             {
                 return false;
             }
+        }
+
+        private string GetRandomCoumarinSong()
+        {
+            string result = string.Empty;
+            try
+            {
+                var tracks = new[]
+                {
+                    "spotify:track:5EclxNYgNaP921FqhGsiHd", // dreams
+                    "spotify:track:4nDaTStabiIs8Re1FYcipd", // make it right
+                    "spotify:track:7qfNL2fbqK3vBYxEm9WVVj", // mirage
+                    "spotify:track:1dv8jyahW3Xf2lxwKCrpSl"  // never again
+                };
+
+                var random = new Random();
+                var randomIndex = random.Next(0, tracks.Length - 1);
+
+                result = tracks[randomIndex];
+            }
+            catch (System.Exception ex)
+            {
+                logger?.LogError(ex);
+            }
+
+            return result;
         }
         #endregion
     }

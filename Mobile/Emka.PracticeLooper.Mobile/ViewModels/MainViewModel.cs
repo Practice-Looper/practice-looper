@@ -604,6 +604,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         {
                             await NavigationService.NavigateToAsync<SpotifySearchViewModel>();
                         }
+                        else
+                        {
+                            await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToSpotify, AppResources.Error_Caption);
+                        }
                         break;
                     default:
                         break;

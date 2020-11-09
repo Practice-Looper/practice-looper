@@ -89,6 +89,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             try
             {
+                var connectionTimeout = configurationService.GetValue<int>("SpotifyConnectionTimeOut");
                 if (!configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled))
                 {
                     var installSpotify = dialogService.ShowConfirmAsync(
@@ -105,19 +106,24 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                     return false;
                 }
 
+                if (string.IsNullOrEmpty(songUri))
+                {
+                    songUri = GetRandomCoumarinSong();
+                }
+
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     StartAuthorization(songUri);
                 });
 
-                tokenEvent?.WaitOne();
+                tokenEvent?.WaitOne(TimeSpan.FromSeconds(connectionTimeout));
 
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     StartConnection();
                 });
 
-                connectedEvent?.WaitOne();
+                connectedEvent?.WaitOne(TimeSpan.FromSeconds(connectionTimeout));
 
                 Authorized = api != null && api.Connected && !string.IsNullOrEmpty(Token);
                 return Authorized;
@@ -261,6 +267,32 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private bool IsSpotifyInstalled()
         {
             return UIApplication.SharedApplication.CanOpenUrl(new NSUrl(new NSString("spotify:")));
+        }
+
+        private string GetRandomCoumarinSong()
+        {
+            string result = string.Empty;
+            try
+            {
+                var tracks = new[]
+                {
+                    "spotify:track:5EclxNYgNaP921FqhGsiHd", // dreams
+                    "spotify:track:4nDaTStabiIs8Re1FYcipd", // make it right
+                    "spotify:track:7qfNL2fbqK3vBYxEm9WVVj", // mirage
+                    "spotify:track:1dv8jyahW3Xf2lxwKCrpSl"  // never again
+                };
+
+                var random = new Random();
+                var randomIndex = random.Next(0, tracks.Length - 1);
+
+                result = tracks[randomIndex];
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex);
+            }
+
+            return result;
         }
         #endregion
     }
