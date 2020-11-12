@@ -187,6 +187,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public override async Task InitializeAsync(object parameter)
         {
+            IsBusy = true;
             try
             {
                 if (!spotifyLoader.Authorized)
@@ -203,6 +204,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 await Logger.LogErrorAsync(ex);
                 await ShowErrorDialogAsync();
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
         #endregion Metthods

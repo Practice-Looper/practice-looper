@@ -370,6 +370,55 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
         [Test()]
         [Apartment(ApartmentState.STA)]
+        public async Task When_PickSourceSpotify_AuthorizationFails_Expect_ShowsDialog()
+        {
+            var tcs = new TaskCompletionSource<bool>();
+            sourcePickerMock.Setup(s => s.SelectFileSource()).Returns(Task.FromResult(AudioSourceType.Spotify));
+            spotifyLoaderMock.SetupGet(s => s.Authorized).Returns(false);
+            spotifyLoaderMock
+                .Setup(s => s.InitializeAsync(It.IsAny<string>()))
+                .Returns(Task.FromResult(false))
+                .Verifiable();
+            dialogServiceMock
+                .Setup(d => d.ShowAlertAsync(It.Is<string>(s => s == localizer.GetLocalizedString("Error_Content_CouldNotConnectToSpotify")), It.Is<string>(s => s == localizer.GetLocalizedString("Error_Caption"))))
+                .Callback(() => { Task.Run(() => tcs.SetResult(true)); })
+                .Returns(Task.CompletedTask)
+                .Verifiable();
+
+            mainViewModel = CreateDefault(interstitialAdMock.Object,
+                sessionsRepositoryMock.Object,
+                loopsRepositoryMock.Object,
+                dialogServiceMock.Object,
+                fileRepositoryMock.Object,
+                sourcePickerMock.Object,
+                spotifyLoaderMock.Object,
+                spotifyApiServiceMock.Object,
+                filePickerMock.Object,
+                connectivityServiceMock.Object,
+                navigationServiceMock.Object,
+                loggerMock.Object,
+                appTrackerMock.Object,
+                configurationServiceMock.Object,
+                inAppBillingServiceMock.Object,
+                audioPlayers);
+
+            if (mainViewModel.UiContext == null)
+            {
+                mainViewModel.UiContext = SynchronizationContext.Current;
+            }
+
+            await mainViewModel.InitializeAsync(null);
+            mainViewModel.PickSourceCommand.Execute(null);
+
+            await tcs.Task;
+
+            spotifyLoaderMock.Verify(s => s.InitializeAsync(It.IsAny<string>()), Times.Once);
+            dialogServiceMock
+                .Verify(d => d.ShowAlertAsync(It.Is<string>(s => s == localizer.GetLocalizedString("Error_Content_CouldNotConnectToSpotify")), It.Is<string>(s => s == localizer.GetLocalizedString("Error_Caption"))), Times.Once);
+        }
+
+        [Test()]
+        [Apartment(ApartmentState.STA)]
         public async Task When_PickSourceSpotify_SpotifyAuthorized_Expect_NavigateToSpotifySearchView()
         {
             var tcs = new TaskCompletionSource<bool>();
