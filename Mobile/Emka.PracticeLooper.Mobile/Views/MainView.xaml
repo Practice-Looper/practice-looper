@@ -377,12 +377,13 @@
             HeaderBackgroundColor="{DynamicResource BackgroundColor}"
             HeaderTextColor="{DynamicResource SecondaryColor}"
             ShowFooter="True"
-            ShowHeader="True">
+            ShowHeader="True"
+            Closed="OnPickerClosed">
             <syncfusion:SfPicker.FooterView>
                 <Button
-                    AutomationId="ClosePicker"
+                    AutomationId="ClosePickerButtonClicked"
                     Text="{x:Static rsrcs:AppResources.Close}"
-                    Clicked="OnClosePicker"
+                    Clicked="ClosePickerButtonClicked"
                     HorizontalOptions="Center"
                     TextColor="{DynamicResource PrimaryColor}"
                     BackgroundColor="{DynamicResource BackgroundColor}"

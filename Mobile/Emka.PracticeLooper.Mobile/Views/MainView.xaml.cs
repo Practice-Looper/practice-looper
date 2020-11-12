@@ -166,10 +166,9 @@ namespace Emka.PracticeLooper.Mobile.Views
             }
         }
 
-        void OnClosePicker(object sender, EventArgs e)
+        void ClosePickerButtonClicked(object sender, EventArgs e)
         {
             picker.IsOpen = !picker.IsOpen;
-            picker.SelectionChanged -= SelectionChanged;
         }
 
         async Task InitPicker(bool isStartPosition, string header)
@@ -213,6 +212,11 @@ namespace Emka.PracticeLooper.Mobile.Views
             {
                 ToggleAd();
             }
+        }
+
+        void OnPickerClosed(object sender, EventArgs e)
+        {
+            picker.SelectionChanged -= SelectionChanged;
         }
         #endregion
     }
