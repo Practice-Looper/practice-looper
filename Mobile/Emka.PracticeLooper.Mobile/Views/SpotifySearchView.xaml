@@ -56,7 +56,8 @@
                     ItemTapped="OnTrackTapped"
                     HasUnevenRows="True"
                     SeparatorColor="Transparent"
-                    BackgroundColor="Transparent">
+                    BackgroundColor="Transparent"
+                    CachingStrategy="RetainElement">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

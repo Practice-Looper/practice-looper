@@ -17,6 +17,7 @@ using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Emka3.PracticeLooper.Utils;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
@@ -119,7 +120,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                     if (timer == null)
                     {
-                        timer = new LooprTimer(TimeSpan.FromMilliseconds(500),
+                        timer = new LooprTimer(TimeSpan.FromMilliseconds(1000),
                            async () => await Search());
                         timer.Start();
                     }
@@ -162,12 +163,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (!searchCancelTokenSource.IsCancellationRequested)
                 {
                     var res = await spotifyApiService.SearchTrackByName(SearchTerm, searchCancelTokenSource.Token);
-
-                    SearchResults.Clear();
-                    foreach (var item in res)
+                    MainThread.BeginInvokeOnMainThread(() =>
                     {
-                        SearchResults.Add(item);
-                    }
+                        SearchResults.Clear();
+                        foreach (var item in res)
+                        {
+                            SearchResults.Add(item);
+                        }
+                    });
                 }
             }
             catch (TaskCanceledException)
