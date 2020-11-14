@@ -15,5 +15,7 @@ namespace Emka3.PracticeLooper.Config.Contracts
         public static readonly string ExternalStoragePath = nameof(ExternalStoragePath);
         public static readonly string InternalStoragePath = nameof(InternalStoragePath);
         public static readonly string IsSpotifyInstalled = nameof(IsSpotifyInstalled);
+        public static readonly string ThirdPartyComponentsUrl = nameof(ThirdPartyComponentsUrl);
+        public static readonly string DataPrivacyUrl = nameof(DataPrivacyUrl);
     }
 }

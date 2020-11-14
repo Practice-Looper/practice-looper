@@ -27,7 +27,8 @@ namespace Emka.PracticeLooper.Mobile.Views
                 resolver.Resolve<IDialogService>(),
                 resolver.Resolve<IAppTracker>(),
                 resolver.Resolve<INavigationService>(),
-                resolver.Resolve<IInAppBillingService>());
+                resolver.Resolve<IInAppBillingService>(),
+                resolver.Resolve<IConfigurationService>());
         }
 
         void ListView_ItemTapped(object sender, ItemTappedEventArgs e)

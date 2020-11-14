@@ -120,6 +120,16 @@
         xml:space="preserve">
         <value>Upgrades konnten nicht geladen werden, bitte versuchen Sie es später nochmal!</value>
     </data>
+    <data
+        name="SettingsView_ThirdPartySoftware"
+        xml:space="preserve">
+        <value>Drittanbieter-Software</value>
+    </data>
+    <data
+        name="SettingsView_PrivacyPolicy"
+        xml:space="preserve">
+        <value>Datenschutz</value>
+    </data>
     <!--OnboardingView-->
     <data
         name="OnboardingView_TutorialButton"
