@@ -370,3 +370,4 @@ Mobile/Emka.PracticeLooper.Mobile.Android/Resources/Resource.designer.cs
 libs/iOS/RevenueCat*/RevenueCatProxy/build/*
 !libs/iOS/RevenueCat*/RevenueCatProxy/build/Release-fat
 PracticeLooperTests.db3
+Mobile/Emka3.PracticeLooper.Config/credentials.json

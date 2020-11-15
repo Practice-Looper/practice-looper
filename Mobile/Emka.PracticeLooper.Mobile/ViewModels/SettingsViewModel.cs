@@ -23,18 +23,22 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #region Fields
         private readonly IDialogService dialogService;
         private readonly IInAppBillingService inAppBillingService;
+        private readonly IConfigurationService configurationService;
         private Command showProductPaywallCommand;
+        private Command showDataPrivacyCommand;
+        private Command showThirdPartyComponentsCommand;
         private bool isBusy;
         private bool hasProducts;
         #endregion
 
         #region Ctor
 
-        public SettingsViewModel(ILogger logger, IDialogService dialogService, IAppTracker appTracker, INavigationService navigationService, IInAppBillingService inAppBillingService)
+        public SettingsViewModel(ILogger logger, IDialogService dialogService, IAppTracker appTracker, INavigationService navigationService, IInAppBillingService inAppBillingService, IConfigurationService configurationService)
             : base(navigationService, logger, appTracker)
         {
             this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
             this.inAppBillingService = inAppBillingService ?? throw new ArgumentNullException(nameof(inAppBillingService));
+            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             Products = new ObservableCollection<InAppPurchaseProductViewModel>();
             HasProducts = true;
         }
@@ -42,6 +46,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Properties
         public Command ShowProductPaywallCommand => showProductPaywallCommand ?? new Command(async (o) => await ExecuteShowProductPaywallCommand(o));
+        public Command ShowDataPrivacyCommand => showDataPrivacyCommand ?? new Command(async () => await ExecuteShowDataPrivacyCommand());
+        public Command ShowThirdPartyComponentsCommand => showThirdPartyComponentsCommand ?? new Command(async () => await ExecuteShowThirdPartyComponentsCommand());
+
         public string AppVersion => VersionTracking.CurrentVersion;
         public ObservableCollection<InAppPurchaseProductViewModel> Products { get; set; }
         public bool IsBusy
@@ -66,6 +73,39 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #endregion
 
         #region Methods
+        private async Task ExecuteShowThirdPartyComponentsCommand()
+        {
+            try
+            {
+                var thirdPartyRawUrl = await configurationService.GetValueAsync(PreferenceKeys.ThirdPartyComponentsUrl, "https://www.practice-looper.com");
+                await Browser.OpenAsync(thirdPartyRawUrl, new BrowserLaunchOptions
+                {
+                    LaunchMode = BrowserLaunchMode.SystemPreferred,
+                    TitleMode = BrowserTitleMode.Hide
+                });
+            }
+            catch (Exception ex)
+            {
+                await Logger?.LogErrorAsync(ex);
+            }
+        }
+
+        private async Task ExecuteShowDataPrivacyCommand()
+        {
+            try
+            {
+                var dataPrivacyUrl = await configurationService.GetValueAsync(PreferenceKeys.DataPrivacyUrl, "https://www.practice-looper.com");
+                await Browser.OpenAsync(dataPrivacyUrl, new BrowserLaunchOptions
+                {
+                    LaunchMode = BrowserLaunchMode.SystemPreferred,
+                    TitleMode = BrowserTitleMode.Hide
+                });
+            }
+            catch (Exception ex)
+            {
+                await Logger?.LogErrorAsync(ex);
+            }
+        }
 
         public async override Task InitializeAsync(object parameter)
         {

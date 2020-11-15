@@ -167,6 +167,18 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string SettingsView_ThirdPartySoftware {
+            get {
+                return ResourceManager.GetString("SettingsView_ThirdPartySoftware", resourceCulture);
+            }
+        }
+        
+        internal static string SettingsView_PrivacyPolicy {
+            get {
+                return ResourceManager.GetString("SettingsView_PrivacyPolicy", resourceCulture);
+            }
+        }
+        
         internal static string OnboardingView_TutorialButton {
             get {
                 return ResourceManager.GetString("OnboardingView_TutorialButton", resourceCulture);

@@ -120,6 +120,16 @@
         xml:space="preserve">
         <value>Failed to load upgrades, try again later!</value>
     </data>
+    <data
+        name="SettingsView_ThirdPartySoftware"
+        xml:space="preserve">
+        <value>Third party software</value>
+    </data>
+    <data
+        name="SettingsView_PrivacyPolicy"
+        xml:space="preserve">
+        <value>Privacy policy</value>
+    </data>
     <!--OnboardingView-->
     <data
         name="OnboardingView_TutorialButton"
@@ -198,7 +208,7 @@
         xml:space="preserve">
         <value>Please follow the instructions to complete the purchase.</value>
     </data>
-     <data
+    <data
         name="InAppBillingError_InsufficientPermissions"
         xml:space="preserve">
         <value>This device does not have sufficient permissions to make in-app purchases.</value>
