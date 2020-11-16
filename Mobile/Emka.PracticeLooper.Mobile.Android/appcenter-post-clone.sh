@@ -7,8 +7,9 @@ echo "**************************************************************************
 echo "********************** Build secrets.json Android ****************************"
 
 secrets_location=$APPCENTER_SOURCE_DIRECTORY/Mobile/Emka3.PracticeLooper.Config/secrets.json
+credentials_location=$APPCENTER_SOURCE_DIRECTORY/Mobile/Emka3.PracticeLooper.Config/credentials.json
 echo "Write file to $secrets_location"
-
+echo "" > $credentials_location
 echo "{
     AppCenterAndroidLite: \"$AppCenterAndroidLite\",
 	AppCenterAndroidPremium: \"$AppCenterAndroidPremium\",
