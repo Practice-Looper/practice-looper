@@ -158,6 +158,7 @@
                 <Label
                     Grid.Column="1"
                     Text="{Binding Session.Name}"
+                    AutomationId="{Binding Session.Name}"
                     TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
@@ -167,6 +168,7 @@
                     Grid.Column="2"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
+                    AutomationId="{Binding Session.Name}"
                     HeightRequest="32"
                     Command="{Binding PickLoopCommand}"
                     Margin="0,0,5,0"
@@ -321,6 +323,7 @@
                     Margin="5,0,0,0"/>
                 <Label
                     Grid.Column="1"
+                    AutomationId="Spotify"
                     Text="{Binding DisplayName}"
                     TextColor="{DynamicResource PrimaryColor}"
                     VerticalTextAlignment="Center"
@@ -355,6 +358,7 @@
                     Margin="5,0,0,0"/>
                 <Label
                     Grid.Column="1"
+                    AutomationId="AudioFile"
                     Text="{Binding DisplayName}"
                     TextColor="{DynamicResource PrimaryColor}"
                     VerticalTextAlignment="Center"

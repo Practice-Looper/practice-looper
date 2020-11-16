@@ -30,6 +30,7 @@
             </OnPlatform>
         </Grid.Margin>
         <ListView
+            AutomationProperties.IsInAccessibleTree="False"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand"
             ItemsSource="{Binding Loops}"
@@ -62,6 +63,7 @@
                             <Label
                                 Grid.Column="0"
                                 Text="{Binding Loop.Name}"
+                                AutomationId="{Binding Loop.Name}"
                                 TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                                 VerticalTextAlignment="Center"
                                 VerticalOptions="Center"
@@ -74,6 +76,7 @@
                                     ConverterParameter=Start,
                                     StringFormat='{0}'}"
                                 Grid.Column="1"
+                                AutomationId="{Binding Loop.Name}"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center"
                                 FontSize="Large"
@@ -93,6 +96,7 @@
                                     Converter={StaticResource TimeConverter},
                                     ConverterParameter=End,
                                     StringFormat='{0}'}"
+                                AutomationId="{Binding Loop.Name}"
                                 Grid.Column="3"
                                 VerticalOptions="Center"
                                 HorizontalOptions="Center"

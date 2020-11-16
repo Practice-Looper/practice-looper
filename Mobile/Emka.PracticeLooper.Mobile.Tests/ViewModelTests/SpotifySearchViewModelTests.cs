@@ -157,6 +157,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public async Task When_Search_Expect_SearchResults()
         {
             spotifyLoaderMock

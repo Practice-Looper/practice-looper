@@ -123,14 +123,16 @@ namespace Emka.PracticeLooper.Mobile.Views
                             itemsSourceCopy.Add(vm.GetValidSeconds(newValue[0].ToString()));
                             picker.ItemsSource = itemsSourceCopy;
 
-                            if (itemsSourceCopy != null && (itemsSourceCopy.Last() as RangeObservableCollection<object>).Count < int.Parse(selectedTime[1].ToString()))
+                            var greatestValue = int.Parse((itemsSourceCopy.Last() as RangeObservableCollection<object>).Last().ToString());
+                            var smallestValue = int.Parse((itemsSourceCopy.Last() as RangeObservableCollection<object>).First().ToString());
+
+                            if (itemsSourceCopy != null && greatestValue < int.Parse(selectedTime[1].ToString()))
                             {
                                 var selectedSeconds = (itemsSourceCopy.Last() as RangeObservableCollection<object>).Last().ToString();
                                 picker.SelectedItem = new List<object> { newValue[0], selectedSeconds };
-
                             }
 
-                            if (itemsSourceCopy != null && int.Parse(selectedTime[1].ToString()) < int.Parse((itemsSourceCopy.Last() as RangeObservableCollection<object>).First().ToString()))
+                            if (itemsSourceCopy != null && int.Parse(selectedTime[1].ToString()) < smallestValue)
                             {
                                 var selectedSeconds = (itemsSourceCopy.Last() as RangeObservableCollection<object>).First().ToString();
                                 picker.SelectedItem = new List<object> { newValue[0], selectedSeconds };
@@ -219,5 +221,8 @@ namespace Emka.PracticeLooper.Mobile.Views
             picker.SelectionChanged -= SelectionChanged;
         }
         #endregion
+        
     }
+
+
 }

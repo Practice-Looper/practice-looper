@@ -52,6 +52,8 @@
             <StackLayout
                 Grid.Row="1">
                 <ListView
+                    AutomationId="SpotifySearchList"
+                    AutomationProperties.IsInAccessibleTree="False"
                     ItemsSource="{Binding SearchResults}"
                     ItemTapped="OnTrackTapped"
                     HasUnevenRows="True"

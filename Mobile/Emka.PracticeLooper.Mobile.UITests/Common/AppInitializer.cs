@@ -3,82 +3,66 @@
 // Proprietary and confidential
 // simonsymhoven post@simon-symhoven.de, 2020
 using System;
-using Xamarin.UITest;
+using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.Enums;
+using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Appium.Service;
+using System.Threading;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace Emka.PracticeLooper.Mobile.UITests
 {
-    public class AppInitializer
+    public abstract class AppInitializer<T, W>
+        where T : AppiumDriver<W>
+        where W : IWebElement
     {
-        public static bool IsLite { get; set; }
+        protected abstract T GetDriver();
+        protected abstract void InitAppiumOptions(AppiumOptions options);
+        protected T driver;
+        protected readonly AppiumOptions options;
+        protected readonly Uri driverUri;
+        private AppiumLocalService service;
 
-        static IApp app;
-        public static IApp App
+        protected AppInitializer()
         {
-            get
-            {
-                if (app == null)
-                    throw new NullReferenceException("'AppManager.App' not set. Call 'AppManager.StartApp()' before trying to access it.");
-                return app;
-            }
+            driverUri = new Uri("http://localhost:4723/wd/hub");
+            options = new AppiumOptions();
         }
 
-        static Platform? platform;
-        public static Platform Platform
-        {
-            get
-            {
-                if (platform == null)
-                    throw new NullReferenceException("'AppManager.Platform' not set.");
-                return platform.Value;
-            }
+        [SetUp]
+        public void SetUp() {
+            /*service = new AppiumServiceBuilder()
+                .WithAppiumJS(new FileInfo("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+                .WithIPAddress("127.0.0.1")
+                .UsingPort(4723)
+                .WithLogFile(new FileInfo("/Users/simonsymhoven/log.txt"))
+                .Build();
 
-            set
-            {
-                platform = value;
-            }
+            Environment.SetEnvironmentVariable("ANDROID_HOME", "/Users/simonsymhoven/Library/Android/sdk/");
+            Environment.SetEnvironmentVariable("ANDROID_SDK_ROOT", "/Users/simonsymhoven/Library/Android/sdk/");
+            Environment.SetEnvironmentVariable("JAVA_HOME", "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/");
+            service.Start();
+             */
+
+
+            InitAppiumOptions(options);
+            driver = GetDriver();
         }
 
-        public static void StartApp()
+        [TearDown]
+        public void TearDown()
         {
-             
-            if (platform == Platform.Android)
-            {
-#if PREMIUM 
-                app = ConfigureApp
-                        .Android
-                        .KeyStore("/Users/developer/PlayConsoleAlpha.keystore", "8ExDbiTtXNN3ECugopuB", "8ExDbiTtXNN3ECugopuB", "PlayConsoleAlpha")
-                        .ApkFile("../../../../Mobile/Emka.PracticeLooper.Mobile.Android/bin/DebugPremium/de.emka3.practice_looper-Signed.apk")
-                        .StartApp();
-                IsLite = false;
-#else
-                app = ConfigureApp
-                        .Android
-                        .KeyStore("/Users/developer/PlayConsoleAlpha.keystore", "8ExDbiTtXNN3ECugopuB", "8ExDbiTtXNN3ECugopuB", "PlayConsoleAlpha")
-                        .ApkFile("../../../../Mobile/Emka.PracticeLooper.Mobile.Android/bin/DebugLite/de.emka3.practice_looper-Signed.apk")
-                        .StartApp();
-                IsLite = true;
-#endif
-            }
-
-            if (platform == Platform.iOS)
-            {
-#if PREMIUM
-                app = ConfigureApp
-                    .iOS
-                    .Debug()
-                    .InstalledApp("de.emka3.practice-looper.loopr")
-                    .StartApp();
-                IsLite = false;
-#else
-                app = ConfigureApp
-                    .iOS
-                    .Debug()
-                    .InstalledApp("de.emka3.practice-looper.loopr")
-                    .StartApp();
-                IsLite = true;
-#endif
-                
-            }
+            // service.Dispose();
+            driver.Quit();
+            Thread.Sleep(5000);
         }
+       
+        public bool IsAndroid => driver.Capabilities
+            .GetCapability(MobileCapabilityType.PlatformName).Equals("Android");
+
+        public bool IsIos => driver.Capabilities
+            .GetCapability(MobileCapabilityType.PlatformName).Equals("iOS");
     }
 }

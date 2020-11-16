@@ -40,6 +40,7 @@ echo "{
 	RevenueCatPubKey: \"$RevenueCatPubKey\",
 	ThirdPartyComponentsUrl: \"$ThirdPartyComponentsUrl\",
 	DataPrivacyUrl: \"$DataPrivacyUrl\"
+	SpotifyConnectionTimeOut: \"$SpotifyConnectionTimeOut\"
 }" > $secrets_location
 
 echo "**************************** secrets.json iOS *******************************"

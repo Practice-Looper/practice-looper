@@ -50,6 +50,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.spotifyApiService = spotifyApiService ?? throw new ArgumentNullException(nameof(spotifyApiService));
             this.spotifyLoader = spotifyLoader ?? throw new ArgumentNullException(nameof(spotifyLoader));
             this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
+            UiContext = SynchronizationContext.Current;
         }
         #endregion
 
@@ -163,14 +164,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (!searchCancelTokenSource.IsCancellationRequested)
                 {
                     var res = await spotifyApiService.SearchTrackByName(SearchTerm, searchCancelTokenSource.Token);
-                    MainThread.BeginInvokeOnMainThread(() =>
+                    UiContext.Send(x =>
                     {
                         SearchResults.Clear();
                         foreach (var item in res)
                         {
                             SearchResults.Add(item);
                         }
-                    });
+                    }, null);
                 }
             }
             catch (TaskCanceledException)

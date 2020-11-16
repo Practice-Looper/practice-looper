@@ -50,6 +50,7 @@
                 x:Name="ItemsListView"
                 BackgroundColor="Transparent"
                 Grid.Row="0"
+                AutomationProperties.IsInAccessibleTree="False"
                 VerticalOptions="FillAndExpand"
                 SeparatorColor="{DynamicResource SecondaryColor}"
                 ItemTemplate="{StaticResource AudioTypeTemplateSelector}"
