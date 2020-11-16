@@ -40,7 +40,7 @@ echo "{
 	PublicKey3: \"$PublicKey3\",
 	RevenueCatPubKey: \"$RevenueCatPubKey\",
 	ThirdPartyComponentsUrl: \"$ThirdPartyComponentsUrl\",
-	DataPrivacyUrl: \"$DataPrivacyUrl\"
+	DataPrivacyUrl: \"$DataPrivacyUrl\",
 	SpotifyConnectionTimeOut: \"$SpotifyConnectionTimeOut\"
 }" > $secrets_location
 
