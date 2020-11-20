@@ -124,14 +124,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void Pause(bool triggeredByUser = true)
         {
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                playerApi?
-                .Pause()?
-                .SetErrorCallback(spotifyDelegate);
+            playerApi?
+            .Pause()?
+            .SetErrorCallback(spotifyDelegate);
 
-                playerApi?.SetRepeat(0).SetErrorCallback(spotifyDelegate);
-            });
+            playerApi?.SetRepeat(0).SetErrorCallback(spotifyDelegate);
 
             IsPlaying = false;
             timer?.StopTimers();
@@ -187,14 +184,18 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         private async void OnStateChanged(object sender, PlayerState s)
         {
+            Console.WriteLine($"################## StateChanged");
             var state = await Task.Run(() =>
             {
                 CallResult playerStateCall = playerApi.PlayerState;
                 IResult result = playerStateCall.Await(5, TimeUnit.Seconds);
-                return result.Data as PlayerState; 
+                return result.Data as PlayerState;
             });
-            
 
+            Console.WriteLine($"################## IsPlaying: {IsPlaying}");
+            Console.WriteLine($"################## state: {state}");
+            Console.WriteLine($"################## state isPaused: {state?.IsPaused}");
+            Console.WriteLine($"################## state Track: {state?.Track?.Uri}");
             if (!IsPlaying && state != null && !state.IsPaused && state.Track?.Uri == CurrentLoop.Session.AudioSource.Source)
             {
                 playerApi.SetRepeat(1).SetErrorCallback(spotifyDelegate);
@@ -310,6 +311,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public async void OnError(object sender, Throwable error)
         {
+            Console.WriteLine($"################## error: {error?.Message}");
             await logger?.LogErrorAsync(new System.Exception(error.Message));
         }
 
