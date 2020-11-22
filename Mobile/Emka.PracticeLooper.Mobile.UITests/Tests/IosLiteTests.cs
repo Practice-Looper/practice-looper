@@ -4,6 +4,7 @@
 // simonsymhoven post@simon-symhoven.de, 2020
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Emka3.PracticeLooper.Model.Common;
 using NUnit.Framework;
 using OpenQA.Selenium.Appium;
@@ -236,6 +237,41 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
 
             var markersCorrect = markers.FindAll(m => (m <= end && m >= start));
             Assert.AreEqual(markers, markersCorrect);
+        }
+
+        [Test]
+        [TestCase("Nothing Else Matters", 146, 177)]
+        [TestCase("Coumarin Mirage", 88, 97)]
+        public void When_TriggerPlayPlause_Expect_LoopStartPositionIsInititalizedCorrectly(string name, int start, int end)
+        {
+            OpenSpotifySearchPage();
+            SearchSong(name);
+            SelectSong(0);
+
+            SetLeftPicker(start);
+            SetRightPicker(end);
+
+            var markersPlay = new List<double>();
+
+            var markersStopBefore = new List<double>();
+            var markersStop = new List<double>();
+
+            for (int i = 0; i < 20; i++)
+            {
+                Play();
+                Thread.Sleep(2000);
+                markersPlay.Add(GetCurrentSongTime());
+
+                Stop();
+                markersStopBefore.Add(GetCurrentSongTime());
+                Thread.Sleep(2000);
+                markersStop.Add(GetCurrentSongTime());
+
+            }
+
+            var markersPlayCorrect = markersPlay.FindAll(m => (m <= end + 1 && m >= start - 1));
+            Assert.AreEqual(markersPlay, markersPlayCorrect);
+            Assert.AreEqual(markersStopBefore, markersStop);
         }
     }
 }
