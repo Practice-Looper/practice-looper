@@ -47,12 +47,17 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.timer = timer ?? throw new ArgumentNullException(nameof(timer));
             IsPlaying = false;
+            spotifyDelegate = new SpotifyDelegate();
+            stateDelegate = new PlayerStateDelegate();
         }
         #endregion
 
         #region Properties
         public bool Initialized { get; private set; }
         public bool IsPlaying { get; private set; }
+
+        private bool pausePending;
+
         public double SongDuration => TimeSpan.FromSeconds(CurrentLoop.Session.AudioSource.Duration).TotalMilliseconds;
         public Loop CurrentLoop { get; set; }
         public SpotifyAppRemote Api { get => spotifyLoader.RemoteApi as SpotifyAppRemote; }
@@ -124,58 +129,35 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void Pause(bool triggeredByUser = true)
         {
-            playerApi?
-            .Pause()?
-            .SetErrorCallback(spotifyDelegate);
-
             playerApi?.SetRepeat(0).SetErrorCallback(spotifyDelegate);
 
-            IsPlaying = false;
+            playerApi?
+            .Pause()
+            .SetErrorCallback(spotifyDelegate);
+
             timer?.StopTimers();
 
-            if (spotifyDelegate != null)
-            {
-                spotifyDelegate.SpotifyErrorHandler -= OnError;
-                spotifyDelegate.SpotifyEventHandler -= OnEvent;
-                spotifyDelegate.SpotifyResultHandler -= OnResult;
-            }
-
-            if (stateDelegate != null)
-            {
-                stateDelegate.StateChanged -= OnStateChanged;
-            }
-
-            if (spotifyLoader != null && spotifyLoader.Authorized && triggeredByUser)
-            {
-                spotifyLoader.Disconnect();
-            }
-
             Initialized = false;
-            spotifyDelegate = null;
-            stateDelegate = null;
+            IsPlaying = false;
+            pausePending = true;
+            RaisePlayingStatusChanged();
         }
 
         public void Play()
         {
-            spotifyDelegate = new SpotifyDelegate();
-            stateDelegate = new PlayerStateDelegate();
+            playerApi
+                ?.SubscribeToPlayerState()
+                ?.SetEventCallback(stateDelegate)
+                ?.SetErrorCallback(stateDelegate);
 
-            if (!IsPlaying)
-            {
-                spotifyDelegate.SpotifyErrorHandler += OnError;
-                spotifyDelegate.SpotifyEventHandler += OnEvent;
-                spotifyDelegate.SpotifyResultHandler += OnResult;
-                stateDelegate.StateChanged += OnStateChanged;
-                playerApi
-                    ?.SubscribeToPlayerState()
-                    ?.SetEventCallback(stateDelegate)
-                    ?.SetErrorCallback(stateDelegate);
-            }
+
+            spotifyDelegate.SpotifyErrorHandler += OnError;
+            spotifyDelegate.SpotifyEventHandler += OnEvent;
+            spotifyDelegate.SpotifyResultHandler += OnResult;
+            stateDelegate.StateChanged += OnStateChanged;
 
             playerApi
-                ?.Play(CurrentLoop.Session.AudioSource.Source)
-                ?.SetResultCallback(spotifyDelegate)
-                ?.SetErrorCallback(spotifyDelegate);
+                ?.Play(CurrentLoop.Session.AudioSource.Source);
 
             ResetAllTimers();
             RaisePlayingStatusChanged();
@@ -184,7 +166,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         private async void OnStateChanged(object sender, PlayerState s)
         {
-            Console.WriteLine($"################## StateChanged");
             var state = await Task.Run(() =>
             {
                 CallResult playerStateCall = playerApi.PlayerState;
@@ -192,16 +173,23 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 return result.Data as PlayerState;
             });
 
-            Console.WriteLine($"################## IsPlaying: {IsPlaying}");
-            Console.WriteLine($"################## state: {state}");
-            Console.WriteLine($"################## state isPaused: {state?.IsPaused}");
-            Console.WriteLine($"################## state Track: {state?.Track?.Uri}");
             if (!IsPlaying && state != null && !state.IsPaused && state.Track?.Uri == CurrentLoop.Session.AudioSource.Source)
             {
                 playerApi.SetRepeat(1).SetErrorCallback(spotifyDelegate);
                 Seek(loopStart);
-                IsPlaying = !state.IsPaused;
+                IsPlaying = true;
+                pausePending = false;
                 RaisePlayingStatusChanged();
+            }
+
+            if (!IsPlaying && pausePending && state is PlayerState playerState && playerState.IsPaused)
+            {
+                pausePending = false;
+                RemoveHandlers();
+                if (spotifyLoader != null && spotifyLoader.Authorized)
+                {
+                    spotifyLoader.Disconnect();
+                }
             }
         }
 
@@ -296,11 +284,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
-                // repeat one
-
-                //IsPlaying = true;
-                //Api?.PlayerApi?.SetRepeat(1).SetErrorCallback(spotifyDelegate);
-                //Seek(loopStart);
             }
             catch (System.Exception ex)
             {
@@ -311,7 +294,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public async void OnError(object sender, Throwable error)
         {
-            Console.WriteLine($"################## error: {error?.Message}");
             await logger?.LogErrorAsync(new System.Exception(error.Message));
         }
 
@@ -320,12 +302,12 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             PlayStatusChanged?.Invoke(this, IsPlaying);
         }
 
-        ~SpotifyAudioPlayer()
+        private void RemoveHandlers()
         {
-            CurrentLoop.StartPositionChanged -= OnLoopPositionChanged;
-            CurrentLoop.EndPositionChanged -= OnLoopPositionChanged;
-            timer.LoopTimerExpired -= LoopTimerExpired;
-            timer.CurrentPositionTimerExpired -= CurrentPositionTimerExpired;
+            spotifyDelegate.SpotifyErrorHandler -= OnError;
+            spotifyDelegate.SpotifyEventHandler -= OnEvent;
+            spotifyDelegate.SpotifyResultHandler -= OnResult;
+            stateDelegate.StateChanged -= OnStateChanged;
         }
         #endregion
     }
