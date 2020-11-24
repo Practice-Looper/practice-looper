@@ -144,7 +144,7 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
         public void When_SaveNewLoop_Expect_LoopIsAvailable()
         {
             OpenSpotifySearchPage();
-            SearchSong("Mirage");
+            SearchSong("Mirage Coumarin");
             SelectSong(0);
             SetSlider(20, 90);
             CreateLoop("My First Loop");
@@ -162,7 +162,7 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
         public void When_CancelNewLoop_Expect_LoopIsNotAvailable()
         {
             OpenSpotifySearchPage();
-            SearchSong("Mirage");
+            SearchSong("Mirage Coumarin");
             SelectSong(0);
             SetSlider(20, 90);
             CreateLoop("My First Loop");
@@ -175,7 +175,7 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
         public void When_AddTwoNewLoopsAndDeleteOne_Expect_OnlyOneIsVisible()
         {
             OpenSpotifySearchPage();
-            SearchSong("Mirage");
+            SearchSong("Mirage Coumarin");
             SelectSong(0);
             SetSlider(20, 90);
             CreateLoop("My First Loop");
@@ -199,7 +199,7 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
         public void When_SwitchingLoops_Expect_BoundsAreInitializedCorrectly()
         {
             OpenSpotifySearchPage();
-            SearchSong("Mirage");
+            SearchSong("Mirage Coumarin");
             SelectSong(0);
             SetSlider(20, 90);
             CreateLoop("My First Loop");
