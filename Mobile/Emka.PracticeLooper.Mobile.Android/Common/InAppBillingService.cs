@@ -206,7 +206,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
             Purchases.SharedInstance.RestorePurchases(this);
 
-            await Task.Run(() => { restorePurchasesEvent.WaitOne(); });
+            await Task.Run(() => { restorePurchasesEvent.WaitOne(TimeSpan.FromSeconds(15)); });
             return restoreResult;
         }
 
