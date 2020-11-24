@@ -14,6 +14,13 @@
     <IntermediateOutputPath>obj\BuildIOS</IntermediateOutputPath>
     <NoWarn></NoWarn>
     <NoStdLib>false</NoStdLib>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Emka3.PracticeLooper.Mappings.Contracts\Emka3.PracticeLooper.Mappings.Contracts.csproj" />
@@ -26,6 +33,6 @@
     <Folder Include="Player\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.9.4" />
+    <PackageReference Include="Autofac" Version="6.0.0" />
   </ItemGroup>
 </Project>

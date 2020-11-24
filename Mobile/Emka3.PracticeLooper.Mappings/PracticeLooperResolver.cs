@@ -27,15 +27,10 @@ namespace Emka3.PracticeLooper.Mappings
         public PracticeLooperResolver()
         {
             builder = new ContainerBuilder();
-            //WebServicesMappings.Register(builder);
-            //ObserverMappings.Register(builder);
-            //DataMappings.Register(builder);
-            //ViewModelMappings.Register(builder);
             CommonMappings.Register(builder);
             ServicesMapping.Register(builder);
             PlayerMappings.Register(builder);
-            builder.RegisterType<PracticeLooperResolver>().As<IResolver>();
-
+            builder.RegisterType<PracticeLooperResolver>().As<IResolver>().SingleInstance();
         }
         #endregion
 
@@ -58,7 +53,7 @@ namespace Emka3.PracticeLooper.Mappings
         #region Methods
         public void BuildContainer()
         {
-            Container = builder.Build();
+            Container ??= builder.Build();
         }
 
         /// <summary>
@@ -81,7 +76,7 @@ namespace Emka3.PracticeLooper.Mappings
                 }
             }
         }
-               
+
         public void RegisterSingleton(Type type, Type typeInterface, string name = "")
         {
             if (builder != null)
