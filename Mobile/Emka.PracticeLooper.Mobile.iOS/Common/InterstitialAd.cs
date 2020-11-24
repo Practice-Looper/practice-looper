@@ -80,9 +80,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             try
             {
                 interstitialAd = new Interstitial(configurationService.GetValue<string>("AdmobIosInterstitialProjectAdId"));
-#if DEBUG
                 MobileAds.SharedInstance.RequestConfiguration.TestDeviceIdentifiers = new[] { "6fb304bbcc401debac41d2255509463f", "3408f4ee8f8d77f2efcbf255ead140d6" };
-#endif
                 interstitialAd.FailedToPresentScreen += OnFailedToPresentScreen;
                 interstitialAd.ReceiveAdFailed += OnReceiveAdFailed;
                 var request = Request.GetDefaultRequest();

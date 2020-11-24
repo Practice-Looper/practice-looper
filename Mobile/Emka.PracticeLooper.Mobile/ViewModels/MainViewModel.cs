@@ -433,7 +433,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 IsBusy = true;
 
-                if (CurrentAudioPlayer.IsPlaying)
+                if (IsPlaying)
                 {
                     UiContext.Send(x => IsPlaying = false, null);
                     UiContext.Send(x => CurrentAudioPlayer.Pause(true), null);

@@ -76,7 +76,7 @@ echo "Actual Version Number of AppCenter: $APP_VERSION"
 if [ $APP_VERSION != $VERSION_STRING ];
 then
 	# Replace bundle version in Info.plist
-	plutil -replace CFBundleVersion -string "$APP_VERSION" $INFO_PLIST_PATH
+	plutil -replace CFBundleVersion -string "$APP_BUNDLE_VERSION" $INFO_PLIST_PATH
 	# Replace bundle version string  in Info.plist
 	plutil -replace CFBundleShortVersionString -string "$APP_VERSION" $INFO_PLIST_PATH
 fi

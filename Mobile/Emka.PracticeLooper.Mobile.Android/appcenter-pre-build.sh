@@ -81,6 +81,7 @@ then
 
 	# Replace version number in manifest
 	sed -i "" 's/android:versionName="[^"]*"/android:versionName="'$APP_VERSION'"/' $MANIFEST_PATH
+	sed -i "" 's/android:versionCode="[^"]*"/android:versionCode="'$APP_BUNDLE_VERSION'"/' $MANIFEST_PATH
 fi
 
 echo "Install ReportGenerator"
