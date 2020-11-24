@@ -738,47 +738,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
-            await tcs.Task;
-            Assert.IsFalse(mainViewModel.IsPlaying);
-            interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Once);
-        }
-
-        [Test()]
-        [Apartment(ApartmentState.STA)]
-        public async Task When_ExcutePlayCommand_NotPlaying_Expect_PausesAndShowsAd()
-        {
-            var tcs = new TaskCompletionSource<bool>();
-            sessionsRepositoryMock.Setup(s => s.GetAllItemsAsync()).Returns(Task.FromResult(sessions));
-            audioPlayerMock.SetupGet(a => a.IsPlaying).Returns(true);
-            audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
-            audioPlayers.Add(audioPlayerMock.Object);
-            interstitialAdMock
-                .Setup(a => a.ShowAdAsync())
-                .Returns(Task.CompletedTask)
-                .Callback(() =>
-                {
-                    tcs.SetResult(true);
-                })
-                .Verifiable();
-
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
-                sessionsRepositoryMock.Object,
-                loopsRepositoryMock.Object,
-                dialogServiceMock.Object,
-                fileRepositoryMock.Object,
-                sourcePickerMock.Object,
-                spotifyLoaderMock.Object,
-                spotifyApiServiceMock.Object,
-                filePickerMock.Object,
-                connectivityServiceMock.Object,
-                navigationServiceMock.Object,
-                loggerMock.Object,
-                appTrackerMock.Object,
-                configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
-
-            await mainViewModel.InitializeAsync(null);
+            audioPlayerMock.Raise(a => a.PlayStatusChanged += null, null, true);
             mainViewModel.PlayCommand.Execute(null);
             await tcs.Task;
             Assert.IsFalse(mainViewModel.IsPlaying);
@@ -2096,7 +2056,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             Assert.AreEqual(mainViewModel.CurrentLoop.Id, loops.First().Id);
             Assert.That(mainViewModel.CurrentSession.Session.Loops, Has.Count.EqualTo(1));
             audioPlayerMock.Verify(a => a.Pause(false), Times.Once);
-            audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l.Id == loops.First().Id)), Times.Once);
+            audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l.Id == loops.First().Id)), Times.Exactly(2));
             audioPlayerMock.Verify(a => a.PlayAsync(), Times.Once);
         }
 
