@@ -181,6 +181,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         }
 
         [Test]
+        [Apartment(ApartmentState.MTA)]
         public async Task When_CreateSession_Expect_TrackAddedMessage()
         {
             var tcs = new TaskCompletionSource<bool>();
