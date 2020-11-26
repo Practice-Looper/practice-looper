@@ -160,7 +160,6 @@
     <AndroidSigningKeyAlias>PlayConsoleAlpha</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>8ExDbiTtXNN3ECugopuB</AndroidSigningKeyPass>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidKeyStore>True</AndroidKeyStore>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
