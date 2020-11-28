@@ -57,6 +57,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private Command addNewLoopCommand;
         private bool isBusy;
         private bool isPremiumUser;
+        private double stepFrequency;
         #endregion
 
         #region Ctor
@@ -204,7 +205,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 var isCurrentlyPlaying = IsPlaying;
                 if (currentSession != null)
                 {
+                    StepFrequency = currentSession != null ? 1 / currentSession.Session.AudioSource.Duration : 0;
+
                     InitAudioPlayer();
+
                     if (configurationService.GetValue(PreferenceKeys.LastSession, default(int)) != currentSession.Session.Id)
                     {
                         configurationService.SetValue(PreferenceKeys.LastSession, currentSession.Session.Id, true);
@@ -268,8 +272,17 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged();
             }
         }
-        public double StepFrequency => CurrentSession != null ? 1 / CurrentSession.Session.AudioSource.Duration : 0;
-        public double TickFrequency => StepFrequency * 5;
+
+        public double StepFrequency
+        {
+            get => stepFrequency;
+            set
+            {
+                stepFrequency = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(MinimumRange));
+            }
+        }
 
         public List<IAudioPlayer> AudioPlayers { get; }
         #endregion
