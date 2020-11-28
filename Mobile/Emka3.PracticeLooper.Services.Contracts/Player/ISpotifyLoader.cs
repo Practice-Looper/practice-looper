@@ -25,6 +25,8 @@ namespace Emka3.PracticeLooper.Services.Contracts.Player
 
         Task<bool> InitializeAsync(string songUri = "");
         bool Initialize(string songUri = "");
+        void InstallSpotify();
+        bool IsSpotifyInstalled();
         void Disconnect();
         #endregion
     }

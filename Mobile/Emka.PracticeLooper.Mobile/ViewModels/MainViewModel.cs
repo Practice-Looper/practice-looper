@@ -443,6 +443,38 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 }
                 else
                 {
+                    CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
+                    CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
+
+                    if (CurrentAudioPlayer.Types.HasFlag(AudioSourceType.Spotify))
+                    {
+                        // spotify installed on device?
+                        await configurationService.SetValueAsync(PreferenceKeys.IsSpotifyInstalled, spotifyLoader.IsSpotifyInstalled());
+                        if (!configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled))
+                        {
+                            await InitiateSpotifyInstallationAsync();
+                            return;
+                        }
+
+                        if (!spotifyApiService.UserPremiumCheckSuccessful)
+                        {
+                            var premiumCheck = await spotifyApiService.IsPremiumUser();
+                            IsPremiumUser = premiumCheck.Item2;
+
+                            if (!IsPremiumUser && premiumCheck.Item1.Equals(HttpStatusCode.OK))
+                            {
+                                await dialogService.ShowAlertAsync(AppResources.Error_Content_NoPremiumUser, AppResources.Hint_Caption_General);
+                                return;
+                            }
+                            else if (!IsPremiumUser && !premiumCheck.Item1.Equals(HttpStatusCode.OK))
+                            {
+                                await dialogService.ShowAlertAsync(AppResources.Error_Content_PremiumUserCheckFailed, AppResources.Hint_Caption_General);
+                                return;
+                            }
+                        }
+
+                    }
+
                     if (!CurrentAudioPlayer.Initialized)
                     {
                         try
@@ -467,30 +499,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                             await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
                             return;
                         }
-                    }
-
-                    CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
-                    CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
-
-                    if (CurrentAudioPlayer.Types.HasFlag(AudioSourceType.Spotify))
-                    {
-                        if (!spotifyApiService.UserPremiumCheckSuccessful)
-                        {
-                            var premiumCheck = await spotifyApiService.IsPremiumUser();
-                            IsPremiumUser = premiumCheck.Item2;
-
-                            if (!IsPremiumUser && premiumCheck.Item1.Equals(HttpStatusCode.OK))
-                            {
-                                await dialogService.ShowAlertAsync(AppResources.Error_Content_NoPremiumUser, AppResources.Hint_Caption_General);
-                                return;
-                            }
-                            else if (!IsPremiumUser && !premiumCheck.Item1.Equals(HttpStatusCode.OK))
-                            {
-                                await dialogService.ShowAlertAsync(AppResources.Error_Content_PremiumUserCheckFailed, AppResources.Hint_Caption_General);
-                                return;
-                            }
-                        }
-
                     }
 
                     await CurrentAudioPlayer.PlayAsync();
@@ -595,17 +603,27 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                         break;
                     case AudioSourceType.Spotify:
+                        // spotify installed on device?
+                        await configurationService.SetValueAsync(PreferenceKeys.IsSpotifyInstalled, spotifyLoader.IsSpotifyInstalled());
+                        if (!configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled))
+                        {
+                            await InitiateSpotifyInstallationAsync();
+                            return;
+                        }
 
+                        // spotify already authorized?
                         if (spotifyLoader != null && !spotifyLoader.Authorized)
                         {
                             await spotifyLoader.InitializeAsync();
                         }
 
+                        // something went wrong and authorization failed
                         if (configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled) && !spotifyLoader.Authorized)
                         {
                             await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToSpotify, AppResources.Error_Caption);
                         }
 
+                        // everything fine, go to search view
                         if (spotifyLoader.Authorized)
                         {
                             await NavigationService.NavigateToAsync<SpotifySearchViewModel>();
@@ -838,6 +856,20 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 CurrentLoop.EndPosition = MaximumValue;
                 NotifyPropertyChanged(nameof(MaximumValue));
+            }
+        }
+
+        private async Task InitiateSpotifyInstallationAsync()
+        {
+            var installSpotify = await dialogService.ShowConfirmAsync(
+                                    AppResources.Hint_Caption_SpotifyMissing,
+                                    AppResources.Hint_Content_SpotifyMissing,
+                                    AppResources.Cancel,
+                                    AppResources.Ok);
+
+            if (installSpotify)
+            {
+                spotifyLoader.InstallSpotify();
             }
         }
 
