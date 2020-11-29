@@ -2,9 +2,12 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
+using System;
 using Emka.PracticeLooper.Mobile.Extensions;
+using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Mappings;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
 using Xamarin.Forms;
 
@@ -22,6 +25,9 @@ namespace Emka.PracticeLooper.Mobile.Views
         public static readonly BindableProperty FontColorProperty =
             BindableProperty.Create("FontColor", typeof(Color), typeof(CustomViewCell), Color.Default);
         private readonly IConfigurationService configurationService;
+        private readonly IDialogService dialogService;
+        private readonly ILogger logger;
+        ListView parent = null;
         #endregion
 
         #region Ctor
@@ -29,6 +35,8 @@ namespace Emka.PracticeLooper.Mobile.Views
         public CustomViewCell()
         {
             configurationService = Factory.GetResolver().Resolve<IConfigurationService>();
+            dialogService = Factory.GetResolver().Resolve<IDialogService>();
+            logger = Factory.GetResolver().Resolve<ILogger>();
             configurationService.ValueChanged += ConfigValueChanged;
         }
         #endregion
@@ -53,17 +61,37 @@ namespace Emka.PracticeLooper.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            var parent = VisualTreeHelper.GetParent<ListView>(View);
-            parent.ItemSelected += ListViewItemSelected;
-            if (parent != null && BindingContext != null && parent.SelectedItem == BindingContext)
+
+            if (View != null)
             {
-                View.BackgroundColor = (Color)Application.Current.Resources["PrimaryColor"];
-                FontColor = (Color)Application.Current.Resources["BackgroundColor"];
+                parent = VisualTreeHelper.GetParent<ListView>(View);
             }
             else
             {
-                View.BackgroundColor = (Color)Application.Current.Resources["BackgroundColor"];
-                FontColor = (Color)Application.Current.Resources["PrimaryColor"];
+                logger.LogError(new Exception("View NullReference in CustomViewCell"));
+                dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
+                return;
+            }
+
+            if (parent != null)
+            {
+                parent.ItemSelected += ListViewItemSelected;
+                if (parent.SelectedItem == BindingContext)
+                {
+                    View.BackgroundColor = (Color)Application.Current.Resources["PrimaryColor"];
+                    FontColor = (Color)Application.Current.Resources["BackgroundColor"];
+                }
+                else
+                {
+                    View.BackgroundColor = (Color)Application.Current.Resources["BackgroundColor"];
+                    FontColor = (Color)Application.Current.Resources["PrimaryColor"];
+                }
+            }
+            else
+            {
+                logger.LogError(new Exception("parent NullReference in CustomViewCell"));
+                dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
+                return;
             }
         }
 
