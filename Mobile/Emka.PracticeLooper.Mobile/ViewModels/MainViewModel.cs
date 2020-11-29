@@ -711,7 +711,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 IsBusy = true;
                 if (IsPlaying)
                 {
-                    CurrentAudioPlayer?.Pause();
+                    CurrentAudioPlayer?.Pause(false);
                 }
 
                 if (CurrentSession != null)
