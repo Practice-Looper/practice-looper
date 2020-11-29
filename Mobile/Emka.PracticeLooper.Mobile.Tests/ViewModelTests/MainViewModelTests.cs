@@ -1954,7 +1954,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.Types).Returns(sessions.First().AudioSource.Type);
             audioPlayers.Add(audioPlayerMock.Object);
 
-            audioPlayerMock.Setup(a => a.Pause(true)).Verifiable();
+            audioPlayerMock.Setup(a => a.Pause(false)).Verifiable();
 
             mainViewModel = CreateDefault(interstitialAdMock.Object,
                sessionsRepositoryMock.Object,
@@ -1977,7 +1977,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             await mainViewModel.ExecutePlayCommand(null);
             audioPlayerMock.Raise(a => a.PlayStatusChanged += null, null, true);
             mainViewModel.InitAudioPlayer();
-            audioPlayerMock.Verify(a => a.Pause(true), Times.Once);
+            audioPlayerMock.Verify(a => a.Pause(false), Times.Once);
         }
 
         [Test()]
