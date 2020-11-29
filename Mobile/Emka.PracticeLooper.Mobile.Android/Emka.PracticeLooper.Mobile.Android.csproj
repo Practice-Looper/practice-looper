@@ -224,10 +224,10 @@
       <Version>60.1142.1</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfPicker">
-      <Version>18.3.0.47</Version>
+      <Version>18.3.0.51</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
-      <Version>18.3.0.47</Version>
+      <Version>18.3.0.51</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.10.0</Version>
