@@ -129,18 +129,21 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void Pause(bool triggeredByUser = true)
         {
-            playerApi?.SetRepeat(0).SetErrorCallback(spotifyDelegate);
+            timer?.StopTimers();
 
             playerApi?
             .Pause()
             .SetErrorCallback(spotifyDelegate);
 
-            timer?.StopTimers();
-
             Initialized = false;
             IsPlaying = false;
-            pausePending = true;
             RaisePlayingStatusChanged();
+
+            if (triggeredByUser)
+            {
+                pausePending = true;
+                playerApi?.SetRepeat(0).SetErrorCallback(spotifyDelegate);
+            }
         }
 
         public void Play()
@@ -149,7 +152,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 ?.SubscribeToPlayerState()
                 ?.SetEventCallback(stateDelegate)
                 ?.SetErrorCallback(stateDelegate);
-
 
             spotifyDelegate.SpotifyErrorHandler += OnError;
             spotifyDelegate.SpotifyEventHandler += OnEvent;
@@ -190,6 +192,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 {
                     spotifyLoader.Disconnect();
                 }
+
+                RaisePlayingStatusChanged();
             }
         }
 
