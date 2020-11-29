@@ -90,21 +90,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             try
             {
                 var connectionTimeout = configurationService.GetValue<int>("SpotifyConnectionTimeOut");
-                if (!configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled))
-                {
-                    var installSpotify = dialogService.ShowConfirmAsync(
-                            stringLocalizer.GetLocalizedString("Hint_Caption_SpotifyMissing"),
-                            stringLocalizer.GetLocalizedString("Hint_Content_SpotifyMissing"),
-                            stringLocalizer.GetLocalizedString("Cancel"),
-                            stringLocalizer.GetLocalizedString("Ok")).Result;
-
-                    if (installSpotify)
-                    {
-                        InstallSpotify();
-                    }
-
-                    return false;
-                }
 
                 if (string.IsNullOrEmpty(songUri))
                 {
@@ -143,7 +128,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             tokenEvent = new AutoResetEvent(false);
             connectedEvent = new AutoResetEvent(false);
-            await configurationService.SetValueAsync(PreferenceKeys.IsSpotifyInstalled, IsSpotifyInstalled());
             return await Task.Run(() => Initialize(songUri));
         }
 
@@ -241,19 +225,16 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             api.Connect();
         }
 
-        private void InstallSpotify()
+        public void InstallSpotify()
         {
             var storeViewController = new SKStoreProductViewController();
             storeViewController.Delegate = this;
-            //storeViewController.Finished += OnStoreViewControllerFinished;
             storeViewController.LoadProduct(new StoreProductParameters((int)SPTAppRemote.SpotifyItunesItemIdentifier), (bool loaded, NSError error) =>
             {
                 if ((error == null) && loaded)
                 {
                     var window = UIApplication.SharedApplication.KeyWindow;
                     window?.RootViewController?.PresentModalViewController(storeViewController, true);
-                    tokenEvent.Set();
-                    connectedEvent.Set();
                 }
 
                 if (error != null)
@@ -264,7 +245,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             });
         }
 
-        private bool IsSpotifyInstalled()
+        public bool IsSpotifyInstalled()
         {
             return UIApplication.SharedApplication.CanOpenUrl(new NSUrl(new NSString("spotify:")));
         }

@@ -41,8 +41,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         public SpotifyLoader(ILogger logger,
             IStringLocalizer stringLocalizer,
             IConfigurationService configurationService,
-            IDialogService dialogService
-            )
+            IDialogService dialogService)
         {
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -78,21 +77,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             try
             {
                 var connectionTimeout = configurationService.GetValue<int>("SpotifyConnectionTimeOut");
-                if (!configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled))
-                {
-                    var installSpotify = dialogService.ShowConfirmAsync(
-                            stringLocalizer.GetLocalizedString("Hint_Caption_SpotifyMissing"),
-                            stringLocalizer.GetLocalizedString("Hint_Content_SpotifyMissing"),
-                            stringLocalizer.GetLocalizedString("Cancel"),
-                            stringLocalizer.GetLocalizedString("Ok")).Result;
-
-                   if (installSpotify)
-                   {
-                        InstallSpotify();
-                   }
-
-                   return false;
-                }
 
                 StartAuthorization();
                 tokenEvent.WaitOne(TimeSpan.FromSeconds(connectionTimeout));
@@ -120,8 +104,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             tokenEvent = new AutoResetEvent(false);
             connectedEvent = new AutoResetEvent(false);
-            await configurationService.SetValueAsync(PreferenceKeys.IsSpotifyInstalled, IsSpotifyInstalled());
-          
+
             return await Task.Run(() => Initialize(songUri));
         }
 
@@ -148,12 +131,16 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 api = null;
                 Disconnected?.Invoke(this, new SpotifyDisconnectedEventArgs(false));
             }
-            else 
+            else if (error is CouldNotFindSpotifyApp)
+            {
+
+            }
+            else
             {
                 // todo: show error dialog!
                 connectedEvent.Set();
                 tokenEvent.Set();
-                throw error;
+                logger.LogError(new System.Exception($"UNEXPECTED SPOTIFY LOADER ERROR {error?.Message}"));
             }
         }
 
@@ -201,12 +188,12 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             MainThread.BeginInvokeOnMainThread(() => SpotifyAppRemote.Connect(Application.Context, connectionParams, this));
         }
 
-        private void InstallSpotify()
+        public void InstallSpotify()
         {
             AuthorizationClient.OpenDownloadSpotifyActivity(GlobalApp.MainActivity);
         }
 
-        private bool IsSpotifyInstalled()
+        public bool IsSpotifyInstalled()
         {
             try
             {

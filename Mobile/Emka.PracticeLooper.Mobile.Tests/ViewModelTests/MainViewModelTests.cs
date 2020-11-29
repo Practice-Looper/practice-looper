@@ -332,6 +332,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             var tcs = new TaskCompletionSource<bool>();
             sourcePickerMock.Setup(s => s.SelectFileSource()).Returns(Task.FromResult(AudioSourceType.Spotify));
             spotifyLoaderMock.SetupGet(s => s.Authorized).Returns(false);
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(true);
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(true);
             spotifyLoaderMock
                 .Setup(s => s.InitializeAsync(It.IsAny<string>()))
                 .Callback(() => { Task.Run(() => tcs.SetResult(true)); })
@@ -425,6 +427,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             var tcs = new TaskCompletionSource<bool>();
             sourcePickerMock.Setup(s => s.SelectFileSource()).Returns(Task.FromResult(AudioSourceType.Spotify));
             spotifyLoaderMock.SetupGet(s => s.Authorized).Returns(true);
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(true);
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(true);
             navigationServiceMock
                 .Setup(n => n.NavigateToAsync<SpotifySearchViewModel>())
                 .Callback(() => { Task.Run(() => tcs.SetResult(true)); })
@@ -459,6 +463,228 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             await tcs.Task;
 
             navigationServiceMock.Verify(n => n.NavigateToAsync<SpotifySearchViewModel>(), Times.Once);
+        }
+
+        [Test()]
+        [Apartment(ApartmentState.STA)]
+        public async Task When_PickSourceSpotify_SpotifyNotInstalled_Expect_ShowsDialog()
+        {
+            var tcs = new TaskCompletionSource<bool>();
+            sourcePickerMock.Setup(s => s.SelectFileSource()).Returns(Task.FromResult(AudioSourceType.Spotify));
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(false);
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(false);
+            dialogServiceMock
+                .Setup(d => d.ShowConfirmAsync(
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Caption_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Content_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))))
+                .Callback(() => { Task.Run(() => tcs.SetResult(true)); })
+                .Returns(Task.FromResult(false))
+                .Verifiable();
+
+            mainViewModel = CreateDefault(interstitialAdMock.Object,
+                sessionsRepositoryMock.Object,
+                loopsRepositoryMock.Object,
+                dialogServiceMock.Object,
+                fileRepositoryMock.Object,
+                sourcePickerMock.Object,
+                spotifyLoaderMock.Object,
+                spotifyApiServiceMock.Object,
+                filePickerMock.Object,
+                connectivityServiceMock.Object,
+                navigationServiceMock.Object,
+                loggerMock.Object,
+                appTrackerMock.Object,
+                configurationServiceMock.Object,
+                inAppBillingServiceMock.Object,
+                audioPlayers);
+
+            if (mainViewModel.UiContext == null)
+            {
+                mainViewModel.UiContext = SynchronizationContext.Current;
+            }
+
+            await mainViewModel.InitializeAsync(null);
+            mainViewModel.PickSourceCommand.Execute(null);
+
+            await tcs.Task;
+
+            spotifyLoaderMock.Verify(s => s.IsSpotifyInstalled(), Times.Once);
+            dialogServiceMock
+                .Verify(d => d.ShowConfirmAsync(
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Caption_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Content_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))), Times.Once);
+        }
+
+        [Test()]
+        [Apartment(ApartmentState.STA)]
+        public async Task When_PickSourceSpotify_SpotifyInstalled_Expect_NoDialog()
+        {
+            sourcePickerMock.Setup(s => s.SelectFileSource()).Returns(Task.FromResult(AudioSourceType.Spotify));
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(true);
+            spotifyLoaderMock.Setup(s => s.InstallSpotify()).Verifiable();
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(true);
+            dialogServiceMock
+                .Setup(d => d.ShowConfirmAsync(
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Caption_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Content_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))))
+                .Returns(Task.FromResult(false))
+                .Verifiable();
+
+            mainViewModel = CreateDefault(interstitialAdMock.Object,
+                sessionsRepositoryMock.Object,
+                loopsRepositoryMock.Object,
+                dialogServiceMock.Object,
+                fileRepositoryMock.Object,
+                sourcePickerMock.Object,
+                spotifyLoaderMock.Object,
+                spotifyApiServiceMock.Object,
+                filePickerMock.Object,
+                connectivityServiceMock.Object,
+                navigationServiceMock.Object,
+                loggerMock.Object,
+                appTrackerMock.Object,
+                configurationServiceMock.Object,
+                inAppBillingServiceMock.Object,
+                audioPlayers);
+
+            if (mainViewModel.UiContext == null)
+            {
+                mainViewModel.UiContext = SynchronizationContext.Current;
+            }
+
+            await mainViewModel.InitializeAsync(null);
+            mainViewModel.PickSourceCommand.Execute(null);
+
+            spotifyLoaderMock.Verify(s => s.IsSpotifyInstalled(), Times.Once);
+            spotifyLoaderMock.Verify(s => s.InstallSpotify(), Times.Never);
+            dialogServiceMock
+                .Verify(d => d.ShowConfirmAsync(
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Caption_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Content_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))), Times.Never);
+        }
+
+        [Test()]
+        [Apartment(ApartmentState.STA)]
+        public async Task When_PickSourceSpotify_SpotifyNotInstalled_YesDialogResult_Expect_InstallsSpotify()
+        {
+            var tcs = new TaskCompletionSource<bool>();
+            sourcePickerMock.Setup(s => s.SelectFileSource()).Returns(Task.FromResult(AudioSourceType.Spotify));
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(false);
+            spotifyLoaderMock.Setup(s => s.InstallSpotify())
+                .Callback(() => { Task.Run(() => tcs.SetResult(true)); })
+                .Verifiable();
+
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(false);
+            dialogServiceMock
+                .Setup(d => d.ShowConfirmAsync(
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Caption_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Content_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))))
+                .Returns(Task.FromResult(true))
+                .Verifiable();
+
+            mainViewModel = CreateDefault(interstitialAdMock.Object,
+                sessionsRepositoryMock.Object,
+                loopsRepositoryMock.Object,
+                dialogServiceMock.Object,
+                fileRepositoryMock.Object,
+                sourcePickerMock.Object,
+                spotifyLoaderMock.Object,
+                spotifyApiServiceMock.Object,
+                filePickerMock.Object,
+                connectivityServiceMock.Object,
+                navigationServiceMock.Object,
+                loggerMock.Object,
+                appTrackerMock.Object,
+                configurationServiceMock.Object,
+                inAppBillingServiceMock.Object,
+                audioPlayers);
+
+            if (mainViewModel.UiContext == null)
+            {
+                mainViewModel.UiContext = SynchronizationContext.Current;
+            }
+
+            await mainViewModel.InitializeAsync(null);
+            mainViewModel.PickSourceCommand.Execute(null);
+
+            await tcs.Task;
+
+            spotifyLoaderMock.Verify(s => s.IsSpotifyInstalled(), Times.Once);
+            spotifyLoaderMock.Verify(s => s.InstallSpotify(), Times.Once);
+            dialogServiceMock
+                .Verify(d => d.ShowConfirmAsync(
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Caption_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Content_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))), Times.Once);
+        }
+
+        [Test()]
+        [Apartment(ApartmentState.STA)]
+        public async Task When_PickSourceSpotify_SpotifyNotInstalled_NoDialogResult_Expect_NoSpotifyInstallation()
+        {
+            var tcs = new TaskCompletionSource<bool>();
+            sourcePickerMock.Setup(s => s.SelectFileSource()).Returns(Task.FromResult(AudioSourceType.Spotify));
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(false);
+            spotifyLoaderMock.Setup(s => s.InstallSpotify())
+                .Verifiable();
+
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(false);
+            dialogServiceMock
+                .Setup(d => d.ShowConfirmAsync(
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Caption_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Content_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))))
+                .Callback(() => { Task.Run(() => tcs.SetResult(true)); })
+                .Returns(Task.FromResult(false))
+                .Verifiable();
+
+            mainViewModel = CreateDefault(interstitialAdMock.Object,
+                sessionsRepositoryMock.Object,
+                loopsRepositoryMock.Object,
+                dialogServiceMock.Object,
+                fileRepositoryMock.Object,
+                sourcePickerMock.Object,
+                spotifyLoaderMock.Object,
+                spotifyApiServiceMock.Object,
+                filePickerMock.Object,
+                connectivityServiceMock.Object,
+                navigationServiceMock.Object,
+                loggerMock.Object,
+                appTrackerMock.Object,
+                configurationServiceMock.Object,
+                inAppBillingServiceMock.Object,
+                audioPlayers);
+
+            if (mainViewModel.UiContext == null)
+            {
+                mainViewModel.UiContext = SynchronizationContext.Current;
+            }
+
+            await mainViewModel.InitializeAsync(null);
+            mainViewModel.PickSourceCommand.Execute(null);
+
+            await tcs.Task;
+
+            spotifyLoaderMock.Verify(s => s.IsSpotifyInstalled(), Times.Once);
+            spotifyLoaderMock.Verify(s => s.InstallSpotify(), Times.Never);
+            dialogServiceMock
+                .Verify(d => d.ShowConfirmAsync(
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Caption_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Content_SpotifyMissing")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")),
+                    It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))), Times.Once);
         }
 
         [Test()]
@@ -763,12 +989,17 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 })
                 .Verifiable();
 
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(true);
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(true);
+
             audioPlayers.Add(audioPlayerMock.Object);
 
             interstitialAdMock
                 .Setup(a => a.ShowAdAsync())
                 .Returns(Task.CompletedTask)
                 .Verifiable();
+
+            spotifyApiServiceMock.SetupGet(s => s.UserPremiumCheckSuccessful).Returns(true);
 
             mainViewModel = CreateDefault(interstitialAdMock.Object,
                 sessionsRepositoryMock.Object,
@@ -808,6 +1039,9 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Throws(new FileNotFoundException())
                 .Verifiable();
 
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(true);
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(true);
+
             dialogServiceMock
                 .Setup(d => d.ShowConfirmAsync(It.Is<string>(s => s == localizer.GetLocalizedString("Error_Caption")), It.Is<string>(s => s == localizer.GetLocalizedString("Error_Content_FileNotFound")), It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")), It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))))
                 .Returns(Task.FromResult(false))
@@ -823,6 +1057,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Setup(a => a.ShowAdAsync())
                 .Returns(Task.CompletedTask)
                 .Verifiable();
+
+            spotifyApiServiceMock.SetupGet(s => s.UserPremiumCheckSuccessful).Returns(true);
 
             mainViewModel = CreateDefault(interstitialAdMock.Object,
                 sessionsRepositoryMock.Object,
@@ -864,6 +1100,9 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Throws(new FileNotFoundException())
                 .Verifiable();
 
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(true);
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(true);
+
             dialogServiceMock
                 .Setup(d => d.ShowConfirmAsync(It.Is<string>(s => s == localizer.GetLocalizedString("Error_Caption")), It.Is<string>(s => s == localizer.GetLocalizedString("Error_Content_FileNotFound")), It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")), It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))))
                 .Returns(Task.FromResult(true))
@@ -879,6 +1118,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Setup(a => a.ShowAdAsync())
                 .Returns(Task.CompletedTask)
                 .Verifiable();
+
+            spotifyApiServiceMock.SetupGet(s => s.UserPremiumCheckSuccessful).Returns(true);
 
             mainViewModel = CreateDefault(interstitialAdMock.Object,
                 sessionsRepositoryMock.Object,
@@ -917,6 +1158,9 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.IsPlaying).Returns(false);
             audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
             audioPlayerMock.SetupGet(a => a.Initialized).Returns(false);
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(true);
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(true);
+
             audioPlayerMock
                 .Setup(a => a.InitAsync(It.Is<Loop>(l => l == loops.First())))
                 .Throws(new Exception())
@@ -938,6 +1182,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Returns(Task.CompletedTask)
                 .Verifiable();
 
+            spotifyApiServiceMock.SetupGet(s => s.UserPremiumCheckSuccessful).Returns(true);
+
             mainViewModel = CreateDefault(interstitialAdMock.Object,
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
@@ -955,6 +1201,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 inAppBillingServiceMock.Object,
                 audioPlayers);
 
+            mainViewModel.IsPlaying = false;
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
             await tcs.Task;
@@ -984,6 +1231,9 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                     tcs.SetResult(true);
                 })
                 .Verifiable();
+
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(true);
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(true);
 
             audioPlayers.Add(audioPlayerMock.Object);
             spotifyApiServiceMock.SetupGet(s => s.UserPremiumCheckSuccessful).Returns(true);
@@ -1022,6 +1272,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.IsPlaying).Returns(false);
             audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
             audioPlayerMock.SetupGet(a => a.Initialized).Returns(true);
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(true);
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(true);
 
             audioPlayerMock
                 .Setup(a => a.PlayAsync())
@@ -1071,6 +1323,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.IsPlaying).Returns(false);
             audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
             audioPlayerMock.SetupGet(a => a.Initialized).Returns(true);
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(true);
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(true);
 
             audioPlayerMock
                 .Setup(a => a.PlayAsync())
@@ -1120,7 +1374,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.IsPlaying).Returns(false);
             audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
             audioPlayerMock.SetupGet(a => a.Initialized).Returns(true);
-
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(true);
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(true);
             audioPlayerMock
                 .Setup(a => a.PlayAsync())
                 .Returns(Task.CompletedTask)
@@ -1158,6 +1413,59 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             await tcs.Task;
             audioPlayerMock.Verify(a => a.PlayAsync(), Times.Never);
             interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
+        }
+
+        [Test()]
+        [Apartment(ApartmentState.STA)]
+        public async Task When_ExcutePlayCommand_SpotifyNotInstalled_Expect_DoesntPlaySong()
+        {
+            var tcs = new TaskCompletionSource<bool>();
+            sessionsRepositoryMock.Setup(s => s.GetAllItemsAsync()).Returns(Task.FromResult(sessions));
+            //audioPlayerMock.SetupGet(a => a.IsPlaying).Returns(false);
+            audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
+            //audioPlayerMock.SetupGet(a => a.Initialized).Returns(true);
+            spotifyLoaderMock.Setup(s => s.IsSpotifyInstalled()).Returns(false);
+            configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(false);
+            audioPlayerMock
+                .Setup(a => a.PlayAsync())
+                .Returns(Task.CompletedTask)
+                .Verifiable();
+
+            audioPlayers.Add(audioPlayerMock.Object);
+
+            dialogServiceMock
+               .Setup(d => d.ShowConfirmAsync(
+                   It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Caption_SpotifyMissing")),
+                   It.Is<string>(s => s == localizer.GetLocalizedString("Hint_Content_SpotifyMissing")),
+                   It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")),
+                   It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))))
+               .Callback(() => { Task.Run(() => tcs.SetResult(true)); })
+               .Returns(Task.FromResult(false))
+               .Verifiable();
+
+            mainViewModel = CreateDefault(interstitialAdMock.Object,
+                sessionsRepositoryMock.Object,
+                loopsRepositoryMock.Object,
+                dialogServiceMock.Object,
+                fileRepositoryMock.Object,
+                sourcePickerMock.Object,
+                spotifyLoaderMock.Object,
+                spotifyApiServiceMock.Object,
+                filePickerMock.Object,
+                connectivityServiceMock.Object,
+                navigationServiceMock.Object,
+                loggerMock.Object,
+                appTrackerMock.Object,
+                configurationServiceMock.Object,
+                inAppBillingServiceMock.Object,
+                audioPlayers);
+
+            await mainViewModel.InitializeAsync(null);
+            mainViewModel.PlayCommand.Execute(null);
+            await tcs.Task;
+            audioPlayerMock.Verify(a => a.PlayAsync(), Times.Never);
+            interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
+            spotifyLoaderMock.Verify(s => s.IsSpotifyInstalled(), Times.Once);
         }
 
         [Test()]
@@ -2056,7 +2364,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             Assert.AreEqual(mainViewModel.CurrentLoop.Id, loops.First().Id);
             Assert.That(mainViewModel.CurrentSession.Session.Loops, Has.Count.EqualTo(1));
             audioPlayerMock.Verify(a => a.Pause(false), Times.Once);
-            audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l.Id == loops.First().Id)), Times.Exactly(2));
+            audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l.Id == loops.First().Id)), Times.Once);
             audioPlayerMock.Verify(a => a.PlayAsync(), Times.Once);
         }
 
