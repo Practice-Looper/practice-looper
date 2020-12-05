@@ -4,9 +4,11 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config.Contracts;
+using Emka3.PracticeLooper.Config.Contracts.Features;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Foundation;
 using Google.MobileAds;
@@ -21,17 +23,21 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #region Fields
         Interstitial interstitialAd;
         AutoResetEvent adClosedEvent;
+        private string premiumItemId;
         private readonly ILogger logger;
+        private readonly IFeatureRegistry featureRegistry;
         private readonly IConfigurationService configurationService;
         #endregion
 
         #region Ctor
 
-        public InterstitialAd(ILogger logger, IConfigurationService configurationService)
+        public InterstitialAd(ILogger logger, IConfigurationService configurationService, IFeatureRegistry featureRegistry)
         {
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral))
+            this.featureRegistry = featureRegistry ?? throw new ArgumentNullException(nameof(featureRegistry));
+
+            if (!featureRegistry.IsEnabled<PremiumFeature>())
             {
                 LoadAd();
             }
@@ -52,7 +58,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public async Task ShowAdAsync()
         {
             // todo: block if ad is loading...
-            if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral) && interstitialAd.IsReady)
+            if (!featureRegistry.IsEnabled<PremiumFeature>() && interstitialAd.IsReady)
             {
                 adClosedEvent = new AutoResetEvent(false);
                 await Task.Run(() =>
@@ -69,7 +75,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 });
             }
 
-            if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral))
+            if (!featureRegistry.IsEnabled<PremiumFeature>())
             {
                 MainThread.BeginInvokeOnMainThread(LoadAd);
             }
@@ -80,7 +86,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             try
             {
                 interstitialAd = new Interstitial(configurationService.GetValue<string>("AdmobIosInterstitialProjectAdId"));
-                MobileAds.SharedInstance.RequestConfiguration.TestDeviceIdentifiers = new[] { "6fb304bbcc401debac41d2255509463f", "3408f4ee8f8d77f2efcbf255ead140d6" };
+                MobileAds.SharedInstance.RequestConfiguration.TestDeviceIdentifiers = new[] { "6fb304bbcc401debac41d2255509463f", "3408f4ee8f8d77f2efcbf255ead140d6", "4110822911a7f735dfffac62fcceea46" };
                 interstitialAd.FailedToPresentScreen += OnFailedToPresentScreen;
                 interstitialAd.ReceiveAdFailed += OnReceiveAdFailed;
                 var request = Request.GetDefaultRequest();
@@ -134,6 +140,14 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         void OnAdClosed(object o, EventArgs e)
         {
             adClosedEvent.Set();
+        }
+
+        public void Toggle(bool enabled)
+        {
+            if (enabled)
+            {
+                LoadAd();
+            }
         }
         #endregion
     }

@@ -24,6 +24,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private readonly IDialogService dialogService;
         private readonly IInAppBillingService inAppBillingService;
         private readonly IConfigurationService configurationService;
+        private readonly IFeatureRegistry featureRegistry;
         private Command showProductPaywallCommand;
         private Command showDataPrivacyCommand;
         private Command showThirdPartyComponentsCommand;
@@ -33,12 +34,20 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Ctor
 
-        public SettingsViewModel(ILogger logger, IDialogService dialogService, IAppTracker appTracker, INavigationService navigationService, IInAppBillingService inAppBillingService, IConfigurationService configurationService)
+        public SettingsViewModel(
+            ILogger logger,
+            IDialogService dialogService,
+            IAppTracker appTracker,
+            INavigationService navigationService,
+            IInAppBillingService inAppBillingService,
+            IConfigurationService configurationService,
+            IFeatureRegistry featureRegistry)
             : base(navigationService, logger, appTracker)
         {
             this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
             this.inAppBillingService = inAppBillingService ?? throw new ArgumentNullException(nameof(inAppBillingService));
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
+            this.featureRegistry = featureRegistry ?? throw new ArgumentNullException(nameof(featureRegistry));
             Products = new ObservableCollection<InAppPurchaseProductViewModel>();
             HasProducts = true;
         }
@@ -137,6 +146,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             Products.Clear();
             foreach (var item in tmpProducts)
             {
+                featureRegistry.Update(item.ProductId, item.Purchased);
                 Products.Add(item);
             }
 

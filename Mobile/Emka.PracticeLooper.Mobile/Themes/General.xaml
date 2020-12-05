@@ -5,6 +5,7 @@
     xmlns:tmpltSlctrs="clr-namespace:Emka.PracticeLooper.Mobile.TemplateSelectors;assembly=Emka.PracticeLooper.Mobile"
     xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views;assembly=Emka.PracticeLooper.Mobile">
+
     <Style
         TargetType="Page"
         x:Key="PageBaseStyle">
@@ -154,7 +155,7 @@
                     TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
-                    Margin="5,0,0,0"/>
+                    Margin="5,0,0,0" />
                 <Label
                     Grid.Column="1"
                     Text="{Binding Session.Name}"
@@ -213,7 +214,7 @@
                     TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
-                    Margin="5,0,0,0"/>
+                    Margin="5,0,0,0" />
                 <Label
                     Grid.Column="1"
                     Text="{Binding Session.Name}"
@@ -272,7 +273,7 @@
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
                     LineBreakMode="TailTruncation"
-                    Margin="5,0,0,0"/>
+                    Margin="5,0,0,0" />
                 <Label
                     Grid.Column="1"
                     Text="{Binding Session.Name}"
@@ -320,7 +321,7 @@
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    Margin="5,0,0,0"/>
+                    Margin="5,0,0,0" />
                 <Label
                     Grid.Column="1"
                     AutomationId="Spotify"
@@ -329,8 +330,7 @@
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
                     HorizontalOptions="StartAndExpand"
-                    FontSize="24"
-                    />
+                    FontSize="24" />
             </Grid>
         </ViewCell>
     </DataTemplate>
@@ -355,7 +355,7 @@
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    Margin="5,0,0,0"/>
+                    Margin="5,0,0,0" />
                 <Label
                     Grid.Column="1"
                     AutomationId="AudioFile"

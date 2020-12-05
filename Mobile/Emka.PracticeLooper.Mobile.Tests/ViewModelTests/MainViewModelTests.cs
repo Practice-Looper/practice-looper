@@ -40,8 +40,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         Mock<ILogger> loggerMock;
         Mock<IAppTracker> appTrackerMock;
         Mock<IConfigurationService> configurationServiceMock;
-        Mock<IInAppBillingService> inAppBillingServiceMock;
         Mock<IAudioPlayer> audioPlayerMock;
+        Mock<IFeatureRegistry> featureRegistryMock;
         List<IAudioPlayer> audioPlayers;
         List<Session> sessions;
         List<AudioSource> audioSources;
@@ -69,8 +69,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             loggerMock = new Mock<ILogger>();
             appTrackerMock = new Mock<IAppTracker>();
             configurationServiceMock = new Mock<IConfigurationService>();
-            inAppBillingServiceMock = new Mock<IInAppBillingService>();
             audioPlayerMock = new Mock<IAudioPlayer>();
+            featureRegistryMock = new Mock<IFeatureRegistry>();
             localizer = new StringLocalizer(loggerMock.Object);
             audioPlayers = new List<IAudioPlayer>();
             audioSources = new List<AudioSource>
@@ -158,8 +158,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             Assert.IsEmpty(mainViewModel.Sessions);
@@ -185,8 +185,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             Assert.IsNotEmpty(mainViewModel.Sessions);
@@ -215,8 +215,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             Assert.NotNull(mainViewModel.CurrentSession);
@@ -255,8 +255,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             if (mainViewModel.UiContext == null)
             {
@@ -306,8 +306,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             if (mainViewModel.UiContext == null)
             {
@@ -354,8 +354,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             if (mainViewModel.UiContext == null)
             {
@@ -402,8 +402,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             if (mainViewModel.UiContext == null)
             {
@@ -449,8 +449,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             if (mainViewModel.UiContext == null)
             {
@@ -497,8 +497,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             if (mainViewModel.UiContext == null)
             {
@@ -550,8 +550,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             if (mainViewModel.UiContext == null)
             {
@@ -606,8 +606,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             if (mainViewModel.UiContext == null)
             {
@@ -664,8 +664,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             if (mainViewModel.UiContext == null)
             {
@@ -712,8 +712,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             if (mainViewModel.UiContext == null)
             {
@@ -746,13 +746,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Setup(f => f.ShowPicker())
                 .Returns(Task.FromResult(audioSource));
 
-            configurationServiceMock.Setup(c => c.GetSecureValue<bool>(It.Is<string>(s => s == PreferenceKeys.PremiumGeneral))).Returns(true);
             sessionsRepositoryMock.Setup(s => s.SaveAsync(It.IsAny<Session>())).Returns(Task.FromResult(1));
             audioPlayerMock.SetupGet(a => a.Initialized).Returns(false);
-            //audioPlayerMock.Setup(a => a.PlayAsync())
-            //    .Callback(() => { tcs.SetResult(true); })
-            //    .Returns(Task.CompletedTask);
-            //audioPlayerMock.Setup(a => a.InitAsync(It.IsAny<Loop>())).Returns(Task.CompletedTask);
 
             mainViewModel = CreateDefault(interstitialAdMock.Object,
                 sessionsRepositoryMock.Object,
@@ -768,8 +763,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             if (mainViewModel.UiContext == null)
             {
@@ -815,8 +810,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.ExecuteCreateSessionCommandAsync(audioSource);
             Assert.NotNull(mainViewModel.CurrentSession);
@@ -843,8 +838,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             Assert.ThrowsAsync<ArgumentNullException>(() => mainViewModel.ExecuteCreateSessionCommandAsync(null));
         }
@@ -867,8 +862,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             mainViewModel.Pause();
             spotifyLoaderMock.Verify(s => s.Disconnect(), Times.Once);
@@ -894,8 +889,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             mainViewModel.Pause();
             audioPlayerMock.Verify(s => s.Pause(default), Times.Once);
@@ -919,8 +914,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             var canExecutePlayCommand = mainViewModel.PlayCommand.CanExecute(null);
             Assert.IsNull(mainViewModel.CurrentAudioPlayer);
@@ -959,8 +954,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
@@ -1015,8 +1010,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
@@ -1074,8 +1069,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
@@ -1135,8 +1130,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
@@ -1198,8 +1193,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             mainViewModel.IsPlaying = false;
             await mainViewModel.InitializeAsync(null);
@@ -1252,8 +1247,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
@@ -1304,8 +1299,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
@@ -1355,8 +1350,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
@@ -1405,8 +1400,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
@@ -1457,8 +1452,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
@@ -1488,8 +1483,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                inAppBillingServiceMock.Object,
-                audioPlayers);
+                audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             Assert.ThrowsAsync<ArgumentException>(() => mainViewModel.ExecuteDeleteSessionCommandAsync(null));
@@ -1519,8 +1514,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecutePlayCommand(null);
@@ -1560,8 +1555,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecuteDeleteSessionCommandAsync(mainViewModel.Sessions[1]);
@@ -1603,8 +1598,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecuteDeleteSessionCommandAsync(mainViewModel.Sessions[0]);
@@ -1636,8 +1631,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecuteDeleteSessionCommandAsync(mainViewModel.Sessions[0]);
@@ -1685,8 +1680,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.InitAudioPlayer();
@@ -1731,8 +1726,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecuteDeleteSessionCommandAsync(mainViewModel.Sessions[0]);
@@ -1758,8 +1753,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             var canExecute = mainViewModel.CanExecuteAddNewLoopCommand(null);
@@ -1785,8 +1780,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             var canExecute = mainViewModel.CanExecuteAddNewLoopCommand(null);
@@ -1833,8 +1828,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecuteAddNewLoopCommand(null);
@@ -1884,8 +1879,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecuteAddNewLoopCommand(null);
@@ -1935,8 +1930,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecuteAddNewLoopCommand(null);
@@ -1970,8 +1965,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecutePlayCommand(null);
@@ -2002,8 +1997,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.InitAudioPlayer();
@@ -2038,8 +2033,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.InitAudioPlayer();
@@ -2075,8 +2070,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecutePlayCommand(null);
@@ -2115,8 +2110,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecutePlayCommand(null);
@@ -2154,8 +2149,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             sessionDetailsViewModel.SelectedLoop = sessionDetailsViewModel.Loops.Last();
@@ -2191,8 +2186,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             sessionDetailsViewModel.SelectedLoop = sessionDetailsViewModel.Loops.First();
@@ -2228,8 +2223,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             await sessionDetailsViewModel.InitializeAsync(sessionViewModels.First());
@@ -2270,8 +2265,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             sessionDetailsViewModel.Loops.Last().DeleteCommand.Execute(null);
@@ -2312,8 +2307,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             sessionDetailsViewModel.Loops.First().DeleteCommand.Execute(null);
@@ -2355,8 +2350,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecutePlayCommand(null);
@@ -2393,8 +2388,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.NavigateToSettingsCommand.Execute(null);
@@ -2425,8 +2420,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.InitAudioPlayer();
@@ -2457,8 +2452,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.InitAudioPlayer();
@@ -2490,8 +2485,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.InitAudioPlayer();
@@ -2522,8 +2517,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.CurrentSession = mainViewModel.Sessions.Last();
@@ -2552,8 +2547,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.MinimumValue = -1;
@@ -2581,8 +2576,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               inAppBillingServiceMock.Object,
-               audioPlayers);
+               audioPlayers,
+                featureRegistryMock.Object);
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.MaximumValue = 1.3;
@@ -2604,8 +2599,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             ILogger logger,
             IAppTracker appTracker,
             IConfigurationService configurationService,
-            IInAppBillingService inAppBillingService,
-            IEnumerable<IAudioPlayer> audioPlayers)
+            IEnumerable<IAudioPlayer> audioPlayers,
+            IFeatureRegistry featureRegistry)
         {
             return new MainViewModel(interstitialAd,
                 sessionsRepository,
@@ -2621,8 +2616,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 logger,
                 appTracker,
                 configurationService,
-                inAppBillingService,
-                audioPlayers);
+                audioPlayers,
+                featureRegistry);
         }
     }
 }

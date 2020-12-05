@@ -42,8 +42,8 @@
         <views:AdMobView
             AutomationId="AdmobBanner"
             Grid.Row="0"
-            x:Name="AdmobBanner"
-            HeightRequest="70" />
+            HeightRequest="80"
+            x:Name="AdmobBanner" />
 
         <Grid
             Grid.Row="1"
@@ -57,7 +57,7 @@
                 <RowDefinition
                     Height="4*" />
             </Grid.RowDefinitions>
-            
+
             <ContentView
                 Grid.Row="0"
                 Margin="10,0"
@@ -365,7 +365,7 @@
                 Color="{DynamicResource SecondaryColor}"
                 VerticalOptions="Center"
                 HorizontalOptions="Center" />
-        </ContentView> 
+        </ContentView>
 
         <syncfusion:SfPicker
             Grid.Row="1"
@@ -393,9 +393,9 @@
                     HorizontalOptions="Center"
                     TextColor="{DynamicResource PrimaryColor}"
                     BackgroundColor="{DynamicResource BackgroundColor}"
-                    BorderColor="{DynamicResource BackgroundColor}"/>
+                    BorderColor="{DynamicResource BackgroundColor}" />
             </syncfusion:SfPicker.FooterView>
         </syncfusion:SfPicker>
-        
+
     </Grid>
 </ContentPage>

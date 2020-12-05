@@ -8,4 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Emka3.PracticeLooper.Utils\Emka3.PracticeLooper.Utils.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Features\" />
+  </ItemGroup>
 </Project>

@@ -38,7 +38,7 @@ namespace Emka3.PracticeLooper.Config
             try
             {
                 JObject conf = JObject.Parse(json);
-                return JsonConvert.DeserializeObject<Dictionary<string, object>>(conf.ToString());
+                return JsonConvert.DeserializeObject<Dictionary<string, object>>(conf.ToString(), new[] { new SecretsJsonConverter() });
             }
             catch (Exception ex)
             {

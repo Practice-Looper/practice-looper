@@ -8,7 +8,7 @@ using Emka3.PracticeLooper.Config.Contracts;
 
 namespace Emka3.PracticeLooper.Services.Contracts.Common
 {
-    public interface IInterstitialAd : IFeature
+    public interface IInterstitialAd
     {
         Task ShowAdAsync();
         void ShowAd();

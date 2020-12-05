@@ -26,6 +26,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         Mock<IDialogService> dialogServiceMock;
         Mock<IInAppBillingService> inAppBillingServiceMock;
         Mock<IConfigurationService> configurationServiceMock;
+        Mock<IFeatureRegistry> featureRegistryMock;
         StringLocalizer localizer;
 
         [SetUp]
@@ -37,6 +38,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             appTrackerMock = new Mock<IAppTracker>();
             inAppBillingServiceMock = new Mock<IInAppBillingService>();
             configurationServiceMock = new Mock<IConfigurationService>();
+            featureRegistryMock = new Mock<IFeatureRegistry>();
             localizer = new StringLocalizer(loggerMock.Object);
         }
 
@@ -71,7 +73,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .ReturnsAsync((true, string.Empty))
                 .Verifiable();
 
-            var vm = new SettingsViewModel(loggerMock.Object, dialogServiceMock.Object, appTrackerMock.Object, navigationServiceMock.Object, inAppBillingServiceMock.Object, configurationServiceMock.Object);
+            var vm = new SettingsViewModel(loggerMock.Object, dialogServiceMock.Object, appTrackerMock.Object, navigationServiceMock.Object, inAppBillingServiceMock.Object, configurationServiceMock.Object, featureRegistryMock.Object);
             await vm.InitializeAsync(null);
 
             Assert.IsTrue(vm.HasProducts);
@@ -121,7 +123,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .ReturnsAsync((true, string.Empty))
                 .Verifiable();
 
-            var vm = new SettingsViewModel(loggerMock.Object, dialogServiceMock.Object, appTrackerMock.Object, navigationServiceMock.Object, inAppBillingServiceMock.Object, configurationServiceMock.Object);
+            var vm = new SettingsViewModel(loggerMock.Object, dialogServiceMock.Object, appTrackerMock.Object, navigationServiceMock.Object, inAppBillingServiceMock.Object, configurationServiceMock.Object, featureRegistryMock.Object);
             await vm.InitializeAsync(null);
 
             Assert.IsTrue(vm.HasProducts);
@@ -171,7 +173,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .ReturnsAsync((true, string.Empty))
                 .Verifiable();
 
-            var vm = new SettingsViewModel(loggerMock.Object, dialogServiceMock.Object, appTrackerMock.Object, navigationServiceMock.Object, inAppBillingServiceMock.Object, configurationServiceMock.Object);
+            var vm = new SettingsViewModel(loggerMock.Object, dialogServiceMock.Object, appTrackerMock.Object, navigationServiceMock.Object, inAppBillingServiceMock.Object, configurationServiceMock.Object, featureRegistryMock.Object);
             await vm.InitializeAsync(null);
 
             Assert.IsTrue(vm.HasProducts);
@@ -211,7 +213,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .ReturnsAsync((true, string.Empty))
                 .Verifiable();
 
-            var vm = new SettingsViewModel(loggerMock.Object, dialogServiceMock.Object, appTrackerMock.Object, navigationServiceMock.Object, inAppBillingServiceMock.Object, configurationServiceMock.Object);
+            var vm = new SettingsViewModel(loggerMock.Object, dialogServiceMock.Object, appTrackerMock.Object, navigationServiceMock.Object, inAppBillingServiceMock.Object, configurationServiceMock.Object, featureRegistryMock.Object);
             await vm.InitializeAsync(null);
 
             Assert.IsFalse(vm.HasProducts);
@@ -262,7 +264,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .ReturnsAsync((false, localizer.GetLocalizedString("Error_Content_General")))
                 .Verifiable();
 
-            var vm = new SettingsViewModel(loggerMock.Object, dialogServiceMock.Object, appTrackerMock.Object, navigationServiceMock.Object, inAppBillingServiceMock.Object, configurationServiceMock.Object);
+            var vm = new SettingsViewModel(loggerMock.Object, dialogServiceMock.Object, appTrackerMock.Object, navigationServiceMock.Object, inAppBillingServiceMock.Object, configurationServiceMock.Object, featureRegistryMock.Object);
             await vm.InitializeAsync(null);
 
             Assert.IsTrue(vm.HasProducts);
@@ -311,7 +313,9 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .ReturnsAsync((true, string.Empty))
                 .Verifiable();
 
-            var vm = new SettingsViewModel(loggerMock.Object, dialogServiceMock.Object, appTrackerMock.Object, navigationServiceMock.Object, inAppBillingServiceMock.Object, configurationServiceMock.Object);
+            featureRegistryMock.Setup(f => f.Update(It.Is<string>(s => s == premiumProduct.ProductId), It.Is<bool>(b => b))).Verifiable();
+
+            var vm = new SettingsViewModel(loggerMock.Object, dialogServiceMock.Object, appTrackerMock.Object, navigationServiceMock.Object, inAppBillingServiceMock.Object, configurationServiceMock.Object, featureRegistryMock.Object);
             await vm.InitializeAsync(null);
 
             Assert.IsTrue(vm.HasProducts);
@@ -327,6 +331,9 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             inAppBillingServiceMock
                .Verify(i => i.RestorePurchasesAsync(), Times.Once);
+
+            featureRegistryMock
+                .Verify(f => f.Update(It.Is<string>(s => s == premiumProduct.ProductId), It.Is<bool>(b => b)), Times.Once);
         }
 
         [Test]
@@ -351,7 +358,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Returns(Task.CompletedTask)
                 .Verifiable();
 
-            var vm = new SettingsViewModel(loggerMock.Object, dialogServiceMock.Object, appTrackerMock.Object, navigationServiceMock.Object, inAppBillingServiceMock.Object, configurationServiceMock.Object);
+            var vm = new SettingsViewModel(loggerMock.Object, dialogServiceMock.Object, appTrackerMock.Object, navigationServiceMock.Object, inAppBillingServiceMock.Object, configurationServiceMock.Object, featureRegistryMock.Object);
             await vm.InitializeAsync(null);
             vm.ShowProductPaywallCommand.Execute(new InAppPurchaseProductViewModel(premiumProduct));
             await tcs.Task;

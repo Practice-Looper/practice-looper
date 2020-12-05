@@ -466,5 +466,11 @@ namespace Emka.PracticeLooper.Mobile {
                 return ResourceManager.GetString("pl.premium.general", resourceCulture);
             }
         }
+        
+        internal static string ios_premium_lifetime {
+            get {
+                return ResourceManager.GetString("ios.premium.lifetime", resourceCulture);
+            }
+        }
     }
 }

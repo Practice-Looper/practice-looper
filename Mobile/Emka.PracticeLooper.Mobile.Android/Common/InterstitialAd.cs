@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Android.App;
 using Android.Gms.Ads;
 using Emka3.PracticeLooper.Config.Contracts;
+using Emka3.PracticeLooper.Config.Contracts.Features;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Xamarin.Essentials;
 
@@ -20,7 +21,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         AutoResetEvent adClosedEvent;
         Android.Gms.Ads.InterstitialAd interstitialAd;
         private readonly ILogger logger;
-        private readonly IConfigurationService configurationService;
+        private readonly IFeatureRegistry featureRegistry;
         #endregion
 
         #region Events
@@ -32,16 +33,16 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         #region Ctor
 
-        public InterstitialAd(ILogger logger, IConfigurationService configurationService)
+        public InterstitialAd(ILogger logger, IConfigurationService configurationService, IFeatureRegistry featureRegistry)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
+            this.featureRegistry = featureRegistry ?? throw new ArgumentNullException(nameof(featureRegistry));
             interstitialAd = new Android.Gms.Ads.InterstitialAd(Application.Context);
             interstitialAd.RewardedVideoAdFailedToLoad += OnRewardedVideoAdFailedToLoad;
             interstitialAd.AdListener = this;
-            interstitialAd.AdUnitId = configurationService.GetValue<string>("AdmobAndroidInterstitialProjectAdId");
+            interstitialAd.AdUnitId = configurationService?.GetValue<string>("AdmobAndroidInterstitialProjectAdId");
 
-            if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral))
+            if (!featureRegistry.IsEnabled<PremiumFeature>())
             {
                 LoadAd();
             }
@@ -54,10 +55,9 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         #endregion
 
         #region Methods
-
         public async Task ShowAdAsync()
         {
-            if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral) && interstitialAd.IsLoaded)
+            if (!featureRegistry.IsEnabled<PremiumFeature>() && interstitialAd.IsLoaded)
             {
                 adClosedEvent = new AutoResetEvent(false);
                 await Task.Run(() =>
@@ -71,7 +71,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 });
             }
 
-            if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral))
+            if (!featureRegistry.IsEnabled<PremiumFeature>())
             {
                 MainThread.BeginInvokeOnMainThread(LoadAd);
             }
@@ -112,16 +112,26 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             AdLoaded?.Invoke(this, new EventArgs());
             base.OnAdLoaded();
         }
+
         public override void OnAdClosed()
         {
             base.OnAdClosed();
             AdClosed?.Invoke(this, new EventArgs());
             adClosedEvent.Set();
         }
+
         public override void OnAdOpened()
         {
             AdOpened?.Invoke(this, new EventArgs());
             base.OnAdOpened();
+        }
+
+        public void Toggle(bool enabled)
+        {
+            if (enabled)
+            {
+                LoadAd();
+            }
         }
         #endregion
     }

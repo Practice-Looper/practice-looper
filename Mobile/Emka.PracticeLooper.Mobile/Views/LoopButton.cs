@@ -2,7 +2,9 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
+using System;
 using Emka3.PracticeLooper.Config.Contracts;
+using Emka3.PracticeLooper.Config.Contracts.Features;
 using Emka3.PracticeLooper.Utils;
 using Xamarin.Forms;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
@@ -10,31 +12,30 @@ using MappingsFactory = Emka3.PracticeLooper.Mappings;
 namespace Emka.PracticeLooper.Mobile.Views
 {
     [Preserve(AllMembers = true)]
-    public class LoopButton : ImageButton, IFeature
+    public class LoopButton : ImageButton
     {
         #region Fields
 
         private readonly IConfigurationService configurationService;
+        private readonly IFeatureRegistry featureRegistry;
         #endregion
 
         #region Ctor
 
         public LoopButton()
         {
-            configurationService = MappingsFactory.Factory.GetResolver().Resolve<IConfigurationService>();
-            IsVisible = configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral);
-            configurationService.ValueChanged += ConfigValueChanged;
+            var resolver = MappingsFactory.Factory.GetResolver();
+            configurationService = resolver.Resolve<IConfigurationService>() ?? throw new ArgumentNullException(nameof(configurationService));
+            featureRegistry = resolver.Resolve<IFeatureRegistry>() ?? throw new ArgumentNullException(nameof(featureRegistry));
+            featureRegistry.RegisterForUpdates<PremiumFeature>(Toggle);
+            IsVisible = featureRegistry.IsEnabled<PremiumFeature>();
         }
         #endregion
 
         #region Methods
-
-        private void ConfigValueChanged(object sender, string e)
+        public void Toggle(bool enabled)
         {
-            if (e == PreferenceKeys.PremiumGeneral)
-            {
-                IsVisible = configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral);
-            }
+            IsVisible = featureRegistry.IsEnabled<PremiumFeature>();
         }
         #endregion
     }

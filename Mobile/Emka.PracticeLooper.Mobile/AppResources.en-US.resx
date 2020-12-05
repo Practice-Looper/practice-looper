@@ -389,4 +389,11 @@
 • Any number of songs 
 • Save Loops</value>
     </data>
+     <data
+        name="ios.premium.lifetime"
+        xml:space="preserve">
+       <value>• Completely free of ads 
+• Any number of songs 
+• Save Loops</value>
+    </data>
 </root>
