@@ -674,7 +674,7 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
             var secondsToDrag = Math.Abs(timeToSet.Seconds - actualSecondsStart);
             var secondDirection = actualSecondsStart > timeToSet.Seconds ? 1 : -1;
 
-            if (actualStart + minutesToDrag * 60 > actualEnd - 5)
+            if (actualStart + (minutesToDrag * 60 * minuteDirection * -1) > actualEnd - 5)
             {
                 secondsToDrag = Math.Abs(TimeSpan.FromSeconds(actualEnd).Seconds - timeToSet.Seconds - 5);
                 secondDirection = actualEnd - 5 > timeToSet.TotalSeconds ? 1 : -1;
@@ -706,7 +706,7 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
             var secondsToDrag = Math.Abs(timeToSet.Seconds - actualSecondsEnd);
             var secondDirection = actualSecondsEnd > timeToSet.Seconds ? 1 : -1;
 
-            if (actualEnd - minutesToDrag * 60 < actualStart + 5)
+            if (actualEnd + (minutesToDrag * 60 * minuteDirection * -1) < actualStart + 5)
             {
                 secondsToDrag = Math.Abs(timeToSet.Seconds - TimeSpan.FromSeconds(actualStart).Seconds - 5);
                 secondDirection = actualStart + 5 > timeToSet.TotalSeconds ? 1 : -1;
@@ -814,6 +814,11 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
             }
 
             
+        }
+
+        public void CloseAdvertisment()
+        {
+            var button = driver.FindElementByClassName("android.widget.Button");
         }
 
     }

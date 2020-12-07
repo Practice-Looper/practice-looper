@@ -35,7 +35,6 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
 
         protected override void InitAppiumOptions(AppiumOptions appiumOptions)
         {
-            appiumOptions.AddAdditionalCapability(MobileCapabilityType.DeviceName, "iPhone XR");
             appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, "iOS");
             appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, "14.2");
             appiumOptions.AddAdditionalCapability(MobileCapabilityType.Udid, "00008020-00054DEE3A88003A");
@@ -375,6 +374,9 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
         [Test]
         [TestCase("Nothing Else Matters", 146, 177)]
         [TestCase("Coumarin Mirage", 88, 97)]
+        [TestCase("Coumarin Mirage", 20, 25)]
+        [TestCase("Coumarin Mirage", 10, 100)]
+        [TestCase("Coumarin Mirage", 100, 140)]
         public void When_TriggerPlayPlause_Expect_LoopStartPositionIsInititalizedCorrectly(string name, int start, int end)
         {
             OpenSpotifySearchPage();
@@ -384,6 +386,7 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
             SetLeftPicker(start);
             SetRightPicker(end);
 
+            var markersPlayBefore = new List<double>();
             var markersPlay = new List<double>();
 
             var markersStopBefore = new List<double>();
@@ -392,6 +395,7 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
             for (int i = 0; i < 20; i++)
             {
                 Play();
+                markersPlayBefore.Add(GetCurrentSongTime());
                 Thread.Sleep(2000);
                 markersPlay.Add(GetCurrentSongTime());
 
@@ -404,6 +408,8 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
 
             var markersPlayCorrect = markersPlay.FindAll(m => (m <= end + 1 && m >= start - 1));
             Assert.AreEqual(markersPlay, markersPlayCorrect);
+
+            Assert.AreNotEqual(markersPlayBefore, markersPlay);
             Assert.AreEqual(markersStopBefore, markersStop);
         }
     }
