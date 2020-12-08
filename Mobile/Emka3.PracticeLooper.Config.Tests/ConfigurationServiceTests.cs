@@ -40,11 +40,11 @@ namespace Emka3.PracticeLooper.Config.Tests
                 .Setup(c => c.LoadConfiguration(It.Is<string>(s => s.Contains("testSecrets.json"))))
                 .Returns(() =>
                 {
-                    return ReadConfig("Emka3.PracticeLooper.ConfigTests.testSecrets.json");
+                    return ReadConfig("Emka3.PracticeLooper.Config.Tests.testSecrets.json");
                 });
 
             var configService = new ConfigurationService(new PersistentConfigService(), configurationLoaderMock.Object, new SecureConfigService());
-            configService.ReadConfigs("Emka3.PracticeLooper.ConfigTests.testSecrets.json");
+            configService.ReadConfigs("Emka3.PracticeLooper.Config.Tests.testSecrets.json");
             var intConfig = configService.GetValue<int>("practice");
             var stringConfig = configService.GetValue<string>("looper");
             Assert.NotNull(intConfig);
@@ -166,7 +166,7 @@ namespace Emka3.PracticeLooper.Config.Tests
                 .Setup(c => c.LoadConfiguration(It.Is<string>(s => s.Contains("testSecrets.json"))))
                 .Returns(() =>
                     {
-                        return ReadConfig("Emka3.PracticeLooper.ConfigTests.testSecrets.json");
+                        return ReadConfig("Emka3.PracticeLooper.Config.Tests.testSecrets.json");
                     });
 
             secureConfigServiceMock.Setup(s => s.ClearValue(It.IsAny<string>())).Verifiable();
@@ -174,7 +174,7 @@ namespace Emka3.PracticeLooper.Config.Tests
             secureConfigServiceMock.Setup(s => s.SetSecureValue(It.IsAny<string>(), It.IsAny<object>()));
 
             var configService = new ConfigurationService(persistentConfigServiceMock.Object, configurationLoaderMock.Object, secureConfigServiceMock.Object);
-            configService.ReadConfigs("Emka3.PracticeLooper.ConfigTests.testSecrets.json");
+            configService.ReadConfigs("Emka3.PracticeLooper.Config.Tests.testSecrets.json");
             var key = "key";
             var value = "value";
             configService.SetValue(key, value, true);
@@ -194,11 +194,11 @@ namespace Emka3.PracticeLooper.Config.Tests
                 .Setup(c => c.LoadConfiguration(It.Is<string>(s => s.Contains("testSecrets.json"))))
                 .Returns(() =>
                 {
-                    return ReadConfig("Emka3.PracticeLooper.ConfigTests.testSecrets.json");
+                    return ReadConfig("Emka3.PracticeLooper.Config.Tests.testSecrets.json");
                 });
 
             var configService = new ConfigurationService(persistentConfigServiceMock.Object, configurationLoaderMock.Object, secureConfigServiceMock.Object);
-            configService.ReadConfigs("Emka3.PracticeLooper.ConfigTests.testSecrets.json");
+            configService.ReadConfigs("Emka3.PracticeLooper.Config.Tests.testSecrets.json");
             var ex = Assert.Throws<ArgumentNullException>(() => configService.ClearValue(key));
             Assert.NotNull(ex);
         }

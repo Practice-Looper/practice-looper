@@ -22,7 +22,7 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
         {
             product = new InAppPurchaseProduct
             {
-                Name = "Practice Looper App Premium",
+                Name = "Premium",
                 Purchased = true,
                 LocalizedPrice = "",
             };
@@ -37,10 +37,10 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
         {
             appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, "iOS");
             appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, "14.2");
+            appiumOptions.AddAdditionalCapability(MobileCapabilityType.DeviceName, "iPhone XR");
             appiumOptions.AddAdditionalCapability(MobileCapabilityType.Udid, "00008020-00054DEE3A88003A");
-            appiumOptions.AddAdditionalCapability(MobileCapabilityType.App, "/Users/simonsymhoven/Projects/practice-looper/Mobile/Emka.PracticeLooper.Mobile.iOS/bin/iPhone/DebugPremium/device-builds/iphone11.8-14.2/Emka.PracticeLooper.Mobile.iOS.ipa");            appiumOptions.AddAdditionalCapability(MobileCapabilityType.NewCommandTimeout, 300);
+            appiumOptions.AddAdditionalCapability(MobileCapabilityType.App, "/Users/simonsymhoven/Projects/practice-looper/Mobile/Emka.PracticeLooper.Mobile.iOS/bin/iPhone/DebugPremium/device-builds/iphone11.8-14.2/Emka.PracticeLooper.Mobile.iOS.ipa"); appiumOptions.AddAdditionalCapability(MobileCapabilityType.NewCommandTimeout, 300);
             appiumOptions.AddAdditionalCapability(MobileCapabilityType.AutomationName, "XCUITest");
-            appiumOptions.AddAdditionalCapability("wdaLocalPort", 8212);
         }
 
         [Test]
@@ -244,7 +244,7 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
             Assert.AreEqual(loop2.EndPosition, GetSongDuration());
         }
 
-        
+
         [Test]
         [TestCase("Coumarin Mirage", 47, 90)]
         [TestCase("Coumarin Mirage", 52, 200)]
@@ -264,7 +264,7 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
             Assert.That(GetLoopStartPosition(), Is.EqualTo(left).Within(25));
             Assert.That(GetLoopEndPosition(), Is.EqualTo(right).Within(25));
         }
-        
+
 
         [Test]
         [TestCase("Coumarin Mirage", 61, 90)]
@@ -411,6 +411,54 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
 
             Assert.AreNotEqual(markersPlayBefore, markersPlay);
             Assert.AreEqual(markersStopBefore, markersStop);
+        }
+
+        [Test]
+        public void When_DoEverything_Expect_AppIsStable()
+        {
+            OpenSpotifySearchPage();
+            SearchSong("Coumarin Mirage");
+
+            SelectSong(0);
+
+            SetLeftPicker(88);
+            SetRightPicker(100);
+
+            Assert.AreEqual(88, GetLoopStartPosition());
+            Assert.AreEqual(100, GetLoopEndPosition());
+
+            CreateLoop("First Loop");
+            SaveLoop();
+
+            Play();
+
+            Thread.Sleep(10000);
+
+            Stop();
+
+            SetLeftPicker(28);
+            SetRightPicker(120);
+
+            Assert.AreEqual(28, GetLoopStartPosition());
+            Assert.AreEqual(120, GetLoopEndPosition());
+
+            CreateLoop("Second Loop");
+            SaveLoop();
+
+            OpenLoops("Mirage");
+
+            SelectLoop("First Loop");
+            NavigateBack();
+
+            Assert.AreEqual(88, GetLoopStartPosition());
+            Assert.AreEqual(100, GetLoopEndPosition());
+
+            Play();
+
+            Thread.Sleep(20000);
+
+            Stop();
+
         }
     }
 }

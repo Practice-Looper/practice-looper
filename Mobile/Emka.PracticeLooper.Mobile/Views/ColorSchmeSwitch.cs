@@ -2,9 +2,11 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
+using System;
 using System.Collections.Generic;
 using Emka.PracticeLooper.Mobile.Themes;
 using Emka3.PracticeLooper.Config.Contracts;
+using Emka3.PracticeLooper.Config.Contracts.Features;
 using Emka3.PracticeLooper.Utils;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -17,15 +19,18 @@ namespace Emka.PracticeLooper.Mobile.Views
     {
         #region Fields
         private readonly IConfigurationService configurationService;
+        private readonly IFeatureRegistry featureRegistry;
         #endregion
 
         #region Ctor
 
         public ColorSchemeSwitch()
         {
-            configurationService = MappingsFactory.Factory.GetResolver().Resolve<IConfigurationService>();
-            IsVisible = configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral);
-            configurationService.ValueChanged += ConfigValueChanged;
+            var resolver = MappingsFactory.Factory.GetResolver() ?? throw new ArgumentNullException("resolver");
+            configurationService = resolver.Resolve<IConfigurationService>() ?? throw new ArgumentNullException(nameof(configurationService));
+            featureRegistry = resolver.Resolve<IFeatureRegistry>() ?? throw new ArgumentNullException(nameof(featureRegistry));
+            featureRegistry.RegisterForUpdates<PremiumFeature>(PremiumFeatureToggle);
+            IsVisible = featureRegistry.IsEnabled<PremiumFeature>();
             Toggled += Switch_Toggled;
             IsToggled = configurationService.GetValue(PreferenceKeys.ColorScheme, -1) == (int)AppTheme.Dark;
         }
@@ -49,12 +54,9 @@ namespace Emka.PracticeLooper.Mobile.Views
             configurationService.SetValue(PreferenceKeys.ColorScheme, (int)AppTheme.Light, true);
         }
 
-        private void ConfigValueChanged(object sender, string e)
+        public void PremiumFeatureToggle(bool enabled)
         {
-            if (e == PreferenceKeys.PremiumGeneral)
-            {
-                IsVisible = configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral);
-            }
+            IsVisible = featureRegistry.IsEnabled<PremiumFeature>();
         }
         #endregion
     }

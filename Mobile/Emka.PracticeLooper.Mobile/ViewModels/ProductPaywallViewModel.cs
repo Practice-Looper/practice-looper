@@ -3,11 +3,13 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config.Contracts;
+using Emka3.PracticeLooper.Config.Contracts.Features;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
 using Xamarin.Forms;
@@ -21,17 +23,25 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private bool isBusy;
         private readonly IInAppBillingService inAppBillingService;
         private readonly IDialogService dialogService;
+        private readonly IFeatureRegistry featureRegistry;
         private Command purchaseItemCommand;
         private InAppPurchaseProductViewModel product;
         #endregion
 
         #region Ctor
 
-        public ProductPaywallViewModel(INavigationService navigationService, ILogger logger, IAppTracker appTracker, IInAppBillingService inAppBillingService, IDialogService dialogService)
+        public ProductPaywallViewModel(
+            INavigationService navigationService,
+            ILogger logger,
+            IAppTracker appTracker,
+            IInAppBillingService inAppBillingService,
+            IDialogService dialogService,
+            IFeatureRegistry featureRegistry)
             : base(navigationService, logger, appTracker)
         {
             this.inAppBillingService = inAppBillingService ?? throw new ArgumentNullException(nameof(inAppBillingService));
             this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
+            this.featureRegistry = featureRegistry ?? throw new ArgumentNullException(nameof(featureRegistry));
         }
         #endregion
 
@@ -69,7 +79,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 switch (product.ProductId)
                 {
-                    case var _ when product.ProductId == PreferenceKeys.PremiumGeneral:
+                    case var _ when product.ProductId == featureRegistry.GetFeature<PremiumFeature>()?.StoreId:
                         product.Image = "premium.png";
                         break;
                     default:
@@ -113,6 +123,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (success && !cancelledByUser)
                 {
                     Product.Purchased = true;
+                    featureRegistry.Update(Product.ProductId, success);
                     await NavigationService.GoBackAsync();
                 }
             }

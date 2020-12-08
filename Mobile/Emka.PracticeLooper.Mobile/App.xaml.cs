@@ -17,6 +17,7 @@ using Emka3.PracticeLooper.Utils;
 using System.Linq;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Emka.PracticeLooper.Services.Contracts.Common;
+using Emka3.PracticeLooper.Config.Contracts.Features;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -82,7 +83,7 @@ namespace Emka.PracticeLooper.Mobile
             resolver.RegisterInstance(new DialogService(), typeof(IDialogService));
             resolver.Register(typeof(StringLocalizer), typeof(IStringLocalizer));
             // Build container after platform implementations have been registered
-            MappingsFactory.Factory.GetResolver().BuildContainer();
+            resolver.BuildContainer();
 
             if (!DeviceDisplay.KeepScreenOn)
             {
@@ -93,10 +94,16 @@ namespace Emka.PracticeLooper.Mobile
             {
                 SecureStorage.RemoveAll();
             }
-#if PREMIUM
             var configService = resolver.Resolve<IConfigurationService>();
-            configService.SetSecureValue(PreferenceKeys.PremiumGeneral, true);
+            var purchaseItems = configService.GetValue<Dictionary<string, object>>("PurchaseItems");
+            var premiumItemId = Device.RuntimePlatform == Device.iOS ? purchaseItems["IosPremiumLifetime"].ToString() : purchaseItems["AndroidPremiumLifetime"].ToString();
+            var premiumFeature = new PremiumFeature(premiumItemId);
+            var featureRegistry = resolver.Resolve<IFeatureRegistry>();
+#if PREMIUM
+            configService.SetSecureValue(premiumItemId, true);
 #endif
+            var hasPremium = configService.GetSecureValue<bool>(premiumItemId);
+            featureRegistry.Add(premiumFeature, hasPremium);
         }
 
         private async Task InitNavigation()

@@ -1,4 +1,4 @@
-// Copyright (C)  - All Rights Reserved
+ // Copyright (C)  - All Rights Reserved
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
@@ -23,6 +23,7 @@ using System.IO;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using System.Net;
 using System.Threading;
+using Emka3.PracticeLooper.Config.Contracts.Features;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -41,7 +42,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private Mobile.Common.IFilePicker filePicker;
         private readonly IConnectivityService connectivityService;
         private readonly IConfigurationService configurationService;
-        private readonly IInAppBillingService inAppBillingService;
+        private readonly IFeatureRegistry featureRegistry;
         private Command playCommand;
         private Command createSessionCommand;
         private Command deleteSessionCommand;
@@ -75,8 +76,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             ILogger logger,
             IAppTracker appTracker,
             IConfigurationService configurationService,
-            IInAppBillingService inAppBillingService,
-            IEnumerable<IAudioPlayer> audioPlayers)
+            IEnumerable<IAudioPlayer> audioPlayers,
+            IFeatureRegistry featureRegistry)
             : base(navigationService, logger, appTracker)
         {
             this.interstitialAd = interstitialAd ?? throw new ArgumentNullException(nameof(interstitialAd));
@@ -90,7 +91,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.filePicker = filePicker ?? throw new ArgumentNullException(nameof(filePicker));
             this.connectivityService = connectivityService ?? throw new ArgumentNullException(nameof(connectivityService));
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
-            this.inAppBillingService = inAppBillingService ?? throw new ArgumentNullException(nameof(inAppBillingService));
+            this.featureRegistry = featureRegistry ?? throw new ArgumentNullException(nameof(featureRegistry));
             AudioPlayers = audioPlayers?.ToList() ?? throw new ArgumentNullException(nameof(audioPlayers));
 
             MessagingCenter.Subscribe<SpotifySearchViewModel, AudioSource>(this, MessengerKeys.NewTrackAdded, (sender, audioSorce) => CreateSessionCommand.Execute(audioSorce));
@@ -406,7 +407,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         CurrentAudioPlayer?.Pause();
                     }
 
-                    if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral))
+                    if (!featureRegistry.IsEnabled<PremiumFeature>())
                     {
                         if (CurrentSession != null)
                         {

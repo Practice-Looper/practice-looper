@@ -2,59 +2,119 @@
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Emka3.PracticeLooper.Config.Contracts;
+using Emka3.PracticeLooper.Config.Contracts.Features;
+using Emka3.PracticeLooper.Utils;
 
 namespace Emka3.PracticeLooper.Config.Feature
 {
-    public static class FeatureRegistry
+    [Preserve(AllMembers = true)]
+    public class FeatureRegistry : IFeatureRegistry
     {
+        private readonly Dictionary<object, List<Action<bool>>> features;
         #region Ctor
 
-        static FeatureRegistry()
+        public FeatureRegistry()
         {
-            Features = new Dictionary<object, object>();
+            features = new Dictionary<object, List<Action<bool>>>();
         }
-        #endregion
 
-        #region Properties
-
-        public static Dictionary<object, object> Features { get; private set; }
-
+        public void Add<T>(T feature, bool enabled) where T : IFeature
+        {
+            if (!features.Keys.Any(k => k.GetType() == typeof(FeatureToggle<T>)))
+            {
+                features.Add(new FeatureToggle<T>(feature, enabled), new List<Action<bool>>());
+            }
+        }
         #endregion
 
         #region Methods
-
-        public static void Add<T>(bool enabled, string name = "") where T : IFeature
+        public void Clear()
         {
-            if (!string.IsNullOrEmpty(name) && !Features.ContainsKey(name))
+            if (features != null && features.Any())
             {
-                Features.Add(name, new FeatureToggle<T>(enabled));
-            }
-            else
-            {
-                Features.Add(typeof(T), new FeatureToggle<T>(enabled));
+                features.Clear();
             }
         }
 
-        public static void Add<T>(string name = "") where T : IFeature
+        public IFeature GetFeature<T>() where T : IFeature
         {
-            Add<T>(true, name);
+            var toggle = features.Keys.FirstOrDefault(k => k.GetType() == typeof(FeatureToggle<T>)) as FeatureToggle<T>;
+            var feature = toggle?.Feature;
+            return feature;
         }
 
-        public static bool IsEnabled<T>(string name = "") where T : IFeature
+        public bool IsEnabled<T>() where T : IFeature
         {
-            var feature = string.IsNullOrEmpty(name) ? Features[typeof(T)] as FeatureToggle<T> : Features[name] as FeatureToggle<T>;
-            return feature != null && feature.Enabled;
+            var toggle = features.Keys.FirstOrDefault(k => k.GetType() == typeof(FeatureToggle<T>)) as FeatureToggle<T>;
+            var enabled = toggle != null && toggle.IsEnabled;
+            return enabled;
         }
 
-        public static void Clear()
+        public void RegisterForUpdates<T>(Action<bool> callback) where T : IFeature
         {
-            if (Features != null && Features.Any())
+            if (callback == null)
             {
-                Features.Clear();
+                throw new ArgumentNullException(nameof(callback));
             }
+
+            var toggle = features.Keys.FirstOrDefault(k => k.GetType() == typeof(FeatureToggle<T>)) as FeatureToggle<T>;
+
+            if (toggle == null)
+            {
+                throw new InvalidOperationException("feature not registered!");
+            }
+
+            features[toggle].Add(callback);
+        }
+
+        public void Update<T>(bool enabled) where T : IFeature
+        {
+            var toggle = features.Keys.FirstOrDefault(k => k.GetType() == typeof(FeatureToggle<T>)) as FeatureToggle<T>;
+            if (toggle == null)
+            {
+                throw new InvalidOperationException("feature not registered!");
+            }
+
+            toggle.IsEnabled = enabled;
+
+            // are there any listeners?
+            if (features[toggle].Any())
+            {
+                foreach (var action in features[toggle])
+                {
+                    action.Invoke(toggle.IsEnabled);
+                }
+            }
+        }
+
+        public void Update(string storeId, bool isEnabled)
+        {
+            if (string.IsNullOrWhiteSpace(storeId))
+            {
+                throw new ArgumentNullException(nameof(storeId));
+            }
+
+            IFeature feature = null;
+
+            var toggle = features.Keys.FirstOrDefault(k =>
+            {
+                var keyType = k.GetType();
+                feature = keyType?.GetProperty("Feature")?.GetValue(k) as IFeature;
+                var id = feature?.GetType()?.GetProperty("StoreId")?.GetValue(feature) as string;
+                return id == storeId;
+            });
+
+            if (toggle == null || feature == null)
+            {
+                throw new InvalidOperationException("feature not registered!");
+            }
+
+            var updateMethod = GetType().GetMethod("Update", new[] { typeof(bool) }).MakeGenericMethod(new[] { feature.GetType() });
+            updateMethod.Invoke(this, new object[] { isEnabled });
         }
         #endregion
     }

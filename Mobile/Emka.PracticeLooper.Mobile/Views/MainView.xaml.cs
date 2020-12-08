@@ -16,6 +16,7 @@ using Syncfusion.SfRangeSlider.XForms;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using Emka3.PracticeLooper.Config.Contracts.Features;
 
 namespace Emka.PracticeLooper.Mobile.Views
 {
@@ -25,6 +26,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         #region Fields
 
         private readonly IConfigurationService configService;
+        private readonly IFeatureRegistry featureRegistry;
         private IResolver resolver;
         #endregion
 
@@ -35,7 +37,7 @@ namespace Emka.PracticeLooper.Mobile.Views
 
             resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
             configService = resolver.Resolve<IConfigurationService>();
-            configService.ValueChanged += ConfigService_ValueChanged;
+            featureRegistry = resolver.Resolve<IFeatureRegistry>();
             picker.BindingContext = new RangePickerViewModel(resolver.Resolve<IDialogService>(), resolver.Resolve<ILogger>(), resolver.Resolve<INavigationService>(), resolver.Resolve<IAppTracker>());
             BindingContext = new MainViewModel(resolver.Resolve<IInterstitialAd>(),
                    resolver.Resolve<IRepository<Session>>(),
@@ -51,9 +53,8 @@ namespace Emka.PracticeLooper.Mobile.Views
                    resolver.Resolve<ILogger>(),
                    resolver.Resolve<IAppTracker>(),
                    configService,
-                   resolver.Resolve<IInAppBillingService>(),
-                   resolver.ResolveAll<IAudioPlayer>()
-                   );
+                   resolver.ResolveAll<IAudioPlayer>(),
+                   resolver.Resolve<IFeatureRegistry>());
         }
         #endregion
 
@@ -64,20 +65,20 @@ namespace Emka.PracticeLooper.Mobile.Views
         #region Methods
         protected override void OnAppearing()
         {
+            AdUnitId = App.BannerAddUnitId;
             SettingsImage.Color = (Color)Application.Current.Resources["PrimaryColor"];
+            featureRegistry.RegisterForUpdates<PremiumFeature>(OnPremiumFeatureUpdated);
+            ToggleAd();
+        }
+
+        private void OnPremiumFeatureUpdated(bool enabled)
+        {
             ToggleAd();
         }
 
         private void ToggleAd()
         {
-            if (configService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral))
-            {
-                MainGrid.Children.Remove(AdmobBanner);
-            }
-            else
-            {
-                AdUnitId = App.BannerAddUnitId;
-            }
+            AdmobBanner.IsVisible = !featureRegistry.IsEnabled<PremiumFeature>();
         }
 
         void OnDeleteSession(object sender, EventArgs e)
@@ -208,20 +209,12 @@ namespace Emka.PracticeLooper.Mobile.Views
             }
         }
 
-        private void ConfigService_ValueChanged(object sender, string e)
-        {
-            if (e == PreferenceKeys.PremiumGeneral)
-            {
-                ToggleAd();
-            }
-        }
-
         void OnPickerClosed(object sender, EventArgs e)
         {
             picker.SelectionChanged -= SelectionChanged;
         }
         #endregion
-        
+
     }
 
 

@@ -3,10 +3,13 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Emka.PracticeLooper.Mobile.iOS.Renderer;
 using Emka.PracticeLooper.Mobile.Views;
 using Emka3.PracticeLooper.Config.Contracts;
+using Emka3.PracticeLooper.Config.Contracts.Features;
 using Google.MobileAds;
 using UIKit;
 using Xamarin.Forms;
@@ -20,13 +23,16 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
     {
         #region Fields
         private readonly IConfigurationService configurationService;
+        private readonly IFeatureRegistry featureRegistry;
         #endregion
 
         #region Ctor
 
         public AdMobViewRenderer()
         {
-            configurationService = MappingsFactory.Factory.GetResolver().Resolve<IConfigurationService>();
+            var resolver = MappingsFactory.Factory.GetResolver() ?? throw new ArgumentNullException("resolver");
+            configurationService = resolver.Resolve<IConfigurationService>();
+            featureRegistry = resolver.Resolve<IFeatureRegistry>() ?? throw new ArgumentNullException(nameof(featureRegistry));
         }
         #endregion
 
@@ -35,9 +41,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
         protected override void OnElementChanged(ElementChangedEventArgs<AdMobView> e)
         {
             base.OnElementChanged(e);
-            if (!configurationService.GetSecureValue<bool>(PreferenceKeys.PremiumGeneral) && Control == null)
+            if (!featureRegistry.IsEnabled<PremiumFeature>() && Control == null)
             {
-                SetNativeControl(CreateBannerView());
+                var bannerView = CreateBannerView();
+                SetNativeControl(bannerView);
             }
         }
 
@@ -62,7 +69,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
             Request GetRequest()
             {
                 var request = Request.GetDefaultRequest();
-                MobileAds.SharedInstance.RequestConfiguration.TestDeviceIdentifiers = new[] { "6fb304bbcc401debac41d2255509463f", "3408f4ee8f8d77f2efcbf255ead140d6" };
+                MobileAds.SharedInstance.RequestConfiguration.TestDeviceIdentifiers = new[] { "6fb304bbcc401debac41d2255509463f", "3408f4ee8f8d77f2efcbf255ead140d6", "4110822911a7f735dfffac62fcceea46" };
                 return request;
             }
 
