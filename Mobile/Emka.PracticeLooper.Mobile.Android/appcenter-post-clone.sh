@@ -29,7 +29,7 @@ echo "{
 	AdmobAndroidTopBannerAdId: \"$AdmobAndroidTopBannerAdId\",
 	AdmobAndroidInterstitialProjectAdId: \"$AdmobAndroidInterstitialProjectAdId\",
 	DbName: \"$DbName\",
-	InAppIosPremiumGeneral: {
+	PurchaseItems: {
 		IosPremiumLifetime: \"$IosPremiumLifetime\",
     	AndroidPremiumLifetime: \"$AndroidPremiumLifetime\"
 	},
