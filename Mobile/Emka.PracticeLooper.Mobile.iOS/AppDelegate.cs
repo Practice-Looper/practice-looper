@@ -20,6 +20,9 @@ using Emka3.PracticeLooper.Config.Contracts;
 using Emka.PracticeLooper.Mobile.iOS.Common;
 using Xamarin.Forms;
 using AVFoundation;
+using Emka3.PracticeLooper.Services.Contracts.Rest;
+using Emka.PracticeLooper.Mobile.iOS.Renderer;
+using Emka3.PracticeLooper.Model.Player;
 
 namespace Emka.PracticeLooper.Mobile.iOS
 {
@@ -67,16 +70,25 @@ namespace Emka.PracticeLooper.Mobile.iOS
         {
             try
             {
+                var resolver = Factory.GetResolver();
+                var configService = resolver.Resolve<IConfigurationService>();
                 var spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
-                var api = spotifyLoader.RemoteApi as SPTAppRemote;
-                NSDictionary authParams = api.AuthorizationParametersFromURL(url);
-                var token = authParams[Constants.SPTAppRemoteAccessTokenKey].ToString();
-
-                if (!string.IsNullOrEmpty(token))
+                if (spotifyLoader.IsSpotifyInstalled())
                 {
-                    spotifyLoader.Token = token;
-                    var accountMngr = Factory.GetResolver().Resolve<ITokenStorage>();
-                    accountMngr.UpdateTokenAsync(token).Wait();
+                    var api = spotifyLoader.RemoteApi as SPTAppRemote;
+                    NSDictionary authParams = api.AuthorizationParametersFromURL(url);
+                    var token = authParams[Constants.SPTAppRemoteAccessTokenKey].ToString();
+
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        spotifyLoader.Token = token;
+                        var accountMngr = Factory.GetResolver().Resolve<ITokenStorage>();
+                        accountMngr.UpdateAccessToken(AudioSourceType.Spotify, token, int.MaxValue);
+                    }
+                }
+                else
+                {
+                    spotifyLoader.Authenticator.OnPageLoading(new Uri(url.AbsoluteString));
                 }
             }
             catch (Exception ex)
@@ -111,6 +123,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
             AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(configService.GetValue("SyncFusionLicenseKey"));
             configService.SetValue(PreferenceKeys.InternalStoragePath, FileSystem.AppDataDirectory);
+            configService.SetValue("Platform", CurrentPlatform.iOS);
             var resolver = Factory.GetResolver() ?? throw new ArgumentNullException("resolver");
             resolver.RegisterInstance(configService, typeof(IConfigurationService));
             resolver.RegisterSingleton(typeof(InAppBillingService), typeof(IInAppBillingService));

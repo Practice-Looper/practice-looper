@@ -17,9 +17,8 @@ using Com.Spotify.Android.Appremote.Api.Error;
 using Com.Spotify.Sdk.Android.Auth;
 using Emka3.PracticeLooper.Model;
 using Emka3.PracticeLooper.Config.Contracts;
-using Emka.PracticeLooper.Services.Contracts;
 using Android.Content.PM;
-using Emka.PracticeLooper.Services.Contracts.Common;
+using Emka3.PracticeLooper.Model.Player;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Common
 {
@@ -32,30 +31,28 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         private string token;
         private readonly IConfigurationService configurationService;
         private readonly ILogger logger;
-        private readonly IDialogService dialogService;
-        private readonly IStringLocalizer stringLocalizer;
+        private readonly ITokenStorage tokenStorage;
         #endregion
 
         #region Ctor
 
         public SpotifyLoader(ILogger logger,
-            IStringLocalizer stringLocalizer,
             IConfigurationService configurationService,
-            IDialogService dialogService)
+            ITokenStorage tokenStorage)
         {
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.stringLocalizer = stringLocalizer ?? throw new ArgumentNullException(nameof(stringLocalizer));
-            this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
+            this.tokenStorage = tokenStorage ?? throw new ArgumentNullException(nameof(tokenStorage));
         }
         #endregion
 
         #region Events
-
+        public event EventHandler<AudioSourceType> WebAuthorizationRequested;
         public event EventHandler Disconnected;
         #endregion
 
         #region Properties
+        public OAuthAuthenticator Authenticator { get; private set; }
         public object RemoteApi => api;
 
         public string Token
@@ -76,7 +73,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
-                var connectionTimeout = configurationService.GetValue<int>("SpotifyConnectionTimeOut");
+                var connectionTimeout = IsSpotifyInstalled() ? configurationService.GetValue<int>("SpotifyConnectionTimeOut") : 240;
 
                 StartAuthorization();
                 tokenEvent.WaitOne(TimeSpan.FromSeconds(connectionTimeout));
@@ -84,7 +81,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 StartConnection();
                 connectedEvent.WaitOne(TimeSpan.FromSeconds(connectionTimeout));
 
-                Authorized = api != null && api.IsConnected && !string.IsNullOrEmpty(token);
                 return Authorized;
             }
             catch (System.Exception ex)
@@ -111,6 +107,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         public void OnConnected(SpotifyAppRemote api)
         {
             this.api = api;
+            Authorized = api != null && api.IsConnected && !string.IsNullOrEmpty(token);
             connectedEvent.Set();
         }
 
@@ -162,30 +159,45 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         private void StartAuthorization()
         {
-            var clientId = configurationService.GetValue("SpotifyClientId");
-            var redirectUri = configurationService.GetValue("SpotifyClientRedirectUri");
-            var requestCode = configurationService.GetValue<int>("SpotifyClientRequestCode");
-            var scopes = configurationService.GetValue<string>("SpotifyClientScopes");
+            var isSpotifyInstalled = IsSpotifyInstalled();
 
-            AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(clientId, AuthorizationResponse.Type.Token, redirectUri);
+            if (isSpotifyInstalled)
+            {
+                var clientId = configurationService.GetValue("SpotifyClientId");
+                var redirectUri = configurationService.GetValue("SpotifyClientRedirectUri");
+                var requestCode = configurationService.GetValue<int>("SpotifyClientRequestCode");
+                var scopes = configurationService.GetValue<string>("SpotifyClientScopes");
 
-            builder.SetScopes(scopes.Split(" "));
-            var request = builder.Build();
-            MainThread.BeginInvokeOnMainThread(() => AuthorizationClient.OpenLoginActivity(GlobalApp.MainActivity, Convert.ToInt32(requestCode), request));
+                AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(clientId, Com.Spotify.Sdk.Android.Auth.AuthorizationResponse.Type.Token, redirectUri);
+
+                builder.SetScopes(scopes.Split(" "));
+                var request = builder.Build();
+                MainThread.BeginInvokeOnMainThread(() => AuthorizationClient.OpenLoginActivity(GlobalApp.MainActivity, Convert.ToInt32(requestCode), request));
+            }
+            else
+            {
+                OnWebAuthorizationRequested();
+            }
         }
 
         private void StartConnection()
         {
-            var clientId = configurationService.GetValue("SpotifyClientId");
-            var redirectUri = configurationService.GetValue("SpotifyClientRedirectUri");
-            var requestCode = configurationService.GetValue<int>("SpotifyClientRequestCode");
-            var scopes = configurationService.GetValue<string>("SpotifyClientScopes");
-            ConnectionParams connectionParams = new ConnectionParams
-            .Builder(clientId)
-            .SetRedirectUri(redirectUri)
-            .ShowAuthView(true)
-            .Build();
-            MainThread.BeginInvokeOnMainThread(() => SpotifyAppRemote.Connect(Application.Context, connectionParams, this));
+            if (IsSpotifyInstalled())
+            {
+                var clientId = configurationService.GetValue("SpotifyClientId");
+                var redirectUri = configurationService.GetValue("SpotifyClientRedirectUri");
+                var requestCode = configurationService.GetValue<int>("SpotifyClientRequestCode");
+                var scopes = configurationService.GetValue<string>("SpotifyClientScopes");
+                ConnectionParams connectionParams = new ConnectionParams
+                .Builder(clientId)
+                .SetRedirectUri(redirectUri)
+                .ShowAuthView(true)
+                .Build();
+                MainThread.BeginInvokeOnMainThread(() => SpotifyAppRemote.Connect(Application.Context, connectionParams, this));
+                return;
+            }
+
+            connectedEvent.Set();
         }
 
         public void InstallSpotify()
@@ -230,6 +242,48 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             }
 
             return result;
+        }
+
+        public OAuthAuthenticator GetAuthenticator()
+        {
+            var id = configurationService.GetValue("SpotifyClientId");
+            var secret = configurationService.GetValue("SpotifyClientSecret");
+            var scopes = configurationService.GetValue("SpotifyClientScopes");
+            var callbackUri = configurationService.GetValue("SpotifyClientRedirectUri");
+            var tokenUri = configurationService.GetValue("SpotifyClientTokenUri");
+            var authUri = configurationService.GetValue("SpotifyClientAuthUri");
+
+            Authenticator = new OAuthAuthenticator(id, secret, scopes, new Uri(authUri), new Uri(callbackUri), new Uri(tokenUri), null, true);
+            Authenticator.Completed += async (s, e) =>
+            {
+                Authorized = e.IsAuthenticated;
+                if (e.IsAuthenticated)
+                {
+                    token = e.Account.Properties["access_token"];
+                    var expirationTime = e.Account.Properties["expires_in"];
+                    tokenStorage.UpdateAccessToken(AudioSourceType.Spotify, token, int.Parse(expirationTime));
+                    var refreshToken = e.Account.Properties["refresh_token"];
+                    await tokenStorage.UpdateRefreshTokenAsync(AudioSourceType.Spotify, refreshToken);
+                }
+
+                tokenEvent.Set();
+                connectedEvent.Set();
+            };
+
+            return Authenticator;
+        }
+
+        private async void OnWebAuthorizationRequested()
+        {
+            Authorized = await tokenStorage.HasRefreshToken(AudioSourceType.Spotify);
+            if (!Authorized)
+            {
+                WebAuthorizationRequested.Invoke(this, AudioSourceType.Spotify);
+            }
+            else
+            {
+                tokenEvent.Set();
+            }
         }
         #endregion
     }

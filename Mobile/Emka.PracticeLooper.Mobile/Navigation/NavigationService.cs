@@ -96,7 +96,6 @@ namespace Emka.PracticeLooper.Mobile.Navigation
                 {
                     { "TargetPage",  page?.ToString()}
                 });
-                await (page.BindingContext as ViewModelBase).InitializeAsync(parameter);
             }
             catch (Exception ex)
             {
@@ -143,6 +142,7 @@ namespace Emka.PracticeLooper.Mobile.Navigation
             try
             {
                 page = Activator.CreateInstance(pageType) as Page;
+                (page.BindingContext as ViewModelBase).InitializeAsync(parameter);
             }
             catch (Exception ex)
             {

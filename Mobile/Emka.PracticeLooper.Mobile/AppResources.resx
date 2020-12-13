@@ -309,6 +309,16 @@
         xml:space="preserve">
         <value>The selected file could not be added because there is not enough free space.</value>
     </data>
+     <data
+        name="Error_Content_NoActivePlayer"
+        xml:space="preserve">
+        <value>No active Spotify player found. Log in to the web player and play any song.</value>
+    </data>
+    <data
+        name="Error_Content_WebViewNavigationError"
+        xml:space="preserve">
+        <value>Something went wrong! Check your internet connection and try again.</value>
+    </data>
     <!--Hint Dialogs-->
     <data
         name="Hint_Caption_AlreadyPurchased"
@@ -328,7 +338,7 @@
     <data
         name="Hint_Content_SlowConnection"
         xml:space="preserve">
-        <value>Your internet connection seems to be slow. This may impact the experience:</value>
+        <value>Your internet connection seems to be slow. This may impact the experience.</value>
     </data>
     <data
         name="Hint_Caption_FileTooLong_Caption"

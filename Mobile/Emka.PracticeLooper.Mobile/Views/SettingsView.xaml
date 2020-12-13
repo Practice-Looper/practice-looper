@@ -2,15 +2,15 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     x:Class="Emka.PracticeLooper.Mobile.Views.SettingsView"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
+    xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views"
     Style="{StaticResource PageMainStyle}"
     Title="{x:Static rsrcs:AppResources.SettingsView_Title}"
-    ios:Page.UseSafeArea="true"
-    Padding="10">
-    <Grid>
+    ios:Page.UseSafeArea="True">
+    <Grid
+        Padding="10">
         <Grid.RowDefinitions>
             <RowDefinition
                 Height="*" />
@@ -26,8 +26,10 @@
             FontSize="Body"
             Text="{x:Static rsrcs:AppResources.SettingsView_NoUpgradesDescription}"
             IsVisible="False"
-            TextColor="{DynamicResource SecondaryColor}"
-            Margin="0,50">
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            TextColor="{DynamicResource SecondaryColor}">
             <Label.Style>
                 <Style
                     TargetType="Label">
@@ -52,8 +54,7 @@
             ItemsSource="{Binding Products}"
             ItemTapped="ListView_ItemTapped"
             VerticalOptions="Start"
-            HorizontalOptions="FillAndExpand"
-            Margin="0,25">
+            HorizontalOptions="FillAndExpand">
             <ListView.Header>
                 <Label
                     Text="{x:Static rsrcs:AppResources.SettingsView_ListView_Header}"
@@ -152,7 +153,7 @@
                 x:Name="SchemeSwitch"
                 OnColor="{DynamicResource SecondaryColor}"
                 HorizontalOptions="End"
-                VerticalOptions="Center"/>
+                VerticalOptions="Center" />
             <Button
                 Grid.Row="1"
                 Grid.Column="0"

@@ -1,4 +1,4 @@
- // Copyright (C)  - All Rights Reserved
+// Copyright (C)  - All Rights Reserved
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
@@ -24,6 +24,7 @@ using Emka3.PracticeLooper.Services.Contracts.Rest;
 using System.Net;
 using System.Threading;
 using Emka3.PracticeLooper.Config.Contracts.Features;
+using Emka3.PracticeLooper.Model.Common;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -48,9 +49,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private Command deleteSessionCommand;
         private Command pickSourceCommand;
         private Command navigateToSettingsCommand;
+        private Command toggleSpotifyWebPlayerCommand;
+        private Command spotifyWebPlayeRefreshCommand;
+        private Command spotifyWebPlayerGoBackCommand;
+        private Command spotifyWebPlayerGoForwardCommand;
         private SessionViewModel currentSession;
         private Loop currentLoop;
         private bool isPlaying;
+        private bool showCallToAction;
         private double minimumValue;
         private double maximumValue;
         private string songDuration;
@@ -59,6 +65,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private bool isBusy;
         private bool isPremiumUser;
         private double stepFrequency;
+        private bool isSpotifyWebPlayerVisible;
+        private TaskCompletionSource<bool> spotifyWebPlayerActivationTokenSource;
+        private TaskCompletionSource<bool> spotifyWebPlayerLoadedTokenSource;
+        private bool spotifyWebPlayerHasBeenLoaded;
+        private bool spotifyWebPlayerHasBeenActivated;
+        private string spotifyDeviceId;
+        private readonly CurrentPlatform currentPlatform;
         #endregion
 
         #region Ctor
@@ -98,22 +111,41 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             MessagingCenter.Subscribe<SessionViewModel, SessionViewModel>(this, MessengerKeys.DeleteSession, (sender, arg) => DeleteSessionCommand.Execute(arg));
             MessagingCenter.Subscribe<SessionDetailsViewModel, LoopViewModel>(this, MessengerKeys.LoopChanged, OnLoopChanged);
             MessagingCenter.Subscribe<LoopViewModel, Loop>(this, MessengerKeys.DeleteLoop, OnDeleteLoop);
-
+            MessagingCenter.Subscribe<object, bool>(this, MessengerKeys.SpotifyWebPlayerLoaded, OnSpotifyWebPlayerPlayerLoaded);
+            MessagingCenter.Subscribe<object, bool>(this, MessengerKeys.SpotifyPlayerActivated, OnSpotifyWebPlayerActivated);
+            MessagingCenter.Subscribe<object>(this, MessengerKeys.WebViewRefreshInitialized, OnWebViewRefreshInitialized);
             Sessions = new ObservableCollection<SessionViewModel>();
             isPlaying = false;
+            currentPlatform = configurationService.GetValue<CurrentPlatform>("Platform");
+            showCallToAction = configurationService.GetValue<bool>("IsFirstLaunchEver") && currentPlatform == CurrentPlatform.iOS;
             UiContext = SynchronizationContext.Current;
         }
+
         #endregion
 
         #region Properties
-        public Command DeleteSessionCommand => deleteSessionCommand ?? (deleteSessionCommand = new Command(async (o) => await ExecuteDeleteSessionCommandAsync(o)));
-        public Command PlayCommand => playCommand ?? (playCommand = new Command(async (o) => await ExecutePlayCommand(o), CanExecutePlayCommand));
-        public Command CreateSessionCommand => createSessionCommand ?? (createSessionCommand = new Command(async (o) => await ExecuteCreateSessionCommandAsync(o), CanExecuteCreateSessionCommand));
-        public Command PickSourceCommand => pickSourceCommand ?? (pickSourceCommand = new Command(async (o) => await ExecutePickSourceCommandAsync(o)));
-        public Command AddNewLoopCommand => addNewLoopCommand ?? (addNewLoopCommand = new Command(async (o) => await ExecuteAddNewLoopCommand(o), CanExecuteAddNewLoopCommand));
-        public Command NavigateToSettingsCommand => navigateToSettingsCommand ?? (navigateToSettingsCommand = new Command(async () => await ExecuteNavigateToSettingsCommand()));
+        public Command DeleteSessionCommand => deleteSessionCommand ??= new Command(async (o) => await ExecuteDeleteSessionCommandAsync(o));
+        public Command PlayCommand => playCommand ??= new Command(async (o) => await ExecutePlayCommand(o), CanExecutePlayCommand);
+        public Command CreateSessionCommand => createSessionCommand ??= new Command(async (o) => await ExecuteCreateSessionCommandAsync(o), CanExecuteCreateSessionCommand);
+        public Command PickSourceCommand => pickSourceCommand ??= new Command(async (o) => await ExecutePickSourceCommandAsync(o));
+        public Command AddNewLoopCommand => addNewLoopCommand ??= new Command(async (o) => await ExecuteAddNewLoopCommand(o), CanExecuteAddNewLoopCommand);
+        public Command NavigateToSettingsCommand => navigateToSettingsCommand ??= new Command(async () => await ExecuteNavigateToSettingsCommand());
+        public Command ToggleSpotifyWebPlayerCommand => toggleSpotifyWebPlayerCommand ??= new Command(ExecuteToggleSpotifyWebPlayerCommand);
+        public Command SpotifyWebPlayeRefreshCommand => spotifyWebPlayeRefreshCommand ??= new Command(ExecuteSpotifyWebPlayeRefreshCommand);
+        public Command SpotifyWebPlayerGoBackCommand => spotifyWebPlayerGoBackCommand ??= new Command(ExecuteSpotifyWebPlayerGoBackCommand);
+        public Command SpotifyWebPlayerGoForwardCommand => spotifyWebPlayerGoForwardCommand ??= new Command(ExecuteSpotifyWebPlayerGoForwardCommand);
 
         public IAudioPlayer CurrentAudioPlayer { get; private set; }
+
+        public bool IsSpotifyWebPlayerVisible
+        {
+            get => isSpotifyWebPlayerVisible;
+            set
+            {
+                isSpotifyWebPlayerVisible = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         public bool IsPlaying
         {
@@ -180,7 +212,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         public string LoopStartPosition
         {
-            get => CurrentLoop != null ? FormatTime(minimumValue * CurrentLoop.Session.AudioSource.Duration * 1000) : string.Empty;
+            get => CurrentLoop != null && CurrentLoop.Session != null ? FormatTime(minimumValue * CurrentLoop.Session.AudioSource.Duration * 1000) : string.Empty;
         }
 
         public string LoopEndPosition
@@ -193,6 +225,19 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public bool IsInitialized => CurrentSession != null;
 
         public ObservableCollection<SessionViewModel> Sessions { get; set; }
+
+        public bool ShowCallToAction
+        {
+            get { return showCallToAction; }
+            set
+            {
+                if (showCallToAction != value)
+                {
+                    showCallToAction = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         public SessionViewModel CurrentSession
         {
@@ -208,7 +253,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     StepFrequency = currentSession != null ? 1 / currentSession.Session.AudioSource.Duration : 0;
 
-                    InitAudioPlayer();
+                    LoadAudioPlayer();
 
                     if (configurationService.GetValue(PreferenceKeys.LastSession, default(int)) != currentSession.Session.Id)
                     {
@@ -217,7 +262,15 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                     if (isCurrentlyPlaying)
                     {
-                        PlayCommand.Execute(null);
+                        Task.Run(async () =>
+                        {
+                            await CurrentAudioPlayer?.PauseAsync();
+                            while (CurrentAudioPlayer.IsPlaying)
+                            {
+                                await Task.Delay(500);
+                            }
+                            PlayCommand.Execute(null);
+                        });
                     }
                 }
 
@@ -288,7 +341,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public List<IAudioPlayer> AudioPlayers { get; }
         #endregion
 
-        #region Metods
+        #region Methods
         public override async Task InitializeAsync(object parameter)
         {
             if (UiContext == null)
@@ -306,7 +359,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 if (items != null && items.Any())
                 {
-                    UiContext.Send(x =>
+                    UiContext?.Send(x =>
                             {
                                 foreach (var item in items)
                                 {
@@ -362,6 +415,21 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 Logger.LogError(ex);
                 dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
             }
+        }
+
+        private void ExecuteSpotifyWebPlayerGoBackCommand(object o)
+        {
+            MessagingCenter.Send<object>(this, MessengerKeys.WebViewGoBackToggled);
+        }
+
+        private void ExecuteSpotifyWebPlayerGoForwardCommand(object o)
+        {
+            MessagingCenter.Send<object>(this, MessengerKeys.WebViewGoForwardToggled);
+        }
+
+        private void ExecuteSpotifyWebPlayeRefreshCommand(object o)
+        {
+            MessagingCenter.Send<object>(this, MessengerKeys.WebViewRefreshInitialized);
         }
 
         private bool CanExecuteCreateSessionCommand(object arg)
@@ -447,75 +515,33 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 IsBusy = true;
 
-                if (IsPlaying)
+                if (CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying)
                 {
                     UiContext.Send(x => IsPlaying = false, null);
                     UiContext.Send(x => CurrentAudioPlayer.Pause(true), null);
                     CurrentAudioPlayer.PlayStatusChanged -= OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged -= OnCurrentTimePositionChanged;
-                    await interstitialAd?.ShowAdAsync();
                 }
                 else
                 {
+                    var initResult = false;
                     CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
 
                     if (CurrentAudioPlayer.Types.HasFlag(AudioSourceType.Spotify))
                     {
-                        // spotify installed on device?
-                        await configurationService.SetValueAsync(PreferenceKeys.IsSpotifyInstalled, spotifyLoader.IsSpotifyInstalled());
-                        if (!configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled))
-                        {
-                            await InitiateSpotifyInstallationAsync();
-                            return;
-                        }
-
-                        if (!spotifyApiService.UserPremiumCheckSuccessful)
-                        {
-                            var premiumCheck = await spotifyApiService.IsPremiumUser();
-                            IsPremiumUser = premiumCheck.Item2;
-
-                            if (!IsPremiumUser && premiumCheck.Item1.Equals(HttpStatusCode.OK))
-                            {
-                                await dialogService.ShowAlertAsync(AppResources.Error_Content_NoPremiumUser, AppResources.Hint_Caption_General);
-                                return;
-                            }
-                            else if (!IsPremiumUser && !premiumCheck.Item1.Equals(HttpStatusCode.OK))
-                            {
-                                await dialogService.ShowAlertAsync(AppResources.Error_Content_PremiumUserCheckFailed, AppResources.Hint_Caption_General);
-                                return;
-                            }
-                        }
-
+                        initResult = await HandleSpotifyPlayerInitialization();
                     }
 
-                    if (!CurrentAudioPlayer.Initialized)
+                    if (CurrentAudioPlayer.Types.HasFlag(AudioSourceType.LocalInternal | AudioSourceType.LocalExternal))
                     {
-                        try
-                        {
-                            await CurrentAudioPlayer.InitAsync(CurrentLoop);
-                        }
-                        catch (FileNotFoundException ex)
-                        {
-                            await Logger.LogErrorAsync(ex);
-                            var deleteFile = await dialogService.ShowConfirmAsync(AppResources.Error_Caption, AppResources.Error_Content_FileNotFound, AppResources.Cancel, AppResources.Ok);
-
-                            if (deleteFile)
-                            {
-                                DeleteSessionCommand.Execute(CurrentSession);
-                            }
-
-                            return;
-                        }
-                        catch (Exception ex)
-                        {
-                            await Logger.LogErrorAsync(ex);
-                            await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
-                            return;
-                        }
+                        initResult = await InitAudioPlayer(false);
                     }
 
-                    await CurrentAudioPlayer.PlayAsync();
+                    if (CurrentAudioPlayer.Initialized && initResult)
+                    {
+                        await CurrentAudioPlayer.PlayAsync();
+                    }
                 }
             }
             catch (Exception ex)
@@ -590,6 +616,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private async Task ExecutePickSourceCommandAsync(object o)
         {
+            ShowCallToAction = false;
+
             try
             {
                 UiContext.Send(x => IsBusy = true, null);
@@ -617,9 +645,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                         break;
                     case AudioSourceType.Spotify:
-                        // spotify installed on device?
-                        await configurationService.SetValueAsync(PreferenceKeys.IsSpotifyInstalled, spotifyLoader.IsSpotifyInstalled());
-                        if (!configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled))
+
+                        if (currentPlatform == CurrentPlatform.Droid && !spotifyLoader.IsSpotifyInstalled())
                         {
                             await InitiateSpotifyInstallationAsync();
                             return;
@@ -632,9 +659,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         }
 
                         // something went wrong and authorization failed
-                        if (configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled) && !spotifyLoader.Authorized)
+                        if (!spotifyLoader.Authorized)
                         {
                             await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToSpotify, AppResources.Error_Caption);
+                            return;
                         }
 
                         // everything fine, go to search view
@@ -705,7 +733,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        public void InitAudioPlayer()
+        public void LoadAudioPlayer()
         {
             try
             {
@@ -747,6 +775,95 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        public async Task<bool> InitAudioPlayer(bool useWebPlayer, string deviceId = null)
+        {
+            if (!CurrentAudioPlayer.Initialized)
+            {
+                try
+                {
+                    await CurrentAudioPlayer.InitAsync(CurrentLoop, useWebPlayer, deviceId);
+                }
+                catch (FileNotFoundException ex)
+                {
+                    await Logger.LogErrorAsync(ex);
+                    var deleteFile = await dialogService.ShowConfirmAsync(AppResources.Error_Caption, AppResources.Error_Content_FileNotFound, AppResources.Cancel, AppResources.Ok);
+
+                    if (deleteFile)
+                    {
+                        DeleteSessionCommand.Execute(CurrentSession);
+                    }
+
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    await Logger.LogErrorAsync(ex);
+                    await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public async Task<bool> HandleSpotifyPlayerInitialization()
+        {
+            var isSpotifyInstalled = spotifyLoader.IsSpotifyInstalled();
+            if (!isSpotifyInstalled)
+            {
+                if (currentPlatform == CurrentPlatform.iOS)
+                {
+                    if (!spotifyWebPlayerHasBeenLoaded)
+                    {
+                        await StartLoadingSpotifyWebPlayer();
+                    }
+
+                    if (spotifyWebPlayerHasBeenLoaded && !spotifyWebPlayerHasBeenActivated)
+                    {
+                        await StartSpotifyWebPlayerActivation();
+                    }
+
+                    if (spotifyWebPlayerHasBeenActivated && string.IsNullOrWhiteSpace(spotifyDeviceId))
+                    {
+                        spotifyDeviceId = await AwaitWebPlayerActivation();
+                    }
+
+                    if (string.IsNullOrWhiteSpace(spotifyDeviceId))
+                    {
+                        await dialogService.ShowAlertAsync(AppResources.Error_Content_NoActivePlayer, AppResources.Error_Caption);
+                        IsBusy = false;
+                        return false;
+                    }
+                }
+                else
+                {
+                    await InitiateSpotifyInstallationAsync();
+                    return false;
+                }
+            }
+
+            await InitAudioPlayer(!isSpotifyInstalled, spotifyDeviceId);
+
+            if (!spotifyApiService.UserPremiumCheckSuccessful)
+            {
+                var premiumCheck = await spotifyApiService.IsPremiumUser();
+                IsPremiumUser = premiumCheck.Item2;
+
+                if (!IsPremiumUser && premiumCheck.Item1.Equals(HttpStatusCode.OK))
+                {
+                    await dialogService.ShowAlertAsync(AppResources.Error_Content_NoPremiumUser, AppResources.Hint_Caption_General);
+                    return false;
+                }
+                else if (!IsPremiumUser && !premiumCheck.Item1.Equals(HttpStatusCode.OK))
+                {
+                    await dialogService.ShowAlertAsync(AppResources.Error_Content_PremiumUserCheckFailed, AppResources.Hint_Caption_General);
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private void OnPlayingStatusChanged(object sender, bool e)
@@ -852,6 +969,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private async Task ExecuteNavigateToSettingsCommand()
         {
+            if (CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying)
+            {
+                CurrentAudioPlayer.Pause(true);
+            }
+
             await NavigationService?.NavigateToAsync<SettingsViewModel>();
         }
 
@@ -885,6 +1007,113 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 spotifyLoader.InstallSpotify();
             }
+        }
+
+        private void OnSpotifyWebPlayerPlayerLoaded(object sender, bool success)
+        {
+            spotifyWebPlayerHasBeenLoaded = success;
+            Task.Run(() => spotifyWebPlayerLoadedTokenSource?.TrySetResult(success));
+        }
+
+        private void OnSpotifyWebPlayerActivated(object sender, bool success)
+        {
+            spotifyWebPlayerHasBeenActivated = success;
+            Task.Run(() => spotifyWebPlayerActivationTokenSource?.SetResult(success));
+        }
+
+        private async Task<bool> StartLoadingSpotifyWebPlayer()
+        {
+            if (spotifyWebPlayerHasBeenLoaded)
+            {
+                return true;
+            }
+
+            try
+            {
+                UiContext.Send(x => MessagingCenter.Send(this, MessengerKeys.WebViewInit), null);
+                spotifyWebPlayerLoadedTokenSource = new TaskCompletionSource<bool>();
+                UiContext.Send(x => MessagingCenter.Send(this, MessengerKeys.SpotifyLoadWebPlayer), null);
+                spotifyWebPlayerHasBeenLoaded = await spotifyWebPlayerLoadedTokenSource.Task;
+                IsSpotifyWebPlayerVisible = !spotifyWebPlayerHasBeenLoaded;
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogErrorAsync(ex);
+            }
+            finally
+            {
+                IsSpotifyWebPlayerVisible = false;
+            }
+
+            return spotifyWebPlayerHasBeenLoaded;
+        }
+
+        private async Task<bool> StartSpotifyWebPlayerActivation()
+        {
+            try
+            {
+                if (!spotifyWebPlayerHasBeenLoaded)
+                {
+                    return false;
+                }
+
+                IsSpotifyWebPlayerVisible = true;
+                spotifyWebPlayerActivationTokenSource = new TaskCompletionSource<bool>();
+                UiContext.Send(x => MessagingCenter.Send(this, MessengerKeys.SpotifyActivatePlayer), null);
+                spotifyWebPlayerHasBeenActivated = await spotifyWebPlayerActivationTokenSource.Task;
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogErrorAsync(ex);
+            }
+            finally
+            {
+                IsSpotifyWebPlayerVisible = false;
+            }
+
+            return spotifyWebPlayerHasBeenLoaded && spotifyWebPlayerHasBeenActivated;
+        }
+
+        private async Task<string> AwaitWebPlayerActivation()
+        {
+            var retries = 4;
+            string id = null;
+            try
+            {
+                while (retries > 0)
+                {
+                    var activeDevices = await spotifyApiService.GetAvailableDevices();
+                    id = activeDevices.FirstOrDefault(d => d.Name == "Mobile Web Player" && d.Type == "Smartphone" && d.IsActive)?.Id;
+
+                    if (!string.IsNullOrWhiteSpace(id))
+                    {
+                        break;
+                    }
+
+                    retries--;
+                    await Task.Delay(1);
+                }
+            }
+            catch (Exception)
+            {
+                retries--;
+                await Task.Delay(1);
+            }
+
+            return id;
+        }
+
+        private void OnWebViewRefreshInitialized(object obj)
+        {
+            if (CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying && CurrentAudioPlayer.UsesWebPlayer)
+            {
+                CurrentAudioPlayer.Pause(true);
+            }
+        }
+
+        private void ExecuteToggleSpotifyWebPlayerCommand(object obj)
+        {
+            IsSpotifyWebPlayerVisible = !IsSpotifyWebPlayerVisible;
         }
 
         ~MainViewModel()

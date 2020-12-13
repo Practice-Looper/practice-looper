@@ -22,14 +22,15 @@ namespace Emka3.PracticeLooper.Services.Contracts.Player
         double SongDuration { get; }
         AudioSourceType Types { get; }
         string DisplayName { get; }
+        bool UsesWebPlayer { get; }
         #endregion
 
         #region Methods
-        void Init(Loop loop);
+        void Init(Loop loop, bool useWebPlayer = false, string deviceId = null);
         void Play();
         void Pause(bool triggeredByUser = true);
         void Seek(double time);
-        Task InitAsync(Loop loop);
+        Task InitAsync(Loop loop, bool useWebPlayer = false, string deviceId = null);
         Task PlayAsync();
         Task PauseAsync(bool triggeredByUser = true);
         Task SeekAsync(double time);

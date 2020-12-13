@@ -8,19 +8,22 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
+using Emka3.PracticeLooper.Utils;
 
 namespace Emka3.PracticeLooper.Services.Contracts.Rest
 {
+    [Preserve(AllMembers = true)]
     public interface ISpotifyApiService
     {
-       
-
-        Task<List<SpotifyTrack>> SearchTrackByName(string term, CancellationToken cancellationToken);
-
         bool UserPremiumCheckSuccessful { get; }
 
+        Task<bool> PlayTrack(string trackId, int positionMs, string deviceId);
+        Task<List<SpotifyTrack>> SearchTrackByName(string term, CancellationToken cancellationToken);
         Task<Tuple<HttpStatusCode, bool>> IsPremiumUser();
-
-        Task PauseCurrentPlayback();
+        Task<bool> PauseCurrentPlayback();
+        Task<bool> SeekTo(long position);
+        Task<List<SpotifyDevice>> GetAvailableDevices();
+        Task<double> GetCurrentPlaybackPosition();
+        double GetAverageRequestTime();
     }
 }

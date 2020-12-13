@@ -22,12 +22,13 @@ namespace Emka3.PracticeLooper.Service.Tests
         private readonly Mock<IHttpApiClient> HttpApiClientMock;
         private readonly Mock<IConfigurationService> ConfigurationServiceMock;
         private readonly Mock<ILogger> LoggerMock;
-
+        private readonly Mock<ITokenStorage> TokenStorageMock;
         public SpotifyApiTests()
         {
             HttpApiClientMock = new Mock<IHttpApiClient>();
             ConfigurationServiceMock = new Mock<IConfigurationService>();
             LoggerMock = new Mock<ILogger>();
+            TokenStorageMock = new Mock<ITokenStorage>();
         }
 
         [Test()]
@@ -35,11 +36,11 @@ namespace Emka3.PracticeLooper.Service.Tests
         {
             var jsonString = LoadJson("JsonTestData.txt");
             HttpApiClientMock
-                .Setup(c => c.SendRequestAsync(It.IsAny<HttpMethod>(), It.IsAny<string>(), CancellationToken.None, It.IsAny<HttpContent>()))
+                .Setup(c => c.SendRequestAsync(It.IsAny<HttpMethod>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), CancellationToken.None, It.IsAny<HttpContent>(), null, null))
                 .ReturnsAsync(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK, Content = new StringContent(jsonString) })
                 .Verifiable();
 
-            var spotifyService = new SpotifyApiService(HttpApiClientMock.Object, ConfigurationServiceMock.Object, LoggerMock.Object);
+            var spotifyService = new SpotifyApiService(HttpApiClientMock.Object, ConfigurationServiceMock.Object, LoggerMock.Object, TokenStorageMock.Object);
             var result = await spotifyService.SearchTrackByName(string.Empty, CancellationToken.None);
 
             Assert.NotNull(result);
@@ -53,11 +54,11 @@ namespace Emka3.PracticeLooper.Service.Tests
         {
             var jsonString = LoadJson("JsonUserData.txt");
             HttpApiClientMock
-                .Setup(c => c.SendRequestAsync(HttpMethod.Get, It.IsAny<string>(), CancellationToken.None, It.IsAny<HttpContent>()))
+                .Setup(c => c.SendRequestAsync(HttpMethod.Get, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), CancellationToken.None, It.IsAny<HttpContent>(), null, null))
                 .ReturnsAsync(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK, Content = new StringContent(jsonString) })
                 .Verifiable();
 
-            var spotifyService = new SpotifyApiService(HttpApiClientMock.Object, ConfigurationServiceMock.Object, LoggerMock.Object);
+            var spotifyService = new SpotifyApiService(HttpApiClientMock.Object, ConfigurationServiceMock.Object, LoggerMock.Object, TokenStorageMock.Object);
             var result = await spotifyService.IsPremiumUser();
 
             Assert.NotNull(result);

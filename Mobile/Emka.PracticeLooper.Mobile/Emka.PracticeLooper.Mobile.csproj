@@ -7,6 +7,7 @@
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <DebugType>pdbonly</DebugType>
         <DebugSymbols>true</DebugSymbols>
+        <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildIOS|AnyCPU' ">
         <DebugType>
@@ -20,8 +21,12 @@
         <NoWarn>
         </NoWarn>
         <NoStdLib>false</NoStdLib>
+        <Nullable></Nullable>
+        <LangVersion>8.0</LangVersion>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mock|AnyCPU' " />
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mock|AnyCPU' ">
+      <LangVersion>8.0</LangVersion>
+    </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugType>
         </DebugType>
@@ -29,6 +34,7 @@
         </OutputPath>
         <OutputPath>
         </OutputPath>
+        <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugLite|AnyCPU' ">
         <DebugType>pdbonly</DebugType>
@@ -37,6 +43,7 @@
         <DebugSymbols>true</DebugSymbols>
         <IntermediateOutputPath>obj\Debug\netstandard2.0</IntermediateOutputPath>
         <NoWarn>1701;1702</NoWarn>
+        <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseLite|AnyCPU' ">
         <DebugType>
@@ -46,6 +53,7 @@
         </OutputPath>
         <DefineConstants>TRACE;RELEASE;RELEASELITE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
         <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
+        <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleasePremium|AnyCPU' ">
         <WarningLevel>
@@ -63,6 +71,7 @@
         <PlatformTarget>anycpu</PlatformTarget>
         <WarningsNotAsErrors></WarningsNotAsErrors>
         <Nullable></Nullable>
+        <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugPremium|AnyCPU' ">
       <DebugType>pdbonly</DebugType>
@@ -70,20 +79,21 @@
       <DefineConstants>TRACE;DEBUG;PREMIUM;DEBUGPREMIUM;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
       <DebugSymbols>true</DebugSymbols>
       <IntermediateOutputPath>obj\Debug\netstandard2.0</IntermediateOutputPath>
+      <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Autofac" Version="6.0.0" />
-        <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.41" />
-        <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.7" />
-        <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+        <PackageReference Include="Autofac" Version="6.1.0" />
+        <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.10" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
         <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
-        <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.0.0" />
-        <PackageReference Include="Microsoft.AppCenter" Version="4.0.0" />
-        <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.0.0" />
+        <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1.0" />
+        <PackageReference Include="Microsoft.AppCenter" Version="4.1.0" />
+        <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0" />
         <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.3.0.51" />
         <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.3.0.51" />
         <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
-        <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+        <PackageReference Include="Xamarin.Auth" Version="1.7.0" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />

@@ -11,13 +11,10 @@ using Emka.PracticeLooper.Mobile.Common;
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
 using Emka.PracticeLooper.Model;
-using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
-using Emka3.PracticeLooper.Services.Contracts.Player;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Emka3.PracticeLooper.Utils;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
@@ -27,8 +24,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     {
         #region Fields
         private ISpotifyApiService spotifyApiService;
-        private ISpotifyLoader spotifyLoader;
-        private IDialogService dialogService;
         private Command searchCommand;
         private Command createSessionCommand;
         private LooprTimer timer;
@@ -38,18 +33,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         #region Ctor
         public SpotifySearchViewModel(ISpotifyApiService spotifyApiService,
-            ISpotifyLoader spotifyLoader,
             INavigationService navigationService,
             ILogger logger,
-            IAppTracker appTracker,
-            IDialogService dialogService)
+            IAppTracker appTracker)
             : base(navigationService, logger, appTracker)
         {
             searchCancelTokenSource = new CancellationTokenSource();
             SearchResults = new ObservableCollection<SpotifyTrack>();
             this.spotifyApiService = spotifyApiService ?? throw new ArgumentNullException(nameof(spotifyApiService));
-            this.spotifyLoader = spotifyLoader ?? throw new ArgumentNullException(nameof(spotifyLoader));
-            this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
             UiContext = SynchronizationContext.Current;
         }
         #endregion
@@ -189,30 +180,32 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        public override async Task InitializeAsync(object parameter)
+        public override Task InitializeAsync(object parameter)
         {
-            IsBusy = true;
-            try
-            {
-                if (!spotifyLoader.Authorized)
-                {
-                    var authorized = await spotifyLoader.InitializeAsync();
-                    if (!authorized)
-                    {
-                        await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToSpotify, AppResources.Error_Caption);
-                        await NavigationService.GoBackAsync();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                await Logger.LogErrorAsync(ex);
-                await ShowErrorDialogAsync();
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            //IsBusy = true;
+            //try
+            //{
+            //    if (!spotifyLoader.Authorized)
+            //    {
+            //        var authorized = await spotifyLoader.InitializeAsync();
+            //        if (!authorized)
+            //        {
+            //            await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToSpotify, AppResources.Error_Caption);
+            //            await NavigationService.GoBackAsync();
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    await Logger.LogErrorAsync(ex);
+            //    await ShowErrorDialogAsync();
+            //}
+            //finally
+            //{
+            //    IsBusy = false;
+            //}
+
+            return Task.CompletedTask;
         }
         #endregion Metthods
     }

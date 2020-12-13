@@ -60,8 +60,33 @@ namespace Emka.PracticeLooper.Mobile.Views
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
+            UpdateScheme();
+        }
 
+        protected override void OnDisappearing()
+        {
+            if (parent != null)
+            {
+                parent.ItemSelected -= ListViewItemSelected;
+            }
+        }
+
+        private void ListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem != null && e.SelectedItem == BindingContext)
+            {
+                View.BackgroundColor = (Color)Application.Current.Resources["PrimaryColor"];
+                FontColor = (Color)Application.Current.Resources["BackgroundColor"];
+            }
+            else
+            {
+                View.BackgroundColor = Color.Transparent;
+                FontColor = (Color)Application.Current.Resources["PrimaryColor"];
+            }
+        }
+
+        private void UpdateScheme()
+        {
             if (View != null)
             {
                 parent = VisualTreeHelper.GetParent<ListView>(View);
@@ -95,25 +120,11 @@ namespace Emka.PracticeLooper.Mobile.Views
             }
         }
 
-        private void ListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            if (e.SelectedItem != null && e.SelectedItem == BindingContext)
-            {
-                View.BackgroundColor = (Color)Application.Current.Resources["PrimaryColor"];
-                FontColor = (Color)Application.Current.Resources["BackgroundColor"];
-            }
-            else
-            {
-                View.BackgroundColor = Color.Transparent;
-                FontColor = (Color)Application.Current.Resources["PrimaryColor"];
-            }
-        }
-
         private void ConfigValueChanged(object sender, string e)
         {
             if (e == PreferenceKeys.ColorScheme)
             {
-                OnAppearing();
+                Device.BeginInvokeOnMainThread(UpdateScheme);
             }
         }
         #endregion

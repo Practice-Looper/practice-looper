@@ -7,7 +7,7 @@
     xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
     xmlns:syncfusion="clr-namespace:Syncfusion.SfPicker.XForms;assembly=Syncfusion.SfPicker.XForms"
     xmlns:range="clr-namespace:Syncfusion.SfRangeSlider.XForms;assembly=Syncfusion.SfRangeSlider.XForms"
-    ios:Page.UseSafeArea="true"
+    ios:Page.UseSafeArea="True"
     Title="{x:Static rsrcs:AppResources.AppName}"
     x:Class="Emka.PracticeLooper.Mobile.Views.MainView"
     Style="{StaticResource PageMainStyle}"
@@ -28,7 +28,7 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <!--https://mycolor.space/?hex=%2359677C&sub=1-->
+    <!-- https://mycolor.space/?hex=%2359677C&sub=1 -->
     <Grid
         x:Name="MainGrid">
 
@@ -36,8 +36,12 @@
             <RowDefinition
                 Height="Auto" />
             <RowDefinition
+                Height="*" />
+            <RowDefinition
                 Height="Auto" />
         </Grid.RowDefinitions>
+
+        <!-- AdMob -->
 
         <views:AdMobView
             AutomationId="AdmobBanner"
@@ -47,21 +51,19 @@
 
         <Grid
             Grid.Row="1"
-            Margin="0,10,0,0"
+            x:Name="ContentGrid"
             AutomationProperties.IsInAccessibleTree="False">
             <Grid.RowDefinitions>
                 <RowDefinition
-                    Height="6*" />
+                    Height="*" />
                 <RowDefinition
                     Height="Auto" />
-                <RowDefinition
-                    Height="4*" />
             </Grid.RowDefinitions>
 
             <ContentView
                 Grid.Row="0"
                 Margin="10,0"
-                VerticalOptions="Start">
+                VerticalOptions="FillAndExpand">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition
@@ -69,13 +71,47 @@
                         <RowDefinition
                             Height="*" />
                     </Grid.RowDefinitions>
+
+                    <!-- Open Spotify Web Player Button -->
+
                     <ImageButton
+                        x:Name="SpotifyWebPlayerButton"
+                        Grid.Row="0"
+                        WidthRequest="48"
+                        HeightRequest="48"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        Clicked="OnToggleSpotifyWebPlayer">
+                        <ImageButton.IsVisible>
+                            <OnPlatform
+                                x:TypeArguments="x:Boolean">
+                                <On
+                                    Platform="iOS"
+                                    Value="True" />
+                                <On
+                                    Platform="Android"
+                                    Value="False" />
+                            </OnPlatform>
+                        </ImageButton.IsVisible>
+                        <ImageButton.Source>
+                            <FontImageSource
+                                FontFamily="{DynamicResource MaterialFontFamily}"
+                                Glyph="{StaticResource Spotify}"
+                                Size="48"
+                                Color="{DynamicResource SpotifyColor}" />
+                        </ImageButton.Source>
+                    </ImageButton>
+
+                    <!-- Add Session Button -->
+
+                    <ImageButton
+                        x:Name="SessionButton"
                         AutomationId="AddSongButton"
                         Grid.Row="0"
                         WidthRequest="48"
                         HeightRequest="48"
                         HorizontalOptions="End"
-                        VerticalOptions="Center"
+                        VerticalOptions="Start"
                         Command="{Binding PickSourceCommand}">
                         <ImageButton.Source>
                             <FontImageSource
@@ -85,276 +121,470 @@
                                 Color="{DynamicResource PrimaryColor}" />
                         </ImageButton.Source>
                     </ImageButton>
+
+                    <!-- Sessions List -->
+
                     <ListView
+                        x:Name="SessionsOverviewList"
                         AutomationId="SessionsList"
                         AutomationProperties.IsInAccessibleTree="False"
+                        VerticalOptions="StartAndExpand"
                         Grid.Row="1"
                         SelectedItem="{Binding CurrentSession, Mode=TwoWay}"
                         ItemsSource="{Binding Sessions}"
                         ItemTemplate="{StaticResource SessionItemTemplateSelector}" />
+
+                    <!-- CTA -->
+
+                    <ContentView
+                        Grid.Row="1"
+                        Margin="5,0,5,0"
+                        IsVisible="{Binding ShowCallToAction}"
+                        IsEnabled="{Binding ShowCallToAction}"
+                        VerticalOptions="FillAndExpand">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+                                    Height="35*" />
+                                <RowDefinition
+                                    Height="65*" />
+                            </Grid.RowDefinitions>
+
+                            <Image
+                                Grid.Row="0"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                Source="cta_header_left.png" />
+
+                            <Image
+                                Grid.Row="0"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center"
+                                Source="cta_header_right.png" />
+
+                            <Image
+                                Grid.Row="1"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Source="cta_body.png" />
+                        </Grid>
+                    </ContentView>
                 </Grid>
             </ContentView>
-            <BoxView
-                Grid.Row="1"
-                Color="{DynamicResource SecondaryColor}"
-                WidthRequest="100"
-                HeightRequest="2" />
+
+           
             <ContentView
-                Grid.Row="2"
-                VerticalOptions="Center"
-                Padding="10,0">
-                <StackLayout>
-                    <Grid
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="CenterAndExpand"
-                        Margin="0,10,0,0"
-                        HeightRequest="70">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition
-                                Width="2*" />
-                            <ColumnDefinition
-                                Width="6*" />
-                            <ColumnDefinition
-                                Width="2*" />
-                        </Grid.ColumnDefinitions>
-                        <Label
-                            AutomationId="CurrentSongTime"
-                            Text="{Binding CurrentSongTime}"
-                            Grid.Column="0"
-                            FontSize="Medium"
-                            HorizontalOptions="Start"
-                            VerticalOptions="Center">
-                            <Label.Style>
-                                <Style
-                                    TargetType="Label"
-                                    BasedOn="{StaticResource LabelStyle}">
-                                    <Setter
-                                        Property="IsVisible"
-                                        Value="True" />
-                                    <Style.Triggers>
-                                        <DataTrigger
-                                            TargetType="Label"
-                                            Binding="{Binding IsInitialized}"
-                                            Value="False">
-                                            <Setter
-                                                Property="IsVisible"
-                                                Value="False" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Label.Style>
-                        </Label>
-                        <Label
-                            AutomationId="LoopStartPosition"
-                            Text="{Binding LoopStartPosition, StringFormat='[{0}'}"
-                            Grid.Column="1"
-                            HorizontalOptions="Start"
-                            VerticalOptions="Center"
-                            BackgroundColor="Transparent"
-                            TextColor="{DynamicResource PrimaryColor}"
-                            FontSize="Large"
-                            Margin="0,0,5,0">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Tapped="OnStartPositionClicked" />
-                            </Label.GestureRecognizers>
-                            <Label.Style>
-                                <Style
-                                    TargetType="Label">
-                                    <Setter
-                                        Property="IsVisible"
-                                        Value="True" />
-                                    <Setter
-                                        Property="TextColor"
-                                        Value="{DynamicResource PrimaryColor}" />
-                                    <Style.Triggers>
-                                        <DataTrigger
-                                            TargetType="Label"
-                                            Binding="{Binding IsInitialized}"
-                                            Value="False">
-                                            <Setter
-                                                Property="IsVisible"
-                                                Value="False" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Label.Style>
-                        </Label>
-                        <Label
-                            AutomationId="LoopEndPosition"
-                            Text="{Binding LoopEndPosition, StringFormat='{0}]'}"
-                            Grid.Column="1"
-                            VerticalOptions="Center"
-                            HorizontalOptions="End"
-                            BackgroundColor="Transparent"
-                            FontSize="Large"
-                            Margin="5,0,0,0">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Tapped="OnEndPositionClicked" />
-                            </Label.GestureRecognizers>
-                            <Label.Style>
-                                <Style
-                                    TargetType="Label">
-                                    <Setter
-                                        Property="IsVisible"
-                                        Value="True" />
-                                    <Setter
-                                        Property="TextColor"
-                                        Value="{DynamicResource PrimaryColor}" />
-                                    <Style.Triggers>
-                                        <DataTrigger
-                                            TargetType="Label"
-                                            Binding="{Binding IsInitialized}"
-                                            Value="False">
-                                            <Setter
-                                                Property="IsVisible"
-                                                Value="False" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Label.Style>
-                        </Label>
-                        <Label
-                            AutomationId="SongDuration"
-                            Text="{Binding SongDuration}"
-                            Grid.Column="2"
-                            VerticalOptions="Center"
-                            HorizontalOptions="End"
-                            FontSize="Medium">
-                            <Label.Style>
-                                <Style
-                                    TargetType="Label"
-                                    BasedOn="{StaticResource LabelStyle}">
-                                    <Setter
-                                        Property="IsVisible"
-                                        Value="True" />
-                                    <Style.Triggers>
-                                        <DataTrigger
-                                            TargetType="Label"
-                                            Binding="{Binding IsInitialized}"
-                                            Value="False">
-                                            <Setter
-                                                Property="IsVisible"
-                                                Value="False" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Label.Style>
-                        </Label>
-                    </Grid>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition
-                                Height="*" />
-                            <RowDefinition
-                                Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <range:SfRangeSlider
-                            AutomationId="Slider"
-                            x:Name="Slider"
-                            Grid.Row="0"
-                            ShowRange="True"
-                            RangeStart="{Binding MinimumValue, Mode=TwoWay}"
-                            RangeEnd="{Binding MaximumValue, Mode=TwoWay}"
-                            Margin="0"
-                            Minimum="{Binding Minimum}"
-                            Maximum="{Binding Maximum}"
-                            ValueChangeMode="Default"
-                            TickPlacement="None"
-                            SnapsTo="None"
-                            KnobColor="{DynamicResource PrimaryColor}"
-                            TrackSelectionColor="{DynamicResource PrimaryColor}"
-                            TrackColor="{DynamicResource SecondaryColor}"
+                Grid.Row="1"
+                VerticalOptions="End">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+                            Height="Auto" />
+                        <RowDefinition
+                            Height="Auto" />
+                        <RowDefinition
+                            Height="Auto" />
+                        <RowDefinition
+                            Height="*" />
+                    </Grid.RowDefinitions>
+
+                         <!-- Separator -->
+
+                    <BoxView
+                        Grid.Row="0"
+                        Color="{DynamicResource SecondaryColor}"
+                        WidthRequest="100"
+                        HeightRequest="2" />
+
+                    <ContentView
+                        Padding="10,0"
+                        Margin="0"
+                        Grid.Row="1">
+                        <Grid
                             HorizontalOptions="FillAndExpand"
-                            VerticalOptions="Center"
-                            Orientation="Horizontal"
-                            IsEnabled="{Binding IsInitialized}"
-                            ShowValueLabel="False"
-                            ShowCustomLabel="False"
-                            ToolTipPlacement="None"
-                            MinimumRange="{Binding MinimumRange}"
-                            ThumbTouchUp="OnSliderThumbTouchUp"
-                            ThumbSize="1">
-                        </range:SfRangeSlider>
-                        <ImageButton
-                            AutomationId="PlayButton"
-                            Grid.Row="1"
-                            WidthRequest="72"
-                            HeightRequest="72"
-                            HorizontalOptions="Center"
-                            BackgroundColor="Transparent"
-                            Command="{Binding PlayCommand}"
-                            Margin="0,0,0,10">
-                            <ImageButton.Source>
-                                <FontImageSource
-                                    FontFamily="{DynamicResource MaterialFontFamily}"
-                                    Glyph="{StaticResource Play}"
-                                    Size="72"
-                                    Color="{DynamicResource PrimaryColor}">
-                                </FontImageSource>
-                            </ImageButton.Source>
-                            <ImageButton.Triggers>
-                                <DataTrigger
-                                    TargetType="ImageButton"
-                                    Binding="{Binding IsPlaying}"
-                                    Value="True">
-                                    <Setter
-                                        Property="Source">
-                                        <Setter.Value>
-                                            <FontImageSource
-                                                FontFamily="{DynamicResource MaterialFontFamily}"
-                                                Glyph="{StaticResource Stop}"
-                                                Size="72"
-                                                Color="{DynamicResource PrimaryColor}">
-                                            </FontImageSource>
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
-                                <DataTrigger
-                                    TargetType="ImageButton"
-                                    Binding="{Binding IsPlaying}"
-                                    Value="False">
-                                    <Setter
-                                        Property="Source">
-                                        <Setter.Value>
-                                            <FontImageSource
-                                                FontFamily="{DynamicResource MaterialFontFamily}"
-                                                Glyph="{StaticResource Play}"
-                                                Size="72"
-                                                Color="{DynamicResource PrimaryColor}">
-                                            </FontImageSource>
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
-                            </ImageButton.Triggers>
-                        </ImageButton>
-                        <views:LoopButton
-                            AutomationId="AddBookmarkButton"
-                            Grid.Row="1"
-                            WidthRequest="48"
-                            HeightRequest="48"
-                            Margin="20,0"
-                            HorizontalOptions="End"
-                            VerticalOptions="Center"
-                            BackgroundColor="Transparent"
-                            Command="{Binding AddNewLoopCommand}">
-                            <views:LoopButton.Source>
-                                <FontImageSource
-                                    FontFamily="{DynamicResource MaterialFontFamily}"
-                                    Glyph="{StaticResource AddBookmark}"
-                                    Size="48"
-                                    Color="{DynamicResource PrimaryColor}">
-                                </FontImageSource>
-                            </views:LoopButton.Source>
-                        </views:LoopButton>
-                    </Grid>
-                </StackLayout>
+                            VerticalOptions="StartAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width="2*" />
+                                <ColumnDefinition
+                                    Width="6*" />
+                                <ColumnDefinition
+                                    Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Current Position -->
+
+                            <Label
+                                AutomationId="CurrentSongTime"
+                                Text="{Binding CurrentSongTime}"
+                                Grid.Column="0"
+                                Padding="0,5"
+                                FontSize="Medium"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center">
+                                <Label.Style>
+                                    <Style
+                                        TargetType="Label"
+                                        BasedOn="{StaticResource LabelStyle}">
+                                        <Setter
+                                            Property="IsVisible"
+                                            Value="True" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                TargetType="Label"
+                                                Binding="{Binding IsInitialized}"
+                                                Value="False">
+                                                <Setter
+                                                    Property="IsVisible"
+                                                    Value="False" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+
+                            <!-- Loop Start Position -->
+
+                            <Label
+                                AutomationId="LoopStartPosition"
+                                Text="{Binding LoopStartPosition, StringFormat='[{0}'}"
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                BackgroundColor="Transparent"
+                                TextColor="{DynamicResource PrimaryColor}"
+                                FontSize="Large"
+                                Padding="0,5"
+                                Margin="0,0,5,0">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Tapped="OnStartPositionClicked" />
+                                </Label.GestureRecognizers>
+                                <Label.Style>
+                                    <Style
+                                        TargetType="Label">
+                                        <Setter
+                                            Property="IsVisible"
+                                            Value="True" />
+                                        <Setter
+                                            Property="TextColor"
+                                            Value="{DynamicResource PrimaryColor}" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                TargetType="Label"
+                                                Binding="{Binding IsInitialized}"
+                                                Value="False">
+                                                <Setter
+                                                    Property="IsVisible"
+                                                    Value="False" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+
+                            <!-- Loop End Position -->
+
+                            <Label
+                                AutomationId="LoopEndPosition"
+                                Text="{Binding LoopEndPosition, StringFormat='{0}]'}"
+                                Grid.Column="1"
+                                VerticalOptions="Center"
+                                HorizontalOptions="End"
+                                BackgroundColor="Transparent"
+                                FontSize="Large"
+                                Padding="0,5"
+                                Margin="5,0,0,0">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Tapped="OnEndPositionClicked" />
+                                </Label.GestureRecognizers>
+                                <Label.Style>
+                                    <Style
+                                        TargetType="Label">
+                                        <Setter
+                                            Property="IsVisible"
+                                            Value="True" />
+                                        <Setter
+                                            Property="TextColor"
+                                            Value="{DynamicResource PrimaryColor}" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                TargetType="Label"
+                                                Binding="{Binding IsInitialized}"
+                                                Value="False">
+                                                <Setter
+                                                    Property="IsVisible"
+                                                    Value="False" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+
+                            <!-- Song Duration -->
+
+                            <Label
+                                AutomationId="SongDuration"
+                                Text="{Binding SongDuration}"
+                                Grid.Column="2"
+                                VerticalOptions="CenterAndExpand"
+                                HorizontalOptions="End"
+                                Padding="0,5"
+                                FontSize="Medium">
+                                <Label.Style>
+                                    <Style
+                                        TargetType="Label"
+                                        BasedOn="{StaticResource LabelStyle}">
+                                        <Setter
+                                            Property="IsVisible"
+                                            Value="True" />
+                                        <Style.Triggers>
+                                            <DataTrigger
+                                                TargetType="Label"
+                                                Binding="{Binding IsInitialized}"
+                                                Value="False">
+                                                <Setter
+                                                    Property="IsVisible"
+                                                    Value="False" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                        </Grid>
+                    </ContentView>
+
+                    <!-- Slider -->
+
+                    <range:SfRangeSlider
+                        AutomationId="Slider"
+                        x:Name="Slider"
+                        Grid.Row="2"
+                        ShowRange="True"
+                        RangeStart="{Binding MinimumValue, Mode=TwoWay}"
+                        RangeEnd="{Binding MaximumValue, Mode=TwoWay}"
+                        Margin="10,0"
+                        Minimum="{Binding Minimum}"
+                        Maximum="{Binding Maximum}"
+                        ValueChangeMode="Default"
+                        TickPlacement="None"
+                        SnapsTo="None"
+                        KnobColor="{DynamicResource PrimaryColor}"
+                        TrackSelectionColor="{DynamicResource PrimaryColor}"
+                        TrackColor="{DynamicResource SecondaryColor}"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="End"
+                        Orientation="Horizontal"
+                        IsEnabled="{Binding IsInitialized}"
+                        ShowValueLabel="False"
+                        ShowCustomLabel="False"
+                        ToolTipPlacement="None"
+                        MinimumRange="{Binding MinimumRange}"
+                        ThumbTouchUp="OnSliderThumbTouchUp"
+                        ThumbSize="1"
+                        HeightRequest="40">
+                    </range:SfRangeSlider>
+
+                    <!-- Play Button -->
+
+                    <ImageButton
+                        x:Name="PlayButton"
+                        AutomationId="PlayButton"
+                        Grid.Row="3"
+                        WidthRequest="72"
+                        HeightRequest="72"
+                        HorizontalOptions="Center"
+                        VerticalOptions="End"
+                        BackgroundColor="Transparent"
+                        Command="{Binding PlayCommand}">
+                        <ImageButton.Source>
+                            <FontImageSource
+                                FontFamily="{DynamicResource MaterialFontFamily}"
+                                Glyph="{StaticResource Play}"
+                                Size="72"
+                                Color="{DynamicResource PrimaryColor}">
+                            </FontImageSource>
+                        </ImageButton.Source>
+                        <ImageButton.Triggers>
+                            <DataTrigger
+                                TargetType="ImageButton"
+                                Binding="{Binding IsPlaying}"
+                                Value="True">
+                                <Setter
+                                    Property="Source">
+                                    <Setter.Value>
+                                        <FontImageSource
+                                            FontFamily="{DynamicResource MaterialFontFamily}"
+                                            Glyph="{StaticResource Stop}"
+                                            Size="72"
+                                            Color="{DynamicResource PrimaryColor}">
+                                        </FontImageSource>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                            <DataTrigger
+                                TargetType="ImageButton"
+                                Binding="{Binding IsPlaying}"
+                                Value="False">
+                                <Setter
+                                    Property="Source">
+                                    <Setter.Value>
+                                        <FontImageSource
+                                            FontFamily="{DynamicResource MaterialFontFamily}"
+                                            Glyph="{StaticResource Play}"
+                                            Size="72"
+                                            Color="{DynamicResource PrimaryColor}">
+                                        </FontImageSource>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </ImageButton.Triggers>
+                    </ImageButton>
+
+                    <!-- Loop Button -->
+
+                    <views:LoopButton
+                        x:Name="BookmarkButton"
+                        AutomationId="AddBookmarkButton"
+                        Grid.Row="3"
+                        WidthRequest="48"
+                        HeightRequest="48"
+                        HorizontalOptions="End"
+                        VerticalOptions="End"
+                        BackgroundColor="Transparent"
+                        Margin="20,0"
+                        Command="{Binding AddNewLoopCommand}">
+                        <views:LoopButton.Source>
+                            <FontImageSource
+                                FontFamily="{DynamicResource MaterialFontFamily}"
+                                Glyph="{StaticResource AddBookmark}"
+                                Size="48"
+                                Color="{DynamicResource PrimaryColor}">
+                            </FontImageSource>
+                        </views:LoopButton.Source>
+                    </views:LoopButton>
+                </Grid>
             </ContentView>
         </Grid>
 
+        <!--Web Player-->
+
+        <Grid
+            x:Name="SpotifyWebViewContainer"
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            BackgroundColor="{DynamicResource BackgroundColor}"
+            IsVisible="{Binding IsSpotifyWebPlayerVisible, Mode=TwoWay}"
+            Padding="0">
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="*" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+            </Grid.RowDefinitions>
+            <ContentView
+                x:Name="WebViewLoadingDecorator"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                Opacity="0.8"
+                BackgroundColor="{DynamicResource BackgroundColor}"
+                IsVisible="{Binding Path=IsNavigating}">
+                <ActivityIndicator
+                    BindingContext="{x:Reference WebViewLoadingDecorator}"
+                    IsRunning="{Binding Path=IsVisible}"
+                    Color="{DynamicResource SecondaryColor}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center" />
+            </ContentView>
+
+            <Grid
+                Grid.Row="2"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="*" />
+                </Grid.ColumnDefinitions>
+                <ImageButton
+                    Grid.Column="0"
+                    WidthRequest="36"
+                    HeightRequest="36"
+                    Margin="0,0,0,5"
+                    Command="{Binding SpotifyWebPlayerGoBackCommand}">
+                    <ImageButton.Source>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource GoBack}"
+                            Size="36"
+                            Color="{DynamicResource PrimaryColor}" />
+                    </ImageButton.Source>
+                </ImageButton>
+
+                <ImageButton
+                    Grid.Column="1"
+                    WidthRequest="36"
+                    HeightRequest="36"
+                    Margin="0,0,0,5"
+                    Command="{Binding SpotifyWebPlayerGoForwardCommand}">
+                    <ImageButton.Source>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource GoForward}"
+                            Size="36"
+                            Color="{DynamicResource PrimaryColor}" />
+                    </ImageButton.Source>
+                </ImageButton>
+
+                <ImageButton
+                    Grid.Column="2"
+                    WidthRequest="36"
+                    HeightRequest="36"
+                    Margin="0,0,0,5"
+                    Command="{Binding SpotifyWebPlayeRefreshCommand}">
+                    <ImageButton.Source>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource Refresh}"
+                            Size="36"
+                            Color="{DynamicResource PrimaryColor}" />
+                    </ImageButton.Source>
+                </ImageButton>
+
+                <ImageButton
+                    Grid.Column="3"
+                    WidthRequest="36"
+                    HeightRequest="36"
+                    Margin="0,0,0,5"
+                    Clicked="OnToggleSpotifyWebPlayer">
+                    <ImageButton.Source>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource Close}"
+                            Size="36"
+                            Color="{DynamicResource PrimaryColor}" />
+                    </ImageButton.Source>
+                </ImageButton>
+            </Grid>
+        </Grid>
+
+        <!-- Busy Indicator -->
+
         <ContentView
             Grid.Row="1"
+            Grid.RowSpan="2"
             IsVisible="{Binding IsBusy}"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand"
@@ -367,8 +597,9 @@
                 HorizontalOptions="Center" />
         </ContentView>
 
+        <!-- Picker -->
         <syncfusion:SfPicker
-            Grid.Row="1"
+            Grid.Row="2"
             x:Name="picker"
             AutomationId="Picker"
             VerticalOptions="End"

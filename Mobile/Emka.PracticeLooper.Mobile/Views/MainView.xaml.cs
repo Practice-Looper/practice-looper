@@ -17,6 +17,7 @@ using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Emka3.PracticeLooper.Config.Contracts.Features;
+using Emka.PracticeLooper.Model;
 
 namespace Emka.PracticeLooper.Mobile.Views
 {
@@ -28,17 +29,26 @@ namespace Emka.PracticeLooper.Mobile.Views
         private readonly IConfigurationService configService;
         private readonly IFeatureRegistry featureRegistry;
         private IResolver resolver;
+        private CustomWebView spotifyPlayerWebView;
+        private Label errorLabel;
+        private double width = 0;
+        private double height = 0;
         #endregion
 
         #region Ctor
         public MainView()
         {
             InitializeComponent();
-
+            SpotifyWebViewContainer.IsVisible = false;
             resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
             configService = resolver.Resolve<IConfigurationService>();
             featureRegistry = resolver.Resolve<IFeatureRegistry>();
-            picker.BindingContext = new RangePickerViewModel(resolver.Resolve<IDialogService>(), resolver.Resolve<ILogger>(), resolver.Resolve<INavigationService>(), resolver.Resolve<IAppTracker>());
+            picker.BindingContext = new RangePickerViewModel(
+                resolver.Resolve<IDialogService>(),
+                resolver.Resolve<ILogger>(),
+                resolver.Resolve<INavigationService>(),
+                resolver.Resolve<IAppTracker>());
+
             BindingContext = new MainViewModel(resolver.Resolve<IInterstitialAd>(),
                    resolver.Resolve<IRepository<Session>>(),
                    resolver.Resolve<IRepository<Loop>>(),
@@ -55,6 +65,45 @@ namespace Emka.PracticeLooper.Mobile.Views
                    configService,
                    resolver.ResolveAll<IAudioPlayer>(),
                    resolver.Resolve<IFeatureRegistry>());
+
+            MessagingCenter.Subscribe<object>(this, MessengerKeys.WebViewNavigating, (sender) =>
+            {
+                WebViewLoadingDecorator.IsVisible = true;
+                spotifyPlayerWebView.IsVisible = false;
+                errorLabel.IsVisible = false;
+            });
+
+            MessagingCenter.Subscribe<object, bool>(this, MessengerKeys.WebViewNavigated, (sender, success) =>
+            {
+                WebViewLoadingDecorator.IsVisible = false;
+                spotifyPlayerWebView.IsVisible = success;
+                errorLabel.IsVisible = !success;
+            });
+
+            MessagingCenter.Subscribe<object>(this, MessengerKeys.WebViewRefreshInitialized, (sender) =>
+            {
+                spotifyPlayerWebView.Reload();
+            });
+
+            MessagingCenter.Subscribe<object>(this, MessengerKeys.WebViewGoBackToggled, (sender) =>
+            {
+                spotifyPlayerWebView.GoBack();
+            });
+
+            MessagingCenter.Subscribe<object>(this, MessengerKeys.WebViewGoForwardToggled, (sender) =>
+            {
+                spotifyPlayerWebView.GoForward();
+            });
+
+            MessagingCenter.Subscribe<MainViewModel>(this, MessengerKeys.WebViewInit, (sender) =>
+            {
+                if (spotifyPlayerWebView == null)
+                {
+                    InitErrorView();
+                    InitSpotifyWebPlayer();
+                    SpotifyWebViewContainer.IsVisible = !SpotifyWebViewContainer.IsVisible;
+                }
+            });
         }
         #endregion
 
@@ -88,6 +137,39 @@ namespace Emka.PracticeLooper.Mobile.Views
             if (mainViewModel != null)
             {
                 mainViewModel.DeleteSessionCommand.Execute(menuItem.CommandParameter);
+            }
+        }
+
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height);
+            if (this.width != width || this.height != height)
+            {
+                this.width = width;
+                this.height = height;
+
+                if (width < height)
+                {
+                    // Portrait
+                    SpotifyWebPlayerButton.WidthRequest = SpotifyWebPlayerButton.HeightRequest = 48;
+                    SessionButton.WidthRequest = SessionButton.HeightRequest = 48;
+                    BookmarkButton.WidthRequest = BookmarkButton.HeightRequest = 48;
+                    PlayButton.WidthRequest = PlayButton.HeightRequest = 72;
+                    SessionsOverviewList.Margin = new Thickness(0);
+                }
+                else
+                {
+
+                    // Landscape
+                    if (height < 698)
+                    {
+                        SpotifyWebPlayerButton.WidthRequest = SpotifyWebPlayerButton.HeightRequest = 32;
+                        SessionButton.WidthRequest = SessionButton.HeightRequest = 32;
+                        BookmarkButton.WidthRequest = BookmarkButton.HeightRequest = 32;
+                        PlayButton.WidthRequest = PlayButton.HeightRequest = 48;
+                        SessionsOverviewList.Margin = new Thickness(15, 0);
+                    }
+                }
             }
         }
 
@@ -213,9 +295,53 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             picker.SelectionChanged -= SelectionChanged;
         }
+
+        void OnToggleSpotifyWebPlayer(object sender, EventArgs e)
+        {
+            /* First init Error View to avoid null
+            reference of error label in WebViewNavigating event */
+            InitErrorView();
+            InitSpotifyWebPlayer();
+            SpotifyWebViewContainer.IsVisible = !SpotifyWebViewContainer.IsVisible;
+        }
+
+        void InitErrorView()
+        {
+            if (errorLabel == null)
+            {
+                errorLabel = new Label()
+                {
+                    VerticalOptions = LayoutOptions.CenterAndExpand,
+                    HorizontalOptions = LayoutOptions.Center,
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    Margin = new Thickness(25),
+                    Text = AppResources.Error_Content_WebViewNavigationError,
+                    TextColor = (Color)Application.Current.Resources["SecondaryColor"],
+                    FontSize = 25,
+                    IsVisible = false
+                };
+
+                Grid.SetRow(errorLabel, 0);
+                SpotifyWebViewContainer.Children.Add(errorLabel);
+            }
+        }
+
+        void InitSpotifyWebPlayer()
+        {
+            if (spotifyPlayerWebView == null)
+            {
+                spotifyPlayerWebView = new CustomWebView
+                {
+                    BackgroundColor = Color.Transparent,
+                    BindingContext = BindingContext,
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    VerticalOptions = LayoutOptions.FillAndExpand
+                };
+
+                Grid.SetRow(spotifyPlayerWebView, 0);
+                SpotifyWebViewContainer.Children.Add(spotifyPlayerWebView);
+            }
+        }
         #endregion
-
     }
-
-
 }

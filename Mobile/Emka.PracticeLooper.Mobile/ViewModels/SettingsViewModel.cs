@@ -120,38 +120,49 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             IsBusy = true;
 
-            if (!inAppBillingService.Initialized)
+            try
             {
-                inAppBillingService.Init();
+                if (!inAppBillingService.Initialized)
+                {
+                    inAppBillingService.Init();
+                }
+
+                var (couldFetchOfferings, fetchOfferingsErrorReason) = await inAppBillingService.FetchOfferingsAsync();
+
+                if (!couldFetchOfferings)
+                {
+                    await dialogService.ShowAlertAsync(AppResources.Error_Caption, fetchOfferingsErrorReason);
+                    HasProducts = false;
+                    return;
+                }
+
+                var (couldRestorePurchases, restorePurchasesErrorReason) = await inAppBillingService.RestorePurchasesAsync();
+
+                if (!couldRestorePurchases)
+                {
+                    await dialogService.ShowAlertAsync(AppResources.Error_Caption, restorePurchasesErrorReason);
+                }
+
+                var tmpProducts = inAppBillingService.Products.Select(p => p.Value).Select(p => new InAppPurchaseProductViewModel(p));
+
+                Products.Clear();
+                foreach (var item in tmpProducts)
+                {
+                    featureRegistry.Update(item.ProductId, item.Purchased);
+                    Products.Add(item);
+                }
+
+                HasProducts = Products.Any();
             }
-
-            var (couldFetchOfferings, fetchOfferingsErrorReason) = await inAppBillingService.FetchOfferingsAsync();
-
-            if (!couldFetchOfferings)
+            catch (Exception ex)
             {
-                await dialogService.ShowAlertAsync(AppResources.Error_Caption, fetchOfferingsErrorReason);
-                HasProducts = false;
-                return;
+                await Logger?.LogErrorAsync(ex);
+                await dialogService.ShowAlertAsync(AppResources.Error_Caption, AppResources.Error_Content_General);
             }
-
-            var (couldRestorePurchases, restorePurchasesErrorReason) = await inAppBillingService.RestorePurchasesAsync();
-
-            if (!couldRestorePurchases)
+            finally
             {
-                await dialogService.ShowAlertAsync(AppResources.Error_Caption, restorePurchasesErrorReason);
+                IsBusy = false;
             }
-
-            var tmpProducts = inAppBillingService.Products.Select(p => p.Value).Select(p => new InAppPurchaseProductViewModel(p));
-
-            Products.Clear();
-            foreach (var item in tmpProducts)
-            {
-                featureRegistry.Update(item.ProductId, item.Purchased);
-                Products.Add(item);
-            }
-
-            HasProducts = Products.Any();
-            IsBusy = false;
         }
 
         private async Task ExecuteShowProductPaywallCommand(object parameter)
