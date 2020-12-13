@@ -16,7 +16,7 @@
 	<key>CFBundleName</key>
 	<string>Practice Looper</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.0</string>
+	<string>1.1.2</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -31,7 +31,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>6</string>
+	<string>8</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-9188939990576233~6920188221</string>
 	<key>LSApplicationQueriesSchemes</key>

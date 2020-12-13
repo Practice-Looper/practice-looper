@@ -52,9 +52,9 @@
       <Kind>Framework</Kind>
       <Frameworks>Foundation StoreKit</Frameworks>
     </NativeReference>
-    <NativeReference Include="..\..\libs\iOS\RevenueCat 3.5.3\RevenueCatProxy\Purchases.framework">
+    <NativeReference Include="..\..\libs\iOS\RevenueCat 3.9.1\Purchases.framework">
       <Kind>Framework</Kind>
-      <Frameworks>Foundation StoreKit</Frameworks>
+      <SmartLink>False</SmartLink>
     </NativeReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets" />
