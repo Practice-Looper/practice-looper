@@ -192,7 +192,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             if (useWebPlayer)
             {
-                Task.Run(async () => await SeekViaWebApi(time));
+                Task.Run(async () => await SeekViaWebApi());
                 return;
             }
 
@@ -250,14 +250,15 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             }
         }
 
-        private async Task SeekViaWebApi(double position)
+        private async Task SeekViaWebApi()
         {
             var success = await spotifyApiService.SeekTo((long)loopStart);
-            if (success)
+            if (!success)
             {
                 Initialized = false;
                 IsPlaying = false;
                 RaisePlayingStatusChanged();
+                await PauseViaWebApi();
             }
         }
 

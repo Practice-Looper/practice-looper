@@ -243,7 +243,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private async Task SeekViaWebApi()
         {
             var success = await spotifyApiService.SeekTo((long)loopStart);
-            if (success)
+            if (!success)
             {
                 Initialized = false;
                 IsPlaying = false;
