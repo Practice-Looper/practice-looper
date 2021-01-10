@@ -25,11 +25,11 @@ namespace Emka3.PracticeLooper.Services.Contracts.Player
         #endregion
 
         #region Methods
-        void Init(Loop loop);
+        void Init(Loop loop, bool useWebPlayer = false);
         void Play();
         void Pause(bool triggeredByUser = true);
         void Seek(double time);
-        Task InitAsync(Loop loop);
+        Task InitAsync(Loop loop, bool useWebPlayer = false);
         Task PlayAsync();
         Task PauseAsync(bool triggeredByUser = true);
         Task SeekAsync(double time);

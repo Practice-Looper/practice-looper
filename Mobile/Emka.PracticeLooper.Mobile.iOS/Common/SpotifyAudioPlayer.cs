@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Foundation;
 using SpotifyBindings.iOS;
 using Xamarin.Essentials;
@@ -19,21 +20,24 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
     public class SpotifyAudioPlayer : IAudioPlayer
     {
         #region Fields
+        private bool useWebPlayer;
         private double loopStart;
         private double loopEnd;
         private readonly IPlayerTimer timer;
         private readonly ISpotifyLoader spotifyLoader;
         private readonly ILogger logger;
+        private readonly ISpotifyApiService spotifyApiService;
         private CancellationTokenSource currentTimeCancelTokenSource;
         private double internalSongDuration;
         const int CURRENT_TIME_UPDATE_INTERVAL = 1000;
         #endregion
 
         #region Ctor
-        public SpotifyAudioPlayer(IPlayerTimer timer, ISpotifyLoader spotifyLoader, ILogger logger)
+        public SpotifyAudioPlayer(IPlayerTimer timer, ISpotifyLoader spotifyLoader, ILogger logger, ISpotifyApiService spotifyApiService)
         {
             this.spotifyLoader = spotifyLoader ?? throw new ArgumentNullException(nameof(spotifyLoader));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.spotifyApiService = spotifyApiService ?? throw new ArgumentNullException(nameof(spotifyApiService));
             this.timer = timer ?? throw new ArgumentNullException(nameof(timer));
             IsPlaying = false;
         }
@@ -57,7 +61,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #endregion
 
         #region Methods
-        public void Init(Loop loop)
+        public void Init(Loop loop, bool useWebPlayer = false)
         {
             if (loop == null)
             {
@@ -68,7 +72,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 throw new ArgumentNullException(nameof(loop.Session));
             }
-
+            this.useWebPlayer = useWebPlayer;
             internalSongDuration = TimeSpan.FromSeconds(loop.Session.AudioSource.Duration).TotalMilliseconds;
             CurrentLoop = loop;
             CurrentLoop.StartPositionChanged += OnLoopPositionChanged;
@@ -121,6 +125,12 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public void Play()
         {
+            if (useWebPlayer)
+            {
+                PlayViaWebApi().ConfigureAwait(false);
+                return;
+            }
+
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 Api?.PlayerAPI?.Play(CurrentLoop.Session.AudioSource.Source, (result, error) =>
@@ -183,14 +193,17 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                  });
         }
 
-        public async Task InitAsync(Loop loop)
+        public async Task InitAsync(Loop loop, bool useWebPlayer = false)
         {
             if (!spotifyLoader.Authorized)
             {
                 await spotifyLoader.InitializeAsync();
             }
 
-            await Task.Run(() => Init(loop));
+            if (spotifyLoader.Authorized)
+            {
+                await Task.Run(() => Init(loop, useWebPlayer));
+            }
         }
 
         public async Task PlayAsync()
@@ -259,6 +272,18 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 logger.LogError(ex);
                 throw;
+            }
+        }
+
+        private async Task PlayViaWebApi()
+        {
+            var success = await spotifyApiService.PlayTrack(CurrentLoop.Session.AudioSource.Source, (int)loopStart);
+            if (success)
+            {
+                IsPlaying = true;
+                ResetAllTimers();
+                RaisePlayingStatusChanged();
+                CurrentPositionTimerExpired(this, new EventArgs());
             }
         }
 

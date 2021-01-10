@@ -1,4 +1,4 @@
- // Copyright (C)  - All Rights Reserved
+// Copyright (C)  - All Rights Reserved
 // Unauthorized copying of this file, via any medium is strictly prohibited
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
@@ -24,6 +24,7 @@ using Emka3.PracticeLooper.Services.Contracts.Rest;
 using System.Net;
 using System.Threading;
 using Emka3.PracticeLooper.Config.Contracts.Features;
+using Xamarin.Essentials;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -462,14 +463,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                     if (CurrentAudioPlayer.Types.HasFlag(AudioSourceType.Spotify))
                     {
-                        // spotify installed on device?
-                        await configurationService.SetValueAsync(PreferenceKeys.IsSpotifyInstalled, spotifyLoader.IsSpotifyInstalled());
-                        if (!configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled))
-                        {
-                            await InitiateSpotifyInstallationAsync();
-                            return;
-                        }
-
                         if (!spotifyApiService.UserPremiumCheckSuccessful)
                         {
                             var premiumCheck = await spotifyApiService.IsPremiumUser();
@@ -493,7 +486,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     {
                         try
                         {
-                            await CurrentAudioPlayer.InitAsync(CurrentLoop);
+                            var useWebPlayer = !spotifyLoader.IsSpotifyInstalled();
+                            await CurrentAudioPlayer.InitAsync(CurrentLoop, useWebPlayer);
                         }
                         catch (FileNotFoundException ex)
                         {
@@ -617,13 +611,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                         break;
                     case AudioSourceType.Spotify:
-                        // spotify installed on device?
-                        await configurationService.SetValueAsync(PreferenceKeys.IsSpotifyInstalled, spotifyLoader.IsSpotifyInstalled());
-                        if (!configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled))
-                        {
-                            await InitiateSpotifyInstallationAsync();
-                            return;
-                        }
 
                         // spotify already authorized?
                         if (spotifyLoader != null && !spotifyLoader.Authorized)
@@ -632,9 +619,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         }
 
                         // something went wrong and authorization failed
-                        if (configurationService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled) && !spotifyLoader.Authorized)
+                        if (!spotifyLoader.Authorized)
                         {
                             await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToSpotify, AppResources.Error_Caption);
+                            return;
                         }
 
                         // everything fine, go to search view

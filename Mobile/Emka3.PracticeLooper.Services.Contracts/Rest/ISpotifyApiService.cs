@@ -13,14 +13,11 @@ namespace Emka3.PracticeLooper.Services.Contracts.Rest
 {
     public interface ISpotifyApiService
     {
-       
-
-        Task<List<SpotifyTrack>> SearchTrackByName(string term, CancellationToken cancellationToken);
-
         bool UserPremiumCheckSuccessful { get; }
 
+        Task<bool> PlayTrack(string trackId, int positionMs);
+        Task<List<SpotifyTrack>> SearchTrackByName(string term, CancellationToken cancellationToken);
         Task<Tuple<HttpStatusCode, bool>> IsPremiumUser();
-
-        Task PauseCurrentPlayback();
+        Task<bool> PauseCurrentPlayback();
     }
 }

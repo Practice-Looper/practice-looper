@@ -13,6 +13,7 @@ using Com.Spotify.Protocol.Types;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
+using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Java.Lang;
 using Java.Util.Concurrent;
 using Xamarin.Essentials;
@@ -26,9 +27,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
     public class SpotifyAudioPlayer : Java.Lang.Object, IAudioPlayer
     {
         #region Fields
+        private bool useWebPlayer;
         private readonly IPlayerTimer timer;
         private readonly ISpotifyLoader spotifyLoader;
         private readonly ILogger logger;
+        private readonly ISpotifyApiService spotifyApiService;
         private IPlayerApi playerApi;
         const int CURRENT_TIME_UPDATE_INTERVAL = 500;
         private CancellationTokenSource currentTimeCancelTokenSource;
@@ -41,10 +44,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         #region Ctor
 
-        public SpotifyAudioPlayer(IPlayerTimer timer, ISpotifyLoader spotifyLoader, ILogger logger)
+        public SpotifyAudioPlayer(IPlayerTimer timer, ISpotifyLoader spotifyLoader, ILogger logger, ISpotifyApiService spotifyApiService)
         {
             this.spotifyLoader = spotifyLoader ?? throw new ArgumentNullException(nameof(spotifyLoader));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.spotifyApiService = spotifyApiService ?? throw new ArgumentNullException(nameof(spotifyApiService));
             this.timer = timer ?? throw new ArgumentNullException(nameof(timer));
             IsPlaying = false;
             spotifyDelegate = new SpotifyDelegate();
@@ -101,7 +105,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             });
         }
 
-        public void Init(Loop loop)
+        public void Init(Loop loop, bool useWebPlayer = false)
         {
             if (loop == null)
             {
@@ -113,6 +117,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
                 throw new ArgumentNullException(nameof(loop.Session));
             }
 
+            this.useWebPlayer = useWebPlayer;
             CurrentLoop = loop;
             CurrentLoop.StartPositionChanged += OnLoopPositionChanged;
             CurrentLoop.EndPositionChanged += OnLoopPositionChanged;
@@ -148,6 +153,12 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         public void Play()
         {
+            if (useWebPlayer)
+            {
+                Task.Run(async () => await PlayViaWebApi());
+                return;
+            }
+
             playerApi
                 ?.SubscribeToPlayerState()
                 ?.SetEventCallback(stateDelegate)
@@ -202,14 +213,17 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             playerApi.SeekTo((long)loopStart).SetErrorCallback(spotifyDelegate);
         }
 
-        public async Task InitAsync(Loop loop)
+        public async Task InitAsync(Loop loop, bool useWebPlayer = false)
         {
             if (!spotifyLoader.Authorized)
             {
                 await spotifyLoader?.InitializeAsync();
             }
 
-            await Task.Run(() => Init(loop));
+            if (spotifyLoader.Authorized)
+            {
+                await Task.Run(() => Init(loop, useWebPlayer));
+            }
         }
 
         public async Task PauseAsync(bool triggeredByUser = true)
@@ -312,6 +326,18 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             spotifyDelegate.SpotifyEventHandler -= OnEvent;
             spotifyDelegate.SpotifyResultHandler -= OnResult;
             stateDelegate.StateChanged -= OnStateChanged;
+        }
+
+        private async Task PlayViaWebApi()
+        {
+            var success = await spotifyApiService.PlayTrack(CurrentLoop.Session.AudioSource.Source, (int)loopStart);
+            if (success)
+            {
+                IsPlaying = true;
+                ResetAllTimers();
+                RaisePlayingStatusChanged();
+                CurrentPositionTimerExpired(this, new EventArgs());
+            }
         }
         #endregion
     }

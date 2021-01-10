@@ -75,6 +75,7 @@ namespace Emka.PracticeLooper.Mobile
         private void InitApp()
         {
             // Register common forms types
+
             resolver = MappingsFactory.Factory.GetResolver();
             resolver.RegisterSingleton(typeof(FilePicker), typeof(IFilePicker));
             resolver.RegisterSingleton(typeof(NavigationService), typeof(INavigationService));

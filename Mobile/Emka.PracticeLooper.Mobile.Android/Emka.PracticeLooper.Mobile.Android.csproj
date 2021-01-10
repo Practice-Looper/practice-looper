@@ -286,6 +286,10 @@
     <Compile Include="Common\ConnectivityService.cs" />
     <Compile Include="Common\DeviceStorageService.cs" />
     <Compile Include="Common\InAppBillingService.cs" />
+    <Compile Include="Renderers\MainViewRenderer.cs" />
+    <Compile Include="Activities\ActivityCustomUrlSchemeInterceptor.cs" />
+    <Compile Include="Common\SpotifyWebViewClient.cs" />
+    <Compile Include="Renderers\CustomWebViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -479,6 +483,7 @@
     <Folder Include="Common\" />
     <Folder Include="Renderers\" />
     <Folder Include="Resources\drawable\" />
+    <Folder Include="Activities\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Emka.PracticeLooper.Mobile\Emka.PracticeLooper.Mobile.csproj">

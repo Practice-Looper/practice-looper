@@ -30,4 +30,7 @@
   <ItemGroup>
     <Compile Remove="Player\PremiumAudioPlayer.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Auth" Version="1.7.0" />
+  </ItemGroup>
 </Project>

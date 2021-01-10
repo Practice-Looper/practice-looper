@@ -85,7 +85,7 @@ namespace Emka.PracticeLooper.Mobile.Common
             callback?.Invoke(TimeSpan.FromSeconds(Math.Round(audioPlayer.CurrentPosition, 0)).TotalMilliseconds);
         }
 
-        public void Init(Loop loop)
+        public void Init(Loop loop, bool useWebPlayer = false)
         {
             if (loop == null)
             {
@@ -111,7 +111,7 @@ namespace Emka.PracticeLooper.Mobile.Common
             PausedByUser = false;
         }
 
-        public async Task InitAsync(Loop loop)
+        public async Task InitAsync(Loop loop, bool useWebPlayer = false)
         {
             await Task.Run(() => Init(loop));
         }

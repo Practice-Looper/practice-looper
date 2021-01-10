@@ -12,6 +12,7 @@ using Emka.PracticeLooper.Mobile.Droid.Common;
 using Emka3.PracticeLooper.Config;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Model.Common;
+using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Java.Interop;
@@ -84,57 +85,53 @@ namespace Emka.PracticeLooper.Mobile.Droid
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
-          
+
             // Check if result comes from the correct activity
             try
             {
-                if (requestCode == Factory.GetResolver().Resolve<IConfigurationService>()?.GetValue<int>("SpotifyClientRequestCode"))
+                var spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
+                Com.Spotify.Sdk.Android.Auth.AuthorizationResponse response = Com.Spotify.Sdk.Android.Auth.AuthorizationClient.GetResponse((int)resultCode, data);
+
+                var type = response.GetType().ToString();
+
+                switch (type)
                 {
-                    var spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
-                    Com.Spotify.Sdk.Android.Auth.AuthorizationResponse response = Com.Spotify.Sdk.Android.Auth.AuthorizationClient.GetResponse((int)resultCode, data);
+                    // Response was successful and contains auth token
+                    case "token":
+                        // Handle successful response
+                        if (!string.IsNullOrEmpty(response.AccessToken))
+                        {
+                            var accountMngr = Factory.GetResolver().Resolve<ITokenStorage>();
+                            accountMngr.UpdateAccessToken(AudioSourceType.Spotify, response.AccessToken, int.MaxValue);
+                            spotifyLoader.Token = response.AccessToken;
+                        }
+                        break;
 
-                    var type = response.GetType().ToString();
+                    // Auth flow returned an error
+                    case "error":
 
-                    switch (type)
-                    {
-                        // Response was successful and contains auth token
-                        case "token":
-                            // Handle successful response
-
-                            if (!string.IsNullOrEmpty(response.AccessToken))
-                            {
-                                var accountMngr = Factory.GetResolver().Resolve<ITokenStorage>();
-                                accountMngr.UpdateTokenAsync(response.AccessToken).Wait();
-                                spotifyLoader.Token = response.AccessToken;
-                            }
-                            break;
-
-                        // Auth flow returned an error
-                        case "error":
-
-                            if (response.Error == "AUTHENTICATION_DENIED_BY_USER")
-                            {
-                                Com.Spotify.Sdk.Android.Auth.AuthorizationClient.StopLoginActivity(GlobalApp.MainActivity, requestCode);
-                                spotifyLoader.Token = string.Empty;
-                            }
-                            else
-                            {
-
-                                Crashes.TrackError(new Exception(response.Error));
-                            }
-
-                            break;
-                        default:
+                        if (response.Error == "AUTHENTICATION_DENIED_BY_USER")
+                        {
                             Com.Spotify.Sdk.Android.Auth.AuthorizationClient.StopLoginActivity(GlobalApp.MainActivity, requestCode);
-                            Analytics.TrackEvent(TrackerEvents.SpotifyAuthentication.ToString(), new Dictionary<string, string>
+                            spotifyLoader.Token = string.Empty;
+                        }
+                        else
+                        {
+
+                            Crashes.TrackError(new Exception(response.Error));
+                        }
+
+                        break;
+                    default:
+                        Com.Spotify.Sdk.Android.Auth.AuthorizationClient.StopLoginActivity(GlobalApp.MainActivity, requestCode);
+                        Analytics.TrackEvent(TrackerEvents.SpotifyAuthentication.ToString(), new Dictionary<string, string>
                             {
                                 { "ActivityResult", response.GetType().ToString() }
                             });
-                            spotifyLoader.Token = string.Empty;
-                            break;
-                            // Most likely auth flow was cancelled
-                            // Handle other cases
-                    }
+                        spotifyLoader.Token = string.Empty;
+                        break;
+                        // Most likely auth flow was cancelled
+                        // Handle other cases
                 }
             }
             catch (Exception ex)
@@ -163,7 +160,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(configService.GetValue("SyncFusionLicenseKey"));
             Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, configService.GetValue("AdmobAndroidAppId"));
             configService.SetValue(PreferenceKeys.InternalStoragePath, FileSystem.AppDataDirectory);
-
+            GlobalApp.SpotifyRedirectUrl = configService.GetValue("SpotifyClientRedirectUri");
             var externalDir = GetExternalFilesDirs(Android.OS.Environment.DirectoryMusic).FirstOrDefault(dir => dir.AbsolutePath.Contains("storage/emulated/0"));
             configService.SetValue(PreferenceKeys.ExternalStoragePath, externalDir?.AbsolutePath);
 

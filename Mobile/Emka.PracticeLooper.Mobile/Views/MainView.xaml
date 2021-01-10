@@ -28,7 +28,7 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <!--https://mycolor.space/?hex=%2359677C&sub=1-->
+    <!-- https://mycolor.space/?hex=%2359677C&sub=1 -->
     <Grid
         x:Name="MainGrid">
 
@@ -36,15 +36,18 @@
             <RowDefinition
                 Height="Auto" />
             <RowDefinition
+                Height="*" />
+            <RowDefinition
                 Height="Auto" />
         </Grid.RowDefinitions>
+
+        <!-- AdMob -->
 
         <views:AdMobView
             AutomationId="AdmobBanner"
             Grid.Row="0"
             HeightRequest="80"
             x:Name="AdmobBanner" />
-
         <Grid
             Grid.Row="1"
             Margin="0,10,0,0"
@@ -61,7 +64,7 @@
             <ContentView
                 Grid.Row="0"
                 Margin="10,0"
-                VerticalOptions="Start">
+                VerticalOptions="FillAndExpand">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition
@@ -69,6 +72,27 @@
                         <RowDefinition
                             Height="*" />
                     </Grid.RowDefinitions>
+
+                    <!-- Open Spotify Web Player Button -->
+
+                    <ImageButton
+                        Grid.Row="0"
+                        WidthRequest="48"
+                        HeightRequest="48"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        Clicked="OnToggleSpotifyWebPlayer">
+                        <ImageButton.Source>
+                            <FontImageSource
+                                FontFamily="{DynamicResource MaterialFontFamily}"
+                                Glyph="{StaticResource Spotify}"
+                                Size="48"
+                                Color="{DynamicResource PrimaryColor}" />
+                        </ImageButton.Source>
+                    </ImageButton>
+
+                    <!-- Add Session Button -->
+
                     <ImageButton
                         AutomationId="AddSongButton"
                         Grid.Row="0"
@@ -85,6 +109,9 @@
                                 Color="{DynamicResource PrimaryColor}" />
                         </ImageButton.Source>
                     </ImageButton>
+
+                    <!-- Sessions List -->
+
                     <ListView
                         AutomationId="SessionsList"
                         AutomationProperties.IsInAccessibleTree="False"
@@ -92,17 +119,23 @@
                         SelectedItem="{Binding CurrentSession, Mode=TwoWay}"
                         ItemsSource="{Binding Sessions}"
                         ItemTemplate="{StaticResource SessionItemTemplateSelector}" />
+
                 </Grid>
             </ContentView>
+
+            <!-- Separator -->
+
             <BoxView
                 Grid.Row="1"
                 Color="{DynamicResource SecondaryColor}"
                 WidthRequest="100"
                 HeightRequest="2" />
+
             <ContentView
                 Grid.Row="2"
                 VerticalOptions="Center"
                 Padding="10,0">
+
                 <StackLayout>
                     <Grid
                         HorizontalOptions="FillAndExpand"
@@ -117,6 +150,9 @@
                             <ColumnDefinition
                                 Width="2*" />
                         </Grid.ColumnDefinitions>
+
+                        <!-- Current Position -->
+
                         <Label
                             AutomationId="CurrentSongTime"
                             Text="{Binding CurrentSongTime}"
@@ -144,6 +180,9 @@
                                 </Style>
                             </Label.Style>
                         </Label>
+
+                        <!-- Loop Start Position -->
+
                         <Label
                             AutomationId="LoopStartPosition"
                             Text="{Binding LoopStartPosition, StringFormat='[{0}'}"
@@ -180,6 +219,9 @@
                                 </Style>
                             </Label.Style>
                         </Label>
+
+                        <!-- Loop End Position -->
+
                         <Label
                             AutomationId="LoopEndPosition"
                             Text="{Binding LoopEndPosition, StringFormat='{0}]'}"
@@ -215,6 +257,9 @@
                                 </Style>
                             </Label.Style>
                         </Label>
+
+                        <!-- Song Duration -->
+
                         <Label
                             AutomationId="SongDuration"
                             Text="{Binding SongDuration}"
@@ -243,6 +288,7 @@
                             </Label.Style>
                         </Label>
                     </Grid>
+
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition
@@ -250,6 +296,9 @@
                             <RowDefinition
                                 Height="Auto" />
                         </Grid.RowDefinitions>
+
+                        <!-- Slider -->
+
                         <range:SfRangeSlider
                             AutomationId="Slider"
                             x:Name="Slider"
@@ -277,6 +326,9 @@
                             ThumbTouchUp="OnSliderThumbTouchUp"
                             ThumbSize="1">
                         </range:SfRangeSlider>
+
+                        <!-- Play Button -->
+
                         <ImageButton
                             AutomationId="PlayButton"
                             Grid.Row="1"
@@ -329,6 +381,9 @@
                                 </DataTrigger>
                             </ImageButton.Triggers>
                         </ImageButton>
+
+                        <!-- Loop Button -->
+
                         <views:LoopButton
                             AutomationId="AddBookmarkButton"
                             Grid.Row="1"
@@ -353,6 +408,8 @@
             </ContentView>
         </Grid>
 
+        <!-- Busy Indicator -->
+
         <ContentView
             Grid.Row="1"
             IsVisible="{Binding IsBusy}"
@@ -367,8 +424,10 @@
                 HorizontalOptions="Center" />
         </ContentView>
 
+        <!-- Picker -->
+
         <syncfusion:SfPicker
-            Grid.Row="1"
+            Grid.Row="2"
             x:Name="picker"
             AutomationId="Picker"
             VerticalOptions="End"
@@ -397,5 +456,27 @@
             </syncfusion:SfPicker.FooterView>
         </syncfusion:SfPicker>
 
+        <StackLayout
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            HorizontalOptions="FillAndExpand"
+            BackgroundColor="{DynamicResource BackgroundColor}"
+            x:Name="SpotifyWebPlayContainer"
+            Padding="0"
+            IsVisible="True">
+            <views:CustomWebView
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                x:Name="SpotifyWebView"
+                Source="https://open.spotify.com" />
+            <Button
+                HorizontalOptions="Center"
+                Clicked="OnToggleSpotifyWebPlayer"
+                Text="{x:Static rsrcs:AppResources.Close}"
+                TextColor="{DynamicResource PrimaryColor}"
+                BackgroundColor="{DynamicResource BackgroundColor}"
+                BorderColor="{DynamicResource BackgroundColor}">
+            </Button>
+        </StackLayout>
     </Grid>
 </ContentPage>

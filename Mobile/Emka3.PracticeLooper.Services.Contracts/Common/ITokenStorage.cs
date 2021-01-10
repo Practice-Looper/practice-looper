@@ -3,6 +3,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.EventArgs;
 using Emka3.PracticeLooper.Utils;
 
@@ -19,9 +20,13 @@ namespace Emka3.PracticeLooper.Services.Contracts.Common
         #endregion Events
 
         #region Methods
+        Task<bool> HasRefreshToken(AudioSourceType sourceType);
         Task DeleteTokenAsync();
-        Task<string> GetTokenAsync();
-        Task UpdateTokenAsync(string token);
+        string GetAccessToken(AudioSourceType sourceType);
+        Task<string> GetRefreshTokenAsync(AudioSourceType sourceType);
+        void UpdateAccessToken(AudioSourceType sourceType, string token, int expiresIn);
+        Task UpdateRefreshTokenAsync(AudioSourceType sourceType, string token);
+        bool HasTokenExpired(AudioSourceType sourceType);
         #endregion Methods
     }
 }

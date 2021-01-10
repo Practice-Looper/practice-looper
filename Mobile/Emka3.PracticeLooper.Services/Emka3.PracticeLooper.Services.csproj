@@ -34,6 +34,9 @@
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.0.0" />
     <PackageReference Include="Microsoft.AppCenter" Version="4.0.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.0.0" />
+    <PackageReference Include="Xamarin.Auth" Version="1.7.0" />
+    <PackageReference Include="SpotifyAPI.Web" Version="6.0.0" />
+    <PackageReference Include="SpotifyAPI.Web.Auth" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\" />

@@ -84,6 +84,7 @@
         <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.3.0.51" />
         <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
         <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
+        <PackageReference Include="Xamarin.Auth" Version="1.7.0" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />

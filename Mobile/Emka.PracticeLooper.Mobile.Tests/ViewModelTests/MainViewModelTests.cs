@@ -2617,7 +2617,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 appTracker,
                 configurationService,
                 audioPlayers,
-                featureRegistry);
+                featureRegistry, null);
         }
     }
 }

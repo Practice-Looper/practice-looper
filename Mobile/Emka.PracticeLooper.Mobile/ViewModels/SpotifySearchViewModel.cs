@@ -189,30 +189,32 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        public override async Task InitializeAsync(object parameter)
+        public override Task InitializeAsync(object parameter)
         {
-            IsBusy = true;
-            try
-            {
-                if (!spotifyLoader.Authorized)
-                {
-                    var authorized = await spotifyLoader.InitializeAsync();
-                    if (!authorized)
-                    {
-                        await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToSpotify, AppResources.Error_Caption);
-                        await NavigationService.GoBackAsync();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                await Logger.LogErrorAsync(ex);
-                await ShowErrorDialogAsync();
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            //IsBusy = true;
+            //try
+            //{
+            //    if (!spotifyLoader.Authorized)
+            //    {
+            //        var authorized = await spotifyLoader.InitializeAsync();
+            //        if (!authorized)
+            //        {
+            //            await dialogService.ShowAlertAsync(AppResources.Error_Content_CouldNotConnectToSpotify, AppResources.Error_Caption);
+            //            await NavigationService.GoBackAsync();
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    await Logger.LogErrorAsync(ex);
+            //    await ShowErrorDialogAsync();
+            //}
+            //finally
+            //{
+            //    IsBusy = false;
+            //}
+
+            return Task.CompletedTask;
         }
         #endregion Metthods
     }

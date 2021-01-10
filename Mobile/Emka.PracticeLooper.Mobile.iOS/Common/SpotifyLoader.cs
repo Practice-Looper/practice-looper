@@ -6,10 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Emka.PracticeLooper.Services.Contracts;
-using Emka.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Model;
+using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
 using Foundation;
@@ -24,33 +23,31 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
     public class SpotifyLoader : SPTAppRemoteDelegate, ISpotifyLoader, ISKStoreProductViewControllerDelegate
     {
         #region Fields
-
+        private TaskCompletionSource<AuthorizationResponse> authorizationCompletionSource;
         private SPTAppRemote api;
         static AutoResetEvent tokenEvent;
         static AutoResetEvent connectedEvent;
         private string token;
         private readonly IConfigurationService configurationService;
+        private readonly ITokenStorage tokenStorage;
         private readonly ILogger logger;
-        private readonly IDialogService dialogService;
-        private readonly IStringLocalizer stringLocalizer;
         #endregion
 
         #region Ctor
 
         public SpotifyLoader(ILogger logger,
-            IDialogService dialogService,
-            IStringLocalizer stringLocalizer,
-            IConfigurationService configurationService)
+            IConfigurationService configurationService,
+            ITokenStorage tokenStorage)
         {
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
+            this.tokenStorage = tokenStorage;
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
-            this.stringLocalizer = stringLocalizer ?? throw new ArgumentNullException(nameof(stringLocalizer));
+            this.tokenStorage = tokenStorage ?? throw new ArgumentNullException(nameof(tokenStorage));
         }
         #endregion
 
         #region Properties
-
+        public OAuthAuthenticator Authenticator { get; private set; }
         public object RemoteApi => api;
 
         public string Token
@@ -79,7 +76,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         #endregion
 
         #region Events
-
+        public event EventHandler<AudioSourceType> WebAuthorizationRequested;
         public event EventHandler Disconnected;
         #endregion
 
@@ -104,13 +101,12 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 tokenEvent?.WaitOne(TimeSpan.FromSeconds(connectionTimeout));
 
                 MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    StartConnection();
-                });
+                        {
+                            StartConnection();
+                        });
 
                 connectedEvent?.WaitOne(TimeSpan.FromSeconds(connectionTimeout));
 
-                Authorized = api != null && api.Connected && !string.IsNullOrEmpty(Token);
                 return Authorized;
             }
             catch (Exception ex)
@@ -129,6 +125,32 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             tokenEvent = new AutoResetEvent(false);
             connectedEvent = new AutoResetEvent(false);
             return await Task.Run(() => Initialize(songUri));
+        }
+
+        public OAuthAuthenticator GetAuthenticator()
+        {
+            var id = configurationService.GetValue("SpotifyClientId");
+            var secret = configurationService.GetValue("SpotifyClientSecret");
+            var scopes = configurationService.GetValue("SpotifyClientScopes");
+            var callback = configurationService.GetValue("SpotifyClientRedirectUri");
+            Authenticator = new OAuthAuthenticator(id, secret, scopes, new Uri("https://accounts.spotify.com/authorize"), new Uri(callback), new Uri("https://accounts.spotify.com/api/token"), null, true);
+            Authenticator.Completed += async (s, e) =>
+            {
+                Authorized = e.IsAuthenticated;
+                if (e.IsAuthenticated)
+                {
+                    token = e.Account.Properties["access_token"];
+                    var expirationTime = e.Account.Properties["expires_in"];
+                    tokenStorage.UpdateAccessToken(AudioSourceType.Spotify, token, int.Parse(expirationTime));
+                    var refreshToken = e.Account.Properties["refresh_token"];
+                    await tokenStorage.UpdateRefreshTokenAsync(AudioSourceType.Spotify, refreshToken);
+                }
+
+                tokenEvent.Set();
+                connectedEvent.Set();
+            };
+
+            return Authenticator;
         }
 
         public override void DidDisconnectWithError(SPTAppRemote appRemote, NSError error)
@@ -159,6 +181,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             try
             {
+                Authorized = api != null && api.Connected && !string.IsNullOrEmpty(Token);
                 connectedEvent.Set();
             }
             catch (ObjectDisposedException ex)
@@ -192,39 +215,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
         }
 
-        public void Disconnect()
-        {
-            try
-            {
-                if (api != null && api.Connected)
-                {
-                    api.Disconnect();
-                }
-            }
-            catch (Exception ex)
-            {
-                logger?.LogError(ex);
-                throw;
-            }
-        }
-
-        private void StartAuthorization(string songUri = "")
-        {
-
-            var clientId = configurationService.GetValue("SpotifyClientId");
-            var redirectUri = configurationService.GetValue("SpotifyClientRedirectUri");
-            var appConfig = new SPTConfiguration(clientId, NSUrl.FromString(redirectUri));
-            api = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Info);
-            api.Delegate = this;
-            api.AuthorizeAndPlayURI(songUri);
-        }
-
-        private void StartConnection()
-        {
-            api.ConnectionParameters.AccessToken = Token;
-            api.Connect();
-        }
-
         public void InstallSpotify()
         {
             var storeViewController = new SKStoreProductViewController();
@@ -248,6 +238,52 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public bool IsSpotifyInstalled()
         {
             return UIApplication.SharedApplication.CanOpenUrl(new NSUrl(new NSString("spotify:")));
+        }
+
+        public void Disconnect()
+        {
+            try
+            {
+                if (api != null && api.Connected)
+                {
+                    api.Disconnect();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex);
+                throw;
+            }
+        }
+
+        private void StartAuthorization(string songUri = "")
+        {
+            var isSpotifyInstalled = IsSpotifyInstalled();
+            if (isSpotifyInstalled)
+            {
+                var clientId = configurationService.GetValue("SpotifyClientId");
+                var redirectUri = configurationService.GetValue("SpotifyClientRedirectUri");
+                var appConfig = new SPTConfiguration(clientId, NSUrl.FromString(redirectUri));
+                api = new SPTAppRemote(appConfig, SPTAppRemoteLogLevel.Info);
+                api.Delegate = this;
+                api.AuthorizeAndPlayURI(songUri);
+            }
+            else
+            {
+                OnWebAuthorizationRequested();
+            }
+        }
+
+        private void StartConnection()
+        {
+            if (IsSpotifyInstalled())
+            {
+                api.ConnectionParameters.AccessToken = Token;
+                api.Connect();
+                return; 
+            }
+
+            connectedEvent.Set();
         }
 
         private string GetRandomCoumarinSong()
@@ -274,6 +310,19 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
 
             return result;
+        }
+
+        private async void OnWebAuthorizationRequested()
+        {
+            Authorized = await tokenStorage.HasRefreshToken(AudioSourceType.Spotify);
+            if (!Authorized)
+            {
+                WebAuthorizationRequested.Invoke(this, AudioSourceType.Spotify);
+            }
+            else
+            {
+                tokenEvent.Set();
+            }
         }
         #endregion
     }

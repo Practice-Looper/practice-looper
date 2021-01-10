@@ -38,7 +38,12 @@ namespace Emka.PracticeLooper.Mobile.Views
             resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
             configService = resolver.Resolve<IConfigurationService>();
             featureRegistry = resolver.Resolve<IFeatureRegistry>();
-            picker.BindingContext = new RangePickerViewModel(resolver.Resolve<IDialogService>(), resolver.Resolve<ILogger>(), resolver.Resolve<INavigationService>(), resolver.Resolve<IAppTracker>());
+            picker.BindingContext = new RangePickerViewModel(
+                resolver.Resolve<IDialogService>(),
+                resolver.Resolve<ILogger>(),
+                resolver.Resolve<INavigationService>(),
+                resolver.Resolve<IAppTracker>());
+
             BindingContext = new MainViewModel(resolver.Resolve<IInterstitialAd>(),
                    resolver.Resolve<IRepository<Session>>(),
                    resolver.Resolve<IRepository<Loop>>(),
@@ -213,9 +218,12 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             picker.SelectionChanged -= SelectionChanged;
         }
+
+        void OnToggleSpotifyWebPlayer(object sender, EventArgs e)
+        {
+            SpotifyWebPlayContainer.IsVisible = !SpotifyWebPlayContainer.IsVisible;
+        }
         #endregion
 
     }
-
-
 }

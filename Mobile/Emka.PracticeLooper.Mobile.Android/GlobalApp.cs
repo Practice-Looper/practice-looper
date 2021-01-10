@@ -9,5 +9,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
     internal static class GlobalApp
     {
         internal static Activity MainActivity { get; set; }
+        internal static string SpotifyRedirectUrl { get; set; }
     }
 }

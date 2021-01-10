@@ -15,7 +15,7 @@ namespace Emka3.PracticeLooper.Service.Tests
     [TestFixture()]
     public class SpotifyTokenStorageTests
     {
-        private SpotifyTokenStorage tokenStorage;
+        private TokenStorage tokenStorage;
         private Mock<ISecureRepository> tokenRepositoryMock;
         private const string DummyToken = "thisismycoolandfunkytoken-usemefortestingpurposes!";
         private Dictionary<string, object> testStorage;
@@ -33,7 +33,7 @@ namespace Emka3.PracticeLooper.Service.Tests
             tokenRepositoryMock.Setup(r => r.SetValueAsync(It.IsAny<string>(), It.IsAny<string>())).Callback((string k, object v) => testStorage.Add(k, v));
             tokenRepositoryMock.Setup(r => r.GetValueAsync(It.IsAny<string>())).Returns((string a) => Task.FromResult(testStorage[a].ToString()));
 
-            tokenStorage = new SpotifyTokenStorage(tokenRepositoryMock.Object);
+            tokenStorage = new TokenStorage(tokenRepositoryMock.Object);
             await tokenStorage.UpdateTokenAsync(DummyToken);
             var currentToken = await tokenStorage.GetTokenAsync();
 
@@ -50,7 +50,7 @@ namespace Emka3.PracticeLooper.Service.Tests
         [Test()]
         public void When_AddedEmptyToken_Expect_ArgumentException(string invalidToken)
         {
-            tokenStorage = new SpotifyTokenStorage(tokenRepositoryMock.Object);
+            tokenStorage = new TokenStorage(tokenRepositoryMock.Object);
             var ex = Assert.ThrowsAsync<ArgumentNullException>(() => tokenStorage.UpdateTokenAsync(invalidToken));
             Assert.NotNull(ex);
             Assert.IsEmpty(testStorage);
@@ -62,7 +62,7 @@ namespace Emka3.PracticeLooper.Service.Tests
             tokenRepositoryMock.Setup(r => r.SetValueAsync(It.IsAny<string>(), It.IsAny<string>())).Callback((string k, object v) => testStorage.Add(k, v));
             tokenRepositoryMock.Setup(r => r.GetValueAsync(It.IsAny<string>())).Returns((string a) => Task.FromResult(testStorage.ContainsKey(a) ? testStorage[a].ToString() : null));
             tokenRepositoryMock.Setup(r => r.DeleteValueAsync(It.IsAny<string>())).Callback((string k) => testStorage.Remove(k));
-            tokenStorage = new SpotifyTokenStorage(tokenRepositoryMock.Object);
+            tokenStorage = new TokenStorage(tokenRepositoryMock.Object);
             await tokenStorage.UpdateTokenAsync(DummyToken);
             var currentToken = await tokenStorage.GetTokenAsync();
 
