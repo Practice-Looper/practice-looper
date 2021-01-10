@@ -4,7 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -36,8 +36,11 @@ namespace Emka3.PracticeLooper.Services.Rest
         private readonly string spotifyApiBaseAddress;
         private readonly string spotifyTokenApiBaseAddress;
         private SpotifyClient spotifyClient;
-        int limit;
+        private int averageRequestTime; //ms
+        private int limit;
         static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
+        private Stopwatch requestTimer;
+        private CircularBuffer<long> requestTimeBuffer;
         #endregion
 
         #region Ctor
@@ -51,6 +54,9 @@ namespace Emka3.PracticeLooper.Services.Rest
             UserPremiumCheckSuccessful = false;
             spotifyApiBaseAddress = configurationService.GetValue("SpotifyClientApiUri");
             spotifyTokenApiBaseAddress = configurationService.GetValue("SpotifyClientAccountApiUri");
+            averageRequestTime = 50;
+            requestTimer = new Stopwatch();
+            requestTimeBuffer = new CircularBuffer<long>(10);
         }
         #endregion
 
@@ -133,12 +139,17 @@ namespace Emka3.PracticeLooper.Services.Rest
             try
             {
                 var client = await GetSpotifyClient();
+                StartRequestTimeMeasurement();
                 var result = await client.Player.PausePlayback();
                 return result;
             }
             catch (Exception ex)
             {
                 await logger.LogErrorAsync(ex);
+            }
+            finally
+            {
+                StopRequestTimeMeasurement();
             }
 
             return false;
@@ -150,6 +161,7 @@ namespace Emka3.PracticeLooper.Services.Rest
             {
                 var client = await GetSpotifyClient();
                 var playbackRequest = new PlayerResumePlaybackRequest { Uris = new List<string> { trackId }, PositionMs = positionMs };
+                StartRequestTimeMeasurement();
                 var result = await client.Player.ResumePlayback(playbackRequest);
                 return result;
             }
@@ -157,8 +169,82 @@ namespace Emka3.PracticeLooper.Services.Rest
             {
                 await logger.LogErrorAsync(ex);
             }
+            finally
+            {
+                StopRequestTimeMeasurement();
+            }
 
             return false;
+        }
+
+        public async Task<bool> SeekTo(long position)
+        {
+            try
+            {
+                var client = await GetSpotifyClient();
+                var seekToRequest = new PlayerSeekToRequest(position);
+                StartRequestTimeMeasurement();
+                var result = await client.Player.SeekTo(seekToRequest);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                await logger.LogErrorAsync(ex);
+            }
+            finally
+            {
+                StopRequestTimeMeasurement();
+            }
+
+            return false;
+        }
+
+        public async Task<List<SpotifyDevice>> GetActiveDevices()
+        {
+            try
+            {
+                var client = await GetSpotifyClient();
+                StartRequestTimeMeasurement();
+                var response = await client.Player.GetAvailableDevices();
+                return response?.Devices?.Where(d => d.IsActive)?.Select(d => new SpotifyDevice(d.Id, d.Name, d.IsActive, d.Type))?.ToList();
+            }
+            catch (Exception ex)
+            {
+                await logger.LogErrorAsync(ex);
+            }
+            finally
+            {
+                StopRequestTimeMeasurement();
+            }
+
+            return new List<SpotifyDevice>();
+        }
+
+        public async Task<double> GetCurrentPlaybackPosition()
+        {
+            try
+            {
+                var client = await GetSpotifyClient();
+                StartRequestTimeMeasurement();
+                var response = await client.Player.GetCurrentPlayback();
+                return response.ProgressMs;
+            }
+            catch (Exception ex)
+            {
+                await logger.LogErrorAsync(ex);
+            }
+            finally
+            {
+                StopRequestTimeMeasurement();
+            }
+
+            return default;
+        }
+
+        public double GetAverageRequestTime()
+        {
+            var averageTime = requestTimeBuffer.Buffer.Average(r => r);
+            return averageTime;
         }
 
         private async Task<SpotifyClient> GetSpotifyClient()
@@ -184,6 +270,7 @@ namespace Emka3.PracticeLooper.Services.Rest
                 var basicAuthHeader = new AuthenticationHeaderValue("Basic", base64Secrets);
 
                 string result;
+                StartRequestTimeMeasurement();
                 using (var response = await apiClient.SendRequestAsync(HttpMethod.Post, spotifyTokenApiBaseAddress, "token", null, default, content, basicAuthHeader))
                 {
                     response.EnsureSuccessStatusCode();
@@ -210,6 +297,7 @@ namespace Emka3.PracticeLooper.Services.Rest
             finally
             {
                 semaphoreSlim.Release();
+                StopRequestTimeMeasurement();
             }
 
             return string.Empty;
@@ -234,6 +322,71 @@ namespace Emka3.PracticeLooper.Services.Rest
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             return Convert.ToBase64String(plainTextBytes);
         }
+
+        private void StartRequestTimeMeasurement()
+        {
+            requestTimer.Reset();
+            requestTimer.Start();
+        }
+
+        private void StopRequestTimeMeasurement()
+        {
+            requestTimer.Stop();
+            requestTimeBuffer.Write(requestTimer.ElapsedMilliseconds);
+        }
         #endregion
+    }
+
+    internal class CircularBuffer<T>
+    {
+        private T[] buffer;
+        private int start;
+        private int end;
+
+        public CircularBuffer()
+            : this(capacity: 3)
+        {
+        }
+
+        public CircularBuffer(int capacity)
+        {
+            buffer = new T[capacity + 1];
+            start = 0;
+            end = 0;
+        }
+
+        public void Write(T value)
+        {
+            buffer[end] = value;
+            end = (end + 1) % buffer.Length;
+            if (end == start)
+            {
+                start = (start + 1) % buffer.Length;
+            }
+        }
+
+        public T Read()
+        {
+            T result = buffer[start];
+            start = (start + 1) % buffer.Length;
+            return result;
+        }
+
+        public int Capacity
+        {
+            get { return buffer.Length; }
+        }
+
+        public bool IsEmpty
+        {
+            get { return end == start; }
+        }
+
+        public bool IsFull
+        {
+            get { return (end + 1) % buffer.Length == start; }
+        }
+
+        public T[] Buffer => buffer;
     }
 }

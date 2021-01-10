@@ -37,7 +37,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
                 return;
             }
 
-
             spotifyLoader.WebAuthorizationRequested += OnWebAuthorizationRequested;
         }
 
@@ -61,8 +60,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
 
         private void OnAuthenticatorCompleted(object sender, AuthenticatorCompletedEventArgs e)
         {
-            //    var activity = Context as Activity;
-            //    activity.Finish();
+            //var activity = Context as Activity;
+            //activity.Finish();
 
             var authenticator = sender as OAuthAuthenticator;
 

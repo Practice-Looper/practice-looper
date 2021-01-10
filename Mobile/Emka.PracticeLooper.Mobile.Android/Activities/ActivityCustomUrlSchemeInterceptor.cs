@@ -29,7 +29,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Activities
 
             // Close browser 
             var intent = new Intent(this, typeof(MainActivity));
-            //intent.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
+            intent.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
             StartActivity(intent);
 
             var spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
