@@ -312,6 +312,7 @@ namespace Emka3.PracticeLooper.Services.Rest
             if (string.IsNullOrWhiteSpace(accessToken) || tokenExpired)
             {
                 accessToken = await RefreshTokenAsync();
+                spotifyClient = null;
             }
 
             return accessToken;
