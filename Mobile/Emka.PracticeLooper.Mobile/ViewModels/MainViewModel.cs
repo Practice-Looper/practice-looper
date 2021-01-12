@@ -52,6 +52,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private SessionViewModel currentSession;
         private Loop currentLoop;
         private bool isPlaying;
+        private bool showCallToAction;
         private double minimumValue;
         private double maximumValue;
         private string songDuration;
@@ -102,6 +103,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             Sessions = new ObservableCollection<SessionViewModel>();
             isPlaying = false;
+            showCallToAction = VersionTracking.IsFirstLaunchEver ? true : false;
             UiContext = SynchronizationContext.Current;
         }
         #endregion
@@ -194,6 +196,19 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public bool IsInitialized => CurrentSession != null;
 
         public ObservableCollection<SessionViewModel> Sessions { get; set; }
+
+        public bool ShowCallToAction
+        {
+            get { return showCallToAction; }
+            set
+            {
+                if (showCallToAction != value)
+                {
+                    showCallToAction = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         public SessionViewModel CurrentSession
         {
@@ -289,7 +304,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public List<IAudioPlayer> AudioPlayers { get; }
         #endregion
 
-        #region Metods
+        #region Methods
         public override async Task InitializeAsync(object parameter)
         {
             if (UiContext == null)
@@ -584,6 +599,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private async Task ExecutePickSourceCommandAsync(object o)
         {
+            ShowCallToAction = false;
+
             try
             {
                 UiContext.Send(x => IsBusy = true, null);

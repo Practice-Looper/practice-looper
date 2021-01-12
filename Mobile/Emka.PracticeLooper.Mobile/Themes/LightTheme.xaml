@@ -6,4 +6,5 @@
     <Color x:Key="SecondaryColor">#05C19C</Color>
     <Color x:Key="PrimaryColor">#008B69</Color>
     <Color x:Key="SelectionColor">#E6F4F1</Color>
+    <Color x:Key="SpotifyColor">#1DB954</Color>
 </ResourceDictionary>

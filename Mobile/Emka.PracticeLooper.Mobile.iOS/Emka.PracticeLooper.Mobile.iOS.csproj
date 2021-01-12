@@ -147,15 +147,15 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>Apple Development: Maksim Kolesnik (2Y42L78UD6)</CodesignKey>
+    <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchLink>None</MtouchLink>
     <BuildIpa>true</BuildIpa>
     <MtouchExtraArgs>--linkskip=Xam.Plugin.SimpleAudioPlayer --linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker --linkskip=Plugin.InAppBilling</MtouchExtraArgs>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
-    <CodesignProvision>practice-looper-dev</CodesignProvision>
     <MtouchInterpreter>-all</MtouchInterpreter>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugPremium|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -414,6 +414,15 @@
     <BundleResource Include="Resources\Base.lproj\premium.png" />
     <BundleResource Include="Resources\de.lproj\premium.png" />
     <BundleResource Include="Resources\en.lproj\premium.png" />
+    <BundleResource Include="Resources\Base.lproj\cta_body.png" />
+    <BundleResource Include="Resources\Base.lproj\cta_header_left.png" />
+    <BundleResource Include="Resources\Base.lproj\cta_header_right.png" />
+    <BundleResource Include="Resources\en.lproj\cta_header_left.png" />
+    <BundleResource Include="Resources\en.lproj\cta_header_right.png" />
+    <BundleResource Include="Resources\en.lproj\cta_body.png" />
+    <BundleResource Include="Resources\de.lproj\cta_body.png" />
+    <BundleResource Include="Resources\de.lproj\cta_header_left.png" />
+    <BundleResource Include="Resources\de.lproj\cta_header_right.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -317,7 +317,7 @@
                     FontFamily="{DynamicResource MaterialFontFamily}"
                     Text="{StaticResource Spotify}"
                     FontSize="48"
-                    TextColor="{DynamicResource PrimaryColor}"
+                    TextColor="{DynamicResource SpotifyColor}"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
