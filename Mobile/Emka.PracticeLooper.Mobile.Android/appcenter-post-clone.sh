@@ -22,6 +22,7 @@ echo "{
 	SpotifyClientApiUri: \"$SpotifyClientApiUri\",
 	SpotifyClientRedirectUri: \"$SpotifyClientRedirectUri\",
 	SpotifyClientTokenUri: \"$SpotifyClientTokenUri\",
+	SpotifyClientAuthUri: \"$SpotifyClientAuthUri\",
 	SpotifyClientRequestCode: $SpotifyClientRequestCode,
 	AdmobIosTopBannerAdId: \"$AdmobIosTopBannerAdId\",
 	AdmobIosInterstitialProjectAdId: \"$AdmobIosInterstitialProjectAdId\",
