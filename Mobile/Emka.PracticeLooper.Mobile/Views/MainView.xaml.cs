@@ -34,7 +34,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         public MainView()
         {
             InitializeComponent();
-
+            SpotifyWebViewContainer.IsVisible = false;
             resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
             configService = resolver.Resolve<IConfigurationService>();
             featureRegistry = resolver.Resolve<IFeatureRegistry>();
@@ -221,7 +221,7 @@ namespace Emka.PracticeLooper.Mobile.Views
 
         void OnToggleSpotifyWebPlayer(object sender, EventArgs e)
         {
-            SpotifyWebPlayContainer.IsVisible = !SpotifyWebPlayContainer.IsVisible;
+            SpotifyWebViewContainer.IsVisible = !SpotifyWebViewContainer.IsVisible;
         }
         #endregion
 

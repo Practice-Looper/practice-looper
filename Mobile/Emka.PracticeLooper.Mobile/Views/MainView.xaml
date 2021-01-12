@@ -461,13 +461,11 @@
             Grid.RowSpan="2"
             HorizontalOptions="FillAndExpand"
             BackgroundColor="{DynamicResource BackgroundColor}"
-            x:Name="SpotifyWebPlayContainer"
-            Padding="0"
-            IsVisible="True">
+            x:Name="SpotifyWebViewContainer"
+            Padding="0">
             <views:CustomWebView
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
-                x:Name="SpotifyWebView"
                 Source="https://open.spotify.com" />
             <Button
                 HorizontalOptions="Center"

@@ -248,6 +248,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 Initialized = false;
                 IsPlaying = false;
                 RaisePlayingStatusChanged();
+                await PauseViaWebApi();
             }
         }
 
