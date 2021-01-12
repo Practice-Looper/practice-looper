@@ -249,8 +249,11 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             var id = configurationService.GetValue("SpotifyClientId");
             var secret = configurationService.GetValue("SpotifyClientSecret");
             var scopes = configurationService.GetValue("SpotifyClientScopes");
-            var callback = configurationService.GetValue("SpotifyClientRedirectUri");
-            Authenticator = new OAuthAuthenticator(id, secret, scopes, new Uri("https://accounts.spotify.com/authorize"), new Uri(callback), new Uri("https://accounts.spotify.com/api/token"), null, true);
+            var callbackUri = configurationService.GetValue("SpotifyClientRedirectUri");
+            var tokenUri = configurationService.GetValue("SpotifyClientTokenUri");
+            var authUri = configurationService.GetValue("SpotifyClientAuthUri");
+
+            Authenticator = new OAuthAuthenticator(id, secret, scopes, new Uri(authUri), new Uri(callbackUri), new Uri(tokenUri), null, true);
             Authenticator.Completed += async (s, e) =>
             {
                 Authorized = e.IsAuthenticated;
