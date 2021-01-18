@@ -17,11 +17,11 @@ namespace Emka3.PracticeLooper.Services.Common
         {
         }
 
-        public async Task<HttpResponseMessage> SendRequestAsync(HttpMethod method, string baseAddress, string path, string token, CancellationToken cancelToken, HttpContent content = null, AuthenticationHeaderValue authenticationHeader = null)
+        public async Task<HttpResponseMessage> SendRequestAsync(HttpMethod method, string baseAddress, string path, string token, CancellationToken cancelToken, HttpContent content = null, AuthenticationHeaderValue authenticationHeader = null, HttpClientHandler handler = null)
         {
             try
             {
-                var httpClient = new HttpClient();
+                var httpClient = handler == null ? new HttpClient() : new HttpClient(handler);
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 httpClient.BaseAddress = new Uri(baseAddress);
                 httpClient.DefaultRequestHeaders.Authorization = authenticationHeader ?? new AuthenticationHeaderValue("Bearer", token);

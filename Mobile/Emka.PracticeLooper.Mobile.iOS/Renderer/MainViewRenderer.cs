@@ -48,7 +48,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
                     {
                         var authenticator = spotifyLoader.GetAuthenticator();
                         authenticator.Completed += OnAuthenticatorCompleted;
-                        PresentViewController(authenticator.GetUI(), true, null);
+                        var ui = authenticator.GetUI();
+                        PresentViewController(ui, true, null);
                     }
                     break;
                 default:

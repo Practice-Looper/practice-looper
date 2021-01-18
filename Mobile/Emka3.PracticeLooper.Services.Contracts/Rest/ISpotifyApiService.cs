@@ -17,12 +17,12 @@ namespace Emka3.PracticeLooper.Services.Contracts.Rest
     {
         bool UserPremiumCheckSuccessful { get; }
 
-        Task<bool> PlayTrack(string trackId, int positionMs);
+        Task<bool> PlayTrack(string trackId, int positionMs, string deviceId);
         Task<List<SpotifyTrack>> SearchTrackByName(string term, CancellationToken cancellationToken);
         Task<Tuple<HttpStatusCode, bool>> IsPremiumUser();
         Task<bool> PauseCurrentPlayback();
         Task<bool> SeekTo(long position);
-        Task<List<SpotifyDevice>> GetActiveDevices();
+        Task<List<SpotifyDevice>> GetAvailableDevices();
         Task<double> GetCurrentPlaybackPosition();
         double GetAverageRequestTime();
     }

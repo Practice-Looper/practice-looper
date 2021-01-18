@@ -8,9 +8,27 @@ namespace Emka.PracticeLooper.Mobile.Views
 {
     public class CustomWebView : WebView
     {
+        public static readonly BindableProperty IsNavigatingProperty =
+                BindableProperty.Create("IsNavigating", typeof(bool), typeof(CustomWebView), null);
+
+        public static readonly BindableProperty IsLoadedProperty =
+                BindableProperty.Create("IsLoaded", typeof(bool), typeof(CustomWebView), null);
+
         public CustomWebView()
         {
 
+        }
+
+        public bool IsNavigating
+        {
+            get { return (bool)GetValue(IsNavigatingProperty); }
+            set { SetValue(IsNavigatingProperty, value); }
+        }
+
+        public bool IsLoaded
+        {
+            get { return (bool)GetValue(IsLoadedProperty); }
+            set { SetValue(IsLoadedProperty, value); }
         }
     }
 }

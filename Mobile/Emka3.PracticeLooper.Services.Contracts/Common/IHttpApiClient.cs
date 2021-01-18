@@ -11,6 +11,6 @@ namespace Emka3.PracticeLooper.Services.Contracts.Common
 {
     public interface IHttpApiClient
     {
-        Task<HttpResponseMessage> SendRequestAsync(HttpMethod method, string baseAddress, string path, string token, CancellationToken cancelToken, HttpContent content = null, AuthenticationHeaderValue authenticationHeader = null);
+        Task<HttpResponseMessage> SendRequestAsync(HttpMethod method, string baseAddress, string path, string token, CancellationToken cancelToken, HttpContent content = null, AuthenticationHeaderValue authenticationHeader = null, HttpClientHandler handler = null);
     }
 }

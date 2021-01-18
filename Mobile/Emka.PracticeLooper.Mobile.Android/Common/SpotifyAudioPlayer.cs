@@ -26,6 +26,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
     {
         #region Fields
         private bool useWebPlayer;
+        private string deviceId;
         private readonly IPlayerTimer timer;
         private readonly ISpotifyLoader spotifyLoader;
         private readonly ILogger logger;
@@ -110,7 +111,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             });
         }
 
-        public void Init(Loop loop, bool useWebPlayer = false)
+        public void Init(Loop loop, bool useWebPlayer = false, string deviceId = null)
         {
             if (loop == null)
             {
@@ -123,6 +124,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             }
 
             this.useWebPlayer = useWebPlayer;
+            this.deviceId = deviceId;
             CurrentLoop = loop;
             CurrentLoop.StartPositionChanged += OnLoopPositionChanged;
             CurrentLoop.EndPositionChanged += OnLoopPositionChanged;
@@ -199,7 +201,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             playerApi.SeekTo((long)loopStart).SetErrorCallback(spotifyDelegate);
         }
 
-        public async Task InitAsync(Loop loop, bool useWebPlayer = false)
+        public async Task InitAsync(Loop loop, bool useWebPlayer = false, string deviceId = null)
         {
             if (!spotifyLoader.Authorized)
             {
@@ -208,7 +210,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
             if (spotifyLoader.Authorized)
             {
-                await Task.Run(() => Init(loop, useWebPlayer));
+                await Task.Run(() => Init(loop, useWebPlayer, deviceId));
             }
         }
 
@@ -229,7 +231,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
         private async Task PlayViaWebApi()
         {
-            var success = await spotifyApiService.PlayTrack(CurrentLoop.Session.AudioSource.Source, (int)loopStart);
+            var success = await spotifyApiService.PlayTrack(CurrentLoop.Session.AudioSource.Source, (int)loopStart, deviceId);
             if (success)
             {
                 IsPlaying = true;
@@ -244,6 +246,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
             var success = await spotifyApiService.PauseCurrentPlayback();
             if (success)
             {
+                timer.StopTimers();
                 Initialized = false;
                 IsPlaying = false;
                 RaisePlayingStatusChanged();

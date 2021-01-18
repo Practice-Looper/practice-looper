@@ -496,18 +496,40 @@
             </syncfusion:SfPicker.FooterView>
         </syncfusion:SfPicker>
 
-        <StackLayout
+        <Grid
+            x:Name="SpotifyWebViewContainer"
             Grid.Row="1"
             Grid.RowSpan="2"
             HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
             BackgroundColor="{DynamicResource BackgroundColor}"
-            x:Name="SpotifyWebViewContainer"
+            IsVisible="{Binding IsSpotifyWebPlayerVisible, Mode=TwoWay}"
             Padding="0">
-            <views:CustomWebView
-                HorizontalOptions="FillAndExpand"
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="*" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+            </Grid.RowDefinitions>
+            <ContentView
+                x:Name="WebViewLoadingDecorator"
                 VerticalOptions="FillAndExpand"
-                Source="https://open.spotify.com" />
+                HorizontalOptions="FillAndExpand"
+                Opacity="0.8"
+                BackgroundColor="{DynamicResource BackgroundColor}"
+                IsVisible="{Binding Path=IsNavigating}">
+                <ActivityIndicator
+                    BindingContext="{x:Reference WebViewLoadingDecorator}"
+                    IsRunning="{Binding Path=IsVisible}"
+                    Color="{DynamicResource SecondaryColor}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center" />
+            </ContentView>
+
             <Button
+                Grid.Row="2"
                 HorizontalOptions="Center"
                 Clicked="OnToggleSpotifyWebPlayer"
                 Text="{x:Static rsrcs:AppResources.Close}"
@@ -515,6 +537,6 @@
                 BackgroundColor="{DynamicResource BackgroundColor}"
                 BorderColor="{DynamicResource BackgroundColor}">
             </Button>
-        </StackLayout>
+        </Grid>
     </Grid>
 </ContentPage>

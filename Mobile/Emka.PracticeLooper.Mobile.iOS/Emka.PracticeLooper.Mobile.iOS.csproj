@@ -156,6 +156,7 @@
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchInterpreter>-all</MtouchInterpreter>
     <LangVersion>8.0</LangVersion>
+    <CodesignProvision>practice-looper-dev</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugPremium|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -255,6 +256,7 @@
     <Compile Include="Common\DeviceStorageService.cs" />
     <Compile Include="Common\InAppBillingService.cs" />
     <Compile Include="Renderer\MainViewRenderer.cs" />
+    <Compile Include="Renderer\CustomWebViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
