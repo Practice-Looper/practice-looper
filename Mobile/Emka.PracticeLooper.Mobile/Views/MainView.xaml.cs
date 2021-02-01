@@ -17,6 +17,7 @@ using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Emka3.PracticeLooper.Config.Contracts.Features;
+using Emka.PracticeLooper.Model;
 
 namespace Emka.PracticeLooper.Mobile.Views
 {
@@ -28,6 +29,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         private readonly IConfigurationService configService;
         private readonly IFeatureRegistry featureRegistry;
         private IResolver resolver;
+        private CustomWebView spotifyPlayerWebView;
         #endregion
 
         #region Ctor
@@ -60,6 +62,20 @@ namespace Emka.PracticeLooper.Mobile.Views
                    configService,
                    resolver.ResolveAll<IAudioPlayer>(),
                    resolver.Resolve<IFeatureRegistry>());
+
+            SpotifyWebViewContainer.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == "IsVisible" && spotifyPlayerWebView == null)
+                {
+                    InitSpotifyWebPlayer();
+                }
+            };
+
+            MessagingCenter.Subscribe<object, bool>(this, MessengerKeys.WebViewNavigationStatus, (s, isNavigating) =>
+            {
+                WebViewLoadingDecorator.IsVisible = isNavigating;
+                spotifyPlayerWebView.IsVisible = !isNavigating;
+            });
         }
         #endregion
 
@@ -221,9 +237,23 @@ namespace Emka.PracticeLooper.Mobile.Views
 
         void OnToggleSpotifyWebPlayer(object sender, EventArgs e)
         {
+            InitSpotifyWebPlayer();
             SpotifyWebViewContainer.IsVisible = !SpotifyWebViewContainer.IsVisible;
         }
-        #endregion
 
+        void InitSpotifyWebPlayer()
+        {
+            if (spotifyPlayerWebView == null)
+            {
+                spotifyPlayerWebView = new CustomWebView();
+                spotifyPlayerWebView.BackgroundColor = Color.Transparent;
+                spotifyPlayerWebView.BindingContext = BindingContext;
+                spotifyPlayerWebView.HorizontalOptions = LayoutOptions.FillAndExpand;
+                spotifyPlayerWebView.VerticalOptions = LayoutOptions.FillAndExpand;
+                Grid.SetRow(spotifyPlayerWebView, 0);
+                SpotifyWebViewContainer.Children.Add(spotifyPlayerWebView);
+            }
+        }
+        #endregion
     }
 }

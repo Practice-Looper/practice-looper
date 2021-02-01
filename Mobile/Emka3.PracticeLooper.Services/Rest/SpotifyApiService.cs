@@ -35,12 +35,12 @@ namespace Emka3.PracticeLooper.Services.Rest
         private readonly ITokenStorage tokenStorage;
         private readonly string spotifyApiBaseAddress;
         private readonly string spotifyTokenApiBaseAddress;
-        private SpotifyClient spotifyClient;
         private int averageRequestTime; //ms
         private int limit;
         static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
         private Stopwatch requestTimer;
         private CircularBuffer<long> requestTimeBuffer;
+        static readonly SpotifyClientConfig DefaultConfig = SpotifyClientConfig.CreateDefault();
         #endregion
 
         #region Ctor
@@ -155,12 +155,12 @@ namespace Emka3.PracticeLooper.Services.Rest
             return false;
         }
 
-        public async Task<bool> PlayTrack(string trackId, int positionMs)
+        public async Task<bool> PlayTrack(string trackId, int positionMs, string deviceId)
         {
             try
             {
                 var client = await GetSpotifyClient();
-                var playbackRequest = new PlayerResumePlaybackRequest { Uris = new List<string> { trackId }, PositionMs = positionMs };
+                var playbackRequest = new PlayerResumePlaybackRequest { Uris = new List<string> { trackId }, PositionMs = positionMs, DeviceId = deviceId };
                 StartRequestTimeMeasurement();
                 var result = await client.Player.ResumePlayback(playbackRequest);
                 return result;
@@ -199,14 +199,14 @@ namespace Emka3.PracticeLooper.Services.Rest
             return false;
         }
 
-        public async Task<List<SpotifyDevice>> GetActiveDevices()
+        public async Task<List<SpotifyDevice>> GetAvailableDevices()
         {
             try
             {
                 var client = await GetSpotifyClient();
                 StartRequestTimeMeasurement();
                 var response = await client.Player.GetAvailableDevices();
-                return response?.Devices?.Where(d => d.IsActive)?.Select(d => new SpotifyDevice(d.Id, d.Name, d.IsActive, d.Type))?.ToList();
+                return response?.Devices?.Select(d => new SpotifyDevice(d.Id, d.Name, d.IsActive, d.Type))?.ToList();
             }
             catch (Exception ex)
             {
@@ -250,7 +250,9 @@ namespace Emka3.PracticeLooper.Services.Rest
         private async Task<SpotifyClient> GetSpotifyClient()
         {
             var accessToken = await GetAccessToken();
-            return spotifyClient ??= new SpotifyClient(accessToken);
+            var config = DefaultConfig.WithToken(accessToken);
+            var spotifyClient = new SpotifyClient(config);
+            return spotifyClient;
         }
 
         private async Task<string> RefreshTokenAsync()
@@ -312,7 +314,6 @@ namespace Emka3.PracticeLooper.Services.Rest
             if (string.IsNullOrWhiteSpace(accessToken) || tokenExpired)
             {
                 accessToken = await RefreshTokenAsync();
-                spotifyClient = null;
             }
 
             return accessToken;

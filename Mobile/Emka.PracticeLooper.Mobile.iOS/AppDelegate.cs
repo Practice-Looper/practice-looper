@@ -73,7 +73,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
                 var resolver = Factory.GetResolver();
                 var configService = resolver.Resolve<IConfigurationService>();
                 var spotifyLoader = Factory.GetResolver().Resolve<ISpotifyLoader>();
-                if (configService.GetValue<bool>(PreferenceKeys.IsSpotifyInstalled))
+                if (spotifyLoader.IsSpotifyInstalled())
                 {
                     var api = spotifyLoader.RemoteApi as SPTAppRemote;
                     NSDictionary authParams = api.AuthorizationParametersFromURL(url);

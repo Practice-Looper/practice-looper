@@ -52,7 +52,7 @@ namespace Emka3.PracticeLooper.Services.Common
                 spotifyTokenExpirationTime = DateTime.Now.AddMinutes(expiresIn);
             }
 
-            RaiseTokenChanged(new TokenChangedEventArgs(token));
+            RaiseTokenChanged(new TokenChangedEventArgs(sourceType, token));
         }
 
         void RaiseTokenChanged(TokenChangedEventArgs args) => TokenChanged?.Invoke(this, args);
