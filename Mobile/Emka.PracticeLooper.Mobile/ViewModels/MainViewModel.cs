@@ -50,6 +50,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private Command pickSourceCommand;
         private Command navigateToSettingsCommand;
         private Command toggleSpotifyWebPlayerCommand;
+        private Command refreshWebViewCommand;
         private SessionViewModel currentSession;
         private Loop currentLoop;
         private bool isPlaying;
@@ -125,7 +126,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public Command AddNewLoopCommand => addNewLoopCommand ??= new Command(async (o) => await ExecuteAddNewLoopCommand(o), CanExecuteAddNewLoopCommand);
         public Command NavigateToSettingsCommand => navigateToSettingsCommand ??= new Command(async () => await ExecuteNavigateToSettingsCommand());
         public Command ToggleSpotifyWebPlayerCommand => toggleSpotifyWebPlayerCommand ??= new Command(ExecuteToggleSpotifyWebPlayerCommand);
-
+        public Command RefreshWebViewCommand => refreshWebViewCommand ??= new Command(ExecuteRefreshWebViewCommand);
+        
         public IAudioPlayer CurrentAudioPlayer { get; private set; }
 
         public bool IsSpotifyWebPlayerVisible
@@ -400,6 +402,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
+        private void ExecuteRefreshWebViewCommand(object o)
+        {
+            MessagingCenter.Send<object>(this, MessengerKeys.WebViewRefreshInitialized);
+        }
+
         private bool CanExecuteCreateSessionCommand(object arg)
         {
             return true;
@@ -517,7 +524,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                             if (string.IsNullOrWhiteSpace(spotifyDeviceId))
                             {
-                                //todo: dialog => something went wrong, please check your internet connection and try again.
+                                await dialogService.ShowAlertAsync(AppResources.Error_Content_NoActivePlayer, AppResources.Error_Caption);
                                 IsBusy = false;
                                 return;
                             }

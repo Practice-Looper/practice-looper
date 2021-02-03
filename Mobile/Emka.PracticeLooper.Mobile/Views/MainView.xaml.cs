@@ -30,6 +30,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         private readonly IFeatureRegistry featureRegistry;
         private IResolver resolver;
         private CustomWebView spotifyPlayerWebView;
+        private RefreshView refreshView;
         #endregion
 
         #region Ctor
@@ -75,6 +76,12 @@ namespace Emka.PracticeLooper.Mobile.Views
             {
                 WebViewLoadingDecorator.IsVisible = isNavigating;
                 spotifyPlayerWebView.IsVisible = !isNavigating;
+            });
+
+            MessagingCenter.Subscribe<object>(this, MessengerKeys.WebViewRefreshInitialized, (sender) =>
+            {
+                spotifyPlayerWebView.Reload();
+                refreshView.IsRefreshing = false;
             });
         }
         #endregion
@@ -245,13 +252,30 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             if (spotifyPlayerWebView == null)
             {
-                spotifyPlayerWebView = new CustomWebView();
-                spotifyPlayerWebView.BackgroundColor = Color.Transparent;
-                spotifyPlayerWebView.BindingContext = BindingContext;
-                spotifyPlayerWebView.HorizontalOptions = LayoutOptions.FillAndExpand;
-                spotifyPlayerWebView.VerticalOptions = LayoutOptions.FillAndExpand;
-                Grid.SetRow(spotifyPlayerWebView, 0);
-                SpotifyWebViewContainer.Children.Add(spotifyPlayerWebView);
+                spotifyPlayerWebView = new CustomWebView
+                {
+                    BackgroundColor = Color.Transparent,
+                    BindingContext = BindingContext,
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    VerticalOptions = LayoutOptions.FillAndExpand
+                };
+
+                var mainViewModel = BindingContext as MainViewModel;
+                refreshView = new RefreshView
+                {
+                    BindingContext = BindingContext,
+                    Command = mainViewModel.RefreshWebViewCommand
+                };
+
+                ScrollView scrollView = new ScrollView();
+                StackLayout stackLayout = new StackLayout();
+
+                stackLayout.Children.Add(spotifyPlayerWebView);
+                scrollView.Content = stackLayout;
+                refreshView.Content = scrollView;
+
+                Grid.SetRow(refreshView, 0);
+                SpotifyWebViewContainer.Children.Add(refreshView);
             }
         }
         #endregion
