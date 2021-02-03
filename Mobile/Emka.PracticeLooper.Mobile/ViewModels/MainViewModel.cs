@@ -511,8 +511,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                             if (spotifyWebPlayerHasBeenActivated && string.IsNullOrWhiteSpace(spotifyDeviceId))
                             {
-                                var activeDevices = await spotifyApiService.GetAvailableDevices();
-                                spotifyDeviceId = activeDevices.FirstOrDefault(d => d.Name == "Mobile Web Player" && d.Type == "Smartphone" && d.IsActive)?.Id;
+                                spotifyDeviceId = await AwaitWebPlayerActivation();
                             }
 
                             if (string.IsNullOrWhiteSpace(spotifyDeviceId))
@@ -993,6 +992,35 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
 
             return spotifyWebPlayerHasBeenLoaded && spotifyWebPlayerHasBeenActivated;
+        }
+
+        private async Task<string> AwaitWebPlayerActivation()
+        {
+            var retries = 4;
+            string id = null;
+            try
+            {
+                while (retries > 0)
+                {
+                    var activeDevices = await spotifyApiService.GetAvailableDevices();
+                    id = activeDevices.FirstOrDefault(d => d.Name == "Mobile Web Player" && d.Type == "Smartphone" && d.IsActive)?.Id;
+
+                    if (!string.IsNullOrWhiteSpace(id))
+                    {
+                        break;
+                    }
+
+                    retries--;
+                    await Task.Delay(1);
+                }
+            }
+            catch (Exception)
+            {
+                retries--;
+                await Task.Delay(1);
+            }
+
+            return id;
         }
 
         private void ExecuteToggleSpotifyWebPlayerCommand(object obj)
