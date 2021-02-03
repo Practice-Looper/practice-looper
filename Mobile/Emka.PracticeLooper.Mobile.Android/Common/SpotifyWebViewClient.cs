@@ -10,7 +10,6 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
     {
         public SpotifyWebViewClient()
         {
-
         }
 
         public override void OnPermissionRequest(PermissionRequest request)
