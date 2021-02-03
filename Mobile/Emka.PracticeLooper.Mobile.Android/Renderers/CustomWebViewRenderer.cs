@@ -148,13 +148,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
 
             try
             {
-                var completionSource = new TaskCompletionSource<bool>();
-                Control.EvaluateJavascript("document.querySelector(\"div[data-test-id='play-pause-button']\").click()", new JavaScriptCallback(completionSource));
-                await completionSource.Task;
-                completionSource = new TaskCompletionSource<bool>();
-
-                Control.EvaluateJavascript("document.querySelector(\"div[data-test-id='play-pause-button']\").click()", new JavaScriptCallback(completionSource));
-                await completionSource.Task;
+                var script = "document.querySelector(\"div[data-test-id='play-pause-button']\").click()";
+                LoadUrl($"javascript: {script}");
                 hasBeenActivated = true;
             }
             catch (Exception)
