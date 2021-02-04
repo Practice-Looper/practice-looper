@@ -50,7 +50,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private Command pickSourceCommand;
         private Command navigateToSettingsCommand;
         private Command toggleSpotifyWebPlayerCommand;
-        private Command refreshWebViewCommand;
+        private Command spotifyWebPlayeRefreshCommand;
+        private Command spotifyWebPlayerGoBackCommand;
+        private Command spotifyWebPlayerGoForwardCommand;
         private SessionViewModel currentSession;
         private Loop currentLoop;
         private bool isPlaying;
@@ -69,6 +71,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private bool spotifyWebPlayerHasBeenLoaded;
         private bool spotifyWebPlayerHasBeenActivated;
         private string spotifyDeviceId;
+        private bool isWebViewRefreshing;
         #endregion
 
         #region Ctor
@@ -126,8 +129,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public Command AddNewLoopCommand => addNewLoopCommand ??= new Command(async (o) => await ExecuteAddNewLoopCommand(o), CanExecuteAddNewLoopCommand);
         public Command NavigateToSettingsCommand => navigateToSettingsCommand ??= new Command(async () => await ExecuteNavigateToSettingsCommand());
         public Command ToggleSpotifyWebPlayerCommand => toggleSpotifyWebPlayerCommand ??= new Command(ExecuteToggleSpotifyWebPlayerCommand);
-        public Command RefreshWebViewCommand => refreshWebViewCommand ??= new Command(ExecuteRefreshWebViewCommand);
-        
+        public Command SpotifyWebPlayeRefreshCommand => spotifyWebPlayeRefreshCommand ??= new Command(ExecuteSpotifyWebPlayeRefreshCommand);
+        public Command SpotifyWebPlayerGoBackCommand => spotifyWebPlayerGoBackCommand ??= new Command(ExecuteSpotifyWebPlayerGoBackCommand);
+        public Command SpotifyWebPlayerGoForwardCommand => spotifyWebPlayerGoForwardCommand ??= new Command(ExecuteSpotifyWebPlayerGoForwardCommand);
+
         public IAudioPlayer CurrentAudioPlayer { get; private set; }
 
         public bool IsSpotifyWebPlayerVisible
@@ -136,6 +141,16 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             set
             {
                 isSpotifyWebPlayerVisible = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool IsWebViewRefreshing
+        {
+            get => isWebViewRefreshing;
+            set
+            {
+                isWebViewRefreshing = value;
                 NotifyPropertyChanged();
             }
         }
@@ -402,7 +417,17 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        private void ExecuteRefreshWebViewCommand(object o)
+        private void ExecuteSpotifyWebPlayerGoBackCommand(object o)
+        {
+            MessagingCenter.Send<object>(this, MessengerKeys.WebViewGoBackToggled);
+        }
+
+        private void ExecuteSpotifyWebPlayerGoForwardCommand(object o)
+        {
+            MessagingCenter.Send<object>(this, MessengerKeys.WebViewGoForwardToggled);
+        }
+
+        private void ExecuteSpotifyWebPlayeRefreshCommand(object o)
         {
             MessagingCenter.Send<object>(this, MessengerKeys.WebViewRefreshInitialized);
         }

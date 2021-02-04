@@ -314,6 +314,12 @@
         xml:space="preserve">
         <value>Kein aktiver Spotify Player gefunden. Logge dich im Web Player ein und spiele einen beliebigen Song ab.</value>
     </data>
+    <data
+        name="Error_Content_WebViewNavigationError"
+        xml:space="preserve">
+        <value>Etwas ist schief gelaufen! Überprüfe deine Internetverbindung und versuche es erneut.</value>
+    </data>
+    
     <!--Hint Dialogs-->
     <data
         name="Hint_Caption_AlreadyPurchased"
