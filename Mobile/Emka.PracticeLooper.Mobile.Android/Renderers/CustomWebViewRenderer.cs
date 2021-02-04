@@ -17,7 +17,6 @@ using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Model;
 using System.Threading.Tasks;
 using Android.Webkit;
-using System.Diagnostics;
 
 [assembly: ExportRenderer(typeof(CustomWebView), typeof(CustomWebViewRenderer))]
 namespace Emka.PracticeLooper.Mobile.Droid.Renderers
@@ -54,33 +53,32 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
                 Control.Settings.SaveFormData = true;
                 var spotifyWebViewClient = new SpotifyWebViewClient();
                 Control.SetWebChromeClient(spotifyWebViewClient);
-
                 Element.Navigating += OnNavigating;
                 Element.Navigated += OnNavigated;
                 await LoadPlayerInternal();
                 MessagingCenter.Send<object, bool>(this, MessengerKeys.SpotifyWebPlayerLoaded, hasBeenLoaded);
-                //var tcs = new TaskCompletionSource<bool>();
-                //Control.EvaluateJavascript("document.documentElement.outerHTML.toString()", new JavaScriptCallback(tcs));
-                //await tcs.Task;
+            }
+        }
+
+        private async void OnActivatePlayer(MainViewModel obj)
+        {
+            await Device.InvokeOnMainThreadAsync(() => ActivatePlayerInternal());
+            activationCompletedEvent?.WaitOne(TimeSpan.FromSeconds(10));
+            MessagingCenter.Send<object, bool>(this, MessengerKeys.SpotifyPlayerActivated, hasBeenActivated);
+        }
+
+        private void OnNavigating(object sender, WebNavigatingEventArgs e)
+        {
+            if (!e.Url.Contains("javascript"))
+            {
+                MessagingCenter.Send<object, bool>(this, MessengerKeys.WebViewNavigationStatus, true);
             }
         }
 
         private void OnNavigated(object sender, WebNavigatedEventArgs e)
         {
-            MessagingCenter.Send<object, bool>(this, MessengerKeys.WebViewNavigationStatus, false);
             navigationCompletedEvent?.Set();
-        }
-
-        private void OnNavigating(object sender, WebNavigatingEventArgs e)
-        {
-            MessagingCenter.Send<object, bool>(this, MessengerKeys.WebViewNavigationStatus, true);
-        }
-
-        private async void OnActivatePlayer(MainViewModel obj)
-        {
-            await ActivatePlayerInternal();
-            activationCompletedEvent?.WaitOne(TimeSpan.FromSeconds(60));
-            MessagingCenter.Send<object, bool>(this, MessengerKeys.SpotifyPlayerActivated, hasBeenActivated);
+            MessagingCenter.Send<object, bool>(this, MessengerKeys.WebViewNavigationStatus, false);
         }
 
         private async void OnLoadWebPlayer(MainViewModel obj)
@@ -136,7 +134,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
             }
         }
 
-        private async Task ActivatePlayerInternal()
+        private void ActivatePlayerInternal()
         {
             activationCompletedEvent = new AutoResetEvent(false);
 
