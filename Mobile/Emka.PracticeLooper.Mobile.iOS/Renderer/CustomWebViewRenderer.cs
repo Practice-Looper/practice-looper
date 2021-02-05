@@ -73,16 +73,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
             MessagingCenter.Send<object, bool>(this, MessengerKeys.SpotifyPlayerActivated, hasBeenActivated);
         }
 
-        private void OnNavigating(object sender, bool isNavigating)
-        {
-            MessagingCenter.Send<object, bool>(this, MessengerKeys.WebViewNavigationStatus, isNavigating);
-        }
-
-        private void OnNavigationCompleted(object sender, bool success)
-        {
-            navigationCompletedEvent?.Set();
-        }
-
         private async void OnLoadWebPlayer(MainViewModel obj)
         {
             await LoadPlayerInternal();
@@ -154,6 +144,18 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
 
             activationCompletedEvent?.Set();
         }
+
+        private void OnNavigating(object sender, bool isNavigating)
+        {
+            MessagingCenter.Send<object, bool>(this, MessengerKeys.WebViewNavigationStatus, isNavigating);
+        }
+
+        private void OnNavigationCompleted(object sender, bool success)
+        {
+            navigationCompletedEvent?.Set();
+        }
+
+
     }
 
     public class CustomNavigationDelegate : WKNavigationDelegate

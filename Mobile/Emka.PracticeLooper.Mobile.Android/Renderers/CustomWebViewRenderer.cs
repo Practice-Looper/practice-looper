@@ -17,6 +17,7 @@ using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Model;
 using System.Threading.Tasks;
 using Android.Webkit;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 
 [assembly: ExportRenderer(typeof(CustomWebView), typeof(CustomWebViewRenderer))]
 namespace Emka.PracticeLooper.Mobile.Droid.Renderers
@@ -25,19 +26,23 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
     public class CustomWebViewRenderer : WebViewRenderer
     {
         private readonly IConfigurationService configService;
+        private readonly ILogger logger;
         private string spotifyWebPlayerUri;
         private bool hasBeenActivated;
         private bool hasBeenLoaded;
-        private AutoResetEvent navigationCompletedEvent;
-        private AutoResetEvent loadingCompletedEvent;
-        private AutoResetEvent activationCompletedEvent;
-        private TimeSpan timeOut;
+        private TaskCompletionSource<bool> navigationCompletedTaskSource;
+        private TaskCompletionSource<bool> loadingCompletedTaskSource;
+        private TaskCompletionSource<bool> activationCompletedTaskSource;
+        private TimeSpan loadPlayerTimeout;
+        private TimeSpan activatePlayerTimeout;
 
         public CustomWebViewRenderer(Context context) : base(context)
         {
             configService = Factory.GetResolver().Resolve<IConfigurationService>();
+            logger = Factory.GetResolver().Resolve<ILogger>();
             spotifyWebPlayerUri = configService.GetValue("SpotifyPlayerUri");
-            timeOut = TimeSpan.FromSeconds(10);
+            loadPlayerTimeout = TimeSpan.FromSeconds(10);
+            activatePlayerTimeout = TimeSpan.FromSeconds(10);
             MessagingCenter.Subscribe<MainViewModel>(this, MessengerKeys.SpotifyActivatePlayer, OnActivatePlayer);
             MessagingCenter.Subscribe<MainViewModel>(this, MessengerKeys.SpotifyLoadWebPlayer, OnLoadWebPlayer);
         }
@@ -54,17 +59,110 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
                 var spotifyWebViewClient = new SpotifyWebViewClient();
                 Control.SetWebChromeClient(spotifyWebViewClient);
                 Element.Navigating += OnNavigating;
-                Element.Navigated += OnNavigated;
+                Element.Navigated += OnNavigationCompleted;
                 await LoadPlayerInternal();
                 MessagingCenter.Send<object, bool>(this, MessengerKeys.SpotifyWebPlayerLoaded, hasBeenLoaded);
             }
         }
 
+        private async void OnLoadWebPlayer(MainViewModel obj)
+        {
+            var loadingCancelToken = new CancellationTokenSource(loadPlayerTimeout);
+            loadingCompletedTaskSource = new TaskCompletionSource<bool>();
+            loadingCancelToken.Token.Register(() => loadingCompletedTaskSource.TrySetResult(false), false);
+
+            await LoadPlayerInternal();
+            await loadingCompletedTaskSource.Task;
+            MessagingCenter.Send<object, bool>(this, MessengerKeys.SpotifyWebPlayerLoaded, hasBeenLoaded);
+        }
+
         private async void OnActivatePlayer(MainViewModel obj)
         {
+            var activationCancelToken = new CancellationTokenSource(activatePlayerTimeout);
+            activationCompletedTaskSource = new TaskCompletionSource<bool>();
+            activationCancelToken.Token.Register(() => { activationCompletedTaskSource.TrySetResult(false); });
+
             await Device.InvokeOnMainThreadAsync(() => ActivatePlayerInternal());
-            activationCompletedEvent?.WaitOne(TimeSpan.FromSeconds(10));
+            await activationCompletedTaskSource?.Task;
             MessagingCenter.Send<object, bool>(this, MessengerKeys.SpotifyPlayerActivated, hasBeenActivated);
+        }
+
+        private async Task LoadPlayerInternal()
+        {
+            try
+            {
+                hasBeenLoaded = false;
+                var navigationCancelToken = new CancellationTokenSource(loadPlayerTimeout);
+                navigationCompletedTaskSource = new TaskCompletionSource<bool>();
+                navigationCancelToken.Token.Register(() => navigationCompletedTaskSource.TrySetResult(false), false);
+
+                LoadUrl(spotifyWebPlayerUri); // load web player
+
+                if (Element is CustomWebView)
+                {
+                    var navigationSuccess = await navigationCompletedTaskSource.Task; // wait until navigation completes
+
+                    if (navigationSuccess)
+                    {
+                        int retries = 3;
+                        while (retries != 0)
+                        {
+                            try
+                            {
+                                // check whether login page or player has been loaded
+                                var completionSource = new TaskCompletionSource<bool>();
+                                Control.EvaluateJavascript("document.querySelector(\"div[data-test-id='play-pause-button']\").toString()", new JavaScriptCallback(completionSource));
+                                hasBeenLoaded = await completionSource.Task;
+
+                                if (hasBeenLoaded)
+                                {
+                                    break;
+                                }
+
+                                retries--;
+                                await Task.Delay(TimeSpan.FromSeconds(2));
+                            }
+                            catch (Exception)
+                            {
+                                retries--;
+                                await Task.Delay(TimeSpan.FromSeconds(2));
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning(ex.Message);
+            }
+            finally
+            {
+                loadingCompletedTaskSource?.TrySetResult(hasBeenLoaded);
+            }
+        }
+
+        private void ActivatePlayerInternal()
+        {
+            hasBeenActivated = false;
+
+            try
+            {
+                if (hasBeenLoaded)
+                {
+                    var script = "document.querySelector(\"div[data-test-id='play-pause-button']\").click()";
+                    LoadUrl($"javascript: {script}");
+                    hasBeenActivated = true;
+                }
+            }
+            catch (Exception)
+            {
+                hasBeenActivated = false;
+            }
+            finally
+            {
+                activationCompletedTaskSource?.TrySetResult(hasBeenLoaded);
+            }
         }
 
         private void OnNavigating(object sender, WebNavigatingEventArgs e)
@@ -75,87 +173,22 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
             }
         }
 
-        private void OnNavigated(object sender, WebNavigatedEventArgs e)
+        private void OnNavigationCompleted(object sender, WebNavigatedEventArgs e)
         {
-            navigationCompletedEvent?.Set();
-            MessagingCenter.Send<object, bool>(this, MessengerKeys.WebViewNavigationStatus, false);
-        }
-
-        private async void OnLoadWebPlayer(MainViewModel obj)
-        {
-            await LoadPlayerInternal();
-            loadingCompletedEvent.WaitOne(timeOut);
-            MessagingCenter.Send<object, bool>(this, MessengerKeys.SpotifyWebPlayerLoaded, hasBeenLoaded);
-        }
-
-        private async Task LoadPlayerInternal()
-        {
-            loadingCompletedEvent = new AutoResetEvent(false);
-            navigationCompletedEvent = new AutoResetEvent(false);
-            LoadUrl(spotifyWebPlayerUri); // load web player
+            var navigationResult = e.Result == WebNavigationResult.Success;
 
             try
             {
-                if (Element is CustomWebView)
-                {
-                    await Task.Run(navigationCompletedEvent.WaitOne); // wait until navigation completes
-                    int retries = 3;
-                    while (retries != 0)
-                    {
-                        try
-                        {
-                            // check whether login page or player has been loaded
-                            var completionSource = new TaskCompletionSource<bool>();
-                            Control.EvaluateJavascript("document.querySelector(\"div[data-test-id='play-pause-button']\").toString()", new JavaScriptCallback(completionSource));
-                            hasBeenLoaded = await completionSource.Task;
-
-                            if (hasBeenLoaded)
-                            {
-                                break;
-                            }
-
-                            retries--;
-                            await Task.Delay(TimeSpan.FromSeconds(2));
-                        }
-                        catch (Exception)
-                        {
-                            retries--;
-                            await Task.Delay(TimeSpan.FromSeconds(2));
-                            continue;
-                        }
-                    }
-
-                    loadingCompletedEvent?.Set();
-                }
+                navigationCompletedTaskSource?.TrySetResult(navigationResult);
             }
             catch (Exception ex)
             {
-
+                logger.LogWarning(ex.Message);
             }
-        }
-
-        private void ActivatePlayerInternal()
-        {
-            activationCompletedEvent = new AutoResetEvent(false);
-
-            if (hasBeenActivated)
+            finally
             {
-                activationCompletedEvent?.Set();
-                return;
+                MessagingCenter.Send<object, bool>(this, MessengerKeys.WebViewNavigationStatus, navigationResult);
             }
-
-            try
-            {
-                var script = "document.querySelector(\"div[data-test-id='play-pause-button']\").click()";
-                LoadUrl($"javascript: {script}");
-                hasBeenActivated = true;
-            }
-            catch (Exception)
-            {
-                hasBeenActivated = false;
-            }
-
-            activationCompletedEvent?.Set();
         }
     }
 
