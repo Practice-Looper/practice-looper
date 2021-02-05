@@ -134,7 +134,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
             }
             catch (Exception ex)
             {
-                logger.LogWarning(ex.Message);
+                await logger.LogWarningAsync(ex.Message);
             }
             finally
             {
