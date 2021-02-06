@@ -158,7 +158,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
 #endif
             AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(configService.GetValue("SyncFusionLicenseKey"));
-            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, configService.GetValue("AdmobAndroidAppId"));
+            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext);
             configService.SetValue(PreferenceKeys.InternalStoragePath, FileSystem.AppDataDirectory);
             GlobalApp.SpotifyRedirectUrl = configService.GetValue("SpotifyClientRedirectUri");
             var externalDir = GetExternalFilesDirs(Android.OS.Environment.DirectoryMusic).FirstOrDefault(dir => dir.AbsolutePath.Contains("storage/emulated/0"));

@@ -4,6 +4,7 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
@@ -91,14 +92,24 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
-                var requestbuilder = new AdRequest.Builder();
-                requestbuilder.AddTestDevice("F05EA53323F18138CB1722DD1F00A0F0");
-                requestbuilder.AddTestDevice("B0B92426A54BF08C56BC62D5703161F3");
-                requestbuilder.AddTestDevice("A808EFF8867E3C5741E6456A4FFAB5D4");
-                requestbuilder.AddTestDevice("7E7FE7BDD31E1B60AAA1ABA764B55E8B");
-                requestbuilder.AddTestDevice("A3DC0ED5802A0E68DEC7B1AC713CB73A");
+                var testDevices = new List<string>
+                {
+                    AdRequest.DeviceIdEmulator,
+                    "F05EA53323F18138CB1722DD1F00A0F0",
+                    "B0B92426A54BF08C56BC62D5703161F3",
+                    "A808EFF8867E3C5741E6456A4FFAB5D4",
+                    "7E7FE7BDD31E1B60AAA1ABA764B55E8B",
+                    "A3DC0ED5802A0E68DEC7B1AC713CB73A"
+                };
 
-                interstitialAd.LoadAd(requestbuilder.Build());
+                RequestConfiguration requestConfiguartion
+                    = new RequestConfiguration.Builder()
+                    .SetTestDeviceIds(testDevices)
+                    .Build();
+
+                MobileAds.RequestConfiguration = requestConfiguartion;
+
+                interstitialAd.LoadAd(new AdRequest.Builder().Build());
             }
             catch (Exception ex)
             {

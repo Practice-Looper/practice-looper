@@ -3,6 +3,7 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Android.Content;
 using Android.Gms.Ads;
@@ -49,15 +50,24 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
 
             try
             {
-                AdRequest request;
-                request = new AdRequest.Builder()
-                    .AddTestDevice("F05EA53323F18138CB1722DD1F00A0F0")
-                    .AddTestDevice("B0B92426A54BF08C56BC62D5703161F3")
-                    .AddTestDevice("A808EFF8867E3C5741E6456A4FFAB5D4")
-                    .AddTestDevice("7E7FE7BDD31E1B60AAA1ABA764B55E8B")
-                    .AddTestDevice("A3DC0ED5802A0E68DEC7B1AC713CB73A")
+                var testDevices = new List<string>
+                {
+                    AdRequest.DeviceIdEmulator,
+                    "F05EA53323F18138CB1722DD1F00A0F0",
+                    "B0B92426A54BF08C56BC62D5703161F3",
+                    "A808EFF8867E3C5741E6456A4FFAB5D4",
+                    "7E7FE7BDD31E1B60AAA1ABA764B55E8B",
+                    "A3DC0ED5802A0E68DEC7B1AC713CB73A"
+                };
+
+                RequestConfiguration requestConfiguartion
+                    = new RequestConfiguration.Builder()
+                    .SetTestDeviceIds(testDevices)
                     .Build();
-                adView.LoadAd(request);
+
+                MobileAds.RequestConfiguration = requestConfiguartion;
+
+                adView.LoadAd(new AdRequest.Builder().Build());
             }
             catch (Exception ex)
             {
