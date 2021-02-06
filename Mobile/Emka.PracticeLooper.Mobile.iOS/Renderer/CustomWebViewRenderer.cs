@@ -47,27 +47,20 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
             navigationDelegate.Navigating += OnNavigating;
 
             NavigationDelegate = navigationDelegate;
-            var userAgentEvent = new AutoResetEvent(false);
             string userAgent = null;
 
             if (e.NewElement != null)
             {
                 if (Device.Idiom == TargetIdiom.Tablet)
                 {
-                    EvaluateJavaScript("navigator.userAgent", (result, error) =>
+                    userAgent = ValueForKey(new Foundation.NSString("userAgent"))?.ToString();
+                    if (!string.IsNullOrWhiteSpace(userAgent))
                     {
-                        if (result != null)
-                        {
-                            userAgent = result.ToString();
-                            userAgent = userAgent.Replace("iPad", "iPhone");
-                        }
-
-                        userAgentEvent.Set();
-                    });
+                        userAgent = userAgent.Replace("iPad", "iPhone");
+                        CustomUserAgent = userAgent;
+                    }
                 }
 
-                await Task.Run(() => userAgentEvent.WaitOne(TimeSpan.FromSeconds(10)));
-                CustomUserAgent = userAgent;
                 await LoadPlayerInternal();
                 MessagingCenter.Send<object, bool>(this, MessengerKeys.SpotifyWebPlayerLoaded, hasBeenLoaded);
             }

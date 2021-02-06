@@ -308,7 +308,12 @@
         name="Error_Content_PremiumUserCheckFailed"
         xml:space="preserve">
         <value>Dein Spotify Account konnte nicht überprüft werden. Um Spotify Songs loopen zu können, brauchst du ein Spotify Premium Abo.</value>
-     </data>
+    </data>
+    <data
+        name="Error_Content_NoActivePlayer"
+        xml:space="preserve">
+        <value>Kein aktiver Spotify Player gefunden. Logge dich im Web Player ein und spiele einen beliebigen Song ab.</value>
+    </data>
     <!--Hint Dialogs-->
     <data
         name="Hint_Caption_AlreadyPurchased"

@@ -125,6 +125,7 @@
     <x:String
         x:Key="Check">&#xf12c;</x:String>
 
+
     <!-- Data Templates ############################################### -->
 
     <DataTemplate
