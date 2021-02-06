@@ -963,6 +963,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             try
             {
+                IsSpotifyWebPlayerVisible = true;
                 spotifyWebPlayerLoadedTokenSource = new TaskCompletionSource<bool>();
                 MessagingCenter.Send(this, MessengerKeys.SpotifyLoadWebPlayer);
                 spotifyWebPlayerHasBeenLoaded = await spotifyWebPlayerLoadedTokenSource.Task;
@@ -971,6 +972,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 await Logger.LogErrorAsync(ex);
+            }
+            finally
+            {
+                IsSpotifyWebPlayerVisible = false;
             }
 
             return spotifyWebPlayerHasBeenLoaded;
@@ -985,6 +990,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     return false;
                 }
 
+                IsSpotifyWebPlayerVisible = true;
                 spotifyWebPlayerActivationTokenSource = new TaskCompletionSource<bool>();
                 MessagingCenter.Send(this, MessengerKeys.SpotifyActivatePlayer);
                 spotifyWebPlayerHasBeenActivated = await spotifyWebPlayerActivationTokenSource.Task;
@@ -992,6 +998,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 await Logger.LogErrorAsync(ex);
+            }
+            finally
+            {
+                IsSpotifyWebPlayerVisible = false;
             }
 
             return spotifyWebPlayerHasBeenLoaded && spotifyWebPlayerHasBeenActivated;
