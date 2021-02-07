@@ -42,7 +42,7 @@ namespace Emka.PracticeLooper.Mobile.Droid
             GlobalApp.MainActivity = this;
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-            Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+            Rg.Plugins.Popup.Popup.Init(this);
             SQLitePCL.Batteries_V2.Init();
             Platform.Init(this, savedInstanceState);
             Forms.SetFlags("CarouselView_Experimental");
