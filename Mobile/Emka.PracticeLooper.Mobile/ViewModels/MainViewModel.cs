@@ -24,7 +24,6 @@ using Emka3.PracticeLooper.Services.Contracts.Rest;
 using System.Net;
 using System.Threading;
 using Emka3.PracticeLooper.Config.Contracts.Features;
-using Xamarin.Essentials;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -115,7 +114,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             Sessions = new ObservableCollection<SessionViewModel>();
             isPlaying = false;
-            showCallToAction = VersionTracking.IsFirstLaunchEver ? true : false;
+            showCallToAction = configurationService.GetValue<bool>("IsFirstLaunchEver");
             UiContext = SynchronizationContext.Current;
         }
         #endregion

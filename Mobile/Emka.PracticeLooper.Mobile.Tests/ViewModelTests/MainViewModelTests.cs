@@ -976,7 +976,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
             audioPlayerMock.SetupGet(a => a.Initialized).Returns(false);
             audioPlayerMock
-                .Setup(a => a.InitAsync(It.Is<Loop>(l => l == loops.First())))
+                .Setup(a => a.InitAsync(It.Is<Loop>(l => l == loops.First()), false, null))
                 .Returns(Task.CompletedTask)
                 .Callback(() =>
                 {
@@ -1016,7 +1016,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
             await tcs.Task;
-            audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l == loops.First())), Times.Once);
+            audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l == loops.First()), false, null), Times.Once);
             interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
         }
 
@@ -1030,7 +1030,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
             audioPlayerMock.SetupGet(a => a.Initialized).Returns(false);
             audioPlayerMock
-                .Setup(a => a.InitAsync(It.Is<Loop>(l => l == loops.First())))
+                .Setup(a => a.InitAsync(It.Is<Loop>(l => l == loops.First()), false, null))
                 .Throws(new FileNotFoundException())
                 .Verifiable();
 
@@ -1075,7 +1075,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
             await tcs.Task;
-            audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l == loops.First())), Times.Once);
+            audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l == loops.First()), false, null), Times.Once);
             interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
             dialogServiceMock
                .Verify(d => d.ShowConfirmAsync(It.Is<string>(s => s == localizer.GetLocalizedString("Error_Caption")), It.Is<string>(s => s == localizer.GetLocalizedString("Error_Content_FileNotFound")), It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")), It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))), Times.Once);
@@ -1091,7 +1091,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
             audioPlayerMock.SetupGet(a => a.Initialized).Returns(false);
             audioPlayerMock
-                .Setup(a => a.InitAsync(It.Is<Loop>(l => l == loops.First())))
+                .Setup(a => a.InitAsync(It.Is<Loop>(l => l == loops.First()), false, null))
                 .Throws(new FileNotFoundException())
                 .Verifiable();
 
@@ -1138,7 +1138,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             await tcs.Task;
 
             Assert.That(mainViewModel.Sessions, Has.Count.EqualTo(1));
-            audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l == loops.First())), Times.Once);
+            audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l == loops.First()), false, null), Times.Once);
             interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
             dialogServiceMock
                .Verify(d => d.ShowConfirmAsync(It.Is<string>(s => s == localizer.GetLocalizedString("Error_Caption")), It.Is<string>(s => s == localizer.GetLocalizedString("Error_Content_FileNotFound")), It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")), It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))), Times.Once);
@@ -1157,7 +1157,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             configurationServiceMock.Setup(c => c.GetValue<bool>(It.Is<string>(s => s == PreferenceKeys.IsSpotifyInstalled), false)).Returns(true);
 
             audioPlayerMock
-                .Setup(a => a.InitAsync(It.Is<Loop>(l => l == loops.First())))
+                .Setup(a => a.InitAsync(It.Is<Loop>(l => l == loops.First()), false, null))
                 .Throws(new Exception())
                 .Verifiable();
 
@@ -1202,7 +1202,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             await tcs.Task;
 
             Assert.That(mainViewModel.Sessions, Has.Count.EqualTo(2));
-            audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l == loops.First())), Times.Once);
+            audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l == loops.First()), false, null), Times.Once);
             interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
             dialogServiceMock
                .Verify(d => d.ShowAlertAsync(It.Is<string>(s => s == localizer.GetLocalizedString("Error_Content_General")), It.Is<string>(s => s == localizer.GetLocalizedString("Error_Caption"))), Times.Once);
@@ -2328,7 +2328,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.IsPlaying).Returns(true);
             audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
             audioPlayerMock.Setup(a => a.Pause(false)).Verifiable();
-            audioPlayerMock.Setup(a => a.InitAsync(It.Is<Loop>(l => l.Id == loops.First().Id))).Verifiable();
+            audioPlayerMock.Setup(a => a.InitAsync(It.Is<Loop>(l => l.Id == loops.First().Id), false, null)).Verifiable();
             audioPlayerMock.Setup(a => a.PlayAsync()).Returns(Task.CompletedTask).Verifiable();
             audioPlayers.Add(audioPlayerMock.Object);
 
@@ -2359,7 +2359,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             Assert.AreEqual(mainViewModel.CurrentLoop.Id, loops.First().Id);
             Assert.That(mainViewModel.CurrentSession.Session.Loops, Has.Count.EqualTo(1));
             audioPlayerMock.Verify(a => a.Pause(false), Times.Once);
-            audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l.Id == loops.First().Id)), Times.Once);
+            audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l.Id == loops.First().Id), false, null), Times.Once);
             audioPlayerMock.Verify(a => a.PlayAsync(), Times.Once);
         }
 
@@ -2617,7 +2617,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 appTracker,
                 configurationService,
                 audioPlayers,
-                featureRegistry, null);
+                featureRegistry);
         }
     }
 }

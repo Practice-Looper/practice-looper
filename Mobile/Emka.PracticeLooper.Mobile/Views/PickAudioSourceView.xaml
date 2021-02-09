@@ -38,7 +38,7 @@
         </Frame.VerticalOptions>
         <Grid
             VerticalOptions="FillAndExpand"
-            HorizontalOptions="Center"
+            HorizontalOptions="Start"
             BackgroundColor="{DynamicResource BackgroundColor}">
             <Grid.RowDefinitions>
                 <RowDefinition
