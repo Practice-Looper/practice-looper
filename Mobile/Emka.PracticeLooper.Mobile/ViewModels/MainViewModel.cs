@@ -71,7 +71,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private bool spotifyWebPlayerHasBeenLoaded;
         private bool spotifyWebPlayerHasBeenActivated;
         private string spotifyDeviceId;
-        private bool isWebViewRefreshing;
         #endregion
 
         #region Ctor
@@ -141,16 +140,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             set
             {
                 isSpotifyWebPlayerVisible = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public bool IsWebViewRefreshing
-        {
-            get => isWebViewRefreshing;
-            set
-            {
-                isWebViewRefreshing = value;
                 NotifyPropertyChanged();
             }
         }
