@@ -124,6 +124,12 @@
         x:Key="Close">&#xf156;</x:String>
     <x:String
         x:Key="Check">&#xf12c;</x:String>
+    <x:String
+        x:Key="GoBack">&#xf141;</x:String>
+    <x:String
+        x:Key="GoForward">&#xf142;</x:String>
+    <x:String
+        x:Key="Refresh">&#xf450;</x:String>
 
 
     <!-- Data Templates ############################################### -->

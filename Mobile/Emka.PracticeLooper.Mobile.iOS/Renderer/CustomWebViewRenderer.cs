@@ -49,7 +49,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
             base.OnElementChanged(e);
             var navigationDelegate = new CustomNavigationDelegate();
 
-            navigationDelegate.NavigatiomCompleted += OnNavigationCompleted;
+            navigationDelegate.NavigationCompleted += OnNavigationCompleted;
             navigationDelegate.Navigating += OnNavigating;
 
             NavigationDelegate = navigationDelegate;
@@ -85,13 +85,14 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
 
         private async void OnActivatePlayer(MainViewModel obj)
         {
+
             var activationCancelToken = new CancellationTokenSource(activatePlayerTimeout);
             activationCompletedTaskSource = new TaskCompletionSource<bool>();
             activationCancelToken.Token.Register(() => { activationCompletedTaskSource.TrySetResult(false); });
 
             await ActivatePlayerInternal();
             await activationCompletedTaskSource?.Task;
-            MessagingCenter.Send<object, bool>(this, MessengerKeys.SpotifyPlayerActivated, hasBeenActivated);
+            MessagingCenter.Send<object, bool>(this, MessengerKeys.SpotifyPlayerActivated, hasBeenActivated);           
         }
 
         private async Task LoadPlayerInternal()
@@ -169,7 +170,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
 
         private void OnNavigating(object sender, bool isNavigating)
         {
-            MessagingCenter.Send<object, bool>(this, MessengerKeys.WebViewNavigationStatus, isNavigating);
+            MessagingCenter.Send<object>(this, MessengerKeys.WebViewNavigating);
         }
 
         private void OnNavigationCompleted(object sender, bool success)
@@ -184,14 +185,14 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
             }
             finally
             {
-                MessagingCenter.Send<object, bool>(this, MessengerKeys.WebViewNavigationStatus, false);
+                MessagingCenter.Send<object, bool>(this, MessengerKeys.WebViewNavigated, success);
             }
         }
     }
 
     public class CustomNavigationDelegate : WKNavigationDelegate
     {
-        public event EventHandler<bool> NavigatiomCompleted;
+        public event EventHandler<bool> NavigationCompleted;
         public event EventHandler<bool> Navigating;
 
         public override void DidStartProvisionalNavigation(WKWebView webView, WKNavigation navigation)
@@ -201,14 +202,17 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
 
         public override void DidFinishNavigation(WKWebView webView, WKNavigation navigation)
         {
-            Navigating?.Invoke(this, false);
-            NavigatiomCompleted?.Invoke(this, true);
+            NavigationCompleted?.Invoke(this, true);
         }
 
         public override void DidFailNavigation(WKWebView webView, WKNavigation navigation, Foundation.NSError error)
         {
-            Navigating?.Invoke(this, false);
-            NavigatiomCompleted?.Invoke(this, false);
+            NavigationCompleted?.Invoke(this, false);
+        }
+
+        public override void DidFailProvisionalNavigation(WKWebView webView, WKNavigation navigation, Foundation.NSError error)
+        {
+            NavigationCompleted?.Invoke(this, false);
         }
     }
 }

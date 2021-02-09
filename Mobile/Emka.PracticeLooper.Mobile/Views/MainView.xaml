@@ -121,11 +121,13 @@
                         ItemsSource="{Binding Sessions}"
                         ItemTemplate="{StaticResource SessionItemTemplateSelector}" />
 
-                     <!-- CTA -->
+                    <!-- CTA -->
 
                     <ContentView
                         Grid.Row="1"
                         Margin="5,0,5,0"
+                        IsVisible="{Binding ShowCallToAction}"
+                        IsEnabled="{Binding ShowCallToAction}"
                         VerticalOptions="FillAndExpand">
 
                         <Grid>
@@ -140,25 +142,22 @@
                                 Grid.Row="0"
                                 HorizontalOptions="Start"
                                 VerticalOptions="Center"
-                                IsVisible="{Binding ShowCallToAction}"
                                 Source="cta_header_left.png" />
 
                             <Image
                                 Grid.Row="0"
                                 HorizontalOptions="End"
                                 VerticalOptions="Center"
-                                IsVisible="{Binding ShowCallToAction}"
                                 Source="cta_header_right.png" />
 
                             <Image
                                 Grid.Row="1"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center"
-                                IsVisible="{Binding ShowCallToAction}"
                                 Source="cta_body.png" />
                         </Grid>
                     </ContentView>
-                  
+
 
 
                 </Grid>
@@ -483,18 +482,82 @@
                     HorizontalOptions="Center" />
             </ContentView>
 
-            <Button
+            <Grid
                 Grid.Row="2"
-                HorizontalOptions="Center"
-                Clicked="OnToggleSpotifyWebPlayer"
-                Text="{x:Static rsrcs:AppResources.Close}"
-                TextColor="{DynamicResource PrimaryColor}"
-                BackgroundColor="{DynamicResource BackgroundColor}"
-                BorderColor="{DynamicResource BackgroundColor}">
-            </Button>
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="*" />
+                </Grid.ColumnDefinitions>
+                <ImageButton
+                    Grid.Column="0"
+                    WidthRequest="36"
+                    HeightRequest="36"
+                    Margin="0,0,0,5"
+                    Command="{Binding SpotifyWebPlayerGoBackCommand}">
+                    <ImageButton.Source>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource GoBack}"
+                            Size="36"
+                            Color="{DynamicResource PrimaryColor}" />
+                    </ImageButton.Source>
+                </ImageButton>
+
+                <ImageButton
+                    Grid.Column="1"
+                    WidthRequest="36"
+                    HeightRequest="36"
+                    Margin="0,0,0,5"
+                    Command="{Binding SpotifyWebPlayerGoForwardCommand}">
+                    <ImageButton.Source>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource GoForward}"
+                            Size="36"
+                            Color="{DynamicResource PrimaryColor}" />
+                    </ImageButton.Source>
+                </ImageButton>
+
+                <ImageButton
+                    Grid.Column="2"
+                    WidthRequest="36"
+                    HeightRequest="36"
+                    Margin="0,0,0,5"
+                    Command="{Binding SpotifyWebPlayeRefreshCommand}">
+                    <ImageButton.Source>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource Refresh}"
+                            Size="36"
+                            Color="{DynamicResource PrimaryColor}" />
+                    </ImageButton.Source>
+                </ImageButton>
+
+                <ImageButton
+                    Grid.Column="3"
+                    WidthRequest="36"
+                    HeightRequest="36"
+                    Margin="0,0,0,5"
+                    Clicked="OnToggleSpotifyWebPlayer">
+                    <ImageButton.Source>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource Close}"
+                            Size="36"
+                            Color="{DynamicResource PrimaryColor}" />
+                    </ImageButton.Source>
+                </ImageButton>
+            </Grid>
         </Grid>
 
-        
         <!-- Busy Indicator -->
 
         <ContentView
@@ -511,7 +574,7 @@
                 VerticalOptions="Center"
                 HorizontalOptions="Center" />
         </ContentView>
-                
+
         <!-- Picker -->
         <syncfusion:SfPicker
             Grid.Row="2"
@@ -542,5 +605,6 @@
                     BorderColor="{DynamicResource BackgroundColor}" />
             </syncfusion:SfPicker.FooterView>
         </syncfusion:SfPicker>
+
     </Grid>
 </ContentPage>

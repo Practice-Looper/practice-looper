@@ -169,7 +169,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
         {
             if (!e.Url.Contains("javascript"))
             {
-                MessagingCenter.Send<object, bool>(this, MessengerKeys.WebViewNavigationStatus, true);
+                MessagingCenter.Send<object>(this, MessengerKeys.WebViewNavigating);
             }
         }
 
@@ -187,7 +187,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
             }
             finally
             {
-                MessagingCenter.Send<object, bool>(this, MessengerKeys.WebViewNavigationStatus, false);
+                MessagingCenter.Send<object, bool>(this, MessengerKeys.WebViewNavigated, navigationResult);
             }
         }
     }
