@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Services.Contracts.Player;
-using Plugin.FilePicker;
-using Plugin.FilePicker.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using Xamarin.Essentials;
+using System.Collections.Generic;
 
 namespace Emka.PracticeLooper.Mobile.Common
 {
@@ -42,14 +42,28 @@ namespace Emka.PracticeLooper.Mobile.Common
                 await permissionsManager.RequestStorageWritePermissionAsync();
             }
 
-            string[] allowedTypes = isIos ? new string[] { "public.audio" } : new string[] { "audio/*" };
+            var customFileType =
+                new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
+                {
+                    { DevicePlatform.iOS, new[] { "public.audio" } },
+                    { DevicePlatform.Android, new[] { "audio/*" } }
+                });
 
-            FileData fileData = await CrossFilePicker.Current.PickFile(allowedTypes);
+            var options = new PickOptions
+            {
+                FileTypes = customFileType,
+            };
+
+            FileResult fileData = await Xamarin.Essentials.FilePicker.PickAsync(options);
 
             if (fileData == null)
                 return result; // user canceled file picking
 
-            var type = await fileRepository.SaveFileAsync(fileData.FileName, fileData.DataArray);
+            var stream = await fileData.OpenReadAsync();
+            var bytesInStream = new byte[stream.Length];
+            stream.Read(bytesInStream, 0, bytesInStream.Length);
+
+            var type = await fileRepository.SaveFileAsync(fileData.FileName, bytesInStream);
 
             if (type == AudioSourceType.None)
             {
