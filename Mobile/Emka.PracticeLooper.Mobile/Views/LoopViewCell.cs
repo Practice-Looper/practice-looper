@@ -18,9 +18,10 @@ namespace Emka.PracticeLooper.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (BindingContext is LoopViewModel vm && vm.Loop.IsDefault)
+            
+            if (BindingContext is LoopViewModel vm && vm.Loop.IsDefault && ContextActions?.Count != 0)
             {
-                ContextActions.Clear();
+                ContextActions?.Clear();
             }
         }
     }

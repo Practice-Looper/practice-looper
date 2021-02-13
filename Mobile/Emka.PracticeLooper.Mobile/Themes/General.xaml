@@ -311,69 +311,53 @@
     <DataTemplate
         x:Key="AudioSourceTypeSpotify">
         <ViewCell>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition
-                        Width="4*" />
-                    <ColumnDefinition
-                        Width="6*" />
-                </Grid.ColumnDefinitions>
-
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Label
-                    Grid.Column="0"
                     FontFamily="{DynamicResource MaterialFontFamily}"
                     Text="{StaticResource Spotify}"
                     FontSize="48"
                     TextColor="{DynamicResource SpotifyColor}"
-                    VerticalTextAlignment="Center"
-                    VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    Margin="5,0,0,0" />
+                    HorizontalTextAlignment="Center"
+                    VerticalOptions="CenterAndExpand"
+                    VerticalTextAlignment="Center"/>
                 <Label
-                    Grid.Column="1"
                     AutomationId="Spotify"
                     Text="{Binding DisplayName}"
                     TextColor="{DynamicResource PrimaryColor}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center"
                     VerticalTextAlignment="Center"
-                    VerticalOptions="Center"
-                    HorizontalOptions="StartAndExpand"
                     FontSize="24" />
-            </Grid>
+            </StackLayout>
         </ViewCell>
     </DataTemplate>
 
     <DataTemplate
         x:Key="AudioSourceTypeAudioFile">
         <ViewCell>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition
-                        Width="4*" />
-                    <ColumnDefinition
-                        Width="6*" />
-                </Grid.ColumnDefinitions>
-
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Label
-                    Grid.Column="0"
                     FontFamily="{DynamicResource MaterialFontFamily}"
                     Text="{StaticResource AudioFile}"
                     FontSize="48"
                     TextColor="{DynamicResource PrimaryColor}"
-                    VerticalTextAlignment="Center"
-                    VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    Margin="5,0,0,0" />
+                    VerticalOptions="CenterAndExpand"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"/>
                 <Label
-                    Grid.Column="1"
                     AutomationId="AudioFile"
                     Text="{Binding DisplayName}"
                     TextColor="{DynamicResource PrimaryColor}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center"
                     VerticalTextAlignment="Center"
-                    VerticalOptions="Center"
                     LineBreakMode="TailTruncation"
-                    HorizontalOptions="StartAndExpand"
                     FontSize="24" />
-            </Grid>
+            </StackLayout>
         </ViewCell>
     </DataTemplate>
 

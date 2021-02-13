@@ -15,20 +15,9 @@
             x:Key="TimeConverter" />
     </ContentPage.Resources>
     <Grid
+        Padding="10"
         HorizontalOptions="FillAndExpand"
-        VerticalOptions="FillAndExpand"
-        BackgroundColor="{DynamicResource BackgroundColor}">
-        <Grid.Margin>
-            <OnPlatform
-                x:TypeArguments="Thickness">
-                <On
-                    Platform="iOS"
-                    Value="0,10" />
-                <On
-                    Platform="Android"
-                    Value="10,10" />
-            </OnPlatform>
-        </Grid.Margin>
+        VerticalOptions="FillAndExpand">
         <ListView
             AutomationProperties.IsInAccessibleTree="False"
             VerticalOptions="FillAndExpand"

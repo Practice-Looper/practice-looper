@@ -31,6 +31,8 @@ namespace Emka.PracticeLooper.Mobile.Views
         private IResolver resolver;
         private CustomWebView spotifyPlayerWebView;
         private Label errorLabel;
+        private double width = 0;
+        private double height = 0;
         #endregion
 
         #region Ctor
@@ -135,6 +137,37 @@ namespace Emka.PracticeLooper.Mobile.Views
             if (mainViewModel != null)
             {
                 mainViewModel.DeleteSessionCommand.Execute(menuItem.CommandParameter);
+            }
+        }
+
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height);
+            if (this.width != width || this.height != height)
+            {
+                this.width = width;
+                this.height = height;
+
+                if (width < height)
+                {
+                    // Portrait
+                    SpotifyWebPlayerButton.WidthRequest = SpotifyWebPlayerButton.HeightRequest = 48;
+                    SessionButton.WidthRequest = SessionButton.HeightRequest = 48;
+                    BookmarkButton.WidthRequest = BookmarkButton.HeightRequest = 48;
+                    PlayButton.WidthRequest = PlayButton.HeightRequest = 72;
+                }
+                else
+                {
+
+                    // Landscape
+                    if (height < 698)
+                    {
+                        SpotifyWebPlayerButton.WidthRequest = SpotifyWebPlayerButton.HeightRequest = 32;
+                        SessionButton.WidthRequest = SessionButton.HeightRequest = 32;
+                        BookmarkButton.WidthRequest = BookmarkButton.HeightRequest = 32;
+                        PlayButton.WidthRequest = PlayButton.HeightRequest = 48;
+                    }
+                }
             }
         }
 
