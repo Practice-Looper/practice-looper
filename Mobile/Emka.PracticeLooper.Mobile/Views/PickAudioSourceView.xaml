@@ -23,8 +23,10 @@
     <Frame
         BackgroundColor="{DynamicResource BackgroundColor}"
         HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand"
         BorderColor="{DynamicResource SecondaryColor}"
-        CornerRadius="0">
+        CornerRadius="0"
+        Padding="0">
         <Frame.VerticalOptions>
             <OnPlatform
                 x:TypeArguments="LayoutOptions">
@@ -38,13 +40,13 @@
         </Frame.VerticalOptions>
         <Grid
             VerticalOptions="FillAndExpand"
-            HorizontalOptions="Start"
+            HorizontalOptions="Center"
             BackgroundColor="{DynamicResource BackgroundColor}">
             <Grid.RowDefinitions>
                 <RowDefinition
-                    Height="4*" />
+                    Height="*" />
                 <RowDefinition
-                    Height="2*" />
+                    Height="Auto" />
             </Grid.RowDefinitions>
             <ListView
                 x:Name="ItemsListView"
@@ -57,7 +59,7 @@
                 ItemSelected="ItemsListView_ItemSelected"
                 HorizontalScrollBarVisibility="Never"
                 VerticalScrollBarVisibility="Never"
-                Margin="0,5">
+                Margin="10,20">
                 <ListView.RowHeight>
                     <OnPlatform
                         x:TypeArguments="x:Int32">
@@ -73,11 +75,12 @@
             <Button
                 AutomationId="CancelAudioSource"
                 Text="{x:Static rsrcs:AppResources.Cancel}"
-                FontSize="18"
+                FontSize="Large"
                 Grid.Row="1"
+                VerticalOptions="CenterAndExpand"
                 TextColor="{DynamicResource PrimaryColor}"
                 BackgroundColor="Transparent"
-                Margin="0,10,0,0"
+                Padding="0,0,0,20"
                 Clicked="OnClose" />
         </Grid>
     </Frame>
