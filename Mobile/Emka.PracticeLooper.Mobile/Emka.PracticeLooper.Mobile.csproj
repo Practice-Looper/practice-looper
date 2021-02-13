@@ -83,7 +83,6 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Autofac" Version="6.1.0" />
-        <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.1.41" />
         <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.10" />
         <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
         <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
