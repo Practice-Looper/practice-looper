@@ -3,10 +3,12 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Model;
 using Emka3.PracticeLooper.Utils;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
@@ -23,6 +25,15 @@ namespace Emka.PracticeLooper.Mobile.Views
             InitializeComponent();
             ItemsListView.On<iOS>().SetSeparatorStyle(SeparatorStyle.FullWidth);
             ItemsListView.ItemsSource = sources;
+            if (DeviceInfo.Platform == DevicePlatform.iOS)
+            {
+                ItemsListView.HeightRequest = sources.Count() * ItemsListView.RowHeight + 30;
+            }
+
+            if (DeviceInfo.Platform == DevicePlatform.Android)
+            {
+                ItemsListView.HeightRequest = sources.Count() * ItemsListView.RowHeight + 10;
+            }
         }
 
         private void OnClose(object sender, System.EventArgs e)

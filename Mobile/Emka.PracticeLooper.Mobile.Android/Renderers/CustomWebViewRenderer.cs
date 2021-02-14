@@ -179,7 +179,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
 
             try
             {
-                navigationCompletedTaskSource?.TrySetResult(navigationResult);
+                Task.Run(() => navigationCompletedTaskSource?.TrySetResult(navigationResult));
             }
             catch (Exception ex)
             {

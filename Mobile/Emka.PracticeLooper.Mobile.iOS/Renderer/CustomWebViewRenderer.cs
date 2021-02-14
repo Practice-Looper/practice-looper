@@ -92,7 +92,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
 
             await ActivatePlayerInternal();
             await activationCompletedTaskSource?.Task;
-            MessagingCenter.Send<object, bool>(this, MessengerKeys.SpotifyPlayerActivated, hasBeenActivated);           
+            MessagingCenter.Send<object, bool>(this, MessengerKeys.SpotifyPlayerActivated, hasBeenActivated);
         }
 
         private async Task LoadPlayerInternal()
@@ -113,7 +113,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
                     if (navigationSuccess)
                     {
                         int retries = 3;
-                        while (!hasBeenLoaded || retries > 0)
+                        while (!hasBeenLoaded && retries > 0)
                         {
                             try
                             {
@@ -177,7 +177,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
         {
             try
             {
-                navigationCompletedTaskSource?.TrySetResult(success);
+                Task.Run(() => navigationCompletedTaskSource?.TrySetResult(success));
             }
             catch (Exception ex)
             {

@@ -24,6 +24,7 @@ using Emka3.PracticeLooper.Services.Contracts.Rest;
 using System.Net;
 using System.Threading;
 using Emka3.PracticeLooper.Config.Contracts.Features;
+using Xamarin.Essentials;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -114,7 +115,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             Sessions = new ObservableCollection<SessionViewModel>();
             isPlaying = false;
-            showCallToAction = configurationService.GetValue<bool>("IsFirstLaunchEver");
+            showCallToAction = configurationService.GetValue<bool>("IsFirstLaunchEver") && DeviceInfo.Platform == DevicePlatform.iOS;
             UiContext = SynchronizationContext.Current;
         }
         #endregion
@@ -249,7 +250,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     StepFrequency = currentSession != null ? 1 / currentSession.Session.AudioSource.Duration : 0;
 
-                    InitAudioPlayer();
+                    LoadAudioPlayer();
 
                     if (configurationService.GetValue(PreferenceKeys.LastSession, default(int)) != currentSession.Session.Id)
                     {
@@ -515,79 +516,21 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     CurrentAudioPlayer.PlayStatusChanged += OnPlayingStatusChanged;
                     CurrentAudioPlayer.CurrentTimePositionChanged += OnCurrentTimePositionChanged;
+
                     if (CurrentAudioPlayer.Types.HasFlag(AudioSourceType.Spotify))
                     {
-                        if (!spotifyLoader.IsSpotifyInstalled())
-                        {
-                            if (!spotifyWebPlayerHasBeenLoaded)
-                            {
-                                await StartLoadingSpotifyWebPlayer();
-                            }
-
-                            if (spotifyWebPlayerHasBeenLoaded && !spotifyWebPlayerHasBeenActivated)
-                            {
-                                await StartSpotifyWebPlayerActivation();
-                            }
-
-                            if (spotifyWebPlayerHasBeenActivated && string.IsNullOrWhiteSpace(spotifyDeviceId))
-                            {
-                                spotifyDeviceId = await AwaitWebPlayerActivation();
-                            }
-
-                            if (string.IsNullOrWhiteSpace(spotifyDeviceId))
-                            {
-                                await dialogService.ShowAlertAsync(AppResources.Error_Content_NoActivePlayer, AppResources.Error_Caption);
-                                IsBusy = false;
-                                return;
-                            }
-                        }
-
-                        if (!spotifyApiService.UserPremiumCheckSuccessful)
-                        {
-                            var premiumCheck = await spotifyApiService.IsPremiumUser();
-                            IsPremiumUser = premiumCheck.Item2;
-
-                            if (!IsPremiumUser && premiumCheck.Item1.Equals(HttpStatusCode.OK))
-                            {
-                                await dialogService.ShowAlertAsync(AppResources.Error_Content_NoPremiumUser, AppResources.Hint_Caption_General);
-                                return;
-                            }
-                            else if (!IsPremiumUser && !premiumCheck.Item1.Equals(HttpStatusCode.OK))
-                            {
-                                await dialogService.ShowAlertAsync(AppResources.Error_Content_PremiumUserCheckFailed, AppResources.Hint_Caption_General);
-                                return;
-                            }
-                        }
+                        await HandleSpotifyPlayerInitialization();
                     }
 
-                    if (!CurrentAudioPlayer.Initialized)
+                    if (CurrentAudioPlayer.Types.HasFlag(AudioSourceType.LocalInternal | AudioSourceType.LocalExternal))
                     {
-                        try
-                        {
-                            var useWebPlayer = !spotifyLoader.IsSpotifyInstalled();
-                            await CurrentAudioPlayer.InitAsync(CurrentLoop, useWebPlayer, spotifyDeviceId);
-                        }
-                        catch (FileNotFoundException ex)
-                        {
-                            await Logger.LogErrorAsync(ex);
-                            var deleteFile = await dialogService.ShowConfirmAsync(AppResources.Error_Caption, AppResources.Error_Content_FileNotFound, AppResources.Cancel, AppResources.Ok);
-
-                            if (deleteFile)
-                            {
-                                DeleteSessionCommand.Execute(CurrentSession);
-                            }
-
-                            return;
-                        }
-                        catch (Exception ex)
-                        {
-                            await Logger.LogErrorAsync(ex);
-                            await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
-                            return;
-                        }
+                        await InitAudioPlayer(false);
                     }
 
-                    await CurrentAudioPlayer.PlayAsync();
+                    if (CurrentAudioPlayer.Initialized)
+                    {
+                        await CurrentAudioPlayer.PlayAsync();
+                    }
                 }
             }
             catch (Exception ex)
@@ -692,6 +635,12 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                         break;
                     case AudioSourceType.Spotify:
 
+                        if (DeviceInfo.Platform == DevicePlatform.Android && !spotifyLoader.IsSpotifyInstalled())
+                        {
+                            await InitiateSpotifyInstallationAsync();
+                            return;
+                        }
+
                         // spotify already authorized?
                         if (spotifyLoader != null && !spotifyLoader.Authorized)
                         {
@@ -773,7 +722,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
-        public void InitAudioPlayer()
+        public void LoadAudioPlayer()
         {
             try
             {
@@ -814,6 +763,91 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        public async Task InitAudioPlayer(bool useWebPlayer, string deviceId = null)
+        {
+            if (!CurrentAudioPlayer.Initialized)
+            {
+                try
+                {
+                    await CurrentAudioPlayer.InitAsync(CurrentLoop, useWebPlayer, deviceId);
+                }
+                catch (FileNotFoundException ex)
+                {
+                    await Logger.LogErrorAsync(ex);
+                    var deleteFile = await dialogService.ShowConfirmAsync(AppResources.Error_Caption, AppResources.Error_Content_FileNotFound, AppResources.Cancel, AppResources.Ok);
+
+                    if (deleteFile)
+                    {
+                        DeleteSessionCommand.Execute(CurrentSession);
+                    }
+
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    await Logger.LogErrorAsync(ex);
+                    await dialogService.ShowAlertAsync(AppResources.Error_Content_General, AppResources.Error_Caption);
+                    return;
+                }
+            }
+        }
+
+        public async Task HandleSpotifyPlayerInitialization()
+        {
+            var isSpotifyInstalled = spotifyLoader.IsSpotifyInstalled();
+            if (!isSpotifyInstalled)
+            {
+                if (DeviceInfo.Platform == DevicePlatform.iOS)
+                {
+                    if (!spotifyWebPlayerHasBeenLoaded)
+                    {
+                        await StartLoadingSpotifyWebPlayer();
+                    }
+
+                    if (spotifyWebPlayerHasBeenLoaded && !spotifyWebPlayerHasBeenActivated)
+                    {
+                        await StartSpotifyWebPlayerActivation();
+                    }
+
+                    if (spotifyWebPlayerHasBeenActivated && string.IsNullOrWhiteSpace(spotifyDeviceId))
+                    {
+                        spotifyDeviceId = await AwaitWebPlayerActivation();
+                    }
+
+                    if (string.IsNullOrWhiteSpace(spotifyDeviceId))
+                    {
+                        await dialogService.ShowAlertAsync(AppResources.Error_Content_NoActivePlayer, AppResources.Error_Caption);
+                        IsBusy = false;
+                        return;
+                    }
+                }
+                else
+                {
+                    await InitiateSpotifyInstallationAsync();
+                    return;
+                }
+            }
+
+            await InitAudioPlayer(!isSpotifyInstalled, spotifyDeviceId);
+
+            if (!spotifyApiService.UserPremiumCheckSuccessful)
+            {
+                var premiumCheck = await spotifyApiService.IsPremiumUser();
+                IsPremiumUser = premiumCheck.Item2;
+
+                if (!IsPremiumUser && premiumCheck.Item1.Equals(HttpStatusCode.OK))
+                {
+                    await dialogService.ShowAlertAsync(AppResources.Error_Content_NoPremiumUser, AppResources.Hint_Caption_General);
+                    return;
+                }
+                else if (!IsPremiumUser && !premiumCheck.Item1.Equals(HttpStatusCode.OK))
+                {
+                    await dialogService.ShowAlertAsync(AppResources.Error_Content_PremiumUserCheckFailed, AppResources.Hint_Caption_General);
+                    return;
+                }
             }
         }
 
@@ -976,6 +1010,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             try
             {
+                MessagingCenter.Send(this, MessengerKeys.WebViewInit);
                 spotifyWebPlayerLoadedTokenSource = new TaskCompletionSource<bool>();
                 MessagingCenter.Send(this, MessengerKeys.SpotifyLoadWebPlayer);
                 spotifyWebPlayerHasBeenLoaded = await spotifyWebPlayerLoadedTokenSource.Task;
@@ -984,6 +1019,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             catch (Exception ex)
             {
                 await Logger.LogErrorAsync(ex);
+            }
+            finally
+            {
+                IsSpotifyWebPlayerVisible = false;
             }
 
             return spotifyWebPlayerHasBeenLoaded;

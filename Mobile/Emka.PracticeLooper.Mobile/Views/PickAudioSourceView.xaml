@@ -40,7 +40,7 @@
         </Frame.VerticalOptions>
         <Grid
             VerticalOptions="FillAndExpand"
-            HorizontalOptions="Center"
+            HorizontalOptions="FillAndExpand"
             BackgroundColor="{DynamicResource BackgroundColor}">
             <Grid.RowDefinitions>
                 <RowDefinition
@@ -53,13 +53,23 @@
                 BackgroundColor="Transparent"
                 Grid.Row="0"
                 AutomationProperties.IsInAccessibleTree="False"
-                VerticalOptions="FillAndExpand"
+                VerticalOptions="StartAndExpand"
                 SeparatorColor="{DynamicResource SecondaryColor}"
                 ItemTemplate="{StaticResource AudioTypeTemplateSelector}"
                 ItemSelected="ItemsListView_ItemSelected"
                 HorizontalScrollBarVisibility="Never"
-                VerticalScrollBarVisibility="Never"
-                Margin="10,20">
+                VerticalScrollBarVisibility="Never">
+                <ListView.Margin>
+                    <OnPlatform
+                        x:TypeArguments="Thickness">
+                        <On
+                            Platform="iOS"
+                            Value="10,5" />
+                        <On
+                            Platform="Android"
+                            Value="10, 20" />
+                    </OnPlatform>
+                </ListView.Margin>
                 <ListView.RowHeight>
                     <OnPlatform
                         x:TypeArguments="x:Int32">
