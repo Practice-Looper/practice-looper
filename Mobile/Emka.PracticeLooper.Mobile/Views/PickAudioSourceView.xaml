@@ -90,7 +90,7 @@
                 VerticalOptions="CenterAndExpand"
                 TextColor="{DynamicResource PrimaryColor}"
                 BackgroundColor="Transparent"
-                Padding="0,0,0,20"
+                Padding="0,0,0,15"
                 Clicked="OnClose" />
         </Grid>
     </Frame>
