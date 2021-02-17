@@ -112,12 +112,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             MessagingCenter.Subscribe<LoopViewModel, Loop>(this, MessengerKeys.DeleteLoop, OnDeleteLoop);
             MessagingCenter.Subscribe<object, bool>(this, MessengerKeys.SpotifyWebPlayerLoaded, OnSpotifyWebPlayerPlayerLoaded);
             MessagingCenter.Subscribe<object, bool>(this, MessengerKeys.SpotifyPlayerActivated, OnSpotifyWebPlayerActivated);
-
+            MessagingCenter.Subscribe<object>(this, MessengerKeys.WebViewRefreshInitialized, OnWebViewRefreshInitialized);
             Sessions = new ObservableCollection<SessionViewModel>();
             isPlaying = false;
             showCallToAction = configurationService.GetValue<bool>("IsFirstLaunchEver") && DeviceInfo.Platform == DevicePlatform.iOS;
             UiContext = SynchronizationContext.Current;
         }
+
         #endregion
 
         #region Properties
@@ -259,7 +260,15 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                     if (isCurrentlyPlaying)
                     {
-                        PlayCommand.Execute(null);
+                        Task.Run(async () =>
+                        {
+                            await CurrentAudioPlayer?.PauseAsync();
+                            while (CurrentAudioPlayer.IsPlaying)
+                            {
+                                await Task.Delay(500);
+                            }
+                            PlayCommand.Execute(null);
+                        });
                     }
                 }
 
@@ -504,7 +513,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 IsBusy = true;
 
-                if (IsPlaying)
+                if (CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying)
                 {
                     UiContext.Send(x => IsPlaying = false, null);
                     UiContext.Send(x => CurrentAudioPlayer.Pause(true), null);
@@ -954,6 +963,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
         private async Task ExecuteNavigateToSettingsCommand()
         {
+            if (CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying)
+            {
+                CurrentAudioPlayer.Pause(true);
+            }
+
             await NavigationService?.NavigateToAsync<SettingsViewModel>();
         }
 
@@ -1010,9 +1024,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
             try
             {
-                MessagingCenter.Send(this, MessengerKeys.WebViewInit);
+                Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(this, MessengerKeys.WebViewInit));
                 spotifyWebPlayerLoadedTokenSource = new TaskCompletionSource<bool>();
-                MessagingCenter.Send(this, MessengerKeys.SpotifyLoadWebPlayer);
+                Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(this, MessengerKeys.SpotifyLoadWebPlayer));
                 spotifyWebPlayerHasBeenLoaded = await spotifyWebPlayerLoadedTokenSource.Task;
                 IsSpotifyWebPlayerVisible = !spotifyWebPlayerHasBeenLoaded;
             }
@@ -1039,7 +1053,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                 IsSpotifyWebPlayerVisible = true;
                 spotifyWebPlayerActivationTokenSource = new TaskCompletionSource<bool>();
-                MessagingCenter.Send(this, MessengerKeys.SpotifyActivatePlayer);
+                Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(this, MessengerKeys.SpotifyActivatePlayer));
                 spotifyWebPlayerHasBeenActivated = await spotifyWebPlayerActivationTokenSource.Task;
             }
             catch (Exception ex)
@@ -1081,6 +1095,14 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
 
             return id;
+        }
+
+        private void OnWebViewRefreshInitialized(object obj)
+        {
+            if (CurrentAudioPlayer != null && CurrentAudioPlayer.IsPlaying && CurrentAudioPlayer.UsesWebPlayer)
+            {
+                CurrentAudioPlayer.Pause(true);
+            }
         }
 
         private void ExecuteToggleSpotifyWebPlayerCommand(object obj)

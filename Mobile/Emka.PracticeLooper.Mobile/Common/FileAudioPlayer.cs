@@ -59,6 +59,7 @@ namespace Emka.PracticeLooper.Mobile.Common
         public AudioSourceType Types => AudioSourceType.LocalInternal | AudioSourceType.LocalExternal;
         public string DisplayName => "File";
 
+        public bool UsesWebPlayer => false;
         public bool PausedByUser
         {
             get
