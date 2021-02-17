@@ -93,6 +93,15 @@ namespace Emka.PracticeLooper.Mobile.Views
                 spotifyPlayerWebView.GoForward();
             });
 
+            MessagingCenter.Subscribe<MainViewModel>(this, MessengerKeys.WebViewInit, (sender) =>
+            {
+                if (spotifyPlayerWebView == null)
+                {
+                    InitErrorView();
+                    InitSpotifyWebPlayer();
+                    SpotifyWebViewContainer.IsVisible = !SpotifyWebViewContainer.IsVisible;
+                }
+            });
         }
         #endregion
 

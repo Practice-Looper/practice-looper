@@ -16,6 +16,7 @@ using SpotifyBindings.iOS;
 using StoreKit;
 using UIKit;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.iOS.Common
 {
@@ -61,7 +62,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 {
                     try
                     {
-                        tokenEvent?.Set();
+                        Task.Run(() => { tokenEvent?.Set(); });
                     }
                     catch (Exception ex)
                     {
@@ -86,7 +87,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         {
             try
             {
-                var connectionTimeout = configurationService.GetValue<int>("SpotifyConnectionTimeOut");
+                tokenEvent = new AutoResetEvent(false);
+                connectedEvent = new AutoResetEvent(false);
+
+                int connectionTimeout = IsSpotifyInstalled() ? configurationService.GetValue<int>("SpotifyConnectionTimeOut") : 240;
 
                 if (string.IsNullOrEmpty(songUri))
                 {
@@ -122,8 +126,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public async Task<bool> InitializeAsync(string songUri = "")
         {
-            tokenEvent = new AutoResetEvent(false);
-            connectedEvent = new AutoResetEvent(false);
             return await Task.Run(() => Initialize(songUri));
         }
 
@@ -185,7 +187,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             try
             {
                 Authorized = api != null && api.Connected && !string.IsNullOrEmpty(Token);
-                connectedEvent.Set();
+                Task.Run(() => connectedEvent.Set());
             }
             catch (ObjectDisposedException ex)
             {
@@ -208,8 +210,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                      { "redirectUri", configurationService.GetValue("SpotifyClientRedirectUri") }
                 });
 
-                connectedEvent.Set();
-                tokenEvent.Set();
+                Task.Run(() =>
+                {
+                    connectedEvent.Set();
+                    tokenEvent.Set();
+                });
             }
             catch (Exception ex)
             {
@@ -240,7 +245,25 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public bool IsSpotifyInstalled()
         {
-            return UIApplication.SharedApplication.CanOpenUrl(new NSUrl(new NSString("spotify:")));
+            bool result = false;
+
+            if (!MainThread.IsMainThread)
+            {
+                var resetEvent = new AutoResetEvent(false);
+                MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    result = UIApplication.SharedApplication.CanOpenUrl(new NSUrl(new NSString("spotify:")));
+                    resetEvent.Set();
+                });
+
+                resetEvent.WaitOne(TimeSpan.FromSeconds(5));
+            }
+            else
+            {
+                result = UIApplication.SharedApplication.CanOpenUrl(new NSUrl(new NSString("spotify:")));
+            }
+
+            return result;
         }
 
         public void Disconnect()
@@ -283,10 +306,10 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 api.ConnectionParameters.AccessToken = Token;
                 api.Connect();
-                return; 
+                return;
             }
 
-            connectedEvent.Set();
+            Task.Run(() => connectedEvent.Set());
         }
 
         private string GetRandomCoumarinSong()
@@ -324,7 +347,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
             else
             {
-                tokenEvent.Set();
+                await Task.Run(() => tokenEvent.Set());
             }
         }
         #endregion

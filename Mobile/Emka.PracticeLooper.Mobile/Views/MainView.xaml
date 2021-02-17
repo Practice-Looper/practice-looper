@@ -83,6 +83,17 @@
                         HorizontalOptions="Start"
                         VerticalOptions="Center"
                         Clicked="OnToggleSpotifyWebPlayer">
+                        <ImageButton.IsVisible>
+                            <OnPlatform
+                                x:TypeArguments="x:Boolean">
+                                <On
+                                    Platform="iOS"
+                                    Value="True" />
+                                <On
+                                    Platform="Android"
+                                    Value="False" />
+                            </OnPlatform>
+                        </ImageButton.IsVisible>
                         <ImageButton.Source>
                             <FontImageSource
                                 FontFamily="{DynamicResource MaterialFontFamily}"
@@ -157,9 +168,6 @@
                                 Source="cta_body.png" />
                         </Grid>
                     </ContentView>
-
-
-
                 </Grid>
             </ContentView>
 

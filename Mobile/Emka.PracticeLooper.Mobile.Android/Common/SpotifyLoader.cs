@@ -73,7 +73,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             try
             {
-                var connectionTimeout = configurationService.GetValue<int>("SpotifyConnectionTimeOut");
+                var connectionTimeout = IsSpotifyInstalled() ? configurationService.GetValue<int>("SpotifyConnectionTimeOut") : 240;
 
                 StartAuthorization();
                 tokenEvent.WaitOne(TimeSpan.FromSeconds(connectionTimeout));

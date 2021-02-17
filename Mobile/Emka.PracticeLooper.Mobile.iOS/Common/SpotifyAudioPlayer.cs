@@ -73,6 +73,12 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             {
                 throw new ArgumentNullException(nameof(loop.Session));
             }
+
+            if (!spotifyLoader.Authorized)
+            {
+                spotifyLoader.Initialize();
+            }
+
             this.useWebPlayer = useWebPlayer;
             this.deviceId = deviceId;
             internalSongDuration = TimeSpan.FromSeconds(loop.Session.AudioSource.Duration).TotalMilliseconds;
@@ -193,15 +199,15 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public async Task InitAsync(Loop loop, bool useWebPlayer = false, string deviceId = null)
         {
-            if (!spotifyLoader.Authorized)
-            {
-                await spotifyLoader.InitializeAsync();
-            }
+            //if (!spotifyLoader.Authorized)
+            //{
+            //    await spotifyLoader.InitializeAsync();
+            //}
 
-            if (spotifyLoader.Authorized)
-            {
+            //if (spotifyLoader.Authorized)
+            //{
                 await Task.Run(() => Init(loop, useWebPlayer, deviceId));
-            }
+            //}
         }
 
         public async Task PlayAsync()

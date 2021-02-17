@@ -3,6 +3,7 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.ViewModels;
 using Emka.PracticeLooper.Model;
@@ -23,6 +24,7 @@ namespace Emka.PracticeLooper.Mobile.Views
             InitializeComponent();
             ItemsListView.On<iOS>().SetSeparatorStyle(SeparatorStyle.FullWidth);
             ItemsListView.ItemsSource = sources;
+            ItemsListView.ScrollTo(sources.LastOrDefault(), ScrollToPosition.MakeVisible, false);
         }
 
         private void OnClose(object sender, System.EventArgs e)

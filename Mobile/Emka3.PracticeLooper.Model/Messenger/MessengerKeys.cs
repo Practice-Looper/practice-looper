@@ -21,6 +21,7 @@ namespace Emka.PracticeLooper.Model
         public const string SpotifyPlayerActivated = nameof(SpotifyPlayerActivated);
         public const string SpotifyLoadWebPlayer = nameof(SpotifyLoadWebPlayer);
         public const string SpotifyWebPlayerLoaded = nameof(SpotifyWebPlayerLoaded);
+        public const string WebViewInit = nameof(WebViewInit);
         public const string WebViewNavigating = nameof(WebViewNavigating);
         public const string WebViewNavigated = nameof(WebViewNavigated);
         public const string WebViewRefreshInitialized = nameof(WebViewRefreshInitialized);
