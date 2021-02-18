@@ -8,10 +8,7 @@ using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
-using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
-using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace Emka.PracticeLooper.Mobile.Views
 {
@@ -42,18 +39,6 @@ namespace Emka.PracticeLooper.Mobile.Views
             if (sender is Xamarin.Forms.ListView listView)
             {
                 listView.SelectedItem = null;
-            }
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            if (DeviceInfo.Platform == DevicePlatform.iOS)
-            {
-                var safeInsets = On<iOS>().SafeAreaInsets();
-                safeInsets.Left = safeInsets.Right = 10;
-                Padding = safeInsets;
             }
         }
     }

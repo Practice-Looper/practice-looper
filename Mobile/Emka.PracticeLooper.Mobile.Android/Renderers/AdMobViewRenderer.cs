@@ -10,6 +10,7 @@ using Android.Gms.Ads;
 using Android.Widget;
 using Emka.PracticeLooper.Mobile.Droid.Renderers;
 using Emka.PracticeLooper.Mobile.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -20,6 +21,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
     {
         public AdMobViewRenderer(Context context) : base(context)
         {
+            
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<AdMobView> e)
@@ -28,6 +30,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
 
             if (e.NewElement != null && Control == null)
                 SetNativeControl(CreateAdView());
+            
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -36,6 +39,13 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
 
             if (e.PropertyName == nameof(AdView.AdUnitId))
                 Control.AdUnitId = Element.AdUnitId;
+
+            
+            if (e.PropertyName == "Width")
+            {
+                SetNativeControl(CreateAdView());
+                Element.HeightRequest = GetSmartBannerDpHeight();
+            }
         }
 
         private AdView CreateAdView()
@@ -75,6 +85,13 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
             }
 
             return adView;
+        }
+
+        private double GetSmartBannerDpHeight() {
+            var display = DeviceDisplay.MainDisplayInfo;
+            var height = Control.AdSize.GetHeightInPixels(Context)
+                / display.Density;
+            return height;
         }
     }
 }

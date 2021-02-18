@@ -179,6 +179,8 @@ namespace Emka.PracticeLooper.Mobile.Droid.Renderers
 
             try
             {
+                hasBeenLoaded = false;
+                hasBeenActivated = false;
                 Task.Run(() => navigationCompletedTaskSource?.TrySetResult(navigationResult));
             }
             catch (Exception ex)

@@ -22,6 +22,7 @@ namespace Emka3.PracticeLooper.Services.Contracts.Player
         double SongDuration { get; }
         AudioSourceType Types { get; }
         string DisplayName { get; }
+        bool UsesWebPlayer { get; }
         #endregion
 
         #region Methods

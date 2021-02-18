@@ -51,8 +51,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         public Loop CurrentLoop { get; set; }
         public SPTAppRemote Api { get => spotifyLoader.RemoteApi as SPTAppRemote; }
         public AudioSourceType Types => AudioSourceType.Spotify;
-
         public string DisplayName => "Spotify";
+        public bool UsesWebPlayer => useWebPlayer;
         #endregion
 
         #region Events

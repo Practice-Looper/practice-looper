@@ -111,7 +111,7 @@
       <Name>Emka3.PracticeLooper.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Emka3.PracticeLooper.Services\Emka3.PracticeLooper.Services.csproj">
-      <Project>{C3FC735F-616D-4A71-B2D2-AA5C13A57FD5}</Project>
+      <Project>{F507F867-7FDA-4F57-8139-DF7D5443DE0C}</Project>
       <Name>Emka3.PracticeLooper.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Emka3.PracticeLooper.Config\Emka3.PracticeLooper.Config.csproj">

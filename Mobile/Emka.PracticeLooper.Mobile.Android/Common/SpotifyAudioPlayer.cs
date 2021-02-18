@@ -66,6 +66,7 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         public SpotifyAppRemote Api { get => spotifyLoader.RemoteApi as SpotifyAppRemote; }
         public AudioSourceType Types => AudioSourceType.Spotify;
         public string DisplayName => "Spotify";
+        public bool UsesWebPlayer => useWebPlayer;
         #endregion
 
         #region Events
@@ -143,7 +144,12 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
         {
             if (useWebPlayer)
             {
-                Task.Run(async () => await PauseViaWebApi());
+                Task.Run(async () =>
+                {
+                    await PauseViaWebApi();
+                    Initialized = false;
+                    IsPlaying = false;
+                });
                 return;
             }
 
