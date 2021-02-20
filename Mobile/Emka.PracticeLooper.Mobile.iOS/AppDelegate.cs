@@ -123,6 +123,7 @@ namespace Emka.PracticeLooper.Mobile.iOS
             AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(configService.GetValue("SyncFusionLicenseKey"));
             configService.SetValue(PreferenceKeys.InternalStoragePath, FileSystem.AppDataDirectory);
+            configService.SetValue("Platform", CurrentPlatform.iOS);
             var resolver = Factory.GetResolver() ?? throw new ArgumentNullException("resolver");
             resolver.RegisterInstance(configService, typeof(IConfigurationService));
             resolver.RegisterSingleton(typeof(InAppBillingService), typeof(IInAppBillingService));

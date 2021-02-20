@@ -12,7 +12,7 @@ using Emka3.PracticeLooper.Services.Contracts.Player;
 
 namespace Emka.PracticeLooper.Mobile.Droid.Activities
 {
-    [Activity(Label = "ActivityCustomUrlSchemeInterceptor", NoHistory = true, LaunchMode = Android.Content.PM.LaunchMode.SingleTop)]
+    [Activity(Label = "Authenticator", NoHistory = true, LaunchMode = Android.Content.PM.LaunchMode.SingleTop)]
     [IntentFilter(
         new[] { Intent.ActionView },
         Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },

@@ -36,7 +36,7 @@ namespace Emka3.PracticeLooper.Services.Common
 
         public async Task DeleteTokenAsync()
         {
-            await Task.Run(() => secureRepository.DeleteValueAsync(SPOTIFY_REFRESH_TOKEN_KEY));
+            await Task.Run(async () => await secureRepository.DeleteValueAsync(SPOTIFY_REFRESH_TOKEN_KEY));
         }
 
         public void UpdateAccessToken(AudioSourceType sourceType, string token, int expiresIn)
