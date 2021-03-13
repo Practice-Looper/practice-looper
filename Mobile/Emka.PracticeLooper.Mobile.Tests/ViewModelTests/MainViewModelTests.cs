@@ -1837,6 +1837,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             await activateTcs.Task;
 
             Assert.False(result);
+            Console.WriteLine($"platform: {configurationServiceMock.Object.GetValue<CurrentPlatform>("Platform")}");
             spotifyLoaderMock.Verify(s => s.InitializeAsync(It.IsAny<string>()), Times.Never);
             audioPlayerMock.Verify(a => a.InitAsync(It.IsAny<Loop>(), true, It.Is<string>(s => !string.IsNullOrWhiteSpace(s))), Times.Never);
             spotifyApiServiceMock.Verify(s => s.IsPremiumUser(), Times.Never);
