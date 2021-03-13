@@ -37,21 +37,23 @@ namespace Emka.PracticeLooper.Mobile.Views
         #endregion
 
         #region Methods
-
         void Switch_Toggled(object sender, ToggledEventArgs e)
         {
             ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;
-            mergedDictionaries.Clear();
 
-            if (e.Value)
+            if (e.Value && configurationService.GetValue(PreferenceKeys.ColorScheme, -1) != (int)AppTheme.Dark)
             {
+                mergedDictionaries.Clear();
                 mergedDictionaries.Add(new DarkTheme());
                 configurationService.SetValue(PreferenceKeys.ColorScheme, (int)AppTheme.Dark, true);
                 return;
             }
-
-            mergedDictionaries.Add(new LightTheme());
-            configurationService.SetValue(PreferenceKeys.ColorScheme, (int)AppTheme.Light, true);
+            else if(!e.Value && configurationService.GetValue(PreferenceKeys.ColorScheme, -1) != (int)AppTheme.Light)
+            {
+                mergedDictionaries.Clear();
+                mergedDictionaries.Add(new LightTheme());
+                configurationService.SetValue(PreferenceKeys.ColorScheme, (int)AppTheme.Light, true);
+            }
         }
 
         public void PremiumFeatureToggle(bool enabled)

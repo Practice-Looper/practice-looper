@@ -17,5 +17,15 @@ namespace Emka.PracticeLooper.Model
         public const string DeleteLoop = nameof(DeleteLoop);
         public const string LoopChanged = nameof(LoopChanged);
         public const string ShowDialog = nameof(ShowDialog);
+        public const string SpotifyActivatePlayer = nameof(SpotifyActivatePlayer);
+        public const string SpotifyPlayerActivated = nameof(SpotifyPlayerActivated);
+        public const string SpotifyLoadWebPlayer = nameof(SpotifyLoadWebPlayer);
+        public const string SpotifyWebPlayerLoaded = nameof(SpotifyWebPlayerLoaded);
+        public const string WebViewInit = nameof(WebViewInit);
+        public const string WebViewNavigating = nameof(WebViewNavigating);
+        public const string WebViewNavigated = nameof(WebViewNavigated);
+        public const string WebViewRefreshInitialized = nameof(WebViewRefreshInitialized);
+        public const string WebViewGoBackToggled = nameof(WebViewGoBackToggled);
+        public const string WebViewGoForwardToggled = nameof(WebViewGoForwardToggled);
     }
 }

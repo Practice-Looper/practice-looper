@@ -10,54 +10,61 @@
     Padding="10"
     Title="{Binding Product.Name}">
     <Grid>
-        <StackLayout
-            VerticalOptions="FillAndExpand"
-            HorizontalOptions="CenterAndExpand">
-            <Image
-                Source="{Binding Product.Image}"
-                HorizontalOptions="Center"
-                VerticalOptions="Start"
-                Margin="10,50,10,10" />
-            <Label
-                Text="{Binding Product.Description}"
-                FontSize="Large"
-                TextColor="{DynamicResource SecondaryColor}"
-                LineBreakMode="WordWrap"
-                HorizontalOptions="Center"
-                Margin="10,50,10,10" />
-            <Button
-                BackgroundColor="{DynamicResource PrimaryColor}"
-                TextColor="White"
-                FontSize="16"
-                CornerRadius="5"
-                WidthRequest="180"
-                HeightRequest="50"
-                HorizontalOptions="Center"
-                Margin="0,100"
-                VerticalOptions="End"
-                Command="{Binding PurchaseItemCommand}">
-                <Button.Style>
-                    <Style
-                        TargetType="Button">
-                        <Setter
-                            Property="Text"
-                            Value="{Binding Product.LocalizedPrice, StringFormat={x:Static rsrcs:AppResources.InAppBillingProductView_Buy}}" />
-                        <Style.Triggers>
-                            <DataTrigger
-                                TargetType="Button"
-                                Binding="{Binding Product.Purchased}"
-                                Value="True">
-                                <Setter
-                                    Property="Text"
-                                    Value="{x:Static rsrcs:AppResources.InAppBillingProductView_Purchased}" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-        </StackLayout>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="2*" />
+            <RowDefinition
+                Height="3*" />
+            <RowDefinition
+                Height="2*" />
+        </Grid.RowDefinitions>
+        
+        <Image
+            Grid.Row="0"
+            Source="{Binding Product.Image}"
+            HorizontalOptions="Center"
+            VerticalOptions="End" />
+        <Label
+            Grid.Row="1"
+            Text="{Binding Product.Description}"
+            FontSize="Large"
+            TextColor="{DynamicResource SecondaryColor}"
+            LineBreakMode="WordWrap"
+            HorizontalOptions="Center"
+            VerticalOptions="CenterAndExpand"/>
+        <Button
+            Grid.Row="2"
+            BackgroundColor="{DynamicResource PrimaryColor}"
+            TextColor="White"
+            FontSize="16"
+            CornerRadius="5"
+            WidthRequest="180"
+            HeightRequest="50"
+            HorizontalOptions="Center"
+            VerticalOptions="Start"
+            Command="{Binding PurchaseItemCommand}">
+            <Button.Style>
+                <Style
+                    TargetType="Button">
+                    <Setter
+                        Property="Text"
+                        Value="{Binding Product.LocalizedPrice, StringFormat={x:Static rsrcs:AppResources.InAppBillingProductView_Buy}}" />
+                    <Style.Triggers>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Product.Purchased}"
+                            Value="True">
+                            <Setter
+                                Property="Text"
+                                Value="{x:Static rsrcs:AppResources.InAppBillingProductView_Purchased}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         <ContentView
             IsVisible="{Binding IsBusy}"
+            Grid.Row="1"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand"
             Opacity="0.9"

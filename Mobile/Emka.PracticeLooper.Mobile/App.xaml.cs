@@ -18,6 +18,7 @@ using System.Linq;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Emka.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Config.Contracts.Features;
+using FilePicker = Emka.PracticeLooper.Mobile.Common.FilePicker;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -75,6 +76,7 @@ namespace Emka.PracticeLooper.Mobile
         private void InitApp()
         {
             // Register common forms types
+
             resolver = MappingsFactory.Factory.GetResolver();
             resolver.RegisterSingleton(typeof(FilePicker), typeof(IFilePicker));
             resolver.RegisterSingleton(typeof(NavigationService), typeof(INavigationService));
@@ -99,6 +101,8 @@ namespace Emka.PracticeLooper.Mobile
             var premiumItemId = Device.RuntimePlatform == Device.iOS ? purchaseItems["IosPremiumLifetime"].ToString() : purchaseItems["AndroidPremiumLifetime"].ToString();
             var premiumFeature = new PremiumFeature(premiumItemId);
             var featureRegistry = resolver.Resolve<IFeatureRegistry>();
+
+            configService.SetValue("IsFirstLaunchEver", VersionTracking.IsFirstLaunchEver);
 #if PREMIUM
             configService.SetSecureValue(premiumItemId, true);
 #endif

@@ -4,7 +4,6 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2019
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using Emka.PracticeLooper.Mobile.iOS.Renderer;
 using Emka.PracticeLooper.Mobile.Views;
@@ -12,6 +11,7 @@ using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Config.Contracts.Features;
 using Google.MobileAds;
 using UIKit;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
@@ -43,8 +43,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
             base.OnElementChanged(e);
             if (!featureRegistry.IsEnabled<PremiumFeature>() && Control == null)
             {
-                var bannerView = CreateBannerView();
-                SetNativeControl(bannerView);
+                SetNativeControl(CreateBannerView());
             }
         }
 
@@ -54,6 +53,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
 
             if (e.PropertyName == nameof(BannerView.AdUnitId))
                 Control.AdUnitId = Element.AdUnitId;
+
+            if (e.PropertyName == "Width")
+            {
+                Element.HeightRequest = GetSmartBannerDpHeight();
+            }
         }
 
         private BannerView CreateBannerView()
@@ -87,6 +91,16 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
                 }
             }
             return null;
+        }
+
+        private double GetSmartBannerDpHeight()
+        {
+            var display = DeviceDisplay.MainDisplayInfo;
+            var dpHeight = display.Height / display.Density;
+
+            if (dpHeight <= 400) return 32;
+            if (dpHeight > 400 && dpHeight <= 720) return 50;
+            return 90;
         }
         #endregion
     }

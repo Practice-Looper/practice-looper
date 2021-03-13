@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Utils;
-using Xamarin.Essentials;
 
 namespace Emka3.PracticeLooper.Config
 {

@@ -26,18 +26,20 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private readonly IConfigurationService configurationService;
         private readonly ILogger logger;
         private readonly IStringLocalizer stringLocalizer;
+        private readonly IAppTracker appTracker;
         private RCOfferings offerings;
         private (bool Success, string Error) fetchOfferingsResult;
         #endregion
 
         #region Ctor
 
-        public InAppBillingService(IConfigurationService configurationService, ILogger logger, IStringLocalizer stringLocalizer)
+        public InAppBillingService(IConfigurationService configurationService, ILogger logger, IStringLocalizer stringLocalizer, IAppTracker appTracker)
         {
             Products = new Dictionary<string, InAppPurchaseProduct>();
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.stringLocalizer = stringLocalizer ?? throw new ArgumentNullException(nameof(stringLocalizer));
+            this.appTracker = appTracker ?? throw new ArgumentNullException(nameof(appTracker));
         }
         #endregion
 
@@ -84,9 +86,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
         public void StartFetchingOfferings()
         {
+            appTracker.Track(TrackerEvents.Purchase, new Dictionary<string, string> { { "FetchOfferings", "EnterMethod" } });
             fetchProductsEvent = new AutoResetEvent(false);
             RCPurchases.SharedPurchases.OfferingsWithCompletionBlock((o, e) =>
             {
+                appTracker.Track(TrackerEvents.Purchase, new Dictionary<string, string> { { "FetchOfferings", "CompletionBlock" } });
                 if (e != null)
                 {
                     logger.LogError(new Exception(e.Description));
@@ -95,27 +99,33 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
 
                 offerings = o;
                 RCOffering defaultOffering = offerings?.Current;
-                RCPackage package = defaultOffering.Lifetime;
+                RCPackage package = defaultOffering?.Lifetime;
 
                 if (package != null && !Products.ContainsKey(package.Identifier))
                 {
+                    appTracker.Track(TrackerEvents.Purchase, new Dictionary<string, string> { { "FetchOfferings", "Has Products" } });
                     bool hasBeenPurchased;
                     bool.TryParse(configurationService.GetSecureValue(package.Product.ProductIdentifier), out hasBeenPurchased);
+                    appTracker.Track(TrackerEvents.Purchase, new Dictionary<string, string> { { "FetchOfferings", $"HasBeenPurchased {hasBeenPurchased}" } });
+                    appTracker.Track(TrackerEvents.Purchase, new Dictionary<string, string> { { "FetchOfferings", $"Product {package?.Product}" } });
                     Products.Add(package.Identifier, new InAppPurchaseProduct
                     {
                         CurrencyCode = package.Product.PriceLocale.CurrencyCode,
                         Description = stringLocalizer.GetLocalizedString(package.Product.ProductIdentifier),
                         LocalizedIntroductoryPrice = package.Product?.IntroductoryPrice?.Price?.ToString(),
-                        LocalizedPrice = package.LocalizedPriceString,
-                        Name = package.Product.LocalizedTitle,
-                        ProductId = package.Product.ProductIdentifier,
+                        LocalizedPrice = package?.LocalizedPriceString,
+                        Name = package?.Product?.LocalizedTitle,
+                        ProductId = package?.Product?.ProductIdentifier,
                         Package = package,
                         Purchased = hasBeenPurchased
                     });
+
+                    appTracker.Track(TrackerEvents.Purchase, new Dictionary<string, string> { { "FetchOfferings", $"Products {Products.Count}" } });
                 }
 
                 fetchOfferingsResult = (true, null);
                 fetchProductsEvent?.Set();
+                appTracker.Track(TrackerEvents.Purchase, new Dictionary<string, string> { { "FetchOfferings", "Completed" } });
             });
         }
 

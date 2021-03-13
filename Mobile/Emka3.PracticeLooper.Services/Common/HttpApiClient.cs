@@ -7,45 +7,29 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using Emka3.PracticeLooper.Config.Contracts;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 
 namespace Emka3.PracticeLooper.Services.Common
 {
     public class HttpApiClient : IHttpApiClient
     {
-        readonly HttpClient httpClient;
-        private readonly IConfigurationService configurationService;
-        private readonly ITokenStorage accountManager;
-
-        public HttpApiClient(IConfigurationService configurationService, ITokenStorage accountManager)
+        public HttpApiClient()
         {
-            this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
-            this.accountManager = accountManager ?? throw new ArgumentNullException(nameof(accountManager)); ;
-            this.accountManager.TokenChanged += OnTokenChanged;
-            httpClient = new HttpClient
-            {
-                BaseAddress = new Uri(configurationService.GetValue("SpotifyClientApiUri"))
-            };
-
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accountManager.GetTokenAsync().Result);
         }
 
-        void OnTokenChanged(object sender, Contracts.EventArgs.TokenChangedEventArgs e)
-        {
-            SetBearerToken(e.Token);
-        }
-
-        public async Task<HttpResponseMessage> SendRequestAsync(HttpMethod method, string path, CancellationToken cancelToken, HttpContent content = null)
+        public async Task<HttpResponseMessage> SendRequestAsync(HttpMethod method, string baseAddress, string path, string token, CancellationToken cancelToken, HttpContent content = null, AuthenticationHeaderValue authenticationHeader = null, HttpClientHandler handler = null)
         {
             try
             {
+                var httpClient = handler == null ? new HttpClient() : new HttpClient(handler);
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpClient.BaseAddress = new Uri(baseAddress);
+                httpClient.DefaultRequestHeaders.Authorization = authenticationHeader ?? new AuthenticationHeaderValue("Bearer", token);
                 return await ExecuteRequestAsync(httpClient, method, path, content, cancelToken).ConfigureAwait(false);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -98,18 +82,6 @@ namespace Emka3.PracticeLooper.Services.Common
             }
 
             return response;
-        }
-
-        public void SetBearerToken(string token)
-        {
-            try
-            {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
         }
     }
 }
