@@ -15,13 +15,13 @@
     <IntermediateOutputPath>obj\BuildIOS</IntermediateOutputPath>
     <NoWarn></NoWarn>
     <NoStdLib>false</NoStdLib>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <LangVersion>8.0</LangVersion>
+        <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <LangVersion>8.0</LangVersion>
+        <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Emka3.PracticeLooper.Services.Contracts\Emka3.PracticeLooper.Services.Contracts.csproj" />

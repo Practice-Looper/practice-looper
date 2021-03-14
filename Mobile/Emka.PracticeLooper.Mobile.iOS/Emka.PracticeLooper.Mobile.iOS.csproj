@@ -32,7 +32,7 @@
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <CodesignKey>Apple Development: Maksim Kolesnik (2Y42L78UD6)</CodesignKey>
     <MtouchExtraArgs>--linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker</MtouchExtraArgs>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -46,7 +46,7 @@
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <CodesignKey>Apple Development: Maksim Kolesnik (2Y42L78UD6)</CodesignKey>
     <ExternalConsole>false</ExternalConsole>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -65,7 +65,7 @@
     <MtouchLink>Full</MtouchLink>
     <BuildIpa>true</BuildIpa>
     <MtouchExtraArgs>--linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker</MtouchExtraArgs>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -82,7 +82,7 @@
     <BuildIpa>true</BuildIpa>
     <MtouchLink>Full</MtouchLink>
 <MtouchExtraArgs>--linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup</MtouchExtraArgs>
-<LangVersion>8.0</LangVersion>
+<LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -98,7 +98,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
 <MtouchExtraArgs>--linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker --linkskip=Plugin.InAppBilling</MtouchExtraArgs>
 <MtouchLink>Full</MtouchLink>
-<LangVersion>8.0</LangVersion>
+<LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>none</DebugType>
@@ -116,7 +116,7 @@
     <MtouchEnableSGenConc></MtouchEnableSGenConc>
     <IpaMetadata></IpaMetadata>
     <OnDemandResourcesInitialInstallTags></OnDemandResourcesInitialInstallTags>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildIOS|AnyCPU' ">
@@ -129,12 +129,12 @@
     <MtouchVerbosity></MtouchVerbosity>
     <MtouchLink>SdkOnly</MtouchLink>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mock|AnyCPU' ">
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <CodesignKey>Apple Development: Maksim Kolesnik (2Y42L78UD6)</CodesignKey>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugLite|iPhone' ">
@@ -155,7 +155,7 @@
     <MtouchExtraArgs>--linkskip=Xam.Plugin.SimpleAudioPlayer --linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker --linkskip=Plugin.InAppBilling</MtouchExtraArgs>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchInterpreter>-all</MtouchInterpreter>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugPremium|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -174,7 +174,7 @@
     <BuildIpa>true</BuildIpa>
     <MtouchExtraArgs>--linkskip=Newtonsoft.Json --linkskip=SpotifyAPI.Web --linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker --linkskip=Plugin.InAppBilling --linkskip=Xamarin.Firebase.iOS.AdMob --linkskip=RevenueCat.iOS --linkskip=FutureFlag.Forms</MtouchExtraArgs>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleasePremium|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -191,7 +191,7 @@
     <BuildIpa>true</BuildIpa>
     <MtouchLink>Full</MtouchLink>
     <MtouchExtraArgs>--linkskip=Newtonsoft.Json --linkskip=SpotifyAPI.Web --linkskip=Xam.Plugin.SimpleAudioPlayer --linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker --linkskip=Plugin.InAppBilling --linkskip=Xamarin.Firebase.iOS.AdMob --linkskip=RevenueCat.iOS --linkskip=SpotifyBindings.iOS</MtouchExtraArgs>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseLite|iPhone' ">
@@ -209,7 +209,7 @@
     <BuildIpa>true</BuildIpa>
     <MtouchLink>Full</MtouchLink>
     <MtouchExtraArgs>--optimize=experimental-xforms-product-type --linkskip=Xam.Plugin.SimpleAudioPlayer --linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker --linkskip=Plugin.InAppBilling --linkskip=Xamarin.Firebase.iOS.AdMob --linkskip=RevenueCat.iOS --linkskip=SpotifyBindings.iOS</MtouchExtraArgs>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <CodesignProvision>practice-looper-dev</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Store|iPhone' ">
@@ -227,7 +227,7 @@
     <BuildIpa>true</BuildIpa>
     <MtouchLink>Full</MtouchLink>
     <MtouchExtraArgs>--linkskip=Xam.Plugin.SimpleAudioPlayer --linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker --linkskip=Plugin.InAppBilling --linkskip=Xamarin.Firebase.iOS.AdMob</MtouchExtraArgs>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <CodesignProvision>practice-looper-dev</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugLite|iPhoneSimulator' ">
@@ -248,7 +248,7 @@
     <MtouchExtraArgs>--linkskip=Xam.Plugin.SimpleAudioPlayer --linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker --linkskip=Plugin.InAppBilling</MtouchExtraArgs>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchInterpreter>-all</MtouchInterpreter>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugPremium|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -267,7 +267,7 @@
     <BuildIpa>true</BuildIpa>
     <MtouchExtraArgs>--linkskip=Newtonsoft.Json --linkskip=SpotifyAPI.Web --linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker --linkskip=Plugin.InAppBilling --linkskip=Xamarin.Firebase.iOS.AdMob --linkskip=RevenueCat.iOS --linkskip=FutureFlag.Forms</MtouchExtraArgs>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseLite|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -284,7 +284,7 @@
     <BuildIpa>true</BuildIpa>
     <MtouchLink>Full</MtouchLink>
     <MtouchExtraArgs>--optimize=experimental-xforms-product-type --linkskip=Xam.Plugin.SimpleAudioPlayer --linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker --linkskip=Plugin.InAppBilling --linkskip=Xamarin.Firebase.iOS.AdMob --linkskip=RevenueCat.iOS --linkskip=SpotifyBindings.iOS</MtouchExtraArgs>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <CodesignProvision>practice-looper-dev</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleasePremium|iPhoneSimulator' ">
@@ -302,8 +302,9 @@
     <BuildIpa>true</BuildIpa>
     <MtouchLink>Full</MtouchLink>
     <MtouchExtraArgs>--linkskip=Newtonsoft.Json --linkskip=SpotifyAPI.Web --linkskip=Xam.Plugin.SimpleAudioPlayer --linkskip=Xamarin.Essentials --linkskip=System.Core --linkskip=Autofac --linkskip=Microsoft.Extensions.Logging --linkskip=Microsoft.Extensions.Options --linkskip=Emka3.PracticeLooper.Services --linkskip=Emka3.PracticeLooper.Model --linkskip=NETStandard.Library --linkskip=SQLitePCLRaw.bundle_green --linkskip=sqlite-net-pcl --linkskip=SQLitePCLRaw.core --linkskip=SQLiteNetExtensions --linkskip=Microsoft.NETCore.Platforms --linkskip=SQLiteNetExtensions --linkskip=SQLiteNetExtensions.Async --linkskip=SQLite-net --linkskip=SQLitePCLRaw.batteries_green --linkskip=SQLitePCLRaw.batteries_v2 --linkskip=SQLitePCLRaw.core --linkskip=SQLitePCLRaw.provider.sqlite3 --linkskip=MvvmCross.Plugins.Sqlite --linkskip=MvvmCross.Plugins.Sqlite.iOS --linkskip=Rg.Plugins.Popup --linkskip=Xamarin.Plugin.FilePicker --linkskip=Plugin.InAppBilling --linkskip=Xamarin.Firebase.iOS.AdMob --linkskip=RevenueCat.iOS --linkskip=SpotifyBindings.iOS</MtouchExtraArgs>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <MtouchHttpClientHandler></MtouchHttpClientHandler>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

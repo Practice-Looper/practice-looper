@@ -15,6 +15,13 @@
     <IntermediateOutputPath>obj\BuildIOS</IntermediateOutputPath>
     <NoWarn></NoWarn>
     <NoStdLib>false</NoStdLib>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="EmptyClass.cs" />
