@@ -40,7 +40,6 @@
     <AndroidSigningStorePass>AhiexBn8MUkzfdeH</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>dev</AndroidSigningKeyAlias>
 <AndroidDexTool>dx</AndroidDexTool>
-<LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType></DebugType>
@@ -52,7 +51,6 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidLinkSkip>Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Plugin.InAppBilling;Xamarin.Android.Google.BillingClient;</AndroidLinkSkip>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildIOS|AnyCPU' ">
     <DebugType></DebugType>
@@ -63,7 +61,6 @@
     <AndroidManifest></AndroidManifest>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis>arm64-v8a;armeabi-v7a;x86</AndroidSupportedAbis>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugLite|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -88,11 +85,9 @@
     <AndroidLinkTool>r8</AndroidLinkTool>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidKeyStore>True</AndroidKeyStore>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mock|AnyCPU' ">
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mock|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseLite|AnyCPU' ">
     <DebugType></DebugType>
     <Optimize>false</Optimize>
@@ -110,7 +105,7 @@
     <AndroidSigningKeyAlias>PlayConsoleAlpha</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>8ExDbiTtXNN3ECugopuB</AndroidSigningKeyPass>
     <AndroidKeyStore>True</AndroidKeyStore>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleasePremium|AnyCPU' ">
     <DebugType></DebugType>
@@ -130,7 +125,7 @@
     <AndroidSigningStorePass>8ExDbiTtXNN3ECugopuB</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>PlayConsoleAlpha</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>8ExDbiTtXNN3ECugopuB</AndroidSigningKeyPass>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugPremium|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -150,7 +145,7 @@
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
     <AndroidSigningKeyPass>8ExDbiTtXNN3ECugopuB</AndroidSigningKeyPass>
     <AndroidKeyStore>True</AndroidKeyStore>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Store|AnyCPU' ">
     <DebugType></DebugType>
@@ -159,7 +154,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
-    <AndroidManagedSymbols>true</AndroidManagedSymbols>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
     <AndroidLinkSkip>Xam.Plugin.SimpleAudioPlayer;Xamarin.Essentials;System.Core;Autofac;Microsoft.Extensions.Logging;Microsoft.Extensions.Options;Emka3.PracticeLooper.Services;Emka3.PracticeLooper.Model;NETStandard.Library;SQLitePCLRaw.bundle_green;sqlite-net-pcl;SQLitePCLRaw.core;SQLiteNetExtensions;Microsoft.NETCore.Platforms;SQLiteNetExtensions;SQLiteNetExtensions.Async;SQLite-net;SQLitePCLRaw.batteries_green;SQLitePCLRaw.batteries_v2;SQLitePCLRaw.core;SQLitePCLRaw.provider.sqlite3;MvvmCross.Plugins.Sqlite;MvvmCross.Plugins.Sqlite.iOS;Xamarin.Android.Google.BillingClient;RevenueCat.Droid;</AndroidLinkSkip>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
@@ -168,8 +163,7 @@
     <AndroidSigningKeyAlias>PlayConsoleAlpha</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>8ExDbiTtXNN3ECugopuB</AndroidSigningKeyPass>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <LangVersion>latest</LangVersion>
-    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
