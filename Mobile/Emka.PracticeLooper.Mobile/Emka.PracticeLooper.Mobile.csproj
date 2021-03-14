@@ -8,7 +8,7 @@
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <DebugType>pdbonly</DebugType>
         <DebugSymbols>true</DebugSymbols>
-        <LangVersion>8.0</LangVersion>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildIOS|AnyCPU' ">
         <DebugType>
@@ -23,10 +23,10 @@
         </NoWarn>
         <NoStdLib>false</NoStdLib>
         <Nullable></Nullable>
-        <LangVersion>8.0</LangVersion>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mock|AnyCPU' ">
-      <LangVersion>8.0</LangVersion>
+      <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugType>
@@ -35,7 +35,7 @@
         </OutputPath>
         <OutputPath>
         </OutputPath>
-        <LangVersion>8.0</LangVersion>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugLite|AnyCPU' ">
         <DebugType>pdbonly</DebugType>
@@ -44,7 +44,7 @@
         <DebugSymbols>true</DebugSymbols>
         <IntermediateOutputPath>obj\Debug\netstandard2.0</IntermediateOutputPath>
         <NoWarn>1701;1702</NoWarn>
-        <LangVersion>8.0</LangVersion>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseLite|AnyCPU' ">
         <DebugType>
@@ -52,9 +52,9 @@
         <Optimize>true</Optimize>
         <OutputPath>
         </OutputPath>
-        <DefineConstants>TRACE;RELEASE;RELEASELITE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+        <DefineConstants>TRACE;RELEASE;RELEASELITE;NETSTANDARD;NETSTANDARD2_0;</DefineConstants>
         <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
-        <LangVersion>8.0</LangVersion>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleasePremium|AnyCPU' ">
         <WarningLevel>
@@ -72,7 +72,7 @@
         <PlatformTarget>anycpu</PlatformTarget>
         <WarningsNotAsErrors></WarningsNotAsErrors>
         <Nullable></Nullable>
-        <LangVersion>8.0</LangVersion>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugPremium|AnyCPU' ">
       <DebugType>pdbonly</DebugType>
@@ -80,7 +80,7 @@
       <DefineConstants>TRACE;DEBUG;PREMIUM;DEBUGPREMIUM;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
       <DebugSymbols>true</DebugSymbols>
       <IntermediateOutputPath>obj\Debug\netstandard2.0</IntermediateOutputPath>
-      <LangVersion>8.0</LangVersion>
+      <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Autofac" Version="6.1.0" />
