@@ -4,7 +4,6 @@
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
 using Emka3.PracticeLooper.Config.Contracts;
-using Emka3.PracticeLooper.Config.Contracts.Features;
 using Emka3.PracticeLooper.Utils;
 using Xamarin.Forms;
 using MappingsFactory = Emka3.PracticeLooper.Mappings;
@@ -17,7 +16,6 @@ namespace Emka.PracticeLooper.Mobile.Views
         #region Fields
 
         private readonly IConfigurationService configurationService;
-        private readonly IFeatureRegistry featureRegistry;
         #endregion
 
         #region Ctor
@@ -26,16 +24,6 @@ namespace Emka.PracticeLooper.Mobile.Views
         {
             var resolver = MappingsFactory.Factory.GetResolver();
             configurationService = resolver.Resolve<IConfigurationService>() ?? throw new ArgumentNullException(nameof(configurationService));
-            featureRegistry = resolver.Resolve<IFeatureRegistry>() ?? throw new ArgumentNullException(nameof(featureRegistry));
-            featureRegistry.RegisterForUpdates<PremiumFeature>(Toggle);
-            IsVisible = featureRegistry.IsEnabled<PremiumFeature>();
-        }
-        #endregion
-
-        #region Methods
-        public void Toggle(bool enabled)
-        {
-            IsVisible = featureRegistry.IsEnabled<PremiumFeature>();
         }
         #endregion
     }

@@ -7,11 +7,13 @@ namespace Emka3.PracticeLooper.Model.Common
     public enum TrackerEvents
     {
         Boot,
+        Init,
         GeneralInformation,
         Navigation,
         Purchase,
         CreateItem,
         InitPlayer,
-        SpotifyAuthentication
+        SpotifyAuthentication,
+        RequestRating
     }
 }

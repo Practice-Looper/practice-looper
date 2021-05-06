@@ -85,7 +85,7 @@ namespace Emka3.PracticeLooper.Config
 
         public async Task<T> GetValueAsync<T>(string key, T defaultValue = default)
         {
-            return await Task.Run(() => GetValue<T>(key));
+            return await Task.Run(() => GetValue<T>(key, defaultValue));
         }
 
         public void SetValue(string key, object value, bool persist = default)

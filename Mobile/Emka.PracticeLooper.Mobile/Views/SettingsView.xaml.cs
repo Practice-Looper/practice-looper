@@ -24,22 +24,7 @@ namespace Emka.PracticeLooper.Mobile.Views
                 resolver.Resolve<IDialogService>(),
                 resolver.Resolve<IAppTracker>(),
                 resolver.Resolve<INavigationService>(),
-                resolver.Resolve<IInAppBillingService>(),
-                resolver.Resolve<IConfigurationService>(),
-                resolver.Resolve<IFeatureRegistry>());
-        }
-
-        void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            if (BindingContext is SettingsViewModel vm)
-            {
-                vm.ShowProductPaywallCommand.Execute(e.Item);
-            }
-
-            if (sender is Xamarin.Forms.ListView listView)
-            {
-                listView.SelectedItem = null;
-            }
+                resolver.Resolve<IConfigurationService>());
         }
     }
 }

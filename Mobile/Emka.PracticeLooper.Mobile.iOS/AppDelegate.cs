@@ -20,8 +20,6 @@ using Emka3.PracticeLooper.Config.Contracts;
 using Emka.PracticeLooper.Mobile.iOS.Common;
 using Xamarin.Forms;
 using AVFoundation;
-using Emka3.PracticeLooper.Services.Contracts.Rest;
-using Emka.PracticeLooper.Mobile.iOS.Renderer;
 using Emka3.PracticeLooper.Model.Player;
 
 namespace Emka.PracticeLooper.Mobile.iOS
@@ -49,7 +47,6 @@ namespace Emka.PracticeLooper.Mobile.iOS
 
             SQLitePCL.Batteries_V2.Init();
             Rg.Plugins.Popup.Popup.Init();
-            Google.MobileAds.MobileAds.SharedInstance.Start(null);
             SfPickerRenderer.Init();
             Forms.SetFlags("CarouselView_Experimental");
             global::Xamarin.Forms.Forms.Init();
@@ -114,24 +111,17 @@ namespace Emka.PracticeLooper.Mobile.iOS
             NSError error = AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
             var configService = new ConfigurationService(new PersistentConfigService(), new JsonConfigLoader(), new SecureConfigService()) ?? throw new ArgumentNullException("configService");
             configService.ReadConfigs("Emka3.PracticeLooper.Config.secrets.json");
-            string key;
-#if PREMIUM
-            key = configService.GetValue("AppCenterIosPremium");
-#else
-            key = configService.GetValue("AppCenterIosLite");
-#endif
+            string key = configService.GetValue("AppCenterIos");
             AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(configService.GetValue("SyncFusionLicenseKey"));
             configService.SetValue(PreferenceKeys.InternalStoragePath, FileSystem.AppDataDirectory);
             configService.SetValue("Platform", CurrentPlatform.iOS);
             var resolver = Factory.GetResolver() ?? throw new ArgumentNullException("resolver");
             resolver.RegisterInstance(configService, typeof(IConfigurationService));
-            resolver.RegisterSingleton(typeof(InAppBillingService), typeof(IInAppBillingService));
             resolver.RegisterSingleton(typeof(SpotifyLoader), typeof(ISpotifyLoader));
             resolver.Register(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));
             resolver.RegisterSingleton(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
-            resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
             resolver.RegisterSingleton(typeof(ConnectivityService), typeof(IConnectivityService));
             resolver.RegisterSingleton(typeof(DeviceStorageService), typeof(IDeviceStorageService));
         }

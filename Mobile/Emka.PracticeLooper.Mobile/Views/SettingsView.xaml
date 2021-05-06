@@ -16,123 +16,17 @@
                 Height="*" />
             <RowDefinition
                 Height="Auto" />
-            <RowDefinition
-                Height="Auto" />
-            <RowDefinition
-                Height="Auto" />
         </Grid.RowDefinitions>
-        <Label
-            Grid.Row="0"
-            FontSize="Body"
-            Text="{x:Static rsrcs:AppResources.SettingsView_NoUpgradesDescription}"
-            IsVisible="False"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            HorizontalTextAlignment="Center"
-            TextColor="{DynamicResource SecondaryColor}">
-            <Label.Style>
-                <Style
-                    TargetType="Label">
-                    <Style.Triggers>
-                        <DataTrigger
-                            TargetType="Label"
-                            Binding="{Binding HasProducts}"
-                            Value="False">
-                            <Setter
-                                Property="IsVisible"
-                                Value="True" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
-        <ListView
-            x:Name="ProductsListView"
-            AutomationId="SettingsListView"
-            AutomationProperties.IsInAccessibleTree="False"
-            Grid.Row="0"
-            ItemsSource="{Binding Products}"
-            ItemTapped="ListView_ItemTapped"
-            VerticalOptions="Start"
-            HorizontalOptions="FillAndExpand">
-            <ListView.Header>
-                <Label
-                    Text="{x:Static rsrcs:AppResources.SettingsView_ListView_Header}"
-                    FontSize="Default"
-                    TextColor="{DynamicResource SecondaryColor}" />
-            </ListView.Header>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <views:CustomViewCell>
-                        <Grid
-                            VerticalOptions="FillAndExpand"
-                            HorizontalOptions="FillAndExpand"
-                            BackgroundColor="{DynamicResource BackgroundColor}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition
-                                    Width="*" />
-                                <ColumnDefinition
-                                    Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Label
-                                Grid.Column="0"
-                                Text="{Binding Name}"
-                                AutomationId="ProductName"
-                                FontSize="Default"
-                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
-                                VerticalTextAlignment="Center"
-                                VerticalOptions="Center" />
-                            <Label
-                                Grid.Column="1"
-                                FontSize="Default"
-                                AutomationId="ProductPrice"
-                                Text="{Binding LocalizedPrice}"
-                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
-                                VerticalTextAlignment="Center"
-                                VerticalOptions="Center"
-                                HorizontalOptions="End">
-                                <Label.Style>
-                                    <Style
-                                        TargetType="Label">
-                                        <Setter
-                                            Property="IsVisible"
-                                            Value="True" />
-                                        <Style.Triggers>
-                                            <DataTrigger
-                                                TargetType="Label"
-                                                Binding="{Binding Purchased}"
-                                                Value="True">
-                                                <Setter
-                                                    Property="IsVisible"
-                                                    Value="False" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Label.Style>
-                            </Label>
-                            <Label
-                                AutomationId="ProductCheck"
-                                Grid.Column="1"
-                                FontFamily="{DynamicResource MaterialFontFamily}"
-                                Text="{StaticResource Check}"
-                                FontSize="24"
-                                TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
-                                VerticalTextAlignment="End"
-                                VerticalOptions="Center"
-                                IsVisible="{Binding Purchased}">
-                            </Label>
-                        </Grid>
-                    </views:CustomViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
 
         <Grid
-            Grid.Row="1">
+            Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -143,15 +37,16 @@
                 Grid.Column="0"
                 Text="{x:Static rsrcs:AppResources.SettingsView_DarkMode}"
                 HorizontalOptions="Start"
-                TextColor="{DynamicResource SecondaryColor}"
+                TextColor="{DynamicResource PrimaryColor}"
                 IsVisible="{Binding Path=IsVisible, Source={x:Reference SchemeSwitch}}"
+                FontSize="Body"
                 VerticalTextAlignment="Center" />
             <views:ColorSchemeSwitch
                 Grid.Row="0"
                 Grid.Column="1"
                 AutomationId="SchemeSwitch"
                 x:Name="SchemeSwitch"
-                OnColor="{DynamicResource SecondaryColor}"
+                OnColor="{DynamicResource PrimaryColor}"
                 HorizontalOptions="End"
                 VerticalOptions="Center" />
             <Button
@@ -163,14 +58,15 @@
                 BackgroundColor="{DynamicResource BackgroundColor}"
                 BorderColor="{DynamicResource BackgroundColor}"
                 TextColor="{DynamicResource PrimaryColor}"
-                HeightRequest="20"
+                FontSize="Body"
+                HeightRequest="30"
                 Command="{Binding ShowDataPrivacyCommand}"
                 Padding="0">
                 <Button.HeightRequest>
                     <OnPlatform
                         x:TypeArguments="x:Double">
                         <On
-                            Platform="iOS">20</On>
+                            Platform="iOS">30</On>
                         <On
                             Platform="Android">40</On>
                     </OnPlatform>
@@ -185,14 +81,15 @@
                 BackgroundColor="{DynamicResource BackgroundColor}"
                 BorderColor="{DynamicResource BackgroundColor}"
                 TextColor="{DynamicResource PrimaryColor}"
-                HeightRequest="20"
+                FontSize="Body"
+                HeightRequest="30"
                 Command="{Binding ShowThirdPartyComponentsCommand}"
                 Padding="0">
                 <Button.HeightRequest>
                     <OnPlatform
                         x:TypeArguments="x:Double">
                         <On
-                            Platform="iOS">20</On>
+                            Platform="iOS">30</On>
                         <On
                             Platform="Android">40</On>
                     </OnPlatform>
@@ -200,23 +97,10 @@
             </Button>
         </Grid>
         <Label
-            Grid.Row="2"
+            Grid.Row="1"
+            HorizontalOptions="Center"
             FontSize="Caption"
             Text="{Binding AppVersion, StringFormat={x:Static rsrcs:AppResources.SettingsView_AppVersion}}"
             TextColor="{DynamicResource SecondaryColor}" />
-        <ContentView
-            Grid.Row="0"
-            IsVisible="{Binding IsBusy}"
-            VerticalOptions="FillAndExpand"
-            HorizontalOptions="FillAndExpand"
-            Opacity="0.9"
-            BackgroundColor="{DynamicResource BackgroundColor}">
-            <ActivityIndicator
-                AutomationId="ActivityIndicator"
-                IsRunning="{Binding IsBusy}"
-                Color="{DynamicResource SecondaryColor}"
-                VerticalOptions="Center"
-                HorizontalOptions="Center" />
-        </ContentView>
     </Grid>
 </ContentPage>

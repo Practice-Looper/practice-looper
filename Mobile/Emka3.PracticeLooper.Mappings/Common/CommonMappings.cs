@@ -8,8 +8,6 @@ using Emka3.PracticeLooper.Services.Common;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using SQLite;
-using Emka3.PracticeLooper.Config.Feature;
-using Emka3.PracticeLooper.Config.Contracts;
 
 namespace Emka3.PracticeLooper.Mappings.Common
 {
@@ -28,7 +26,6 @@ namespace Emka3.PracticeLooper.Mappings.Common
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            builder.RegisterType<FeatureRegistry>().As<IFeatureRegistry>().SingleInstance();
             builder.RegisterType<AppCenterLogger>().As<ILogger>().SingleInstance();
             builder.RegisterType<AppCenterTracker>().As<IAppTracker>().SingleInstance();
             builder.RegisterType<SQLiteDbInitializer>().As<IDbInitializer<SQLiteConnection>>();

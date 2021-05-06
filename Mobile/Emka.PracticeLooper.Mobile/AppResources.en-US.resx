@@ -111,16 +111,6 @@
         <value>App version: {0}</value>
     </data>
     <data
-        name="SettingsView_ListView_Header"
-        xml:space="preserve">
-        <value>Upgrades</value>
-    </data>
-    <data
-        name="SettingsView_NoUpgradesDescription"
-        xml:space="preserve">
-        <value>Failed to load upgrades, try again later!</value>
-    </data>
-    <data
         name="SettingsView_ThirdPartySoftware"
         xml:space="preserve">
         <value>Third party software</value>
@@ -186,33 +176,6 @@
         xml:space="preserve">
         <value>Let's loop</value>
     </data>
-    <!--InAppBillingProductView-->
-    <data
-        name="InAppBillingProductView_Buy"
-        xml:space="preserve">
-        <value>Upgrade ({0})</value>
-    </data>
-    <data
-        name="InAppBillingProductView_Purchased"
-        xml:space="preserve">
-        <value>Purchased</value>
-    </data>
-    <!--InAppBilling Errors-->
-    <data
-        name="InAppBillingError_ProductNotAvailableForPurchase"
-        xml:space="preserve">
-        <value>The product is not available for purchase.</value>
-    </data>
-    <data
-        name="InAppBillingError_PaymentPending"
-        xml:space="preserve">
-        <value>Please follow the instructions to complete the purchase.</value>
-    </data>
-    <data
-        name="InAppBillingError_InsufficientPermissions"
-        xml:space="preserve">
-        <value>This device does not have sufficient permissions to make in-app purchases.</value>
-    </data>
     <!--Error Dialogs-->
     <data
         name="Error_Caption"
@@ -250,41 +213,6 @@
         <value>Oops, could not delete loop, please try again!</value>
     </data>
     <data
-        name="Error_Content_CouldNotConnectToStore"
-        xml:space="preserve">
-        <value>Oops, could not connect to store, please try again!</value>
-    </data>
-    <data
-        name="Error_Content_CouldNotPurchaseItem"
-        xml:space="preserve">
-        <value>Oops, could not purchase item, please try again.</value>
-    </data>
-    <data
-        name="Error_Content_StoreUnavailable"
-        xml:space="preserve">
-        <value>Currently the app store seems to be unavailble. Try again later!</value>
-    </data>
-    <data
-        name="Error_Content_BillingUnavailable"
-        xml:space="preserve">
-        <value>Billing seems to be unavailable, please try again later!</value>
-    </data>
-    <data
-        name="Error_Content_PaymentInvalid"
-        xml:space="preserve">
-        <value>Payment seems to be invalid, please try again!</value>
-    </data>
-    <data
-        name="Error_Content_PaymentNotAllowed"
-        xml:space="preserve">
-        <value>Payment does not seem to be enabled/allowed, please try again!</value>
-    </data>
-    <data
-        name="Error_Content_RestoreFailed"
-        xml:space="preserve">
-        <value>Failed to restore purchase, please try again!</value>
-    </data>
-    <data
         name="Error_Content_CouldNotConnectToSpotify"
         xml:space="preserve">
         <value>Failed to connect to Spotify App, please try again!</value>
@@ -320,16 +248,6 @@
         <value>Something went wrong! Check your internet connection and try again.</value>
     </data>
     <!--Hint Dialogs-->
-    <data
-        name="Hint_Caption_AlreadyPurchased"
-        xml:space="preserve">
-        <value>Purchased</value>
-    </data>
-    <data
-        name="Hint_Content_AlreadyPurchased"
-        xml:space="preserve">
-        <value>You already purchased this item!</value>
-    </data>
     <data
         name="Hint_Caption_SlowConnection"
         xml:space="preserve">
@@ -375,6 +293,16 @@
         xml:space="preserve">
         <value>The selected file could not be added because there is not enough free space.</value>
     </data>
+    <data
+        name="Hint_Caption_SpotifyAppInstalled"
+        xml:space="preserve">
+        <value>Spotify App</value>
+    </data>
+    <data
+        name="Hint_Content_SpotifyAppInstalled"
+        xml:space="preserve">
+        <value>Spotify app already installed and used for playback!</value>
+    </data>Ï
     <!--Prompt Dialogs-->
     <data
         name="Prompt_Caption_NewLoop"
@@ -390,20 +318,5 @@
         name="Prompt_Content_NewLoop_NamePlaceholder"
         xml:space="preserve">
         <value>{0}. Loop</value>
-    </data>
-    <!-- Purchase Items -->
-    <data
-        name="pl.premium.general"
-        xml:space="preserve">
-       <value>• Completely free of ads 
-• Any number of songs 
-• Save Loops</value>
-    </data>
-     <data
-        name="ios.premium.lifetime"
-        xml:space="preserve">
-       <value>• Completely free of ads 
-• Any number of songs 
-• Save Loops</value>
     </data>
 </root>

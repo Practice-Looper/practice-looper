@@ -12,10 +12,8 @@ echo "Write file to $secrets_location"
 echo "" > $credentials_location
 
 echo "{
-    AppCenterAndroidLite: \"$AppCenterAndroidLite\",
-	AppCenterAndroidPremium: \"$AppCenterAndroidPremium\",
-	AppCenterIosLite: \"$AppCenterIosLite\",
-	AppCenterIosPremium: \"$AppCenterIosPremium\",
+    	AppCenterAndroid: \"$AppCenterAndroid\",
+	AppCenterIos: \"$AppCenterIos\",
 	SpotifyApiLimit: $SpotifyApiLimit,
 	SpotifyClientId: \"$SpotifyClientId\",
 	SpotifyClientSecret: \"$SpotifyClientSecret\",
@@ -26,19 +24,8 @@ echo "{
 	SpotifyClientAuthUri: \"$SpotifyClientAuthUri\",
 	SpotifyClientAccountApiUri: \"$SpotifyClientAccountApiUri\",
 	SpotifyClientRequestCode: $SpotifyClientRequestCode,
-	AdmobIosTopBannerAdId: \"$AdmobIosTopBannerAdId\",
-	AdmobIosInterstitialProjectAdId: \"$AdmobIosInterstitialProjectAdId\",
-	AdmobAndroidAppId: \"$AdmobAndroidAppId\",
-	AdmobAndroidTopBannerAdId: \"$AdmobAndroidTopBannerAdId\",
-	AdmobAndroidInterstitialProjectAdId: \"$AdmobAndroidInterstitialProjectAdId\",
 	DbName: \"$DbName\",
-	PurchaseItems: {
-		IosPremiumLifetime: \"$IosPremiumLifetime\",
-    	AndroidPremiumLifetime: \"$AndroidPremiumLifetime\"
-	},
 	SyncFusionLicenseKey: \"$SyncFusionLicenseKey\",
-	AdmobIosAppId: \"$AdmobIosAppId\",
-	RevenueCatPubKey: \"$RevenueCatPubKey\",
 	ThirdPartyComponentsUrl: \"$ThirdPartyComponentsUrl\",
 	DataPrivacyUrl: \"$DataPrivacyUrl\",
 	SpotifyConnectionTimeOut: \"$SpotifyConnectionTimeOut\"

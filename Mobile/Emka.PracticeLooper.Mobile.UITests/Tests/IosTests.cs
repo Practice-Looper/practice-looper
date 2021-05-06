@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Emka3.PracticeLooper.Model.Common;
 using NUnit.Framework;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Enums;
@@ -14,18 +13,12 @@ using OpenQA.Selenium.Appium.iOS;
 namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
 {
     [TestFixture]
-    public class IosLiteTests : BasePage<IOSDriver<IOSElement>, IOSElement>
+    public class IosTests : BasePage<IOSDriver<IOSElement>, IOSElement>
     {
-        private InAppPurchaseProduct product;
-
-        public IosLiteTests() : base()
+        
+        public IosTests() : base()
         {
-            product = new InAppPurchaseProduct
-            {
-                Name = "Practice Looper App Premium",
-                Purchased = false,
-                LocalizedPrice = "7,99",
-            };
+
         }
 
         protected override IOSDriver<IOSElement> GetDriver()
@@ -37,27 +30,39 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
         {
             appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, "iOS");
             appiumOptions.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, "14.2");
+            appiumOptions.AddAdditionalCapability(MobileCapabilityType.DeviceName, "iPhone XR");
             appiumOptions.AddAdditionalCapability(MobileCapabilityType.Udid, "00008020-00054DEE3A88003A");
-            appiumOptions.AddAdditionalCapability(MobileCapabilityType.App, "/Users/simonsymhoven/Projects/practice-looper/Mobile/Emka.PracticeLooper.Mobile.iOS/bin/iPhone/DebugLite/device-builds/iphone11.8-14.2/Emka.PracticeLooper.Mobile.iOS.ipa");
-            appiumOptions.AddAdditionalCapability(MobileCapabilityType.NewCommandTimeout, 300);
+            appiumOptions.AddAdditionalCapability(MobileCapabilityType.App, "/Users/simonsymhoven/Projects/practice-looper/Mobile/Emka.PracticeLooper.Mobile.iOS/bin/iPhone/DebugPremium/device-builds/iphone11.8-14.2/Emka.PracticeLooper.Mobile.iOS.ipa"); appiumOptions.AddAdditionalCapability(MobileCapabilityType.NewCommandTimeout, 300);
             appiumOptions.AddAdditionalCapability(MobileCapabilityType.AutomationName, "XCUITest");
-            appiumOptions.AddAdditionalCapability("wdaLocalPort", 8212);
         }
 
         [Test]
-        public void When_StartApp_Expect_AddLoopButtonIsNotVisible()
+        public void When_StartApp_Expect_AddLoopButtonIsVisible()
         {
-            Assert.Throws<OpenQA.Selenium.NoSuchElementException>(() => IsLoopButtonVisible());
+            Assert.IsTrue(IsLoopButtonVisible());
         }
 
         [Test]
-        public void When_FetchingProduct_Expect_LiteProductIsAvailable()
+        public void When_SwitchToDarkTheme_Expect_ThemeIsSaved()
         {
             OpenSettings();
-            var liteProduct = GetProduct();
-            Assert.AreEqual(product.Name, liteProduct.Name);
-            Assert.IsTrue(liteProduct.LocalizedPrice.Contains(product.LocalizedPrice));
-            Assert.AreEqual(product.Purchased, liteProduct.Purchased);
+            EnableDarkmode();
+            NavigateBack();
+            OpenSettings();
+            Assert.IsTrue(IsDarkModeEnabled());
+        }
+
+        [Test]
+        public void When_SwitchToLightTheme_Expect_ThemeIsSaved()
+        {
+            OpenSettings();
+            EnableDarkmode();
+            NavigateBack();
+            OpenSettings();
+            DisableDarkmode();
+            NavigateBack();
+            OpenSettings();
+            Assert.IsFalse(IsDarkModeEnabled());
         }
 
         [Test]
@@ -80,38 +85,149 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
         }
 
         [Test]
-        public void When_AddNewSession_Expect_SessionLoopButtonIsNotVisible()
+        public void When_AddNewSession_Expect_SessionLoopButtonIsVisible()
         {
             OpenSpotifySearchPage();
-            SearchSong("Mirage");
+            SearchSong("Mirage Coumarin");
             SelectSong(0);
-            Assert.IsFalse(IsSessionLoopsButtonVisible("Mirage"));
+            Assert.IsTrue(IsSessionLoopsButtonVisible("Mirage"));
         }
 
         [Test]
-        public void When_AddNewSessionWithExistingSession_Expect_OldSessionOverwritten()
+        public void When_AddNewSessionWithExistingSession_Expect_BothSessionsAreVisible()
         {
             OpenSpotifySearchPage();
             SearchSong("Nothing Else Matters");
             SelectSong(0);
             OpenSpotifySearchPage();
-            SearchSong("Mirage");
+            SearchSong("Mirage Coumarin");
             SelectSong(0);
+            Assert.IsTrue(IsSongInSessionList("Nothing Else Matters"));
+            Assert.IsTrue(IsSongInSessionList("Mirage"));
+        }
+
+        [Test]
+        public void When_DeletingSession_Expect_OtherIsStillVisible()
+        {
+            OpenSpotifySearchPage();
+            SearchSong("Nothing Else Matters");
+            SelectSong(0);
+            OpenSpotifySearchPage();
+            SearchSong("Mirage Coumarin");
+            SelectSong(0);
+            DeleteSong("Nothing Else Matters");
             Assert.IsFalse(IsSongInSessionList("Nothing Else Matters"));
             Assert.IsTrue(IsSongInSessionList("Mirage"));
         }
 
         [Test]
-        public void When_DeletingSession_Expect_NoSessionIsVisible()
+        public void When_SaveNewLoop_Expect_LoopIsAvailable()
+        {
+            OpenSpotifySearchPage();
+            SearchSong("Mirage Coumarin");
+            SelectSong(0);
+            SetSlider(20, 90);
+            CreateLoop("My First Loop");
+            SaveLoop();
+            OpenLoops("Mirage");
+
+            var defaultLoop = GetLoop("Mirage");
+            Assert.AreEqual(defaultLoop.Name, "Mirage");
+
+            var loop = GetLoop("My First Loop");
+            Assert.AreEqual(loop.Name, "My First Loop");
+        }
+
+        [Test]
+        public void When_CancelNewLoop_Expect_LoopIsNotAvailable()
+        {
+            OpenSpotifySearchPage();
+            SearchSong("Mirage Coumarin");
+            SelectSong(0);
+            SetSlider(20, 90);
+            CreateLoop("My First Loop");
+            CancelLoop();
+            OpenLoops("Mirage");
+            Assert.Throws<ArgumentOutOfRangeException>(() => GetLoop("My First Loop"));
+        }
+
+        [Test]
+        public void When_AddTwoNewLoopsAndDeleteOne_Expect_OnlyOneIsVisible()
+        {
+            OpenSpotifySearchPage();
+            SearchSong("Mirage Coumarin");
+            SelectSong(0);
+            SetSlider(20, 90);
+            CreateLoop("My First Loop");
+            SaveLoop();
+            SetSlider(70, 140);
+            CreateLoop("Outro");
+            SaveLoop();
+            OpenLoops("Mirage");
+
+            var loop1 = GetLoop("My First Loop");
+            Assert.AreEqual(loop1.Name, "My First Loop");
+
+            var loop2 = GetLoop("Outro");
+            Assert.AreEqual(loop2.Name, "Outro");
+
+            DeleteLoop("My First Loop");
+            Assert.Throws<ArgumentOutOfRangeException>(() => GetLoop("My First Loop"));
+        }
+
+        [Test]
+        public void When_SwitchingLoops_Expect_BoundsAreInitializedCorrectly()
+        {
+            OpenSpotifySearchPage();
+            SearchSong("Mirage Coumarin");
+            SelectSong(0);
+            SetSlider(20, 90);
+            CreateLoop("My First Loop");
+            SaveLoop();
+            OpenLoops("Mirage");
+
+            var defaultLoop = SelectLoop("Mirage");
+            Assert.AreEqual(defaultLoop.StartPosition, GetLoopStartPosition());
+            Assert.AreEqual(defaultLoop.StartPosition, GetCurrentSongTime());
+            Assert.AreEqual(defaultLoop.EndPosition, GetLoopEndPosition());
+            Assert.AreEqual(defaultLoop.EndPosition, GetSongDuration());
+
+            OpenLoops("Mirage");
+            var loop = SelectLoop("My First Loop");
+            Assert.AreEqual(loop.StartPosition, GetLoopStartPosition());
+            Assert.AreEqual(loop.EndPosition, GetLoopEndPosition());
+        }
+
+        [Test]
+        public void When_SwitchingSessions_Expect_BoundsAreInitializedCorrectly()
         {
             OpenSpotifySearchPage();
             SearchSong("Nothing Else Matters");
             SelectSong(0);
-            DeleteSong("Nothing Else Matters");
-            Assert.IsFalse(IsSongInSessionList("Nothing Else Matters"));
+            OpenSpotifySearchPage();
+            SearchSong("Mirage Coumarin");
+            SelectSong(0);
+
+            OpenLoops("Nothing Else Matters");
+            var loop1 = GetLoop("Nothing Else Matters");
+            NavigateBack();
+            SelectSong("Nothing Else Matters");
+            Assert.AreEqual(loop1.StartPosition, GetLoopStartPosition());
+            Assert.AreEqual(loop1.StartPosition, GetCurrentSongTime());
+            Assert.AreEqual(loop1.EndPosition, GetLoopEndPosition());
+            Assert.AreEqual(loop1.EndPosition, GetSongDuration());
+
+            OpenLoops("Mirage");
+            var loop2 = GetLoop("Mirage");
+            NavigateBack();
+            SelectSong("Mirage");
+            Assert.AreEqual(loop2.StartPosition, GetLoopStartPosition());
+            Assert.AreEqual(loop2.StartPosition, GetCurrentSongTime());
+            Assert.AreEqual(loop2.EndPosition, GetLoopEndPosition());
+            Assert.AreEqual(loop2.EndPosition, GetSongDuration());
         }
 
-        
+
         [Test]
         [TestCase("Coumarin Mirage", 47, 90)]
         [TestCase("Coumarin Mirage", 52, 200)]
@@ -131,7 +247,7 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
             Assert.That(GetLoopStartPosition(), Is.EqualTo(left).Within(25));
             Assert.That(GetLoopEndPosition(), Is.EqualTo(right).Within(25));
         }
-        
+
 
         [Test]
         [TestCase("Coumarin Mirage", 61, 90)]
@@ -278,6 +394,54 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
 
             Assert.AreNotEqual(markersPlayBefore, markersPlay);
             Assert.AreEqual(markersStopBefore, markersStop);
+        }
+
+        [Test]
+        public void When_DoEverything_Expect_AppIsStable()
+        {
+            OpenSpotifySearchPage();
+            SearchSong("Coumarin Mirage");
+
+            SelectSong(0);
+
+            SetLeftPicker(88);
+            SetRightPicker(100);
+
+            Assert.AreEqual(88, GetLoopStartPosition());
+            Assert.AreEqual(100, GetLoopEndPosition());
+
+            CreateLoop("First Loop");
+            SaveLoop();
+
+            Play();
+
+            Thread.Sleep(10000);
+
+            Stop();
+
+            SetLeftPicker(28);
+            SetRightPicker(120);
+
+            Assert.AreEqual(28, GetLoopStartPosition());
+            Assert.AreEqual(120, GetLoopEndPosition());
+
+            CreateLoop("Second Loop");
+            SaveLoop();
+
+            OpenLoops("Mirage");
+
+            SelectLoop("First Loop");
+            NavigateBack();
+
+            Assert.AreEqual(88, GetLoopStartPosition());
+            Assert.AreEqual(100, GetLoopEndPosition());
+
+            Play();
+
+            Thread.Sleep(20000);
+
+            Stop();
+
         }
     }
 }

@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Emka3.PracticeLooper.Model.Common;
 using NUnit.Framework;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
@@ -14,18 +13,12 @@ using OpenQA.Selenium.Appium.Enums;
 namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
 {
     [TestFixture]
-    public class AndroidPremiumTests : BasePage<AndroidDriver<AndroidElement>, AndroidElement>
+    public class AndroidTests : BasePage<AndroidDriver<AndroidElement>, AndroidElement>
     {
-        private InAppPurchaseProduct product;
 
-        public AndroidPremiumTests() : base()
+        public AndroidTests() : base()
         {
-            product = new InAppPurchaseProduct
-            {
-                Name = "Practice Looper App Premium (Practice Looper ∞ Create & repeat Spotify loops ♫)",
-                Purchased = true,
-                LocalizedPrice = "",
-            };
+
         }
 
         protected override AndroidDriver<AndroidElement> GetDriver()
@@ -73,16 +66,6 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
             NavigateBack();
             OpenSettings();
             Assert.IsFalse(IsDarkModeEnabled());
-        }
-
-        [Test]
-        public void When_FetchingProduct_Expect_PremiumProductIsAvailable()
-        {
-            OpenSettings();
-            var premiumProduct = GetProduct();
-            Assert.AreEqual(product.Name, premiumProduct.Name);
-            Assert.AreEqual(product.LocalizedPrice, premiumProduct.LocalizedPrice);
-            Assert.AreEqual(product.Purchased, premiumProduct.Purchased);
         }
 
         [Test]

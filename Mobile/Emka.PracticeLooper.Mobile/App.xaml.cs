@@ -17,8 +17,8 @@ using Emka3.PracticeLooper.Utils;
 using System.Linq;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Emka.PracticeLooper.Services.Contracts.Common;
-using Emka3.PracticeLooper.Config.Contracts.Features;
 using FilePicker = Emka.PracticeLooper.Mobile.Common.FilePicker;
+using Emka3.PracticeLooper.Services.Contracts.Common;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Emka.PracticeLooper.Mobile
@@ -26,7 +26,6 @@ namespace Emka.PracticeLooper.Mobile
     [Preserve(AllMembers = true)]
     public partial class App : Application
     {
-        public static string BannerAddUnitId { get; private set; }
         private MappingsFactory.Contracts.IResolver resolver;
         public App()
         {
@@ -78,12 +77,13 @@ namespace Emka.PracticeLooper.Mobile
             // Register common forms types
 
             resolver = MappingsFactory.Factory.GetResolver();
-            resolver.RegisterSingleton(typeof(FilePicker), typeof(IFilePicker));
+            resolver.RegisterSingleton(typeof(FilePicker), typeof(Common.IFilePicker));
             resolver.RegisterSingleton(typeof(NavigationService), typeof(INavigationService));
             resolver.RegisterSingleton(typeof(SourcePicker), typeof(ISourcePicker));
             resolver.RegisterSingleton(typeof(FileAudioPlayer), typeof(IAudioPlayer));
             resolver.RegisterInstance(new DialogService(), typeof(IDialogService));
             resolver.Register(typeof(StringLocalizer), typeof(IStringLocalizer));
+            resolver.RegisterSingleton(typeof(ReviewRequestService), typeof(IReviewRequestService));
             // Build container after platform implementations have been registered
             resolver.BuildContainer();
 
@@ -96,18 +96,9 @@ namespace Emka.PracticeLooper.Mobile
             {
                 SecureStorage.RemoveAll();
             }
-            var configService = resolver.Resolve<IConfigurationService>();
-            var purchaseItems = configService.GetValue<Dictionary<string, object>>("PurchaseItems");
-            var premiumItemId = Device.RuntimePlatform == Device.iOS ? purchaseItems["IosPremiumLifetime"].ToString() : purchaseItems["AndroidPremiumLifetime"].ToString();
-            var premiumFeature = new PremiumFeature(premiumItemId);
-            var featureRegistry = resolver.Resolve<IFeatureRegistry>();
 
+            var configService = resolver.Resolve<IConfigurationService>();
             configService.SetValue("IsFirstLaunchEver", VersionTracking.IsFirstLaunchEver);
-#if PREMIUM
-            configService.SetSecureValue(premiumItemId, true);
-#endif
-            var hasPremium = configService.GetSecureValue<bool>(premiumItemId);
-            featureRegistry.Add(premiumFeature, hasPremium);
         }
 
         private async Task InitNavigation()

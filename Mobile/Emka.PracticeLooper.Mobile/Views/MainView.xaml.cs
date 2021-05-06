@@ -16,7 +16,6 @@ using Syncfusion.SfRangeSlider.XForms;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using Emka3.PracticeLooper.Config.Contracts.Features;
 using Emka.PracticeLooper.Model;
 
 namespace Emka.PracticeLooper.Mobile.Views
@@ -27,7 +26,7 @@ namespace Emka.PracticeLooper.Mobile.Views
         #region Fields
 
         private readonly IConfigurationService configService;
-        private readonly IFeatureRegistry featureRegistry;
+        private readonly IDialogService dialogService;
         private IResolver resolver;
         private CustomWebView spotifyPlayerWebView;
         private Label errorLabel;
@@ -41,15 +40,17 @@ namespace Emka.PracticeLooper.Mobile.Views
             InitializeComponent();
             SpotifyWebViewContainer.IsVisible = false;
             resolver = Emka3.PracticeLooper.Mappings.Factory.GetResolver();
+
             configService = resolver.Resolve<IConfigurationService>();
-            featureRegistry = resolver.Resolve<IFeatureRegistry>();
+            dialogService = resolver.Resolve<IDialogService>();
+
             picker.BindingContext = new RangePickerViewModel(
                 resolver.Resolve<IDialogService>(),
                 resolver.Resolve<ILogger>(),
                 resolver.Resolve<INavigationService>(),
                 resolver.Resolve<IAppTracker>());
 
-            BindingContext = new MainViewModel(resolver.Resolve<IInterstitialAd>(),
+            BindingContext = new MainViewModel(
                    resolver.Resolve<IRepository<Session>>(),
                    resolver.Resolve<IRepository<Loop>>(),
                    resolver.Resolve<IDialogService>(),
@@ -64,7 +65,7 @@ namespace Emka.PracticeLooper.Mobile.Views
                    resolver.Resolve<IAppTracker>(),
                    configService,
                    resolver.ResolveAll<IAudioPlayer>(),
-                   resolver.Resolve<IFeatureRegistry>());
+                   resolver.Resolve<IReviewRequestService>());
 
             MessagingCenter.Subscribe<object>(this, MessengerKeys.WebViewNavigating, (sender) =>
             {
@@ -107,27 +108,10 @@ namespace Emka.PracticeLooper.Mobile.Views
         }
         #endregion
 
-        #region Properties
-        public string AdUnitId { get; private set; }
-        #endregion
-
         #region Methods
         protected override void OnAppearing()
         {
-            AdUnitId = App.BannerAddUnitId;
             SettingsImage.Color = (Color)Application.Current.Resources["PrimaryColor"];
-            featureRegistry.RegisterForUpdates<PremiumFeature>(OnPremiumFeatureUpdated);
-            ToggleAd();
-        }
-
-        private void OnPremiumFeatureUpdated(bool enabled)
-        {
-            ToggleAd();
-        }
-
-        private void ToggleAd()
-        {
-            AdmobBanner.IsVisible = !featureRegistry.IsEnabled<PremiumFeature>();
         }
 
         void OnDeleteSession(object sender, EventArgs e)
@@ -296,10 +280,18 @@ namespace Emka.PracticeLooper.Mobile.Views
             picker.SelectionChanged -= SelectionChanged;
         }
 
-        void OnToggleSpotifyWebPlayer(object sender, EventArgs e)
+        async void OnToggleSpotifyWebPlayer(object sender, EventArgs e)
         {
             /* First init Error View to avoid null
             reference of error label in WebViewNavigating event */
+            var vm = BindingContext as MainViewModel;
+
+            if (vm != null && vm.IsSpotifyInstalled())
+            {
+                await dialogService.ShowAlertAsync(AppResources.Hint_Content_SpotifyAppInstalled, AppResources.Hint_Caption_SpotifyAppInstalled);
+                return;
+            }
+
             InitErrorView();
             InitSpotifyWebPlayer();
             SpotifyWebViewContainer.IsVisible = !SpotifyWebViewContainer.IsVisible;
@@ -321,7 +313,7 @@ namespace Emka.PracticeLooper.Mobile.Views
                     IsVisible = false
                 };
 
-                Grid.SetRow(errorLabel, 0);
+                Grid.SetRow(errorLabel, 1);
                 SpotifyWebViewContainer.Children.Add(errorLabel);
             }
         }
@@ -338,7 +330,7 @@ namespace Emka.PracticeLooper.Mobile.Views
                     VerticalOptions = LayoutOptions.FillAndExpand
                 };
 
-                Grid.SetRow(spotifyPlayerWebView, 0);
+                Grid.SetRow(spotifyPlayerWebView, 1);
                 SpotifyWebViewContainer.Children.Add(spotifyPlayerWebView);
             }
         }

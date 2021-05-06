@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <ReleaseVersion>0.1.0</ReleaseVersion>
-        <Configurations>Debug;BuildIOS;Mock;Release;DebugLite;ReleaseLite;ReleasePremium;DebugPremium</Configurations>
+        <Configurations>Debug;BuildIOS;Mock;Release</Configurations>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <DebugType>pdbonly</DebugType>
@@ -37,64 +37,20 @@
         </OutputPath>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugLite|AnyCPU' ">
-        <DebugType>pdbonly</DebugType>
-        <Optimize>false</Optimize>
-        <DefineConstants>TRACE;DEBUG;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
-        <DebugSymbols>true</DebugSymbols>
-        <IntermediateOutputPath>obj\Debug\netstandard2.0</IntermediateOutputPath>
-        <NoWarn>1701;1702</NoWarn>
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseLite|AnyCPU' ">
-        <DebugType>
-        </DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>
-        </OutputPath>
-        <DefineConstants>TRACE;RELEASE;RELEASELITE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
-        <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleasePremium|AnyCPU' ">
-        <WarningLevel>
-        </WarningLevel>
-        <TreatWarningsAsErrors></TreatWarningsAsErrors>
-        <WarningLevel>
-        </WarningLevel>
-        <DebugType></DebugType>
-        <Optimize>true</Optimize>
-        <Optimize>true</Optimize>
-        <OutputPath>
-        </OutputPath>
-        <DefineConstants>TRACE;RELEASE;PREMIUM;RELEASEPREMIUM;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
-        <IntermediateOutputPath>obj\Release\netstandard2.0</IntermediateOutputPath>
-        <PlatformTarget>anycpu</PlatformTarget>
-        <WarningsNotAsErrors></WarningsNotAsErrors>
-        <Nullable></Nullable>
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugPremium|AnyCPU' ">
-      <DebugType>pdbonly</DebugType>
-      <Optimize>false</Optimize>
-      <DefineConstants>TRACE;DEBUG;PREMIUM;DEBUGPREMIUM;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
-      <DebugSymbols>true</DebugSymbols>
-      <IntermediateOutputPath>obj\Debug\netstandard2.0</IntermediateOutputPath>
-      <LangVersion>latest</LangVersion>
-    </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Autofac" Version="6.1.0" />
-        <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.10" />
+        <PackageReference Include="Autofac" Version="6.2.0" />
+        <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.11" />
         <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
         <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
-        <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1.0" />
-        <PackageReference Include="Microsoft.AppCenter" Version="4.1.0" />
-        <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0" />
+        <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.2.0" />
+        <PackageReference Include="Microsoft.AppCenter" Version="4.2.0" />
+        <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.2.0" />
         <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.3.0.51" />
         <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.3.0.51" />
         <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
         <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
         <PackageReference Include="Xamarin.Auth" Version="1.7.0" />
+        <PackageReference Include="Plugin.StoreReview" Version="3.1.0" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Emka3.PracticeLooper.Mappings\Emka3.PracticeLooper.Mappings.csproj" />

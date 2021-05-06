@@ -34,23 +34,13 @@
 
         <Grid.RowDefinitions>
             <RowDefinition
-                Height="Auto" />
-            <RowDefinition
                 Height="*" />
             <RowDefinition
                 Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- AdMob -->
-
-        <views:AdMobView
-            AutomationId="AdmobBanner"
-            Grid.Row="0"
-            HeightRequest="80"
-            x:Name="AdmobBanner" />
-
         <Grid
-            Grid.Row="1"
+            Grid.Row="0"
             x:Name="ContentGrid"
             AutomationProperties.IsInAccessibleTree="False">
             <Grid.RowDefinitions>
@@ -474,7 +464,7 @@
 
         <Grid
             x:Name="SpotifyWebViewContainer"
-            Grid.Row="1"
+            Grid.Row="0"
             Grid.RowSpan="2"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
@@ -483,29 +473,14 @@
             Padding="0">
             <Grid.RowDefinitions>
                 <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
                     Height="*" />
                 <RowDefinition
                     Height="Auto" />
-                <RowDefinition
-                    Height="Auto" />
             </Grid.RowDefinitions>
-            <ContentView
-                x:Name="WebViewLoadingDecorator"
-                VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand"
-                Opacity="0.8"
-                BackgroundColor="{DynamicResource BackgroundColor}"
-                IsVisible="{Binding Path=IsNavigating}">
-                <ActivityIndicator
-                    BindingContext="{x:Reference WebViewLoadingDecorator}"
-                    IsRunning="{Binding Path=IsVisible}"
-                    Color="{DynamicResource SecondaryColor}"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center" />
-            </ContentView>
-
             <Grid
-                Grid.Row="2"
+                Grid.Row="0"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>
@@ -578,12 +553,28 @@
                     </ImageButton.Source>
                 </ImageButton>
             </Grid>
+            
+            <ContentView
+                Grid.Row="1"
+                x:Name="WebViewLoadingDecorator"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                Opacity="0.8"
+                BackgroundColor="{DynamicResource BackgroundColor}"
+                IsVisible="{Binding Path=IsNavigating}">
+                <ActivityIndicator
+                    BindingContext="{x:Reference WebViewLoadingDecorator}"
+                    IsRunning="{Binding Path=IsVisible}"
+                    Color="{DynamicResource SecondaryColor}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center" />
+            </ContentView>
         </Grid>
 
         <!-- Busy Indicator -->
 
         <ContentView
-            Grid.Row="1"
+            Grid.Row="0"
             Grid.RowSpan="2"
             IsVisible="{Binding IsBusy}"
             VerticalOptions="FillAndExpand"
@@ -599,7 +590,7 @@
 
         <!-- Picker -->
         <syncfusion:SfPicker
-            Grid.Row="2"
+            Grid.Row="1"
             x:Name="picker"
             AutomationId="Picker"
             VerticalOptions="End"
