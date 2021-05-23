@@ -102,7 +102,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.filePicker = filePicker ?? throw new ArgumentNullException(nameof(filePicker));
             this.connectivityService = connectivityService ?? throw new ArgumentNullException(nameof(connectivityService));
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
-            this.reviewRequestService = reviewRequestService ?? throw new ArgumentNullException(nameof(reviewRequestService));
             AudioPlayers = audioPlayers?.ToList() ?? throw new ArgumentNullException(nameof(audioPlayers));
 
             MessagingCenter.Subscribe<SpotifySearchViewModel, AudioSource>(this, MessengerKeys.NewTrackAdded, (sender, audioSorce) => CreateSessionCommand.Execute(audioSorce));
@@ -424,7 +423,10 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     await configurationService.SetValueAsync(PreferenceKeys.SlowConnectionWarning, true, true);
                 }
 
-                await reviewRequestService?.RequestReview();
+                if (reviewRequestService != null)
+                {
+                    await reviewRequestService.RequestReview();
+                }
             }
             catch (Exception ex)
             {

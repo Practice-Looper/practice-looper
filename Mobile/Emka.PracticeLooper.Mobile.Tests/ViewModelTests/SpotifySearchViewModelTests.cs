@@ -135,14 +135,14 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             };
 
 
-            MessagingCenter.Subscribe<SpotifySearchViewModel, AudioSource>(this, MessengerKeys.NewTrackAdded, (sender, audioSorce) =>
+            MessagingCenter.Subscribe<object, AudioSource>(this, MessengerKeys.NewTrackAdded, (sender, audioSorce) =>
             {
                 tcs.SetResult(audioSorce.FileName == track.Name);
             });
 
             var spotifySearchVm = new SpotifySearchViewModel(spotifyApiMock.Object, navigationServiceMock.Object, loggerMock.Object, appTrackerMock.Object);
             await spotifySearchVm.InitializeAsync(null);
-            spotifySearchVm.CreateSessionCommand.Execute(track);
+            await spotifySearchVm.ExecuteCreateSessionCommand(track);
             await tcs.Task;
             Assert.IsTrue(tcs.Task.Result);
 

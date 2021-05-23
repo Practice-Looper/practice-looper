@@ -76,7 +76,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
             try
             {
-                MessagingCenter.Send(this, MessengerKeys.NewTrackAdded, new AudioSource
+                MessagingCenter.Send<object, AudioSource>(this, MessengerKeys.NewTrackAdded, new AudioSource
                 {
                     FileName = track.Name,
                     Type = AudioSourceType.Spotify,
