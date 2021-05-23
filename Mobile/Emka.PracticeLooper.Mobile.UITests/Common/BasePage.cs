@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
-using Emka3.PracticeLooper.Model.Common;
 using Emka3.PracticeLooper.Model.Player;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -189,37 +187,6 @@ namespace Emka.PracticeLooper.Mobile.UITests.Tests.MainPage
             element.Click();
 
             Thread.Sleep(500);
-        }
-
-        public InAppPurchaseProduct GetProduct()
-        {
-            var name = driver.FindElementByAccessibilityId("ProductName").Text;
-            var purchased = false;
-            var purchasedPrice = string.Empty;
-            try
-            {
-                var purchasedItem = driver.FindElementByAccessibilityId("ProductCheck");
-                purchased = purchasedItem.Displayed;
-            }
-            catch (NoSuchElementException)
-            {
-                var purchasedPriceItem = driver.FindElementByAccessibilityId("ProductPrice");
-                purchasedPrice = purchasedPriceItem.Text;
-            }
-
-            var product = new InAppPurchaseProduct
-            {
-                Name = name,
-                ProductId = "id",
-                Description = "Description",
-                Image = "image.png",
-                Purchased = purchased,
-                LocalizedPrice = purchasedPrice,
-                CurrencyCode = "de",
-                Package = "Premium"
-            };
-
-            return product;
         }
 
         public void NavigateBack()

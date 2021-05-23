@@ -29,7 +29,6 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
     public class MainViewModelTests
     {
         MainViewModel mainViewModel;
-        Mock<IInterstitialAd> interstitialAdMock;
         Mock<IRepository<Session>> sessionsRepositoryMock;
         Mock<IRepository<Loop>> loopsRepositoryMock;
         Mock<IDialogService> dialogServiceMock;
@@ -44,7 +43,6 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         Mock<IAppTracker> appTrackerMock;
         Mock<IConfigurationService> configurationServiceMock;
         Mock<IAudioPlayer> audioPlayerMock;
-        Mock<IFeatureRegistry> featureRegistryMock;
         List<IAudioPlayer> audioPlayers;
         List<Session> sessions;
         List<AudioSource> audioSources;
@@ -58,7 +56,6 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         [SetUp]
         public void Setup()
         {
-            interstitialAdMock = new Mock<IInterstitialAd>();
             sessionsRepositoryMock = new Mock<IRepository<Session>>();
             loopsRepositoryMock = new Mock<IRepository<Loop>>();
             dialogServiceMock = new Mock<IDialogService>();
@@ -73,7 +70,6 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             appTrackerMock = new Mock<IAppTracker>();
             configurationServiceMock = new Mock<IConfigurationService>();
             audioPlayerMock = new Mock<IAudioPlayer>();
-            featureRegistryMock = new Mock<IFeatureRegistry>();
             localizer = new StringLocalizer(loggerMock.Object);
             audioPlayers = new List<IAudioPlayer>();
             audioSources = new List<AudioSource>
@@ -147,7 +143,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         public async Task When_InitializeHasFastConnection_Expect_IsInitialized()
         {
             connectivityServiceMock.Setup(cs => cs.HasFastConnection()).Returns(true);
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -161,8 +157,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
 
             await mainViewModel.InitializeAsync(null);
             Assert.IsEmpty(mainViewModel.Sessions);
@@ -174,7 +169,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         public async Task When_InitializeHas2StoredSession_Expect_2SessionLoaded()
         {
             sessionsRepositoryMock.Setup(s => s.GetAllItemsAsync()).Returns(Task.FromResult(sessions));
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -188,8 +183,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
 
             await mainViewModel.InitializeAsync(null);
             Assert.IsNotEmpty(mainViewModel.Sessions);
@@ -204,7 +198,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             sessionsRepositoryMock.Setup(s => s.GetAllItemsAsync()).Returns(Task.FromResult(sessions));
             configurationServiceMock.Setup(c => c.GetValue(It.Is<string>(s => s == PreferenceKeys.LastSession), 0)).Returns(1);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -218,8 +212,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             Assert.NotNull(mainViewModel.CurrentSession);
@@ -244,7 +238,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Returns(Task.CompletedTask)
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -258,8 +252,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -295,7 +289,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Returns(true)
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -309,8 +303,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -343,7 +337,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Returns(Task.FromResult(true))
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -357,8 +351,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -391,7 +385,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Returns(Task.CompletedTask)
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -405,8 +399,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -438,7 +432,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Returns(Task.CompletedTask)
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -452,8 +446,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -488,7 +482,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Returns(Task.FromResult(false))
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -502,8 +496,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -542,7 +536,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Returns(Task.FromResult(false))
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -556,8 +550,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -596,7 +590,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                     It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))))
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -610,8 +604,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -642,7 +636,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Callback(() => { tcs.SetResult(true); })
                 .Returns(Task.FromResult<AudioSource>(null));
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -656,8 +650,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -693,7 +687,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             sessionsRepositoryMock.Setup(s => s.SaveAsync(It.IsAny<Session>())).Returns(Task.FromResult(1));
             audioPlayerMock.SetupGet(a => a.Initialized).Returns(false);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -707,8 +701,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -740,7 +734,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             sessionsRepositoryMock.Setup(sr => sr.SaveAsync(It.IsAny<Session>())).Callback((Session s) => { sessions.Add(s); }).ReturnsAsync(0);
             sessionsRepositoryMock.Setup(sr => sr.GetByIdAsync(It.IsAny<int>())).ReturnsAsync((int id) => { return sessions.FirstOrDefault(s => s.Id == id); });
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -754,8 +748,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             await mainViewModel.ExecuteCreateSessionCommandAsync(audioSource);
             Assert.NotNull(mainViewModel.CurrentSession);
@@ -768,7 +762,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         [Test()]
         public void When_CreateWithNullAudioSource_Expect_ThrowsArgumentNullException()
         {
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -782,8 +776,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             Assert.ThrowsAsync<ArgumentNullException>(() => mainViewModel.ExecuteCreateSessionCommandAsync(null));
         }
@@ -792,7 +786,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         public void When_PauseInvoked_Expect_SpotifyDisconnects()
         {
             spotifyLoaderMock.Setup(s => s.Disconnect()).Callback(() => spotifyLoaderMock.SetupGet(s => s.Authorized).Returns(true)).Verifiable();
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -806,8 +800,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             mainViewModel.Pause();
             spotifyLoaderMock.Verify(s => s.Disconnect(), Times.Once);
@@ -819,7 +813,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             Assert.Ignore("Test in different test!!");
             audioPlayerMock.Setup(a => a.Pause(default)).Verifiable();
             audioPlayers.Add(audioPlayerMock.Object);
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -833,8 +827,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             mainViewModel.Pause();
             audioPlayerMock.Verify(s => s.Pause(default), Times.Once);
@@ -844,7 +838,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         public void When_CurrentPlayerNull_Expect_CanNotExecutePlayCommand()
         {
             sessionsRepositoryMock.Setup(s => s.GetAllItemsAsync()).Returns(Task.FromResult(sessions));
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -858,8 +852,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             var canExecutePlayCommand = mainViewModel.PlayCommand.CanExecute(null);
             Assert.IsNull(mainViewModel.CurrentAudioPlayer);
@@ -883,7 +877,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             audioPlayers.Add(audioPlayerMock.Object);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -897,8 +891,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
@@ -929,14 +923,9 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             audioPlayers.Add(audioPlayerMock.Object);
 
-            interstitialAdMock
-                .Setup(a => a.ShowAdAsync())
-                .Returns(Task.CompletedTask)
-                .Verifiable();
-
             spotifyApiServiceMock.SetupGet(s => s.UserPremiumCheckSuccessful).Returns(true);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -950,14 +939,13 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
             await tcs.Task;
             audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l == loops.First()), false, null), Times.Once);
-            interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
         }
 
         [Test()]
@@ -988,14 +976,9 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             audioPlayers.Add(audioPlayerMock.Object);
 
-            interstitialAdMock
-                .Setup(a => a.ShowAdAsync())
-                .Returns(Task.CompletedTask)
-                .Verifiable();
-
             spotifyApiServiceMock.SetupGet(s => s.UserPremiumCheckSuccessful).Returns(true);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1009,14 +992,13 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
             await tcs.Task;
             audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l == loops.First()), false, null), Times.Once);
-            interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
             dialogServiceMock
                .Verify(d => d.ShowConfirmAsync(It.Is<string>(s => s == localizer.GetLocalizedString("Error_Caption")), It.Is<string>(s => s == localizer.GetLocalizedString("Error_Content_FileNotFound")), It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")), It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))), Times.Once);
         }
@@ -1049,14 +1031,9 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             audioPlayers.Add(audioPlayerMock.Object);
 
-            interstitialAdMock
-                .Setup(a => a.ShowAdAsync())
-                .Returns(Task.CompletedTask)
-                .Verifiable();
-
             spotifyApiServiceMock.SetupGet(s => s.UserPremiumCheckSuccessful).Returns(true);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1070,8 +1047,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
@@ -1079,7 +1056,6 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             Assert.That(mainViewModel.Sessions, Has.Count.EqualTo(1));
             audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l == loops.First()), false, null), Times.Once);
-            interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
             dialogServiceMock
                .Verify(d => d.ShowConfirmAsync(It.Is<string>(s => s == localizer.GetLocalizedString("Error_Caption")), It.Is<string>(s => s == localizer.GetLocalizedString("Error_Content_FileNotFound")), It.Is<string>(s => s == localizer.GetLocalizedString("Cancel")), It.Is<string>(s => s == localizer.GetLocalizedString("Ok"))), Times.Once);
         }
@@ -1112,14 +1088,9 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             audioPlayers.Add(audioPlayerMock.Object);
 
-            interstitialAdMock
-                .Setup(a => a.ShowAdAsync())
-                .Returns(Task.CompletedTask)
-                .Verifiable();
-
             spotifyApiServiceMock.SetupGet(s => s.UserPremiumCheckSuccessful).Returns(true);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1133,8 +1104,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             mainViewModel.IsPlaying = false;
             await mainViewModel.InitializeAsync(null);
@@ -1143,7 +1114,6 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             Assert.That(mainViewModel.Sessions, Has.Count.EqualTo(2));
             audioPlayerMock.Verify(a => a.InitAsync(It.Is<Loop>(l => l == loops.First()), false, null), Times.Once);
-            interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
             dialogServiceMock
                .Verify(d => d.ShowAlertAsync(It.Is<string>(s => s == localizer.GetLocalizedString("Error_Content_General")), It.Is<string>(s => s == localizer.GetLocalizedString("Error_Caption"))), Times.Once);
         }
@@ -1173,7 +1143,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayers.Add(audioPlayerMock.Object);
             spotifyApiServiceMock.SetupGet(s => s.UserPremiumCheckSuccessful).Returns(true);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1187,14 +1157,13 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
             await tcs.Task;
             audioPlayerMock.Verify(a => a.PlayAsync(), Times.Once);
-            interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
             spotifyApiServiceMock.Verify(s => s.IsPremiumUser(), Times.Never);
         }
 
@@ -1225,7 +1194,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Setup(s => s.IsPremiumUser())
                 .Returns(Task.FromResult(Tuple.Create(System.Net.HttpStatusCode.OK, true)));
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1239,14 +1208,13 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
             await tcs.Task;
             audioPlayerMock.Verify(a => a.PlayAsync(), Times.Once);
-            interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
         }
 
         [Test()]
@@ -1276,7 +1244,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 })
                 .Returns(Task.FromResult(Tuple.Create(System.Net.HttpStatusCode.OK, false)));
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1290,14 +1258,13 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
             await tcs.Task;
             audioPlayerMock.Verify(a => a.PlayAsync(), Times.Never);
-            interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
         }
 
         [Test()]
@@ -1326,7 +1293,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 })
                 .Returns(Task.FromResult(Tuple.Create(System.Net.HttpStatusCode.NotFound, false)));
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1340,14 +1307,13 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
             await tcs.Task;
             audioPlayerMock.Verify(a => a.PlayAsync(), Times.Never);
-            interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
         }
 
         [Test()]
@@ -1368,7 +1334,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             audioPlayers.Add(audioPlayerMock.Object);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1382,13 +1348,12 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.PlayCommand.Execute(null);
             audioPlayerMock.Verify(a => a.PlayAsync(), Times.Never);
-            interstitialAdMock.Verify(a => a.ShowAdAsync(), Times.Never);
             spotifyLoaderMock.Verify(s => s.IsSpotifyInstalled(), Times.Once);
         }
 
@@ -1411,7 +1376,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Returns(Task.FromResult(false))
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1425,8 +1390,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -1460,7 +1425,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             spotifyApiServiceMock
                 .Setup(s => s.IsPremiumUser())
                 .Returns(Task.FromResult(Tuple.Create(System.Net.HttpStatusCode.OK, true)));
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1474,8 +1439,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -1504,7 +1469,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             spotifyApiServiceMock
                 .Setup(s => s.IsPremiumUser())
                 .Returns(Task.FromResult(Tuple.Create(System.Net.HttpStatusCode.OK, true)));
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1518,8 +1483,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -1552,7 +1517,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 Setup(a => a.GetAvailableDevices())
                 .Returns(Task.FromResult(new List<SpotifyDevice> { new SpotifyDevice("identifier", "Mobile Web Player", true, "Smartphone") }));
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1566,8 +1531,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -1625,7 +1590,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 Setup(a => a.GetAvailableDevices())
                 .Returns(Task.FromResult(new List<SpotifyDevice> { new SpotifyDevice("identifier", "Mobile Web Player", true, "Smartphone") }));
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1639,8 +1604,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -1685,7 +1650,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 Setup(a => a.GetAvailableDevices())
                 .Returns(Task.FromResult(new List<SpotifyDevice> { new SpotifyDevice("identifier", "Mobile Web Player", true, "Smartphone") }));
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1699,8 +1664,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -1742,7 +1707,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Returns(Task.CompletedTask)
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1756,8 +1721,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -1801,7 +1766,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Returns(Task.CompletedTask)
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1815,8 +1780,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -1860,7 +1825,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
             audioPlayers.Add(audioPlayerMock.Object);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1874,8 +1839,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -1902,7 +1867,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
             audioPlayers.Add(audioPlayerMock.Object);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1916,8 +1881,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -1935,7 +1900,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         [TestCase(false)]
         public void When_ExecuteToggleSpotifyWebPlayerCommand_TogglesPlayerReload_Expect_ChangesVisibility(bool visible)
         {
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1949,8 +1914,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -1968,7 +1933,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         {
             sessionsRepositoryMock.Setup(s => s.GetAllItemsAsync()).Returns(Task.FromResult(sessions));
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -1982,8 +1947,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             Assert.ThrowsAsync<ArgumentException>(() => mainViewModel.ExecuteDeleteSessionCommandAsync(null));
@@ -2000,7 +1965,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.Setup(a => a.Pause(true)).Callback(() => { Task.Run(() => tcs.SetResult(true)); }).Verifiable();
             audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
             spotifyApiServiceMock.SetupGet(a => a.UserPremiumCheckSuccessful).Returns(true);
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2014,8 +1979,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecutePlayCommand(null);
@@ -2041,7 +2006,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Returns(Task.CompletedTask)
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2055,8 +2020,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecuteDeleteSessionCommandAsync(mainViewModel.Sessions[1]);
@@ -2084,7 +2049,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Setup(f => f.DeleteFileAsync(It.IsAny<string>()))
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2098,8 +2063,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecuteDeleteSessionCommandAsync(mainViewModel.Sessions[0]);
@@ -2117,7 +2082,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             sessionsRepositoryMock.Setup(s => s.GetAllItemsAsync()).Returns(Task.FromResult(sessions));
             audioPlayers.Add(audioPlayerMock.Object);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2131,8 +2096,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecuteDeleteSessionCommandAsync(mainViewModel.Sessions[0]);
@@ -2166,7 +2131,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Setup(c => c.ClearValue(It.Is<string>(s => s == PreferenceKeys.LastLoop)))
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2180,8 +2145,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.InitAudioPlayer(false);
@@ -2212,7 +2177,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Setup(d => d.ShowAlertAsync(It.Is<string>(s => s == localizer.GetLocalizedString("Error_Content_CouldNotDeleteSong")), It.Is<string>(s => s == localizer.GetLocalizedString("Error_Caption"))))
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2226,8 +2191,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecuteDeleteSessionCommandAsync(mainViewModel.Sessions[0]);
@@ -2239,7 +2204,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         [Apartment(ApartmentState.STA)]
         public async Task When_CurrentSessionIsNull_Expect_CanNotExecuteAddLoopCommand()
         {
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2253,8 +2218,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             var canExecute = mainViewModel.CanExecuteAddNewLoopCommand(null);
@@ -2266,7 +2231,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         public async Task When_CurrentSessionIsNotNull_Expect_CanExecuteAddLoopCommand()
         {
             sessionsRepositoryMock.Setup(s => s.GetAllItemsAsync()).Returns(Task.FromResult(sessions));
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2280,8 +2245,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             var canExecute = mainViewModel.CanExecuteAddNewLoopCommand(null);
@@ -2314,7 +2279,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Setup(l => l.SaveAsync(It.IsAny<Loop>()))
                 .Returns(Task.FromResult(2));
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2328,8 +2293,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecuteAddNewLoopCommand(null);
@@ -2365,7 +2330,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Setup(l => l.SaveAsync(It.IsAny<Loop>()))
                 .Returns(Task.FromResult(2));
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2379,8 +2344,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecuteAddNewLoopCommand(null);
@@ -2416,7 +2381,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                     250))
                 .Throws(new Exception());
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2430,8 +2395,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecuteAddNewLoopCommand(null);
@@ -2453,7 +2418,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             audioPlayerMock.Setup(a => a.Pause(false)).Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2467,8 +2432,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecutePlayCommand(null);
@@ -2485,7 +2450,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.Types).Returns(sessions.First().AudioSource.Type);
             audioPlayers.Add(audioPlayerMock.Object);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2499,8 +2464,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.InitAudioPlayer(false);
@@ -2521,7 +2486,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.Types).Returns(sessions.First().AudioSource.Type);
             audioPlayers.Add(audioPlayerMock.Object);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2535,8 +2500,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.LoadAudioPlayer();
@@ -2558,7 +2523,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayers.Add(audioPlayerMock.Object);
             audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2572,8 +2537,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecutePlayCommand(null);
@@ -2600,7 +2565,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                     tcs.SetResult(true);
                 });
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2614,8 +2579,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecutePlayCommand(null);
@@ -2639,7 +2604,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             await sessionDetailsViewModel.InitializeAsync(sessionViewModel);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2653,8 +2618,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             sessionDetailsViewModel.SelectedLoop = sessionDetailsViewModel.Loops.Last();
@@ -2676,7 +2641,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             await sessionDetailsViewModel.InitializeAsync(sessionViewModel);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2690,8 +2655,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             sessionDetailsViewModel.SelectedLoop = sessionDetailsViewModel.Loops.First();
@@ -2713,7 +2678,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.IsPlaying).Returns(true);
             audioPlayerMock.Setup(a => a.Pause(false)).Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2727,8 +2692,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await sessionDetailsViewModel.InitializeAsync(sessionViewModels.First());
@@ -2755,7 +2720,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             await sessionDetailsViewModel.InitializeAsync(sessionViewModel);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2769,8 +2734,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             sessionDetailsViewModel.Loops.Last().DeleteCommand.Execute(null);
@@ -2797,7 +2762,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             await sessionDetailsViewModel.InitializeAsync(sessionViewModel);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2811,8 +2776,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             sessionDetailsViewModel.Loops.First().DeleteCommand.Execute(null);
@@ -2840,7 +2805,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
 
             await sessionDetailsViewModel.InitializeAsync(sessionViewModel);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2854,8 +2819,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.ExecutePlayCommand(null);
@@ -2878,7 +2843,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 .Returns(Task.CompletedTask)
                 .Verifiable();
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2892,8 +2857,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.NavigateToSettingsCommand.Execute(null);
@@ -2910,7 +2875,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
             audioPlayers.Add(audioPlayerMock.Object);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2924,8 +2889,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.InitAudioPlayer(false);
@@ -2942,7 +2907,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.SetupGet(a => a.Types).Returns(AudioSourceType.Spotify);
             audioPlayers.Add(audioPlayerMock.Object);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2956,8 +2921,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.InitAudioPlayer(false);
@@ -2975,7 +2940,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.Setup(a => a.Pause(true)).Verifiable();
             audioPlayers.Add(audioPlayerMock.Object);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -2989,8 +2954,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             await mainViewModel.InitAudioPlayer(false);
@@ -3007,7 +2972,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             audioPlayerMock.Setup(a => a.Pause(true)).Verifiable();
             audioPlayers.Add(audioPlayerMock.Object);
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -3021,8 +2986,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.CurrentSession = mainViewModel.Sessions.Last();
@@ -3037,7 +3002,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         {
             sessionsRepositoryMock.Setup(s => s.GetAllItemsAsync()).Returns(Task.FromResult(sessions));
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -3051,8 +3016,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.MinimumValue = -1;
@@ -3066,7 +3031,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         {
             sessionsRepositoryMock.Setup(s => s.GetAllItemsAsync()).Returns(Task.FromResult(sessions));
 
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                sessionsRepositoryMock.Object,
                loopsRepositoryMock.Object,
                dialogServiceMock.Object,
@@ -3080,8 +3045,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                loggerMock.Object,
                appTrackerMock.Object,
                configurationServiceMock.Object,
-               audioPlayers,
-                featureRegistryMock.Object);
+               audioPlayers);
+                
 
             await mainViewModel.InitializeAsync(null);
             mainViewModel.MaximumValue = 1.3;
@@ -3093,7 +3058,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
         [Apartment(ApartmentState.STA)]
         public async Task When_WebViewCommandsInvoked_Expect_MessagesSent()
         {
-            mainViewModel = CreateDefault(interstitialAdMock.Object,
+            mainViewModel = CreateDefault(
                 sessionsRepositoryMock.Object,
                 loopsRepositoryMock.Object,
                 dialogServiceMock.Object,
@@ -3107,8 +3072,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 loggerMock.Object,
                 appTrackerMock.Object,
                 configurationServiceMock.Object,
-                audioPlayers,
-                featureRegistryMock.Object);
+                audioPlayers);
+                
 
             if (mainViewModel.UiContext == null)
             {
@@ -3147,7 +3112,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             Assert.True(goForwardResult);
         }
 
-        private MainViewModel CreateDefault(IInterstitialAd interstitialAd,
+        private MainViewModel CreateDefault(
             IRepository<Session> sessionsRepository,
             IRepository<Loop> loopsRepository,
             IDialogService dialogService,
@@ -3162,9 +3127,10 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
             IAppTracker appTracker,
             IConfigurationService configurationService,
             IEnumerable<IAudioPlayer> audioPlayers,
-            IFeatureRegistry featureRegistry)
+            IReviewRequestService reviewRequestService = null)
+          
         {
-            return new MainViewModel(interstitialAd,
+            return new MainViewModel(
                 sessionsRepository,
                 loopsRepository,
                 dialogService,
@@ -3179,7 +3145,7 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                 appTracker,
                 configurationService,
                 audioPlayers,
-                featureRegistry);
+                reviewRequestService);
         }
     }
 }

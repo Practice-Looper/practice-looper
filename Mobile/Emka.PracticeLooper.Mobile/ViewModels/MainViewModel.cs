@@ -23,8 +23,8 @@ using System.IO;
 using Emka3.PracticeLooper.Services.Contracts.Rest;
 using System.Net;
 using System.Threading;
-using Emka3.PracticeLooper.Config.Contracts.Features;
 using Emka3.PracticeLooper.Model.Common;
+using Plugin.StoreReview;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -32,7 +32,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
     public class MainViewModel : ViewModelBase
     {
         #region Fields
-        private IInterstitialAd interstitialAd;
         private IRepository<Session> sessionsRepository;
         private IRepository<Loop> loopsRepository;
         private IDialogService dialogService;
@@ -43,7 +42,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private Mobile.Common.IFilePicker filePicker;
         private readonly IConnectivityService connectivityService;
         private readonly IConfigurationService configurationService;
-        private readonly IFeatureRegistry featureRegistry;
+        private readonly IReviewRequestService reviewRequestService;
         private Command playCommand;
         private Command createSessionCommand;
         private Command deleteSessionCommand;
@@ -75,7 +74,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #endregion
 
         #region Ctor
-        public MainViewModel(IInterstitialAd interstitialAd,
+        public MainViewModel(
             IRepository<Session> sessionsRepository,
             IRepository<Loop> loopsRepository,
             IDialogService dialogService,
@@ -90,10 +89,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             IAppTracker appTracker,
             IConfigurationService configurationService,
             IEnumerable<IAudioPlayer> audioPlayers,
-            IFeatureRegistry featureRegistry)
+            IReviewRequestService reviewRequestService)
             : base(navigationService, logger, appTracker)
         {
-            this.interstitialAd = interstitialAd ?? throw new ArgumentNullException(nameof(interstitialAd));
             this.sessionsRepository = sessionsRepository ?? throw new ArgumentNullException(nameof(sessionsRepository));
             this.loopsRepository = loopsRepository ?? throw new ArgumentNullException(nameof(loopsRepository));
             this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
@@ -104,7 +102,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.filePicker = filePicker ?? throw new ArgumentNullException(nameof(filePicker));
             this.connectivityService = connectivityService ?? throw new ArgumentNullException(nameof(connectivityService));
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
-            this.featureRegistry = featureRegistry ?? throw new ArgumentNullException(nameof(featureRegistry));
+            this.reviewRequestService = reviewRequestService ?? throw new ArgumentNullException(nameof(reviewRequestService));
             AudioPlayers = audioPlayers?.ToList() ?? throw new ArgumentNullException(nameof(audioPlayers));
 
             MessagingCenter.Subscribe<SpotifySearchViewModel, AudioSource>(this, MessengerKeys.NewTrackAdded, (sender, audioSorce) => CreateSessionCommand.Execute(audioSorce));
@@ -245,6 +243,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             {
                 return currentSession;
             }
+
             set
             {
                 currentSession = value;
@@ -252,12 +251,15 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (currentSession != null)
                 {
                     StepFrequency = currentSession != null ? 1 / currentSession.Session.AudioSource.Duration : 0;
+                    Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "CurrentSession", $"StepFrequency {StepFrequency}" } });
 
                     LoadAudioPlayer();
+                    Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "CurrentSession", $"Audio player loaded" } });
 
                     if (configurationService.GetValue(PreferenceKeys.LastSession, default(int)) != currentSession.Session.Id)
                     {
                         configurationService.SetValue(PreferenceKeys.LastSession, currentSession.Session.Id, true);
+                        Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "CurrentSession", $"LastSession updated" } });
                     }
 
                     if (isCurrentlyPlaying)
@@ -269,19 +271,37 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                             {
                                 await Task.Delay(500);
                             }
+
                             PlayCommand.Execute(null);
                         });
                     }
+
+                    Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "CurrentSession", "isCurrentlyPlaying handled" } });
                 }
 
                 NotifyPropertyChanged();
+                Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "CurrentSession", "NotifyPropertyChanged" } });
+
                 NotifyPropertyChanged(nameof(IsInitialized));
+                Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "CurrentSession", "NotifyPropertyChanged IsInitialized" } });
+
                 NotifyPropertyChanged(nameof(IsPlaying));
+                Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "CurrentSession", "NotifyPropertyChanged IsPlaying" } });
+
                 NotifyPropertyChanged(nameof(MinimumRange));
+                Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "CurrentSession", "NotifyPropertyChanged MinimumRange" } });
+
                 NotifyPropertyChanged(nameof(MinimumValue));
+                Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "CurrentSession", "NotifyPropertyChanged MinimumValue" } });
+
                 NotifyPropertyChanged(nameof(MaximumValue));
+                Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "CurrentSession", "NotifyPropertyChanged MaximumValue" } });
+
                 PlayCommand.ChangeCanExecute();
+                Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "CurrentSession", "PlayCommand.ChangeCanExecute" } });
+
                 AddNewLoopCommand.ChangeCanExecute();
+                Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "CurrentSession", "AddNewLoopCommand.ChangeCanExecute(" } });
             }
         }
 
@@ -308,6 +328,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged(nameof(MaximumValue));
             }
         }
+
         public bool IsBusy
         {
             get => isBusy;
@@ -317,6 +338,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 NotifyPropertyChanged();
             }
         }
+
         public bool IsPremiumUser
         {
             get => isPremiumUser;
@@ -344,6 +366,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         #region Methods
         public override async Task InitializeAsync(object parameter)
         {
+            await Tracker.TrackAsync(TrackerEvents.Init, new Dictionary<string, string> { { "InitializeAsync", "Enter" } });
             if (UiContext == null)
             {
                 throw new InvalidOperationException("UiContext is null!");
@@ -353,20 +376,45 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             try
             {
                 await sessionsRepository.InitAsync();
+                await Tracker.TrackAsync(TrackerEvents.Init, new Dictionary<string, string> { { "InitializeAsync", "sessionsRepository initialized" } });
+
                 await loopsRepository.InitAsync();
+                await Tracker.TrackAsync(TrackerEvents.Init, new Dictionary<string, string> { { "InitializeAsync", "loopsRepository initialized" } });
+
                 var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
+                await Tracker.TrackAsync(TrackerEvents.Init, new Dictionary<string, string> { { "InitializeAsync", "sessionsRepository items lodaded" } });
+
                 spotifyLoader.Disconnected += OnSpotifyDisconnected;
+                await Tracker.TrackAsync(TrackerEvents.Init, new Dictionary<string, string> { { "InitializeAsync", "spotifyLoader disconnected event attached" } });
 
                 if (items != null && items.Any())
                 {
+                    await Tracker.TrackAsync(TrackerEvents.Init, new Dictionary<string, string> { { "InitializeAsync", $"loaded {items.Count} items" } });
                     UiContext?.Send(x =>
                             {
-                                foreach (var item in items)
+                                try
                                 {
-                                    Sessions.Add(new SessionViewModel(item, dialogService, Logger, NavigationService, Tracker));
-                                }
+                                    foreach (var item in items)
+                                    {
+                                        var newViewModel = new SessionViewModel(item, dialogService, Logger, NavigationService, Tracker);
+                                        Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "InitializeAsync", $"view model status {newViewModel}" } });
+                                        Sessions.Add(newViewModel);
+                                    }
 
-                                CurrentSession = Sessions.FirstOrDefault(s => s.Session.Id == configurationService.GetValue(PreferenceKeys.LastSession, default(int))) ?? Sessions.FirstOrDefault();
+                                    Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "InitializeAsync", "sessions added" } });
+
+                                    var lastUsedSessionId = configurationService.GetValue(PreferenceKeys.LastSession, default(int));
+                                    Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "InitializeAsync", $"lastUsedSessionId {lastUsedSessionId}" } });
+
+                                    var lastUsedSession = Sessions.FirstOrDefault(s => s.Session.Id == lastUsedSessionId) ?? Sessions.FirstOrDefault();
+                                    Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "InitializeAsync", $"lastUsedSession {lastUsedSession}" } });
+
+                                    CurrentSession = lastUsedSession;
+                                }
+                                catch (Exception ex)
+                                {
+                                    Logger?.LogError(ex);
+                                }
                             }, null);
                 }
 
@@ -375,6 +423,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     await dialogService.ShowAlertAsync(AppResources.Hint_Content_SlowConnection, AppResources.Hint_Caption_SlowConnection);
                     await configurationService.SetValueAsync(PreferenceKeys.SlowConnectionWarning, true, true);
                 }
+
+                await reviewRequestService?.RequestReview();
             }
             catch (Exception ex)
             {
@@ -384,6 +434,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             finally
             {
                 IsBusy = false;
+                Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "InitializeAsync", "InitializeAsync exit" } });
             }
         }
 
@@ -473,18 +524,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     if (isCurrentlyPlayling)
                     {
                         CurrentAudioPlayer?.Pause();
-                    }
-
-                    if (!featureRegistry.IsEnabled<PremiumFeature>())
-                    {
-                        if (CurrentSession != null)
-                        {
-                            await sessionsRepository.DeleteAsync(CurrentSession.Session);
-                            Sessions.Clear();
-                        }
-
-                        configurationService.SetValue(PreferenceKeys.LastSession, newSession.Id, true);
-                        configurationService.SetValue(PreferenceKeys.LastLoop, newSession.Loops.First().Id, true);
                     }
 
                     newSession.Id = await sessionsRepository.SaveAsync(newSession);
@@ -621,7 +660,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             try
             {
                 UiContext.Send(x => IsBusy = true, null);
-                await interstitialAd?.ShowAdAsync();
                 var source = await sourcePicker?.SelectFileSource();
 
                 switch (source)
@@ -737,7 +775,9 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             try
             {
+                Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "LoadAudioPlayer", "entered" } });
                 IsBusy = true;
+
                 if (IsPlaying)
                 {
                     CurrentAudioPlayer?.Pause(false);
@@ -746,11 +786,25 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 if (CurrentSession != null)
                 {
                     CurrentAudioPlayer = AudioPlayers.First(p => p.Types.HasFlag(CurrentSession.Session.AudioSource.Type));
-                    CurrentLoop = CurrentSession.Session.Loops.FirstOrDefault(l => l.Id == configurationService.GetValue(PreferenceKeys.LastLoop, default(int))) ?? CurrentSession.Session.Loops.First(l => l.IsDefault);
+                    Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "LoadAudioPlayer", $"CurrentAudioPlayer {CurrentAudioPlayer != null}" } });
+
+                    var lastUsedLoopId = configurationService.GetValue(PreferenceKeys.LastLoop, default(int));
+                    Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "LoadAudioPlayer", $"lastUsedLoopId {lastUsedLoopId}" } });
+
+                    CurrentLoop = CurrentSession.Session.Loops.FirstOrDefault(l => l.Id == lastUsedLoopId) ?? CurrentSession.Session.Loops.First(l => l.IsDefault);
+                    Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "LoadAudioPlayer", $"CurrentLoop {CurrentLoop}" } });
+
                     MinimumValue = CurrentLoop.StartPosition;
+                    Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "LoadAudioPlayer", $"MinimumValue {MinimumValue}" } });
+
                     MaximumValue = CurrentLoop.EndPosition;
+                    Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "LoadAudioPlayer", $"MaximumValue {MaximumValue}" } });
+
                     SongDuration = FormatTime(CurrentSession.Session.AudioSource.Duration * 1000);
+                    Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "LoadAudioPlayer", $"SongDuration {SongDuration}" } });
+
                     CurrentSongTime = FormatTime(CurrentSession.Session.AudioSource.Duration * 1000 * MinimumValue);
+                    Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "LoadAudioPlayer", $"CurrentSongTime {CurrentSongTime}" } });
                 }
                 else
                 {
@@ -1114,6 +1168,11 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private void ExecuteToggleSpotifyWebPlayerCommand(object obj)
         {
             IsSpotifyWebPlayerVisible = !IsSpotifyWebPlayerVisible;
+        }
+
+        public bool IsSpotifyInstalled()
+        {
+            return spotifyLoader?.IsSpotifyInstalled() ?? false;
         }
 
         ~MainViewModel()

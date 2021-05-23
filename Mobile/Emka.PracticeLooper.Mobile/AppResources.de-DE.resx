@@ -111,16 +111,6 @@
         <value>App Version: {0}</value>
     </data>
     <data
-        name="SettingsView_ListView_Header"
-        xml:space="preserve">
-        <value>Upgrades</value>
-    </data>
-    <data
-        name="SettingsView_NoUpgradesDescription"
-        xml:space="preserve">
-        <value>Upgrades konnten nicht geladen werden, bitte versuchen Sie es später nochmal!</value>
-    </data>
-    <data
         name="SettingsView_ThirdPartySoftware"
         xml:space="preserve">
         <value>Drittanbieter-Software</value>
@@ -186,33 +176,6 @@
         xml:space="preserve">
         <value>Let's loop</value>
     </data>
-    <!--InAppBillingProductView-->
-    <data
-        name="InAppBillingProductView_Buy"
-        xml:space="preserve">
-        <value>Kaufen ({0})</value>
-    </data>
-    <data
-        name="InAppBillingProductView_Purchased"
-        xml:space="preserve">
-        <value>Gekauft</value>
-    </data>
-    <!--InAppBilling Errors-->
-    <data
-        name="InAppBillingError_ProductNotAvailableForPurchase"
-        xml:space="preserve">
-        <value>Das Produkt ist nicht zum Kauf verfügbar.</value>
-    </data>
-    <data
-        name="InAppBillingError_PaymentPending"
-        xml:space="preserve">
-        <value>Befolge bitte die Anweisungen, um den Kauf abzuschließen.</value>
-    </data>
-    <data
-        name="InAppBillingError_InsufficientPermissions"
-        xml:space="preserve">
-        <value>Dieses Gerät verfügt nicht über ausreichende Berechtigungen, um In-App-Käufe zu tätigen.</value>
-    </data>
     <!--Error Dialogs-->
     <data
         name="Error_Caption"
@@ -250,46 +213,6 @@
         <value>Oops, Loop konnte nicht gelöscht werden, bitte versuchen Sie es später nochmal!</value>
     </data>
     <data
-        name="Error_Content_CouldNotConnectToStore"
-        xml:space="preserve">
-        <value>Oops, Verbindung zum Store konnte nicht hergestellt werden, bitte versuchen Sie es später nochmal!</value>
-    </data>
-    <data
-        name="Error_Content_CouldNotPurchaseItem"
-        xml:space="preserve">
-        <value>Oops, Kauf konnte nicht abgeschlossen werden, bitte versuchen Sie es später nochmal!</value>
-    </data>
-    <data
-        name="Error_Content_StoreUnavailable"
-        xml:space="preserve">
-        <value>Der Store scheint nicht verfügbar zu sein, bitte versuchen Sie es später nochmal!</value>
-    </data>
-    <data
-        name="Error_Content_BillingUnavailable"
-        xml:space="preserve">
-        <value>Der Bezahldienst scheint nicht verfügbar zu sein, bitte versuchen Sie es später nochmal!</value>
-    </data>
-    <data
-        name="Error_Content_PaymentInvalid"
-        xml:space="preserve">
-        <value>Die Zahlung scheint ungültig zu sein, bitte versuchen Sie es später erneut!</value>
-    </data>
-    <data
-        name="Error_Content_PaymentNotAllowed"
-        xml:space="preserve">
-        <value>Die Zahlung scheint nicht aktiviert/erlaubt zu sein, bitte versuchen Sie es erneut!</value>
-    </data>
-    <data
-        name="Error_Content_RestoreFailed"
-        xml:space="preserve">
-        <value>Der Kauf konnte nicht wiederhergestellt werden, bitte versuchen Sie es erneut!</value>
-    </data>
-    <data
-        name="Error_Content_CouldNotConnectToSpotify"
-        xml:space="preserve">
-        <value>Verbindung mit Spotify App fehlgeschlagen, bitte versuchen Sie es erneut!</value>
-    </data>
-    <data
         name="Error_Content_FileNotFound"
         xml:space="preserve">
         <value>Die ausgewählte Datei wurde nicht gefunden. Soll die Session gelöscht werden?</value>
@@ -321,16 +244,6 @@
     </data>
     
     <!--Hint Dialogs-->
-    <data
-        name="Hint_Caption_AlreadyPurchased"
-        xml:space="preserve">
-        <value>Gekauft</value>
-    </data>
-    <data
-        name="Hint_Content_AlreadyPurchased"
-        xml:space="preserve">
-        <value>Sie haben diesen Artikel bereits gekauft!</value>
-    </data>
     <data
         name="Hint_Caption_SlowConnection"
         xml:space="preserve">
@@ -366,6 +279,16 @@
         xml:space="preserve">
         <value>Warnung</value>
     </data>
+    <data
+        name="Hint_Caption_SpotifyAppInstalled"
+        xml:space="preserve">
+        <value>Spotify App</value>
+    </data>
+    <data
+        name="Hint_Content_SpotifyAppInstalled"
+        xml:space="preserve">
+        <value>Spotify App bereits installiert und wird für die Wiedergabe verwendet!</value>
+    </data>
     <!--Prompt Dialogs-->
     <data
         name="Prompt_Caption_NewLoop"
@@ -381,20 +304,5 @@
         name="Prompt_Content_NewLoop_NamePlaceholder"
         xml:space="preserve">
         <value>{0}. Loop</value>
-    </data>
-    <!-- Purchase Items -->
-    <data
-        name="pl.premium.general"
-        xml:space="preserve">
-        <value>• Komplett werbefrei 
-• Beliebig viele Songs 
-• Loops speichern</value>
-    </data>
-    <data
-        name="ios.premium.lifetime"
-        xml:space="preserve">
-        <value>• Komplett werbefrei 
-• Beliebig viele Songs 
-• Loops speichern</value>
     </data>
 </root>

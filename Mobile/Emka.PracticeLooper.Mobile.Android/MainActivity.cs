@@ -150,15 +150,9 @@ namespace Emka.PracticeLooper.Mobile.Droid
         {
             var configService = new ConfigurationService(new PersistentConfigService(), new JsonConfigLoader(), new SecureConfigService()) ?? throw new ArgumentNullException("configService");
             configService.ReadConfigs("Emka3.PracticeLooper.Config.secrets.json");
-            string key;
-#if PREMIUM
-            key = configService.GetValue("AppCenterAndroidPremium");
-#else
-            key = configService.GetValue("AppCenterAndroidLite");
-#endif
+            string key = configService.GetValue("AppCenterAndroid");
             AppCenter.Start(key, typeof(Analytics), typeof(Crashes));
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(configService.GetValue("SyncFusionLicenseKey"));
-            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext);
             configService.SetValue(PreferenceKeys.InternalStoragePath, FileSystem.AppDataDirectory);
             configService.SetValue("Platform", CurrentPlatform.Droid);
             GlobalApp.SpotifyRedirectUrl = configService.GetValue("SpotifyClientRedirectUri");
@@ -167,8 +161,6 @@ namespace Emka.PracticeLooper.Mobile.Droid
 
             var resolver = Factory.GetResolver() ?? throw new ArgumentNullException("resolver");
             resolver.RegisterInstance(configService, typeof(IConfigurationService));
-            resolver.RegisterSingleton(typeof(InterstitialAd), typeof(IInterstitialAd));
-            resolver.RegisterSingleton(typeof(InAppBillingService), typeof(IInAppBillingService));
             resolver.RegisterSingleton(typeof(AudioFileRepository), typeof(IFileRepository));
             resolver.RegisterSingleton(typeof(AudioMetadataReader), typeof(IAudioMetadataReader));
             resolver.Register(typeof(SpotifyAudioPlayer), typeof(IAudioPlayer));

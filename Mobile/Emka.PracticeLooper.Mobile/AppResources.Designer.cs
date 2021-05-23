@@ -155,18 +155,6 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
-        internal static string SettingsView_ListView_Header {
-            get {
-                return ResourceManager.GetString("SettingsView_ListView_Header", resourceCulture);
-            }
-        }
-        
-        internal static string SettingsView_NoUpgradesDescription {
-            get {
-                return ResourceManager.GetString("SettingsView_NoUpgradesDescription", resourceCulture);
-            }
-        }
-        
         internal static string SettingsView_ThirdPartySoftware {
             get {
                 return ResourceManager.GetString("SettingsView_ThirdPartySoftware", resourceCulture);
@@ -245,36 +233,6 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
-        internal static string InAppBillingProductView_Buy {
-            get {
-                return ResourceManager.GetString("InAppBillingProductView_Buy", resourceCulture);
-            }
-        }
-        
-        internal static string InAppBillingProductView_Purchased {
-            get {
-                return ResourceManager.GetString("InAppBillingProductView_Purchased", resourceCulture);
-            }
-        }
-        
-        internal static string InAppBillingError_ProductNotAvailableForPurchase {
-            get {
-                return ResourceManager.GetString("InAppBillingError_ProductNotAvailableForPurchase", resourceCulture);
-            }
-        }
-        
-        internal static string InAppBillingError_PaymentPending {
-            get {
-                return ResourceManager.GetString("InAppBillingError_PaymentPending", resourceCulture);
-            }
-        }
-        
-        internal static string InAppBillingError_InsufficientPermissions {
-            get {
-                return ResourceManager.GetString("InAppBillingError_InsufficientPermissions", resourceCulture);
-            }
-        }
-        
         internal static string Error_Caption {
             get {
                 return ResourceManager.GetString("Error_Caption", resourceCulture);
@@ -314,42 +272,6 @@ namespace Emka.PracticeLooper.Mobile {
         internal static string Error_Content_CouldNotDeleteLoop {
             get {
                 return ResourceManager.GetString("Error_Content_CouldNotDeleteLoop", resourceCulture);
-            }
-        }
-        
-        internal static string Error_Content_CouldNotConnectToStore {
-            get {
-                return ResourceManager.GetString("Error_Content_CouldNotConnectToStore", resourceCulture);
-            }
-        }
-        
-        internal static string Error_Content_CouldNotPurchaseItem {
-            get {
-                return ResourceManager.GetString("Error_Content_CouldNotPurchaseItem", resourceCulture);
-            }
-        }
-        
-        internal static string Error_Content_StoreUnavailable {
-            get {
-                return ResourceManager.GetString("Error_Content_StoreUnavailable", resourceCulture);
-            }
-        }
-        
-        internal static string Error_Content_BillingUnavailable {
-            get {
-                return ResourceManager.GetString("Error_Content_BillingUnavailable", resourceCulture);
-            }
-        }
-        
-        internal static string Error_Content_PaymentInvalid {
-            get {
-                return ResourceManager.GetString("Error_Content_PaymentInvalid", resourceCulture);
-            }
-        }
-        
-        internal static string Error_Content_PaymentNotAllowed {
-            get {
-                return ResourceManager.GetString("Error_Content_PaymentNotAllowed", resourceCulture);
             }
         }
         
@@ -401,18 +323,6 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
-        internal static string Hint_Caption_AlreadyPurchased {
-            get {
-                return ResourceManager.GetString("Hint_Caption_AlreadyPurchased", resourceCulture);
-            }
-        }
-        
-        internal static string Hint_Content_AlreadyPurchased {
-            get {
-                return ResourceManager.GetString("Hint_Content_AlreadyPurchased", resourceCulture);
-            }
-        }
-        
         internal static string Hint_Caption_SlowConnection {
             get {
                 return ResourceManager.GetString("Hint_Caption_SlowConnection", resourceCulture);
@@ -455,6 +365,18 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string Hint_Caption_SpotifyAppInstalled {
+            get {
+                return ResourceManager.GetString("Hint_Caption_SpotifyAppInstalled", resourceCulture);
+            }
+        }
+        
+        internal static string Hint_Content_SpotifyAppInstalled {
+            get {
+                return ResourceManager.GetString("Hint_Content_SpotifyAppInstalled", resourceCulture);
+            }
+        }
+        
         internal static string Prompt_Caption_NewLoop {
             get {
                 return ResourceManager.GetString("Prompt_Caption_NewLoop", resourceCulture);
@@ -470,18 +392,6 @@ namespace Emka.PracticeLooper.Mobile {
         internal static string Prompt_Content_NewLoop_NamePlaceholder {
             get {
                 return ResourceManager.GetString("Prompt_Content_NewLoop_NamePlaceholder", resourceCulture);
-            }
-        }
-        
-        internal static string pl_premium_general {
-            get {
-                return ResourceManager.GetString("pl.premium.general", resourceCulture);
-            }
-        }
-        
-        internal static string ios_premium_lifetime {
-            get {
-                return ResourceManager.GetString("ios.premium.lifetime", resourceCulture);
             }
         }
     }

@@ -3,6 +3,7 @@
 // Proprietary and confidential
 // Maksim Kolesnik maksim.kolesnik@emka3.de, 2020
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using Emka.PracticeLooper.Mobile.Navigation;
 using Emka.PracticeLooper.Mobile.ViewModels.Common;
@@ -11,7 +12,6 @@ using Emka.PracticeLooper.Services.Contracts;
 using Emka3.PracticeLooper.Model.Player;
 using Emka3.PracticeLooper.Services.Contracts.Common;
 using Emka3.PracticeLooper.Utils;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
@@ -72,6 +72,15 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         public override Task InitializeAsync(object parameter)
         {
             return Task.CompletedTask;
+        }
+
+        public override string ToString()
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine($"session: {Session}");
+            builder.AppendLine($"audio source: {Session?.AudioSource}");
+            builder.AppendLine($"loops: {Session?.Loops}");
+            return builder.ToString();
         }
         #endregion
     }
