@@ -98,16 +98,19 @@ namespace Emka.PracticeLooper.Mobile.Droid.Common
 
             await Task.Run(() =>
             {
-                CallResult playerStateCall = Api.PlayerApi.PlayerState;
-                IResult result = playerStateCall.Await(10, TimeUnit.Seconds);
-                if (result.IsSuccessful)
+                CallResult playerStateCall = Api?.PlayerApi?.PlayerState;
+                if (playerStateCall != null)
                 {
-                    var state = result.Data as PlayerState;
-                    callback?.Invoke(state == null ? 0 : state.PlaybackPosition);
-                }
-                else
-                {
-                    logger?.LogError(new System.Exception(result.ErrorMessage));
+                    IResult result = playerStateCall.Await(10, TimeUnit.Seconds);
+                    if (result.IsSuccessful)
+                    {
+                        var state = result.Data as PlayerState;
+                        callback?.Invoke(state == null ? 0 : state.PlaybackPosition);
+                    }
+                    else
+                    {
+                        logger?.LogError(new System.Exception(result.ErrorMessage));
+                    }
                 }
             });
         }

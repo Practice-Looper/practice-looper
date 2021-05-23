@@ -25,6 +25,7 @@ using System.Net;
 using System.Threading;
 using Emka3.PracticeLooper.Model.Common;
 using Plugin.StoreReview;
+using System.Diagnostics;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -104,7 +105,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             this.configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             AudioPlayers = audioPlayers?.ToList() ?? throw new ArgumentNullException(nameof(audioPlayers));
 
-            MessagingCenter.Subscribe<SpotifySearchViewModel, AudioSource>(this, MessengerKeys.NewTrackAdded, (sender, audioSorce) => CreateSessionCommand.Execute(audioSorce));
+            MessagingCenter.Subscribe<object, AudioSource>(this, MessengerKeys.NewTrackAdded, (sender, audioSorce) => CreateSessionCommand.Execute(audioSorce));
             MessagingCenter.Subscribe<SessionViewModel, SessionViewModel>(this, MessengerKeys.DeleteSession, (sender, arg) => DeleteSessionCommand.Execute(arg));
             MessagingCenter.Subscribe<SessionDetailsViewModel, LoopViewModel>(this, MessengerKeys.LoopChanged, OnLoopChanged);
             MessagingCenter.Subscribe<LoopViewModel, Loop>(this, MessengerKeys.DeleteLoop, OnDeleteLoop);
@@ -263,16 +264,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
 
                     if (isCurrentlyPlaying)
                     {
-                        Task.Run(async () =>
-                        {
-                            await CurrentAudioPlayer?.PauseAsync();
-                            while (CurrentAudioPlayer.IsPlaying)
-                            {
-                                await Task.Delay(500);
-                            }
-
-                            PlayCommand.Execute(null);
-                        });
+                        PlayCommand.Execute(null);
                     }
 
                     Tracker.Track(TrackerEvents.Init, new Dictionary<string, string> { { "CurrentSession", "isCurrentlyPlaying handled" } });
@@ -925,6 +917,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private void OnPlayingStatusChanged(object sender, bool e)
         {
             IsPlaying = e;
+            Debug.WriteLine($"################ {IsPlaying}");
         }
 
         private void OnCurrentTimePositionChanged(object sender, EventArgs e)
