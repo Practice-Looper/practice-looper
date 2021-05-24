@@ -8,7 +8,7 @@
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <DebugType>pdbonly</DebugType>
         <DebugSymbols>true</DebugSymbols>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>latestmajor</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildIOS|AnyCPU' ">
         <DebugType>
@@ -23,10 +23,10 @@
         </NoWarn>
         <NoStdLib>false</NoStdLib>
         <Nullable></Nullable>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>latestmajor</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mock|AnyCPU' ">
-      <LangVersion>latest</LangVersion>
+      <LangVersion>latestmajor</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugType>
@@ -35,7 +35,7 @@
         </OutputPath>
         <OutputPath>
         </OutputPath>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>latestmajor</LangVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Autofac" Version="6.2.0" />
