@@ -9,9 +9,11 @@ namespace Emka3.PracticeLooper.Services.Contracts.Player
     {
         event EventHandler LoopTimerExpired;
         event EventHandler CurrentPositionTimerExpired;
+        event EventHandler PlayingStatusTimerExpired;
 
         void SetLoopTimer(double time);
         void SetCurrentTimeTimer(int time);
+        void SetPlayingStatusTimer(double time);
         void StopTimers();
     }
 }

@@ -24,6 +24,7 @@ namespace Emka3.PracticeLooper.Services.Contracts.Rest
         Task<bool> SeekTo(long position);
         Task<List<SpotifyDevice>> GetAvailableDevices();
         Task<double> GetCurrentPlaybackPosition();
+        Task<bool> GetPlayingStatus();
         double GetAverageRequestTime();
     }
 }
