@@ -1,0 +1,21 @@
+<p>Mark sections from audio files to a second and repeat them!<br /> Stream loops directly from your Spotify premium account or use local audio files.</p>
+<p>Learn music, lyrics and languages more intensively by splitting your Spotify songs or audio files into smaller segments and looping them - as often as you like without annoying pausing and rewinding.</p>
+<p>To use Practice Looper, you need at least local audio files on your smartphone. To stream Spotify, you need a Spotify Premium subscription and a stable internet connection while using the app.</p>
+<p><b>Features of the free LITE version (with ads):</b></p>
+<p>• plays local files or streams via connection to your Spotify premium account</p>
+<p>• mark start and end  to a second, even while playing</p>
+<p>• start and pause your selected loop</p>
+<p>• after restarting the app the loop is reset</p>
+<p>• maximum one song can be added</p>
+<p>• contains advertising<br /><br /></p>
+<p><b>Functions of the paid PREMIUM Version (ad-free):</b></p>
+<p>• unlimited number of songs can be added</p>
+<p>• name, save and delete loops</p>
+<p>• last loop session visible after restart</p>
+<p>• unlimited loops per song</p>
+<p>• absolutely free of advertising<br /><br /></p>
+<p><b>Especially suitable for:</b></p>
+<p>• dancers and performers: creating and rehearsing choreographies</p>
+<p>• musicians and singers: learn and practice songs and lyrics intensively</p>
+<p>• teachers: prepare songs segment by segment for your students</p>
+<p> </p>
