@@ -19,6 +19,7 @@ namespace Emka3.PracticeLooper.Services.Player
         #region Fields
         private Timer looperTimer;
         private Timer currentPositionTimer;
+        private Timer playingStatusTimer;
         private readonly ILogger logger;
         #endregion Fields
 
@@ -32,6 +33,7 @@ namespace Emka3.PracticeLooper.Services.Player
         #region Events
         public event EventHandler LoopTimerExpired;
         public event EventHandler CurrentPositionTimerExpired;
+        public event EventHandler PlayingStatusTimerExpired;
         #endregion Events
 
         #region Methods
@@ -70,6 +72,22 @@ namespace Emka3.PracticeLooper.Services.Player
             }
         }
 
+        public void SetPlayingStatusTimer(double time)
+        {
+            try
+            {
+                playingStatusTimer = new Timer(time);
+                playingStatusTimer.Elapsed += OnPlayingStatusTimedEvent;
+                playingStatusTimer.AutoReset = true;
+                playingStatusTimer.Enabled = true;
+            }
+            catch (TaskCanceledException ex)
+            {
+                logger?.LogError(ex);
+                throw;
+            }
+        }
+
         private void OnLooperTimedEvent(object sender, ElapsedEventArgs e)
         {
             LoopTimerExpired?.Invoke(this, new EventArgs());
@@ -78,6 +96,11 @@ namespace Emka3.PracticeLooper.Services.Player
         private void OnCurrentPositionTimedEvent(object sender, ElapsedEventArgs e)
         {
             CurrentPositionTimerExpired?.Invoke(this, new EventArgs());
+        }
+
+        private void OnPlayingStatusTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            PlayingStatusTimerExpired?.Invoke(this, new EventArgs());
         }
 
         public void StopTimers()
@@ -92,6 +115,12 @@ namespace Emka3.PracticeLooper.Services.Player
             {
                 currentPositionTimer.Stop();
                 currentPositionTimer.Elapsed -= OnCurrentPositionTimedEvent;
+            }
+
+            if (playingStatusTimer != null)
+            {
+                playingStatusTimer.Stop();
+                playingStatusTimer.Elapsed -= OnPlayingStatusTimedEvent;
             }
         }
         #endregion Methods

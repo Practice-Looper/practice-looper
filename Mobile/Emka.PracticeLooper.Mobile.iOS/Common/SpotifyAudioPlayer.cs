@@ -30,6 +30,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
         private CancellationTokenSource currentTimeCancelTokenSource;
         private double internalSongDuration;
         const int CURRENT_TIME_UPDATE_INTERVAL = 1000;
+        const int PLAYING_STATUS_UPDATE_INTERVAL = 3000;
         private string deviceId;
         #endregion
 
@@ -93,6 +94,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             currentTimeCancelTokenSource = new CancellationTokenSource();
             timer.LoopTimerExpired += LoopTimerExpired;
             timer.CurrentPositionTimerExpired += CurrentPositionTimerExpired;
+            timer.PlayingStatusTimerExpired += OnPlayingStatusTimerExpired;
             Initialized = true;
         }
 
@@ -261,12 +263,16 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
         }
 
-        public async void GetCurrentPosition(Action<double> callback)
+        public void GetCurrentPosition(Action<double> callback)
         {
             if (useWebPlayer)
             {
-                var currentPosition = await spotifyApiService.GetCurrentPlaybackPosition();
-                callback?.Invoke(currentPosition);
+                Task.Run(async () =>
+                {
+                    var currentPosition = await spotifyApiService.GetCurrentPlaybackPosition();
+                    callback?.Invoke(currentPosition);
+                });
+
                 return;
             }
 
@@ -304,6 +310,18 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
             }
         }
 
+        private void OnPlayingStatusTimerExpired(object sender, EventArgs e)
+        {
+            Task.Run(async () =>
+            {
+                var isPlayingStatus = await spotifyApiService.GetPlayingStatus();
+                if (IsPlaying && !isPlayingStatus)
+                {
+                    Pause();
+                }
+            });
+        }
+
         private void RaisePlayingStatusChanged()
         {
             PlayStatusChanged?.Invoke(this, IsPlaying);
@@ -331,6 +349,7 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 timer?.StopTimers();
                 timer?.SetLoopTimer(timerDuration);
                 timer?.SetCurrentTimeTimer(CURRENT_TIME_UPDATE_INTERVAL);
+                timer?.SetPlayingStatusTimer(PLAYING_STATUS_UPDATE_INTERVAL);
             }
             catch (Exception ex)
             {

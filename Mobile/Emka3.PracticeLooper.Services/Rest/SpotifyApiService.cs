@@ -241,6 +241,27 @@ namespace Emka3.PracticeLooper.Services.Rest
             return default;
         }
 
+        public async Task<bool> GetPlayingStatus()
+        {
+            try
+            {
+                var client = await GetSpotifyClient();
+                StartRequestTimeMeasurement();
+                var response = await client.Player.GetCurrentPlayback();
+                return response.IsPlaying;
+            }
+            catch (Exception ex)
+            {
+                await logger.LogErrorAsync(ex);
+            }
+            finally
+            {
+                StopRequestTimeMeasurement();
+            }
+
+            return default;
+        }
+
         public double GetAverageRequestTime()
         {
             var averageTime = requestTimeBuffer.Buffer.Average(r => r);

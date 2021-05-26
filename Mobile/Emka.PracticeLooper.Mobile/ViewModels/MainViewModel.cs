@@ -917,7 +917,6 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private void OnPlayingStatusChanged(object sender, bool e)
         {
             IsPlaying = e;
-            Debug.WriteLine($"################ {IsPlaying}");
         }
 
         private void OnCurrentTimePositionChanged(object sender, EventArgs e)
