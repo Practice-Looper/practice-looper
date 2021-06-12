@@ -29,8 +29,11 @@ namespace Emka.PracticeLooper.Mobile.iOS.Renderer
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
-            Control.Layer.BorderColor = UIColor.Clear.FromHex(0x369598).CGColor;
-            Control.Layer.BorderWidth = 1;
+            if (Control != null)
+            {
+                Control.Layer.BorderColor = UIColor.Clear.FromHex(0x369598).CGColor;
+                Control.Layer.BorderWidth = 1;
+            }
         }
     }
 }

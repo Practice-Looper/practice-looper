@@ -24,6 +24,8 @@ namespace Emka.PracticeLooper.Mobile.Views
             BindableProperty.Create("SelectedBackgroundColor", typeof(Color), typeof(CustomViewCell), Color.Default);
         public static readonly BindableProperty FontColorProperty =
             BindableProperty.Create("FontColor", typeof(Color), typeof(CustomViewCell), Color.Default);
+        public static readonly BindableProperty SpotifyFontColorProperty =
+            BindableProperty.Create("SpotifyFontColor", typeof(Color), typeof(CustomViewCell), Color.Default);
         private readonly IConfigurationService configurationService;
         private readonly IDialogService dialogService;
         private readonly ILogger logger;
@@ -54,6 +56,12 @@ namespace Emka.PracticeLooper.Mobile.Views
             get { return (Color)GetValue(FontColorProperty); }
             set { SetValue(FontColorProperty, value); }
         }
+
+        public Color SpotifyFontColor
+        {
+            get { return (Color)GetValue(SpotifyFontColorProperty); }
+            set { SetValue(SpotifyFontColorProperty, value); }
+        }
         #endregion
 
         #region Methods
@@ -77,11 +85,13 @@ namespace Emka.PracticeLooper.Mobile.Views
             {
                 View.BackgroundColor = (Color)Application.Current.Resources["PrimaryColor"];
                 FontColor = (Color)Application.Current.Resources["BackgroundColor"];
+                SpotifyFontColor = Color.Black;
             }
             else
             {
                 View.BackgroundColor = Color.Transparent;
                 FontColor = (Color)Application.Current.Resources["PrimaryColor"];
+                SpotifyFontColor = (Color)Application.Current.Resources["SpotifyColor"];
             }
         }
 
@@ -105,11 +115,13 @@ namespace Emka.PracticeLooper.Mobile.Views
                 {
                     View.BackgroundColor = (Color)Application.Current.Resources["PrimaryColor"];
                     FontColor = (Color)Application.Current.Resources["BackgroundColor"];
+                    SpotifyFontColor = Color.Black;
                 }
                 else
                 {
                     View.BackgroundColor = (Color)Application.Current.Resources["BackgroundColor"];
                     FontColor = (Color)Application.Current.Resources["PrimaryColor"];
+                    SpotifyFontColor = (Color)Application.Current.Resources["SpotifyColor"];
                 }
             }
             else

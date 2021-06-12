@@ -114,6 +114,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                  new Session
                     {   Id=0,
                         Name = audioSources.First().FileName,
+                        Artist = "Artist",
+                        CoverSource = "mycoverSource",
                         AudioSource = audioSources.First(),
                         Loops = new List<Loop>
                         {
@@ -123,6 +125,8 @@ namespace Emka.PracticeLooper.Mobile.Tests.ViewModelTests
                  new Session
                     {   Id=1,
                         Name = audioSources.Last().FileName,
+                        Artist = "Artist",
+                        CoverSource = "mycoverSource",
                         AudioSource = audioSources.Last(),
                         Loops = new List<Loop>
                         {

@@ -9,10 +9,10 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildIOS|AnyCPU' ">
     <DebugType></DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\BuildIOS</OutputPath>
+    <OutputPath>bin\BuildIOS\netstandard2.0</OutputPath>
     <DefineConstants></DefineConstants>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>obj\BuildIOS</IntermediateOutputPath>
+    <IntermediateOutputPath>obj\BuildIOS\netstandard2.0</IntermediateOutputPath>
     <NoWarn></NoWarn>
     <NoStdLib>false</NoStdLib>
     <LangVersion>latest</LangVersion>

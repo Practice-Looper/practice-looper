@@ -15,6 +15,10 @@ namespace Emka3.PracticeLooper.Model.Player
     {
         public string Source { get; set; }
         public string FileName { get; set; }
+        [Ignore]
+        public string Artist { get; set; }
+        [Ignore]
+        public string CoverSource { get; set; }
         public double Duration { get; set; }
         public AudioSourceType Type { get; set; }
 

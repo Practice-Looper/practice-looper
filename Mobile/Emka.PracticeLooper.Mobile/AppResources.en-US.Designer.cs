@@ -317,6 +317,12 @@ namespace Emka.PracticeLooper.Mobile {
             }
         }
         
+        internal static string Error_Content_UpdateSessionError {
+            get {
+                return ResourceManager.GetString("Error_Content_UpdateSessionError", resourceCulture);
+            }
+        }
+        
         internal static string Hint_Caption_SlowConnection {
             get {
                 return ResourceManager.GetString("Hint_Caption_SlowConnection", resourceCulture);
@@ -386,6 +392,24 @@ namespace Emka.PracticeLooper.Mobile {
         internal static string Prompt_Content_NewLoop_NamePlaceholder {
             get {
                 return ResourceManager.GetString("Prompt_Content_NewLoop_NamePlaceholder", resourceCulture);
+            }
+        }
+        
+        internal static string EditSession_Artist {
+            get {
+                return ResourceManager.GetString("EditSession_Artist", resourceCulture);
+            }
+        }
+        
+        internal static string EditSession_Title {
+            get {
+                return ResourceManager.GetString("EditSession_Title", resourceCulture);
+            }
+        }
+        
+        internal static string EditSession_UnknownArtist {
+            get {
+                return ResourceManager.GetString("EditSession_UnknownArtist", resourceCulture);
             }
         }
     }

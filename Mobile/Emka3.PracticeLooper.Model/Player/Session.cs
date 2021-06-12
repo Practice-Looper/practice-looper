@@ -24,6 +24,16 @@ namespace Emka3.PracticeLooper.Model.Player
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the name of the artist
+        /// </summary>
+        public string Artist { get; set; }
+
+        /// <summary>
+        /// Track cover source. Either web or from metadata
+        /// </summary>
+        public string CoverSource { get; set; }
+
+        /// <summary>
         /// Gets or sets the file path.
         /// </summary>
         /// <value>The file path.</value>
