@@ -14,7 +14,7 @@
             x:TypeArguments="Thickness">
             <On
                 Platform="iOS"
-                Value="0,0,0,0" />
+                Value="20,0" />
             <On
                 Platform="Android"
                 Value="20,0" />
@@ -27,6 +27,17 @@
         BorderColor="{DynamicResource SecondaryColor}"
         CornerRadius="0"
         Padding="10">
+        <Frame.Margin>
+            <OnPlatform
+            x:TypeArguments="Thickness">
+            <On
+                Platform="iOS"
+                Value="20,0" />
+            <On
+                Platform="Android"
+                Value="0,0" />
+        </OnPlatform>
+        </Frame.Margin>
 
         <Grid >
             <Grid.RowDefinitions>
