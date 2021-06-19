@@ -1,308 +1,204 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-    <resheader
-        name="resmimetype">
-        <value>text/microsoft-resx</value>
-    </resheader>
-    <resheader
-        name="version">
-        <value>2.0</value>
-    </resheader>
-    <resheader
-        name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <resheader
-        name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <!--General-->
-    <data
-        name="AppName"
-        xml:space="preserve">
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<!--General-->
+	<data name="AppName" xml:space="preserve">
         <value>Practice Looper</value>
     </data>
-    <data
-        name="Spotify"
-        xml:space="preserve">
+	<data name="Spotify" xml:space="preserve">
         <value>Spotify</value>
     </data>
-    <data
-        name="AudioFile"
-        xml:space="preserve">
+	<data name="AudioFile" xml:space="preserve">
         <value>Audio Datei</value>
     </data>
-    <data
-        name="Cancel"
-        xml:space="preserve">
+	<data name="Cancel" xml:space="preserve">
         <value>Abbrechen</value>
     </data>
-    <data
-        name="Ok"
-        xml:space="preserve">
+	<data name="Ok" xml:space="preserve">
         <value>OK</value>
     </data>
-    <data
-        name="Save"
-        xml:space="preserve">
+	<data name="Save" xml:space="preserve">
         <value>Speichern</value>
     </data>
-    <data
-        name="Delete"
-        xml:space="preserve">
+	<data name="Delete" xml:space="preserve">
         <value>Löschen</value>
     </data>
-    <data
-        name="Close"
-        xml:space="preserve">
+	<data name="Close" xml:space="preserve">
         <value>Schließen</value>
     </data>
-    <data
-        name="Minutes"
-        xml:space="preserve">
+	<data name="Minutes" xml:space="preserve">
         <value>Minuten</value>
     </data>
-    <data
-        name="Seconds"
-        xml:space="preserve">
+	<data name="Seconds" xml:space="preserve">
         <value>Sekunden</value>
     </data>
-    <data
-        name="LoopStartPosition"
-        xml:space="preserve">
+	<data name="LoopStartPosition" xml:space="preserve">
         <value>Start Markierung</value>
     </data>
-    <data
-        name="LoopEndPosition"
-        xml:space="preserve">
+	<data name="LoopEndPosition" xml:space="preserve">
         <value>End Markierung</value>
     </data>
-    <!--LoopsDetailsView-->
-    <data
-        name="LoopsDetailsView_Title"
-        xml:space="preserve">
+	<!--LoopsDetailsView-->
+	<data name="LoopsDetailsView_Title" xml:space="preserve">
         <value>Loops</value>
     </data>
-    <!--SpotifySearchView-->
-    <data
-        name="SpotifySearchView_Title"
-        xml:space="preserve">
+	<!--SpotifySearchView-->
+	<data name="SpotifySearchView_Title" xml:space="preserve">
         <value>Song aus Spotify hinzufügen</value>
     </data>
-    <data
-        name="SpotifySearchView_SearchBox_Placeholder"
-        xml:space="preserve">
+	<data name="SpotifySearchView_SearchBox_Placeholder" xml:space="preserve">
         <value>Such nach einem Lied</value>
     </data>
-    <!--SettingsView-->
-    <data
-        name="SettingsView_Title"
-        xml:space="preserve">
+	<!--SettingsView-->
+	<data name="SettingsView_Title" xml:space="preserve">
         <value>Einstellungen</value>
     </data>
-    <data
-        name="SettingsView_DarkMode"
-        xml:space="preserve">
+	<data name="SettingsView_DarkMode" xml:space="preserve">
         <value>Dark Mode</value>
     </data>
-    <data
-        name="SettingsView_AppVersion"
-        xml:space="preserve">
+	<data name="SettingsView_AppVersion" xml:space="preserve">
         <value>App Version: {0}</value>
     </data>
-    <data
-        name="SettingsView_ThirdPartySoftware"
-        xml:space="preserve">
+	<data name="SettingsView_ThirdPartySoftware" xml:space="preserve">
         <value>Drittanbieter-Software</value>
     </data>
-    <data
-        name="SettingsView_PrivacyPolicy"
-        xml:space="preserve">
+	<data name="SettingsView_PrivacyPolicy" xml:space="preserve">
         <value>Datenschutz</value>
     </data>
-    <!--OnboardingView-->
-    <data
-        name="OnboardingView_TutorialButton"
-        xml:space="preserve">
+	<!--OnboardingView-->
+	<data name="OnboardingView_TutorialButton" xml:space="preserve">
         <value>Tutorial überspringen</value>
     </data>
-    <data
-        name="OnboardingView_Welcome_Title"
-        xml:space="preserve">
+	<data name="OnboardingView_Welcome_Title" xml:space="preserve">
         <value>Willkommen bei Practice Looper</value>
     </data>
-    <data
-        name="OnboardingView_Welcome_Description"
-        xml:space="preserve">
+	<data name="OnboardingView_Welcome_Description" xml:space="preserve">
         <value>Practice, Loop - Loop, Practice</value>
     </data>
-    <data
-        name="OnboardingView_AddSong_Title"
-        xml:space="preserve">
+	<data name="OnboardingView_AddSong_Title" xml:space="preserve">
         <value>Füge einen neuen Song hinzu</value>
     </data>
-    <data
-        name="OnboardingView_Slider_Title"
-        xml:space="preserve">
+	<data name="OnboardingView_Slider_Title" xml:space="preserve">
         <value>Wähle eine Start- und Endmarkierung für deinen Loop</value>
     </data>
-    <data
-        name="OnboardingView_Picker_Title"
-        xml:space="preserve">
+	<data name="OnboardingView_Picker_Title" xml:space="preserve">
         <value>Nutze den Picker für präzisere Markierungen</value>
     </data>
-    <data
-        name="OnboardingView_AddMarker_Title"
-        xml:space="preserve">
+	<data name="OnboardingView_AddMarker_Title" xml:space="preserve">
         <value>Speichere deine Loops</value>
     </data>
-    <data
-        name="OnboardingView_ShowMarker_Title"
-        xml:space="preserve">
+	<data name="OnboardingView_ShowMarker_Title" xml:space="preserve">
         <value>Spiele einen Loop ab oder lösche ihn</value>
     </data>
-    <data
-        name="OnboardingView_LetsStart_Title"
-        xml:space="preserve">
+	<data name="OnboardingView_LetsStart_Title" xml:space="preserve">
         <value>Füge jetzt deinen ersten Song hinzu</value>
     </data>
-    <data
-        name="OnboardingView_LetsStart_Description"
-        xml:space="preserve">
+	<data name="OnboardingView_LetsStart_Description" xml:space="preserve">
         <value>Viel Spaß!</value>
     </data>
-    <data
-        name="OnboardingView_LetsLoopButton"
-        xml:space="preserve">
+	<data name="OnboardingView_LetsLoopButton" xml:space="preserve">
         <value>Let's loop</value>
     </data>
-    <!--Error Dialogs-->
-    <data
-        name="Error_Caption"
-        xml:space="preserve">
+	<!--Error Dialogs-->
+	<data name="Error_Caption" xml:space="preserve">
         <value>Fehler</value>
     </data>
-    <data
-        name="Error_Content_General"
-        xml:space="preserve">
+	<data name="Error_Content_General" xml:space="preserve">
         <value>Oops, etwas ist schief gelaufen!</value>
     </data>
-    <data
-        name="Error_Content_CouldNotCreateSession"
-        xml:space="preserve">
+	<data name="Error_Content_CouldNotCreateSession" xml:space="preserve">
         <value>Oops, Song konnte nicht hinzugefügt werden, bitte versuchen Sie es später nochmal!</value>
     </data>
-    <data
-        name="Error_Content_CouldNotPlaySong"
-        xml:space="preserve">
+	<data name="Error_Content_CouldNotPlaySong" xml:space="preserve">
         <value>Oops, Song konnte nicht abgespielt werden, bitte versuchen Sie es später nochmal!</value>
     </data>
-    <data
-        name="Error_Content_CouldNotDeleteSong"
-        xml:space="preserve">
+	<data name="Error_Content_CouldNotDeleteSong" xml:space="preserve">
         <value>Oops, Song konnte nicht gelöscht werden, bitte versuchen Sie es später nochmal!</value>
     </data>
-    <data
-        name="Error_Content_CouldNotCreateLoop"
-        xml:space="preserve">
+	<data name="Error_Content_CouldNotCreateLoop" xml:space="preserve">
         <value>Oops, Loop konnte nicht hinzugefügt werden, bitte versuchen Sie es später nochmal!</value>
     </data>
-    <data
-        name="Error_Content_CouldNotDeleteLoop"
-        xml:space="preserve">
+	<data name="Error_Content_CouldNotDeleteLoop" xml:space="preserve">
         <value>Oops, Loop konnte nicht gelöscht werden, bitte versuchen Sie es später nochmal!</value>
     </data>
-    <data
-        name="Error_Content_FileNotFound"
-        xml:space="preserve">
+	<data name="Error_Content_FileNotFound" xml:space="preserve">
         <value>Die ausgewählte Datei wurde nicht gefunden. Soll die Session gelöscht werden?</value>
     </data>
-    <data
-        name="Error_Content_NotEnoughSpace"
-        xml:space="preserve">
+	<data name="Error_Content_NotEnoughSpace" xml:space="preserve">
         <value>Die ausgewählte Datei konnte nicht hinzugefügt werden, da nicht genügend Speicherplatz vorhanden ist.</value>
     </data>
-    <data
-        name="Error_Content_NoPremiumUser"
-        xml:space="preserve">
+	<data name="Error_Content_NoPremiumUser" xml:space="preserve">
         <value>Du scheinst keinen Spotify Premium Account zu haben. Um Spotify Songs loopen zu können, brauchst du ein Spotify Premium Abo.</value>
     </data>
-    <data
-        name="Error_Content_PremiumUserCheckFailed"
-        xml:space="preserve">
+	<data name="Error_Content_PremiumUserCheckFailed" xml:space="preserve">
         <value>Dein Spotify Account konnte nicht überprüft werden. Um Spotify Songs loopen zu können, brauchst du ein Spotify Premium Abo.</value>
     </data>
-    <data
-        name="Error_Content_NoActivePlayer"
-        xml:space="preserve">
+	<data name="Error_Content_NoActivePlayer" xml:space="preserve">
         <value>Kein aktiver Spotify Player gefunden. Logge dich im Web Player ein und spiele einen beliebigen Song ab.</value>
     </data>
-    <data
-        name="Error_Content_WebViewNavigationError"
-        xml:space="preserve">
+	<data name="Error_Content_WebViewNavigationError" xml:space="preserve">
         <value>Etwas ist schief gelaufen! Überprüfe deine Internetverbindung und versuche es erneut.</value>
     </data>
-    
-    <!--Hint Dialogs-->
-    <data
-        name="Hint_Caption_SlowConnection"
-        xml:space="preserve">
+    <data name="Error_Content_UpdateSessionError" xml:space="preserve">
+        <value>Leider konnte die Session nicht gespeichert werden.</value>
+    </data>
+	<!--Hint Dialogs-->
+	<data name="Hint_Caption_SlowConnection" xml:space="preserve">
         <value>Verbindungsprobleme</value>
     </data>
-    <data
-        name="Hint_Content_SlowConnection"
-        xml:space="preserve">
+	<data name="Hint_Content_SlowConnection" xml:space="preserve">
         <value>Ihre Internetverbindung scheint schlecht zu sein. Dies kann sich auf die Bedienung der App auswirken.</value>
     </data>
-    <data
-        name="Hint_Caption_FileTooLong_Caption"
-        xml:space="preserve">
+	<data name="Hint_Caption_FileTooLong_Caption" xml:space="preserve">
         <value>Nicht unterstützt</value>
     </data>
-    <data
-        name="Hint_Content_FileTooLong_Content"
-        xml:space="preserve">
+	<data name="Hint_Content_FileTooLong_Content" xml:space="preserve">
         <value>Lieder die länger als eine Stunde sind, werden nicht unterstützt.</value>
     </data>
-    <data
-        name="Hint_Caption_SpotifyMissing"
-        xml:space="preserve">
+	<data name="Hint_Caption_SpotifyMissing" xml:space="preserve">
         <value>Spotify-App fehlt</value>
     </data>
-    <data
-        name="Hint_Content_SpotifyMissing"
-        xml:space="preserve">
+	<data name="Hint_Content_SpotifyMissing" xml:space="preserve">
         <value>Spotify-App fehlt auf Ihrem Gerät. Möchten Sie sie jetzt herunterladen?</value>
     </data>
-    <data
-        name="Hint_Caption_General"
-        xml:space="preserve">
+	<data name="Hint_Caption_General" xml:space="preserve">
         <value>Warnung</value>
     </data>
-    <data
-        name="Hint_Caption_SpotifyAppInstalled"
-        xml:space="preserve">
+	<data name="Hint_Caption_SpotifyAppInstalled" xml:space="preserve">
         <value>Spotify App</value>
     </data>
-    <data
-        name="Hint_Content_SpotifyAppInstalled"
-        xml:space="preserve">
+	<data name="Hint_Content_SpotifyAppInstalled" xml:space="preserve">
         <value>Spotify App bereits installiert und wird für die Wiedergabe verwendet!</value>
     </data>
-    <!--Prompt Dialogs-->
-    <data
-        name="Prompt_Caption_NewLoop"
-        xml:space="preserve">
+	<!--Prompt Dialogs-->
+	<data name="Prompt_Caption_NewLoop" xml:space="preserve">
         <value>Neuer Loop</value>
     </data>
-    <data
-        name="Prompt_Content_NewLoop"
-        xml:space="preserve">
+	<data name="Prompt_Content_NewLoop" xml:space="preserve">
         <value>Geben Sie einen Namen ein</value>
     </data>
-    <data
-        name="Prompt_Content_NewLoop_NamePlaceholder"
-        xml:space="preserve">
+	<data name="Prompt_Content_NewLoop_NamePlaceholder" xml:space="preserve">
         <value>{0}. Loop</value>
+    </data>
+    <!--Edit session dialog-->
+    <data name="EditSession_Artist" xml:space="preserve">
+        <value>Interpret</value>
+    </data>
+    <data name="EditSession_Title" xml:space="preserve">
+        <value>Titel</value>
+    </data>
+    <data name="EditSession_UnknownArtist" xml:space="preserve">
+        <value>Unbekannter Interpret</value>
     </data>
 </root>

@@ -79,6 +79,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 MessagingCenter.Send<object, AudioSource>(this, MessengerKeys.NewTrackAdded, new AudioSource
                 {
                     FileName = track.Name,
+                    CoverSource = track.Album.ImageSmall,
+                    Artist = track.ArtistNames,
                     Type = AudioSourceType.Spotify,
                     Source = track.Uri,
                     Duration = track.Duration / 1000

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:PopupPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    x:Class="Emka.PracticeLooper.Mobile.Views.EditSessionView"
+    xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="True"
+    CloseWhenBackgroundIsClicked="True"
+    BackgroundClicked="OnClose">
+    <pages:PopupPage.Padding>
+        <OnPlatform
+            x:TypeArguments="Thickness">
+            <On
+                Platform="iOS"
+                Value="20,0" />
+            <On
+                Platform="Android"
+                Value="20,0" />
+        </OnPlatform>
+    </pages:PopupPage.Padding>
+    <Frame
+        BackgroundColor="{DynamicResource BackgroundColor}"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="Center"
+        BorderColor="{DynamicResource SecondaryColor}"
+        CornerRadius="0"
+        Padding="10">
+        <Frame.Margin>
+            <OnPlatform
+            x:TypeArguments="Thickness">
+            <On
+                Platform="iOS"
+                Value="20,0" />
+            <On
+                Platform="Android"
+                Value="0,0" />
+        </OnPlatform>
+        </Frame.Margin>
+
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="{x:Static rsrcs:AppResources.EditSession_Title}" TextColor="{DynamicResource SecondaryColor}" FontSize="Large"/>
+            <Entry Grid.Row="1" Text="{Binding Name}" TextColor="{DynamicResource PrimaryColor}"/>
+            <Label Grid.Row="2" Text="{x:Static rsrcs:AppResources.EditSession_Artist}" TextColor="{DynamicResource SecondaryColor}" FontSize="Large"/>
+            <Entry Grid.Row="3" Text="{Binding Artist}" TextColor="{DynamicResource PrimaryColor}"/>
+            <StackLayout Grid.Row="4" Orientation="Horizontal" HorizontalOptions="End">
+                <Button Text="{x:Static rsrcs:AppResources.Cancel}" TextColor="{DynamicResource PrimaryColor}" Clicked="OnClose" FontSize="Large">
+                    <Button.Margin>
+                        <OnPlatform
+                        x:TypeArguments="Thickness">
+                            <On
+                            Platform="iOS"
+                            Value="0,0,20,0" />
+                            <On
+                            Platform="Android"
+                            Value="0,0,20,0" />
+                        </OnPlatform>
+                    </Button.Margin>
+                </Button>
+                <Button Text="{x:Static rsrcs:AppResources.Save}" Clicked="OnSave" TextColor="{DynamicResource PrimaryColor}" FontSize="Large"/>
+            </StackLayout>
+        </Grid>
+    </Frame>
+</pages:PopupPage>

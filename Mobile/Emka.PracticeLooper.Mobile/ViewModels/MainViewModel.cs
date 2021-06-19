@@ -24,8 +24,6 @@ using Emka3.PracticeLooper.Services.Contracts.Rest;
 using System.Net;
 using System.Threading;
 using Emka3.PracticeLooper.Model.Common;
-using Plugin.StoreReview;
-using System.Diagnostics;
 
 namespace Emka.PracticeLooper.Mobile.ViewModels
 {
@@ -112,13 +110,13 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             MessagingCenter.Subscribe<object, bool>(this, MessengerKeys.SpotifyWebPlayerLoaded, OnSpotifyWebPlayerPlayerLoaded);
             MessagingCenter.Subscribe<object, bool>(this, MessengerKeys.SpotifyPlayerActivated, OnSpotifyWebPlayerActivated);
             MessagingCenter.Subscribe<object>(this, MessengerKeys.WebViewRefreshInitialized, OnWebViewRefreshInitialized);
+            MessagingCenter.Subscribe<object, Session>(this, MessengerKeys.UpdateSession, async (sender, arg) => await OnUpdateSession(arg));
             Sessions = new ObservableCollection<SessionViewModel>();
             isPlaying = false;
             currentPlatform = configurationService.GetValue<CurrentPlatform>("Platform");
             showCallToAction = configurationService.GetValue<bool>("IsFirstLaunchEver") && currentPlatform == CurrentPlatform.iOS;
             UiContext = SynchronizationContext.Current;
         }
-
         #endregion
 
         #region Properties
@@ -373,6 +371,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 await Tracker.TrackAsync(TrackerEvents.Init, new Dictionary<string, string> { { "InitializeAsync", "loopsRepository initialized" } });
 
                 var items = await sessionsRepository.GetAllItemsAsync().ConfigureAwait(false);
+                items = items?.OrderByDescending(i => i.AudioSource.Type).ToList();
                 await Tracker.TrackAsync(TrackerEvents.Init, new Dictionary<string, string> { { "InitializeAsync", "sessionsRepository items lodaded" } });
 
                 spotifyLoader.Disconnected += OnSpotifyDisconnected;
@@ -419,6 +418,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                 {
                     await reviewRequestService.RequestReview();
                 }
+
+                await FetchSpotifyCovers().ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -498,6 +499,8 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
                     var newSession = new Session
                     {
                         Name = source.FileName,
+                        Artist = source.Artist,
+                        CoverSource = source.CoverSource,
                         AudioSource = source,
                         Loops = new List<Loop>
                         {
@@ -1168,6 +1171,68 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             return spotifyLoader?.IsSpotifyInstalled() ?? false;
         }
+
+        // todo: remove in next versions
+        private async Task FetchSpotifyCovers()
+        {
+            try
+            {
+                var spotifySessions = Sessions?
+                    .Where(s => s.Session.AudioSource.Type == AudioSourceType.Spotify && (string.IsNullOrWhiteSpace(s.Session.CoverSource) || string.IsNullOrWhiteSpace(s.Session.Artist)));
+
+                if (spotifySessions != null && spotifySessions.Any())
+                {
+                    if (!spotifyLoader.Authorized)
+                    {
+                        await spotifyLoader.InitializeAsync();
+                        await spotifyApiService.PauseCurrentPlayback();
+                    }
+
+                    if (!spotifyLoader.Authorized)
+                    {
+                        return;
+                    }
+
+                    foreach (var session in spotifySessions)
+                        {
+                            var trackId = session.Session.AudioSource.Source.Split(':')?.Last();
+                            var trackDetails = await spotifyApiService.GetSpotifyTrackDetails(trackId);
+
+                            if (string.IsNullOrWhiteSpace(session.Session.CoverSource))
+                            {
+                                UiContext.Send(x => session.CoverSource = trackDetails.ImageSmall, null);
+                                session.Session.CoverSource = trackDetails.ImageSmall;
+                            }
+
+                            if (string.IsNullOrWhiteSpace(session.Session.Artist))
+                            {
+                                UiContext.Send(x => session.Artist = trackDetails.Artist, null);
+                                session.Session.Artist = trackDetails.Artist;
+                            }
+
+                            await sessionsRepository.UpdateAsync(session.Session);
+                        }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private async Task OnUpdateSession(Session session)
+        {
+            try
+            {
+                await sessionsRepository.UpdateAsync(session);
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogErrorAsync(ex);
+                await dialogService.ShowAlertAsync(AppResources.Error_Content_UpdateSessionError, AppResources.Error_Caption);
+            }
+        }
+
 
         ~MainViewModel()
         {

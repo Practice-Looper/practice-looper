@@ -125,6 +125,8 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                         {
                             logger.LogError(new Exception(e.DebugDescription));
                         }
+
+                        Task.Run(async () => await PauseViaWebApi());
                     });
                 });
             }
@@ -156,11 +158,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                         throw new Exception(error.Description);
                     }
 
-                    Seek(loopStart);
-                    IsPlaying = true;
-                    CurrentPositionTimerExpired(this, new EventArgs());
-                    RaisePlayingStatusChanged();
-
                     Api?.PlayerAPI?.SetRepeatMode(SPTAppRemotePlaybackOptionsRepeatMode.Track, (repeatResult, repeatError) =>
                     {
                         if (repeatError != null)
@@ -168,6 +165,12 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                             throw new Exception(repeatError.Description);
                         }
                     });
+
+                    Seek(loopStart);
+                    IsPlaying = true;
+
+                    CurrentPositionTimerExpired(this, new EventArgs());
+                    RaisePlayingStatusChanged();
                 });
             });
 
@@ -276,18 +279,22 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 return;
             }
 
-            Api?.PlayerAPI?.GetPlayerState((o, e) =>
-                 {
-                     if (callback != null)
-                     {
-                         callback.Invoke(o.PlaybackPosition);
-                     }
+            var playerApi = Api?.PlayerAPI;
+            if (playerApi != null)
+            {
+                playerApi.GetPlayerState((o, e) =>
+                         {
+                             if (callback != null)
+                             {
+                                 callback.Invoke(o.PlaybackPosition);
+                             }
 
-                     if (e != null)
-                     {
-                         logger.LogError(new Exception(e.DebugDescription));
-                     }
-                 });
+                             if (e != null)
+                             {
+                                 logger.LogError(new Exception(e.DebugDescription));
+                             }
+                         });
+            }
         }
 
         private void CurrentPositionTimerExpired(object sender, EventArgs e)

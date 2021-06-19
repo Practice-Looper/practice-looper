@@ -19,6 +19,7 @@ namespace Emka3.PracticeLooper.Services.Contracts.Rest
 
         Task<bool> PlayTrack(string trackId, int positionMs, string deviceId);
         Task<List<SpotifyTrack>> SearchTrackByName(string term, CancellationToken cancellationToken);
+        Task<SpotifyTrackDetails> GetSpotifyTrackDetails(string id);
         Task<Tuple<HttpStatusCode, bool>> IsPremiumUser();
         Task<bool> PauseCurrentPlayback();
         Task<bool> SeekTo(long position);

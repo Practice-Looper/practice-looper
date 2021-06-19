@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:tmpltSlctrs="clr-namespace:Emka.PracticeLooper.Mobile.TemplateSelectors;assembly=Emka.PracticeLooper.Mobile"
     xmlns:rsrcs="clr-namespace:Emka.PracticeLooper.Mobile"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:views="clr-namespace:Emka.PracticeLooper.Mobile.Views;assembly=Emka.PracticeLooper.Mobile">
 
     <Style
@@ -130,6 +131,8 @@
         x:Key="GoForward">&#xf142;</x:String>
     <x:String
         x:Key="Refresh">&#xf450;</x:String>
+    <x:String
+        x:Key="Album">&#xf025;</x:String>
 
 
     <!-- Data Templates ############################################### -->
@@ -143,7 +146,7 @@
                     IsDestructive="True"
                     Command="{Binding DeleteSessionCommand}" />
             </ViewCell.ContextActions>
-            <Grid
+            <Grid 
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>
@@ -159,25 +162,54 @@
                     FontFamily="{DynamicResource MaterialFontFamily}"
                     Text="{StaticResource Spotify}"
                     FontSize="24"
-                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=SpotifyFontColor}"
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
                     Margin="5,0,0,0" />
-                <Label
-                    Grid.Column="1"
-                    Text="{Binding Session.Name}"
-                    AutomationId="{Binding Session.Name}"
-                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
-                    VerticalTextAlignment="Center"
-                    VerticalOptions="Center"
-                    LineBreakMode="TailTruncation"
-                    HorizontalOptions="StartAndExpand" />
+                <Grid Grid.Column="1"
+                      HorizontalOptions="StartAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                    Grid.Column="0"
+                    Source="{Binding CoverSource}"
+                    HeightRequest="64"
+                    WidthRequest="64"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"/>
+                    <StackLayout Grid.Column="1"
+                                 Orientation="Vertical"
+                                 VerticalOptions="Center">
+                        <Label
+                        Text="{Binding Name}"
+                        AutomationId="{Binding Session.Name}"
+                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                        FontSize="Large"
+                        VerticalOptions="CenterAndExpand"
+                        LineBreakMode="TailTruncation"
+                        VerticalTextAlignment="Center"
+                        HorizontalOptions="Start" />
+                        <Label
+                        Text="{Binding Artist}"
+                        AutomationId="{Binding Session.Name}"
+                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                        FontSize="Micro"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center"
+                        LineBreakMode="TailTruncation"
+                        HorizontalOptions="Start" />
+                    </StackLayout>
+
+                </Grid>
                 <views:LoopButton
                     Grid.Column="2"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
                     AutomationId="{Binding Session.Name}"
-                    HeightRequest="32"
+                    HeightRequest="36"
                     Command="{Binding PickLoopCommand}"
                     Margin="0,0,5,0"
                     BackgroundColor="Transparent">
@@ -197,6 +229,10 @@
         x:Key="SessionItemAudioFile">
         <views:CustomViewCell>
             <ViewCell.ContextActions>
+                <MenuItem
+                    Text="Edit"
+                    IsDestructive="False"
+                    Command="{Binding UpdateSessionCommand}" />
                 <MenuItem
                     Text="{x:Static rsrcs:AppResources.Delete}"
                     IsDestructive="True"
@@ -222,19 +258,54 @@
                     VerticalTextAlignment="Center"
                     VerticalOptions="Center"
                     Margin="5,0,0,0" />
-                <Label
-                    Grid.Column="1"
-                    Text="{Binding Session.Name}"
-                    TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
-                    VerticalTextAlignment="Center"
-                    VerticalOptions="Center"
-                    LineBreakMode="TailTruncation"
-                    HorizontalOptions="StartAndExpand" />
+                <Grid Grid.Column="1"
+                      HorizontalOptions="StartAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Label
+                        Grid.Column="0"
+                        FontFamily="{DynamicResource MaterialFontFamily}"
+                        Text="{StaticResource Album}"
+                        FontSize="64"
+                        TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                        VerticalTextAlignment="Center"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"/>
+                    <StackLayout Grid.Column="1"
+                                 Orientation="Vertical"
+                                 VerticalOptions="Center">
+                        <Label
+                            Text="{Binding Name}"
+                            AutomationId="{Binding Session.Name}"
+                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                            FontSize="Large"
+                            VerticalOptions="CenterAndExpand"
+                            LineBreakMode="TailTruncation"
+                            VerticalTextAlignment="Center"
+                            HorizontalOptions="Start" />
+                        <Label
+                            Text="{Binding Artist, TargetNullValue={x:Static rsrcs:AppResources.EditSession_UnknownArtist}}"
+                            AutomationId="{Binding Session.Name}"
+                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type views:CustomViewCell}}, Path=FontColor}"
+                            FontSize="Micro"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center"
+                            LineBreakMode="TailTruncation"
+                            HorizontalOptions="Start" >
+                        </Label>
+                    </StackLayout>
+
+                </Grid>
+
                 <views:LoopButton
                     Grid.Column="2"
                     HorizontalOptions="End"
                     VerticalOptions="Center"
-                    HeightRequest="32"
+                    HeightRequest="36"
                     BackgroundColor="Transparent"
                     Command="{Binding PickLoopCommand}"
                     Margin="0,0,5,0">
@@ -311,7 +382,7 @@
     <DataTemplate
         x:Key="AudioSourceTypeSpotify">
         <ViewCell>
-             <Grid>
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition
                         Width="45*" />

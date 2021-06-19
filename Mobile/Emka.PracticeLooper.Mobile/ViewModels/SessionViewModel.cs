@@ -24,6 +24,7 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         private Command deleteSessionCommand;
         private Command pickLoopCommand;
         private readonly IDialogService dialogService;
+        private Command updateSessionCommand;
         #endregion
 
         #region Ctor
@@ -37,16 +38,46 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
         {
             Session = session;
             this.dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
+            MessagingCenter.Subscribe<object, Session>(this, MessengerKeys.UpdateSession, (sender, arg) => OnUpdateSession(arg));
         }
 
         #endregion
 
         #region Properties
+        public string Name
+        {
+            get => Session?.Name;
+            set
+            {
+                Session.Name = value;
+                NotifyPropertyChanged();
+            }
+        }
 
-        public Session Session { get; }
+        public string Artist
+        {
+            get => Session?.Artist;
+            set
+            {
+                Session.Artist = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string CoverSource
+        {
+            get => Session?.CoverSource;
+            set
+            {
+                Session.CoverSource = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public Session Session { get; private set; }
         public Command DeleteSessionCommand => deleteSessionCommand ?? (deleteSessionCommand = new Command((o) => ExecuteDeleteSessionCommandAsync(o)));
+        public Command UpdateSessionCommand => updateSessionCommand ?? (updateSessionCommand = new Command((o) => ExecuteUpdateSessionCommand(o)));
         public Command PickLoopCommand => pickLoopCommand ?? (pickLoopCommand = new Command(async (o) => await ExecutePickLoopCommandAsync(o)));
-
         #endregion
 
         #region Methods
@@ -69,9 +100,24 @@ namespace Emka.PracticeLooper.Mobile.ViewModels
             }
         }
 
+        private async void ExecuteUpdateSessionCommand(object o)
+        {
+            await dialogService.ShowEditSessionDialog(Session);
+        }
+
         public override Task InitializeAsync(object parameter)
         {
             return Task.CompletedTask;
+        }
+
+        private void OnUpdateSession(Session session)
+        {
+            if (session != null &&  session.Id == Session.Id)
+            {
+                Session = session;
+                NotifyPropertyChanged(nameof(Artist));
+                NotifyPropertyChanged(nameof(Name));
+            }
         }
 
         public override string ToString()

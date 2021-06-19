@@ -102,6 +102,37 @@ namespace Emka3.PracticeLooper.Services.Rest
             }
         }
 
+        public async Task<SpotifyTrackDetails> GetSpotifyTrackDetails(string id)
+        {
+            SpotifyTrackDetails result = null;
+            try
+            {
+                var client = await GetSpotifyClient();
+                StartRequestTimeMeasurement();
+                var response = await client.Tracks.Get(id);
+
+                if (response != null)
+                {
+                    // extract images
+                    List<SpotifyImage> images = new List<SpotifyImage>();
+                    foreach (var image in response.Album.Images)
+                    {
+                        images.Add(new SpotifyImage { Url = image.Url, Height = image.Height, Width = image.Width });
+                    }
+
+                    var artistsArray = response.Album.Artists.Select(a => a.Name).ToArray();
+                    var artistString = string.Join(", ", artistsArray);
+                    result = new SpotifyTrackDetails(artistString, response.Name, images);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = new SpotifyTrackDetails(string.Empty, string.Empty, new List<SpotifyImage>());
+            }
+
+            return result;
+        }
+
         public async Task<Tuple<HttpStatusCode, bool>> IsPremiumUser()
         {
             try

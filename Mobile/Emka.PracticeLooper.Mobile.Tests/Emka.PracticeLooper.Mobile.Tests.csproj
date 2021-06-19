@@ -117,6 +117,7 @@
     <Compile Include="ViewModelTests\RangePickerViewModelTests.cs" />
     <Compile Include="ViewModelTests\SessionViewModelTests.cs" />
     <Compile Include="ViewModelTests\SpotifySearchViewModelTests.cs" />
+    <Compile Include="ConverterTets.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
