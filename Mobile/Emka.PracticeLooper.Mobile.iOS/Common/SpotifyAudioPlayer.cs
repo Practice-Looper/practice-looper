@@ -111,14 +111,6 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                 timer.StopTimers();
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    Api?.PlayerAPI?.SetRepeatMode(SPTAppRemotePlaybackOptionsRepeatMode.Off, (repeatResult, repeatError) =>
-                    {
-                        if (repeatError != null)
-                        {
-                            logger.LogError(new Exception(repeatError.Description));
-                        }
-                    });
-
                     Api?.PlayerAPI?.Pause((o, e) =>
                     {
                         if (e != null)
@@ -127,6 +119,14 @@ namespace Emka.PracticeLooper.Mobile.iOS.Common
                         }
 
                         Task.Run(async () => await PauseViaWebApi());
+                    });
+
+                    Api?.PlayerAPI?.SetRepeatMode(SPTAppRemotePlaybackOptionsRepeatMode.Off, (repeatResult, repeatError) =>
+                    {
+                        if (repeatError != null)
+                        {
+                            logger.LogError(new Exception(repeatError.Description));
+                        }
                     });
                 });
             }
