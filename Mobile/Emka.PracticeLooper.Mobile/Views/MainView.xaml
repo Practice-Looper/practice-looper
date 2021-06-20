@@ -595,7 +595,7 @@
             x:Name="picker"
             AutomationId="Picker"
             VerticalOptions="End"
-            HorizontalOptions="FillAndExpand"
+            HorizontalOptions="CenterAndExpand"
             ColumnHeaderText="{Binding Headers}"
             PickerMode="Dialog"
             BackgroundColor="{DynamicResource BackgroundColor}"
@@ -607,7 +607,8 @@
             HeaderTextColor="{DynamicResource SecondaryColor}"
             ShowFooter="True"
             ShowHeader="True"
-            Closed="OnPickerClosed">
+            Closed="OnPickerClosed"
+            Margin="20,0">
             <syncfusion:SfPicker.FooterView>
                 <Button
                     AutomationId="ClosePickerButtonClicked"
@@ -616,7 +617,8 @@
                     HorizontalOptions="Center"
                     TextColor="{DynamicResource PrimaryColor}"
                     BackgroundColor="{DynamicResource BackgroundColor}"
-                    BorderColor="{DynamicResource BackgroundColor}" />
+                    BorderColor="{DynamicResource BackgroundColor}"
+                    CornerRadius="0"/>
             </syncfusion:SfPicker.FooterView>
         </syncfusion:SfPicker>
 
